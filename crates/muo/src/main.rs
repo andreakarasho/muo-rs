@@ -92,7 +92,9 @@ fn raise_timer_resolution() {
     }
     // SAFETY: plain Win32 call with no pointers; Windows undoes it when the process exits.
     if unsafe { timeBeginPeriod(1) } != 0 {
-        tracing::warn!("Could not raise the Windows timer resolution; idle waits may come back late");
+        tracing::warn!(
+            "Could not raise the Windows timer resolution; idle waits may come back late"
+        );
     }
 }
 
