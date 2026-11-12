@@ -141,6 +141,8 @@ pub struct Network<C> {
     listeners: Vec<TcpListener>,
     listening_addresses: Vec<SocketAddr>,
     conns: Vec<Option<NetState>>,
+    /// Occupied slot ids, ascending: the per-tick passes walk these instead of every slot.
+    live: Vec<usize>,
     free_slots: Vec<usize>,
     instances: usize,
     next_serial: u64,
@@ -178,6 +180,7 @@ impl<C> Network<C> {
             listeners: Vec::new(),
             listening_addresses: Vec::new(),
             conns,
+            live: Vec::new(),
             free_slots,
             instances: 0,
             next_serial: 1,
@@ -274,7 +277,7 @@ impl<C> Network<C> {
 
     /// All live connections (`NetState.Instances`).
     pub fn instances(&self) -> impl Iterator<Item = &NetState> {
-        self.conns.iter().filter_map(Option::as_ref)
+        self.live.iter().filter_map(|&id| self.conns[id].as_ref())
     }
 
     pub fn instances_mut(&mut self) -> impl Iterator<Item = &mut NetState> {
@@ -409,6 +412,9 @@ impl<C> Network<C> {
         ns.read_pending = true;
 
         self.conns[id] = Some(ns);
+        if let Err(at) = self.live.binary_search(&id) {
+            self.live.insert(at, id);
+        }
         self.instances += 1;
         self.connecting.push_back((id, serial));
         self.events_out.push(NetEvent::Connected(id));
@@ -426,8 +432,10 @@ impl<C> Network<C> {
         self.now = now;
         let cur_ticks = now;
         self.closed.append(&mut self.closed_later);
-        for ns in self.conns.iter_mut().flatten() {
-            ns.now = now;
+        for &id in &self.live {
+            if let Some(ns) = self.conns[id].as_mut() {
+                ns.now = now;
+            }
         }
 
         self.disconnect_unattached_sockets(now);
@@ -458,7 +466,8 @@ impl<C> Network<C> {
         }
 
         // Receive: events first, so the sends handlers make are flushed in this same slice
-        for id in 0..self.conns.len() {
+        for k in 0..self.live.len() {
+            let id = self.live[k];
             if self.conns[id]
                 .as_ref()
                 .is_some_and(|n| n.read_pending && n.running)
@@ -468,13 +477,12 @@ impl<C> Network<C> {
         }
 
         // Flush AFTER event processing
-        for id in 0..self.conns.len() {
-            self.flush_conn(id);
-        }
+        self.flush_all();
 
         // Disconnects are handed to the socket AFTER the flush: game logic (sends/disconnects), then
         // receives, then flush, then disconnect; a send after disconnect() in the same tick still goes out.
-        for id in 0..self.conns.len() {
+        for k in 0..self.live.len() {
+            let id = self.live[k];
             let Some(ns) = self.conns[id].as_mut() else {
                 continue;
             };
@@ -516,8 +524,8 @@ impl<C> Network<C> {
 
     /// Writes out everything queued now (`FlushAll`), e.g. before shutdown.
     pub fn flush_all(&mut self) {
-        for id in 0..self.conns.len() {
-            self.flush_conn(id);
+        for k in 0..self.live.len() {
+            self.flush_conn(self.live[k]);
         }
     }
 
@@ -698,7 +706,8 @@ impl<C> Network<C> {
 
     /// `CheckAllAlive`
     pub fn check_all_alive(&mut self, cur_ticks: i64) {
-        for id in 0..self.conns.len() {
+        for k in 0..self.live.len() {
+            let id = self.live[k];
             let Some(ns) = self.conns[id].as_mut() else {
                 continue;
             };
@@ -720,6 +729,9 @@ impl<C> Network<C> {
         logs::trace_disconnect(&ns.disconnect_reason, &ns.address.to_string());
 
         self.instances = self.instances.saturating_sub(1);
+        if let Ok(at) = self.live.binary_search(&id) {
+            self.live.remove(at);
+        }
         self.free_slots.push(id);
         self.throttled.retain(|&t| t != id);
         self.throttled_pending.retain(|&t| t != id);

@@ -68,6 +68,7 @@ fn main() {
                 ping,
                 closing,
             };
+            raise_timer_resolution();
             std::process::exit(run_with(&mut w, &mut hooks))
         }
         Err(e) => {
@@ -80,3 +81,20 @@ fn main() {
         }
     }
 }
+
+/// Windows wakes sleeps on a ~15.6ms clock by default, so the loop's 2ms idle waits always come back late and the
+/// health check suspends sleeping for good (a spinning core). 1ms resolution lasts until the process exits.
+#[cfg(windows)]
+fn raise_timer_resolution() {
+    #[link(name = "winmm")]
+    unsafe extern "system" {
+        fn timeBeginPeriod(period: u32) -> u32;
+    }
+    // SAFETY: plain Win32 call with no pointers; Windows undoes it when the process exits.
+    if unsafe { timeBeginPeriod(1) } != 0 {
+        tracing::warn!("Could not raise the Windows timer resolution; idle waits may come back late");
+    }
+}
+
+#[cfg(not(windows))]
+fn raise_timer_resolution() {}
