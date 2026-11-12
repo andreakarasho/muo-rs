@@ -1,0 +1,15 @@
+[package]
+name = "muo_primitives"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+bitflags.workspace = true
+indexmap.workspace = true
+serde.workspace = true
+# pure Rust; XxHash3 (seeded) and XxHash32 must keep giving the standard XXH3/XXH32 values saves were written with
+twox-hash = { version = "2", default-features = false, features = ["std", "xxhash3_64", "xxhash32"] }
+
+[dev-dependencies]
+serde_json.workspace = true

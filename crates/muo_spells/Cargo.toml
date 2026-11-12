@@ -1,0 +1,22 @@
+[package]
+name = "muo_spells"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+muo_primitives.workspace = true
+muo_io.workspace = true
+muo_data.workspace = true
+muo_net.workspace = true
+muo_server.workspace = true
+muo_content.workspace = true
+muo_gumps.workspace = true
+bitflags.workspace = true
+indexmap.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+muo_server = { workspace = true, features = ["test-support"] }

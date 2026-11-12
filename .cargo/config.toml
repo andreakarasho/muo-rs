@@ -1,0 +1,3 @@
+# Keeps builds from exhausting memory: a machine-wide low-memory kill stopped builds here before.
+[build]
+jobs = 6

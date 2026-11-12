@@ -1,0 +1,25 @@
+[package]
+name = "muo"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+muo_server.workspace = true
+muo_net.workspace = true
+muo_data.workspace = true
+muo_content.workspace = true
+muo_spells.workspace = true
+muo_items.workspace = true
+muo_mobiles.workspace = true
+muo_multis.workspace = true
+muo_engines.workspace = true
+muo_gumps.workspace = true
+muo_commands.workspace = true
+tracing.workspace = true
+ctrlc.workspace = true
+
+[dev-dependencies]
+muo_io.workspace = true
+muo_primitives.workspace = true
+muo_server = { workspace = true, features = ["test-support"] }

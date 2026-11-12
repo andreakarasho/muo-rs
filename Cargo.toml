@@ -1,0 +1,39 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0-or-later"
+
+[workspace.dependencies]
+muo_primitives = { path = "crates/muo_primitives" }
+muo_io = { path = "crates/muo_io" }
+muo_data = { path = "crates/muo_data" }
+muo_net = { path = "crates/muo_net" }
+muo_server = { path = "crates/muo_server" }
+muo_content = { path = "crates/muo_content" }
+muo_spells = { path = "crates/muo_spells" }
+muo_items = { path = "crates/muo_items" }
+muo_mobiles = { path = "crates/muo_mobiles" }
+muo_multis = { path = "crates/muo_multis" }
+muo_engines = { path = "crates/muo_engines" }
+muo_gumps = { path = "crates/muo_gumps" }
+muo_commands = { path = "crates/muo_commands" }
+bitflags = "2"
+indexmap = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+thiserror = "2"
+tracing = "0.1"
+ctrlc = "3"
+
+[profile.dev]
+# A full disk truncated source files on 2026-11-05: keep the build small.
+debug = false
+[profile.dev.package."*"]
+opt-level = 1
+[profile.release]
+codegen-units = 16
+debug = "line-tables-only"

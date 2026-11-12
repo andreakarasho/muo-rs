@@ -1,0 +1,40 @@
+[package]
+name = "muo_content"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+muo_primitives.workspace = true
+muo_io.workspace = true
+muo_data.workspace = true
+muo_net.workspace = true
+muo_server.workspace = true
+bitflags.workspace = true
+indexmap = { workspace = true, features = ["serde"] }
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+ruzstd = "0.9.1"
+tar = "0.4.46"
+# pure-Rust gzip (the same backend as muo_io)
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+argon2 = "0.6.0"
+sha1 = "0.11.0"
+sha2 = "0.11.1"
+pbkdf2 = "0.13.0"
+getrandom = "0.4.3"
+# HTTP client (CrowdSec, the public-address lookup, the shard poller): rustls with the RustCrypto provider (pure Rust, no ring/C)
+ureq = { version = "3", default-features = false, features = ["rustls-no-provider", "rustls-webpki-roots", "json"] }
+rustls = { version = "0.23", default-features = false, features = ["std"] }
+rustls-rustcrypto = "0.0.2-alpha"
+lettre = { version = "0.11", default-features = false, features = ["smtp-transport", "builder", "rustls-no-provider", "webpki-roots"] }
+# the pre-binary accounts.xml loader
+roxmltree = "0.21"
+# the local UTC offset for the server list
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+# the IANA database for `system.localTimeZone` (pure Rust, tables compiled in)
+chrono-tz = "0.10"
+
+[dev-dependencies]
+muo_server = { workspace = true, features = ["test-support"] }

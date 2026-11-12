@@ -1,0 +1,12 @@
+/target
+/reference
+*.pdb
+crates/*/Logs/
+crates/*/Saves/
+crates/*/Backups/
+/target_*
+build/
+
+# Written at run time by tests and servers started from this directory
+crates/*/Configuration/
+crates/*/Logs/

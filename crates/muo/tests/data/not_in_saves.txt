@@ -1,0 +1,4 @@
+# Concrete Item/Mobile classes that never reach a save. One per line: full name, one word why.
+Server.Items.EffectItem transient
+Server.Items.VirtualCheck transient
+Server.Mobiles.TransferItem transient

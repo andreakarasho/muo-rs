@@ -1,0 +1,13 @@
+[package]
+name = "muo_io"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+muo_primitives.workspace = true
+thiserror.workspace = true
+# pure-Rust backend (miniz_oxide); output is valid zlib but not byte-identical to libdeflate
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+
+[dev-dependencies]
