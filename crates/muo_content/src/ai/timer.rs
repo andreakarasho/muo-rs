@@ -187,7 +187,10 @@ fn on_tick_core(w: &mut World, id: MobileId) {
     };
     if tick - next_think >= 0 {
         if let Some(c) = ctype(w, id) {
-            (c.on_think)(w, id);
+            use muo_server::script_hooks::{ScriptHook, mobile as script};
+            if !script(w, id, ScriptHook::Think, &[]) {
+                (c.on_think)(w, id);
+            }
         }
         if should_stop(w, id) {
             pause(w, id);

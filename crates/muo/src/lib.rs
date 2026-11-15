@@ -17,6 +17,7 @@ pub fn register_content(types: &mut muo_server::type_registry::TypeRegistry) {
     muo_engines::register(types);
     muo_gumps::register(types);
     muo_commands::register(types);
+    muo_scripting::register(types);
     // `BanConfiguration.Configure`: a bad `Configuration/bans.json` stops startup.
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,

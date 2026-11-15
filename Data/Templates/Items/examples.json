@@ -1,0 +1,11 @@
+[
+  {
+    "type": "Examples.HealingStone",
+    "parent": "Server.Item",
+    "script": "examples/healing_stone.rhai",
+    "itemId": 4963,
+    "hue": 1153,
+    "name": "a healing stone",
+    "movable": false
+  }
+]

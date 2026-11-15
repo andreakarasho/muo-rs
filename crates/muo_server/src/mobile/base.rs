@@ -22,6 +22,7 @@ use crate::poison::PoisonId;
 use crate::property_list::PropertyList;
 use crate::race::RaceId;
 use crate::region::RegionId;
+use crate::script_hooks::{self as sh, ScriptArg, ScriptHook};
 use crate::skills::SkillName;
 use crate::speech_event::SpeechEventArgs;
 use crate::target::{TargetId, Targeted};
@@ -1701,7 +1702,9 @@ pub fn kill(w: &mut World, id: MobileId) {
     }
 
     p2::deps::region_on_death(w, id);
-    (ty.on_death)(w, id, c);
+    if !sh::mobile(w, id, ScriptHook::Death, &[ScriptArg::Item(c)]) {
+        (ty.on_death)(w, id, c);
+    }
 }
 
 /// `x.on_before_death(..)`: the virtual call (an override runs; `on_before_death_base` is what `base.on_before_death(..)` reaches).
@@ -1844,7 +1847,9 @@ pub fn use_item(w: &mut World, id: MobileId, item: ItemId) {
         if w.item(item).is_some_and(|i| !i.deleted()) {
             (ity.on_item_used)(w, item, id, item);
         }
-        if w.item(item).is_some_and(|i| !i.deleted()) {
+        if w.item(item).is_some_and(|i| !i.deleted())
+            && !sh::item(w, item, ScriptHook::Use, &[ScriptArg::Mobile(Some(id))])
+        {
             (ity.on_double_click)(w, item, id);
         }
     }
@@ -2383,7 +2388,7 @@ pub fn do_speech_base(
             hears.push(heard);
         }
 
-        if (hty.handles_on_speech)(w, heard, id) {
+        if (hty.handles_on_speech)(w, heard, id) || sh::mobile_has(w, heard, ScriptHook::Hear) {
             on_speech.push(EntityId::Mobile(heard));
         }
 
@@ -2494,9 +2499,13 @@ pub fn do_speech_base(
                 };
                 let use_mut = mutated_args.is_some()
                     && (mty.check_hears_mutated_speech)(w, id, heard, mutate_context);
-                match mutated_args.as_mut() {
-                    Some(a) if use_mut => (hty.on_speech)(w, heard, a),
-                    _ => (hty.on_speech)(w, heard, &mut reg_args),
+                let args = match mutated_args.as_mut() {
+                    Some(a) if use_mut => a,
+                    _ => &mut reg_args,
+                };
+                let heard_by_script = [ScriptArg::Mobile(Some(id)), ScriptArg::Str(&args.speech)];
+                if !sh::mobile(w, heard, ScriptHook::Hear, &heard_by_script) {
+                    (hty.on_speech)(w, heard, args);
                 }
             }
             EntityId::Item(item) => {

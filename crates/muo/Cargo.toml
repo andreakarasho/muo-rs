@@ -16,6 +16,7 @@ muo_multis.workspace = true
 muo_engines.workspace = true
 muo_gumps.workspace = true
 muo_commands.workspace = true
+muo_scripting.workspace = true
 tracing.workspace = true
 ctrlc.workspace = true
 
