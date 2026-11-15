@@ -60,6 +60,19 @@ member!(
     default_max_weight, default_max_weight, "maxWeight", i32, |v| props::as_i32(Some(v))
 );
 
+member!(
+    /// `Bounds` of a container: the `containerBounds` prop, `[x, y, width, height]`.
+    bounds, bounds, "containerBounds", muo_primitives::Rectangle2D, |v| match v.as_array().map(Vec::as_slice) {
+        Some([x, y, wd, h]) => Some(muo_primitives::Rectangle2D::new(
+            props::as_i32(Some(x))?,
+            props::as_i32(Some(y))?,
+            props::as_i32(Some(wd))?,
+            props::as_i32(Some(h))?,
+        )),
+        _ => None,
+    }
+);
+
 /// The prop `key` of class `ty` (its class chain), for callers that hold a class and no item.
 pub fn of_class<'a>(w: &'a World, ty: &'static ItemType, key: &str) -> Option<&'a Value> {
     let t = templates::loaded(w)?;

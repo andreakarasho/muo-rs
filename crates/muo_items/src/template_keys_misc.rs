@@ -7,6 +7,25 @@ use muo_server::type_registry::TypeRegistry;
 
 use crate::skill_items::potions;
 
+/// A check for an array of `N` integers.
+fn check_ints<const N: usize>(v: &serde_json::Value) -> Result<(), String> {
+    match v.as_array() {
+        Some(a) if a.len() == N => a.iter().try_for_each(check_int),
+        _ => Err(format!("expected an array of {N} integers, got {v}")),
+    }
+}
+
+/// The integers of a checked [`check_ints`] value.
+fn ints<const N: usize>(v: &serde_json::Value) -> [i32; N] {
+    let mut out = [0; N];
+    if let Some(a) = v.as_array() {
+        for (o, x) in out.iter_mut().zip(a) {
+            *o = int(x);
+        }
+    }
+    out
+}
+
 /// The names of a `(name, value)` table.
 fn names<T>(table: &[(&'static str, T)]) -> Vec<&'static str> {
     table.iter().map(|e| e.0).collect()
@@ -45,6 +64,12 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     // `DyeTub.Redyable`.
     item_key(types, "redyable", check_bool, |w, id, v| {
         crate::skill_items::dyes::set_redyable(w, id, v.as_bool().unwrap_or(false));
+    });
+    // `MapItem.SetDisplay(x1, y1, x2, y2, w, h)`.
+    item_key(types, "mapDisplay", check_ints::<6>, |w, id, v| {
+        if let [x1, y1, x2, y2, wd, h] = ints::<6>(v) {
+            crate::maps::set_display(w, id, x1, y1, x2, y2, wd, h);
+        }
     });
     // `CookableFood.CookingLevel`.
     item_key(types, "cookingLevel", check_int, |w, id, v| {

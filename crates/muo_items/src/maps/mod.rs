@@ -569,8 +569,6 @@ macro_rules! map_leaf {
     (
         $(#[$m:meta])*
         $name:ident, $class:ident = $full:literal, encoded $enc:literal;
-        $(@init |$w:ident, $id:ident| $init:block;)?
-        $(label $label:literal;)?
         $(craft |$cw:ident, $cid:ident, $cfrom:ident| $craft:block;)?
         $(@ty { $($tf:ident : $tv:expr,)* };)?
     ) => {
@@ -585,11 +583,10 @@ macro_rules! map_leaf {
             parent: Some(&MAP_ITEM),
             construct: Some(|w| {
                 let id = map_item_new(w, &$name, None);
-                $( let init = |$w: &mut World, $id: ItemId| $init; init(w, id); )?
-                id
+                crate::simple::own_template(w, id, $full)
             }),
             family: Some(&$class),
-            $(label_number: |_, _| $label,)?
+            label_number: crate::class_props::label_number,
             $($($tf: $tv,)*)?
             serialize: |w, id, out| {
                 serialize_map_item(w, id, out);
@@ -616,8 +613,6 @@ map_leaf! {
 map_leaf! {
     /// `Server.Items.CityMap`.
     CITY_MAP, CITY_MAP_CLASS = "Server.Items.CityMap", encoded false;
-    @init |w, id| { set_display(w, id, 0, 0, 5119, 4095, 400, 400); };
-    label 1015231; // city map
     craft |w, id, from| {
         let skill_value = skill(w, from);
         let dist = (64 + (skill_value * 4.0) as i32).max(200);
@@ -630,8 +625,6 @@ map_leaf! {
 map_leaf! {
     /// `Server.Items.LocalMap`.
     LOCAL_MAP, LOCAL_MAP_CLASS = "Server.Items.LocalMap", encoded false;
-    @init |w, id| { set_display(w, id, 0, 0, 5119, 4095, 400, 400); };
-    label 1015230; // local map
     craft |w, id, from| {
         let dist = 64 + (skill(w, from) * 2.0) as i32;
         let (x, y) = from_xy(w, from);
@@ -642,8 +635,6 @@ map_leaf! {
 map_leaf! {
     /// `Server.Items.SeaChart`.
     SEA_CHART, SEA_CHART_CLASS = "Server.Items.SeaChart", encoded false;
-    @init |w, id| { set_display(w, id, 0, 0, 5119, 4095, 400, 400); };
-    label 1015232; // sea chart
     craft |w, id, from| {
         let skill_value = skill(w, from);
         let dist = (64 + (skill_value * 10.0) as i32).max(200);
@@ -656,8 +647,6 @@ map_leaf! {
 map_leaf! {
     /// `Server.Items.WorldMap`.
     WORLD_MAP, WORLD_MAP_CLASS = "Server.Items.WorldMap", encoded true;
-    @init |w, id| { set_display(w, id, 0, 0, 5119, 4095, 400, 400); };
-    label 1015233; // world map
     craft |w, id, from| {
         // Unlike the others, world map is not based on crafted location
         let skill_value = skill(w, from);
@@ -670,11 +659,6 @@ map_leaf! {
 map_leaf! {
     /// `Server.Items.IndecipherableMap`.
     INDECIPHERABLE_MAP, INDECIPHERABLE_MAP_CLASS = "Server.Items.IndecipherableMap", encoded true;
-    @init |w, id| {
-        let ruined = utility::random_double(&mut w.rng) < 0.2;
-        hue(w, id, if ruined { 0x965 } else { 0x961 });
-    };
-    label 1070799; // indecipherable map
     @ty {
         on_double_click: |w, _, from| deps::send_localized_message(w, from, 1070801), // You cannot decipher this ruined map.
     };
@@ -699,9 +683,8 @@ fn weather_map_double_click(w: &mut World, id: ItemId, from: MobileId) {
 map_leaf! {
     /// `Server.Misc.WeatherMap` (`[SerializationGenerator(0)]`).
     WEATHER_MAP, WEATHER_MAP_CLASS = "Server.Misc.WeatherMap", encoded true;
-    @init |w, id| { set_display(w, id, 0, 0, 5119, 4095, 400, 400); };
     @ty {
-        default_name: |_, _| Some("weather map".to_string()),
+        default_name: crate::class_props::default_name,
         on_double_click: weather_map_double_click,
     };
 }
