@@ -1,6 +1,7 @@
 [
   {
     "type": "Server.Items.CompositeBow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": [
@@ -16,11 +17,20 @@
       "oldSpeed": 25,
       "defMaxRange": 10,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 5.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "MovingShot",
+      "defAnimation": "ShootBow",
+      "graphic": 9922
     }
   },
   {
     "type": "Server.Items.Crossbow",
+    "layer": "TwoHanded",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": 18,
@@ -36,11 +46,19 @@
       "oldSpeed": 18,
       "defMaxRange": 8,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 7.0,
+      "effectId": 7166,
+      "ammoType": "Server.Items.Bolt",
+      "primaryAbility": "ConcussionBlow",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 3920
     }
   },
   {
     "type": "Server.Items.HeavyCrossbow",
+    "layer": "TwoHanded",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 80,
       "aosMinDamage": [
@@ -59,11 +77,18 @@
       "oldSpeed": 10,
       "defMaxRange": 8,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 9.0,
+      "effectId": 7166,
+      "ammoType": "Server.Items.Bolt",
+      "primaryAbility": "MovingShot",
+      "secondaryAbility": "Dismount",
+      "graphic": 5117
     }
   },
   {
     "type": "Server.Items.JukaBow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 80,
       "aosDexReq": 80,
@@ -73,6 +98,7 @@
   },
   {
     "type": "Server.Items.RepeatingCrossbow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 30,
       "aosMinDamage": [
@@ -88,7 +114,13 @@
       "oldSpeed": 41,
       "defMaxRange": 7,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 6.0,
+      "effectId": 7166,
+      "ammoType": "Server.Items.Bolt",
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "MovingShot",
+      "graphic": 9923
     }
   },
   {
@@ -122,6 +154,7 @@
   },
   {
     "type": "Server.Items.LightweightShortbow",
+    "balanced": true,
     "props": {
       "labelNumber": 1073510
     }
@@ -158,6 +191,7 @@
     "type": "Server.Items.SlayerLongbow",
     "props": {
       "labelNumber": 1073506
-    }
+    },
+    "script": "content/equipment/slayer_longbow.rhai"
   }
 ]

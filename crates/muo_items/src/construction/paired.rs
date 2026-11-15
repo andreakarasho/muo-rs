@@ -463,7 +463,7 @@ mod tests {
 
     #[test]
     fn a_tapestry_is_two_items_that_save_each_other() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (TAPESTRY3N.construct.unwrap())(&mut w);
         let o = other(&w, id).unwrap();
         assert_eq!(
@@ -489,7 +489,7 @@ mod tests {
 
     #[test]
     fn the_encoded_version_classes_write_one_byte() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (TAPESTRY1N.construct.unwrap())(&mut w);
         let o = other(&w, id).unwrap();
         let mut want = SaveWriter::new(true);
@@ -501,7 +501,7 @@ mod tests {
 
     #[test]
     fn a_bloodied_ankh_uses_the_bloodied_graphics() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_ankh_bloodied(&mut w, true, true);
         let o = other(&w, id).unwrap();
         assert_eq!(

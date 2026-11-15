@@ -1,6 +1,20 @@
 [
   {
     "type": "Server.Items.BansheesCall",
+    "hue": 1266,
+    "weaponAttributes": {
+      "HitHarm": 40,
+      "HitLeechHits": 45
+    },
+    "attributes": {
+      "BonusStr": 5,
+      "WeaponSpeed": 30,
+      "WeaponDamage": 50
+    },
+    "velocity": 35,
+    "elementAttributes": {
+      "Cold": 100
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
@@ -16,7 +30,13 @@
       "aosMaxDamage": 15,
       "mlSpeed": 2.75,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "minThrowRange": 4,
+      "primaryAbility": "MysticArc",
+      "secondaryAbility": "ConcussionBlow",
+      "requiredRaces": "AllowGargoylesOnly",
+      "defaultWeight": 4.0,
+      "graphic": 2303
     }
   },
   {
@@ -28,11 +48,27 @@
       "aosMaxDamage": 17,
       "mlSpeed": 3.25,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "minThrowRange": 6,
+      "primaryAbility": "MovingShot",
+      "secondaryAbility": "InfusedThrow",
+      "requiredRaces": "AllowGargoylesOnly",
+      "defaultWeight": 6.0,
+      "graphic": 2305
     }
   },
   {
     "type": "Server.Items.RaptorClaw",
+    "hue": 53,
+    "attributes": {
+      "AttackChance": 12,
+      "WeaponSpeed": 30,
+      "WeaponDamage": 35
+    },
+    "slayer": "Silver",
+    "weaponAttributes": {
+      "HitLeechStam": 40
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
@@ -48,11 +84,27 @@
       "aosMaxDamage": 20,
       "mlSpeed": 4.0,
       "initMinHits": 31,
-      "initMaxHits": 65
+      "initMaxHits": 65,
+      "minThrowRange": 8,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "MortalStrike",
+      "requiredRaces": "AllowGargoylesOnly",
+      "defaultWeight": 8.0,
+      "graphic": 2314
     }
   },
   {
     "type": "Server.Items.StoneSlithClaw",
+    "hue": 1150,
+    "attributes": {
+      "WeaponSpeed": 25,
+      "WeaponDamage": 45
+    },
+    "slayer": "DaemonDismissal",
+    "weaponAttributes": {
+      "HitHarm": 40,
+      "HitLowerDefend": 40
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
@@ -86,6 +138,17 @@
   },
   {
     "type": "Server.Items.ValkyriesGlaive",
+    "hue": 1651,
+    "attributes": {
+      "SpellChanneling": 1,
+      "BonusStr": 5,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 20
+    },
+    "slayer": "Silver",
+    "weaponAttributes": {
+      "HitFireball": 40
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
@@ -95,6 +158,19 @@
   },
   {
     "type": "Server.Items.WindOfCorruption",
+    "hue": 1171,
+    "weaponAttributes": {
+      "HitLeechStam": 40,
+      "HitLowerDefend": 40
+    },
+    "attributes": {
+      "WeaponSpeed": 30,
+      "WeaponDamage": 50
+    },
+    "slayer": "Fey",
+    "elementAttributes": {
+      "Chaos": 100
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
@@ -105,6 +181,7 @@
     "type": "Server.Items.AbyssReaver",
     "props": {
       "labelNumber": 1112694
-    }
+    },
+    "script": "content/equipment/abyss_reaver.rhai"
   }
 ]

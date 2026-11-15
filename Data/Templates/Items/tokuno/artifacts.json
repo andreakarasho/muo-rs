@@ -31,7 +31,14 @@
       "SpellDamage": 12
     },
     "props": {
-      "labelNumber": 1070969
+      "labelNumber": 1070969,
+      "basePhysicalResistance": 12,
+      "baseFireResistance": 17,
+      "baseColdResistance": 21,
+      "basePoisonResistance": 17,
+      "baseEnergyResistance": 17,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -96,7 +103,14 @@
       "SelfRepair": 5
     },
     "props": {
-      "labelNumber": 1070919
+      "labelNumber": 1070919,
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 11,
+      "baseColdResistance": 15,
+      "basePoisonResistance": 11,
+      "baseEnergyResistance": 11,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -144,7 +158,10 @@
       ]
     ],
     "props": {
-      "labelNumber": 1070922
+      "labelNumber": 1070922,
+      "baseColdResistance": 19,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   }
 ]

@@ -31,11 +31,6 @@ fn gargoyles_default(w: &mut World, ty: &'static ItemType) -> ItemId {
 weapon_leaf! {
     /// `Server.Items.GargoylesPickaxe`.
     GARGOYLES_PICKAXE, GARGOYLES_PICKAXE_CLASS, gargoyles_pickaxe_new = "Server.Items.GargoylesPickaxe" : BASE_AXE / BASE_AXE_CLASS, via gargoyles_default, v0;
-    default_weight: Some(11.0),
-    harvest_system: Some("Mining"),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::Disarm),
-    def_animation: WeaponAnimation::Slash1H,
 }
 
 /// `new GargoylesPickaxe(uses)`.
@@ -45,17 +40,8 @@ pub fn gargoyles_pickaxe_with_uses(w: &mut World, uses: i32) -> ItemId {
 
 weapon_leaf! {
     /// `Server.Items.SturdyPickaxe`.
-    STURDY_PICKAXE, STURDY_PICKAXE_CLASS, sturdy_pickaxe_new = "Server.Items.SturdyPickaxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0xE86, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x973);
-        ctor::set_uses_remaining(w, id, 180);
-        ctor::set_show_uses_remaining(w, id, true);
-    };
-    default_weight: Some(11.0),
-    harvest_system: Some("Mining"),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::Disarm),
-    def_animation: WeaponAnimation::Slash1H,
+    STURDY_PICKAXE, STURDY_PICKAXE_CLASS, sturdy_pickaxe_new = "Server.Items.SturdyPickaxe" : BASE_AXE / BASE_AXE_CLASS, json (), v0;
+    @json;
 }
 
 /// `new SturdyPickaxe(uses)`.

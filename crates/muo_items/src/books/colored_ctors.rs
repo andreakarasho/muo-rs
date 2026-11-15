@@ -101,7 +101,7 @@ mod tests {
 
     #[test]
     fn character_creation_red_book_has_title_author_and_pages() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         configure(&mut w);
         let args = [
             Value::Str("a book".into()),

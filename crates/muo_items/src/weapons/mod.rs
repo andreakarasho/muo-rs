@@ -5,12 +5,11 @@
 //! `Longsword`, `Katana` and `Bow` are the three samples in `muo_content::items::leaves` (registered there);
 //! `samples.rs` has their constructors for the classes derived from them.
 
-use muo_content::aos::{AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::craft::CraftResource;
 pub use muo_content::items::leaves::{
     BOW, BOW_CLASS, KATANA, KATANA_CLASS, LONGSWORD, LONGSWORD_CLASS,
 };
-use muo_content::items::slayer::SlayerName;
+use muo_content::items::same;
 use muo_content::items::weapon::{
     Ability, BASE_AXE, BASE_AXE_CLASS, BASE_BASHING, BASE_BASHING_CLASS, BASE_KNIFE,
     BASE_KNIFE_CLASS, BASE_POLE_ARM, BASE_POLE_ARM_CLASS, BASE_RANGED, BASE_RANGED_CLASS,
@@ -18,14 +17,11 @@ use muo_content::items::weapon::{
     BASE_THROWN, BASE_THROWN_CLASS, WeaponAnimation, WeaponClass, WeaponType, new_weapon,
     set_resource,
 };
-use muo_content::items::weapon_combat::{DamageTypes, elemental_damage_hue};
-use muo_content::items::{same, set_attr};
-use muo_primitives::utility::{random, random_element};
+use muo_primitives::utility::random;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::ItemType;
 use muo_server::layer::Layer;
-use muo_server::race::ALLOW_GARGOYLES_ONLY;
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
@@ -38,6 +34,10 @@ macro_rules! ctor_call {
     (graphic, $w:ident, $ty:expr, $arg:expr) => {
         new_weapon($w, $ty, $arg)
     };
+    (json, $w:ident, $ty:expr, $arg:expr) => {{
+        let g = muo_content::items::equip_props::graphic($w, $ty);
+        new_weapon($w, $ty, g)
+    }};
     (via, $w:ident, $ty:expr, $arg:expr) => {
         $arg($w, $ty)
     };

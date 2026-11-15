@@ -230,6 +230,21 @@ pub fn random_bool(w: &mut World) -> bool {
 macro_rules! weapon_art {
     (@enc enc) => { true };
     (@enc v0) => { false };
+    // `@json;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,
+        via $pnew:ident, $ver:ident;
+        @json;
+        $($rest:tt)*
+    ) => {
+        $crate::simple::weapon_art! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, via $pnew, $ver;
+            @init |w, id| muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,

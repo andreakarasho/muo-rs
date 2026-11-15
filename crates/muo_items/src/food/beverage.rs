@@ -1306,7 +1306,7 @@ mod tests {
 
     #[test]
     fn pitcher_of_water_is_full_and_saves_the_generated_layout() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_full(&mut w, &PITCHER, BeverageType::Water);
         assert_eq!((quantity(&w, id), w.item(id).unwrap().item_id), (5, 0x1F9D));
         assert_eq!((PITCHER.label_number)(&w, id), 1048128 + 5);
@@ -1332,7 +1332,7 @@ mod tests {
 
     #[test]
     fn emptying_a_pitcher_deletes_it_but_a_mug_keeps_its_graphic() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let mug = new_full(&mut w, &CERAMIC_MUG, BeverageType::Ale);
         assert_eq!(w.item(mug).unwrap().item_id, 0x995);
         set_quantity(&mut w, mug, 0);
@@ -1348,7 +1348,7 @@ mod tests {
 
     #[test]
     fn quantity_description_thresholds() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_full(&mut w, &PITCHER, BeverageType::Milk);
         assert_eq!(quantity_description(&w, id), 1042972);
         set_quantity(&mut w, id, 3); // 60%
@@ -1359,7 +1359,7 @@ mod tests {
 
     #[test]
     fn endless_decanter_constructs_blessed_with_water() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (ENDLESS_DECANTER.construct.unwrap())(&mut w);
         let i = w.item(id).unwrap();
         assert_eq!(

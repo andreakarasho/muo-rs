@@ -492,7 +492,7 @@ mod tests {
 
     #[test]
     fn cookable_food_saves_version_and_cooking_level() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (CAKE_MIX.construct.unwrap())(&mut w);
         assert_eq!(cooking_level(&w, id), 40);
         let bytes = save(&w, id);
@@ -513,7 +513,7 @@ mod tests {
 
     #[test]
     fn eggs_pick_a_hue_in_the_easter_range() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         for _ in 0..20 {
             let id = (EASTER_EGGS.construct.unwrap())(&mut w);
             let h = w.item(id).unwrap().hue;
@@ -524,7 +524,7 @@ mod tests {
     #[test]
     fn heat_sources_are_the_ranges_of_cookable_food() {
         use muo_server::target::StaticTarget;
-        let w = World::new();
+        let w = crate::test_world();
         let at = |item_id| {
             Targeted::Static(StaticTarget {
                 location: Default::default(),
@@ -550,7 +550,7 @@ mod tests {
 
     #[test]
     fn sack_of_flour_opens_when_used_and_is_deleted_when_empty() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (SACK_FLOUR.construct.unwrap())(&mut w);
         assert!(!is_open(&w, id));
         set_flour_quantity(&mut w, id, 19);

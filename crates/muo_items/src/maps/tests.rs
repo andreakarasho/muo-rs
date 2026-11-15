@@ -42,7 +42,7 @@ fn names_are_unique_and_every_map_round_trips() {
     let mut seen = std::collections::HashSet::new();
     for t in all() {
         assert!(seen.insert(t.full_name), "{} twice", t.full_name);
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = crate::misc::tests::construct_any(&mut w, t);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         let bytes = save(&w, id);
@@ -53,7 +53,7 @@ fn names_are_unique_and_every_map_round_trips() {
 
 #[test]
 fn city_map_record() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (CITY_MAP.construct.unwrap())(&mut w);
     let d = data(&w, id).unwrap().clone();
     assert_eq!((d.width, d.height), (400, 400));
@@ -85,7 +85,7 @@ fn city_map_record() {
 
 #[test]
 fn pins_follow_the_edge_cases() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (MAP_ITEM.construct.unwrap())(&mut w);
     add_pin(&mut w, id, 1, 2);
     add_pin(&mut w, id, 3, 4);
@@ -103,7 +103,7 @@ fn pins_follow_the_edge_cases() {
 
 #[test]
 fn preset_map_table() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = preset_map_new(&mut w, &PRESET_MAP, 20);
     let d = data(&w, id).unwrap();
     assert_eq!(d.preset_label, 1041204);
@@ -115,7 +115,7 @@ fn preset_map_table() {
 
 #[test]
 fn old_version_loads_without_facet() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let src = (MAP_ITEM.construct.unwrap())(&mut w);
     let mut bytes = item_part(&w, src);
     bytes.extend([0, 0, 0, 0]); // version 0

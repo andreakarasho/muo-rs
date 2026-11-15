@@ -10,25 +10,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.BloodBlade`.
-    BLOOD_BLADE, BLOOD_BLADE_CLASS, blood_blade_new = "Server.Items.BloodBlade" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x8FE, enc;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    flippable: Some((0x8FE, 0x4072)),
-    primary_ability: Some(Ability::BleedAttack),
-    secondary_ability: Some(Ability::ParalyzingBlow),
-    def_skill: SkillName::Fencing,
-    def_type: WeaponType::Piercing,
-    def_animation: WeaponAnimation::Pierce1H,
+    BLOOD_BLADE, BLOOD_BLADE_CLASS, blood_blade_new = "Server.Items.BloodBlade" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.BoneHarvester`.
-    BONE_HARVESTER, BONE_HARVESTER_CLASS, bone_harvester_new = "Server.Items.BoneHarvester" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x26BB, v0;
-    flippable: Some((0x26BB, 0x26C5)),
-    default_weight: Some(3.0),
-    primary_ability: Some(Ability::ParalyzingBlow),
-    secondary_ability: Some(Ability::MortalStrike),
+    BONE_HARVESTER, BONE_HARVESTER_CLASS, bone_harvester_new = "Server.Items.BoneHarvester" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -42,17 +29,11 @@ weapon_leaf! {
         poison_resistance: |_, _| 1,
         energy_resistance: |_, _| 1,
     }
-    primary_ability: None,
-    secondary_ability: None,
 }
 
 weapon_leaf! {
     /// `Server.Items.Broadsword`.
-    BROADSWORD, BROADSWORD_CLASS, broadsword_new = "Server.Items.Broadsword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0xF5E, v0;
-    flippable: Some((0xF5E, 0xF5F)),
-    default_weight: Some(6.0),
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::ArmorIgnore),
+    BROADSWORD, BROADSWORD_CLASS, broadsword_new = "Server.Items.Broadsword" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -69,20 +50,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.CrescentBlade`.
-    CRESCENT_BLADE, CRESCENT_BLADE_CLASS, crescent_blade_new = "Server.Items.CrescentBlade" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x26C1, v0;
-    flippable: Some((0x26C1, 0x26CB)),
-    default_weight: Some(1.0),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::MortalStrike),
+    CRESCENT_BLADE, CRESCENT_BLADE_CLASS, crescent_blade_new = "Server.Items.CrescentBlade" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.Cutlass`.
-    CUTLASS, CUTLASS_CLASS, cutlass_new = "Server.Items.Cutlass" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x1441, v0;
-    flippable: Some((0x1441, 0x1440)),
-    default_weight: Some(8.0),
-    primary_ability: Some(Ability::BleedAttack),
-    secondary_ability: Some(Ability::ShadowStrike),
+    CUTLASS, CUTLASS_CLASS, cutlass_new = "Server.Items.Cutlass" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -99,13 +72,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.DreadSword`.
-    DREAD_SWORD, DREAD_SWORD_CLASS, dread_sword_new = "Server.Items.DreadSword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x90B, enc;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    flippable: Some((0x90B, 0x4074)),
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::ConcussionBlow),
+    DREAD_SWORD, DREAD_SWORD_CLASS, dread_sword_new = "Server.Items.DreadSword" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
@@ -116,25 +83,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.GargishTalwar`.
-    GARGISH_TALWAR, GARGISH_TALWAR_CLASS, gargish_talwar_new = "Server.Items.GargishTalwar" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x908, enc;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    flippable: Some((0x908, 0x4075)),
-    primary_ability: Some(Ability::WhirlwindAttack),
-    secondary_ability: Some(Ability::Dismount),
+    GARGISH_TALWAR, GARGISH_TALWAR_CLASS, gargish_talwar_new = "Server.Items.GargishTalwar" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.GlassSword`.
-    GLASS_SWORD, GLASS_SWORD_CLASS, glass_sword_new = "Server.Items.GlassSword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x90C, enc;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    flippable: Some((0x90C, 0x4073)),
-    default_weight: Some(6.0),
-    primary_ability: Some(Ability::BleedAttack),
-    secondary_ability: Some(Ability::MortalStrike),
+    GLASS_SWORD, GLASS_SWORD_CLASS, glass_sword_new = "Server.Items.GlassSword" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
@@ -157,26 +111,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.Kryss`.
-    KRYSS, KRYSS_CLASS, kryss_new = "Server.Items.Kryss" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x1401, v0;
-    flippable: Some((0x1401, 0x1400)),
-    default_weight: Some(2.0),
-    primary_ability: Some(Ability::ArmorIgnore),
-    secondary_ability: Some(Ability::InfectiousStrike),
-    def_skill: SkillName::Fencing,
-    def_type: WeaponType::Piercing,
-    def_animation: WeaponAnimation::Pierce1H,
+    KRYSS, KRYSS_CLASS, kryss_new = "Server.Items.Kryss" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.Lance`.
-    LANCE, LANCE_CLASS, lance_new = "Server.Items.Lance" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x26C0, v0;
-    flippable: Some((0x26C0, 0x26CA)),
-    default_weight: Some(12.0),
-    primary_ability: Some(Ability::Dismount),
-    secondary_ability: Some(Ability::ConcussionBlow),
-    def_skill: SkillName::Fencing,
-    def_type: WeaponType::Piercing,
-    def_animation: WeaponAnimation::Pierce1H,
+    LANCE, LANCE_CLASS, lance_new = "Server.Items.Lance" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -235,11 +175,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.Scimitar`.
-    SCIMITAR, SCIMITAR_CLASS, scimitar_new = "Server.Items.Scimitar" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B6, v0;
-    flippable: Some((0x13B6, 0x13B5)),
-    default_weight: Some(5.0),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::ParalyzingBlow),
+    SCIMITAR, SCIMITAR_CLASS, scimitar_new = "Server.Items.Scimitar" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -256,9 +192,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.ThinLongsword`.
-    THIN_LONGSWORD, THIN_LONGSWORD_CLASS, thin_longsword_new = "Server.Items.ThinLongsword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B8, v0;
-    flippable: Some((0x13B8, 0x13B7)),
-    default_weight: Some(1.0),
+    THIN_LONGSWORD, THIN_LONGSWORD_CLASS, thin_longsword_new = "Server.Items.ThinLongsword" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -299,11 +233,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.VikingSword`.
-    VIKING_SWORD, VIKING_SWORD_CLASS, viking_sword_new = "Server.Items.VikingSword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B9, v0;
-    flippable: Some((0x13B9, 0x13BA)),
-    default_weight: Some(6.0),
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::ParalyzingBlow),
+    VIKING_SWORD, VIKING_SWORD_CLASS, viking_sword_new = "Server.Items.VikingSword" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {

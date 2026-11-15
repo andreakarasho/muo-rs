@@ -218,8 +218,7 @@ fn weapon_of(w: &mut World, m: MobileId) -> Option<ItemId> {
 /// `weapon.PrimaryAbility`/`SecondaryAbility` of the wielded `BaseWeapon`.
 fn weapon_abilities(w: &mut World, m: MobileId) -> Option<(Option<Ability>, Option<Ability>)> {
     let wp = weapon_of(w, m)?;
-    let c = weapon::class(w, wp);
-    Some((c.primary_ability, c.secondary_ability))
+    Some(weapon::abilities(w, wp))
 }
 
 // ---------------------------------------------------------------------------------------------------------------

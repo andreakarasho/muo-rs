@@ -12,7 +12,11 @@
       "oldMaxDamage": 14,
       "oldSpeed": 40,
       "initMinHits": 31,
-      "initMaxHits": 40
+      "initMaxHits": 40,
+      "defaultWeight": 1.0,
+      "primaryAbility": "InfectiousStrike",
+      "secondaryAbility": "Disarm",
+      "graphic": 5110
     }
   },
   {
@@ -28,7 +32,11 @@
       "oldMaxDamage": 13,
       "oldSpeed": 40,
       "initMinHits": 31,
-      "initMaxHits": 50
+      "initMaxHits": 50,
+      "defaultWeight": 2.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "InfectiousStrike",
+      "graphic": 3779
     }
   },
   {
@@ -44,7 +52,14 @@
       "oldMaxDamage": 15,
       "oldSpeed": 55,
       "initMinHits": 31,
-      "initMaxHits": 40
+      "initMaxHits": 40,
+      "defaultWeight": 1.0,
+      "primaryAbility": "InfectiousStrike",
+      "secondaryAbility": "ShadowStrike",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H",
+      "graphic": 3922
     }
   },
   {
@@ -60,7 +75,11 @@
       "oldMaxDamage": 10,
       "oldSpeed": 40,
       "initMinHits": 31,
-      "initMaxHits": 40
+      "initMaxHits": 40,
+      "defaultWeight": 1.0,
+      "primaryAbility": "ShadowStrike",
+      "secondaryAbility": "Disarm",
+      "graphic": 3780
     }
   }
 ]

@@ -12,7 +12,12 @@
       "oldMaxDamage": 16,
       "oldSpeed": 37,
       "initMinHits": 21,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 4.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "Dismount",
+      "defSkill": "Swords",
+      "graphic": 9917
     }
   },
   {
@@ -28,7 +33,11 @@
       "oldMaxDamage": 13,
       "oldSpeed": 49,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 2.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "InfectiousStrike",
+      "graphic": 9919
     }
   },
   {
@@ -39,7 +48,11 @@
       "aosMaxDamage": 14,
       "mlSpeed": 2.25,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "Disarm",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2308
     }
   },
   {
@@ -55,7 +68,11 @@
       "oldMaxDamage": 16,
       "oldSpeed": 37,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 8.0,
+      "primaryAbility": "ParalyzingBlow",
+      "secondaryAbility": "InfectiousStrike",
+      "graphic": 9918
     }
   },
   {
@@ -71,7 +88,11 @@
       "oldMaxDamage": 16,
       "oldSpeed": 45,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 11.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "Dismount",
+      "graphic": 3719
     }
   },
   {
@@ -87,7 +108,12 @@
       "oldMaxDamage": 32,
       "oldSpeed": 50,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 4.0,
+      "primaryAbility": "ShadowStrike",
+      "secondaryAbility": "MortalStrike",
+      "defAnimation": "Pierce1H",
+      "graphic": 5123
     }
   },
   {
@@ -103,7 +129,11 @@
       "oldMaxDamage": 36,
       "oldSpeed": 46,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 7.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 3938
     }
   },
   {
@@ -120,7 +150,12 @@
       "oldMaxDamage": 36,
       "oldSpeed": 46,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 7.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "ParalyzingBlow",
+      "virtualDamageBonus": 25,
+      "graphic": 3938
     }
   },
   {
@@ -138,7 +173,12 @@
       "defHitSound": 566,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 9.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "Disarm",
+      "defAnimation": "Pierce1H",
+      "graphic": 5125
     }
   }
 ]

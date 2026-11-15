@@ -28,6 +28,7 @@ use muo_server::serialization_ext::ReadEntityExt;
 use muo_server::skills::SkillName;
 
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
+use super::equip_props::{self as ep, Names};
 use super::weapon::{self, WeaponType};
 use super::{Wear, core_uor, core_uotd, parent_mobile, random_min_max, read_enum};
 use crate::aos::{
@@ -112,8 +113,6 @@ pub struct ArmorClass {
     pub old_dex_bonus: i32,
     pub old_int_bonus: i32,
     pub armor_base: i32,
-    /// `RevertArmorBase` when overridden; else `armor_base`.
-    pub revert_armor_base: Option<i32>,
     pub material_type: ArmorMaterialType,
     pub default_resource: CraftResource,
     /// `DefMedAllowance` (`AosMedAllowance` and `OldMedAllowance` are the same in every class).
@@ -121,8 +120,6 @@ pub struct ArmorClass {
     pub allow_male_wearer: bool,
     pub allow_female_wearer: bool,
     pub can_fortify: bool,
-    /// `[Flippable(a, b)]`.
-    pub flippable: Option<(i32, i32)>,
     /// `ArmorRating`.
     pub armor_rating: fn(&World, ItemId) -> f64,
     /// `ArmorScalar`.
@@ -163,14 +160,12 @@ pub static BASE_ARMOR_CLASS: ArmorClass = ArmorClass {
     old_dex_bonus: 0,
     old_int_bonus: 0,
     armor_base: 0,
-    revert_armor_base: None,
     material_type: ArmorMaterialType::Plate,
     default_resource: CraftResource::Iron,
     def_med_allowance: ArmorMeditationAllowance::None,
     allow_male_wearer: true,
     allow_female_wearer: true,
     can_fortify: true,
-    flippable: None,
     armor_rating: base_armor_rating_virtual,
     armor_scalar: armor_scalar_virtual,
     get_luck_bonus: get_luck_bonus_virtual,
@@ -296,14 +291,15 @@ pub fn new_armor(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
         ip::int(w, id, "initMaxHits", c.init_max_hits),
     );
     let hits = random_min_max(w, min, max);
-    let mut d = ArmorData::for_load(c.default_resource);
+    let resource = default_resource(w, id);
+    let mut d = ArmorData::for_load(resource);
     d.hit_points = hits;
     d.max_hit_points = hits;
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(d);
     }
     // Hue = CraftResources.GetHue(_resource)
-    let hue = craft::hue(w, c.default_resource);
+    let hue = craft::hue(w, resource);
     (ty.set_hue)(w, id, hue);
     // Layer = (Layer)ItemData.Quality
     let quality = ops::item_data(w, id).quality;
@@ -399,10 +395,60 @@ pub fn int_requirement(w: &World, id: ItemId) -> i32 {
     )
 }
 
+pub static MATERIALS: Names<ArmorMaterialType> =
+    Names::new(|| ep::all_of(64, ArmorMaterialType::from_i32));
+pub static MED_ALLOWANCES: Names<ArmorMeditationAllowance> =
+    Names::new(|| ep::all_of(8, ArmorMeditationAllowance::from_i32));
+
 /// `MeditationAllowance`.
 pub fn meditation_allowance(w: &World, id: ItemId) -> ArmorMeditationAllowance {
     let set = data(w, id).map_or(-1, |d| d.meditate);
-    ArmorMeditationAllowance::from_i32(set).unwrap_or(class(w, id).def_med_allowance)
+    ArmorMeditationAllowance::from_i32(set).unwrap_or_else(|| {
+        let c = class(w, id);
+        ep::named(
+            w,
+            id,
+            "defMedAllowance",
+            &MED_ALLOWANCES,
+            c.def_med_allowance,
+        )
+    })
+}
+
+/// `MaterialType`.
+pub fn material_type(w: &World, id: ItemId) -> ArmorMaterialType {
+    ep::named(
+        w,
+        id,
+        "materialType",
+        &MATERIALS,
+        class(w, id).material_type,
+    )
+}
+
+/// `DefaultResource`.
+pub fn default_resource(w: &World, id: ItemId) -> CraftResource {
+    ep::named(
+        w,
+        id,
+        "defaultResource",
+        &ep::RESOURCES,
+        class(w, id).default_resource,
+    )
+}
+
+/// `AllowMaleWearer` and `AllowFemaleWearer`.
+pub fn allow_wearer(w: &World, id: ItemId) -> (bool, bool) {
+    let c = class(w, id);
+    (
+        ep::boolean(w, id, "allowMaleWearer", c.allow_male_wearer),
+        c.allow_female_wearer,
+    )
+}
+
+/// `CanFortify`.
+pub fn can_fortify(w: &World, id: ItemId) -> bool {
+    ep::boolean(w, id, "canFortify", class(w, id).can_fortify)
 }
 
 /// `BodyPosition`, from the layer.
@@ -1012,8 +1058,8 @@ fn can_equip(w: &mut World, id: ItemId, from: MobileId) -> bool {
     if !(ty.check_race)(w, id, from, true) {
         return false;
     }
-    let c = class(w, id);
-    if super::wrong_gender(w, from, c.allow_male_wearer, c.allow_female_wearer) {
+    let (male, female) = allow_wearer(w, id);
+    if super::wrong_gender(w, from, male, female) {
         return false;
     }
 
@@ -1345,12 +1391,14 @@ pub fn validate_mobile(w: &mut World, m: MobileId) {
         let Some(ty) = w.item(item).map(|i| i.ty) else {
             continue;
         };
-        let c = class(w, item);
         let gm = w
             .mobile(m)
             .is_none_or(|m| m.access_level >= AccessLevel::GameMaster);
         if !(ty.check_race)(w, item, m, true)
-            || (!gm && super::wrong_gender(w, m, c.allow_male_wearer, c.allow_female_wearer))
+            || (!gm && {
+                let (male, female) = allow_wearer(w, item);
+                super::wrong_gender(w, m, male, female)
+            })
         {
             deps::add_to_backpack(w, m, item);
         }
@@ -1395,7 +1443,7 @@ fn serialize(w: &World, id: ItemId, writer: &mut dyn GenericWriter) {
     let Some(d) = data(w, id) else { return };
     writer.write_i32(SERIALIZATION_VERSION);
 
-    let default_resource = class(w, id).default_resource;
+    let default_resource = default_resource(w, id);
     let mut f = 0_u32;
     let mut set = |on: bool, bit: u32| {
         if on {
@@ -1560,7 +1608,7 @@ fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Res
         _ => &V10,
     };
     let f = reader.read_enum(4)? as u32;
-    let default_resource = class(w, id).default_resource;
+    let default_resource = default_resource(w, id);
     let mut d = ArmorData::for_load(default_resource);
     d.quality = layout.quality_without_flag;
     let mut crafter_mobile = None;
@@ -1679,7 +1727,7 @@ fn after_deserialization(w: &mut World, id: ItemId) {
     {
         super::skill_bonuses_add_to(w, id, m);
     }
-    let default_resource = class(w, id).default_resource;
+    let default_resource = default_resource(w, id);
     if let Some(d) = data_mut(w, id)
         && d.resource == CraftResource::None
     {
@@ -1709,8 +1757,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
     construct: None,
     family: Some(&BASE_ARMOR_CLASS),
     default_weight: |w, id| {
-        class(w, id)
-            .default_weight
+        ep::float_opt(w, id, "defaultWeight", class(w, id).default_weight)
             .unwrap_or_else(|| base::default_weight_base(w, id))
     },
     label_number: |w, id| match class_label_number(w, id) {
@@ -1718,8 +1765,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
         n => n,
     },
     required_races: |w, id| {
-        class(w, id)
-            .required_races
+        ep::required_races(w, id, class(w, id).required_races)
             .unwrap_or_else(|| base::required_races_base(w, id))
     },
     set_hue,

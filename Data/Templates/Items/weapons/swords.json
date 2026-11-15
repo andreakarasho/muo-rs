@@ -9,7 +9,14 @@
       "defHitSound": 572,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "ParalyzingBlow",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2302
     }
   },
   {
@@ -27,7 +34,11 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 3.0,
+      "primaryAbility": "ParalyzingBlow",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 9915
     }
   },
   {
@@ -35,7 +46,9 @@
     "itemId": 526,
     "props": {
       "initMinHits": 5,
-      "initMaxHits": 5
+      "initMaxHits": 5,
+      "secondaryAbility": null,
+      "primaryAbility": null
     }
   },
   {
@@ -53,7 +66,11 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 6.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ArmorIgnore",
+      "graphic": 3934
     }
   },
   {
@@ -71,7 +88,11 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 51,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 1.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 9921
     }
   },
   {
@@ -89,7 +110,11 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 8.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "ShadowStrike",
+      "graphic": 5185
     }
   },
   {
@@ -102,7 +127,11 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ConcussionBlow",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2315
     }
   },
   {
@@ -115,7 +144,11 @@
       "defHitSound": 567,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "Dismount",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2312
     }
   },
   {
@@ -128,7 +161,12 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 6.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "MortalStrike",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2316
     }
   },
   {
@@ -146,7 +184,14 @@
       "defHitSound": 572,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 2.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "InfectiousStrike",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H",
+      "graphic": 5121
     }
   },
   {
@@ -164,7 +209,14 @@
       "defHitSound": 572,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 12.0,
+      "primaryAbility": "Dismount",
+      "secondaryAbility": "ConcussionBlow",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H",
+      "graphic": 9920
     }
   },
   {
@@ -182,7 +234,11 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 5.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 5046
     }
   },
   {
@@ -200,7 +256,9 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 1.0,
+      "graphic": 5048
     }
   },
   {
@@ -218,7 +276,11 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 6.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 5049
     }
   },
   {

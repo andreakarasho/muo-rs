@@ -672,7 +672,7 @@ mod description_tests {
 
     #[test]
     fn board_and_log_commodities_are_named_for_their_wood() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let board = (BOARD.construct.unwrap())(&mut w);
         let log = (LOG.construct.unwrap())(&mut w);
         let plain = description_number(&w, board);

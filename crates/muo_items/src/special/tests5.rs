@@ -24,11 +24,11 @@ fn reads_to_end(make: impl Fn(&mut World) -> ItemId) {
 }
 
 fn round_trip_inner(make: impl Fn(&mut World) -> ItemId, same_bytes: bool) -> Vec<u8> {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = make(&mut w);
     let ty: &'static ItemType = w.item(id).unwrap().ty;
     let bytes = save(&w, id);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = w2.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0001),
         ty,
@@ -45,10 +45,10 @@ fn round_trip_inner(make: impl Fn(&mut World) -> ItemId, same_bytes: bool) -> Ve
 /// The bytes after the `Item` part: everything `ITEM_BASE.serialize` wrote is the same for a fresh item, so the tail
 /// is what the class adds.
 fn tail(w_make: impl Fn(&mut World) -> ItemId, parent: &ItemType) -> Vec<u8> {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = w_make(&mut w);
     let all = save(&w, id);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = w2.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0002),
         &muo_server::item::ITEM_BASE,

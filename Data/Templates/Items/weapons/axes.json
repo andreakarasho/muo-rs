@@ -12,7 +12,11 @@
       "oldMaxDamage": 33,
       "oldSpeed": 37,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 4.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "Dismount",
+      "graphic": 3913
     }
   },
   {
@@ -29,7 +33,11 @@
       "oldMaxDamage": 38,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 4.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 3911
     }
   },
   {
@@ -45,7 +53,11 @@
       "oldMaxDamage": 35,
       "oldSpeed": 37,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 8.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "WhirlwindAttack",
+      "graphic": 3915
     }
   },
   {
@@ -56,7 +68,11 @@
       "aosMaxDamage": 17,
       "mlSpeed": 3.0,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "InfectiousStrike",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2301
     }
   },
   {
@@ -72,7 +88,11 @@
       "oldMaxDamage": 33,
       "oldSpeed": 37,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 8.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 3909
     }
   },
   {
@@ -88,7 +108,11 @@
       "oldMaxDamage": 17,
       "oldSpeed": 40,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 4.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "Disarm",
+      "graphic": 3907
     }
   },
   {
@@ -104,11 +128,17 @@
       "oldMaxDamage": 38,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 6.0,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "BleedAttack",
+      "graphic": 5115
     }
   },
   {
     "type": "Server.Items.Pickaxe",
+    "usesRemaining": 50,
+    "weaponShowUsesRemaining": true,
     "props": {
       "aosStrReq": 50,
       "aosMinDamage": 13,
@@ -120,7 +150,13 @@
       "oldMaxDamage": 15,
       "oldSpeed": 35,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 11.0,
+      "harvestSystem": "Mining",
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "Disarm",
+      "defAnimation": "Slash1H",
+      "graphic": 3718
     }
   },
   {
@@ -136,7 +172,11 @@
       "oldMaxDamage": 39,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 8.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "ShadowStrike",
+      "graphic": 5187
     }
   },
   {
@@ -154,7 +194,15 @@
       "defHitSound": 563,
       "defMissSound": 569,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 8.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "BleedAttack",
+      "defSkill": "Macing",
+      "defType": "Bashing",
+      "defAnimation": "Bash1H",
+      "harvestSystem": null,
+      "graphic": 5040
     }
   },
   {

@@ -789,7 +789,7 @@ mod tests {
             &BOLT,
             &FLAX,
         ] {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (t.construct.unwrap())(&mut w);
             assert!(w.item(id).unwrap().stackable(), "{}", t.full_name);
             let bytes = save(&w, id);
@@ -802,7 +802,7 @@ mod tests {
             assert_eq!(r.remaining(), 0, "{}", t.full_name);
             assert_eq!(save(&w, id2), bytes, "{}", t.full_name);
         }
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let wool = (TAINTED_WOOL.construct.unwrap())(&mut w);
         assert_eq!(w.item(wool).unwrap().item_id, 0x101F);
     }
@@ -813,7 +813,7 @@ mod tests {
             interfaces::is_scissorable,
             resource::{BARBED_HIDES, HIDES, HORNED_HIDES, SPINED_HIDES},
         };
-        let mut w = World::new();
+        let mut w = crate::test_world();
         configure(&mut w);
         crate::misc::gadgets::gadgets_configure(&mut w);
         for t in [
@@ -830,7 +830,7 @@ mod tests {
 
     #[test]
     fn magic_fish_hue_and_label() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (PECULIAR_FISH.construct.unwrap())(&mut w);
         assert_eq!(
             (w.item(id).unwrap().item_id, w.item(id).unwrap().hue),
@@ -841,7 +841,7 @@ mod tests {
 
     #[test]
     fn big_fish_saves_the_fisher_after_version_1() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (BIG_FISH.construct.unwrap())(&mut w);
         let mut want = SaveWriter::new(true);
         (ITEM_BASE.serialize)(&w, id, &mut want);

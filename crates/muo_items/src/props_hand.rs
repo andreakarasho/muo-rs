@@ -203,7 +203,7 @@ mod post_props_tests {
     /// "post props" shows `Messages[n]`, which `props::sub_key` picks; the greeting table ignores the key.
     #[test]
     fn the_post_table_reads_the_message_the_gump_was_keyed_to() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let board = w.new_item(&ITEM_BASE);
         let msg = |s: &str| BbMessage {
             message: Some(s.to_string()),

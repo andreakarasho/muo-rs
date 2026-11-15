@@ -582,13 +582,13 @@ mod tests {
 
     #[test]
     fn acquire_picks_nothing_without_a_map() {
-        let w = World::new();
+        let w = crate::test_world();
         assert_eq!(acquire(&w, Point3D::new(0, 0, 0), None), -1);
     }
 
     #[test]
     fn an_empty_crate_is_unlocked_and_untrapped_until_it_has_content() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (FILLABLE_WOODEN_BOX.construct.unwrap())(&mut w);
         assert_eq!(content_type(&w, id), -1);
         assert!(!w.item(id).unwrap().movable());

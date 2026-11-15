@@ -42,6 +42,7 @@ pub mod common;
 pub mod cont;
 pub mod corpse;
 pub mod equip_hooks;
+pub mod equip_props;
 pub mod ext_bags;
 pub mod flip;
 pub mod flip_table;

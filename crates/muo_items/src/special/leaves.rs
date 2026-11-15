@@ -5,22 +5,19 @@
 //!
 //! EarringBoxSet is in `boxes.rs`, HeritageToken and the statuettes in `statuette.rs`.
 
+use crate::armor::armor_leaf;
 use crate::armor::leaves::*;
-use crate::armor::{armor_leaf, hue};
 use crate::clothing::clothing_leaf;
 use crate::jewels::jewel_leaf;
 use crate::simple::{leaf, random_from, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::items::armor::{
-    ArmorClass, ArmorMaterialType, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor,
-};
+use muo_content::aos::{AosElementAttribute, AttrKind};
+use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS};
 use muo_content::items::clothing::{
-    BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing,
+    BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS,
 };
 use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, JewelClass, new_jewel};
-use muo_content::items::slayer::SlayerName;
-use muo_content::items::{same, set_attr};
+use muo_content::items::set_attr;
 
 use muo_primitives::MessageType;
 use muo_primitives::utility;
@@ -33,16 +30,7 @@ use muo_server::type_registry::TypeRegistry;
 weapon_art! {
     /// `Server.Items.HolySword`.
     HOLY_SWORD, HOLY_SWORD_CLASS, holy_sword_new = "Server.Items.HolySword" : LONGSWORD / LONGSWORD_CLASS, via longsword_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x482);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::Silver);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1062921,
+    @json;
 }
 
 armor_leaf! {
@@ -54,15 +42,7 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.ShaminoCrossbow`.
     SHAMINO_CROSSBOW, SHAMINO_CROSSBOW_CLASS, shamino_crossbow_new = "Server.Items.ShaminoCrossbow" : REPEATING_CROSSBOW / REPEATING_CROSSBOW_CLASS, via repeating_crossbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x504);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-    };
-    label_number: 1062915,
+    @json;
 }
 
 /// `MinotaurHedge()`.
@@ -108,17 +88,14 @@ leaf! {
 // ---- SamuraiHelm: [Flippable(0x236C, 0x236D)], BaseArmor ----
 armor_leaf! {
     /// `Server.Items.SamuraiHelm`.
-    SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x236C), encoded true;
+    SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
     @template;
-    flippable: Some((0x236C, 0x236D)),
-    default_weight: Some(5.0),
-    material_type: ArmorMaterialType::Plate,
 }
 
 // ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 ----
 jewel_leaf! {
     /// `Server.Items.LuckyNecklace`.
-    LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, |w, ty| new_jewel(w, ty, 0x1088), encoded false;
+    LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, crate::jewels::new_jewel_json, encoded false;
     @template;
     @ty { hue: |_, _| 1150, };
     layer: Layer::Neck,
@@ -127,25 +104,15 @@ jewel_leaf! {
 // ---- JesterHatofChuckles: BaseHat(0x171C, hue) ----
 clothing_leaf! {
     /// `Server.Items.JesterHatofChuckles`.
-    JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x171C, hue), hue 0, encoded false;
+    JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @template;
-    default_weight: Some(1.0),
-    base_physical_resistance: 12,
-    base_fire_resistance: 12,
-    base_cold_resistance: 12,
-    base_poison_resistance: 12,
-    base_energy_resistance: 12,
-    init_min_hits: same(100),
-    init_max_hits: same(100),
 }
 
 // ---- HoodedShroudOfShadows: [Flippable(0x2684, 0x2683)], BaseOuterTorso(0x2684, hue = 0x455) ----
 clothing_leaf! {
     /// `Server.Items.HoodedShroudOfShadows`.
-    HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2684, hue), hue 0x455, encoded false;
+    HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0x455, encoded false;
     @template;
-    flippable: Some((0x2684, 0x2683)),
-    default_weight: Some(3.0),
     dye: crate::clothing::dye_refused,
 }
 
@@ -342,11 +309,11 @@ mod leaves_tests {
     #[test]
     fn special_leaf_classes_construct_and_round_trip() {
         for t in classes() {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (t.construct.unwrap())(&mut w);
             assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
             let bytes = save(&w, id);
-            let mut w2 = World::new();
+            let mut w2 = crate::test_world();
             let id2 = w2.add_item(Item::new_for_load(
                 muo_primitives::Serial::new(0x4000_0001),
                 t,
@@ -361,7 +328,7 @@ mod leaves_tests {
 
     #[test]
     fn earrings_of_protection_follow_their_element() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = earrings_of_protection_new(&mut w, AosElementAttribute::Cold);
         let ty = w.item(id).unwrap().ty;
         assert_eq!((ty.label_number)(&w, id), 1071093);

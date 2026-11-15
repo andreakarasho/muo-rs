@@ -15,7 +15,7 @@ fn save(w: &World, id: ItemId) -> Vec<u8> {
 }
 
 fn load(t: &'static ItemType, bytes: &[u8]) -> (World, ItemId) {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = w.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0001),
         t,
@@ -38,7 +38,7 @@ fn string_fields_save_after_the_version_and_come_back() {
             holiday4::halloween_pumpkin_new,
         ),
     ] {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = make(&mut w);
         let bytes = save(&w, id);
         let (w2, id2) = load(t, &bytes);
@@ -48,7 +48,7 @@ fn string_fields_save_after_the_version_and_come_back() {
 
 #[test]
 fn a_painted_mask_is_named_after_its_painter() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (holiday4::PAINTED_DAEMON_MASK.construct.unwrap())(&mut w);
     let item = w.item(id).unwrap();
     let name = (item.ty.default_name)(&w, id).unwrap();
@@ -72,13 +72,13 @@ fn the_unconstructible_classes_still_round_trip() {
         ),
         (&holiday4::ROCKING_HORSE, ops::new_item_with_id),
     ] {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = make(&mut w, t, 0x46FA);
         let bytes = save(&w, id);
         let (w2, id2) = load(t, &bytes);
         assert_eq!(save(&w2, id2), bytes, "{}", t.full_name);
     }
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let bones = holiday4::player_bones_new(&mut w, "Ann");
     assert_eq!(w.item(bones).unwrap().name.as_deref(), Some("Ann's bones"));
     assert!((0x0ECA..=0x0ED2).contains(&w.item(bones).unwrap().item_id));
@@ -89,7 +89,7 @@ fn the_unconstructible_classes_still_round_trip() {
 
 #[test]
 fn a_bear_takes_its_owner_and_three_lines() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = holiday4::st_valentines_panda_new(&mut w, Some("Ann"));
     assert_eq!(w.item(id).unwrap().item_id, 0x48E0);
     let bytes = save(&w, id);
@@ -101,7 +101,7 @@ fn a_bear_takes_its_owner_and_three_lines() {
 
 #[test]
 fn toggle_item_flips_its_graphic_and_hides_graphic_one() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = toggle::toggle_item_new(&mut w, 0x1, 0x2A0, None);
     assert!(!w.item(id).unwrap().movable());
     toggle::toggle(&mut w, id);
@@ -117,7 +117,7 @@ fn toggle_item_flips_its_graphic_and_hides_graphic_one() {
 
 #[test]
 fn the_winter_items_and_addons_round_trip() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let dipped = holiday4::light_of_the_winter_solstice_new(&mut w, Some("Ann"));
     let bytes = save(&w, dipped);
     let (w2, id2) = load(&holiday4::LIGHT_OF_THE_WINTER_SOLSTICE, &bytes);
@@ -138,7 +138,7 @@ fn the_winter_items_and_addons_round_trip() {
 
 #[test]
 fn the_aquarium_rewards_derive_from_the_fishing_items() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let net = (aquarium2::AQUARIUM_FISH_NET.construct.unwrap())(&mut w);
     assert_eq!(w.item(net).unwrap().item_id, 0xDC8);
     let pole = (aquarium2::CAPTAIN_BLACKHEARTS_FISHING_POLE
@@ -161,7 +161,7 @@ fn the_aquarium_rewards_derive_from_the_fishing_items() {
 fn st_valentines_bear_edit_limit_is_a_property_and_not_saved() {
     use muo_content::props::Value;
     use muo_server::ids::EntityId;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::holiday4::st_valentines_panda_new(&mut w, None);
     let def = &super::holiday4::BEAR_EDIT_LIMIT_PROPS[0];
     assert_eq!(def.name, "EditLimit");

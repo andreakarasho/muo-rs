@@ -45,14 +45,14 @@ fn names_are_unique() {
 fn boards_create_their_pieces() {
     let expected = [(&BACKGAMMON, 30), (&CHECKER_BOARD, 24), (&CHESSBOARD, 32)];
     for (t, n) in expected {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         let items = w.item(id).unwrap().items.clone();
         assert_eq!(items.len(), n, "{}", t.full_name);
         assert!(items.iter().all(|p| piece_board(&w, *p) == Some(id)));
     }
     // Chessboard: first item is a black pawn at (67, 17).
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (CHESSBOARD.construct.unwrap())(&mut w);
     let first = w.item(id).unwrap().items[0];
     assert_eq!(
@@ -66,7 +66,7 @@ fn boards_create_their_pieces() {
 
 #[test]
 fn reset_rebuilds_the_pieces() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (CHECKER_BOARD.construct.unwrap())(&mut w);
     let first = w.item(id).unwrap().items[0];
     reset(&mut w, id);
@@ -76,7 +76,7 @@ fn reset_rebuilds_the_pieces() {
 
 #[test]
 fn board_and_piece_records() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (DICES.construct.unwrap())(&mut w);
     let bytes = save(&w, id);
     assert_eq!(&bytes[bytes.len() - 4..], &[0, 0, 0, 0]);
@@ -102,7 +102,7 @@ fn board_and_piece_records() {
 
 #[test]
 fn old_board_version_one_reads_level() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (CHESSBOARD.construct.unwrap())(&mut w);
     let mut out = SaveWriter::new(true);
     (CONTAINER.serialize)(&w, id, &mut out);

@@ -99,11 +99,11 @@ fn skill_item_names_are_unique() {
 #[test]
 fn every_skill_item_constructs_and_round_trips() {
     for t in all() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         let bytes = save(&w, id);
-        let mut w2 = World::new();
+        let mut w2 = crate::test_world();
         let id2 = w2.add_item(Item::new_for_load(
             muo_primitives::Serial::new(0x4000_0001),
             t,
@@ -122,7 +122,7 @@ fn every_skill_item_constructs_and_round_trips() {
 #[test]
 fn a_smith_hammer_record_is_the_golden_bytes() {
     // Item part, then BaseTool: version 2, null crafter, quality Regular (encoded 1), uses 50; then SmithHammer 0.
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::tools::new_smith_hammer(&mut w, Some(50));
     let bytes = save(&w, id);
     let tail = &bytes[bytes.len() - 14..];
@@ -132,7 +132,7 @@ fn a_smith_hammer_record_is_the_golden_bytes() {
 #[test]
 fn a_scroll_record_is_the_golden_bytes() {
     // Item part, then SpellScroll: version 0 and spell id 681, then the subclass's version 0.
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (super::scroll_list::SLEEP_SCROLL.construct.unwrap())(&mut w);
     let bytes = save(&w, id);
     assert_eq!(
@@ -143,7 +143,7 @@ fn a_scroll_record_is_the_golden_bytes() {
 
 #[test]
 fn a_spellbook_counts_its_spells() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::spellbook::new_chivalry(&mut w, 0x3FF);
     assert_eq!(super::spellbook::data(&w, id).unwrap().spell_count, 10);
     assert!(super::spellbook::has_spell(&w, id, 209));
@@ -153,7 +153,7 @@ fn a_spellbook_counts_its_spells() {
 #[test]
 fn a_heal_potion_record_is_the_golden_bytes() {
     // BasePotion: version 2 and the effect (HealLesser 14, an encoded int); BaseHealPotion 0; LesserHealPotion 0.
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::potions::new_lesser_heal(&mut w);
     let bytes = save(&w, id);
     assert_eq!(
@@ -165,7 +165,7 @@ fn a_heal_potion_record_is_the_golden_bytes() {
 #[test]
 fn a_runebook_keeps_its_entries_through_a_save() {
     use muo_primitives::Point3D;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::runebook::new_runebook(&mut w, 6);
     w.item_mut(id)
         .unwrap()
@@ -180,7 +180,7 @@ fn a_runebook_keeps_its_entries_through_a_save() {
             description: Some("Home".to_string()),
         });
     let bytes = save(&w, id);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = w2.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0002),
         &super::runebook::RUNEBOOK,
@@ -201,11 +201,11 @@ fn a_runebook_keeps_its_entries_through_a_save() {
 #[test]
 fn a_runic_hammer_keeps_its_resource_and_hue() {
     use muo_content::craft::CraftResource;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::runic_tools::new_runic_hammer(&mut w, CraftResource::Agapite, Some(40));
     assert_eq!(super::runic_tools::resource(&w, id), CraftResource::Agapite);
     assert_eq!(w.item(id).unwrap().hue, 0x979);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = reload(&w, id, &mut w2, 0x4000_0010);
     assert_eq!(
         super::runic_tools::resource(&w2, id2),
@@ -220,7 +220,7 @@ fn a_runic_tool_record_is_the_golden_bytes() {
     // BaseTool: version 2, null crafter, quality Regular (encoded 1), uses 10; BaseRunicTool: version 1 and the
     // resource Gold (6, an encoded int); RunicSewingKit: version 0.
     use muo_content::craft::CraftResource;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::runic_tools::new_runic_sewing_kit(&mut w, CraftResource::Gold, Some(10));
     let bytes = save(&w, id);
     assert_eq!(
@@ -231,7 +231,7 @@ fn a_runic_tool_record_is_the_golden_bytes() {
 
 #[test]
 fn a_trophy_deed_keeps_its_fields() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::trophy::new_trophy_deed(
         &mut w,
         0x1E67,
@@ -241,7 +241,7 @@ fn a_trophy_deed_keeps_its_fields() {
         Some("Bob".into()),
         33,
     );
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = reload(&w, id, &mut w2, 0x4000_0011);
     let d = super::trophy::data(&w2, id2).unwrap();
     assert_eq!(
@@ -259,16 +259,16 @@ fn a_trophy_deed_keeps_its_fields() {
 
 #[test]
 fn a_recipe_scroll_keeps_its_recipe() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::misc::new_recipe_scroll(&mut w, 321);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = reload(&w, id, &mut w2, 0x4000_0012);
     assert_eq!(save(&w2, id2), save(&w, id));
 }
 
 #[test]
 fn an_sos_is_ancient_from_level_four_and_clamps_its_level() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::fishing::new_sos(&mut w, Some(muo_server::map::MapId::TRAMMEL), Some(2));
     assert!(!super::fishing::is_ancient(&w, id));
     super::fishing::set_level(&mut w, id, 9);
@@ -279,7 +279,7 @@ fn an_sos_is_ancient_from_level_four_and_clamps_its_level() {
 #[test]
 fn a_large_forge_moves_its_pieces_with_it() {
     use muo_primitives::Point3D;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = super::forges::new_large_forge_west(&mut w);
     muo_server::item::ops::set_location(&mut w, id, Point3D::new(10, 20, 5));
     let loc = |w: &World, i: ItemId| w.item(i).unwrap().location;
@@ -306,7 +306,7 @@ fn a_specialized_book_teaches_once() {
 fn sextant_reverse_lookup_follows_the_expected_arithmetic() {
     use muo_primitives::Point3D;
     use muo_server::map::MapId;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let look = super::runebook::sextant_reverse_lookup;
     // 0 deg 0' E/S is the centre itself
     assert_eq!(

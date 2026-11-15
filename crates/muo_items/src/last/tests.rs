@@ -12,7 +12,7 @@ use muo_server::type_registry::{Phase, invoke_phase};
 use super::{artifacts, chests, containers, deeds, lights, mark, misc};
 
 fn world(era: Option<Expansion>) -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = era;
     crate::register(&mut w.types);
     muo_content::items::common::register(&mut w.types);

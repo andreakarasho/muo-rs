@@ -173,7 +173,7 @@ fn worn_armor(w: &World, m: MobileId) -> Vec<WornArmor> {
         .filter(|&&i| armor::is_armor(w, i))
         .map(|&i| {
             (
-                armor::class(w, i).material_type as i32,
+                armor::material_type(w, i) as i32,
                 armor::body_position(w, i) as i32,
                 items::attr(w, i, AttrKind::Armor, AosArmorAttribute::MageArmor as u32) != 0,
             )

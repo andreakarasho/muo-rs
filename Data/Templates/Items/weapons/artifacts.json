@@ -37,6 +37,16 @@
   },
   {
     "type": "Server.Items.BladeOfTheRighteous",
+    "hue": 1150,
+    "slayer": "Exorcism",
+    "weaponAttributes": {
+      "HitLeechHits": 50,
+      "UseBestSkill": 1
+    },
+    "attributes": {
+      "BonusHits": 10,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
@@ -94,7 +104,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061111,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
@@ -129,7 +142,11 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061601,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "phys": 25,
+        "pois": 75
+      }
     }
   },
   {
@@ -147,7 +164,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061600,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
@@ -166,21 +186,45 @@
   },
   {
     "type": "Server.Items.TheDragonSlayer",
+    "hue": 1328,
+    "slayer": "DragonSlaying",
+    "attributes": {
+      "Luck": 110,
+      "WeaponDamage": 50
+    },
+    "weaponAttributes": {
+      "ResistFireBonus": 20,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061248,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
     "type": "Server.Items.TheDryadBow",
+    "itemId": 5041,
+    "hue": 1167,
+    "weaponAttributes": {
+      "SelfRepair": 5,
+      "ResistPoisonBonus": 15
+    },
+    "attributes": {
+      "WeaponSpeed": 50,
+      "WeaponDamage": 35
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061090,
       "artifactRarity": 11
-    }
+    },
+    "script": "content/equipment/the_dryad_bow.rhai"
   },
   {
     "type": "Server.Items.TheTaskmaster",
@@ -197,7 +241,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061110,
-      "artifactRarity": 10
+      "artifactRarity": 10,
+      "damageTypes": {
+        "pois": 100
+      }
     }
   },
   {
@@ -220,11 +267,27 @@
   },
   {
     "type": "Server.Items.ZyronicClaw",
+    "hue": 1157,
+    "slayer": "ElementalBan",
+    "weaponAttributes": {
+      "HitLeechMana": 50
+    },
+    "attributes": {
+      "AttackChance": 30,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061593,
-      "artifactRarity": 10
+      "artifactRarity": 10,
+      "damageTypes": {
+        "phys": 20,
+        "fire": 20,
+        "cold": 20,
+        "pois": 20,
+        "nrgy": 20
+      }
     }
   },
   {
@@ -245,32 +308,93 @@
   },
   {
     "type": "Server.Items.ColdForgedBlade",
+    "weaponAttributes": {
+      "HitHarm": 40
+    },
+    "attributes": {
+      "SpellChanneling": 1,
+      "NightSight": 1,
+      "WeaponSpeed": 25,
+      "WeaponDamage": 50
+    },
+    "elementalDamageHue": true,
     "props": {
-      "labelNumber": 1072916
+      "labelNumber": 1072916,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
     "type": "Server.Items.FaerieFire",
+    "hue": 1161,
+    "weaponAttributes": {
+      "HitFireball": 25
+    },
+    "balanced": true,
+    "attributes": {
+      "BonusDex": 3,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 60
+    },
     "props": {
-      "labelNumber": 1072908
+      "labelNumber": 1072908,
+      "damageTypes": {
+        "fire": 100
+      }
     }
   },
   {
     "type": "Server.Items.LuminousRuneBlade",
+    "weaponAttributes": {
+      "HitLightning": 40,
+      "SelfRepair": 5
+    },
+    "attributes": {
+      "NightSight": 1,
+      "WeaponSpeed": 25,
+      "WeaponDamage": 55
+    },
+    "elementalDamageHue": true,
     "props": {
-      "labelNumber": 1072922
+      "labelNumber": 1072922,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
     "type": "Server.Items.MischiefMaker",
+    "hue": 2219,
+    "slayer": "Silver",
+    "balanced": true,
+    "attributes": {
+      "WeaponSpeed": 35,
+      "WeaponDamage": 45
+    },
     "props": {
-      "labelNumber": 1072910
+      "labelNumber": 1072910,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
     "type": "Server.Items.OverseerSunderedBlade",
+    "itemId": 11559,
+    "hue": 1157,
+    "attributes": {
+      "RegenStam": 2,
+      "AttackChance": 10,
+      "WeaponSpeed": 35,
+      "WeaponDamage": 45
+    },
+    "elementalDamageHue": true,
     "props": {
-      "labelNumber": 1072920
+      "labelNumber": 1072920,
+      "damageTypes": {
+        "fire": 100
+      }
     }
   },
   {
@@ -283,7 +407,11 @@
       "WeaponDamage": 60
     },
     "props": {
-      "labelNumber": 1072919
+      "labelNumber": 1072919,
+      "damageTypes": {
+        "cold": 50,
+        "pois": 50
+      }
     }
   },
   {
@@ -328,11 +456,22 @@
       "WeaponDamage": 35
     },
     "props": {
-      "labelNumber": 1072955
+      "labelNumber": 1072955,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
     "type": "Server.Items.TheNightReaper",
+    "itemId": 9933,
+    "hue": 1052,
+    "slayer": "Exorcism",
+    "attributes": {
+      "NightSight": 1,
+      "WeaponSpeed": 25,
+      "WeaponDamage": 55
+    },
     "props": {
       "labelNumber": 1072912
     }

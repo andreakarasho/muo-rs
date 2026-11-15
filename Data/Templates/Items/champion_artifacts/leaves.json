@@ -1,9 +1,27 @@
 [
   {
     "type": "Server.Items.BraveKnightOfTheBritannia",
+    "hue": 1150,
+    "attributes": {
+      "WeaponSpeed": 30,
+      "WeaponDamage": 35
+    },
+    "weaponAttributes": {
+      "HitLeechStam": 48,
+      "HitHarm": 26,
+      "HitLeechHits": 22
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094909,
+      "canFortify": false,
+      "damageTypes": {
+        "fire": 40,
+        "cold": 30,
+        "pois": 10,
+        "nrgy": 20
+      }
     }
   },
   {
@@ -22,35 +40,83 @@
       "baseEnergyResistance": 5,
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094902
+      "labelNumber": 1094902,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.OblivionsNeedle",
+    "attributes": {
+      "BonusStam": 20,
+      "AttackChance": 20,
+      "DefendChance": -20,
+      "WeaponDamage": 40
+    },
+    "weaponAttributes": {
+      "HitLeechStam": 50
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094916,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.RoyalGuardSurvivalKnife",
+    "attributes": {
+      "SpellChanneling": 1,
+      "Luck": 140,
+      "EnhancePotions": 25
+    },
+    "weaponAttributes": {
+      "UseBestSkill": 1,
+      "LowerStatReq": 50
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094918,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.Calm",
+    "hue": 715,
+    "attributes": {
+      "SpellChanneling": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094915,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.FangOfRactus",
+    "hue": 279,
+    "attributes": {
+      "SpellChanneling": 1,
+      "AttackChance": 5,
+      "DefendChance": 5,
+      "WeaponDamage": 35
+    },
+    "weaponAttributes": {
+      "HitPoisonArea": 20,
+      "ResistPoisonBonus": 15
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094892,
+      "canFortify": false
     }
   },
   {
@@ -71,28 +137,68 @@
       "baseEnergyResistance": 16,
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094917
+      "labelNumber": 1094917,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.Pacify",
+    "hue": 2101,
+    "attributes": {
+      "SpellChanneling": 1,
+      "AttackChance": 10,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094929,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.Quell",
+    "hue": 549,
+    "attributes": {
+      "SpellChanneling": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50,
+      "AttackChance": 10
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094928,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.Subdue",
+    "hue": 715,
+    "attributes": {
+      "SpellChanneling": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50,
+      "AttackChance": 10
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094930,
+      "canFortify": false
     }
   },
   {
@@ -145,7 +251,15 @@
       "SpellDamage": 10
     },
     "props": {
-      "labelNumber": 1094903
+      "labelNumber": 1094903,
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 5,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 20,
+      "baseEnergyResistance": 20,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -153,14 +267,22 @@
     "hue": 1109,
     "lootType": "Blessed",
     "props": {
-      "labelNumber": 1095236
+      "labelNumber": 1095236,
+      "baseFireResistance": 4,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.SamaritanRobe",
     "hue": 675,
     "props": {
-      "labelNumber": 1094926
+      "labelNumber": 1094926,
+      "basePhysicalResistance": 5,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -172,7 +294,10 @@
       "LowerRegCost": 10
     },
     "props": {
-      "labelNumber": 1094910
+      "labelNumber": 1094910,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -183,14 +308,20 @@
       "CastSpeed": 2
     },
     "props": {
-      "labelNumber": 1094927
+      "labelNumber": 1094927,
+      "initMinHits": 150,
+      "initMaxHits": 150
     }
   },
   {
     "type": "Server.Items.ANecromancerShroud",
     "hue": 1109,
     "props": {
-      "labelNumber": 1094913
+      "labelNumber": 1094913,
+      "baseColdResistance": 5,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   }
 ]

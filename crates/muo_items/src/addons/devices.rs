@@ -1407,7 +1407,7 @@ fn butte_fire(w: &mut World, id: ItemId, from: MobileId) {
     }
 
     let pack = props_b::backpack(w, from);
-    let ammo_name = weapon::class(w, bow).ammo_type;
+    let ammo_name = weapon::ammo_type(w, bow);
     let is_arrow = ammo_name == Some("Server.Items.Arrow");
     let is_bolt = ammo_name == Some("Server.Items.Bolt");
     let is_known = is_arrow || is_bolt;

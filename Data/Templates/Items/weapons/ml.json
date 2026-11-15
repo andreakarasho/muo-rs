@@ -13,7 +13,12 @@
       "oldSpeed": 50,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 4.0,
+      "primaryAbility": "InfectiousStrike",
+      "secondaryAbility": "ShadowStrike",
+      "defSkill": "Fencing",
+      "graphic": 11553
     }
   },
   {
@@ -29,11 +34,16 @@
       "oldMaxDamage": 17,
       "oldSpeed": 37,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 10.0,
+      "primaryAbility": "ConcussionBlow",
+      "secondaryAbility": "CrushingBlow",
+      "graphic": 11556
     }
   },
   {
     "type": "Server.Items.ElvenCompositeLongbow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": 12,
@@ -46,7 +56,14 @@
       "oldSpeed": 27,
       "defMaxRange": 10,
       "initMinHits": 41,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 8.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "ForceArrow",
+      "secondaryAbility": "SerpentArrow",
+      "defAnimation": "ShootBow",
+      "graphic": 11550
     }
   },
   {
@@ -64,7 +81,11 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 6.0,
+      "primaryAbility": "DefenseMastery",
+      "secondaryAbility": "Bladeweave",
+      "graphic": 11573
     }
   },
   {
@@ -82,7 +103,11 @@
       "oldSpeed": 44,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 5.0,
+      "primaryAbility": "PsychicAttack",
+      "secondaryAbility": "BleedAttack",
+      "graphic": 11552
     }
   },
   {
@@ -99,11 +124,17 @@
       "oldSpeed": 42,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 8.0,
+      "primaryAbility": "Feint",
+      "secondaryAbility": "ArmorIgnore",
+      "defSkill": "Fencing",
+      "graphic": 11554
     }
   },
   {
     "type": "Server.Items.MagicalShortbow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": 9,
@@ -116,7 +147,13 @@
       "oldSpeed": 38,
       "defMaxRange": 10,
       "initMinHits": 41,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 6.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "LightningArrow",
+      "secondaryAbility": "PsychicAttack",
+      "graphic": 11563
     }
   },
   {
@@ -134,7 +171,11 @@
       "oldSpeed": 26,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 12.0,
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "CrushingBlow",
+      "graphic": 11560
     }
   },
   {
@@ -152,7 +193,11 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 9.0,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "Bladeweave",
+      "graphic": 11571
     }
   },
   {
@@ -171,7 +216,11 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 7.0,
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "Bladeweave",
+      "graphic": 11570
     }
   },
   {
@@ -189,11 +238,19 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 10.0,
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "Bladeweave",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H",
+      "graphic": 11567
     }
   },
   {
     "type": "Server.Items.WildStaff",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 15,
       "aosMinDamage": 10,
@@ -205,7 +262,11 @@
       "oldMaxDamage": 12,
       "oldSpeed": 48,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 8.0,
+      "primaryAbility": "Block",
+      "secondaryAbility": "ForceOfNature",
+      "graphic": 11557
     }
   },
   {

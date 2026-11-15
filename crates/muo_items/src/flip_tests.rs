@@ -2,11 +2,7 @@
 //! the leaf modules recorded per class (the `FLIPPABLE` statics and the `flippable: Some((a, b))` of the weapon,
 //! armor, clothing and jewel tables), and a flip follows `FlippableAttribute.Flip`.
 
-use muo_content::items::armor::ArmorClass;
-use muo_content::items::clothing::ClothingClass;
 use muo_content::items::flip::{flip, flip_ids};
-use muo_content::items::jewel::JewelClass;
-use muo_content::items::weapon::WeaponClass;
 use muo_server::World;
 use muo_server::item::ItemType;
 use muo_server::type_registry::TypeRegistry;
@@ -69,56 +65,6 @@ fn per_module_flippable_statics_agree_with_the_attribute_table() {
 }
 
 #[test]
-fn family_tables_agree_with_the_attribute_table() {
-    let types = registry();
-    let mut checked = 0;
-    for ty in types.item_types() {
-        // A class table copies its parent's fields (`..PARENT_CLASS`), so only a value the parent does not have
-        // is the class's own attribute.
-        let own = |mine: Option<(i32, i32)>, parent: Option<(i32, i32)>| {
-            mine.filter(|m| Some(*m) != parent)
-        };
-        let parent = ty.parent;
-        let (mine, up) = if let Some(c) = ty.family::<WeaponClass>() {
-            (
-                c.flippable,
-                parent
-                    .and_then(|p| p.family::<WeaponClass>())
-                    .and_then(|c| c.flippable),
-            )
-        } else if let Some(c) = ty.family::<ArmorClass>() {
-            (
-                c.flippable,
-                parent
-                    .and_then(|p| p.family::<ArmorClass>())
-                    .and_then(|c| c.flippable),
-            )
-        } else if let Some(c) = ty.family::<ClothingClass>() {
-            (
-                c.flippable,
-                parent
-                    .and_then(|p| p.family::<ClothingClass>())
-                    .and_then(|c| c.flippable),
-            )
-        } else if let Some(c) = ty.family::<JewelClass>() {
-            (
-                c.flippable,
-                parent
-                    .and_then(|p| p.family::<JewelClass>())
-                    .and_then(|c| c.flippable),
-            )
-        } else {
-            continue;
-        };
-        if let Some((a, b)) = own(mine, up) {
-            assert_eq!(flip_ids(ty), Some(&[a, b][..]), "{}", ty.full_name);
-            checked += 1;
-        }
-    }
-    assert!(checked > 20, "{checked} entries");
-}
-
-#[test]
 fn a_subclass_is_not_flippable_unless_it_declares_the_attribute() {
     let types = registry();
     // `GetCustomAttributes(typeof(FlippableAttribute), false)`: a class below a flippable one has no attribute of
@@ -129,7 +75,7 @@ fn a_subclass_is_not_flippable_unless_it_declares_the_attribute() {
             && let Some(p) = ty.parent
             && flip_ids(p).is_some()
         {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             if let Some(c) = ty.construct {
                 let id = c(&mut w);
                 assert!(
@@ -147,7 +93,7 @@ fn a_subclass_is_not_flippable_unless_it_declares_the_attribute() {
 #[test]
 fn flipping_cycles_through_every_id_of_the_attribute() {
     let types = registry();
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let mut n = 0;
     for ty in types.item_types() {
         let Some(ids) = flip_ids(ty) else { continue };
@@ -176,7 +122,7 @@ fn flipping_cycles_through_every_id_of_the_attribute() {
 
 #[test]
 fn a_bare_flippable_runs_the_registered_flip_method() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     crate::own_flips::configure(&mut w);
     let id = (crate::armor::special::LEATHER_GLOVES.construct.unwrap())(&mut w);
     let before = w.item(id).unwrap().item_id;
@@ -189,7 +135,7 @@ fn a_bare_flippable_runs_the_registered_flip_method() {
 #[test]
 fn bare_flips_registered_by_name_turn_the_graphic_and_the_light() {
     use muo_server::light_type::LightType;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     crate::own_flips::configure(&mut w);
     let run = |w: &mut World, name: &str, id| {
         let f = w

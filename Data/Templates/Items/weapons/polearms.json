@@ -12,7 +12,11 @@
       "oldMaxDamage": 43,
       "oldSpeed": 26,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 7.0,
+      "primaryAbility": "ParalyzingBlow",
+      "secondaryAbility": "Dismount",
+      "graphic": 3917
     }
   },
   {
@@ -28,7 +32,11 @@
       "oldMaxDamage": 49,
       "oldSpeed": 25,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 16.0,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 5182
     }
   },
   {
@@ -44,7 +52,12 @@
       "oldMaxDamage": 18,
       "oldSpeed": 32,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 5.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "ParalyzingBlow",
+      "harvestSystem": null,
+      "graphic": 9914
     }
   }
 ]

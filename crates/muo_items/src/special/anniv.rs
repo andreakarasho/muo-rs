@@ -3,7 +3,7 @@
 //! FountainOfLife and Dawn's Music Box are in `anniv2`.
 
 use muo_content::aos::{AosAttribute, AttrKind};
-use muo_content::items::armor::{ArmorClass, BASE_SHIELD, BASE_SHIELD_CLASS, new_armor};
+use muo_content::items::armor::{ArmorClass, BASE_SHIELD, BASE_SHIELD_CLASS};
 use muo_content::items::set_attr;
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
@@ -15,9 +15,8 @@ use crate::armor::armor_leaf;
 
 armor_leaf! {
     /// `Server.Items.DupresShield`.
-    DUPRES_SHIELD, DUPRES_SHIELD_CLASS, dupres_shield_new = "Server.Items.DupresShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x2B01), encoded true;
+    DUPRES_SHIELD, DUPRES_SHIELD_CLASS, dupres_shield_new = "Server.Items.DupresShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded true;
     @template;
-    default_weight: Some(6.0),
 }
 
 /// `QuiverOfInfinity()`.

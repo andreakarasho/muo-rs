@@ -16,6 +16,7 @@ use muo_server::layer::Layer;
 use muo_server::property_list::PropertyList;
 
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
+use super::equip_props as ep;
 use super::{core_uotd, parent_mobile, random_min_max, read_enum};
 use crate::aos::{
     AosAttribute, AosElementAttribute, AttrKind, Attrs, add_attribute_properties,
@@ -23,6 +24,7 @@ use crate::aos::{
 };
 use crate::core;
 use crate::craft::{self, CraftResource};
+use crate::templates::item_props as ip;
 
 int_enum! {
     /// `GemType`.
@@ -47,8 +49,6 @@ pub struct JewelClass {
     pub artifact_rarity: i32,
     pub init_min_hits: i32,
     pub init_max_hits: i32,
-    /// `[Flippable(a, b)]`.
-    pub flippable: Option<(i32, i32)>,
 }
 
 /// `BaseJewel`'s defaults.
@@ -61,7 +61,6 @@ pub static BASE_JEWEL_CLASS: JewelClass = JewelClass {
     artifact_rarity: 0,
     init_min_hits: 0,
     init_max_hits: 0,
-    flippable: None,
 };
 
 /// Everything `BaseJewel` adds to `Item`.
@@ -129,7 +128,12 @@ pub fn is_jewel(w: &World, id: ItemId) -> bool {
 pub fn new_jewel(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
     let c = ty.family::<JewelClass>().unwrap_or(&BASE_JEWEL_CLASS);
-    let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+    crate::templates::table(w); // the class props below read the loaded table
+    let (min, max) = (
+        ip::int(w, id, "initMinHits", c.init_min_hits),
+        ip::int(w, id, "initMaxHits", c.init_max_hits),
+    );
+    let hits = random_min_max(w, min, max);
     let mut d = JewelData::for_load();
     d.resource = CraftResource::Iron;
     d.hit_points = hits;
@@ -466,14 +470,12 @@ pub static BASE_JEWEL: ItemType = ItemType {
     construct: None,
     family: Some(&BASE_JEWEL_CLASS),
     default_weight: |w, id| {
-        class(w, id)
-            .default_weight
+        ep::float_opt(w, id, "defaultWeight", class(w, id).default_weight)
             .unwrap_or_else(|| base::default_weight_base(w, id))
     },
     label_number,
     required_races: |w, id| {
-        class(w, id)
-            .required_races
+        ep::required_races(w, id, class(w, id).required_races)
             .unwrap_or_else(|| base::required_races_base(w, id))
     },
     physical_resistance: |w, id| resist(w, id, AosElementAttribute::Physical),

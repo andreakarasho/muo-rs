@@ -498,7 +498,7 @@ mod hair_restyling_tests {
     /// `_from.Race` and `pm.Female` are read when the button is pressed, not when the gump was laid out.
     #[test]
     fn the_hair_restyling_gump_rereads_race_and_sex() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let from = w.new_mobile(&muo_content::player_mobile::PLAYER_MOBILE);
         let deed = ops::new_item_with_id(&mut w, &HAIR_RESTYLING_DEED, 0x14F0);
         // laid out for a human man; by the time of the answer they are an elven woman

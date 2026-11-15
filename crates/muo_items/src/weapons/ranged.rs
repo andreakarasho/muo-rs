@@ -16,32 +16,14 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.CompositeBow`.
-    COMPOSITE_BOW, COMPOSITE_BOW_CLASS, composite_bow_new = "Server.Items.CompositeBow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x26C2, v0;
-    @init |w, id| {
-        set_resource(w, id, CraftResource::RegularWood);
-    };
-    flippable: Some((0x26C2, 0x26CC)),
-    default_weight: Some(5.0),
-    effect_id: 0xF42,
-    ammo_type: Some("Server.Items.Arrow"),
-    primary_ability: Some(Ability::ArmorIgnore),
-    secondary_ability: Some(Ability::MovingShot),
-    def_animation: WeaponAnimation::ShootBow,
+    COMPOSITE_BOW, COMPOSITE_BOW_CLASS, composite_bow_new = "Server.Items.CompositeBow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.Crossbow`.
-    CROSSBOW, CROSSBOW_CLASS, crossbow_new = "Server.Items.Crossbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0xF50, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-        set_resource(w, id, CraftResource::RegularWood);
-    };
-    flippable: Some((0xF50, 0xF4F)),
-    default_weight: Some(7.0),
-    effect_id: 0x1BFE,
-    ammo_type: Some("Server.Items.Bolt"),
-    primary_ability: Some(Ability::ConcussionBlow),
-    secondary_ability: Some(Ability::MortalStrike),
+    CROSSBOW, CROSSBOW_CLASS, crossbow_new = "Server.Items.Crossbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
+    @json;
 }
 
 weapon_leaf! {
@@ -52,37 +34,23 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.HeavyCrossbow`.
-    HEAVY_CROSSBOW, HEAVY_CROSSBOW_CLASS, heavy_crossbow_new = "Server.Items.HeavyCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x13FD, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-        set_resource(w, id, CraftResource::RegularWood);
-    };
-    flippable: Some((0x13FD, 0x13FC)),
-    default_weight: Some(9.0),
-    effect_id: 0x1BFE,
-    ammo_type: Some("Server.Items.Bolt"),
-    primary_ability: Some(Ability::MovingShot),
-    secondary_ability: Some(Ability::Dismount),
+    HEAVY_CROSSBOW, HEAVY_CROSSBOW_CLASS, heavy_crossbow_new = "Server.Items.HeavyCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.JukaBow`.
     JUKA_BOW, JUKA_BOW_CLASS, juka_bow_new = "Server.Items.JukaBow" : BOW / BOW_CLASS, via bow_new, v0;
-    @init |w, id| {
-        set_resource(w, id, CraftResource::RegularWood);
-    };
+    @json;
     @item {
         on_double_click: juka_bow_on_double_click,
     }
-    flippable: Some((0x13B2, 0x13B1)),
 }
 
 weapon_leaf! {
     /// `Server.Items.LightweightShortbow`.
     LIGHTWEIGHT_SHORTBOW, LIGHTWEIGHT_SHORTBOW_CLASS, lightweight_shortbow_new = "Server.Items.LightweightShortbow" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        ctor::set_balanced(w, id, true);
-    };
+    @json;
 }
 
 weapon_leaf! {
@@ -105,24 +73,14 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.RepeatingCrossbow`.
-    REPEATING_CROSSBOW, REPEATING_CROSSBOW_CLASS, repeating_crossbow_new = "Server.Items.RepeatingCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x26C3, v0;
-    @init |w, id| {
-        set_resource(w, id, CraftResource::RegularWood);
-    };
-    flippable: Some((0x26C3, 0x26CD)),
-    default_weight: Some(6.0),
-    effect_id: 0x1BFE,
-    ammo_type: Some("Server.Items.Bolt"),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::MovingShot),
+    REPEATING_CROSSBOW, REPEATING_CROSSBOW_CLASS, repeating_crossbow_new = "Server.Items.RepeatingCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.SlayerLongbow`.
     SLAYER_LONGBOW, SLAYER_LONGBOW_CLASS, slayer_longbow_new = "Server.Items.SlayerLongbow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        let v = random_min_max(w, 1, 27); ctor::set_slayer2(w, id, v);
-    };
+
 }
 
 pub fn register(types: &mut TypeRegistry) {

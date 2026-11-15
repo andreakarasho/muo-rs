@@ -12,7 +12,11 @@
       "oldMaxDamage": 24,
       "oldSpeed": 40,
       "initMinHits": 31,
-      "initMaxHits": 40
+      "initMaxHits": 40,
+      "defaultWeight": 9.0,
+      "primaryAbility": "ShadowStrike",
+      "secondaryAbility": "Dismount",
+      "graphic": 5044
     }
   },
   {
@@ -23,7 +27,11 @@
       "aosMaxDamage": 15,
       "mlSpeed": 2.75,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "Disarm",
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2307
     }
   },
   {
@@ -40,7 +48,11 @@
       "oldMaxDamage": 33,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 9.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 5181
     }
   },
   {
@@ -56,7 +68,11 @@
       "oldMaxDamage": 32,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 14.0,
+      "primaryAbility": "ConcussionBlow",
+      "secondaryAbility": "Disarm",
+      "graphic": 3932
     }
   },
   {
@@ -72,7 +88,11 @@
       "oldMaxDamage": 6,
       "oldSpeed": 35,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 1.0,
+      "primaryAbility": "Dismount",
+      "secondaryAbility": "Disarm",
+      "graphic": 3570
     }
   },
   {
@@ -88,7 +108,11 @@
       "oldMaxDamage": 30,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 10.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 5179
     }
   },
   {
@@ -104,7 +128,11 @@
       "oldMaxDamage": 17,
       "oldSpeed": 30,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 8.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 9916
     }
   },
   {
@@ -121,7 +149,12 @@
       "oldMaxDamage": 36,
       "oldSpeed": 31,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 10.0,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "CrushingBlow",
+      "defAnimation": "Bash2H",
+      "graphic": 5177
     }
   },
   {
@@ -137,7 +170,11 @@
       "oldMaxDamage": 30,
       "oldSpeed": 32,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 17.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "MortalStrike",
+      "graphic": 5127
     }
   },
   {
@@ -169,6 +206,7 @@
   },
   {
     "type": "Server.Items.SilverEtchedMace",
+    "slayer": "Exorcism",
     "props": {
       "labelNumber": 1073532
     }

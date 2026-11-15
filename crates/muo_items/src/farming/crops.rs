@@ -213,7 +213,7 @@ mod tests {
 
     #[test]
     fn crop_graphics_and_save() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (FARMABLE_ONION.construct.unwrap())(&mut w);
         assert!(!w.item(id).unwrap().movable());
         assert_eq!(w.item(id).unwrap().item_id, 3183);

@@ -1,9 +1,21 @@
 [
   {
     "type": "Server.Items.HolySword",
+    "hue": 1154,
+    "lootType": "Blessed",
+    "slayer": "Silver",
+    "attributes": {
+      "WeaponDamage": 40
+    },
+    "weaponAttributes": {
+      "SelfRepair": 10,
+      "LowerStatReq": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1062921
     }
   },
   {
@@ -28,9 +40,20 @@
   },
   {
     "type": "Server.Items.ShaminoCrossbow",
+    "hue": 1284,
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 15,
+      "WeaponDamage": 40
+    },
+    "weaponAttributes": {
+      "SelfRepair": 10,
+      "LowerStatReq": 100
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1062915
     }
   },
   {
@@ -52,7 +75,10 @@
       "baseEnergyResistance": 10,
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1062923
+      "labelNumber": 1062923,
+      "defaultWeight": 5.0,
+      "materialType": "Plate",
+      "graphic": 9068
     }
   },
   {
@@ -62,19 +88,40 @@
   },
   {
     "type": "Server.Items.WaterloggedBoots",
+    "coin": {
+      "then": {
+        "itemId": 5905
+      },
+      "else": {
+        "itemId": 5899
+      }
+    },
     "props": {
-      "labelNumber": 1074364
+      "labelNumber": 1074364,
+      "graphic": 5905
     }
   },
   {
     "type": "Server.Items.CraftysFishingHat",
     "props": {
-      "labelNumber": 1074572
+      "labelNumber": 1074572,
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 5,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5,
+      "initMinHits": 20,
+      "initMaxHits": 30,
+      "graphic": 5907
     }
   },
   {
     "type": "Server.Items.HoodedShroudOfShadows",
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 3.0,
+      "graphic": 9860
+    }
   },
   {
     "type": "Server.Items.JesterHatofChuckles",
@@ -82,7 +129,16 @@
       "Luck": 150
     },
     "props": {
-      "labelNumber": 1073256
+      "labelNumber": 1073256,
+      "defaultWeight": 1.0,
+      "basePhysicalResistance": 12,
+      "baseFireResistance": 12,
+      "baseColdResistance": 12,
+      "basePoisonResistance": 12,
+      "baseEnergyResistance": 12,
+      "initMinHits": 100,
+      "initMaxHits": 100,
+      "graphic": 5916
     }
   },
   {
@@ -92,7 +148,8 @@
     },
     "lootType": "Blessed",
     "props": {
-      "labelNumber": 1075239
+      "labelNumber": 1075239,
+      "graphic": 4232
     }
   }
 ]

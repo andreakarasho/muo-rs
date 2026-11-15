@@ -96,6 +96,16 @@ pub mod leaves;
 pub mod special;
 
 /// `Dye(from, sender)` that refuses with `sender.FailMessage`.
+/// `new BaseClothing(itemID, hue)` with the class's `graphic` prop as the item id.
+pub(crate) fn new_clothing_json(
+    w: &mut World,
+    ty: &'static muo_server::item::ItemType,
+    hue: i32,
+) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    muo_content::items::clothing::new_clothing(w, ty, g, hue)
+}
+
 pub(crate) fn dye_refused(w: &mut World, _id: ItemId, from: MobileId, tub: ItemId) -> bool {
     let n = muo_content::items::clothing::tub_fail_message(w, tub);
     deps::send_localized_message(w, from, n);

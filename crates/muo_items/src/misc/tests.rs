@@ -34,7 +34,7 @@ fn leaves_construct_and_round_trip() {
 
 /// Constructs `t`, saves it, loads the bytes into a fresh item and saves again.
 pub(crate) fn round_trip(t: &'static ItemType) {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (t
         .construct
         .unwrap_or_else(|| panic!("{} has no constructor", t.full_name)))(&mut w);
@@ -100,7 +100,7 @@ pub(crate) fn construct_any(w: &mut World, t: &'static ItemType) -> muo_server::
 
 /// Round trip of a class with fields: construct, save, load, save again and compare.
 pub(crate) fn round_trip_any(t: &'static ItemType) -> Vec<u8> {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = construct_any(&mut w, t);
     let bytes = save(&w, id);
     let loaded = w.add_item(muo_server::item::Item::new_for_load(
@@ -130,7 +130,7 @@ fn hand_written_classes_round_trip_and_are_unique() {
 }
 
 fn item_part_len(t: &'static ItemType) -> usize {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = construct_any(&mut w, t);
     let mut base = SaveWriter::new(true);
     (ITEM_BASE.serialize)(&w, id, &mut base);
@@ -141,7 +141,7 @@ fn item_part_len(t: &'static ItemType) -> usize {
 fn basic_save_layouts() {
     use super::basic::*;
     // MorphItem: version int, OutsideRange, InactiveItemId, ActiveItemId, InsideRange.
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = morph_item_new(&mut w, &MORPH_ITEM, 0x1B2D, 0x1B2E, 2, 3);
     let mut out = SaveWriter::new(true);
     (MORPH_ITEM.serialize)(&w, id, &mut out);
@@ -177,7 +177,7 @@ fn teleporters_round_trip_with_the_generated_layout() {
         round_trip_any(t);
     }
     // Teleporter: version 5, flags (Active), Delay, SoundID, PointDest, MapDest.
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (TELEPORTER.construct.unwrap())(&mut w);
     let mut expected = SaveWriter::new(true);
     (ITEM_BASE.serialize)(&w, id, &mut expected);
@@ -198,7 +198,7 @@ fn old_teleporter_versions_load() {
     use super::teleporter::*;
     use muo_io::GenericWriter;
     use muo_server::serialization_ext::WriteEntityExt;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let src = (TELEPORTER.construct.unwrap())(&mut w);
     let mut out = SaveWriter::new(true);
     (ITEM_BASE.serialize)(&w, src, &mut out);
@@ -294,7 +294,7 @@ fn the_new_misc_classes_round_trip() {
         .collect();
     for t in classes {
         assert!(seen.insert(t.full_name), "{} twice", t.full_name);
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = match t.full_name {
             // `GateTravelMoongate(Point3D target, Map map)` only (no [Constructible], no parameterless
             // constructor) and `SkipSerialization => true`: never created by `[add`, never saved.
@@ -315,7 +315,7 @@ fn the_new_misc_classes_round_trip() {
 #[test]
 fn control_panel_path_reaches_the_far_corner_and_round_trips() {
     use super::machines::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = control_panel_new(&mut w, 4);
     panel_init_path(&mut w, id);
     let bytes = round_trip_item(&mut w, id);
@@ -338,7 +338,7 @@ fn control_panel_path_reaches_the_far_corner_and_round_trips() {
 #[test]
 fn warning_item_old_layout_loads() {
     use super::gadgets::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = muo_server::item::ops::new_item_with_id(&mut w, &WARNING_ITEM, 0x80);
     let mut out = SaveWriter::new(true);
     (ITEM_BASE.serialize)(&w, id, &mut out);
@@ -369,7 +369,7 @@ fn warning_item_old_layout_loads() {
 #[test]
 fn bulletin_message_record() {
     use crate::bulletin::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let poster = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
     let id = bulletin_message_new(
         &mut w,
@@ -403,7 +403,7 @@ fn bulletin_message_record() {
 #[test]
 fn mahjong_game_record() {
     use crate::games::mahjong::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = mahjong_game_new(&mut w, &MAHJONG_GAME);
     let bytes = round_trip_item(&mut w, id);
     let d = w.item(id).unwrap().ext.get::<GameData>().unwrap().clone();
@@ -423,7 +423,7 @@ fn mahjong_game_record() {
 #[test]
 fn constructor_tables_replace_the_stand_ins() {
     use muo_content::props::{Value, ctors_of};
-    let mut w = World::new();
+    let mut w = crate::test_world();
     super::basic::basic_configure(&mut w);
     super::gadgets::gadgets_configure(&mut w);
     crate::maps::ctors_configure(&mut w);
@@ -451,7 +451,7 @@ fn constructor_tables_replace_the_stand_ins() {
 #[test]
 fn unholy_bone_is_carvable_and_a_loaded_one_spawns() {
     use muo_server::ids::EntityId;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     super::gadgets::gadgets_configure(&mut w);
     let m = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
     let bone = (super::gadgets::UNHOLY_BONE.construct.unwrap())(&mut w);
@@ -460,7 +460,7 @@ fn unholy_bone_is_carvable_and_a_loaded_one_spawns() {
     let _ = EntityId::Item(bone);
     // A loaded bone gets its SpawnTimer back ([AfterDeserialization]).
     let t = &super::gadgets::UNHOLY_BONE;
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let b = (t.construct.unwrap())(&mut w2);
     let bytes = save(&w2, b);
     let loaded = w2.add_item(muo_server::item::Item::new_for_load(
