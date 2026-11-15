@@ -253,7 +253,9 @@ fn los_blocker_initialize(w: &mut World) {
 pub static POWER_CRYSTAL: ItemType = ItemType {
     full_name: "Server.Items.PowerCrystal",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &POWER_CRYSTAL, "Server.Items.PowerCrystal")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &POWER_CRYSTAL, "Server.Items.PowerCrystal")
+    }),
     default_weight: crate::class_props::default_weight,
     default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {

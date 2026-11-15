@@ -19,7 +19,7 @@ use muo_server::poison::{PoisonId, Poisons};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
 pub use super::plain::new_bottle;
-use super::{hue, read_version, write_version};
+use super::{read_version, write_version};
 
 /// What differs between potion classes: the overrides of `BasePotion`' subclasses.
 #[derive(Copy, Clone)]

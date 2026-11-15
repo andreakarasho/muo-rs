@@ -12,7 +12,6 @@ use muo_server::ids::{EntityId, ItemId};
 use muo_server::item::{ITEM_BASE, ItemType, base, deps, ops};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-
 /// `SpellScroll._spellID`.
 #[derive(Clone, Copy, Debug, Default)]
 pub struct ScrollData {

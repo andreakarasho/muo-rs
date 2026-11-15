@@ -217,7 +217,7 @@ mod tests {
 
     #[test]
     fn strong_box_saves_owner_and_house_after_the_container() {
-        let mut w = World::new();
+        let mut w = crate::keyed_world();
         let id = new_strong_box(&mut w, None, None);
         assert_eq!(w.item(id).unwrap().item_id, 0xE80);
         let mut out = SaveWriter::new(true);

@@ -52,7 +52,9 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         "potionEffect",
         |v| check_name(v, &names(potions::EFFECT_NAMES)),
         |w, id, v| {
-            let n = v.as_str().and_then(|s| potions::EFFECT_NAMES.iter().find(|e| e.0 == s));
+            let n = v
+                .as_str()
+                .and_then(|s| potions::EFFECT_NAMES.iter().find(|e| e.0 == s));
             if let Some(&(_, e)) = n {
                 potions::set_effect(w, id, e);
             }
@@ -68,9 +70,8 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     });
     // `MapItem.SetDisplay(x1, y1, x2, y2, w, h)`.
     item_key(types, "mapDisplay", check_ints::<6>, |w, id, v| {
-        if let [x1, y1, x2, y2, wd, h] = ints::<6>(v) {
-            crate::maps::set_display(w, id, x1, y1, x2, y2, wd, h);
-        }
+        let [x1, y1, x2, y2, wd, h] = ints::<6>(v);
+        crate::maps::set_display(w, id, x1, y1, x2, y2, wd, h);
     });
     // `BaseLight.Duration = Burnout ? TimeSpan.FromMinutes(n) : TimeSpan.Zero`.
     item_key(types, "burnoutMinutes", check_int, |w, id, v| {

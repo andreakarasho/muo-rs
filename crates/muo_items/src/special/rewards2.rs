@@ -391,7 +391,11 @@ pub fn set_powder_uses(w: &mut World, id: ItemId, value: i32) {
 
 /// `PowderOfTemperament(charges)`.
 pub fn powder_of_temperament_new(w: &mut World, charges: i32) -> ItemId {
-    let id = crate::simple::from_template(w, &POWDER_OF_TEMPERAMENT, "Server.Items.PowderOfTemperament");
+    let id = crate::simple::from_template(
+        w,
+        &POWDER_OF_TEMPERAMENT,
+        "Server.Items.PowderOfTemperament",
+    );
     set_powder_uses(w, id, charges);
     id
 }

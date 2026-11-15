@@ -1113,7 +1113,8 @@ impl Pick for BrazierPick {
 
 /// `RewardBrazierDeed()`.
 pub fn reward_brazier_deed_new(w: &mut World) -> ItemId {
-    let id = crate::simple::from_template(w, &REWARD_BRAZIER_DEED, "Server.Items.RewardBrazierDeed");
+    let id =
+        crate::simple::from_template(w, &REWARD_BRAZIER_DEED, "Server.Items.RewardBrazierDeed");
     blessed(w, id)
 }
 

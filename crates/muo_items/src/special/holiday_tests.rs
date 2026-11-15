@@ -15,7 +15,7 @@ fn save(w: &World, id: ItemId) -> Vec<u8> {
 }
 
 fn load(t: &'static ItemType, bytes: &[u8]) -> (World, ItemId) {
-    let mut w = World::new();
+    let mut w = crate::keyed_world();
     let id = w.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0001),
         t,
@@ -48,7 +48,7 @@ fn string_fields_save_after_the_version_and_come_back() {
 
 #[test]
 fn a_painted_mask_is_named_after_its_painter() {
-    let mut w = World::new();
+    let mut w = crate::keyed_world();
     let id = (holiday4::PAINTED_DAEMON_MASK.construct.unwrap())(&mut w);
     let item = w.item(id).unwrap();
     let name = (item.ty.default_name)(&w, id).unwrap();

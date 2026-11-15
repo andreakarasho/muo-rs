@@ -129,7 +129,6 @@ const ALL: [&ItemType; 16] = [
 
 // ---- the bags ----
 
-
 /// `DropItem(new <name>(amount))` for each name, in order.
 pub fn drop_reagents(w: &mut World, bag: ItemId, names: &[&str], amount: i32) {
     for n in names {

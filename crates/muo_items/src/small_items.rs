@@ -116,7 +116,13 @@ static TOWER_LANTERN_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
 pub static TOWER_LANTERN_ARTIFACT: ItemType = ItemType {
     full_name: "Server.Items.TowerLanternArtifact",
     parent: Some(&BASE_DECORATION_ARTIFACT),
-    construct: Some(|w| crate::simple::from_template(w, &TOWER_LANTERN_ARTIFACT, "Server.Items.TowerLanternArtifact")),
+    construct: Some(|w| {
+        crate::simple::from_template(
+            w,
+            &TOWER_LANTERN_ARTIFACT,
+            "Server.Items.TowerLanternArtifact",
+        )
+    }),
     family: Some(&TOWER_LANTERN_CLASS),
     on_double_click: |w, id, from| {
         if !deps::mobile_in_range(w, from, ops::get_world_location(w, id), 2) {

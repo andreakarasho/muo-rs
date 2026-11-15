@@ -1359,7 +1359,7 @@ mod tests {
 
     #[test]
     fn endless_decanter_constructs_blessed_with_water() {
-        let mut w = World::new();
+        let mut w = crate::keyed_world();
         let id = (ENDLESS_DECANTER.construct.unwrap())(&mut w);
         let i = w.item(id).unwrap();
         assert_eq!(

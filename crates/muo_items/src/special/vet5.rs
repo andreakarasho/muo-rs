@@ -876,7 +876,11 @@ fn set_uses(w: &mut World, id: ItemId, n: i32) {
 
 /// `WeaponEngravingTool(uses = 10)`.
 pub fn weapon_engraving_tool_new(w: &mut World, uses: i32) -> ItemId {
-    let id = crate::simple::from_template(w, &WEAPON_ENGRAVING_TOOL, "Server.Items.WeaponEngravingTool");
+    let id = crate::simple::from_template(
+        w,
+        &WEAPON_ENGRAVING_TOOL,
+        "Server.Items.WeaponEngravingTool",
+    );
     set_uses_raw(w, id, uses);
     id
 }

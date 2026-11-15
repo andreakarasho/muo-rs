@@ -145,13 +145,20 @@ pub fn new_wand(w: &mut World, ty: &'static ItemType) -> ItemId {
     // `base(0xDF2 + Utility.Random(4))`
     let graphic = 0xDF2 + utility::random(&mut w.rng, 4);
     let id = new_weapon(w, ty, graphic);
-    let effect = crate::class_props::str_of(w, id, "wandEffect")
-        .and_then(|n| (0..=10).filter_map(WandEffect::from_i32).find(|e| format!("{e:?}") == n));
+    let effect = crate::class_props::str_of(w, id, "wandEffect").and_then(|n| {
+        (0..=10)
+            .filter_map(WandEffect::from_i32)
+            .find(|e| format!("{e:?}") == n)
+    });
     let min_charges = muo_content::templates::item_props::int(w, id, "minCharges", 0);
     let ml = muo_content::core::ml(w);
-    let max_charges =
-        muo_content::templates::item_props::ml_int(w, id, "maxCharges", muo_content::items::same(0))
-            .get(ml);
+    let max_charges = muo_content::templates::item_props::ml_int(
+        w,
+        id,
+        "maxCharges",
+        muo_content::items::same(0),
+    )
+    .get(ml);
     if let Some(d) = weapon::data_mut(w, id) {
         d.wand_effect = effect.map_or(0, |e| e as i32);
     }
@@ -464,7 +471,6 @@ macro_rules! wand_leaves {
         pub static LEAVES: &[&ItemType] = &[$(&$name),*];
     };
 }
-
 
 wand_leaves! {
     /// `Server.Items.ClumsyWand`.

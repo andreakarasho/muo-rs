@@ -12,7 +12,7 @@ use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-use crate::simple::{random_from, random_min_max};
+use crate::simple::random_min_max;
 
 fn scissor_bones(w: &mut World, id: ItemId, from: MobileId, min: i32, max: i32) -> bool {
     if ops::is_deleted(w, id) || !deps::can_see(w, from, id) {

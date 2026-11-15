@@ -12,6 +12,7 @@ fn world() -> World {
     muo_content::items::common::register(&mut w.types);
     muo_content::items::leaves::register(&mut w.types);
     muo_server::type_registry::invoke_phase(&mut w, muo_server::type_registry::Phase::Configure);
+    muo_content::templates::table(&mut w);
     w
 }
 

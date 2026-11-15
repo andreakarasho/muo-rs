@@ -315,7 +315,9 @@ pub static ACID: ItemType = ItemType {
 pub static ORIGAMI_PAPER: ItemType = ItemType {
     full_name: "Server.Items.OrigamiPaper",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ORIGAMI_PAPER, "Server.Items.OrigamiPaper")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ORIGAMI_PAPER, "Server.Items.OrigamiPaper")
+    }),
     label_number: crate::class_props::label_number, // origami paper
     on_double_click: |w, id, from| {
         let pack = w.mobile(from).and_then(|m| m.backpack);

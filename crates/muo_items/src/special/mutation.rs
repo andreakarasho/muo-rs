@@ -1360,7 +1360,11 @@ pub static PLAGUE_BEAST_BACKPACK: ItemType = ItemType {
 
 /// `PlagueBeastMutationCore()`.
 pub fn plague_beast_mutation_core_new(w: &mut World) -> ItemId {
-    let id = crate::simple::from_template(w, &PLAGUE_BEAST_MUTATION_CORE, "Server.Items.PlagueBeastMutationCore");
+    let id = crate::simple::from_template(
+        w,
+        &PLAGUE_BEAST_MUTATION_CORE,
+        "Server.Items.PlagueBeastMutationCore",
+    );
     if let Some(d) = pb_mut(w, id) {
         d.cut = true;
     }

@@ -9,8 +9,7 @@ use muo_server::light_type::LightType;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::lights::{
-    BASE_LIGHT, BASE_LIGHT_CLASS, BURNOUT, LightClass, base_light_new, douse_base, set_burning,
-    set_duration,
+    BASE_LIGHT, BASE_LIGHT_CLASS, LightClass, base_light_new, douse_base, set_burning, set_duration,
 };
 use crate::simple::leaf;
 

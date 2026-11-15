@@ -27,7 +27,7 @@ use crate::addons::devices::{
     spinning_wheel_spinning,
 };
 use crate::commodity;
-use crate::simple::{hue, random_from, random_min_max};
+use crate::simple::{hue, random_min_max};
 
 fn make(w: &mut World, name: &str) -> Option<ItemId> {
     muo_content::factory::make_item(w, name)
@@ -188,7 +188,14 @@ pub static TAINTED_WOOL: ItemType = ItemType {
 static C_TAINTED_WOOL: [Ctor; 1] = [Ctor {
     access: None,
     params: &AMOUNT_1,
-    make: |w, v| EntityId::Item(new_stack(w, &TAINTED_WOOL, "Server.Items.TaintedWool", v[0].i32())),
+    make: |w, v| {
+        EntityId::Item(new_stack(
+            w,
+            &TAINTED_WOOL,
+            "Server.Items.TaintedWool",
+            v[0].i32(),
+        ))
+    },
 }];
 
 // ---- spinning ----
@@ -632,7 +639,9 @@ static PECULIAR_C: MagicFishClass = MagicFishClass {
 pub static PECULIAR_FISH: ItemType = ItemType {
     full_name: "Server.Items.PeculiarFish",
     parent: Some(&BASE_MAGIC_FISH),
-    construct: Some(|w| crate::simple::from_template(w, &PECULIAR_FISH, "Server.Items.PeculiarFish")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &PECULIAR_FISH, "Server.Items.PeculiarFish")
+    }),
     family: Some(&PECULIAR_C),
     label_number: crate::class_props::label_number, // highly peculiar fish
     serialize: |w, id, out| {

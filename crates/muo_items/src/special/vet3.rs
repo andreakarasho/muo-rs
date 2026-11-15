@@ -666,7 +666,11 @@ pub fn shield_west_item_id(east: i32) -> i32 {
 
 /// `DecorativeShieldDeed()`.
 pub fn decorative_shield_deed_new(w: &mut World) -> ItemId {
-    crate::simple::from_template(w, &DECORATIVE_SHIELD_DEED, "Server.Items.DecorativeShieldDeed")
+    crate::simple::from_template(
+        w,
+        &DECORATIVE_SHIELD_DEED,
+        "Server.Items.DecorativeShieldDeed",
+    )
 }
 
 const SHIELD_START: i32 = 0x156C;

@@ -46,9 +46,9 @@ pub mod wands;
 pub mod weapons;
 pub mod wiring;
 
+pub mod class_props;
 mod template_keys_equipment;
 mod template_keys_misc;
-pub mod class_props;
 
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
@@ -91,6 +91,15 @@ pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
     wiring::register(types);
 }
 
+/// A bare test world that knows this crate's template keys (a bare world's template load skips unknown keys).
+#[cfg(test)]
+pub(crate) fn keyed_world() -> muo_server::World {
+    let mut w = muo_server::World::new();
+    template_keys_misc::register(&mut w.types);
+    muo_content::templates::table(&mut w); // class props read the loaded table
+    w
+}
+
 #[cfg(test)]
 mod leaf_clothing_tests;
 
@@ -105,3 +114,6 @@ mod packet_tests;
 
 #[cfg(test)]
 mod template_tests;
+
+#[cfg(test)]
+mod template_tests_misc;

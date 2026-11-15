@@ -86,8 +86,10 @@ pub fn unlit_item_id(w: &World, id: ItemId) -> i32 {
 /// The prop `key` of class `ty` (its class chain), for callers that hold a class and no item.
 pub fn of_class<'a>(w: &'a World, ty: &'static ItemType, key: &str) -> Option<&'a Value> {
     let t = templates::loaded(w)?;
-    std::iter::successors(Some(ty), |c| c.parent)
-        .find_map(|c| t.chain(Kind::Item, c.full_name).find_map(|tm| tm.props.get(key)))
+    std::iter::successors(Some(ty), |c| c.parent).find_map(|c| {
+        t.chain(Kind::Item, c.full_name)
+            .find_map(|tm| tm.props.get(key))
+    })
 }
 
 /// A string prop of the item's class (`None` when no class in its chain sets one).

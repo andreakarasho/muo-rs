@@ -8,7 +8,7 @@
 use muo_content::props::{Ctor, Kind, Param, Value, add_ctors};
 use muo_content::utilities::types::{Numeric, PropType};
 use muo_io::{GenericReader, GenericWriter, IoError, Result, SpanReader};
-use muo_primitives::{Point2D, Rectangle2D, Serial, utility};
+use muo_primitives::{Point2D, Rectangle2D, Serial};
 use muo_server::World;
 use muo_server::ext::Ext;
 use muo_server::ids::{EntityId, ItemId, MobileId};
@@ -21,7 +21,7 @@ use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::skills::SkillName;
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-use crate::misc::{hue, read_version, write_version};
+use crate::misc::{read_version, write_version};
 
 pub mod treasure;
 

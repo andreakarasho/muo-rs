@@ -2,15 +2,13 @@
 //! are hand-written next to this file.
 
 use crate::lights::{
-    BASE_EQUIPABLE_LIGHT_CLASS, BASE_LIGHT_CLASS, BURNOUT, LightClass, base_equipable_light_new,
-    base_light_new, set_burning, set_duration,
+    BASE_EQUIPABLE_LIGHT_CLASS, BASE_LIGHT_CLASS, LightClass, base_equipable_light_new,
+    base_light_new,
 };
 use crate::simple::leaf;
-use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
-use muo_server::light_type::LightType;
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 use crate::lights::BASE_EQUIPABLE_LIGHT;

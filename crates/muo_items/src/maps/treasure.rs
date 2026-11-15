@@ -683,7 +683,8 @@ fn dig_target(w: &mut World, id: ItemId, from: MobileId, targeted: muo_server::t
 
 /// `TreasureChestDirt()`.
 pub fn dirt_new(w: &mut World) -> ItemId {
-    let id = crate::simple::from_template(w, &TREASURE_CHEST_DIRT, "Server.Items.TreasureChestDirt");
+    let id =
+        crate::simple::from_template(w, &TREASURE_CHEST_DIRT, "Server.Items.TreasureChestDirt");
     muo_server::timer::start(w, TimeSpan::from_mins(2), TimeSpan::ZERO, 1, move |w| {
         if let Some(ty) = w.item(id).map(|i| i.ty) {
             (ty.delete)(w, id);

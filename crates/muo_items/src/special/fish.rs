@@ -219,7 +219,9 @@ plain_item!(
 pub static VACATION_WAFER: ItemType = ItemType {
     full_name: "Server.Items.VacationWafer",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &VACATION_WAFER, "Server.Items.VacationWafer")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &VACATION_WAFER, "Server.Items.VacationWafer")
+    }),
     label_number: crate::class_props::label_number, // An aquarium flake sphere
     add_name_properties: |w, id, list| {
         (ITEM_BASE.add_name_properties)(w, id, list);

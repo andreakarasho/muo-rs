@@ -354,7 +354,9 @@ pub static MONSTER_STATUETTE: ItemType = ItemType {
 pub static HERITAGE_TOKEN: ItemType = ItemType {
     full_name: "Server.Items.HeritageToken",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &HERITAGE_TOKEN, "Server.Items.HeritageToken")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &HERITAGE_TOKEN, "Server.Items.HeritageToken")
+    }),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // A Heritage Token
     on_double_click: |w, id, from| {
@@ -435,7 +437,13 @@ pub static BASE_IMPRISONED_MOBILE: ItemType = ItemType {
 pub static GRIZZLED_MARE_STATUETTE: ItemType = ItemType {
     full_name: "Server.Items.GrizzledMareStatuette",
     parent: Some(&BASE_IMPRISONED_MOBILE),
-    construct: Some(|w| crate::simple::from_template(w, &GRIZZLED_MARE_STATUETTE, "Server.Items.GrizzledMareStatuette")),
+    construct: Some(|w| {
+        crate::simple::from_template(
+            w,
+            &GRIZZLED_MARE_STATUETTE,
+            "Server.Items.GrizzledMareStatuette",
+        )
+    }),
     family: Some(&GRIZZLED_MARE_CLASS),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // Grizzled Mare Statuette

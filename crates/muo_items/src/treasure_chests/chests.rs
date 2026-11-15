@@ -5,7 +5,7 @@
 use muo_content::items::cont::{self, LOCKABLE_CONTAINER, TrapType, new_lockable};
 use muo_content::items::gold::new_gold;
 use muo_content::loot;
-use muo_primitives::{Rectangle2D, TimeSpan};
+use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ItemType, container, ops};

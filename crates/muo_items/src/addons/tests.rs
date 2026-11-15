@@ -335,7 +335,7 @@ fn jack_o_lantern_builds_its_four_components() {
 
 #[test]
 fn wall_torch_toggles_its_graphic() {
-    let mut w = World::new();
+    let mut w = crate::keyed_world();
     let a = sp::wall_torch_addon_new(&mut w);
     let c = addon::components(&w, a)[0];
     assert_eq!(w.item(c).unwrap().item_id, 0x3D98);

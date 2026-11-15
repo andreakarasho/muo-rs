@@ -80,7 +80,8 @@ pub static TAPESTRY_OF_SOSARIA: ItemType = ItemType {
     full_name: "Server.Items.TapestryOfSosaria",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = crate::simple::from_template(w, &TAPESTRY_OF_SOSARIA, "Server.Items.TapestryOfSosaria");
+        let id =
+            crate::simple::from_template(w, &TAPESTRY_OF_SOSARIA, "Server.Items.TapestryOfSosaria");
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(Secure(0));
         }
@@ -195,7 +196,8 @@ pub fn set_petals(w: &mut World, id: ItemId, value: i32) {
 
 /// `RoseOfTrinsicPetal(amount)`.
 pub fn rose_petal_new(w: &mut World, amount: i32) -> ItemId {
-    let id = crate::simple::from_template(w, &ROSE_OF_TRINSIC_PETAL, "Server.Items.RoseOfTrinsicPetal");
+    let id =
+        crate::simple::from_template(w, &ROSE_OF_TRINSIC_PETAL, "Server.Items.RoseOfTrinsicPetal");
     ops::set_amount(w, id, amount);
     super::hue(w, id, 0xE);
     id

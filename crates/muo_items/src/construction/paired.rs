@@ -363,7 +363,6 @@ macro_rules! ankhs {
     )*};
 }
 
-
 /// `new AnkhWest(bloodied)` / `new AnkhNorth(bloodied)`.
 pub fn new_ankh_bloodied(w: &mut World, north: bool, bloodied: bool) -> ItemId {
     let (main, inner, mg, ig) = if north {

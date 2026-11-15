@@ -2,7 +2,7 @@
 //!
 //! `IT2ACombinable` and `T2ACooking` are at the end: [`t2a_prompt`], [`try_combine`].
 
-use muo_content::items::food::{BASE_FOOD_CLASS, FOOD, FoodClass, new_food, set_fill_factor};
+use muo_content::items::food::{BASE_FOOD_CLASS, FOOD, FoodClass, new_food};
 use muo_content::props::{Ctor, Kind, Param, Value, add_ctors};
 use muo_content::utilities::types::{Numeric, PropType};
 use muo_server::World;
@@ -12,8 +12,6 @@ use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::mobile::part2::messages::send_ascii_message;
 use muo_server::target::{self, TargetFlags, Targeted};
 use muo_server::type_registry::{Phase, TypeRegistry};
-
-use crate::simple::{hue, random};
 
 fn make(w: &mut World, name: &str) -> Option<ItemId> {
     muo_content::factory::make_item(w, name)
@@ -82,7 +80,6 @@ bowls! {
 pub struct CookData {
     pub level: i32,
 }
-
 
 /// `cookableFood.CookingLevel`.
 pub fn cooking_level(w: &World, id: ItemId) -> i32 {
@@ -216,11 +213,6 @@ macro_rules! plain {
             ..ITEM_BASE
         };
     )*};
-}
-
-fn stackable_ml(w: &mut World, id: ItemId) {
-    let ml = muo_content::core::ml(w);
-    ops::set_stackable(w, id, ml);
 }
 
 plain! {
@@ -458,7 +450,7 @@ mod tests {
 
     #[test]
     fn cookable_food_saves_version_and_cooking_level() {
-        let mut w = World::new();
+        let mut w = crate::keyed_world();
         let id = (CAKE_MIX.construct.unwrap())(&mut w);
         assert_eq!(cooking_level(&w, id), 40);
         let bytes = save(&w, id);

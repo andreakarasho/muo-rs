@@ -154,7 +154,9 @@ impl DynamicGumpLogic for HairRestylingGump {
 pub static HAIR_RESTYLING_DEED: ItemType = ItemType {
     full_name: "Server.Items.HairRestylingDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &HAIR_RESTYLING_DEED, "Server.Items.HairRestylingDeed")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &HAIR_RESTYLING_DEED, "Server.Items.HairRestylingDeed")
+    }),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // a coupon for a free hair restyling
     on_double_click: |w, id, from| {
@@ -223,7 +225,9 @@ fn place_barkeeper(w: &mut World, from: MobileId, house: Option<ItemId>, contrac
 pub static BARKEEP_CONTRACT: ItemType = ItemType {
     full_name: "Server.Items.BarkeepContract",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &BARKEEP_CONTRACT, "Server.Items.BarkeepContract")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &BARKEEP_CONTRACT, "Server.Items.BarkeepContract")
+    }),
     default_weight: crate::class_props::default_weight,
     default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {

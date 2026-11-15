@@ -132,7 +132,7 @@ fn a_smith_hammer_record_is_the_golden_bytes() {
 #[test]
 fn a_scroll_record_is_the_golden_bytes() {
     // Item part, then SpellScroll: version 0 and spell id 681, then the subclass's version 0.
-    let mut w = World::new();
+    let mut w = crate::keyed_world();
     let id = (super::scroll_list::SLEEP_SCROLL.construct.unwrap())(&mut w);
     let bytes = save(&w, id);
     assert_eq!(
@@ -153,7 +153,7 @@ fn a_spellbook_counts_its_spells() {
 #[test]
 fn a_heal_potion_record_is_the_golden_bytes() {
     // BasePotion: version 2 and the effect (HealLesser 14, an encoded int); BaseHealPotion 0; LesserHealPotion 0.
-    let mut w = World::new();
+    let mut w = crate::keyed_world();
     let id = super::potions::new_lesser_heal(&mut w);
     let bytes = save(&w, id);
     assert_eq!(

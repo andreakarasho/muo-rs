@@ -681,7 +681,11 @@ pub fn new_house_door(
 /// A door class's `(baseItemID, openedSound, closedSound)` constructor arguments: its `doorBaseId`, `openedSound`
 /// and `closedSound` props.
 fn door_args(w: &World, ty: &'static ItemType) -> (i32, i32, i32) {
-    let n = |k| crate::class_props::of_class(w, ty, k).and_then(serde_json::Value::as_i64).unwrap_or(0) as i32;
+    let n = |k| {
+        crate::class_props::of_class(w, ty, k)
+            .and_then(serde_json::Value::as_i64)
+            .unwrap_or(0) as i32
+    };
     (n("doorBaseId"), n("openedSound"), n("closedSound"))
 }
 
@@ -819,7 +823,15 @@ static C_METAL_HOUSE_DOOR: [Ctor; 1] = [Ctor {
     params: &FACING_PARAM,
     make: |w, v| {
         let (base, os, cs) = door_args(w, &METAL_HOUSE_DOOR);
-        EntityId::Item(new_house_door(w, &METAL_HOUSE_DOOR, facing_of(v), base, os, cs, true))
+        EntityId::Item(new_house_door(
+            w,
+            &METAL_HOUSE_DOOR,
+            facing_of(v),
+            base,
+            os,
+            cs,
+            true,
+        ))
     },
 }];
 static C_DARK_WOOD_HOUSE_DOOR: [Ctor; 1] = [Ctor {
@@ -827,7 +839,15 @@ static C_DARK_WOOD_HOUSE_DOOR: [Ctor; 1] = [Ctor {
     params: &FACING_PARAM,
     make: |w, v| {
         let (base, os, cs) = door_args(w, &DARK_WOOD_HOUSE_DOOR);
-        EntityId::Item(new_house_door(w, &DARK_WOOD_HOUSE_DOOR, facing_of(v), base, os, cs, true))
+        EntityId::Item(new_house_door(
+            w,
+            &DARK_WOOD_HOUSE_DOOR,
+            facing_of(v),
+            base,
+            os,
+            cs,
+            true,
+        ))
     },
 }];
 static GENERIC_PARAMS: [Param; 5] = [

@@ -10,7 +10,9 @@ use super::{read_version, write_version};
 pub static ICICLE_LARGE_SOUTH: ItemType = ItemType {
     full_name: "Server.Items.IcicleLargeSouth",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ICICLE_LARGE_SOUTH, "Server.Items.IcicleLargeSouth")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ICICLE_LARGE_SOUTH, "Server.Items.IcicleLargeSouth")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -27,7 +29,9 @@ pub static ICICLE_LARGE_SOUTH: ItemType = ItemType {
 pub static ICICLE_MED_SOUTH: ItemType = ItemType {
     full_name: "Server.Items.IcicleMedSouth",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ICICLE_MED_SOUTH, "Server.Items.IcicleMedSouth")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ICICLE_MED_SOUTH, "Server.Items.IcicleMedSouth")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -44,7 +48,9 @@ pub static ICICLE_MED_SOUTH: ItemType = ItemType {
 pub static ICICLE_SMALL_SOUTH: ItemType = ItemType {
     full_name: "Server.Items.IcicleSmallSouth",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ICICLE_SMALL_SOUTH, "Server.Items.IcicleSmallSouth")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ICICLE_SMALL_SOUTH, "Server.Items.IcicleSmallSouth")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -61,7 +67,9 @@ pub static ICICLE_SMALL_SOUTH: ItemType = ItemType {
 pub static ICICLE_LARGE_EAST: ItemType = ItemType {
     full_name: "Server.Items.IcicleLargeEast",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ICICLE_LARGE_EAST, "Server.Items.IcicleLargeEast")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ICICLE_LARGE_EAST, "Server.Items.IcicleLargeEast")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -78,7 +86,9 @@ pub static ICICLE_LARGE_EAST: ItemType = ItemType {
 pub static ICICLE_MED_EAST: ItemType = ItemType {
     full_name: "Server.Items.IcicleMedEast",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ICICLE_MED_EAST, "Server.Items.IcicleMedEast")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ICICLE_MED_EAST, "Server.Items.IcicleMedEast")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -95,7 +105,9 @@ pub static ICICLE_MED_EAST: ItemType = ItemType {
 pub static ICICLE_SMALL_EAST: ItemType = ItemType {
     full_name: "Server.Items.IcicleSmallEast",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ICICLE_SMALL_EAST, "Server.Items.IcicleSmallEast")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ICICLE_SMALL_EAST, "Server.Items.IcicleSmallEast")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -130,7 +142,9 @@ pub static COAL: ItemType = ItemType {
 pub static RED_POINSETTIA: ItemType = ItemType {
     full_name: "Server.Items.RedPoinsettia",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &RED_POINSETTIA, "Server.Items.RedPoinsettia")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &RED_POINSETTIA, "Server.Items.RedPoinsettia")
+    }),
     default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -148,7 +162,9 @@ pub static RED_POINSETTIA: ItemType = ItemType {
 pub static WHITE_POINSETTIA: ItemType = ItemType {
     full_name: "Server.Items.WhitePoinsettia",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &WHITE_POINSETTIA, "Server.Items.WhitePoinsettia")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &WHITE_POINSETTIA, "Server.Items.WhitePoinsettia")
+    }),
     default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -166,7 +182,9 @@ pub static WHITE_POINSETTIA: ItemType = ItemType {
 pub static BLUE_SNOWFLAKE: ItemType = ItemType {
     full_name: "Server.Items.BlueSnowflake",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &BLUE_SNOWFLAKE, "Server.Items.BlueSnowflake")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &BLUE_SNOWFLAKE, "Server.Items.BlueSnowflake")
+    }),
     default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -184,7 +202,9 @@ pub static BLUE_SNOWFLAKE: ItemType = ItemType {
 pub static WHITE_SNOWFLAKE: ItemType = ItemType {
     full_name: "Server.Items.WhiteSnowflake",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &WHITE_SNOWFLAKE, "Server.Items.WhiteSnowflake")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &WHITE_SNOWFLAKE, "Server.Items.WhiteSnowflake")
+    }),
     default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -202,7 +222,9 @@ pub static WHITE_SNOWFLAKE: ItemType = ItemType {
 pub static UNFINISHED_BARREL: ItemType = ItemType {
     full_name: "Server.Items.UnfinishedBarrel",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &UNFINISHED_BARREL, "Server.Items.UnfinishedBarrel")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &UNFINISHED_BARREL, "Server.Items.UnfinishedBarrel")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -321,7 +343,9 @@ pub static DECO_FLOWER2: ItemType = ItemType {
 pub static DECO_ROSE_OF_TRINSIC: ItemType = ItemType {
     full_name: "Server.Items.DecoRoseOfTrinsic",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_ROSE_OF_TRINSIC, "Server.Items.DecoRoseOfTrinsic")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_ROSE_OF_TRINSIC, "Server.Items.DecoRoseOfTrinsic")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -338,7 +362,9 @@ pub static DECO_ROSE_OF_TRINSIC: ItemType = ItemType {
 pub static DECO_ROSE_OF_TRINSIC2: ItemType = ItemType {
     full_name: "Server.Items.DecoRoseOfTrinsic2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_ROSE_OF_TRINSIC2, "Server.Items.DecoRoseOfTrinsic2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_ROSE_OF_TRINSIC2, "Server.Items.DecoRoseOfTrinsic2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -355,7 +381,9 @@ pub static DECO_ROSE_OF_TRINSIC2: ItemType = ItemType {
 pub static DECO_ROSE_OF_TRINSIC3: ItemType = ItemType {
     full_name: "Server.Items.DecoRoseOfTrinsic3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_ROSE_OF_TRINSIC3, "Server.Items.DecoRoseOfTrinsic3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_ROSE_OF_TRINSIC3, "Server.Items.DecoRoseOfTrinsic3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -372,7 +400,13 @@ pub static DECO_ROSE_OF_TRINSIC3: ItemType = ItemType {
 pub static DECO_BOTTLES_OF_LIQUOR: ItemType = ItemType {
     full_name: "Server.Items.DecoBottlesOfLiquor",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_BOTTLES_OF_LIQUOR, "Server.Items.DecoBottlesOfLiquor")),
+    construct: Some(|w| {
+        crate::simple::from_template(
+            w,
+            &DECO_BOTTLES_OF_LIQUOR,
+            "Server.Items.DecoBottlesOfLiquor",
+        )
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -525,7 +559,9 @@ pub static CHESSMEN3: ItemType = ItemType {
 pub static DECO_GOLD_INGOT: ItemType = ItemType {
     full_name: "Server.Items.DecoGoldIngot",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GOLD_INGOT, "Server.Items.DecoGoldIngot")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GOLD_INGOT, "Server.Items.DecoGoldIngot")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -542,7 +578,9 @@ pub static DECO_GOLD_INGOT: ItemType = ItemType {
 pub static DECO_GOLD_INGOT2: ItemType = ItemType {
     full_name: "Server.Items.DecoGoldIngot2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GOLD_INGOT2, "Server.Items.DecoGoldIngot2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GOLD_INGOT2, "Server.Items.DecoGoldIngot2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -559,7 +597,9 @@ pub static DECO_GOLD_INGOT2: ItemType = ItemType {
 pub static DECO_GOLD_INGOTS: ItemType = ItemType {
     full_name: "Server.Items.DecoGoldIngots",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GOLD_INGOTS, "Server.Items.DecoGoldIngots")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GOLD_INGOTS, "Server.Items.DecoGoldIngots")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -576,7 +616,9 @@ pub static DECO_GOLD_INGOTS: ItemType = ItemType {
 pub static DECO_GOLD_INGOTS2: ItemType = ItemType {
     full_name: "Server.Items.DecoGoldIngots2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GOLD_INGOTS2, "Server.Items.DecoGoldIngots2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GOLD_INGOTS2, "Server.Items.DecoGoldIngots2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -593,7 +635,9 @@ pub static DECO_GOLD_INGOTS2: ItemType = ItemType {
 pub static DECO_GOLD_INGOTS3: ItemType = ItemType {
     full_name: "Server.Items.DecoGoldIngots3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GOLD_INGOTS3, "Server.Items.DecoGoldIngots3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GOLD_INGOTS3, "Server.Items.DecoGoldIngots3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -610,7 +654,9 @@ pub static DECO_GOLD_INGOTS3: ItemType = ItemType {
 pub static DECO_GOLD_INGOTS4: ItemType = ItemType {
     full_name: "Server.Items.DecoGoldIngots4",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GOLD_INGOTS4, "Server.Items.DecoGoldIngots4")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GOLD_INGOTS4, "Server.Items.DecoGoldIngots4")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -627,7 +673,9 @@ pub static DECO_GOLD_INGOTS4: ItemType = ItemType {
 pub static DECO_IRON_INGOT: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngot",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOT, "Server.Items.DecoIronIngot")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOT, "Server.Items.DecoIronIngot")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -644,7 +692,9 @@ pub static DECO_IRON_INGOT: ItemType = ItemType {
 pub static DECO_IRON_INGOT2: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngot2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOT2, "Server.Items.DecoIronIngot2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOT2, "Server.Items.DecoIronIngot2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -661,7 +711,9 @@ pub static DECO_IRON_INGOT2: ItemType = ItemType {
 pub static DECO_IRON_INGOTS: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngots",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOTS, "Server.Items.DecoIronIngots")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOTS, "Server.Items.DecoIronIngots")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -678,7 +730,9 @@ pub static DECO_IRON_INGOTS: ItemType = ItemType {
 pub static DECO_IRON_INGOTS2: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngots2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOTS2, "Server.Items.DecoIronIngots2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOTS2, "Server.Items.DecoIronIngots2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -695,7 +749,9 @@ pub static DECO_IRON_INGOTS2: ItemType = ItemType {
 pub static DECO_IRON_INGOTS3: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngots3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOTS3, "Server.Items.DecoIronIngots3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOTS3, "Server.Items.DecoIronIngots3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -712,7 +768,9 @@ pub static DECO_IRON_INGOTS3: ItemType = ItemType {
 pub static DECO_IRON_INGOTS4: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngots4",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOTS4, "Server.Items.DecoIronIngots4")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOTS4, "Server.Items.DecoIronIngots4")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -729,7 +787,9 @@ pub static DECO_IRON_INGOTS4: ItemType = ItemType {
 pub static DECO_IRON_INGOTS5: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngots5",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOTS5, "Server.Items.DecoIronIngots5")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOTS5, "Server.Items.DecoIronIngots5")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -746,7 +806,9 @@ pub static DECO_IRON_INGOTS5: ItemType = ItemType {
 pub static DECO_IRON_INGOTS6: ItemType = ItemType {
     full_name: "Server.Items.DecoIronIngots6",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_IRON_INGOTS6, "Server.Items.DecoIronIngots6")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_IRON_INGOTS6, "Server.Items.DecoIronIngots6")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -763,7 +825,9 @@ pub static DECO_IRON_INGOTS6: ItemType = ItemType {
 pub static DECO_SILVER_INGOT: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngot",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOT, "Server.Items.DecoSilverIngot")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOT, "Server.Items.DecoSilverIngot")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -780,7 +844,9 @@ pub static DECO_SILVER_INGOT: ItemType = ItemType {
 pub static DECO_SILVER_INGOT2: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngot2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOT2, "Server.Items.DecoSilverIngot2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOT2, "Server.Items.DecoSilverIngot2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -797,7 +863,9 @@ pub static DECO_SILVER_INGOT2: ItemType = ItemType {
 pub static DECO_SILVER_INGOTS: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngots",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOTS, "Server.Items.DecoSilverIngots")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOTS, "Server.Items.DecoSilverIngots")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -814,7 +882,9 @@ pub static DECO_SILVER_INGOTS: ItemType = ItemType {
 pub static DECO_SILVER_INGOTS2: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngots2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOTS2, "Server.Items.DecoSilverIngots2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOTS2, "Server.Items.DecoSilverIngots2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -831,7 +901,9 @@ pub static DECO_SILVER_INGOTS2: ItemType = ItemType {
 pub static DECO_SILVER_INGOTS3: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngots3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOTS3, "Server.Items.DecoSilverIngots3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOTS3, "Server.Items.DecoSilverIngots3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -848,7 +920,9 @@ pub static DECO_SILVER_INGOTS3: ItemType = ItemType {
 pub static DECO_SILVER_INGOTS4: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngots4",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOTS4, "Server.Items.DecoSilverIngots4")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOTS4, "Server.Items.DecoSilverIngots4")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -865,7 +939,9 @@ pub static DECO_SILVER_INGOTS4: ItemType = ItemType {
 pub static DECO_SILVER_INGOTS5: ItemType = ItemType {
     full_name: "Server.Items.DecoSilverIngots5",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SILVER_INGOTS5, "Server.Items.DecoSilverIngots5")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SILVER_INGOTS5, "Server.Items.DecoSilverIngots5")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -967,7 +1043,9 @@ pub static EMPTY_JARS4: ItemType = ItemType {
 pub static DECO_FULL_JAR: ItemType = ItemType {
     full_name: "Server.Items.DecoFullJar",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_FULL_JAR, "Server.Items.DecoFullJar")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_FULL_JAR, "Server.Items.DecoFullJar")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -984,7 +1062,9 @@ pub static DECO_FULL_JAR: ItemType = ItemType {
 pub static DECO_FULL_JARS3: ItemType = ItemType {
     full_name: "Server.Items.DecoFullJars3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_FULL_JARS3, "Server.Items.DecoFullJars3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_FULL_JARS3, "Server.Items.DecoFullJars3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1001,7 +1081,9 @@ pub static DECO_FULL_JARS3: ItemType = ItemType {
 pub static DECO_FULL_JARS4: ItemType = ItemType {
     full_name: "Server.Items.DecoFullJars4",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_FULL_JARS4, "Server.Items.DecoFullJars4")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_FULL_JARS4, "Server.Items.DecoFullJars4")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1018,7 +1100,9 @@ pub static DECO_FULL_JARS4: ItemType = ItemType {
 pub static HALF_EMPTY_JAR: ItemType = ItemType {
     full_name: "Server.Items.HalfEmptyJar",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &HALF_EMPTY_JAR, "Server.Items.HalfEmptyJar")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &HALF_EMPTY_JAR, "Server.Items.HalfEmptyJar")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1035,7 +1119,9 @@ pub static HALF_EMPTY_JAR: ItemType = ItemType {
 pub static HALF_EMPTY_JARS: ItemType = ItemType {
     full_name: "Server.Items.HalfEmptyJars",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &HALF_EMPTY_JARS, "Server.Items.HalfEmptyJars")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &HALF_EMPTY_JARS, "Server.Items.HalfEmptyJars")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1103,7 +1189,9 @@ pub static JARS4: ItemType = ItemType {
 pub static DECO_CRYSTAL_BALL: ItemType = ItemType {
     full_name: "Server.Items.DecoCrystalBall",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_CRYSTAL_BALL, "Server.Items.DecoCrystalBall")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_CRYSTAL_BALL, "Server.Items.DecoCrystalBall")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1120,7 +1208,9 @@ pub static DECO_CRYSTAL_BALL: ItemType = ItemType {
 pub static DECO_MAGICAL_CRYSTAL: ItemType = ItemType {
     full_name: "Server.Items.DecoMagicalCrystal",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_MAGICAL_CRYSTAL, "Server.Items.DecoMagicalCrystal")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_MAGICAL_CRYSTAL, "Server.Items.DecoMagicalCrystal")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1137,7 +1227,9 @@ pub static DECO_MAGICAL_CRYSTAL: ItemType = ItemType {
 pub static DECO_SPITTOON: ItemType = ItemType {
     full_name: "Server.Items.DecoSpittoon",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_SPITTOON, "Server.Items.DecoSpittoon")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_SPITTOON, "Server.Items.DecoSpittoon")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1154,7 +1246,9 @@ pub static DECO_SPITTOON: ItemType = ItemType {
 pub static DECO_BLACKMOOR: ItemType = ItemType {
     full_name: "Server.Items.DecoBlackmoor",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_BLACKMOOR, "Server.Items.DecoBlackmoor")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_BLACKMOOR, "Server.Items.DecoBlackmoor")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1171,7 +1265,9 @@ pub static DECO_BLACKMOOR: ItemType = ItemType {
 pub static DECO_BLOODSPAWN: ItemType = ItemType {
     full_name: "Server.Items.DecoBloodspawn",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_BLOODSPAWN, "Server.Items.DecoBloodspawn")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_BLOODSPAWN, "Server.Items.DecoBloodspawn")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1188,7 +1284,9 @@ pub static DECO_BLOODSPAWN: ItemType = ItemType {
 pub static DECO_BRIMSTONE: ItemType = ItemType {
     full_name: "Server.Items.DecoBrimstone",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_BRIMSTONE, "Server.Items.DecoBrimstone")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_BRIMSTONE, "Server.Items.DecoBrimstone")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1205,7 +1303,9 @@ pub static DECO_BRIMSTONE: ItemType = ItemType {
 pub static DECO_DRAGONS_BLOOD: ItemType = ItemType {
     full_name: "Server.Items.DecoDragonsBlood",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_DRAGONS_BLOOD, "Server.Items.DecoDragonsBlood")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_DRAGONS_BLOOD, "Server.Items.DecoDragonsBlood")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1222,7 +1322,9 @@ pub static DECO_DRAGONS_BLOOD: ItemType = ItemType {
 pub static DECO_DRAGONS_BLOOD2: ItemType = ItemType {
     full_name: "Server.Items.DecoDragonsBlood2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_DRAGONS_BLOOD2, "Server.Items.DecoDragonsBlood2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_DRAGONS_BLOOD2, "Server.Items.DecoDragonsBlood2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1239,7 +1341,9 @@ pub static DECO_DRAGONS_BLOOD2: ItemType = ItemType {
 pub static DECO_EYE_OF_NEWT: ItemType = ItemType {
     full_name: "Server.Items.DecoEyeOfNewt",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_EYE_OF_NEWT, "Server.Items.DecoEyeOfNewt")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_EYE_OF_NEWT, "Server.Items.DecoEyeOfNewt")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1290,7 +1394,9 @@ pub static DECO_GARLIC2: ItemType = ItemType {
 pub static DECO_GARLIC_BULB: ItemType = ItemType {
     full_name: "Server.Items.DecoGarlicBulb",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GARLIC_BULB, "Server.Items.DecoGarlicBulb")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GARLIC_BULB, "Server.Items.DecoGarlicBulb")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1307,7 +1413,9 @@ pub static DECO_GARLIC_BULB: ItemType = ItemType {
 pub static DECO_GARLIC_BULB2: ItemType = ItemType {
     full_name: "Server.Items.DecoGarlicBulb2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GARLIC_BULB2, "Server.Items.DecoGarlicBulb2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GARLIC_BULB2, "Server.Items.DecoGarlicBulb2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1341,7 +1449,9 @@ pub static DECO_GINSENG: ItemType = ItemType {
 pub static DECO_GINSENG2: ItemType = ItemType {
     full_name: "Server.Items.DecoGinseng2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GINSENG2, "Server.Items.DecoGinseng2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GINSENG2, "Server.Items.DecoGinseng2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1358,7 +1468,9 @@ pub static DECO_GINSENG2: ItemType = ItemType {
 pub static DECO_GINSENG_ROOT: ItemType = ItemType {
     full_name: "Server.Items.DecoGinsengRoot",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GINSENG_ROOT, "Server.Items.DecoGinsengRoot")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GINSENG_ROOT, "Server.Items.DecoGinsengRoot")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1375,7 +1487,9 @@ pub static DECO_GINSENG_ROOT: ItemType = ItemType {
 pub static DECO_GINSENG_ROOT2: ItemType = ItemType {
     full_name: "Server.Items.DecoGinsengRoot2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_GINSENG_ROOT2, "Server.Items.DecoGinsengRoot2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_GINSENG_ROOT2, "Server.Items.DecoGinsengRoot2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1392,7 +1506,9 @@ pub static DECO_GINSENG_ROOT2: ItemType = ItemType {
 pub static DECO_MANDRAKE: ItemType = ItemType {
     full_name: "Server.Items.DecoMandrake",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_MANDRAKE, "Server.Items.DecoMandrake")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_MANDRAKE, "Server.Items.DecoMandrake")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1409,7 +1525,9 @@ pub static DECO_MANDRAKE: ItemType = ItemType {
 pub static DECO_MANDRAKE2: ItemType = ItemType {
     full_name: "Server.Items.DecoMandrake2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_MANDRAKE2, "Server.Items.DecoMandrake2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_MANDRAKE2, "Server.Items.DecoMandrake2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1426,7 +1544,9 @@ pub static DECO_MANDRAKE2: ItemType = ItemType {
 pub static DECO_MANDRAKE3: ItemType = ItemType {
     full_name: "Server.Items.DecoMandrake3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_MANDRAKE3, "Server.Items.DecoMandrake3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_MANDRAKE3, "Server.Items.DecoMandrake3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1443,7 +1563,9 @@ pub static DECO_MANDRAKE3: ItemType = ItemType {
 pub static DECO_MANDRAKE_ROOT: ItemType = ItemType {
     full_name: "Server.Items.DecoMandrakeRoot",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_MANDRAKE_ROOT, "Server.Items.DecoMandrakeRoot")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_MANDRAKE_ROOT, "Server.Items.DecoMandrakeRoot")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1460,7 +1582,9 @@ pub static DECO_MANDRAKE_ROOT: ItemType = ItemType {
 pub static DECO_MANDRAKE_ROOT2: ItemType = ItemType {
     full_name: "Server.Items.DecoMandrakeRoot2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_MANDRAKE_ROOT2, "Server.Items.DecoMandrakeRoot2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_MANDRAKE_ROOT2, "Server.Items.DecoMandrakeRoot2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1477,7 +1601,9 @@ pub static DECO_MANDRAKE_ROOT2: ItemType = ItemType {
 pub static DECO_NIGHTSHADE: ItemType = ItemType {
     full_name: "Server.Items.DecoNightshade",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_NIGHTSHADE, "Server.Items.DecoNightshade")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_NIGHTSHADE, "Server.Items.DecoNightshade")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1494,7 +1620,9 @@ pub static DECO_NIGHTSHADE: ItemType = ItemType {
 pub static DECO_NIGHTSHADE2: ItemType = ItemType {
     full_name: "Server.Items.DecoNightshade2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_NIGHTSHADE2, "Server.Items.DecoNightshade2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_NIGHTSHADE2, "Server.Items.DecoNightshade2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1511,7 +1639,9 @@ pub static DECO_NIGHTSHADE2: ItemType = ItemType {
 pub static DECO_NIGHTSHADE3: ItemType = ItemType {
     full_name: "Server.Items.DecoNightshade3",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_NIGHTSHADE3, "Server.Items.DecoNightshade3")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_NIGHTSHADE3, "Server.Items.DecoNightshade3")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1528,7 +1658,9 @@ pub static DECO_NIGHTSHADE3: ItemType = ItemType {
 pub static DECO_OBSIDIAN: ItemType = ItemType {
     full_name: "Server.Items.DecoObsidian",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_OBSIDIAN, "Server.Items.DecoObsidian")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_OBSIDIAN, "Server.Items.DecoObsidian")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1562,7 +1694,9 @@ pub static DECO_PUMICE: ItemType = ItemType {
 pub static DECO_WYRMS_HEART: ItemType = ItemType {
     full_name: "Server.Items.DecoWyrmsHeart",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_WYRMS_HEART, "Server.Items.DecoWyrmsHeart")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_WYRMS_HEART, "Server.Items.DecoWyrmsHeart")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1664,7 +1798,9 @@ pub static DECO_CARDS5: ItemType = ItemType {
 pub static PLAYING_CARDS: ItemType = ItemType {
     full_name: "Server.Items.PlayingCards",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &PLAYING_CARDS, "Server.Items.PlayingCards")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &PLAYING_CARDS, "Server.Items.PlayingCards")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1681,7 +1817,9 @@ pub static PLAYING_CARDS: ItemType = ItemType {
 pub static PLAYING_CARDS2: ItemType = ItemType {
     full_name: "Server.Items.PlayingCards2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &PLAYING_CARDS2, "Server.Items.PlayingCards2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &PLAYING_CARDS2, "Server.Items.PlayingCards2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1766,7 +1904,9 @@ pub static DECO_HAY2: ItemType = ItemType {
 pub static DECO_HORSE_DUNG: ItemType = ItemType {
     full_name: "Server.Items.DecoHorseDung",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_HORSE_DUNG, "Server.Items.DecoHorseDung")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_HORSE_DUNG, "Server.Items.DecoHorseDung")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1783,7 +1923,9 @@ pub static DECO_HORSE_DUNG: ItemType = ItemType {
 pub static DECO_DECK_OF_TAROT: ItemType = ItemType {
     full_name: "Server.Items.DecoDeckOfTarot",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_DECK_OF_TAROT, "Server.Items.DecoDeckOfTarot")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_DECK_OF_TAROT, "Server.Items.DecoDeckOfTarot")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1800,7 +1942,9 @@ pub static DECO_DECK_OF_TAROT: ItemType = ItemType {
 pub static DECO_DECK_OF_TAROT2: ItemType = ItemType {
     full_name: "Server.Items.DecoDeckOfTarot2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_DECK_OF_TAROT2, "Server.Items.DecoDeckOfTarot2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_DECK_OF_TAROT2, "Server.Items.DecoDeckOfTarot2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1936,7 +2080,9 @@ pub static DECO_TAROT7: ItemType = ItemType {
 pub static DECO_ARROW_SHAFTS: ItemType = ItemType {
     full_name: "Server.Items.DecoArrowShafts",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &DECO_ARROW_SHAFTS, "Server.Items.DecoArrowShafts")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &DECO_ARROW_SHAFTS, "Server.Items.DecoArrowShafts")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1953,7 +2099,9 @@ pub static DECO_ARROW_SHAFTS: ItemType = ItemType {
 pub static CROSSBOW_BOLTS: ItemType = ItemType {
     full_name: "Server.Items.CrossbowBolts",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &CROSSBOW_BOLTS, "Server.Items.CrossbowBolts")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &CROSSBOW_BOLTS, "Server.Items.CrossbowBolts")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1970,7 +2118,9 @@ pub static CROSSBOW_BOLTS: ItemType = ItemType {
 pub static EMPTY_TOOL_KIT: ItemType = ItemType {
     full_name: "Server.Items.EmptyToolKit",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &EMPTY_TOOL_KIT, "Server.Items.EmptyToolKit")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &EMPTY_TOOL_KIT, "Server.Items.EmptyToolKit")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -1987,7 +2137,9 @@ pub static EMPTY_TOOL_KIT: ItemType = ItemType {
 pub static EMPTY_TOOL_KIT2: ItemType = ItemType {
     full_name: "Server.Items.EmptyToolKit2",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &EMPTY_TOOL_KIT2, "Server.Items.EmptyToolKit2")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &EMPTY_TOOL_KIT2, "Server.Items.EmptyToolKit2")
+    }),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -2038,7 +2190,9 @@ pub static TOOL_KIT: ItemType = ItemType {
 pub static ROSE_IN_AVASE: ItemType = ItemType {
     full_name: "Server.Items.RoseInAVase",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| crate::simple::from_template(w, &ROSE_IN_AVASE, "Server.Items.RoseInAVase")),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &ROSE_IN_AVASE, "Server.Items.RoseInAVase")
+    }),
     label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

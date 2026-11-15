@@ -90,7 +90,11 @@ pub fn skeleton_west_item_id(south: i32) -> i32 {
 
 /// `HangingSkeletonDeed()`.
 pub fn hanging_skeleton_deed_new(w: &mut World) -> ItemId {
-    crate::simple::from_template(w, &HANGING_SKELETON_DEED, "Server.Items.HangingSkeletonDeed")
+    crate::simple::from_template(
+        w,
+        &HANGING_SKELETON_DEED,
+        "Server.Items.HangingSkeletonDeed",
+    )
 }
 
 const SKELETONS: [i32; 5] = [0x1A03, 0x1A05, 0x1A09, 0x1B1E, 0x1B7F];

@@ -53,7 +53,7 @@ fn names_are_unique_and_every_map_round_trips() {
 
 #[test]
 fn city_map_record() {
-    let mut w = World::new();
+    let mut w = crate::keyed_world();
     let id = (CITY_MAP.construct.unwrap())(&mut w);
     let d = data(&w, id).unwrap().clone();
     assert_eq!((d.width, d.height), (400, 400));
