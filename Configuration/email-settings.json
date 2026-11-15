@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "fromAddress": "",
+  "fromName": "",
+  "crashAddress": "",
+  "crashName": "Crash Log",
+  "speechLogPageAddress": "",
+  "speechLogPageName": "GM Support Conversation",
+  "emailServer": "smtp.gmail.com",
+  "emailPort": 465,
+  "emailUsername": "",
+  "emailPassword": "Some Password 123",
+  "emailSendRetryCount": 5,
+  "emailSendRetryDelay": 3
+}

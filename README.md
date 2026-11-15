@@ -89,18 +89,29 @@ cleanly.
 
 **Templates** (`Data/Templates/{Mobiles,Items}/**/*.json`): each file is an array of objects; `"type"` names the
 class and the other keys are its constructor statements, applied in file order (`"str": [96, 120]` is a random
-range, `"str": 100` a fixed value). Constant class values (corpse names, loot packs, weapon damage and speed, armor
-resistances, ...) sit under `"props"`. A template with `"parent": "<class>"` and a new `"type"` makes a new class
-that `[add` and spawners can use. Edits apply to entities made afterwards; saved entities keep their saved values.
-Run `[ReloadTemplates` in game, or restart. A malformed file stops startup with the file, class and key.
+range, `"str": 100` a fixed value). Magic properties are `"attributes"`, `"weaponAttributes"`, `"armorAttributes"`,
+`"elementAttributes"` (`{ "Luck": 200 }`) and `"skillBonuses"` (`[["Swords", 10.0]]`); any `[set` property goes in
+`"set"`. Random and era-dependent statements use `"chance": { "p": 0.2, "then": {..}, "else": {..} }`,
+`"era": { "atLeast": "AOS", "then": {..}, "else": {..} }`, `"oneOf": [{..}, {..}]` and `"coin": { "then", "else" }`.
+Content crates add family keys of their own (`"slayer"`, `"usesRemaining"`, `creature*`, `npc*`, ...; see each
+crate's `template_keys*.rs`). Constant class values (graphic, weight, label, corpse name, loot packs, weapon damage
+and speed, armor resistances, ...) sit under `"props"`. Vendor buy/sell lists are `Data/Templates/Vendors/*.json`.
+
+A template with `"parent": "<class>"` and a new `"type"` makes a new class that `[add` and spawners can use. Edits
+apply to entities made afterwards; saved entities keep their saved values. Run `[ReloadTemplates` in game, or
+restart. A malformed file or a key no crate registered stops startup with the file, class and key
+(`crates/muo/tests/templates_load.rs` checks the shipped files the same way).
 
 **Scripts** (`Data/Scripts/**/*.rhai`, [rhai](https://rhai.rs)): give a class a script with `"script": "file.rhai"`
 in its template. Per-class hooks `on_use`, `on_death`, `on_think`, `on_damage`, `on_hear` and `on_spawn` return
-`true` to replace the default behavior. Global hooks: `on_login`, `on_speech`, `on_server_started`. A function
-`command_<name>(m, args)` adds the staff command `[<name>`. Run `[ReloadScripts` in game. See
-`Data/Scripts/examples/` and the `Examples.*` classes.
+`true` to replace the default behavior; `on_spawn` runs once, after the class's own template. Global hooks:
+`on_login`, `on_speech`, `on_server_started`. A function `command_<name>(m, args)` adds the staff command `[<name>`.
+Scripts draw random numbers like the Rust code (`random`, `random_below`, `random_bool`, `random_double`, `pick`)
+and set magic properties with `set_attr`, `skill_bonus` and `set_prop`. Run `[ReloadScripts` in game. See
+`Data/Scripts/examples/`, `Data/Scripts/content/` and the `Examples.*` classes.
 
-Classes whose constructors do more than plain data (random choices, era branches, hand-written logic) are still Rust.
+Behavior (double-click handlers, AI, combat, gumps) is Rust, and so are the few constructors that are real logic
+(book texts, board layouts, guildstones, a handful of quest NPCs and engine pieces).
 
 ## Tests
 
