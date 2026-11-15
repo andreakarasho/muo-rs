@@ -1230,7 +1230,7 @@ mod tests {
 
     #[test]
     fn fire_column_trap_saves_the_generated_layout() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (FIRE_COLUMN_TRAP.construct.unwrap())(&mut w);
         assert_eq!(
             (w.item(id).unwrap().item_id, w.item(id).unwrap().movable()),
@@ -1257,7 +1257,7 @@ mod tests {
 
     #[test]
     fn trap_graphics() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (STONE_FACE_TRAP_NO_DAMAGE.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().item_id, 0x10FC);
         assert_eq!(stone_type(&w, id), 1);

@@ -5,22 +5,19 @@
 //!
 //! EarringBoxSet is in `boxes.rs`, HeritageToken and the statuettes in `statuette.rs`.
 
+use crate::armor::armor_leaf;
 use crate::armor::leaves::*;
-use crate::armor::{armor_leaf, hue};
 use crate::clothing::clothing_leaf;
 use crate::jewels::jewel_leaf;
 use crate::simple::{leaf, random_from, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::items::armor::{
-    ArmorClass, ArmorMaterialType, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor,
-};
+use muo_content::aos::{AosElementAttribute, AttrKind};
+use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor};
 use muo_content::items::clothing::{
     BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing,
 };
 use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, JewelClass, new_jewel};
-use muo_content::items::slayer::SlayerName;
-use muo_content::items::{same, set_attr};
+use muo_content::items::set_attr;
 
 use muo_primitives::MessageType;
 use muo_primitives::utility;
@@ -312,11 +309,11 @@ mod leaves_tests {
     #[test]
     fn special_leaf_classes_construct_and_round_trip() {
         for t in classes() {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (t.construct.unwrap())(&mut w);
             assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
             let bytes = save(&w, id);
-            let mut w2 = World::new();
+            let mut w2 = crate::test_world();
             let id2 = w2.add_item(Item::new_for_load(
                 muo_primitives::Serial::new(0x4000_0001),
                 t,
@@ -331,7 +328,7 @@ mod leaves_tests {
 
     #[test]
     fn earrings_of_protection_follow_their_element() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = earrings_of_protection_new(&mut w, AosElementAttribute::Cold);
         let ty = w.item(id).unwrap().ty;
         assert_eq!((ty.label_number)(&w, id), 1071093);

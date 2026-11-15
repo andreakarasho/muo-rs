@@ -4,9 +4,9 @@
 //! `FluteOfRenewal.InitMaxUses` (300) is `instruments::init_uses_of`.
 
 use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind, Attrs};
+use muo_content::items::set_attr;
 use muo_content::items::slayer::SlayerName;
 use muo_content::items::weapon_combat::DamageTypes;
-use muo_content::items::{same, set_attr};
 use muo_items::armor::leaves::*;
 use muo_items::clothing::leaves::*;
 use muo_items::weapons::ctor;

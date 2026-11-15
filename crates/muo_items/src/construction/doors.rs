@@ -1335,7 +1335,7 @@ mod tests {
 
     #[test]
     fn iron_gate_save_is_the_generated_layout() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = facing_door(&mut w, &IRON_GATE, DoorFacing::SouthCW, 0x824, 0xEC, 0xF3);
         assert_eq!(w.item(id).unwrap().item_id, 0x824 + 8);
         let bytes = save(&w, id);
@@ -1363,7 +1363,7 @@ mod tests {
 
     #[test]
     fn open_moves_the_door_and_close_moves_it_back() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = facing_door(
             &mut w,
             &DARK_WOOD_DOOR,
@@ -1383,7 +1383,7 @@ mod tests {
 
     #[test]
     fn house_door_saves_level_and_facing_after_the_door() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_house_door(
             &mut w,
             &DARK_WOOD_HOUSE_DOOR,
@@ -1402,7 +1402,7 @@ mod tests {
 
     #[test]
     fn get_chain_loop_not_through_start_yields_each_door_once() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let mut door = || facing_door(&mut w, &METAL_DOOR, DoorFacing::WestCW, 0x675, 0xEC, 0xF3);
         let (a, b, c) = (door(), door(), door());
         // A -> B -> C -> B: the chain never returns to A

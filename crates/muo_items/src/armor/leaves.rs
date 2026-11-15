@@ -1,20 +1,14 @@
 //! The concrete armor and shield classes that are tables. Classes with logic of their own are in `special.rs`.
 
-use muo_content::aos::{AosArmorAttribute, AosAttribute, AttrKind};
-use muo_content::craft::CraftResource;
 use muo_content::items::armor::{
-    ArmorClass, ArmorMaterialType, ArmorMeditationAllowance, BASE_ARMOR, BASE_ARMOR_CLASS,
-    BASE_SHIELD, BASE_SHIELD_CLASS, new_armor,
+    ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, BASE_SHIELD, BASE_SHIELD_CLASS, new_armor,
 };
-use muo_content::items::set_attr;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::ItemType;
-use muo_server::race::{ALLOW_ELVES_ONLY, ALLOW_GARGOYLES_ONLY};
 use muo_server::type_registry::TypeRegistry;
 
 use super::special::*;
-use super::{hue, max_and_hit_points};
 use muo_content::items::leaves::{CHAIN_CHEST, CHAIN_CHEST_CLASS, PLATE_CHEST, PLATE_CHEST_CLASS};
 
 armor_leaf! {

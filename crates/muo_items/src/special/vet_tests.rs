@@ -15,7 +15,7 @@ fn save(w: &World, id: ItemId) -> Vec<u8> {
 fn round_trip(w: &World, id: ItemId) {
     let t: &'static ItemType = w.item(id).unwrap().ty;
     let bytes = save(w, id);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id2 = w2.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0001),
         t,
@@ -91,7 +91,7 @@ fn constructible() -> Vec<&'static ItemType> {
 #[test]
 fn reward_and_holiday_classes_construct_and_round_trip() {
     for t in constructible() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         round_trip(&w, id);
@@ -101,7 +101,7 @@ fn reward_and_holiday_classes_construct_and_round_trip() {
 #[test]
 fn the_classes_that_need_an_argument_round_trip() {
     use super::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let ids = [
         vet2::banner_new(&mut w, 0x15AE),
         vet3::mining_cart_new(&mut w, 102),
@@ -121,7 +121,7 @@ fn the_classes_that_need_an_argument_round_trip() {
 #[test]
 fn reward_flag_is_saved_after_the_base() {
     use super::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (vet::BLOODY_PENTAGRAM_DEED.construct.unwrap())(&mut w);
     vet::set_reward(&mut w, id, true);
     let bytes = save(&w, id);
@@ -132,7 +132,7 @@ fn reward_flag_is_saved_after_the_base() {
 #[test]
 fn a_mini_house_builds_its_square_of_components() {
     use super::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     // Castle: 16 graphics, a 4x4 square
     let id = vet2::mini_house_addon_new(&mut w, 11);
     assert_eq!(muo_content::items::addon::components(&w, id).len(), 16);
@@ -144,14 +144,14 @@ fn a_mini_house_builds_its_square_of_components() {
 #[test]
 fn tree_stump_version_zero_loads() {
     use super::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.now = muo_primitives::DateTime::from_ticks(1_000_000_000_000_000);
     let id = vet::tree_stump_new(&mut w, 0xE56);
     let mut bytes = save(&w, id);
     // turn the encoded version 1 into 0: the last field is then a next-check time, not the last check time
     let n = bytes.len() - (1 + 1 + 4 + 8);
     bytes[n] = 0;
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     w2.now = w.now;
     let id2 = w2.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0002),
@@ -165,7 +165,7 @@ fn tree_stump_version_zero_loads() {
 #[test]
 fn snowman_has_a_title_and_the_globes_a_place() {
     use super::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (holiday::SNOWMAN.construct.unwrap())(&mut w);
     holiday::set_snowman_title(&mut w, id, Some("Zippy".into()));
     round_trip(&w, id);

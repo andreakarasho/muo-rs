@@ -28,6 +28,7 @@ use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::skills::SkillName;
 
 use super::equip_hooks::CraftArgs;
+use super::equip_props::{self as ep, Names};
 use super::weapon_bases as wb;
 use super::weapon_combat as wc;
 use super::weapon_hooks as hk;
@@ -36,7 +37,6 @@ use super::{MlInt, random_min_max, read_enum, same};
 use crate::aos::{AosWeaponAttribute, AttrKind, Attrs};
 use crate::core;
 use crate::craft::{self, CraftResource};
-use super::equip_props::{self as ep, Names};
 use crate::templates::{self, item_props as ip};
 
 int_enum! {
@@ -120,18 +120,45 @@ impl Ability {
     pub const ALL: [Ability; 31] = {
         use Ability::*;
         [
-            ArmorIgnore, BleedAttack, ConcussionBlow, CrushingBlow, Disarm, Dismount, DoubleStrike,
-            InfectiousStrike, MortalStrike, MovingShot, ParalyzingBlow, ShadowStrike, WhirlwindAttack, RidingSwipe,
-            FrenziedWhirlwind, Block, DefenseMastery, NerveStrike, TalonStrike, Feint, DualWield, DoubleShot,
-            ArmorPierce, Bladeweave, ForceArrow, LightningArrow, PsychicAttack, SerpentArrow, ForceOfNature,
-            InfusedThrow, MysticArc,
+            ArmorIgnore,
+            BleedAttack,
+            ConcussionBlow,
+            CrushingBlow,
+            Disarm,
+            Dismount,
+            DoubleStrike,
+            InfectiousStrike,
+            MortalStrike,
+            MovingShot,
+            ParalyzingBlow,
+            ShadowStrike,
+            WhirlwindAttack,
+            RidingSwipe,
+            FrenziedWhirlwind,
+            Block,
+            DefenseMastery,
+            NerveStrike,
+            TalonStrike,
+            Feint,
+            DualWield,
+            DoubleShot,
+            ArmorPierce,
+            Bladeweave,
+            ForceArrow,
+            LightningArrow,
+            PsychicAttack,
+            SerpentArrow,
+            ForceOfNature,
+            InfusedThrow,
+            MysticArc,
         ]
     };
 }
 
 static ABILITIES: Names<Ability> = Names::new(|| Ability::ALL.to_vec());
 static TYPES: Names<WeaponType> = Names::new(|| ep::all_of(16, WeaponType::from_i32));
-static ANIMATIONS: Names<WeaponAnimation> = Names::new(|| ep::all_of(64, WeaponAnimation::from_i32));
+static ANIMATIONS: Names<WeaponAnimation> =
+    Names::new(|| ep::all_of(64, WeaponAnimation::from_i32));
 
 /// The `override`s of a weapon class that are constants: one `static` per class, a subclass is
 /// `WeaponClass { .. , ..PARENT_CLASS }`. The stat fields (requirements, damage, speed, hits, sounds, range) are
@@ -602,7 +629,13 @@ pub fn weapon_type(w: &World, id: ItemId) -> WeaponType {
 pub fn animation(w: &World, id: ItemId) -> WeaponAnimation {
     let set = data(w, id).map_or(-1, |d| d.animation);
     WeaponAnimation::from_i32(set).unwrap_or_else(|| {
-        ep::named(w, id, "defAnimation", &ANIMATIONS, class(w, id).def_animation)
+        ep::named(
+            w,
+            id,
+            "defAnimation",
+            &ANIMATIONS,
+            class(w, id).def_animation,
+        )
     })
 }
 
@@ -632,7 +665,12 @@ pub fn harvest_system(w: &World, id: ItemId) -> Option<&'static str> {
 
 /// `VirtualDamageBonus`.
 pub fn virtual_damage_bonus(w: &World, id: ItemId) -> i32 {
-    ip::int(w, id, "virtualDamageBonus", class(w, id).virtual_damage_bonus)
+    ip::int(
+        w,
+        id,
+        "virtualDamageBonus",
+        class(w, id).virtual_damage_bonus,
+    )
 }
 
 /// `CanFortify`.

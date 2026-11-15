@@ -5,9 +5,7 @@ use std::rc::Rc;
 
 use muo_content::aos::{AosAttribute, AttrKind};
 use muo_content::craft::CraftResource;
-use muo_content::items::armor::{
-    ArmorClass, ArmorMaterialType, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor,
-};
+use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor};
 use muo_content::items::set_attr;
 use muo_content::items::tool::{BASE_TOOL, BASE_TOOL_CLASS, ToolClass, new_tool};
 

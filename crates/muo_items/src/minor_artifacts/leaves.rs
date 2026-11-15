@@ -1,14 +1,10 @@
 //! The Minor Artifacts classes that are plain tables (a constructor and constant overrides); the classes with logic
 //! are hand-written next to this file.
 
-use crate::armor::skill_bonus;
-use crate::simple::{hue, item_id, leaf, weapon_art};
-use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::items::{same, set_attr};
+use crate::simple::{leaf, weapon_art};
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ITEM_BASE, ItemType};
-use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::armor::armor_leaf;
@@ -22,7 +18,6 @@ use crate::weapons::*;
 use muo_content::items::armor::ArmorClass;
 use muo_content::items::leaves::{BOW, BOW_CLASS};
 use muo_content::items::leaves::{PLATE_CHEST, PLATE_CHEST_CLASS};
-use muo_content::items::slayer::SlayerName;
 
 jewel_leaf! {
     /// `Server.Items.AlchemistsBauble`.

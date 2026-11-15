@@ -17,7 +17,7 @@ fn save(w: &World, id: ItemId) -> Vec<u8> {
 
 /// Loads `bytes` as a `t` into a fresh world.
 fn load(t: &'static ItemType, bytes: &[u8]) -> (World, ItemId) {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = w.add_item(Item::new_for_load(
         muo_primitives::Serial::new(0x4000_0001),
         t,
@@ -39,7 +39,7 @@ fn deeds_and_bowl_round_trip() {
         &aquarium::AQUARIUM_NORTH_DEED,
         &aquarium::FISH_BOWL,
     ] {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         let bytes = save(&w, id);
         let (w2, id2) = load(t, &bytes);
@@ -49,7 +49,7 @@ fn deeds_and_bowl_round_trip() {
 
 #[test]
 fn a_new_aquarium_is_fed_and_has_room_for_thirty() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = tank(&mut w);
     let d = aquarium::data(&w, id).unwrap();
     assert_eq!((d.food.state, d.water.state), (3, 4));
@@ -65,7 +65,7 @@ fn a_new_aquarium_is_fed_and_has_room_for_thirty() {
 
 #[test]
 fn the_aquarium_saves_version_four_with_its_timer_and_state() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = tank(&mut w);
     let bytes = save(&w, id);
     let (w2, id2) = load(&aquarium::AQUARIUM, &bytes);
@@ -85,7 +85,7 @@ fn the_aquarium_saves_version_four_with_its_timer_and_state() {
 
 #[test]
 fn fish_are_added_and_half_of_the_requested_kills_happen() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = tank(&mut w);
     for _ in 0..4 {
         let f = (fish::MINOC_BLUE_FISH.construct.unwrap())(&mut w);
@@ -104,7 +104,7 @@ fn fish_are_added_and_half_of_the_requested_kills_happen() {
 
 #[test]
 fn a_dead_fish_is_refused() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = tank(&mut w);
     let f = (fish::SHRIMP.construct.unwrap())(&mut w);
     fish::kill(&mut w, f);
@@ -113,7 +113,7 @@ fn a_dead_fish_is_refused() {
 
 #[test]
 fn only_the_listed_decorations_are_accepted() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = tank(&mut w);
     let shell = (fish::SHELL.construct.unwrap())(&mut w);
     let wafer = (fish::VACATION_WAFER.construct.unwrap())(&mut w);
@@ -125,7 +125,7 @@ fn only_the_listed_decorations_are_accepted() {
 
 #[test]
 fn a_day_of_neglect_makes_the_food_worse() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = tank(&mut w);
     // the first evaluation only flips to the evaluate day, the second runs it: nothing was added, so food drops
     aquarium::evaluate(&mut w, id);
@@ -139,7 +139,7 @@ fn a_day_of_neglect_makes_the_food_worse() {
 
 #[test]
 fn the_stone_saves_its_settings_and_reloads() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = raffle::stone_new(&mut w);
     raffle::set_ticket_price(&mut w, id, 1234);
     raffle::set_plot_bounds(&mut w, id, Rectangle2D::new(100, 200, 10, 12));
@@ -154,7 +154,7 @@ fn the_stone_saves_its_settings_and_reloads() {
 
 #[test]
 fn a_version_three_stone_reads_and_drops_entries_of_deleted_characters() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = raffle::stone_new(&mut w);
     let mut bytes = save(&w, id);
     // the Item part, then the int version 4 -> 3 and the old layout (a plain int entry count)
@@ -178,7 +178,7 @@ fn a_version_three_stone_reads_and_drops_entries_of_deleted_characters() {
 
 #[test]
 fn the_deed_round_trips_and_a_stoneless_deed_is_expired() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let s = raffle::stone_new(&mut w);
     let deed = raffle::deed_new_with(&mut w, Some(s), None);
     assert!(!raffle::deed_is_expired(&w, deed));

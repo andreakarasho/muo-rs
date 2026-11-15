@@ -17,7 +17,6 @@ use muo_server::property_list::PropertyList;
 
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
 use super::equip_props as ep;
-use crate::templates::item_props as ip;
 use super::{core_uotd, parent_mobile, random_min_max, read_enum};
 use crate::aos::{
     AosAttribute, AosElementAttribute, AttrKind, Attrs, add_attribute_properties,
@@ -25,6 +24,7 @@ use crate::aos::{
 };
 use crate::core;
 use crate::craft::{self, CraftResource};
+use crate::templates::item_props as ip;
 
 int_enum! {
     /// `GemType`.

@@ -3,7 +3,6 @@
 //! label and rarity silently.
 
 use muo_content::templates::{self, Kind};
-use muo_server::World;
 
 /// Classes whose constructor (after the parent's) is their template (`@template;`).
 const TEMPLATED: &[&str] = &[
@@ -247,7 +246,7 @@ const LABELS: &[(&str, i64, i64)] = &[
 
 #[test]
 fn templated_classes_have_their_steps_and_props() {
-    let t = templates::table(&mut World::new());
+    let t = templates::table(&mut crate::test_world());
     for name in TEMPLATED {
         assert!(
             t.get(Kind::Item, name)

@@ -215,7 +215,7 @@ mod tests {
 
     #[test]
     fn rolled_graphics_and_vines_clamp() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         for _ in 0..20 {
             let id = (WEB.construct.unwrap())(&mut w);
             assert!([0x10d7, 0x10d8, 0x10dd].contains(&w.item(id).unwrap().item_id));
@@ -228,7 +228,7 @@ mod tests {
 
     #[test]
     fn tower_lantern_toggles_graphic_and_has_rarity() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (TOWER_LANTERN_ARTIFACT.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().item_id, 0x24C0);
         assert!(!tower_is_on(&w, id));

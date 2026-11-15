@@ -38,6 +38,13 @@ fn is_true(v: &Value) -> Result<(), String> {
 }
 
 pub(crate) fn register(types: &mut TypeRegistry) {
+    // A test world registers the keys before the crate's whole registration runs on it.
+    let keys = types
+        .extensions
+        .get::<muo_content::templates::keys::ItemKeys>();
+    if keys.is_some_and(|k| k.0.contains_key("slayer")) {
+        return;
+    }
     // Weapons.
     item_key(
         types,

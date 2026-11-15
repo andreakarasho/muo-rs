@@ -238,7 +238,7 @@ mod tests {
 
     #[test]
     fn head_names_follow_the_kind() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let h = new_head(&mut w, 1, Some("Lord".to_string()));
         assert_eq!(
             (HEAD.default_name)(&w, h).as_deref(),
@@ -259,7 +259,7 @@ mod tests {
 
     #[test]
     fn bone_pile_graphic_is_in_range() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         for _ in 0..20 {
             let id = (BONE_PILE.construct.unwrap())(&mut w);
             assert!((0x1B09..0x1B09 + 8).contains(&w.item(id).unwrap().item_id));

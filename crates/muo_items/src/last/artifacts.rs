@@ -9,16 +9,14 @@ use crate::clothing::clothing_leaf;
 use crate::clothing::leaves::*;
 use crate::simple::{random, random_bool, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::craft::CraftResource;
-use muo_content::items::armor::{ArmorClass, ArmorMaterialType};
+use muo_content::aos::{AosAttribute, AttrKind};
+use muo_content::items::armor::ArmorClass;
 use muo_content::items::clothing::{BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing};
 use muo_content::items::slayer::SlayerName;
-use muo_content::items::{attr, same, set_attr};
+use muo_content::items::{attr, set_attr};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId};
 use muo_server::item::{ItemType, LootType, deps, ops};
-use muo_server::race::ALLOW_ELVES_ONLY;
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
@@ -29,15 +27,6 @@ clothing_leaf! {
     BURGLARS_BANDANA, BURGLARS_BANDANA_CLASS, burglars_bandana_new = "Server.Items.BurglarsBandana" : BANDANA / BANDANA_CLASS, bandana_new, hue 0, encoded false;
     @template;
 }
-
-/// `DreadPirateHat._combatSkills`.
-const COMBAT_SKILLS: [SkillName; 5] = [
-    SkillName::Tactics,
-    SkillName::Archery,
-    SkillName::Swords,
-    SkillName::Macing,
-    SkillName::Fencing,
-];
 
 clothing_leaf! {
     /// `Server.Items.DreadPirateHat`.

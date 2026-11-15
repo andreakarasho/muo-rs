@@ -1,9 +1,7 @@
 //! The Champion Artifacts classes that are plain tables (a constructor and constant overrides); the classes with logic
 //! are hand-written next to this file.
 
-use crate::simple::{hue, leaf, random, weapon_art};
-use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::items::{same, set_attr};
+use crate::simple::{leaf, random, weapon_art};
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ITEM_BASE, ItemType, ops};

@@ -20,6 +20,7 @@ fn all() -> Vec<(&'static MobileType, &'static [&'static str])> {
 
 fn world(era: Option<Expansion>) -> World {
     let mut w = World::new();
+    muo_items::register_template_keys(&mut w.types); // the item templates use them: an unknown key fails the table
     w.core.expansion = era;
     // Every class takes the table's "Medium" speeds (Data/npc-speeds.json is not loaded in a test world).
     w.resources

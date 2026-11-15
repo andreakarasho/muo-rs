@@ -425,7 +425,7 @@ mod tests {
     #[test]
     fn level_one_chest_is_locked_trapped_and_holds_gold() {
         for _ in 0..10 {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (TREASURE_CHEST_LEVEL1.construct.unwrap())(&mut w);
             let d = cont::ext(&w, id).unwrap().clone();
             assert_eq!(
@@ -448,7 +448,7 @@ mod tests {
             &TREASURE_CHEST_LEVEL3,
             &TREASURE_CHEST_LEVEL4,
         ] {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (t.construct.unwrap())(&mut w);
             assert!(cont::locked(&w, id));
             let mut out = SaveWriter::new(true);

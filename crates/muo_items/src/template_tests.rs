@@ -2,7 +2,6 @@
 //! entry would silently fall back to the parent class's stats or make an item with graphic 0.
 
 use muo_content::templates::{self, Kind, item_steps::Step};
-use muo_server::World;
 
 /// Weapon/armor classes whose stat constants are template `props`.
 const PROPS: &[&str] = &[
@@ -657,7 +656,7 @@ const CTORS: &[&str] = &[
 
 #[test]
 fn converted_classes_have_their_templates() {
-    let t = templates::table(&mut World::new());
+    let t = templates::table(&mut crate::test_world());
     for name in PROPS {
         let tmpl = t.get(Kind::Item, name);
         assert!(

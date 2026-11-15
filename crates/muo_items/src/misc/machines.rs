@@ -2125,7 +2125,7 @@ mod power_generator_gump_tests {
     /// one who presses a button is.
     #[test]
     fn check_alive_only_runs_when_a_button_was_pressed() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let from = w.new_mobile(&MOBILE_BASE);
         {
             let m = w.mobile_mut(from).unwrap();

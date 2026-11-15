@@ -224,7 +224,7 @@ mod tests {
 
     #[test]
     fn water_container_quantity_and_save_bytes() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_bucket(&mut w, true);
         assert_eq!((quantity(&w, id), is_full(&w, id)), (25, true));
         assert_eq!((BUCKET.item_id)(&w, id), 0x2004);
@@ -244,7 +244,7 @@ mod tests {
             &[0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0]
         );
 
-        let mut w2 = World::new();
+        let mut w2 = crate::test_world();
         let id2 = w2.add_item(Item::new_for_load(
             muo_primitives::Serial::new(0x4000_0002),
             &BUCKET,

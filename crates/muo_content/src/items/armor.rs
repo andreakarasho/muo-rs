@@ -28,6 +28,7 @@ use muo_server::serialization_ext::ReadEntityExt;
 use muo_server::skills::SkillName;
 
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
+use super::equip_props::{self as ep, Names};
 use super::weapon::{self, WeaponType};
 use super::{Wear, core_uor, core_uotd, parent_mobile, random_min_max, read_enum};
 use crate::aos::{
@@ -38,7 +39,6 @@ use crate::core;
 use crate::craft::{self, CraftResource};
 use crate::hooks::rnd;
 use crate::misc::aos_helpers;
-use super::equip_props::{self as ep, Names};
 use crate::templates::{self, item_props as ip};
 
 int_enum! {
@@ -395,7 +395,8 @@ pub fn int_requirement(w: &World, id: ItemId) -> i32 {
     )
 }
 
-static MATERIALS: Names<ArmorMaterialType> = Names::new(|| ep::all_of(64, ArmorMaterialType::from_i32));
+static MATERIALS: Names<ArmorMaterialType> =
+    Names::new(|| ep::all_of(64, ArmorMaterialType::from_i32));
 static MED_ALLOWANCES: Names<ArmorMeditationAllowance> =
     Names::new(|| ep::all_of(8, ArmorMeditationAllowance::from_i32));
 
@@ -404,18 +405,36 @@ pub fn meditation_allowance(w: &World, id: ItemId) -> ArmorMeditationAllowance {
     let set = data(w, id).map_or(-1, |d| d.meditate);
     ArmorMeditationAllowance::from_i32(set).unwrap_or_else(|| {
         let c = class(w, id);
-        ep::named(w, id, "defMedAllowance", &MED_ALLOWANCES, c.def_med_allowance)
+        ep::named(
+            w,
+            id,
+            "defMedAllowance",
+            &MED_ALLOWANCES,
+            c.def_med_allowance,
+        )
     })
 }
 
 /// `MaterialType`.
 pub fn material_type(w: &World, id: ItemId) -> ArmorMaterialType {
-    ep::named(w, id, "materialType", &MATERIALS, class(w, id).material_type)
+    ep::named(
+        w,
+        id,
+        "materialType",
+        &MATERIALS,
+        class(w, id).material_type,
+    )
 }
 
 /// `DefaultResource`.
 pub fn default_resource(w: &World, id: ItemId) -> CraftResource {
-    ep::named(w, id, "defaultResource", &ep::RESOURCES, class(w, id).default_resource)
+    ep::named(
+        w,
+        id,
+        "defaultResource",
+        &ep::RESOURCES,
+        class(w, id).default_resource,
+    )
 }
 
 /// `AllowMaleWearer` and `AllowFemaleWearer`.

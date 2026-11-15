@@ -7,7 +7,7 @@ use muo_server::net_state::{NetOut, NetStateData};
 use super::*;
 
 fn net_world() -> (World, NetStateId) {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let ns = NetStateId(1);
     w.net_states.insert(ns, NetStateData::new(0));
     (w, ns)

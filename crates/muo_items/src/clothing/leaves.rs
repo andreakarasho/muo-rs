@@ -1,14 +1,11 @@
 //! The concrete clothing classes that are tables. Classes with logic of their own are in `special.rs`.
 
-use muo_content::craft::CraftResource;
-use muo_content::items::{ml, same};
 use muo_server::item::ItemType;
-use muo_server::race::ALLOW_ELVES_ONLY;
 use muo_server::type_registry::TypeRegistry;
 
 use super::{dye_false, dye_refused, scissor_refused};
 use muo_content::items::clothing::{
-    self, BASE_CLOAK, BASE_CLOAK_CLASS, BASE_HAT, BASE_HAT_CLASS, BASE_MIDDLE_TORSO,
+    BASE_CLOAK, BASE_CLOAK_CLASS, BASE_HAT, BASE_HAT_CLASS, BASE_MIDDLE_TORSO,
     BASE_MIDDLE_TORSO_CLASS, BASE_OUTER_LEGS, BASE_OUTER_LEGS_CLASS, BASE_OUTER_TORSO,
     BASE_OUTER_TORSO_CLASS, BASE_PANTS, BASE_PANTS_CLASS, BASE_SHIRT, BASE_SHIRT_CLASS, BASE_SHOES,
     BASE_SHOES_CLASS, BASE_WAIST, BASE_WAIST_CLASS, new_clothing,

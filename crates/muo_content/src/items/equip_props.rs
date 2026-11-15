@@ -32,7 +32,12 @@ impl<T: Copy + Debug> Names<T> {
 
     pub fn get(&self, name: &str) -> Option<T> {
         self.map
-            .get_or_init(|| (self.all)().into_iter().map(|v| (format!("{v:?}"), v)).collect())
+            .get_or_init(|| {
+                (self.all)()
+                    .into_iter()
+                    .map(|v| (format!("{v:?}"), v))
+                    .collect()
+            })
             .get(name)
             .copied()
     }
@@ -49,7 +54,13 @@ pub fn raw<'a>(w: &'a World, id: ItemId, key: &str) -> Option<&'a Value> {
 }
 
 /// An enum prop by name, else `fallback`.
-pub fn named<T: Copy + Debug>(w: &World, id: ItemId, key: &str, names: &Names<T>, fallback: T) -> T {
+pub fn named<T: Copy + Debug>(
+    w: &World,
+    id: ItemId,
+    key: &str,
+    names: &Names<T>,
+    fallback: T,
+) -> T {
     raw(w, id, key)
         .and_then(Value::as_str)
         .and_then(|s| names.get(s))

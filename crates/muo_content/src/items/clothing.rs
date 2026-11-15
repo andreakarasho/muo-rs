@@ -25,7 +25,6 @@ use muo_server::serialization_ext::ReadEntityExt;
 use super::armor::{append_space_with_article, ore_type_number};
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
 use super::equip_props as ep;
-use crate::templates::item_props as ip;
 use super::weapon::{self, WeaponType};
 use super::{MlInt, Wear, core_uotd, parent_mobile, random_min_max, read_enum, same};
 use crate::aos::{
@@ -36,6 +35,7 @@ use crate::core;
 use crate::craft::{self, CraftResource};
 use crate::hooks::rnd;
 use crate::misc::aos_helpers;
+use crate::templates::item_props as ip;
 
 int_enum! {
     /// `ClothingQuality`.
@@ -206,7 +206,13 @@ pub fn init_hits(w: &World, id: ItemId) -> (i32, i32) {
 
 /// `DefaultResource`.
 pub fn default_resource(w: &World, id: ItemId) -> CraftResource {
-    ep::named(w, id, "defaultResource", &ep::RESOURCES, class(w, id).default_resource)
+    ep::named(
+        w,
+        id,
+        "defaultResource",
+        &ep::RESOURCES,
+        class(w, id).default_resource,
+    )
 }
 
 /// `AllowMaleWearer` and `AllowFemaleWearer`.
@@ -286,8 +292,12 @@ pub fn compute_stat_bonus(w: &World, id: ItemId, stat: StatType) -> i32 {
     let c = class(w, id);
     let a = |x: AosAttribute| super::attr(w, id, AttrKind::Attributes, x as u32);
     match stat {
-        StatType::STR => ip::int(w, id, "baseStrBonus", c.base_str_bonus) + a(AosAttribute::BonusStr),
-        StatType::DEX => ip::int(w, id, "baseDexBonus", c.base_dex_bonus) + a(AosAttribute::BonusDex),
+        StatType::STR => {
+            ip::int(w, id, "baseStrBonus", c.base_str_bonus) + a(AosAttribute::BonusStr)
+        }
+        StatType::DEX => {
+            ip::int(w, id, "baseDexBonus", c.base_dex_bonus) + a(AosAttribute::BonusDex)
+        }
         _ => ip::int(w, id, "baseIntBonus", c.base_int_bonus) + a(AosAttribute::BonusInt),
     }
 }
@@ -1207,10 +1217,20 @@ pub static BASE_CLOTHING: ItemType = ItemType {
         )
     },
     fire_resistance: |w, id| {
-        resistance(w, id, ("baseFireResistance", |c| c.base_fire_resistance), AosElementAttribute::Fire)
+        resistance(
+            w,
+            id,
+            ("baseFireResistance", |c| c.base_fire_resistance),
+            AosElementAttribute::Fire,
+        )
     },
     cold_resistance: |w, id| {
-        resistance(w, id, ("baseColdResistance", |c| c.base_cold_resistance), AosElementAttribute::Cold)
+        resistance(
+            w,
+            id,
+            ("baseColdResistance", |c| c.base_cold_resistance),
+            AosElementAttribute::Cold,
+        )
     },
     poison_resistance: |w, id| {
         resistance(

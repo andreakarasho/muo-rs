@@ -2,11 +2,9 @@
 //! are hand-written next to this file.
 
 use crate::simple::weapon_art;
-use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::items::set_attr;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ItemType, LootType, ops};
+use muo_server::item::ItemType;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::armor::armor_leaf;
