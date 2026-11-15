@@ -1,9 +1,7 @@
 //! The Uzeraan Turmoil quest's items and mobiles (namespace `Server.Engines.Quests.Haven`).
 //!
 
-use muo_content::creature::enums::{AIType, FightMode};
 use muo_content::creature::setters::set_skill_range;
-use muo_content::creature::setters::{new_creature, set_skill};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C, CreatureType};
 use muo_content::items::addon::{self, ADDON_COMPONENT, AddonClass, BASE_ADDON, BASE_ADDON_CLASS};
 use muo_content::items::cont::METAL_CHEST;
@@ -55,19 +53,6 @@ fn init_body(w: &mut World, id: MobileId, hue: i32, female: bool) {
     muo_server::mobile::base::set_hue(w, id, hue);
     muo_server::mobile::part1::props_b::set_female(w, id, female);
     set_body(w, id, if female { 0x191 } else { 0x190 });
-}
-
-/// The `InitBody` of the plain male quester with a random name and skin.
-fn init_random_male(w: &mut World, id: MobileId, dex: i32) {
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, dex, 25);
-    let hue = muo_content::vendor::human_random_skin_hue(w);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    muo_server::mobile::part1::props_b::set_female(w, id, false);
-    set_body(w, id, 0x190);
-    let name = muo_content::misc::small::random_name(w, "male");
-    if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-        f(w, id, Some(name));
-    }
 }
 
 fn hair(w: &mut World, id: MobileId, item: i32, hue: i32) {
@@ -1137,18 +1122,8 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops MANSION_GUARD_OPS, encoded false, title Some("the Mansion Guard"), extra |_, _| {};
     v {
-        init_body: |w, id| init_random_male(w, id, 25),
-        init_outfit: |w, id| {
-            for n in ["PlateChest", "PlateArms", "PlateGloves", "PlateLegs"] {
-                add_item_named(w, id, &format!("Server.Items.{n}"));
-            }
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            let h = w.mobile(id).map_or(0, |m| m.hair_hue);
-            muo_content::vendor::assign_random_facial_hair(w, id, h);
-            if let Some(b) = add_item_named(w, id, "Server.Items.Bardiche") {
-                ops::set_movable(w, b, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Haven.MansionGuard"),
+        init_outfit: |_, _| {},
     }
     c { }
     m { }
@@ -1226,19 +1201,8 @@ quester! {
             }
         };
     v {
-        init_body: |w, id| init_random_male(w, id, 125),
-        init_outfit: |w, id| {
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            let h = w.mobile(id).map_or(0, |m| m.hair_hue);
-            muo_content::vendor::assign_random_facial_hair(w, id, h);
-            for n in ["PlateChest", "PlateArms", "PlateGloves", "PlateLegs"] {
-                add_item_named(w, id, &format!("Server.Items.{n}"));
-            }
-            if let Some(t) = add_item_named(w, id, "Server.Items.Torch") {
-                ops::set_movable(w, t, false);
-                ignite(w, t);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Haven.MilitiaCanoneer"),
+        init_outfit: |_, _| {},
     }
     c { is_enemy: militia_is_enemy, }
     m { }
@@ -1255,50 +1219,7 @@ static MILITIA_FIGHTER_C: CreatureType = CreatureType {
 pub static MILITIA_FIGHTER: MobileType = MobileType {
     full_name: "Server.Engines.Quests.Haven.MilitiaFighter",
     parent: Some(&BASE_CREATURE),
-    construct: Some(|w| {
-        let id = new_creature(
-            w,
-            &MILITIA_FIGHTER,
-            AIType::AiMelee,
-            FightMode::Closest,
-            muo_content::creature::enums::DEFAULT_RANGE_PERCEPTION,
-            1,
-        );
-        muo_server::mobile::part2::stats::init_stats(w, id, 40, 30, 5);
-        muo_server::mobile::part1::props_a::set_title(
-            w,
-            id,
-            Some("the Militia Fighter".to_owned()),
-        );
-        let hue = muo_primitives::utility::random_dyed_hue(&mut w.rng);
-        if let Some(m) = w.mobile_mut(id) {
-            m.speech_hue = hue;
-        }
-        init_random_male_body_only(w, id);
-        muo_content::vendor::assign_random_hair_random_hue(w, id);
-        let h = w.mobile(id).map_or(0, |m| m.hair_hue);
-        muo_content::vendor::assign_random_facial_hair(w, id, h);
-        add_item_hued(w, id, "Server.Items.ThighBoots", 0x1BB);
-        for n in [
-            "LeatherChest",
-            "LeatherArms",
-            "LeatherLegs",
-            "LeatherCap",
-            "LeatherGloves",
-            "LeatherGorget",
-        ] {
-            add_item_named(w, id, &format!("Server.Items.{n}"));
-        }
-        if let Some(weapon) = random_sword(w) {
-            ops::set_movable(w, weapon, false);
-            muo_server::mobile::part2::items::add_item(w, id, weapon);
-        }
-        if let Some(s) = add_item_named(w, id, "Server.Items.BronzeShield") {
-            ops::set_movable(w, s, false);
-        }
-        set_skill(w, id, SkillName::Swords, 20.0);
-        id
-    }),
+    construct: Some(|w| muo_content::templates::new_creature(w, &MILITIA_FIGHTER)),
     family: Some(&MILITIA_FIGHTER_C),
     click_title: |_, _| false,
     serialize: |w, id, out| {
@@ -1312,18 +1233,6 @@ pub static MILITIA_FIGHTER: MobileType = MobileType {
     },
     ..BASE_CREATURE
 };
-
-/// `Hue = Race.Human.RandomSkinHue(); Female = false; Body = 0x190; Name = NameList.RandomName("male")`.
-fn init_random_male_body_only(w: &mut World, id: MobileId) {
-    let hue = muo_content::vendor::human_random_skin_hue(w);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    muo_server::mobile::part1::props_b::set_female(w, id, false);
-    set_body(w, id, 0x190);
-    let name = muo_content::misc::small::random_name(w, "male");
-    if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-        f(w, id, Some(name));
-    }
-}
 
 /// The mobile classes of this folder.
 pub static MOBILES: &[&MobileType] = &[

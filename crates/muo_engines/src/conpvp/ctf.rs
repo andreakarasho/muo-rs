@@ -60,11 +60,11 @@ fn fd_mut(w: &mut World, id: ItemId) -> Option<&mut FlagData> {
 
 /// `new CTFFlag()`.
 pub fn new_flag(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &CTF_FLAG, 5643);
-    ops::set_movable(w, id, false);
+    let id = ops::new_item_with_id(w, &CTF_FLAG, 0);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(FlagData::default());
     }
+    muo_content::templates::apply_item_as(w, id, CTF_FLAG.full_name);
     id
 }
 

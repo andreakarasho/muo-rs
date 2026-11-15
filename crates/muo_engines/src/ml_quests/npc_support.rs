@@ -7,7 +7,6 @@ use muo_server::mobile::part1::{props_a, props_b};
 use muo_server::mobile::part2::{items, stats};
 use muo_server::world::World;
 
-pub use muo_content::creature::enums::*;
 pub use muo_content::creature::setters::*;
 pub use muo_server::skills::SkillName;
 
@@ -110,11 +109,6 @@ pub fn set_facial_hair_hue(w: &mut World, id: MobileId, value: i32) {
     props_b::set_facial_hair_hue(w, id, value);
 }
 
-/// `HairHue`.
-pub fn hair_hue(w: &World, id: MobileId) -> i32 {
-    w.mobile(id).map_or(0, |m| m.hair_hue)
-}
-
 /// `Race = Race.<name>`.
 pub fn set_race_named(w: &mut World, id: MobileId, name: &str) {
     let race = w
@@ -163,11 +157,6 @@ pub fn assign_random_facial_hair(w: &mut World, id: MobileId) {
     props_b::set_facial_hair_hue(w, id, hue);
 }
 
-/// `Utility.AssignRandomFacialHair(m, hue)`.
-pub fn assign_random_facial_hair_hue(w: &mut World, id: MobileId, hue: i32) {
-    muo_content::vendor::assign_random_facial_hair(w, id, hue);
-}
-
 /// `new T()` by short class name.
 pub fn make_named(w: &mut World, name: &str) -> Option<ItemId> {
     match w.types.find_type_by_name(name, false, false)? {
@@ -195,26 +184,6 @@ pub fn add_item_id(w: &mut World, id: MobileId, item: Option<ItemId>) {
 /// `AddItem(new T(hue))`: the class's `(int hue)` constructor only sets `Hue`.
 pub fn add_item_hue(w: &mut World, id: MobileId, name: &str, hue: Option<i32>) {
     let item = make_named(w, name);
-    if let Some(h) = hue {
-        set_item_hue(w, item, h);
-    }
-    add_item_id(w, id, item);
-}
-
-/// `AddItem(new T { ItemID = a, Hue = b })`.
-pub fn add_item_props(
-    w: &mut World,
-    id: MobileId,
-    name: &str,
-    item_id: Option<i32>,
-    hue: Option<i32>,
-) {
-    let item = make_named(w, name);
-    if let (Some(i), Some(g)) = (item, item_id)
-        && let Some(ty) = w.item(i).map(|i| i.ty)
-    {
-        (ty.set_item_id)(w, i, g);
-    }
     if let Some(h) = hue {
         set_item_hue(w, item, h);
     }

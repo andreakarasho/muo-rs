@@ -659,5 +659,336 @@
       "defaultName": "Zeefzorpul"
     },
     "body": 74
+  },
+  {
+    "type": "Server.Engines.Quests.Ninja.HiddenFigure",
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ],
+    "questSkinHue": true,
+    "coin": {
+      "then": {
+        "female": true,
+        "body": 401,
+        "nameRandom": "female"
+      },
+      "else": {
+        "female": false,
+        "body": 400,
+        "nameRandom": "male"
+      }
+    },
+    "randomHair": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.TattsukeHakama",
+        "hue": "vendorRandomHue"
+      },
+      {
+        "item": "Server.Items.Kasa"
+      },
+      {
+        "item": "Server.Items.HakamaShita",
+        "hue": "vendorRandomHue"
+      }
+    ],
+    "npcSeq": [
+      {
+        "coin": {
+          "then": {
+            "questEquip": [
+              {
+                "item": "Server.Items.Shoes",
+                "hue": "vendorShoeHue"
+              }
+            ]
+          },
+          "else": {
+            "questEquip": [
+              {
+                "item": "Server.Items.Sandals",
+                "hue": "vendorShoeHue"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "oneOf": [
+          {
+            "hiddenFigureMessage": 1063191
+          },
+          {
+            "hiddenFigureMessage": 1063192
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Server.Engines.Quests.Samurai.HaochisGuardsman",
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ],
+    "questSkinHue": true,
+    "female": false,
+    "body": 400,
+    "nameRandom": "male",
+    "randomHair": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.LeatherDo"
+      },
+      {
+        "item": "Server.Items.LeatherHiroSode"
+      },
+      {
+        "item": "Server.Items.SamuraiTabi",
+        "hue": "randomNondyedHue"
+      },
+      {
+        "oneOf": [
+          "Server.Items.StuddedHaidate",
+          "Server.Items.PlateSuneate",
+          "Server.Items.LeatherSuneate"
+        ]
+      },
+      {
+        "oneOf": [
+          "Server.Items.DecorativePlateKabuto",
+          "Server.Items.ChainHatsuburi",
+          "Server.Items.LightPlateJingasa",
+          "Server.Items.LeatherJingasa"
+        ]
+      },
+      {
+        "oneOf": [
+          "Server.Items.NoDachi",
+          "Server.Items.Lajatang",
+          "Server.Items.Wakizashi"
+        ],
+        "movable": false
+      }
+    ]
+  },
+  {
+    "type": "Server.Engines.Quests.Naturalist.Naturalist",
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ],
+    "questSkinHue": true,
+    "female": false,
+    "body": 400,
+    "nameRandom": "male",
+    "questEquip": [
+      {
+        "item": "Server.Items.Tunic",
+        "hue": 1432
+      },
+      {
+        "item": "Server.Items.LongPants",
+        "hue": 1435
+      },
+      {
+        "item": "Server.Items.Boots"
+      }
+    ],
+    "randomHair": true,
+    "questFacialHairOfHairHue": true
+  },
+  {
+    "type": "Server.Engines.Quests.Doom.Chyloth",
+    "props": {
+      "defaultName": "Chyloth"
+    },
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ],
+    "hue": 33877,
+    "body": 400,
+    "questEquip": [
+      {
+        "item": "Server.Engines.Quests.Doom.ChylothShroud",
+        "equip": true
+      },
+      {
+        "item": "Server.Engines.Quests.Doom.ChylothStaff",
+        "equip": true
+      }
+    ]
+  },
+  {
+    "type": "Server.Engines.Quests.Doom.Victoria",
+    "props": {
+      "defaultName": "Victoria"
+    },
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ],
+    "female": true,
+    "hue": 34869,
+    "body": 401,
+    "questEquip": [
+      {
+        "item": "Server.Engines.Quests.Doom.GrandGrimoire",
+        "equip": true
+      },
+      {
+        "item": "Server.Items.Sandals",
+        "hue": 1109,
+        "equip": true
+      },
+      {
+        "item": "Server.Items.SkullCap",
+        "hue": 1109,
+        "equip": true
+      },
+      {
+        "item": "Server.Items.PlainDress",
+        "hue": 1109,
+        "equip": true
+      }
+    ],
+    "mlqHairItemId": 8252,
+    "mlqHairHue": 1154
+  },
+  {
+    "type": "Server.Engines.Quests.Haven.MansionGuard",
+    "mlqInitStats": [
+      100,
+      25,
+      25
+    ],
+    "questSkinHue": true,
+    "female": false,
+    "body": 400,
+    "nameRandom": "male",
+    "questEquip": [
+      {
+        "item": "Server.Items.PlateChest"
+      },
+      {
+        "item": "Server.Items.PlateArms"
+      },
+      {
+        "item": "Server.Items.PlateGloves"
+      },
+      {
+        "item": "Server.Items.PlateLegs"
+      }
+    ],
+    "randomHair": true,
+    "questFacialHairOfHairHue": true,
+    "npcSeq": [
+      {
+        "questEquip": [
+          {
+            "item": "Server.Items.Bardiche",
+            "movable": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Server.Engines.Quests.Haven.MilitiaCanoneer",
+    "mlqInitStats": [
+      100,
+      125,
+      25
+    ],
+    "questSkinHue": true,
+    "female": false,
+    "body": 400,
+    "nameRandom": "male",
+    "randomHair": true,
+    "questFacialHairOfHairHue": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.PlateChest"
+      },
+      {
+        "item": "Server.Items.PlateArms"
+      },
+      {
+        "item": "Server.Items.PlateGloves"
+      },
+      {
+        "item": "Server.Items.PlateLegs"
+      },
+      {
+        "item": "Server.Items.Torch",
+        "movable": false,
+        "ignite": true
+      }
+    ]
+  },
+  {
+    "type": "Server.Engines.Quests.Haven.MilitiaFighter",
+    "mlqInitStats": [
+      40,
+      30,
+      5
+    ],
+    "title": "the Militia Fighter",
+    "npcSpeechHue": "randomDyed",
+    "questSkinHue": true,
+    "female": false,
+    "body": 400,
+    "nameRandom": "male",
+    "randomHair": true,
+    "questFacialHairOfHairHue": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.ThighBoots",
+        "hue": 443
+      },
+      {
+        "item": "Server.Items.LeatherChest"
+      },
+      {
+        "item": "Server.Items.LeatherArms"
+      },
+      {
+        "item": "Server.Items.LeatherLegs"
+      },
+      {
+        "item": "Server.Items.LeatherCap"
+      },
+      {
+        "item": "Server.Items.LeatherGloves"
+      },
+      {
+        "item": "Server.Items.LeatherGorget"
+      },
+      {
+        "oneOf": [
+          "Server.Items.Broadsword",
+          "Server.Items.Cutlass",
+          "Server.Items.Katana",
+          "Server.Items.Longsword",
+          "Server.Items.Scimitar",
+          "Server.Items.VikingSword"
+        ],
+        "movable": false
+      },
+      {
+        "item": "Server.Items.BronzeShield",
+        "movable": false
+      }
+    ],
+    "skills": {
+      "Swords": 20.0
+    }
   }
 ]

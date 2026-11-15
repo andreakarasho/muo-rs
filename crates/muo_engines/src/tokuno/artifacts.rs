@@ -5,7 +5,6 @@
 
 use muo_content::aos::{AosAttribute, AttrKind, Attrs};
 use muo_content::items::set_attr;
-use muo_content::items::weapon_combat::DamageTypes;
 use muo_items::armor::leaves::*;
 use muo_items::clothing::leaves::*;
 use muo_items::weapons::*;
@@ -15,7 +14,7 @@ use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
-use crate::util::{hue, random_element};
+use crate::util::hue;
 
 fn version_write(out: &mut dyn muo_io::GenericWriter) {
     out.write_i32(0);
@@ -95,18 +94,6 @@ type ArmorClass = muo_content::items::armor::ArmorClass;
 type ClothingClass = muo_content::items::clothing::ClothingClass;
 type WeaponClass = muo_content::items::weapon::WeaponClass;
 
-fn dmg(phys: i32, fire: i32, cold: i32, pois: i32, nrgy: i32) -> DamageTypes {
-    DamageTypes {
-        phys,
-        fire,
-        cold,
-        pois,
-        nrgy,
-        chaos: 0,
-        direct: 0,
-    }
-}
-
 // ---- Lesser artifacts ----
 
 art! {
@@ -155,7 +142,6 @@ art! {
     /// `Server.Items.Exiler`.
     EXILER, EXILER_CLASS: WeaponClass, exiler_new = "Server.Items.Exiler" : TETSUBO, TETSUBO_CLASS, tetsubo_new;
     @template;
-    get_damage_types: |_, _, _| dmg(0, 0, 0, 0, 100),
 }
 
 art! {
@@ -206,7 +192,6 @@ art! {
     /// `Server.Items.DarkenedSky`.
     DARKENED_SKY, DARKENED_SKY_CLASS: WeaponClass, darkened_sky_new = "Server.Items.DarkenedSky" : KAMA, KAMA_CLASS, kama_new;
     @template;
-    get_damage_types: |_, _, _| dmg(0, 0, 50, 0, 50),
 }
 
 art! {
@@ -231,14 +216,12 @@ art! {
     /// `Server.Items.SwordOfTheStampede`.
     SWORD_OF_THE_STAMPEDE, SWORD_OF_THE_STAMPEDE_CLASS: WeaponClass, sword_of_the_stampede_new = "Server.Items.SwordOfTheStampede" : NO_DACHI, NO_DACHI_CLASS, no_dachi_new;
     @template;
-    get_damage_types: |_, _, _| dmg(0, 0, 100, 0, 0),
 }
 
 art! {
     /// `Server.Items.SwordsOfProsperity`.
     SWORDS_OF_PROSPERITY, SWORDS_OF_PROSPERITY_CLASS: WeaponClass, swords_of_prosperity_new = "Server.Items.SwordsOfProsperity" : DAISHO, DAISHO_CLASS, daisho_new;
     @template;
-    get_damage_types: |_, _, _| dmg(0, 100, 0, 0, 0),
 }
 
 art! {
@@ -251,82 +234,38 @@ art! {
     /// `Server.Items.WindsEdge`.
     WINDS_EDGE, WINDS_EDGE_CLASS: WeaponClass, winds_edge_new = "Server.Items.WindsEdge" : TESSEN, TESSEN_CLASS, tessen_new;
     @template;
-    get_damage_types: |_, _, _| dmg(0, 0, 0, 0, 100),
 }
 
 // ---- AncientUrn, HonorableSwords ----
-
-/// The names `AncientUrn.Names` hands out (also used by `HonorableSwords`).
-pub static NAMES: [&str; 35] = [
-    "Akira",
-    "Avaniaga",
-    "Aya",
-    "Chie",
-    "Emiko",
-    "Fumiyo",
-    "Gennai",
-    "Gennosuke",
-    "Genjo",
-    "Hamato",
-    "Harumi",
-    "Ikuyo",
-    "Juri",
-    "Kaori",
-    "Kaoru",
-    "Kiyomori",
-    "Mayako",
-    "Motoki",
-    "Musashi",
-    "Nami",
-    "Nobukazu",
-    "Roku",
-    "Romi",
-    "Ryo",
-    "Sanzo",
-    "Sakamae",
-    "Satoshi",
-    "Takamori",
-    "Takuro",
-    "Teruyo",
-    "Toshiro",
-    "Yago",
-    "Yeijiro",
-    "Yoshi",
-    "Zeshin",
-];
 
 /// `_urnName` / `_swordsName`.
 #[derive(Clone, Debug, Default)]
 pub struct NameField(pub Option<String>);
 
-/// `AncientUrn(string urnName)`.
-pub fn ancient_urn_new(w: &mut World, name: Option<String>) -> ItemId {
-    let id = ops::new_item_with_id(w, &ANCIENT_URN, 0x241D);
-    if let Some(i) = w.item_mut(id) {
-        i.ext = muo_server::ext::Ext::new(NameField(name));
-    }
-    id
-}
-
-/// `AncientUrn()`: `this(Names.RandomElement())`.
-pub fn ancient_urn_new_random(w: &mut World) -> ItemId {
-    let name = random_element(w, &NAMES).to_string();
-    ancient_urn_new(w, Some(name))
+/// `AncientUrn(string urnName)`: the name is handed to the class's script (`AncientUrn()` draws one there).
+pub fn ancient_urn_new(w: &mut World, name: &str) -> ItemId {
+    named_new(w, &ANCIENT_URN, Some(name))
 }
 
 /// `HonorableSwords(string swordsName)`.
-pub fn honorable_swords_new(w: &mut World, name: Option<String>) -> ItemId {
-    let id = ops::new_item_with_id(w, &HONORABLE_SWORDS, 0x2853);
-    if let Some(i) = w.item_mut(id) {
-        i.ext = muo_server::ext::Ext::new(NameField(name));
-    }
-    id
+pub fn honorable_swords_new(w: &mut World, name: &str) -> ItemId {
+    named_new(w, &HONORABLE_SWORDS, Some(name))
 }
 
-/// `HonorableSwords()`: `this(AncientUrn.Names.RandomElement())`.
-pub fn honorable_swords_new_random(w: &mut World) -> ItemId {
-    let name = random_element(w, &NAMES).to_string();
-    honorable_swords_new(w, Some(name))
+/// The urn or the swords: the graphic and the name are the class's template and script.
+fn named_new(w: &mut World, ty: &'static ItemType, name: Option<&str>) -> ItemId {
+    use muo_server::script_hooks::ScriptArg;
+    let id = ops::new_item_with_id(w, ty, 0);
+    if let Some(i) = w.item_mut(id) {
+        i.ext = muo_server::ext::Ext::new(NameField(None));
+    }
+    match name {
+        Some(n) => {
+            muo_content::templates::apply_item_with(w, id, ty.full_name, &[ScriptArg::Str(n)])
+        }
+        None => muo_content::templates::apply_item_as(w, id, ty.full_name),
+    }
+    id
 }
 
 fn name_of(w: &World, id: ItemId) -> String {
@@ -349,7 +288,7 @@ fn name_read(w: &mut World, id: ItemId, r: &mut dyn muo_io::GenericReader) -> mu
 pub static ANCIENT_URN: ItemType = ItemType {
     full_name: "Server.Items.AncientUrn",
     parent: Some(&ITEM_BASE),
-    construct: Some(ancient_urn_new_random),
+    construct: Some(|w| named_new(w, &ANCIENT_URN, None)),
     default_weight: |w, id| {
         crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
     },
@@ -374,7 +313,7 @@ pub static ANCIENT_URN: ItemType = ItemType {
 pub static HONORABLE_SWORDS: ItemType = ItemType {
     full_name: "Server.Items.HonorableSwords",
     parent: Some(&ITEM_BASE),
-    construct: Some(honorable_swords_new_random),
+    construct: Some(|w| named_new(w, &HONORABLE_SWORDS, None)),
     default_weight: |w, id| {
         crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
     },
@@ -397,20 +336,11 @@ pub static HONORABLE_SWORDS: ItemType = ItemType {
 
 // ---- ChestOfHeirlooms ----
 
-/// `ChestOfHeirlooms()`.
+/// `ChestOfHeirlooms()`: the lock, trap and gump are the template, the ten heirlooms are drawn here.
 pub fn chest_of_heirlooms_new(w: &mut World, ty: &'static ItemType) -> ItemId {
     use muo_content::items::cont;
-    let id = cont::new_lockable(w, ty, 0x2811);
-    if let Some(d) = cont::ext_mut(w, id) {
-        d.locked = true;
-        d.lock_level = 95;
-        d.max_lock_level = 140;
-        d.required_skill = 95;
-        d.trap_type = cont::TrapType::ExplosionTrap;
-        d.trap_level = 10;
-        d.trap_power = 100;
-    }
-    muo_server::item::container::set_gump_id(w, id, 0x10B);
+    let id = cont::new_lockable(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
 
     for _ in 0..10 {
         let Some(item) = muo_content::loot::random_chest_of_heirlooms_content(w) else {

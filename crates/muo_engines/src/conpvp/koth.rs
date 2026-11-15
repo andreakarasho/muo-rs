@@ -369,9 +369,7 @@ pub static HILL_OF_THE_KING: ItemType = ItemType {
 
 /// `new KHController()`.
 pub fn new_controller_kh(w: &mut World) -> ItemId {
-    let id = new_controller(w, &KH_CONTROLLER, EventCtrl::new(GameKind::Kh, 8));
-    ops::set_name(w, id, Some("King of the Hill Controller".to_owned()));
-    id
+    new_controller(w, &KH_CONTROLLER, EventCtrl::new(GameKind::Kh, 8))
 }
 
 /// `KHTeamInfo.Serialize`.

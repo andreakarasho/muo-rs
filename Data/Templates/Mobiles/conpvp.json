@@ -1,0 +1,6 @@
+[
+  {
+    "type": "Server.Engines.ConPVP.TournamentRegistrar",
+    "inherits": "Server.Mobiles.Banker"
+  }
+]

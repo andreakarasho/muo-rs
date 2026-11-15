@@ -16,7 +16,6 @@ use super::items::{QUEST_ITEM, QuestItemClass};
 use super::quester::{
     BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps, get_new_container,
 };
-use super::util::{add_item_hued, add_item_named, set_body};
 use crate::{quest_creature, quester};
 
 fn quest(w: &World, player: MobileId) -> Option<Quest> {
@@ -145,7 +144,6 @@ pub static HAOCHIS_TREASURE_CHEST: ItemType = ItemType {
     construct: Some(|w| {
         let id = cont::new_lockable(w, &HAOCHIS_TREASURE_CHEST, 0);
         muo_content::templates::apply_item_as(w, id, HAOCHIS_TREASURE_CHEST.full_name);
-        muo_server::item::container::set_gump_id(w, id, 0x10B);
         generate_treasure(w, id);
         id
     }),
@@ -313,40 +311,8 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops GUARDSMAN_OPS, encoded true, title Some("the Guardsman of Daimyo Haochi"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            let hue = muo_content::vendor::human_random_skin_hue(w);
-            muo_server::mobile::base::set_hue(w, id, hue);
-            muo_server::mobile::part1::props_b::set_female(w, id, false);
-            set_body(w, id, 0x190);
-            let name = muo_content::misc::small::random_name(w, "male");
-            if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-                f(w, id, Some(name));
-            }
-        },
-        init_outfit: |w, id| {
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            add_item_named(w, id, "Server.Items.LeatherDo");
-            add_item_named(w, id, "Server.Items.LeatherHiroSode");
-            let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-            add_item_hued(w, id, "Server.Items.SamuraiTabi", h);
-            let legs = ["Server.Items.StuddedHaidate", "Server.Items.PlateSuneate", "Server.Items.LeatherSuneate"];
-            let n = legs[muo_content::hooks::rnd::below(w, 3) as usize];
-            add_item_named(w, id, n);
-            let hats = [
-                "Server.Items.DecorativePlateKabuto",
-                "Server.Items.ChainHatsuburi",
-                "Server.Items.LightPlateJingasa",
-                "Server.Items.LeatherJingasa",
-            ];
-            let n = hats[muo_content::hooks::rnd::below(w, 4) as usize];
-            add_item_named(w, id, n);
-            let weapons = ["Server.Items.NoDachi", "Server.Items.Lajatang", "Server.Items.Wakizashi"];
-            let n = weapons[muo_content::hooks::rnd::below(w, 3) as usize];
-            if let Some(it) = add_item_named(w, id, n) {
-                ops::set_movable(w, it, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Samurai.HaochisGuardsman"),
+        init_outfit: |_, _| {},
     }
     c { }
     m { }

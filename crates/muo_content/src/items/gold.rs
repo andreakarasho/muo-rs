@@ -782,10 +782,11 @@ fn keys_mut(w: &mut World, id: ItemId) -> Option<&mut Vec<ItemId>> {
 
 /// `new KeyRing()`.
 pub fn new_key_ring(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &KEY_RING, 0x1011);
+    let id = ops::new_item_with_id(w, &KEY_RING, 0);
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(KeyRingData::default());
     }
+    crate::templates::apply_item_as(w, id, KEY_RING.full_name);
     id
 }
 

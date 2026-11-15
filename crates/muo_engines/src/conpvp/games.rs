@@ -268,13 +268,13 @@ pub fn open_properties(w: &mut World, from: MobileId, id: ItemId) {
 }
 
 /// `base()` of every controller: a hidden, unmovable 0x1B7A.
+/// `EventController()` of class `ty`: its teams, then the class's template (graphic, hidden, immovable, name).
 pub fn new_controller(w: &mut World, ty: &'static ItemType, data: EventCtrl) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1B7A);
-    ops::set_visible(w, id, false);
-    ops::set_movable(w, id, false);
+    let id = ops::new_item_with_id(w, ty, 0);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(data);
     }
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
     id
 }
 
@@ -1013,11 +1013,11 @@ pub struct BoardLink(pub Option<(ItemId, usize)>);
 
 /// A `CTFBoard` / `DDBoard` / `BRBoard`: a 7774 that cannot be moved.
 pub fn new_board(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 7774);
-    ops::set_movable(w, id, false);
+    let id = ops::new_item_with_id(w, ty, 0);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(BoardLink::default());
     }
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
     id
 }
 

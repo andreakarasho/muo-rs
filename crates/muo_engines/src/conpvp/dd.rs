@@ -185,9 +185,7 @@ pub fn new_way_point(w: &mut World) -> ItemId {
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(WayPointData::default());
     }
-    (ITEM_BASE.set_item_id)(w, id, 0x519);
-    ops::set_visible(w, id, true);
-    ops::set_name(w, id, Some("SET MY NAME".to_owned()));
+    muo_content::templates::apply_item_as(w, id, DD_WAY_POINT.full_name);
     for (item, x, y) in [
         (0x7A8, -1, -1),
         (0x7A6, 0, -1),
@@ -231,9 +229,7 @@ pub static DD_WAY_POINT: ItemType = ItemType {
 
 /// `new DDController()`.
 pub fn new_controller_dd(w: &mut World) -> ItemId {
-    let id = new_controller(w, &DD_CONTROLLER, EventCtrl::new(GameKind::Dd, 2));
-    ops::set_name(w, id, None);
-    id
+    new_controller(w, &DD_CONTROLLER, EventCtrl::new(GameKind::Dd, 2))
 }
 
 /// `DDTeamInfo.Serialize`.

@@ -340,27 +340,12 @@ pub fn fill(w: &mut World, c: ItemId, item_count: i32, talisman_chance: f64) {
     }
 }
 
-/// `Fill(this, itemCount, talismanChance)` with the class's props `rewardItemCount` and `rewardTalismanChance`.
-fn fill_from_props(w: &mut World, id: ItemId) {
-    use muo_content::templates::props;
-    let count = props::as_i32(props::item(w, id, "rewardItemCount")).unwrap_or(0);
-    let chance = props::as_f64(props::item(w, id, "rewardTalismanChance")).unwrap_or(0.0);
-    fill(w, id, count, chance);
-}
-
-/// A reward bag: its template (the graphic) then [`fill_from_props`].
-fn reward_bag_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = super::item_support::template_container(w, ty);
-    fill_from_props(w, id);
-    id
-}
-
 macro_rules! bag {
     ($(#[$m:meta])* $name:ident = $full:literal : $parent:ident) => {
         leaf! {
             $(#[$m])*
             $name = $full : $parent, v0;
-            construct: Some(|w| reward_bag_new(w, &$name)),
+            construct: Some(|w| super::item_support::template_container(w, &$name)),
         }
     };
 }
@@ -377,7 +362,7 @@ bag!(/// `Server.Engines.MLQuests.Items.LargeBagOfTreasure`.
 // ---- CraftmansSatchel ------------------------------------------------------------------------------------------
 
 /// `BaseCraftmansSatchel.AddBaseLoot(params Type[][] lootSets)`.
-fn add_base_loot(w: &mut World, id: ItemId, sets: &[&[&str]]) {
+pub(crate) fn add_base_loot(w: &mut World, id: ItemId, sets: &[&[&str]]) {
     let set = sets[rnd::below(w, sets.len() as i32) as usize]; // lootSets.RandomElement()
     let Some(item) = loot::construct_any(w, set) else {
         return;
@@ -387,7 +372,7 @@ fn add_base_loot(w: &mut World, id: ItemId, sets: &[&[&str]]) {
 }
 
 /// `BaseCraftmansSatchel.AddRecipe(system)`.
-fn add_recipe(w: &mut World, id: ItemId, system: &str) {
+pub(crate) fn add_recipe(w: &mut World, id: ItemId, system: &str) {
     let recipes = crate::craft::system(w, system)
         .map(|s| s.recipes.clone())
         .unwrap_or_default();
@@ -405,9 +390,17 @@ fn add_recipe(w: &mut World, id: ItemId, system: &str) {
     }
 }
 
-const TALISMAN: &[&str] = &["Server.Items.RandomTalisman"];
+/// The loot sets of the `satchelLoot` template key, by name.
+pub(crate) const LOOT_SETS: [(&str, &[&str]); 5] = [
+    ("MLArmor", loot::ML_ARMOR_TYPES),
+    ("MLWeapons", loot::ML_WEAPON_TYPES),
+    ("MLRangedWeapons", loot::ML_RANGED_WEAPON_TYPES),
+    ("Jewelry", loot::JEWELRY_TYPES),
+    ("Talisman", &["Server.Items.RandomTalisman"]),
+];
 
-/// `BaseCraftmansSatchel()`: the class's template (it inherits the `BaseCraftmansSatchel` one).
+/// `BaseCraftmansSatchel()` and the satchel's statements: the class's template (it inherits the
+/// `BaseCraftmansSatchel` one; `satchelLoot` and `satchelRecipe` are the loot).
 fn satchel_new(w: &mut World, ty: &'static ItemType) -> ItemId {
     super::item_support::template_container(w, ty)
 }
@@ -421,78 +414,31 @@ leaf! {
 leaf! {
     /// `Server.Engines.MLQuests.Items.TailorSatchel`.
     TAILOR_SATCHEL = "Server.Engines.MLQuests.Items.TailorSatchel" : BASE_CRAFTMANS_SATCHEL, v0;
-    construct: Some(|w| {
-        let id = satchel_new(w, &TAILOR_SATCHEL);
-        add_base_loot(w, id, &[loot::ML_ARMOR_TYPES, loot::JEWELRY_TYPES, TALISMAN]);
-        if rnd::bool(w) {
-            add_recipe(w, id, "Tailoring");
-        }
-        id
-    }),
+    construct: Some(|w| satchel_new(w, &TAILOR_SATCHEL)),
 }
 
 leaf! {
     /// `Server.Engines.MLQuests.Items.BlacksmithSatchel`.
     BLACKSMITH_SATCHEL = "Server.Engines.MLQuests.Items.BlacksmithSatchel" : BASE_CRAFTMANS_SATCHEL, v0;
-    construct: Some(|w| {
-        let id = satchel_new(w, &BLACKSMITH_SATCHEL);
-        add_base_loot(w, id, &[loot::ML_WEAPON_TYPES, loot::JEWELRY_TYPES, TALISMAN]);
-        if rnd::bool(w) {
-            add_recipe(w, id, "Blacksmithy");
-        }
-        id
-    }),
+    construct: Some(|w| satchel_new(w, &BLACKSMITH_SATCHEL)),
 }
 
 leaf! {
     /// `Server.Engines.MLQuests.Items.TinkerSatchel`.
     TINKER_SATCHEL = "Server.Engines.MLQuests.Items.TinkerSatchel" : BASE_CRAFTMANS_SATCHEL, v0;
-    construct: Some(|w| {
-        let id = satchel_new(w, &TINKER_SATCHEL);
-        add_base_loot(
-            w,
-            id,
-            &[loot::ML_ARMOR_TYPES, loot::ML_WEAPON_TYPES, loot::ML_RANGED_WEAPON_TYPES, loot::JEWELRY_TYPES, TALISMAN],
-        );
-        if rnd::bool(w) {
-            match rnd::below(w, 6) {
-                0 => add_recipe(w, id, "Inscription"),
-                1 => add_recipe(w, id, "Alchemy"),
-                _ => {} // TODO: AddNonArtifactRecipe for cases 2 to 5
-            }
-        }
-        id
-    }),
+    construct: Some(|w| satchel_new(w, &TINKER_SATCHEL)),
 }
 
 leaf! {
     /// `Server.Engines.MLQuests.Items.FletchingSatchel`.
     FLETCHING_SATCHEL = "Server.Engines.MLQuests.Items.FletchingSatchel" : BASE_CRAFTMANS_SATCHEL, v0;
-    construct: Some(|w| {
-        let id = satchel_new(w, &FLETCHING_SATCHEL);
-        add_base_loot(w, id, &[loot::ML_RANGED_WEAPON_TYPES, loot::JEWELRY_TYPES, TALISMAN]);
-        if rnd::bool(w) {
-            add_recipe(w, id, "BowFletching");
-        }
-        id
-    }),
+    construct: Some(|w| satchel_new(w, &FLETCHING_SATCHEL)),
 }
 
 leaf! {
     /// `Server.Engines.MLQuests.Items.CarpentrySatchel`.
     CARPENTRY_SATCHEL = "Server.Engines.MLQuests.Items.CarpentrySatchel" : BASE_CRAFTMANS_SATCHEL, v0;
-    construct: Some(|w| {
-        let id = satchel_new(w, &CARPENTRY_SATCHEL);
-        add_base_loot(
-            w,
-            id,
-            &[loot::ML_ARMOR_TYPES, loot::ML_WEAPON_TYPES, loot::ML_RANGED_WEAPON_TYPES, loot::JEWELRY_TYPES, TALISMAN],
-        );
-        if rnd::bool(w) {
-            add_recipe(w, id, "Carpentry");
-        }
-        id
-    }),
+    construct: Some(|w| satchel_new(w, &CARPENTRY_SATCHEL)),
 }
 
 // ---- RewardStrongbox (RewardBags) ----------------------------------------------------------------------------
@@ -500,7 +446,7 @@ leaf! {
 leaf! {
     /// `Server.Engines.MLQuests.Items.RewardStrongbox`.
     REWARD_STRONGBOX = "Server.Engines.MLQuests.Items.RewardStrongbox" : WOODEN_BOX, v0;
-    construct: Some(|w| reward_bag_new(w, &REWARD_STRONGBOX)),
+    construct: Some(|w| super::item_support::template_container(w, &REWARD_STRONGBOX)),
 }
 
 // ---- Teleporters ---------------------------------------------------------------------------------------------
