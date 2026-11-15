@@ -463,7 +463,7 @@ pub fn check_item_equip(w: &World, c: &DuelContext, item: ItemId) -> bool {
             return false;
         }
         if !muo_content::core::aos(w)
-            && d.resource != armor::class(w, item).default_resource
+            && d.resource != armor::default_resource(w, item)
             && !c.ruleset.get_option("Armor", "Colored")
         {
             return false;

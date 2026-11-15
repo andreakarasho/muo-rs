@@ -12,7 +12,11 @@
       "aosStrReq": 20,
       "oldStrReq": 10,
       "armorBase": 13,
-      "labelNumber": 1045122
+      "labelNumber": 1045122,
+      "defaultWeight": 1.0,
+      "materialType": "Leather",
+      "defaultResource": "RegularLeather",
+      "defMedAllowance": "All"
     }
   },
   {
@@ -28,7 +32,10 @@
       "aosStrReq": 25,
       "oldStrReq": 25,
       "armorBase": 16,
-      "labelNumber": 1045123
+      "labelNumber": 1045123,
+      "defaultWeight": 2.0,
+      "materialType": "Studded",
+      "defaultResource": "RegularLeather"
     }
   },
   {
@@ -45,7 +52,9 @@
       "oldStrReq": 20,
       "oldDexBonus": -1,
       "armorBase": 22,
-      "labelNumber": 1045124
+      "labelNumber": 1045124,
+      "defaultWeight": 1.0,
+      "materialType": "Ringmail"
     }
   }
 ]

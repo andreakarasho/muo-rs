@@ -219,10 +219,6 @@ clothing_leaf! {
     /// `Server.Items.PolarBearMask`.
     POLAR_BEAR_MASK, POLAR_BEAR_MASK_CLASS, polar_bear_mask_new = "Server.Items.PolarBearMask" : BEAR_MASK / BEAR_MASK_CLASS, bear_mask_new, hue 0, encoded false;
     @template;
-    base_physical_resistance: 15,
-    base_cold_resistance: 21,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
 }
 
 /// `ShipModelOfTheHMSCape()`.

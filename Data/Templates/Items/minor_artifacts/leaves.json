@@ -553,7 +553,11 @@
       "NightSight": 1
     },
     "props": {
-      "labelNumber": 1070637
+      "labelNumber": 1070637,
+      "basePhysicalResistance": 15,
+      "baseColdResistance": 21,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {

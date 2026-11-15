@@ -87,11 +87,6 @@ clothing_leaf! {
     /// `Server.Items.PhilosophersHat`.
     PHILOSOPHERS_HAT, PHILOSOPHERS_HAT_CLASS, philosophers_hat_new = "Server.Items.PhilosophersHat" : WIZARDS_HAT / WIZARDS_HAT_CLASS, wizards_hat_new, hue 0, encoded true;
     @template;
-    base_physical_resistance: 5,
-    base_fire_resistance: 5,
-    base_cold_resistance: 9,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
 }
 
 weapon_art! {

@@ -75,7 +75,9 @@
       "baseEnergyResistance": 10,
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1062923
+      "labelNumber": 1062923,
+      "defaultWeight": 5.0,
+      "materialType": "Plate"
     }
   },
   {
@@ -100,12 +102,22 @@
   {
     "type": "Server.Items.CraftysFishingHat",
     "props": {
-      "labelNumber": 1074572
+      "labelNumber": 1074572,
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 5,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5,
+      "initMinHits": 20,
+      "initMaxHits": 30
     }
   },
   {
     "type": "Server.Items.HoodedShroudOfShadows",
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 3.0
+    }
   },
   {
     "type": "Server.Items.JesterHatofChuckles",
@@ -113,7 +125,15 @@
       "Luck": 150
     },
     "props": {
-      "labelNumber": 1073256
+      "labelNumber": 1073256,
+      "defaultWeight": 1.0,
+      "basePhysicalResistance": 12,
+      "baseFireResistance": 12,
+      "baseColdResistance": 12,
+      "basePoisonResistance": 12,
+      "baseEnergyResistance": 12,
+      "initMinHits": 100,
+      "initMaxHits": 100
     }
   },
   {

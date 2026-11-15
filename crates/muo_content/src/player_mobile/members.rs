@@ -135,9 +135,9 @@ pub fn validate_equipment_sandbox(w: &mut World, id: MobileId) {
                 moved = true;
             }
         } else if armor::is_armor(w, item) {
-            let c = armor::class(w, item);
-            let gender = access < AccessLevel::GameMaster
-                && ((!c.allow_male_wearer && !female) || (!c.allow_female_wearer && female));
+            let (male, fem) = armor::allow_wearer(w, item);
+            let gender =
+                access < AccessLevel::GameMaster && ((!male && !female) || (!fem && female));
             let drop = if gender || !muo_server::item::base::check_race(w, item, id, false) {
                 true
             } else {
@@ -171,9 +171,9 @@ pub fn validate_equipment_sandbox(w: &mut World, id: MobileId) {
                 moved = true;
             }
         } else if clothing::is_clothing(w, item) {
-            let c = clothing::class(w, item);
-            let gender = access < AccessLevel::GameMaster
-                && ((!c.allow_male_wearer && !female) || (!c.allow_female_wearer && female));
+            let (male, fem) = clothing::allow_wearer(w, item);
+            let gender =
+                access < AccessLevel::GameMaster && ((!male && !female) || (!fem && female));
             let drop = if gender || clothing_wrong_race(w, item, id) {
                 true
             } else {

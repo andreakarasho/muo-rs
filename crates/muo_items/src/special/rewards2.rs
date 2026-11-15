@@ -334,10 +334,6 @@ armor_leaf! {
     /// `Server.Items.LeatherGlovesOfMining` (`[Flippable(0x13c6, 0x13ce)]`).
     LEATHER_GLOVES_OF_MINING, LEATHER_GLOVES_OF_MINING_CLASS, leather_gloves_of_mining_new = "Server.Items.LeatherGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13C6, 0), encoded false;
     @no_construct none;
-    default_weight: Some(1.0),
-    material_type: ArmorMaterialType::Leather,
-    default_resource: CraftResource::RegularLeather,
-    def_med_allowance: muo_content::items::armor::ArmorMeditationAllowance::All,
 }
 
 /// `StuddedGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
@@ -349,9 +345,6 @@ armor_leaf! {
     /// `Server.Items.StuddedGlovesOfMining` (`[Flippable(0x13d5, 0x13dd)]`).
     STUDDED_GLOVES_OF_MINING, STUDDED_GLOVES_OF_MINING_CLASS, studded_gloves_of_mining_new = "Server.Items.StuddedGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13D5, 0), encoded false;
     @no_construct none;
-    default_weight: Some(2.0),
-    material_type: ArmorMaterialType::Studded,
-    default_resource: CraftResource::RegularLeather,
 }
 
 /// `RingmailGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
@@ -363,8 +356,6 @@ armor_leaf! {
     /// `Server.Items.RingmailGlovesOfMining` (`[Flippable(0x13eb, 0x13f2)]`).
     RINGMAIL_GLOVES_OF_MINING, RINGMAIL_GLOVES_OF_MINING_CLASS, ringmail_gloves_of_mining_new = "Server.Items.RingmailGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13EB, 0), encoded false;
     @no_construct none;
-    default_weight: Some(1.0),
-    material_type: ArmorMaterialType::Ringmail,
 }
 
 // ---- PowderOfTemperament ----
@@ -407,23 +398,22 @@ fn durability(w: &World, id: ItemId) -> Option<(i32, i32, bool, i32)> {
         Some((
             d.hit_points,
             d.max_hit_points,
-            c.can_fortify,
+            weapon::can_fortify(w, id),
             item_props::int(w, id, "initMaxHits", c.init_max_hits),
         ))
     } else if let Some(d) = i.ext.get::<clothing::ClothingData>() {
-        let c = clothing::class(w, id);
         Some((
             d.hit_points,
             d.max_hit_points,
-            c.can_fortify,
-            c.init_max_hits.get(muo_content::core::ml(w)),
+            clothing::can_fortify(w, id),
+            clothing::init_hits(w, id).1,
         ))
     } else if let Some(d) = i.ext.get::<armor::ArmorData>() {
         let c = armor::class(w, id);
         Some((
             d.hit_points,
             d.max_hit_points,
-            c.can_fortify,
+            armor::can_fortify(w, id),
             item_props::int(w, id, "initMaxHits", c.init_max_hits),
         ))
     } else {

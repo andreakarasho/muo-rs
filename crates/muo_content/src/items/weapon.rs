@@ -175,8 +175,6 @@ pub struct WeaponClass {
     pub scales_uses: bool,
     /// BaseThrown's `MinThrowRange` (0 for a class that is not a thrown weapon).
     pub min_throw_range: i32,
-    /// `[Flippable(a, b)]`: the two graphics a flip toggles between.
-    pub flippable: Option<(i32, i32)>,
     /// BaseRanged's `EffectID` (the moving-effect graphic of a shot).
     pub effect_id: i32,
     /// BaseRanged's `AmmoType`, by full type name (`Ammo` makes one with `make_item`).
@@ -249,7 +247,6 @@ pub static BASE_WEAPON_CLASS: WeaponClass = WeaponClass {
     can_fortify: true,
     scales_uses: false,
     min_throw_range: 0,
-    flippable: None,
     effect_id: 0,
     ammo_type: None,
     virtual_damage_bonus: 0,

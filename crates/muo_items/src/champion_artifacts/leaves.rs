@@ -150,10 +150,6 @@ clothing_leaf! {
     /// `Server.Items.ANecromancerShroud`.
     A_NECROMANCER_SHROUD, A_NECROMANCER_SHROUD_CLASS, a_necromancer_shroud_new = "Server.Items.ANecromancerShroud" : ROBE / ROBE_CLASS, robe_new, hue 0, encoded false;
     @template;
-    base_cold_resistance: 5,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 weapon_art! {
@@ -166,24 +162,18 @@ jewel_leaf! {
     /// `Server.Items.DjinnisRing`.
     DJINNIS_RING, DJINNIS_RING_CLASS, djinnis_ring_new = "Server.Items.DjinnisRing" : SILVER_RING / SILVER_RING_CLASS, silver_ring_new, encoded false;
     @template;
-    init_min_hits: 150,
-    init_max_hits: 150,
 }
 
 armor_leaf! {
     /// `Server.Items.GuantletsOfAnger`.
     GUANTLETS_OF_ANGER, GUANTLETS_OF_ANGER_CLASS, guantlets_of_anger_new = "Server.Items.GuantletsOfAnger" : PLATE_GLOVES / PLATE_GLOVES_CLASS, plate_gloves_new, encoded false;
     @template;
-    can_fortify: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.LieutenantOfTheBritannianRoyalGuard`.
     LIEUTENANT_OF_THE_BRITANNIAN_ROYAL_GUARD, LIEUTENANT_OF_THE_BRITANNIAN_ROYAL_GUARD_CLASS, lieutenant_of_the_britannian_royal_guard_new = "Server.Items.LieutenantOfTheBritannianRoyalGuard" : BODY_SASH / BODY_SASH_CLASS, body_sash_new, hue 0, encoded false;
     @template;
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 weapon_art! {
@@ -202,20 +192,12 @@ clothing_leaf! {
     /// `Server.Items.SamaritanRobe`.
     SAMARITAN_ROBE, SAMARITAN_ROBE_CLASS, samaritan_robe_new = "Server.Items.SamaritanRobe" : ROBE / ROBE_CLASS, robe_new, hue 0, encoded false;
     @template;
-    base_physical_resistance: 5,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.AcidProofRobe`.
     ACID_PROOF_ROBE, ACID_PROOF_ROBE_CLASS, acid_proof_robe_new = "Server.Items.AcidProofRobe" : ROBE / ROBE_CLASS, robe_new, hue 0, encoded false;
     @template;
-    base_fire_resistance: 4,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 weapon_art! {
@@ -228,14 +210,6 @@ clothing_leaf! {
     /// `Server.Items.CrownOfTalKeesh`.
     CROWN_OF_TAL_KEESH, CROWN_OF_TAL_KEESH_CLASS, crown_of_tal_keesh_new = "Server.Items.CrownOfTalKeesh" : BANDANA / BANDANA_CLASS, bandana_new, hue 0, encoded false;
     @template;
-    base_physical_resistance: 0,
-    base_fire_resistance: 5,
-    base_cold_resistance: 9,
-    base_poison_resistance: 20,
-    base_energy_resistance: 20,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 weapon_art! {
@@ -248,7 +222,6 @@ armor_leaf! {
     /// `Server.Items.GladiatorsCollar`.
     GLADIATORS_COLLAR, GLADIATORS_COLLAR_CLASS, gladiators_collar_new = "Server.Items.GladiatorsCollar" : PLATE_GORGET / PLATE_GORGET_CLASS, plate_gorget_new, encoded false;
     @template;
-    can_fortify: false,
 }
 
 weapon_art! {

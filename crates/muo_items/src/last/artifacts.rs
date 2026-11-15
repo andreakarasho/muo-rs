@@ -28,13 +28,6 @@ clothing_leaf! {
     /// `Server.Items.BurglarsBandana`.
     BURGLARS_BANDANA, BURGLARS_BANDANA_CLASS, burglars_bandana_new = "Server.Items.BurglarsBandana" : BANDANA / BANDANA_CLASS, bandana_new, hue 0, encoded false;
     @template;
-    base_physical_resistance: 10,
-    base_fire_resistance: 5,
-    base_cold_resistance: 7,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
 }
 
 /// `DreadPirateHat._combatSkills`.
@@ -50,10 +43,6 @@ clothing_leaf! {
     /// `Server.Items.DreadPirateHat`.
     DREAD_PIRATE_HAT, DREAD_PIRATE_HAT_CLASS, dread_pirate_hat_new = "Server.Items.DreadPirateHat" : TRICORNE_HAT / TRICORNE_HAT_CLASS, tricorne_hat_new, hue 0, encoded false;
     @template;
-    base_cold_resistance: 14,
-    base_poison_resistance: 10,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
 }
 
 // ---- Minor Artifacts/ML ----
@@ -62,16 +51,12 @@ armor_leaf! {
     /// `Server.Items.AegisOfGrace`.
     AEGIS_OF_GRACE, AEGIS_OF_GRACE_CLASS, aegis_of_grace_new = "Server.Items.AegisOfGrace" : DRAGON_HELM / DRAGON_HELM_CLASS, dragon_helm_new, encoded true;
     @template;
-    material_type: ArmorMaterialType::Dragon,
-    default_resource: CraftResource::Iron,
-    required_races: Some(ALLOW_ELVES_ONLY),
 }
 
 armor_leaf! {
     /// `Server.Items.FeyLeggings`.
     FEY_LEGGINGS, FEY_LEGGINGS_CLASS, fey_leggings_new = "Server.Items.FeyLeggings" : CHAIN_LEGS / CHAIN_LEGS_CLASS, chain_legs_new, encoded true;
     @template;
-    required_races: Some(ALLOW_ELVES_ONLY),
 }
 
 clothing_leaf! {
@@ -83,16 +68,12 @@ clothing_leaf! {
     /// `Server.Items.RobeOfTheEclipse`.
     ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F03, 0x486), hue 0, encoded true;
     @template;
-    flippable: Some((0x1F03, 0x1F04)),
-    default_weight: Some(3.0),
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEquinox`.
     ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F04, 0xD6), hue 0, encoded true;
     @template;
-    flippable: Some((0x1F03, 0x1F04)),
-    default_weight: Some(3.0),
 }
 
 weapon_art! {
@@ -131,14 +112,6 @@ clothing_leaf! {
     /// `Server.Items.CaptainJohnsHat`.
     CAPTAIN_JOHNS_HAT, CAPTAIN_JOHNS_HAT_CLASS, captain_johns_hat_new = "Server.Items.CaptainJohnsHat" : TRICORNE_HAT / TRICORNE_HAT_CLASS, tricorne_hat_new, hue 0, encoded false;
     @template;
-    base_physical_resistance: 2,
-    base_fire_resistance: 6,
-    base_cold_resistance: 9,
-    base_poison_resistance: 7,
-    base_energy_resistance: 23,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 /// `DetectiveBoots.Level`: kept in a field that is not saved and restores it from `Attributes.BonusInt`
@@ -154,52 +127,36 @@ clothing_leaf! {
     @ty {
         label_number: |w, id| 1094894 + detective_level(w, id),
     };
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.EmbroideredOakLeafCloak`.
     EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
     @template;
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.TheMostKnowledgePerson`.
     THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
     @template;
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
-    can_be_blessed: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.TheRobeOfBritanniaAri`.
     THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
     @template;
-    base_physical_resistance: 10,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 armor_leaf! {
     /// `Server.Items.OrcChieftainHelm`.
     ORC_CHIEFTAIN_HELM, ORC_CHIEFTAIN_HELM_CLASS, orc_chieftain_helm_new = "Server.Items.OrcChieftainHelm" : ORC_HELM / ORC_HELM_CLASS, orc_helm_new, encoded false;
     @template;
-    can_fortify: false,
 }
 
 armor_leaf! {
     /// `Server.Items.ShroudOfDeciet`.
     SHROUD_OF_DECIET, SHROUD_OF_DECIET_CLASS, shroud_of_deciet_new = "Server.Items.ShroudOfDeciet" : BONE_CHEST / BONE_CHEST_CLASS, bone_chest_new, encoded false;
     @template;
-    can_fortify: false,
 }
 
 // ---- New Haven Quest Rewards ----

@@ -288,7 +288,7 @@ fn on_target(w: &mut World, tub: ItemId, from: MobileId, t: Targeted) {
 fn is_leather(w: &World, item: ItemId) -> bool {
     armor::is_armor(w, item)
         && matches!(
-            armor::class(w, item).material_type,
+            armor::material_type(w, item),
             armor::ArmorMaterialType::Leather | armor::ArmorMaterialType::Studded
         )
 }

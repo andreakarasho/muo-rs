@@ -93,9 +93,6 @@ armor_leaf! {
     /// `Server.Items.SamuraiHelm`.
     SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x236C), encoded true;
     @template;
-    flippable: Some((0x236C, 0x236D)),
-    default_weight: Some(5.0),
-    material_type: ArmorMaterialType::Plate,
 }
 
 // ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 ----
@@ -112,14 +109,6 @@ clothing_leaf! {
     /// `Server.Items.JesterHatofChuckles`.
     JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x171C, hue), hue 0, encoded false;
     @template;
-    default_weight: Some(1.0),
-    base_physical_resistance: 12,
-    base_fire_resistance: 12,
-    base_cold_resistance: 12,
-    base_poison_resistance: 12,
-    base_energy_resistance: 12,
-    init_min_hits: same(100),
-    init_max_hits: same(100),
 }
 
 // ---- HoodedShroudOfShadows: [Flippable(0x2684, 0x2683)], BaseOuterTorso(0x2684, hue = 0x455) ----
@@ -127,8 +116,6 @@ clothing_leaf! {
     /// `Server.Items.HoodedShroudOfShadows`.
     HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2684, hue), hue 0x455, encoded false;
     @template;
-    flippable: Some((0x2684, 0x2683)),
-    default_weight: Some(3.0),
     dye: crate::clothing::dye_refused,
 }
 

@@ -21,7 +21,10 @@
       "baseEnergyResistance": 15,
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1075047
+      "labelNumber": 1075047,
+      "materialType": "Dragon",
+      "defaultResource": "Iron",
+      "requiredRaces": "AllowElvesOnly"
     }
   },
   {
@@ -41,7 +44,8 @@
       "baseEnergyResistance": 19,
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1075041
+      "labelNumber": 1075041,
+      "requiredRaces": "AllowElvesOnly"
     }
   },
   {
@@ -153,7 +157,8 @@
       "baseEnergyResistance": 5,
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094924
+      "labelNumber": 1094924,
+      "canFortify": false
     }
   },
   {
@@ -179,7 +184,8 @@
       "baseEnergyResistance": 13,
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094914
+      "labelNumber": 1094914,
+      "canFortify": false
     }
   },
   {
@@ -205,7 +211,11 @@
     "hue": 1163,
     "strRequirement": 0,
     "props": {
-      "labelNumber": 1094931
+      "labelNumber": 1094931,
+      "basePhysicalResistance": 10,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -213,7 +223,10 @@
     "hue": 279,
     "strRequirement": 0,
     "props": {
-      "labelNumber": 1094893
+      "labelNumber": 1094893,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     },
     "script": "content/equipment/the_most_knowledge_person.rhai"
   },
@@ -228,7 +241,10 @@
       ]
     ],
     "props": {
-      "labelNumber": 1094901
+      "labelNumber": 1094901,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -246,7 +262,15 @@
       ]
     ],
     "props": {
-      "labelNumber": 1094911
+      "labelNumber": 1094911,
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 6,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 7,
+      "baseEnergyResistance": 23,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -255,7 +279,8 @@
       "Luck": 95
     },
     "props": {
-      "labelNumber": 1075042
+      "labelNumber": 1075042,
+      "defaultWeight": 3.0
     }
   },
   {
@@ -264,7 +289,8 @@
       "Luck": 95
     },
     "props": {
-      "labelNumber": 1075082
+      "labelNumber": 1075082,
+      "defaultWeight": 3.0
     }
   },
   {
@@ -324,7 +350,11 @@
       "NightSight": 1
     },
     "props": {
-      "labelNumber": 1063467
+      "labelNumber": 1063467,
+      "baseColdResistance": 14,
+      "basePoisonResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -355,7 +385,14 @@
       "BonusDex": 5
     },
     "props": {
-      "labelNumber": 1063473
+      "labelNumber": 1063473,
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 5,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -375,6 +412,11 @@
   {
     "type": "Server.Items.DetectiveBoots",
     "hue": 1109,
-    "script": "content/equipment/detective_boots.rhai"
+    "script": "content/equipment/detective_boots.rhai",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
+    }
   }
 ]

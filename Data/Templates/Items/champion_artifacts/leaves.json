@@ -40,7 +40,8 @@
       "baseEnergyResistance": 5,
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094902
+      "labelNumber": 1094902,
+      "canFortify": false
     }
   },
   {
@@ -136,7 +137,8 @@
       "baseEnergyResistance": 16,
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094917
+      "labelNumber": 1094917,
+      "canFortify": false
     }
   },
   {
@@ -249,7 +251,15 @@
       "SpellDamage": 10
     },
     "props": {
-      "labelNumber": 1094903
+      "labelNumber": 1094903,
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 5,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 20,
+      "baseEnergyResistance": 20,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -257,14 +267,22 @@
     "hue": 1109,
     "lootType": "Blessed",
     "props": {
-      "labelNumber": 1095236
+      "labelNumber": 1095236,
+      "baseFireResistance": 4,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
     "type": "Server.Items.SamaritanRobe",
     "hue": 675,
     "props": {
-      "labelNumber": 1094926
+      "labelNumber": 1094926,
+      "basePhysicalResistance": 5,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -276,7 +294,10 @@
       "LowerRegCost": 10
     },
     "props": {
-      "labelNumber": 1094910
+      "labelNumber": 1094910,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   },
   {
@@ -287,14 +308,20 @@
       "CastSpeed": 2
     },
     "props": {
-      "labelNumber": 1094927
+      "labelNumber": 1094927,
+      "initMinHits": 150,
+      "initMaxHits": 150
     }
   },
   {
     "type": "Server.Items.ANecromancerShroud",
     "hue": 1109,
     "props": {
-      "labelNumber": 1094913
+      "labelNumber": 1094913,
+      "baseColdResistance": 5,
+      "initMinHits": 150,
+      "initMaxHits": 150,
+      "canFortify": false
     }
   }
 ]

@@ -142,7 +142,12 @@
       "LowerRegCost": 7
     },
     "props": {
-      "labelNumber": 1077602
+      "labelNumber": 1077602,
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 5,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5
     }
   },
   {

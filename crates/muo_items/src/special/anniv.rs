@@ -17,7 +17,6 @@ armor_leaf! {
     /// `Server.Items.DupresShield`.
     DUPRES_SHIELD, DUPRES_SHIELD_CLASS, dupres_shield_new = "Server.Items.DupresShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x2B01), encoded true;
     @template;
-    default_weight: Some(6.0),
 }
 
 /// `QuiverOfInfinity()`.

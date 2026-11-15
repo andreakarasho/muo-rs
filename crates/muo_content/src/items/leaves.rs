@@ -100,7 +100,6 @@ macro_rules! armor_leaf {
 weapon_leaf! {
     /// `Server.Items.Longsword`.
     LONGSWORD, LONGSWORD_CLASS = "Server.Items.Longsword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0xF61;
-    flippable: Some((0xF61, 0xF60)),
     default_weight: Some(7.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::ConcussionBlow),
@@ -122,7 +121,6 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Katana`.
     KATANA, KATANA_CLASS = "Server.Items.Katana" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13FF;
-    flippable: Some((0x13FF, 0x13FE)),
     default_weight: Some(6.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::ArmorIgnore),
@@ -151,7 +149,6 @@ weapon_leaf! {
         }
         set_resource(w, id, CraftResource::RegularWood);
     };
-    flippable: Some((0x13B2, 0x13B1)),
     default_weight: Some(6.0),
     effect_id: 0xF42,
     ammo_type: Some("Server.Items.Arrow"),
@@ -270,7 +267,6 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.FancyShirt`.
     FANCY_SHIRT, FANCY_SHIRT_CLASS = "Server.Items.FancyShirt" : BASE_SHIRT / BASE_SHIRT_CLASS, graphic 0x1EFD;
-    flippable: Some((0x1EFD, 0x1EFE)),
     default_weight: Some(2.0),
 }
 
@@ -289,7 +285,6 @@ jewel_leaf! {
 armor_leaf! {
     /// `Server.Items.PlateChest`.
     PLATE_CHEST, PLATE_CHEST_CLASS = "Server.Items.PlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, graphic 0x1415;
-    flippable: Some((0x1415, 0x1416)),
     default_weight: Some(10.0),
     base_physical_resistance: 5,
     base_fire_resistance: 3,
@@ -308,7 +303,6 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.LeatherChest`.
     LEATHER_CHEST, LEATHER_CHEST_CLASS = "Server.Items.LeatherChest" : BASE_ARMOR / BASE_ARMOR_CLASS, graphic 0x13CC;
-    flippable: Some((0x13CC, 0x13D3)),
     default_weight: Some(6.0),
     base_physical_resistance: 2,
     base_fire_resistance: 4,
@@ -328,7 +322,6 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.ChainChest`.
     CHAIN_CHEST, CHAIN_CHEST_CLASS = "Server.Items.ChainChest" : BASE_ARMOR / BASE_ARMOR_CLASS, graphic 0x13BF;
-    flippable: Some((0x13BF, 0x13C4)),
     default_weight: Some(7.0),
     base_physical_resistance: 4,
     base_fire_resistance: 4,

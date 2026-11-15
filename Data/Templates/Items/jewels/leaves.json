@@ -104,5 +104,65 @@
       "labelNumber": 1061103,
       "artifactRarity": 11
     }
+  },
+  {
+    "type": "Server.Items.GoldBracelet",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.SilverBracelet",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.GoldEarrings",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.SilverEarrings",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.GoldNecklace",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.GoldBeadNecklace",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.SilverNecklace",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.SilverBeadNecklace",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.SilverRing",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.WeddingRing",
+    "props": {
+      "defaultWeight": 0.1
+    }
   }
 ]

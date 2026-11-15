@@ -253,13 +253,6 @@ clothing_leaf! {
             list.add(1073634); // An aquarium decoration
         },
     };
-    base_physical_resistance: 0,
-    base_fire_resistance: 5,
-    base_cold_resistance: 9,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
-    init_min_hits: muo_content::items::same(20),
-    init_max_hits: muo_content::items::same(30),
 }
 
 clothing_leaf! {
