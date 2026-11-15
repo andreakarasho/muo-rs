@@ -45,8 +45,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1062921,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -60,13 +58,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
     };
     label_number: 1062911,
-    base_physical_resistance: 15,
-    base_fire_resistance: 25,
-    base_cold_resistance: 0,
-    base_poison_resistance: 15,
-    base_energy_resistance: 15,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -81,8 +72,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
     };
     label_number: 1062915,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 /// `MinotaurHedge()`.
@@ -114,9 +103,7 @@ leaf! {
 
 /// `PlagueBeastGland()`.
 pub fn plague_beast_gland_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1CEF);
-    hue(w, id, 0x6);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.PlagueBeastGland")
 }
 
 leaf! {
@@ -141,13 +128,6 @@ armor_leaf! {
     flippable: Some((0x236C, 0x236D)),
     default_weight: Some(5.0),
     label_number: 1062923,
-    base_physical_resistance: 15,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 15,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
     material_type: ArmorMaterialType::Plate,
 }
 

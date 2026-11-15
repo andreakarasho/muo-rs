@@ -1,0 +1,107 @@
+[
+  {
+    "type": "Server.Items.AxeOfTheHeavens",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BladeOfInsanity",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BladeOfTheRighteous",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BoneCrusher",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BreathOfTheDead",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Frostbringer",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.LegacyOfTheDreadLord",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.SerpentsFang",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.StaffOfTheMagi",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TheBeserkersMaul",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TheDragonSlayer",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TheDryadBow",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TheTaskmaster",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TitansHammer",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ZyronicClaw",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  }
+]

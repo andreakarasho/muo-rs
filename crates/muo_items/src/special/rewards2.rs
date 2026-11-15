@@ -335,16 +335,6 @@ armor_leaf! {
     LEATHER_GLOVES_OF_MINING, LEATHER_GLOVES_OF_MINING_CLASS, leather_gloves_of_mining_new = "Server.Items.LeatherGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13C6, 0), encoded false;
     @no_construct none;
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: muo_content::items::armor::ArmorMeditationAllowance::All,
@@ -361,16 +351,6 @@ armor_leaf! {
     STUDDED_GLOVES_OF_MINING, STUDDED_GLOVES_OF_MINING_CLASS, studded_gloves_of_mining_new = "Server.Items.StuddedGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13D5, 0), encoded false;
     @no_construct none;
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     label_number: 1045123, // studded leather blacksmith gloves of mining
@@ -386,17 +366,6 @@ armor_leaf! {
     RINGMAIL_GLOVES_OF_MINING, RINGMAIL_GLOVES_OF_MINING_CLASS, ringmail_gloves_of_mining_new = "Server.Items.RingmailGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13EB, 0), encoded false;
     @no_construct none;
     default_weight: Some(1.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 1,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 20,
-    old_dex_bonus: -1,
-    armor_base: 22,
     material_type: ArmorMaterialType::Ringmail,
     label_number: 1045124, // ringmail blacksmith gloves of mining
 }
@@ -434,6 +403,7 @@ pub fn powder_of_temperament_new(w: &mut World, charges: i32) -> ItemId {
 /// The `IDurability` of an armor, weapon or clothing item: `(HitPoints, MaxHitPoints, CanFortify, InitMaxHits)`.
 fn durability(w: &World, id: ItemId) -> Option<(i32, i32, bool, i32)> {
     use muo_content::items::{armor, clothing, weapon};
+    use muo_content::templates::item_props;
     let i = w.item(id)?;
     if let Some(d) = i.ext.get::<weapon::WeaponData>() {
         let c = weapon::class(w, id);
@@ -441,7 +411,7 @@ fn durability(w: &World, id: ItemId) -> Option<(i32, i32, bool, i32)> {
             d.hit_points,
             d.max_hit_points,
             c.can_fortify,
-            c.init_max_hits,
+            item_props::int(w, id, "initMaxHits", c.init_max_hits),
         ))
     } else if let Some(d) = i.ext.get::<clothing::ClothingData>() {
         let c = clothing::class(w, id);
@@ -457,7 +427,7 @@ fn durability(w: &World, id: ItemId) -> Option<(i32, i32, bool, i32)> {
             d.hit_points,
             d.max_hit_points,
             c.can_fortify,
-            c.init_max_hits,
+            item_props::int(w, id, "initMaxHits", c.init_max_hits),
         ))
     } else {
         None

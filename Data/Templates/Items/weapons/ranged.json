@@ -1,0 +1,94 @@
+[
+  {
+    "type": "Server.Items.CompositeBow",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": [
+        15,
+        13
+      ],
+      "aosMaxDamage": 17,
+      "aosSpeed": 25,
+      "mlSpeed": 4.0,
+      "oldStrReq": 45,
+      "oldMinDamage": 15,
+      "oldMaxDamage": 17,
+      "oldSpeed": 25,
+      "defMaxRange": 10,
+      "initMinHits": 31,
+      "initMaxHits": 70
+    }
+  },
+  {
+    "type": "Server.Items.Crossbow",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 18,
+      "aosMaxDamage": [
+        20,
+        22
+      ],
+      "aosSpeed": 24,
+      "mlSpeed": 4.5,
+      "oldStrReq": 30,
+      "oldMinDamage": 8,
+      "oldMaxDamage": 43,
+      "oldSpeed": 18,
+      "defMaxRange": 8,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.HeavyCrossbow",
+    "props": {
+      "aosStrReq": 80,
+      "aosMinDamage": [
+        19,
+        20
+      ],
+      "aosMaxDamage": [
+        20,
+        24
+      ],
+      "aosSpeed": 22,
+      "mlSpeed": 5.0,
+      "oldStrReq": 40,
+      "oldMinDamage": 11,
+      "oldMaxDamage": 56,
+      "oldSpeed": 10,
+      "defMaxRange": 8,
+      "initMinHits": 31,
+      "initMaxHits": 100
+    }
+  },
+  {
+    "type": "Server.Items.JukaBow",
+    "props": {
+      "aosStrReq": 80,
+      "aosDexReq": 80,
+      "oldStrReq": 80,
+      "oldDexReq": 80
+    }
+  },
+  {
+    "type": "Server.Items.RepeatingCrossbow",
+    "props": {
+      "aosStrReq": 30,
+      "aosMinDamage": [
+        10,
+        8
+      ],
+      "aosMaxDamage": 12,
+      "aosSpeed": 41,
+      "mlSpeed": 2.75,
+      "oldStrReq": 30,
+      "oldMinDamage": 10,
+      "oldMaxDamage": 12,
+      "oldSpeed": 41,
+      "defMaxRange": 7,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  }
+]

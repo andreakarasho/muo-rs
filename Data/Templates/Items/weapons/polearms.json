@@ -1,0 +1,50 @@
+[
+  {
+    "type": "Server.Items.Bardiche",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": 17,
+      "aosMaxDamage": 18,
+      "aosSpeed": 28,
+      "mlSpeed": 3.75,
+      "oldStrReq": 40,
+      "oldMinDamage": 5,
+      "oldMaxDamage": 43,
+      "oldSpeed": 26,
+      "initMinHits": 31,
+      "initMaxHits": 100
+    }
+  },
+  {
+    "type": "Server.Items.Halberd",
+    "props": {
+      "aosStrReq": 95,
+      "aosMinDamage": 18,
+      "aosMaxDamage": 19,
+      "aosSpeed": 25,
+      "mlSpeed": 4.25,
+      "oldStrReq": 45,
+      "oldMinDamage": 5,
+      "oldMaxDamage": 49,
+      "oldSpeed": 25,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.Scythe",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": 15,
+      "aosMaxDamage": 18,
+      "aosSpeed": 32,
+      "mlSpeed": 3.5,
+      "oldStrReq": 45,
+      "oldMinDamage": 15,
+      "oldMaxDamage": 18,
+      "oldSpeed": 32,
+      "initMinHits": 31,
+      "initMaxHits": 100
+    }
+  }
+]

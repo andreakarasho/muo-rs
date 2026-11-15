@@ -9,17 +9,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 40,
-    aos_min_damage: same(14),
-    aos_max_damage: same(16),
-    aos_speed: 37,
-    ml_speed: 3.00,
-    old_str_req: 40,
-    old_min_damage: 14,
-    old_max_damage: 16,
-    old_speed: 37,
-    init_min_hits: 21,
-    init_max_hits: 110,
     def_skill: SkillName::Swords,
 }
 
@@ -30,17 +19,6 @@ weapon_leaf! {
     default_weight: Some(2.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::InfectiousStrike),
-    aos_str_req: 50,
-    aos_min_damage: same(12),
-    aos_max_damage: same(13),
-    aos_speed: 49,
-    ml_speed: 2.25,
-    old_str_req: 50,
-    old_min_damage: 12,
-    old_max_damage: 13,
-    old_speed: 49,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -52,12 +30,6 @@ weapon_leaf! {
     flippable: Some((0x904, 0x406D)),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 50,
-    aos_min_damage: same(11),
-    aos_max_damage: same(14),
-    ml_speed: 2.25,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -67,17 +39,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::ParalyzingBlow),
     secondary_ability: Some(Ability::InfectiousStrike),
-    aos_str_req: 50,
-    aos_min_damage: same(14),
-    aos_max_damage: same(16),
-    aos_speed: 37,
-    ml_speed: 3.00,
-    old_str_req: 50,
-    old_min_damage: 14,
-    old_max_damage: 16,
-    old_speed: 37,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -87,17 +48,6 @@ weapon_leaf! {
     default_weight: Some(11.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 55,
-    aos_min_damage: same(13),
-    aos_max_damage: same(14),
-    aos_speed: 43,
-    ml_speed: 2.50,
-    old_str_req: 15,
-    old_min_damage: 4,
-    old_max_damage: 16,
-    old_speed: 45,
-    init_min_hits: 31,
-    init_max_hits: 60,
 }
 
 weapon_leaf! {
@@ -107,17 +57,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::ShadowStrike),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 40,
-    aos_min_damage: same(10),
-    aos_max_damage: same(13),
-    aos_speed: 55,
-    ml_speed: 2.00,
-    old_str_req: 15,
-    old_min_damage: 4,
-    old_max_damage: 32,
-    old_speed: 50,
-    init_min_hits: 31,
-    init_max_hits: 70,
     def_animation: WeaponAnimation::Pierce1H,
 }
 
@@ -128,17 +67,6 @@ weapon_leaf! {
     default_weight: Some(7.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 42,
-    ml_speed: 2.75,
-    old_str_req: 30,
-    old_min_damage: 2,
-    old_max_damage: 36,
-    old_speed: 46,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -154,17 +82,6 @@ weapon_leaf! {
     default_weight: Some(7.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 42,
-    ml_speed: 2.75,
-    old_str_req: 30,
-    old_min_damage: 2,
-    old_max_damage: 36,
-    old_speed: 46,
-    init_min_hits: 31,
-    init_max_hits: 80,
     virtual_damage_bonus: 25,
 }
 
@@ -175,19 +92,6 @@ weapon_leaf! {
     default_weight: Some(9.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 45,
-    aos_min_damage: same(12),
-    aos_max_damage: same(13),
-    aos_speed: 43,
-    ml_speed: 2.50,
-    old_str_req: 35,
-    old_min_damage: 4,
-    old_max_damage: 32,
-    old_speed: 45,
-    def_hit_sound: 0x236,
-    def_miss_sound: 0x238,
-    init_min_hits: 31,
-    init_max_hits: 110,
     def_animation: WeaponAnimation::Pierce1H,
 }
 

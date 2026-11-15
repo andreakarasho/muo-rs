@@ -9,17 +9,6 @@ weapon_leaf! {
     default_weight: Some(6.0),
     primary_ability: Some(Ability::WhirlwindAttack),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 35,
-    aos_min_damage: same(13),
-    aos_max_damage: same(16),
-    aos_speed: 39,
-    ml_speed: 2.75,
-    old_str_req: 35,
-    old_min_damage: 8,
-    old_max_damage: 33,
-    old_speed: 35,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 // ChylothStaff (namespace Server.Engines.Quests.Doom)
@@ -57,12 +46,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 20,
-    aos_min_damage: same(11),
-    aos_max_damage: same(14),
-    ml_speed: 2.25,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -75,17 +58,6 @@ weapon_leaf! {
     default_weight: Some(3.0),
     primary_ability: Some(Ability::ConcussionBlow),
     secondary_ability: Some(Ability::ForceOfNature),
-    aos_str_req: 20,
-    aos_min_damage: same(15),
-    aos_max_damage: same(17),
-    aos_speed: 33,
-    ml_speed: 3.25,
-    old_str_req: 20,
-    old_min_damage: 10,
-    old_max_damage: 30,
-    old_speed: 33,
-    init_min_hits: 31,
-    init_max_hits: 50,
 }
 
 weapon_leaf! {
@@ -98,17 +70,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 30,
-    aos_min_damage: same(11),
-    aos_max_damage: same(14),
-    aos_speed: 48,
-    ml_speed: 2.25,
-    old_str_req: 30,
-    old_min_damage: 8,
-    old_max_damage: 28,
-    old_speed: 48,
-    init_min_hits: 31,
-    init_max_hits: 60,
 }
 
 weapon_leaf! {
@@ -123,12 +84,6 @@ weapon_leaf! {
     flippable: Some((0x906, 0x406F)),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 35,
-    aos_min_damage: same(16),
-    aos_max_damage: same(19),
-    ml_speed: 3.50,
-    init_min_hits: 31,
-    init_max_hits: 50,
 }
 
 weapon_leaf! {
@@ -144,17 +99,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 20,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 40,
-    ml_speed: 2.75,
-    old_str_req: 10,
-    old_min_damage: 3,
-    old_max_damage: 12,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 50,
 }
 
 pub fn register(types: &mut TypeRegistry) {

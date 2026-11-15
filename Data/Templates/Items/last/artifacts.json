@@ -1,0 +1,91 @@
+[
+  {
+    "type": "Server.Items.AegisOfGrace",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 9,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 7,
+      "baseEnergyResistance": 15,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.FeyLeggings",
+    "props": {
+      "basePhysicalResistance": 12,
+      "baseFireResistance": 8,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 19,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.WildfireBow",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Windsong",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ShieldOfInvulnerability",
+    "props": {
+      "basePhysicalResistance": 8,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 0,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.WrathOfTheDryad",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.OrcChieftainHelm",
+    "props": {
+      "basePhysicalResistance": 23,
+      "baseFireResistance": 1,
+      "baseColdResistance": 23,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 5,
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.ShroudOfDeciet",
+    "props": {
+      "basePhysicalResistance": 11,
+      "baseFireResistance": 6,
+      "baseColdResistance": 18,
+      "basePoisonResistance": 15,
+      "baseEnergyResistance": 13,
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.EscutcheonDeAriadne",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseEnergyResistance": 1,
+      "aosStrReq": 14
+    }
+  }
+]

@@ -9,17 +9,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 35,
-    aos_min_damage: same(14),
-    aos_max_damage: same(16),
-    aos_speed: 37,
-    ml_speed: 3.00,
-    old_str_req: 35,
-    old_min_damage: 6,
-    old_max_damage: 33,
-    old_speed: 37,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -32,17 +21,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 35,
-    aos_min_damage: same(15),
-    aos_max_damage: same(17),
-    aos_speed: 31,
-    ml_speed: 3.50,
-    old_str_req: 40,
-    old_min_damage: 6,
-    old_max_damage: 38,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -52,17 +30,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::WhirlwindAttack),
-    aos_str_req: 45,
-    aos_min_damage: same(15),
-    aos_max_damage: same(17),
-    aos_speed: 33,
-    ml_speed: 3.25,
-    old_str_req: 45,
-    old_min_damage: 5,
-    old_max_damage: 35,
-    old_speed: 37,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -74,12 +41,6 @@ weapon_leaf! {
     flippable: Some((0x8FD, 0x4068)),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::InfectiousStrike),
-    aos_str_req: 35,
-    aos_min_damage: same(14),
-    aos_max_damage: same(17),
-    ml_speed: 3.00,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -89,17 +50,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 40,
-    aos_min_damage: same(15),
-    aos_max_damage: same(17),
-    aos_speed: 33,
-    ml_speed: 3.25,
-    old_str_req: 35,
-    old_min_damage: 6,
-    old_max_damage: 33,
-    old_speed: 37,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -119,17 +69,6 @@ weapon_leaf! {
     default_weight: Some(4.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 20,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 41,
-    ml_speed: 2.75,
-    old_str_req: 15,
-    old_min_damage: 2,
-    old_max_damage: 17,
-    old_speed: 40,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -148,17 +87,6 @@ weapon_leaf! {
     default_weight: Some(6.0),
     primary_ability: Some(Ability::WhirlwindAttack),
     secondary_ability: Some(Ability::BleedAttack),
-    aos_str_req: 80,
-    aos_min_damage: same(16),
-    aos_max_damage: same(17),
-    aos_speed: 29,
-    ml_speed: 3.75,
-    old_str_req: 40,
-    old_min_damage: 6,
-    old_max_damage: 38,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -173,17 +101,6 @@ weapon_leaf! {
     harvest_system: Some("Mining"),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 35,
-    ml_speed: 3.00,
-    old_str_req: 25,
-    old_min_damage: 1,
-    old_max_damage: 15,
-    old_speed: 35,
-    init_min_hits: 31,
-    init_max_hits: 60,
     def_animation: WeaponAnimation::Slash1H,
     on_craft: pickaxe_on_craft,
 }
@@ -213,17 +130,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::ShadowStrike),
-    aos_str_req: 40,
-    aos_min_damage: same(16),
-    aos_max_damage: same(17),
-    aos_speed: 31,
-    ml_speed: 3.50,
-    old_str_req: 35,
-    old_min_damage: 5,
-    old_max_damage: 39,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 90,
 }
 
 weapon_leaf! {
@@ -233,19 +139,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::BleedAttack),
-    aos_str_req: 35,
-    aos_min_damage: same(14),
-    aos_max_damage: same(15),
-    aos_speed: 33,
-    ml_speed: 3.25,
-    old_str_req: 35,
-    old_min_damage: 9,
-    old_max_damage: 27,
-    old_speed: 40,
-    def_hit_sound: 0x233,
-    def_miss_sound: 0x239,
-    init_min_hits: 31,
-    init_max_hits: 80,
     def_skill: SkillName::Macing,
     def_type: WeaponType::Bashing,
     def_animation: WeaponAnimation::Bash1H,

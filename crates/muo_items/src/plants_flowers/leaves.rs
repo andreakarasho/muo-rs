@@ -4,12 +4,12 @@
 use crate::simple::leaf;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 /// `LargeEmptyPot()`.
 pub fn large_empty_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C7)
+    crate::simple::from_template(w, ty, "Server.Items.LargeEmptyPot")
 }
 
 leaf! {
@@ -21,7 +21,7 @@ leaf! {
 
 /// `SmallEmptyPot()`.
 pub fn small_empty_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C6)
+    crate::simple::from_template(w, ty, "Server.Items.SmallEmptyPot")
 }
 
 leaf! {
@@ -33,7 +33,7 @@ leaf! {
 
 /// `PottedCactus()`.
 pub fn potted_cactus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E0F)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus")
 }
 
 leaf! {
@@ -45,7 +45,7 @@ leaf! {
 
 /// `PottedCactus1()`.
 pub fn potted_cactus1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E10)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus1")
 }
 
 leaf! {
@@ -57,7 +57,7 @@ leaf! {
 
 /// `PottedCactus2()`.
 pub fn potted_cactus2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E11)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus2")
 }
 
 leaf! {
@@ -69,7 +69,7 @@ leaf! {
 
 /// `PottedCactus3()`.
 pub fn potted_cactus3_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E12)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus3")
 }
 
 leaf! {
@@ -81,7 +81,7 @@ leaf! {
 
 /// `PottedCactus4()`.
 pub fn potted_cactus4_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E13)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus4")
 }
 
 leaf! {
@@ -93,7 +93,7 @@ leaf! {
 
 /// `PottedCactus5()`.
 pub fn potted_cactus5_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E14)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus5")
 }
 
 leaf! {
@@ -105,7 +105,7 @@ leaf! {
 
 /// `PottedPlant()`.
 pub fn potted_plant_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11CA)
+    crate::simple::from_template(w, ty, "Server.Items.PottedPlant")
 }
 
 leaf! {
@@ -117,7 +117,7 @@ leaf! {
 
 /// `PottedPlant1()`.
 pub fn potted_plant1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11CB)
+    crate::simple::from_template(w, ty, "Server.Items.PottedPlant1")
 }
 
 leaf! {
@@ -129,7 +129,7 @@ leaf! {
 
 /// `PottedPlant2()`.
 pub fn potted_plant2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11CC)
+    crate::simple::from_template(w, ty, "Server.Items.PottedPlant2")
 }
 
 leaf! {
@@ -141,7 +141,7 @@ leaf! {
 
 /// `PottedTree()`.
 pub fn potted_tree_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C8)
+    crate::simple::from_template(w, ty, "Server.Items.PottedTree")
 }
 
 leaf! {
@@ -153,7 +153,7 @@ leaf! {
 
 /// `PottedTree1()`.
 pub fn potted_tree1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C9)
+    crate::simple::from_template(w, ty, "Server.Items.PottedTree1")
 }
 
 leaf! {

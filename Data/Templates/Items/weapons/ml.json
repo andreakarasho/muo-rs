@@ -1,0 +1,208 @@
+[
+  {
+    "type": "Server.Items.AssassinSpike",
+    "props": {
+      "aosStrReq": 15,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 12,
+      "aosSpeed": 50,
+      "mlSpeed": 2.0,
+      "oldStrReq": 15,
+      "oldMinDamage": 10,
+      "oldMaxDamage": 12,
+      "oldSpeed": 50,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.DiamondMace",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 14,
+      "aosMaxDamage": 17,
+      "aosSpeed": 37,
+      "mlSpeed": 3.0,
+      "oldStrReq": 35,
+      "oldMinDamage": 14,
+      "oldMaxDamage": 17,
+      "oldSpeed": 37,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.ElvenCompositeLongbow",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": 12,
+      "aosMaxDamage": 16,
+      "aosSpeed": 27,
+      "mlSpeed": 4.0,
+      "oldStrReq": 45,
+      "oldMinDamage": 12,
+      "oldMaxDamage": 16,
+      "oldSpeed": 27,
+      "defMaxRange": 10,
+      "initMinHits": 41,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.ElvenMachete",
+    "props": {
+      "aosStrReq": 20,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 41,
+      "mlSpeed": 2.75,
+      "oldStrReq": 20,
+      "oldMinDamage": 13,
+      "oldMaxDamage": 15,
+      "oldSpeed": 41,
+      "defHitSound": 571,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.ElvenSpellblade",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 12,
+      "aosMaxDamage": 14,
+      "aosSpeed": 44,
+      "mlSpeed": 2.5,
+      "oldStrReq": 35,
+      "oldMinDamage": 12,
+      "oldMaxDamage": 14,
+      "oldSpeed": 44,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.Leafblade",
+    "props": {
+      "aosStrReq": 20,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 42,
+      "mlSpeed": 2.75,
+      "oldStrReq": 20,
+      "oldMinDamage": 13,
+      "oldMaxDamage": 15,
+      "oldSpeed": 42,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.MagicalShortbow",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 13,
+      "aosSpeed": 38,
+      "mlSpeed": 3.0,
+      "oldStrReq": 45,
+      "oldMinDamage": 9,
+      "oldMaxDamage": 13,
+      "oldSpeed": 38,
+      "defMaxRange": 10,
+      "initMinHits": 41,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.OrnateAxe",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": 18,
+      "aosMaxDamage": 20,
+      "aosSpeed": 26,
+      "mlSpeed": 3.5,
+      "oldStrReq": 45,
+      "oldMinDamage": 18,
+      "oldMaxDamage": 20,
+      "oldSpeed": 26,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.RadiantScimitar",
+    "props": {
+      "aosStrReq": 20,
+      "aosMinDamage": 12,
+      "aosMaxDamage": 14,
+      "aosSpeed": 43,
+      "mlSpeed": 2.5,
+      "oldStrReq": 20,
+      "oldMinDamage": 12,
+      "oldMaxDamage": 14,
+      "oldSpeed": 43,
+      "defHitSound": 571,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.RuneBlade",
+    "props": {
+      "aosStrReq": 30,
+      "aosMinDamage": 15,
+      "aosMaxDamage": 17,
+      "aosSpeed": 35,
+      "mlSpeed": 3.0,
+      "oldStrReq": 30,
+      "oldMinDamage": 15,
+      "oldMaxDamage": 17,
+      "oldSpeed": 35,
+      "defHitSound": 571,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.WarCleaver",
+    "props": {
+      "aosStrReq": 15,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 48,
+      "mlSpeed": 2.25,
+      "oldStrReq": 15,
+      "oldMinDamage": 9,
+      "oldMaxDamage": 11,
+      "oldSpeed": 48,
+      "defHitSound": 571,
+      "defMissSound": 569,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.WildStaff",
+    "props": {
+      "aosStrReq": 15,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 12,
+      "aosSpeed": 48,
+      "mlSpeed": 2.25,
+      "oldStrReq": 15,
+      "oldMinDamage": 10,
+      "oldMaxDamage": 12,
+      "oldSpeed": 48,
+      "initMinHits": 30,
+      "initMaxHits": 60
+    }
+  }
+]

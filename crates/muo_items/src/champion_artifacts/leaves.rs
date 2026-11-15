@@ -22,7 +22,7 @@ use muo_content::items::leaves::{KATANA, KATANA_CLASS};
 
 /// `ArtifactLargeVase()`.
 pub fn artifact_large_vase_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0B47)
+    crate::simple::from_template(w, ty, "Server.Items.ArtifactLargeVase")
 }
 
 leaf! {
@@ -33,7 +33,7 @@ leaf! {
 
 /// `ArtifactVase()`.
 pub fn artifact_vase_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0B48)
+    crate::simple::from_template(w, ty, "Server.Items.ArtifactVase")
 }
 
 leaf! {
@@ -56,7 +56,7 @@ leaf! {
 
 /// `DirtPatch()`.
 pub fn dirt_patch_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0913)
+    crate::simple::from_template(w, ty, "Server.Items.DirtPatch")
 }
 
 leaf! {
@@ -67,7 +67,7 @@ leaf! {
 
 /// `EvilIdolSkull()`.
 pub fn evil_idol_skull_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1F18)
+    crate::simple::from_template(w, ty, "Server.Items.EvilIdolSkull")
 }
 
 leaf! {
@@ -79,7 +79,7 @@ leaf! {
 
 /// `LavaTile()`.
 pub fn lava_tile_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x12EE)
+    crate::simple::from_template(w, ty, "Server.Items.LavaTile")
 }
 
 leaf! {
@@ -90,7 +90,7 @@ leaf! {
 
 /// `SkullPole()`.
 pub fn skull_pole_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2204)
+    crate::simple::from_template(w, ty, "Server.Items.SkullPole")
 }
 
 leaf! {
@@ -102,7 +102,7 @@ leaf! {
 
 /// `SwampTile()`.
 pub fn swamp_tile_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x320D)
+    crate::simple::from_template(w, ty, "Server.Items.SwampTile")
 }
 
 leaf! {
@@ -113,9 +113,7 @@ leaf! {
 
 /// `TatteredAncientMummyWrapping()`.
 pub fn tattered_ancient_mummy_wrapping_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xE21);
-    hue(w, id, 0x909);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.TatteredAncientMummyWrapping")
 }
 
 leaf! {
@@ -127,7 +125,7 @@ leaf! {
 
 /// `WaterTile()`.
 pub fn water_tile_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x346E)
+    crate::simple::from_template(w, ty, "Server.Items.WaterTile")
 }
 
 leaf! {
@@ -138,7 +136,7 @@ leaf! {
 
 /// `WindSpirit()`.
 pub fn wind_spirit_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1F1F)
+    crate::simple::from_template(w, ty, "Server.Items.WindSpirit")
 }
 
 leaf! {
@@ -173,8 +171,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 22);
     };
     label_number: 1094909,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 40, cold: 30, pois: 10, nrgy: 20, chaos: 0, direct: 0 },
 }
@@ -202,13 +198,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 10);
     };
     label_number: 1094902,
-    base_physical_resistance: 4,
-    base_fire_resistance: 4,
-    base_cold_resistance: 5,
-    base_poison_resistance: 6,
-    base_energy_resistance: 5,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -238,8 +227,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 50);
     };
     label_number: 1094916,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -254,8 +241,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 50);
     };
     label_number: 1094918,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -298,8 +283,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1094915,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -336,8 +319,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 15);
     };
     label_number: 1094892,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -351,13 +332,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
     };
     label_number: 1094917,
-    base_physical_resistance: 18,
-    base_fire_resistance: 18,
-    base_cold_resistance: 17,
-    base_poison_resistance: 18,
-    base_energy_resistance: 16,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -374,8 +348,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1094929,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -392,8 +364,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1094928,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -410,8 +380,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1094930,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 

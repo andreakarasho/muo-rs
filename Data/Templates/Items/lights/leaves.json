@@ -1,0 +1,14 @@
+[
+  {
+    "type": "Server.Items.DarkSource",
+    "itemId": 5702,
+    "layer": "TwoHanded",
+    "movable": false
+  },
+  {
+    "type": "Server.Items.LightSource",
+    "itemId": 5703,
+    "layer": "TwoHanded",
+    "movable": false
+  }
+]

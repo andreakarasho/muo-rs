@@ -1,0 +1,228 @@
+[
+  {
+    "type": "Server.Items.ArcticDeathDealer",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BlazeOfDeath",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BowOfTheJukaKing",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.CaptainQuacklebushsCutlass",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.CavortingClub",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ColdBlood",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.EnchantedTitanLegBone",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.GlovesOfThePugilist",
+    "props": {
+      "basePhysicalResistance": 18,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.HeartOfTheLion",
+    "props": {
+      "basePhysicalResistance": 15,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.LunaLance",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BladeDance",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Bonesmasher",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Boomstick",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BrightsightLenses",
+    "props": {
+      "basePhysicalResistance": 9,
+      "baseFireResistance": 29,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 7,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.FleshRipper",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.HelmOfSwiftness",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 5,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 8,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.RaedsGlory",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.RighteousAnger",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.SoulSeeker",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TalonBite",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.NightsKiss",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.NoxRangersHeavyCrossbow",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.OrcishVisage",
+    "props": {
+      "basePhysicalResistance": 8,
+      "baseFireResistance": 5,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 5,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.PixieSwatter",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.StaffOfPower",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.VioletCourage",
+    "props": {
+      "basePhysicalResistance": 14,
+      "baseFireResistance": 12,
+      "baseColdResistance": 12,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 9,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.CandelabraOfSouls",
+    "itemId": 2854
+  },
+  {
+    "type": "Server.Items.GhostShipAnchor",
+    "itemId": 5367,
+    "hue": 1150
+  },
+  {
+    "type": "Server.Items.GoldBricks",
+    "itemId": 7147
+  },
+  {
+    "type": "Server.Items.ShipModelOfTheHMSCape",
+    "itemId": 5363,
+    "hue": 891
+  }
+]

@@ -5,12 +5,11 @@ use crate::lights::{
     BASE_EQUIPABLE_LIGHT_CLASS, BASE_LIGHT_CLASS, BURNOUT, LightClass, base_equipable_light_new,
     base_light_new, set_burning, set_duration,
 };
-use crate::simple::{layer, leaf};
+use crate::simple::leaf;
 use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ITEM_BASE, ItemType, ops};
-use muo_server::layer::Layer;
 use muo_server::light_type::LightType;
 use muo_server::type_registry::TypeRegistry;
 
@@ -250,10 +249,7 @@ leaf! {
 
 /// `DarkSource()`.
 pub fn dark_source_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1646);
-    layer(w, id, Layer::TwoHanded);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DarkSource")
 }
 
 leaf! {
@@ -356,10 +352,7 @@ leaf! {
 
 /// `LightSource()`.
 pub fn light_source_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1647);
-    layer(w, id, Layer::TwoHanded);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.LightSource")
 }
 
 leaf! {

@@ -1,0 +1,77 @@
+[
+  {
+    "type": "Server.Items.BansheesCall",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Boomerang",
+    "props": {
+      "aosStrReq": 25,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 15,
+      "mlSpeed": 2.75,
+      "initMinHits": 31,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.Cyclone",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 17,
+      "mlSpeed": 3.25,
+      "initMinHits": 31,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.RaptorClaw",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.SoulGlaive",
+    "props": {
+      "aosStrReq": 60,
+      "aosMinDamage": 16,
+      "aosMaxDamage": 20,
+      "mlSpeed": 4.0,
+      "initMinHits": 31,
+      "initMaxHits": 65
+    }
+  },
+  {
+    "type": "Server.Items.StoneSlithClaw",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.StormCaller",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ValkyriesGlaive",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.WindOfCorruption",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  }
+]

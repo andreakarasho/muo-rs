@@ -25,15 +25,6 @@ armor_leaf! {
     };
     default_weight: Some(6.0),
     label_number: 1075196, // Dupre's Shield
-    base_physical_resistance: 1,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 1,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 50,
-    armor_base: 15,
 }
 
 /// `QuiverOfInfinity()`.

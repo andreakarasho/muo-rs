@@ -96,3 +96,6 @@ mod flip_tests;
 
 #[cfg(test)]
 mod packet_tests;
+
+#[cfg(test)]
+mod template_tests;

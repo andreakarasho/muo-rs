@@ -1,0 +1,32 @@
+[
+  {
+    "type": "Server.Items.GargoylesPickaxe",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 35,
+      "mlSpeed": 3.0,
+      "oldStrReq": 25,
+      "oldMinDamage": 1,
+      "oldMaxDamage": 15,
+      "oldSpeed": 35,
+      "initMinHits": 31,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.SturdyPickaxe",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 35,
+      "mlSpeed": 3.0,
+      "oldStrReq": 25,
+      "oldMinDamage": 1,
+      "oldMaxDamage": 15,
+      "oldSpeed": 35
+    }
+  }
+]

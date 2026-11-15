@@ -330,11 +330,11 @@ fn stats_follow_the_era() {
     assert_eq!(weapon::class(&w, axe).flippable, Some((0xF49, 0xF4A)));
 
     let xbow = new(&mut w, &CROSSBOW);
-    assert_eq!(weapon::class(&w, xbow).def_max_range, 8);
+    assert_eq!(weapon::max_range(&w, xbow), 8);
     assert_eq!(weapon::class(&w, xbow).ammo_type, Some("Server.Items.Bolt"));
     let lb = new(&mut w, &ELVEN_COMPOSITE_LONGBOW);
     assert_eq!(weapon::class(&w, lb).ammo_type, Some("Server.Items.Arrow"));
-    assert_eq!(weapon::class(&w, lb).def_max_range, 10);
+    assert_eq!(weapon::max_range(&w, lb), 10);
     let juka = new(&mut w, &JUKA_BOW);
     assert_eq!(weapon::dex_requirement(&w, juka), 80);
 }

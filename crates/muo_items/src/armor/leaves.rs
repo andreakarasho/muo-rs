@@ -30,8 +30,6 @@ armor_leaf! {
     };
     label_number: 1061098,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -46,11 +44,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
     };
     label_number: 1072925,
-    base_physical_resistance: 10,
-    base_fire_resistance: 8,
-    base_cold_resistance: 7,
-    base_poison_resistance: 8,
-    base_energy_resistance: 7,
 }
 
 armor_leaf! {
@@ -64,11 +57,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
     };
     label_number: 1072924,
-    base_physical_resistance: 10,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 7,
-    base_energy_resistance: 10,
 }
 
 armor_leaf! {
@@ -81,9 +69,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
     };
     label_number: 1072931,
-    base_physical_resistance: 14,
-    base_cold_resistance: 14,
-    base_energy_resistance: 16,
 }
 
 armor_leaf! {
@@ -97,8 +82,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 10);
     };
     label_number: 1072929,
-    base_fire_resistance: 15,
-    base_poison_resistance: 16,
 }
 
 armor_leaf! {
@@ -111,8 +94,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 30);
     };
     label_number: 1072932,
-    base_physical_resistance: 20,
-    base_cold_resistance: 20,
 }
 
 armor_leaf! {
@@ -126,10 +107,6 @@ armor_leaf! {
     };
     label_number: 1061092,
     artifact_rarity: 11,
-    base_physical_resistance: 18,
-    base_poison_resistance: 20,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -144,9 +121,6 @@ armor_leaf! {
     };
     label_number: 1061096,
     artifact_rarity: 11,
-    base_energy_resistance: 17,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -159,9 +133,6 @@ armor_leaf! {
     };
     label_number: 1061097,
     artifact_rarity: 11,
-    base_physical_resistance: 35,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -175,10 +146,6 @@ armor_leaf! {
     };
     label_number: 1060206,
     artifact_rarity: 10,
-    base_cold_resistance: 22,
-    base_energy_resistance: 17,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -191,10 +158,6 @@ armor_leaf! {
     };
     label_number: 1061594,
     artifact_rarity: 11,
-    base_fire_resistance: 23,
-    base_cold_resistance: 17,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -209,9 +172,6 @@ armor_leaf! {
     };
     label_number: 1061100,
     artifact_rarity: 11,
-    base_poison_resistance: 36,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -225,9 +185,6 @@ armor_leaf! {
     };
     label_number: 1061093,
     artifact_rarity: 11,
-    base_physical_resistance: 23,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -241,9 +198,6 @@ armor_leaf! {
     };
     label_number: 1061095,
     artifact_rarity: 11,
-    base_poison_resistance: 17,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -257,11 +211,6 @@ armor_leaf! {
     };
     label_number: 1061598,
     artifact_rarity: 11,
-    base_physical_resistance: 17,
-    base_poison_resistance: 18,
-    base_energy_resistance: 18,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -275,10 +224,6 @@ armor_leaf! {
     };
     label_number: 1061099,
     artifact_rarity: 11,
-    base_physical_resistance: 24,
-    base_fire_resistance: 34,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -292,10 +237,6 @@ armor_leaf! {
     };
     label_number: 1061094,
     artifact_rarity: 11,
-    base_cold_resistance: 18,
-    base_energy_resistance: 18,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -303,17 +244,6 @@ armor_leaf! {
     BONE_ARMS, BONE_ARMS_CLASS, bone_arms_new = "Server.Items.BoneArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144E), encoded false;
     flippable: Some((0x144e, 0x1453)),
     default_weight: Some(2.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 2,
-    base_energy_resistance: 4,
-    init_min_hits: 25,
-    init_max_hits: 30,
-    aos_str_req: 55,
-    old_str_req: 40,
-    old_dex_bonus: -2,
-    armor_base: 30,
     revert_armor_base: Some(4),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
@@ -324,17 +254,6 @@ armor_leaf! {
     BONE_CHEST, BONE_CHEST_CLASS, bone_chest_new = "Server.Items.BoneChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144F), encoded false;
     flippable: Some((0x144f, 0x1454)),
     default_weight: Some(6.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 2,
-    base_energy_resistance: 4,
-    init_min_hits: 25,
-    init_max_hits: 30,
-    aos_str_req: 60,
-    old_str_req: 40,
-    old_dex_bonus: -6,
-    armor_base: 30,
     revert_armor_base: Some(11),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
@@ -345,17 +264,6 @@ armor_leaf! {
     BONE_GLOVES, BONE_GLOVES_CLASS, bone_gloves_new = "Server.Items.BoneGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1450), encoded false;
     flippable: Some((0x1450, 0x1455)),
     default_weight: Some(2.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 2,
-    base_energy_resistance: 4,
-    init_min_hits: 25,
-    init_max_hits: 30,
-    aos_str_req: 55,
-    old_str_req: 40,
-    old_dex_bonus: -1,
-    armor_base: 30,
     revert_armor_base: Some(2),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
@@ -366,17 +274,6 @@ armor_leaf! {
     BONE_LEGS, BONE_LEGS_CLASS, bone_legs_new = "Server.Items.BoneLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1452), encoded false;
     flippable: Some((0x1452, 0x1457)),
     default_weight: Some(3.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 2,
-    base_energy_resistance: 4,
-    init_min_hits: 25,
-    init_max_hits: 30,
-    aos_str_req: 55,
-    old_str_req: 40,
-    old_dex_bonus: -4,
-    armor_base: 30,
     revert_armor_base: Some(7),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
@@ -386,16 +283,6 @@ armor_leaf! {
     /// `Server.Items.ChainHatsuburi`.
     CHAIN_HATSUBURI, CHAIN_HATSUBURI_CLASS, chain_hatsuburi_new = "Server.Items.ChainHatsuburi" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2774), encoded false;
     default_weight: Some(7.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 4,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 50,
-    old_str_req: 50,
-    armor_base: 3,
     material_type: ArmorMaterialType::Chainmail,
 }
 
@@ -404,17 +291,6 @@ armor_leaf! {
     CHAIN_LEGS, CHAIN_LEGS_CLASS, chain_legs_new = "Server.Items.ChainLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13BE), encoded false;
     flippable: Some((0x13be, 0x13c3)),
     default_weight: Some(7.0),
-    base_physical_resistance: 4,
-    base_fire_resistance: 4,
-    base_cold_resistance: 4,
-    base_poison_resistance: 1,
-    base_energy_resistance: 2,
-    init_min_hits: 45,
-    init_max_hits: 60,
-    aos_str_req: 60,
-    old_str_req: 20,
-    old_dex_bonus: -3,
-    armor_base: 28,
     material_type: ArmorMaterialType::Chainmail,
 }
 
@@ -422,14 +298,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothArmsType1`.
     GARGISH_CLOTH_ARMS_TYPE1, GARGISH_CLOTH_ARMS_TYPE1_CLASS, gargish_cloth_arms_type1_new = "Server.Items.GargishClothArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x404), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -440,14 +308,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothArmsType2`.
     GARGISH_CLOTH_ARMS_TYPE2, GARGISH_CLOTH_ARMS_TYPE2_CLASS, gargish_cloth_arms_type2_new = "Server.Items.GargishClothArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x403), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -458,14 +318,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothChestType1`.
     GARGISH_CLOTH_CHEST_TYPE1, GARGISH_CLOTH_CHEST_TYPE1_CLASS, gargish_cloth_chest_type1_new = "Server.Items.GargishClothChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x406), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 25,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -476,14 +328,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothChestType2`.
     GARGISH_CLOTH_CHEST_TYPE2, GARGISH_CLOTH_CHEST_TYPE2_CLASS, gargish_cloth_chest_type2_new = "Server.Items.GargishClothChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x405), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 25,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -494,14 +338,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothKiltType1`.
     GARGISH_CLOTH_KILT_TYPE1, GARGISH_CLOTH_KILT_TYPE1_CLASS, gargish_cloth_kilt_type1_new = "Server.Items.GargishClothKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x408), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -512,14 +348,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothKiltType2`.
     GARGISH_CLOTH_KILT_TYPE2, GARGISH_CLOTH_KILT_TYPE2_CLASS, gargish_cloth_kilt_type2_new = "Server.Items.GargishClothKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x407), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -530,14 +358,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothLegsType1`.
     GARGISH_CLOTH_LEGS_TYPE1, GARGISH_CLOTH_LEGS_TYPE1_CLASS, gargish_cloth_legs_type1_new = "Server.Items.GargishClothLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x40A), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -548,14 +368,6 @@ armor_leaf! {
     /// `Server.Items.GargishClothLegsType2`.
     GARGISH_CLOTH_LEGS_TYPE2, GARGISH_CLOTH_LEGS_TYPE2_CLASS, gargish_cloth_legs_type2_new = "Server.Items.GargishClothLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x409), encoded true;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 7,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
     material_type: ArmorMaterialType::Cloth,
     default_resource: CraftResource::None,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -571,17 +383,6 @@ armor_leaf! {
     };
     flippable: Some((0x144e, 0x1453)),
     default_weight: Some(2.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 5,
-    base_energy_resistance: 7,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 55,
-    old_str_req: 40,
-    old_dex_bonus: -2,
-    armor_base: 46,
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041371,
@@ -596,17 +397,6 @@ armor_leaf! {
     };
     flippable: Some((0x144f, 0x1454)),
     default_weight: Some(6.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 5,
-    base_energy_resistance: 7,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 60,
-    old_str_req: 40,
-    old_dex_bonus: -6,
-    armor_base: 46,
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041372,
@@ -621,17 +411,6 @@ armor_leaf! {
     };
     flippable: Some((0x1450, 0x1455)),
     default_weight: Some(2.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 5,
-    base_energy_resistance: 7,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 55,
-    old_str_req: 40,
-    old_dex_bonus: -1,
-    armor_base: 46,
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041373,
@@ -646,17 +425,6 @@ armor_leaf! {
     };
     flippable: Some((0x1452, 0x1457)),
     default_weight: Some(3.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 5,
-    base_energy_resistance: 7,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 55,
-    old_str_req: 40,
-    old_dex_bonus: -4,
-    armor_base: 46,
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041375,
@@ -667,17 +435,6 @@ armor_leaf! {
     DRAGON_ARMS, DRAGON_ARMS_CLASS, dragon_arms_new = "Server.Items.DragonArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2657), encoded false;
     flippable: Some((0x2657, 0x2658)),
     default_weight: Some(5.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 75,
-    old_str_req: 20,
-    old_dex_bonus: -2,
-    armor_base: 40,
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::RedScales,
 }
@@ -687,17 +444,6 @@ armor_leaf! {
     DRAGON_CHEST, DRAGON_CHEST_CLASS, dragon_chest_new = "Server.Items.DragonChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2641), encoded false;
     flippable: Some((0x2641, 0x2642)),
     default_weight: Some(10.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 75,
-    old_str_req: 60,
-    old_dex_bonus: -8,
-    armor_base: 40,
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::RedScales,
 }
@@ -707,17 +453,6 @@ armor_leaf! {
     DRAGON_GLOVES, DRAGON_GLOVES_CLASS, dragon_gloves_new = "Server.Items.DragonGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2643), encoded false;
     flippable: Some((0x2643, 0x2644)),
     default_weight: Some(2.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 75,
-    old_str_req: 30,
-    old_dex_bonus: -2,
-    armor_base: 40,
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::RedScales,
 }
@@ -727,17 +462,6 @@ armor_leaf! {
     DRAGON_HELM, DRAGON_HELM_CLASS, dragon_helm_new = "Server.Items.DragonHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2645), encoded false;
     flippable: Some((0x2645, 0x2646)),
     default_weight: Some(5.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 75,
-    old_str_req: 40,
-    old_dex_bonus: -1,
-    armor_base: 40,
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::RedScales,
 }
@@ -747,17 +471,6 @@ armor_leaf! {
     DRAGON_LEGS, DRAGON_LEGS_CLASS, dragon_legs_new = "Server.Items.DragonLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2647), encoded false;
     flippable: Some((0x2647, 0x2648)),
     default_weight: Some(6.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 75,
-    old_str_req: 60,
-    old_dex_bonus: -6,
-    armor_base: 40,
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::RedScales,
 }
@@ -772,13 +485,6 @@ armor_leaf! {
         hue(w, id, 0x80);
     };
     label_number: 1073379,
-    base_physical_resistance: 5,
-    base_fire_resistance: 5,
-    base_cold_resistance: 10,
-    base_poison_resistance: 20,
-    base_energy_resistance: 20,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -791,13 +497,6 @@ armor_leaf! {
         hue(w, id, 0x73);
     };
     label_number: 1073363,
-    base_physical_resistance: 10,
-    base_fire_resistance: 8,
-    base_cold_resistance: 8,
-    base_poison_resistance: 4,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -810,13 +509,6 @@ armor_leaf! {
         hue(w, id, 0x47E);
     };
     label_number: 1073380,
-    base_physical_resistance: 20,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -829,13 +521,6 @@ armor_leaf! {
         hue(w, id, 0x256);
     };
     label_number: 1073378,
-    base_physical_resistance: 10,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -848,13 +533,6 @@ armor_leaf! {
         hue(w, id, 0x47F);
     };
     label_number: 1073382,
-    base_physical_resistance: 10,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -867,13 +545,6 @@ armor_leaf! {
         hue(w, id, 0x1DD);
     };
     label_number: 1073381,
-    base_physical_resistance: 25,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -886,13 +557,6 @@ armor_leaf! {
         hue(w, id, 0x581);
     };
     label_number: 1073364,
-    base_physical_resistance: 3,
-    base_fire_resistance: 4,
-    base_cold_resistance: 30,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -904,13 +568,6 @@ armor_leaf! {
         hue(w, id, 0x22D);
     };
     label_number: 1073377,
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 0,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -922,13 +579,6 @@ armor_leaf! {
         hue(w, id, 0x113);
     };
     label_number: 1073376,
-    base_physical_resistance: 10,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 30,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -939,13 +589,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 10);
     };
     label_number: 1073362,
-    base_physical_resistance: 10,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -958,13 +601,6 @@ armor_leaf! {
         hue(w, id, 0x1C2);
     };
     label_number: 1073373,
-    base_physical_resistance: 10,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -977,29 +613,12 @@ armor_leaf! {
         hue(w, id, 0x2B0);
     };
     label_number: 1073374,
-    base_physical_resistance: 5,
-    base_fire_resistance: 5,
-    base_cold_resistance: 5,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
     /// `Server.Items.Bascinet`.
     BASCINET, BASCINET_CLASS, bascinet_new = "Server.Items.Bascinet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x140C), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 7,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 2,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 10,
-    armor_base: 18,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1008,16 +627,6 @@ armor_leaf! {
     BONE_HELM, BONE_HELM_CLASS, bone_helm_new = "Server.Items.BoneHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1451), encoded false;
     flippable: Some((0x1451, 0x1456)),
     default_weight: Some(3.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 2,
-    base_energy_resistance: 4,
-    init_min_hits: 25,
-    init_max_hits: 30,
-    aos_str_req: 20,
-    old_str_req: 40,
-    armor_base: 30,
     material_type: ArmorMaterialType::Bone,
 }
 
@@ -1026,16 +635,6 @@ armor_leaf! {
     CHAIN_COIF, CHAIN_COIF_CLASS, chain_coif_new = "Server.Items.ChainCoif" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13BB), encoded false;
     flippable: Some((0x13BB, 0x13C0)),
     default_weight: Some(1.0),
-    base_physical_resistance: 4,
-    base_fire_resistance: 4,
-    base_cold_resistance: 4,
-    base_poison_resistance: 1,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 60,
-    aos_str_req: 60,
-    old_str_req: 20,
-    armor_base: 28,
     material_type: ArmorMaterialType::Chainmail,
 }
 
@@ -1044,16 +643,6 @@ armor_leaf! {
     CIRCLET, CIRCLET_CLASS, circlet_new = "Server.Items.Circlet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6E), encoded true;
     flippable: Some((0x2B6E, 0x3165)),
     default_weight: Some(2.0),
-    base_physical_resistance: 1,
-    base_fire_resistance: 5,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 5,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
     def_med_allowance: ArmorMeditationAllowance::All,
     required_races: Some(ALLOW_ELVES_ONLY),
@@ -1063,16 +652,6 @@ armor_leaf! {
     /// `Server.Items.CloseHelm`.
     CLOSE_HELM, CLOSE_HELM_CLASS, close_helm_new = "Server.Items.CloseHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1408), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 45,
-    init_max_hits: 60,
-    aos_str_req: 55,
-    old_str_req: 40,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1085,16 +664,6 @@ armor_leaf! {
     };
     flippable: Some((0x1451, 0x1456)),
     default_weight: Some(3.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 5,
-    base_energy_resistance: 7,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 20,
-    old_str_req: 40,
-    armor_base: 46,
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041374,
@@ -1106,16 +675,6 @@ armor_leaf! {
     flippable: Some((0x2B70, 0x3167)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 1,
-    base_fire_resistance: 5,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 5,
-    init_min_hits: 20,
-    init_max_hits: 35,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
     def_med_allowance: ArmorMeditationAllowance::All,
 }
@@ -1124,16 +683,6 @@ armor_leaf! {
     /// `Server.Items.Helmet`.
     HELMET, HELMET_CLASS, helmet_new = "Server.Items.Helmet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x140A), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 45,
-    init_max_hits: 60,
-    aos_str_req: 45,
-    old_str_req: 40,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1142,16 +691,6 @@ armor_leaf! {
     LEATHER_CAP, LEATHER_CAP_CLASS, leather_cap_new = "Server.Items.LeatherCap" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1DB9), encoded false;
     flippable: Some((0x1db9, 0x1dba)),
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 15,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1161,32 +700,12 @@ armor_leaf! {
     /// `Server.Items.NorseHelm`.
     NORSE_HELM, NORSE_HELM_CLASS, norse_helm_new = "Server.Items.NorseHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x140E), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 4,
-    base_fire_resistance: 1,
-    base_cold_resistance: 4,
-    base_poison_resistance: 4,
-    base_energy_resistance: 2,
-    init_min_hits: 45,
-    init_max_hits: 60,
-    aos_str_req: 55,
-    old_str_req: 40,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
 }
 
 armor_leaf! {
     /// `Server.Items.OrcHelm`.
     ORC_HELM, ORC_HELM_CLASS, orc_helm_new = "Server.Items.OrcHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1F0B), encoded false;
-    base_physical_resistance: 3,
-    base_fire_resistance: 1,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 5,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 30,
-    old_str_req: 10,
-    armor_base: 20,
     default_weight: Some(5.0),
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
@@ -1197,17 +716,6 @@ armor_leaf! {
     /// `Server.Items.PlateHelm`.
     PLATE_HELM, PLATE_HELM_CLASS, plate_helm_new = "Server.Items.PlateHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1412), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 80,
-    old_str_req: 40,
-    old_dex_bonus: -1,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1217,16 +725,6 @@ armor_leaf! {
     flippable: Some((0x2B71, 0x3168)),
     default_weight: Some(5.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 1,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 5,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1236,16 +734,6 @@ armor_leaf! {
     flippable: Some((0x2B6F, 0x3166)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 1,
-    base_fire_resistance: 5,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 5,
-    init_min_hits: 20,
-    init_max_hits: 35,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
     def_med_allowance: ArmorMeditationAllowance::All,
 }
@@ -1256,16 +744,6 @@ armor_leaf! {
     flippable: Some((0x2B72, 0x3169)),
     default_weight: Some(5.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 1,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 5,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1275,16 +753,6 @@ armor_leaf! {
     flippable: Some((0x2B73, 0x316A)),
     default_weight: Some(5.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 1,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 5,
-    init_min_hits: 45,
-    init_max_hits: 55,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1293,16 +761,6 @@ armor_leaf! {
     FEMALE_LEAF_CHEST, FEMALE_LEAF_CHEST_CLASS, female_leaf_chest_new = "Server.Items.FemaleLeafChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FCB), encoded true;
     flippable: Some((0x2FCB, 0x3181)),
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 4,
-    base_energy_resistance: 4,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 20,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1314,16 +772,6 @@ armor_leaf! {
     FEMALE_LEATHER_CHEST, FEMALE_LEATHER_CHEST_CLASS, female_leather_chest_new = "Server.Items.FemaleLeatherChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C06), encoded false;
     flippable: Some((0x1c06, 0x1c07)),
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 25,
-    old_str_req: 15,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1335,16 +783,6 @@ armor_leaf! {
     GARGISH_LEATHER_ARMS_TYPE1, GARGISH_LEATHER_ARMS_TYPE1_CLASS, gargish_leather_arms_type1_new = "Server.Items.GargishLeatherArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x301), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1355,16 +793,6 @@ armor_leaf! {
     GARGISH_LEATHER_ARMS_TYPE2, GARGISH_LEATHER_ARMS_TYPE2_CLASS, gargish_leather_arms_type2_new = "Server.Items.GargishLeatherArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x302), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1375,16 +803,6 @@ armor_leaf! {
     GARGISH_LEATHER_CHEST_TYPE1, GARGISH_LEATHER_CHEST_TYPE1_CLASS, gargish_leather_chest_type1_new = "Server.Items.GargishLeatherChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x0304), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1395,16 +813,6 @@ armor_leaf! {
     GARGISH_LEATHER_CHEST_TYPE2, GARGISH_LEATHER_CHEST_TYPE2_CLASS, gargish_leather_chest_type2_new = "Server.Items.GargishLeatherChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x303), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1415,16 +823,6 @@ armor_leaf! {
     GARGISH_LEATHER_KILT_TYPE1, GARGISH_LEATHER_KILT_TYPE1_CLASS, gargish_leather_kilt_type1_new = "Server.Items.GargishLeatherKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x311), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1435,16 +833,6 @@ armor_leaf! {
     GARGISH_LEATHER_KILT_TYPE2, GARGISH_LEATHER_KILT_TYPE2_CLASS, gargish_leather_kilt_type2_new = "Server.Items.GargishLeatherKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x310), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1455,16 +843,6 @@ armor_leaf! {
     GARGISH_LEATHER_LEGS_TYPE1, GARGISH_LEATHER_LEGS_TYPE1_CLASS, gargish_leather_legs_type1_new = "Server.Items.GargishLeatherLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x305), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1475,16 +853,6 @@ armor_leaf! {
     GARGISH_LEATHER_LEGS_TYPE2, GARGISH_LEATHER_LEGS_TYPE2_CLASS, gargish_leather_legs_type2_new = "Server.Items.GargishLeatherLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x306), encoded false;
     default_weight: Some(4.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 5,
-    base_fire_resistance: 6,
-    base_cold_resistance: 7,
-    base_poison_resistance: 6,
-    base_energy_resistance: 6,
-    init_min_hits: 30,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1503,9 +871,6 @@ armor_leaf! {
     flippable: Some((0x457E, 0x457F)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 0,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1517,16 +882,6 @@ armor_leaf! {
     flippable: Some((0x2FC8, 0x317E)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 4,
-    base_energy_resistance: 4,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 15,
-    old_str_req: 15,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1538,16 +893,6 @@ armor_leaf! {
     flippable: Some((0x2FC5, 0x317B)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 4,
-    base_energy_resistance: 4,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 20,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1558,16 +903,6 @@ armor_leaf! {
     LEAF_GORGET, LEAF_GORGET_CLASS, leaf_gorget_new = "Server.Items.LeafGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FC7), encoded true;
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 4,
-    base_energy_resistance: 4,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1579,16 +914,6 @@ armor_leaf! {
     flippable: Some((0x2FC9, 0x317F)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 4,
-    base_energy_resistance: 4,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 20,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1600,16 +925,6 @@ armor_leaf! {
     flippable: Some((0x2FCA, 0x3180)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 4,
-    base_energy_resistance: 4,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1620,16 +935,6 @@ armor_leaf! {
     LEATHER_ARMS, LEATHER_ARMS_CLASS, leather_arms_new = "Server.Items.LeatherArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13CD), encoded false;
     flippable: Some((0x13cd, 0x13c5)),
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 15,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1640,16 +945,6 @@ armor_leaf! {
     LEATHER_BUSTIER_ARMS, LEATHER_BUSTIER_ARMS_CLASS, leather_bustier_arms_new = "Server.Items.LeatherBustierArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C0A), encoded false;
     flippable: Some((0x1c0a, 0x1c0b)),
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 15,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1660,16 +955,6 @@ armor_leaf! {
     /// `Server.Items.LeatherDo`.
     LEATHER_DO, LEATHER_DO_CLASS, leather_do_new = "Server.Items.LeatherDo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x27C6), encoded false;
     default_weight: Some(6.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1679,16 +964,6 @@ armor_leaf! {
     /// `Server.Items.LeatherGorget`.
     LEATHER_GORGET, LEATHER_GORGET_CLASS, leather_gorget_new = "Server.Items.LeatherGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13C7), encoded false;
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1698,16 +973,6 @@ armor_leaf! {
     /// `Server.Items.LeatherHaidate`.
     LEATHER_HAIDATE, LEATHER_HAIDATE_CLASS, leather_haidate_new = "Server.Items.LeatherHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278A), encoded false;
     default_weight: Some(4.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 20,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1717,16 +982,6 @@ armor_leaf! {
     /// `Server.Items.LeatherHiroSode`.
     LEATHER_HIRO_SODE, LEATHER_HIRO_SODE_CLASS, leather_hiro_sode_new = "Server.Items.LeatherHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277E), encoded false;
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1736,16 +991,6 @@ armor_leaf! {
     /// `Server.Items.LeatherJingasa`.
     LEATHER_JINGASA, LEATHER_JINGASA_CLASS, leather_jingasa_new = "Server.Items.LeatherJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2776), encoded false;
     default_weight: Some(3.0),
-    base_physical_resistance: 4,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 2,
-    base_energy_resistance: 3,
-    init_min_hits: 20,
-    init_max_hits: 30,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1756,16 +1001,6 @@ armor_leaf! {
     LEATHER_LEGS, LEATHER_LEGS_CLASS, leather_legs_new = "Server.Items.LeatherLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13CB), encoded false;
     flippable: Some((0x13cb, 0x13d2)),
     default_weight: Some(4.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1775,16 +1010,6 @@ armor_leaf! {
     /// `Server.Items.LeatherMempo`.
     LEATHER_MEMPO, LEATHER_MEMPO_CLASS, leather_mempo_new = "Server.Items.LeatherMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277A), encoded false;
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 35,
-    init_max_hits: 40,
-    aos_str_req: 30,
-    old_str_req: 30,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1794,16 +1019,6 @@ armor_leaf! {
     /// `Server.Items.LeatherNinjaHood`.
     LEATHER_NINJA_HOOD, LEATHER_NINJA_HOOD_CLASS, leather_ninja_hood_new = "Server.Items.LeatherNinjaHood" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278E), encoded false;
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 3,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 25,
-    init_max_hits: 45,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1813,16 +1028,6 @@ armor_leaf! {
     /// `Server.Items.LeatherNinjaJacket`.
     LEATHER_NINJA_JACKET, LEATHER_NINJA_JACKET_CLASS, leather_ninja_jacket_new = "Server.Items.LeatherNinjaJacket" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2793), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 65,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1832,16 +1037,6 @@ armor_leaf! {
     /// `Server.Items.LeatherNinjaMitts`.
     LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new = "Server.Items.LeatherNinjaMitts" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2792), encoded false;
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 25,
-    init_max_hits: 25,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1851,16 +1046,6 @@ armor_leaf! {
     /// `Server.Items.LeatherNinjaPants`.
     LEATHER_NINJA_PANTS, LEATHER_NINJA_PANTS_CLASS, leather_ninja_pants_new = "Server.Items.LeatherNinjaPants" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2791), encoded false;
     default_weight: Some(3.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 10,
-    old_str_req: 10,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1871,16 +1056,6 @@ armor_leaf! {
     LEATHER_SHORTS, LEATHER_SHORTS_CLASS, leather_shorts_new = "Server.Items.LeatherShorts" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C00), encoded false;
     flippable: Some((0x1c00, 0x1c01)),
     default_weight: Some(3.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1892,16 +1067,6 @@ armor_leaf! {
     LEATHER_SKIRT, LEATHER_SKIRT_CLASS, leather_skirt_new = "Server.Items.LeatherSkirt" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C08), encoded false;
     flippable: Some((0x1c08, 0x1c09)),
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 10,
-    armor_base: 13,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1912,16 +1077,6 @@ armor_leaf! {
     /// `Server.Items.LeatherSuneate`.
     LEATHER_SUNEATE, LEATHER_SUNEATE_CLASS, leather_suneate_new = "Server.Items.LeatherSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2786), encoded false;
     default_weight: Some(4.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 25,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 20,
-    armor_base: 3,
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::All,
@@ -1931,16 +1086,6 @@ armor_leaf! {
     /// `Server.Items.DecorativePlateKabuto`.
     DECORATIVE_PLATE_KABUTO, DECORATIVE_PLATE_KABUTO_CLASS, decorative_plate_kabuto_new = "Server.Items.DecorativePlateKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2778), encoded false;
     default_weight: Some(6.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 70,
-    old_str_req: 70,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1949,18 +1094,7 @@ armor_leaf! {
     FEMALE_PLATE_CHEST, FEMALE_PLATE_CHEST_CLASS, female_plate_chest_new = "Server.Items.FemalePlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C04), encoded false;
     flippable: Some((0x1c04, 0x1c05)),
     default_weight: Some(4.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 95,
-    old_str_req: 45,
-    old_dex_bonus: -5,
     allow_male_wearer: false,
-    armor_base: 30,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1969,17 +1103,7 @@ armor_leaf! {
     FEMALE_ELVEN_PLATE_CHEST, FEMALE_ELVEN_PLATE_CHEST_CLASS, female_elven_plate_chest_new = "Server.Items.FemaleElvenPlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6D), encoded true;
     flippable: Some((0x2B6D, 0x3164)),
     default_weight: Some(8.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 95,
-    old_str_req: 95,
     allow_male_wearer: false,
-    armor_base: 30,
     material_type: ArmorMaterialType::Wood,
 }
 
@@ -1987,16 +1111,6 @@ armor_leaf! {
     /// `Server.Items.HeavyPlateJingasa`.
     HEAVY_PLATE_JINGASA, HEAVY_PLATE_JINGASA_CLASS, heavy_plate_jingasa_new = "Server.Items.HeavyPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2777), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 7,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 70,
-    aos_str_req: 55,
-    old_str_req: 55,
-    armor_base: 4,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2004,16 +1118,6 @@ armor_leaf! {
     /// `Server.Items.LightPlateJingasa`.
     LIGHT_PLATE_JINGASA, LIGHT_PLATE_JINGASA_CLASS, light_plate_jingasa_new = "Server.Items.LightPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2781), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 7,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 2,
-    init_min_hits: 55,
-    init_max_hits: 60,
-    aos_str_req: 55,
-    old_str_req: 55,
-    armor_base: 4,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2022,17 +1126,6 @@ armor_leaf! {
     PLATE_ARMS, PLATE_ARMS_CLASS, plate_arms_new = "Server.Items.PlateArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1410), encoded false;
     flippable: Some((0x1410, 0x1417)),
     default_weight: Some(5.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 80,
-    old_str_req: 40,
-    old_dex_bonus: -2,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2040,16 +1133,6 @@ armor_leaf! {
     /// `Server.Items.PlateBattleKabuto`.
     PLATE_BATTLE_KABUTO, PLATE_BATTLE_KABUTO_CLASS, plate_battle_kabuto_new = "Server.Items.PlateBattleKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2785), encoded false;
     default_weight: Some(6.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 3,
-    init_min_hits: 60,
-    init_max_hits: 65,
-    aos_str_req: 70,
-    old_str_req: 70,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2057,16 +1140,6 @@ armor_leaf! {
     /// `Server.Items.PlateDo`.
     PLATE_DO, PLATE_DO_CLASS, plate_do_new = "Server.Items.PlateDo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277D), encoded false;
     default_weight: Some(10.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 60,
-    init_max_hits: 70,
-    aos_str_req: 85,
-    old_str_req: 85,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2075,17 +1148,6 @@ armor_leaf! {
     PLATE_GLOVES, PLATE_GLOVES_CLASS, plate_gloves_new = "Server.Items.PlateGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1414), encoded false;
     flippable: Some((0x1414, 0x1418)),
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 70,
-    old_str_req: 30,
-    old_dex_bonus: -2,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2093,17 +1155,6 @@ armor_leaf! {
     /// `Server.Items.PlateGorget`.
     PLATE_GORGET, PLATE_GORGET_CLASS, plate_gorget_new = "Server.Items.PlateGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1413), encoded false;
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 45,
-    old_str_req: 30,
-    old_dex_bonus: -1,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2111,16 +1162,6 @@ armor_leaf! {
     /// `Server.Items.PlateHaidate`.
     PLATE_HAIDATE, PLATE_HAIDATE_CLASS, plate_haidate_new = "Server.Items.PlateHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278D), encoded false;
     default_weight: Some(7.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 55,
-    init_max_hits: 65,
-    aos_str_req: 80,
-    old_str_req: 80,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2128,16 +1169,6 @@ armor_leaf! {
     /// `Server.Items.PlateHatsuburi`.
     PLATE_HATSUBURI, PLATE_HATSUBURI_CLASS, plate_hatsuburi_new = "Server.Items.PlateHatsuburi" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2775), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 3,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 65,
-    old_str_req: 65,
-    armor_base: 4,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2145,16 +1176,6 @@ armor_leaf! {
     /// `Server.Items.PlateHiroSode`.
     PLATE_HIRO_SODE, PLATE_HIRO_SODE_CLASS, plate_hiro_sode_new = "Server.Items.PlateHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2780), encoded false;
     default_weight: Some(3.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 55,
-    init_max_hits: 75,
-    aos_str_req: 75,
-    old_str_req: 75,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2163,17 +1184,6 @@ armor_leaf! {
     PLATE_LEGS, PLATE_LEGS_CLASS, plate_legs_new = "Server.Items.PlateLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1411), encoded false;
     flippable: Some((0x1411, 0x141a)),
     default_weight: Some(7.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 90,
-    old_str_req: 60,
-    old_dex_bonus: -6,
-    armor_base: 40,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2181,16 +1191,6 @@ armor_leaf! {
     /// `Server.Items.PlateMempo`.
     PLATE_MEMPO, PLATE_MEMPO_CLASS, plate_mempo_new = "Server.Items.PlateMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2779), encoded false;
     default_weight: Some(3.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 60,
-    init_max_hits: 70,
-    aos_str_req: 50,
-    old_str_req: 50,
-    armor_base: 4,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2198,16 +1198,6 @@ armor_leaf! {
     /// `Server.Items.PlateSuneate`.
     PLATE_SUNEATE, PLATE_SUNEATE_CLASS, plate_suneate_new = "Server.Items.PlateSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2788), encoded false;
     default_weight: Some(7.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 55,
-    init_max_hits: 65,
-    aos_str_req: 80,
-    old_str_req: 80,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2215,16 +1205,6 @@ armor_leaf! {
     /// `Server.Items.SmallPlateJingasa`.
     SMALL_PLATE_JINGASA, SMALL_PLATE_JINGASA_CLASS, small_plate_jingasa_new = "Server.Items.SmallPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2784), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 7,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 2,
-    init_min_hits: 55,
-    init_max_hits: 60,
-    aos_str_req: 55,
-    old_str_req: 55,
-    armor_base: 4,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2232,16 +1212,6 @@ armor_leaf! {
     /// `Server.Items.StandardPlateKabuto`.
     STANDARD_PLATE_KABUTO, STANDARD_PLATE_KABUTO_CLASS, standard_plate_kabuto_new = "Server.Items.StandardPlateKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2789), encoded false;
     default_weight: Some(6.0),
-    base_physical_resistance: 6,
-    base_fire_resistance: 2,
-    base_cold_resistance: 2,
-    base_poison_resistance: 2,
-    base_energy_resistance: 3,
-    init_min_hits: 60,
-    init_max_hits: 65,
-    aos_str_req: 70,
-    old_str_req: 70,
-    armor_base: 3,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2250,16 +1220,6 @@ armor_leaf! {
     WOODLAND_ARMS, WOODLAND_ARMS_CLASS, woodland_arms_new = "Server.Items.WoodlandArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6C), encoded true;
     flippable: Some((0x2B6C, 0x3163)),
     default_weight: Some(5.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 80,
-    old_str_req: 80,
-    armor_base: 40,
     material_type: ArmorMaterialType::Wood,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
@@ -2269,16 +1229,6 @@ armor_leaf! {
     WOODLAND_CHEST, WOODLAND_CHEST_CLASS, woodland_chest_new = "Server.Items.WoodlandChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B67), encoded true;
     flippable: Some((0x2B67, 0x315E)),
     default_weight: Some(8.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 95,
-    old_str_req: 95,
-    armor_base: 40,
     material_type: ArmorMaterialType::Wood,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
@@ -2288,16 +1238,6 @@ armor_leaf! {
     WOODLAND_GLOVES, WOODLAND_GLOVES_CLASS, woodland_gloves_new = "Server.Items.WoodlandGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6A), encoded true;
     flippable: Some((0x2B6A, 0x3161)),
     default_weight: Some(2.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 70,
-    old_str_req: 70,
-    armor_base: 40,
     material_type: ArmorMaterialType::Wood,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
@@ -2306,16 +1246,6 @@ armor_leaf! {
     /// `Server.Items.WoodlandGorget`.
     WOODLAND_GORGET, WOODLAND_GORGET_CLASS, woodland_gorget_new = "Server.Items.WoodlandGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B69), encoded true;
     flippable: Some((0x2B69, 0x3160)),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 45,
-    old_str_req: 45,
-    armor_base: 40,
     material_type: ArmorMaterialType::Wood,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
@@ -2325,16 +1255,6 @@ armor_leaf! {
     WOODLAND_LEGS, WOODLAND_LEGS_CLASS, woodland_legs_new = "Server.Items.WoodlandLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6B), encoded true;
     flippable: Some((0x2B6B, 0x3162)),
     default_weight: Some(8.0),
-    base_physical_resistance: 5,
-    base_fire_resistance: 3,
-    base_cold_resistance: 2,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 90,
-    old_str_req: 90,
-    armor_base: 40,
     material_type: ArmorMaterialType::Wood,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
@@ -2347,16 +1267,6 @@ armor_leaf! {
     };
     flippable: Some((0x13dc, 0x13d4)),
     default_weight: Some(4.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041493,
@@ -2370,16 +1280,6 @@ armor_leaf! {
     };
     flippable: Some((0x13db, 0x13e2)),
     default_weight: Some(8.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 35,
-    old_str_req: 35,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041497,
@@ -2393,16 +1293,6 @@ armor_leaf! {
     };
     flippable: Some((0x13d5, 0x13dd)),
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041494,
@@ -2415,16 +1305,6 @@ armor_leaf! {
         hue(w, id, 0x59C);
     };
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041495,
@@ -2438,16 +1318,6 @@ armor_leaf! {
     };
     flippable: Some((0x13da, 0x13e1)),
     default_weight: Some(3.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 30,
-    old_str_req: 35,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     label_number: 1041496,
@@ -2458,17 +1328,6 @@ armor_leaf! {
     RINGMAIL_ARMS, RINGMAIL_ARMS_CLASS, ringmail_arms_new = "Server.Items.RingmailArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13EE), encoded false;
     flippable: Some((0x13ee, 0x13ef)),
     default_weight: Some(15.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 1,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 20,
-    old_dex_bonus: -1,
-    armor_base: 22,
     material_type: ArmorMaterialType::Ringmail,
 }
 
@@ -2477,17 +1336,6 @@ armor_leaf! {
     RINGMAIL_CHEST, RINGMAIL_CHEST_CLASS, ringmail_chest_new = "Server.Items.RingmailChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13EC), encoded false;
     flippable: Some((0x13ec, 0x13ed)),
     default_weight: Some(15.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 1,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 20,
-    old_dex_bonus: -2,
-    armor_base: 22,
     material_type: ArmorMaterialType::Ringmail,
 }
 
@@ -2496,17 +1344,6 @@ armor_leaf! {
     RINGMAIL_GLOVES, RINGMAIL_GLOVES_CLASS, ringmail_gloves_new = "Server.Items.RingmailGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13EB), encoded false;
     flippable: Some((0x13eb, 0x13f2)),
     default_weight: Some(2.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 1,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 20,
-    old_dex_bonus: -1,
-    armor_base: 22,
     material_type: ArmorMaterialType::Ringmail,
 }
 
@@ -2515,17 +1352,6 @@ armor_leaf! {
     RINGMAIL_LEGS, RINGMAIL_LEGS_CLASS, ringmail_legs_new = "Server.Items.RingmailLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13F0), encoded false;
     flippable: Some((0x13f0, 0x13f1)),
     default_weight: Some(15.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 1,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 20,
-    old_dex_bonus: -1,
-    armor_base: 22,
     material_type: ArmorMaterialType::Ringmail,
 }
 
@@ -2540,14 +1366,6 @@ armor_leaf! {
     };
     flippable: Some((0x2B10, 0x2B11)),
     label_number: 1075237,
-    base_physical_resistance: 13,
-    base_fire_resistance: 13,
-    base_cold_resistance: 12,
-    base_poison_resistance: 14,
-    base_energy_resistance: 13,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 25,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2562,14 +1380,6 @@ armor_leaf! {
     };
     flippable: Some((0x2B0C, 0x2B0D)),
     label_number: 1075238,
-    base_physical_resistance: 11,
-    base_fire_resistance: 11,
-    base_cold_resistance: 13,
-    base_poison_resistance: 14,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 50,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -2578,16 +1388,6 @@ armor_leaf! {
     GARGISH_STONE_ARMS_TYPE1, GARGISH_STONE_ARMS_TYPE1_CLASS, gargish_stone_arms_type1_new = "Server.Items.GargishStoneArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x284), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2596,16 +1396,6 @@ armor_leaf! {
     GARGISH_STONE_ARMS_TYPE2, GARGISH_STONE_ARMS_TYPE2_CLASS, gargish_stone_arms_type2_new = "Server.Items.GargishStoneArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x283), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2614,16 +1404,6 @@ armor_leaf! {
     GARGISH_STONE_CHEST_TYPE1, GARGISH_STONE_CHEST_TYPE1_CLASS, gargish_stone_chest_type1_new = "Server.Items.GargishStoneChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x286), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2632,16 +1412,6 @@ armor_leaf! {
     GARGISH_STONE_CHEST_TYPE2, GARGISH_STONE_CHEST_TYPE2_CLASS, gargish_stone_chest_type2_new = "Server.Items.GargishStoneChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x285), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2650,16 +1420,6 @@ armor_leaf! {
     GARGISH_STONE_KILT_TYPE1, GARGISH_STONE_KILT_TYPE1_CLASS, gargish_stone_kilt_type1_new = "Server.Items.GargishStoneKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x288), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2668,16 +1428,6 @@ armor_leaf! {
     GARGISH_STONE_KILT_TYPE2, GARGISH_STONE_KILT_TYPE2_CLASS, gargish_stone_kilt_type2_new = "Server.Items.GargishStoneKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x287), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2686,16 +1436,6 @@ armor_leaf! {
     GARGISH_STONE_LEGS_TYPE1, GARGISH_STONE_LEGS_TYPE1_CLASS, gargish_stone_legs_type1_new = "Server.Items.GargishStoneLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x28A), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2704,16 +1444,6 @@ armor_leaf! {
     GARGISH_STONE_LEGS_TYPE2, GARGISH_STONE_LEGS_TYPE2_CLASS, gargish_stone_legs_type2_new = "Server.Items.GargishStoneLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x289), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 40,
     material_type: ArmorMaterialType::Stone,
 }
 
@@ -2722,16 +1452,6 @@ armor_leaf! {
     FEMALE_STUDDED_CHEST, FEMALE_STUDDED_CHEST_CLASS, female_studded_chest_new = "Server.Items.FemaleStuddedChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C02), encoded false;
     flippable: Some((0x1c02, 0x1c03)),
     default_weight: Some(6.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 35,
-    old_str_req: 35,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2743,15 +1463,6 @@ armor_leaf! {
     GARGISH_STUDDED_ARMS_TYPE1, GARGISH_STUDDED_ARMS_TYPE1_CLASS, gargish_studded_arms_type1_new = "Server.Items.GargishStuddedArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x284), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2762,16 +1473,6 @@ armor_leaf! {
     GARGISH_STUDDED_ARMS_TYPE2, GARGISH_STUDDED_ARMS_TYPE2_CLASS, gargish_studded_arms_type2_new = "Server.Items.GargishStuddedArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x283), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2782,16 +1483,6 @@ armor_leaf! {
     GARGISH_STUDDED_CHEST_TYPE1, GARGISH_STUDDED_CHEST_TYPE1_CLASS, gargish_studded_chest_type1_new = "Server.Items.GargishStuddedChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x286), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2802,16 +1493,6 @@ armor_leaf! {
     GARGISH_STUDDED_CHEST_TYPE2, GARGISH_STUDDED_CHEST_TYPE2_CLASS, gargish_studded_chest_type2_new = "Server.Items.GargishStuddedChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x285), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2822,16 +1503,6 @@ armor_leaf! {
     GARGISH_STUDDED_KILT_TYPE1, GARGISH_STUDDED_KILT_TYPE1_CLASS, gargish_studded_kilt_type1_new = "Server.Items.GargishStuddedKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x288), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2842,16 +1513,6 @@ armor_leaf! {
     GARGISH_STUDDED_KILT_TYPE2, GARGISH_STUDDED_KILT_TYPE2_CLASS, gargish_studded_kilt_type2_new = "Server.Items.GargishStuddedKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x287), encoded false;
     default_weight: Some(10.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2862,16 +1523,6 @@ armor_leaf! {
     GARGISH_STUDDED_LEGS_TYPE1, GARGISH_STUDDED_LEGS_TYPE1_CLASS, gargish_studded_legs_type1_new = "Server.Items.GargishStuddedLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x28A), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2882,16 +1533,6 @@ armor_leaf! {
     GARGISH_STUDDED_LEGS_TYPE2, GARGISH_STUDDED_LEGS_TYPE2_CLASS, gargish_studded_legs_type2_new = "Server.Items.GargishStuddedLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x289), encoded false;
     default_weight: Some(15.0),
     required_races: Some(ALLOW_GARGOYLES_ONLY),
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 4,
-    base_poison_resistance: 8,
-    base_energy_resistance: 6,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 40,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2903,16 +1544,6 @@ armor_leaf! {
     flippable: Some((0x2B74, 0x316B)),
     default_weight: Some(6.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 15,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2924,16 +1555,6 @@ armor_leaf! {
     flippable: Some((0x2B79, 0x3170)),
     default_weight: Some(6.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 35,
-    old_str_req: 35,
-    armor_base: 15,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2946,16 +1567,6 @@ armor_leaf! {
     flippable: Some((0x2B75, 0x316C)),
     default_weight: Some(2.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 15,
-    old_str_req: 15,
-    armor_base: 15,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2967,16 +1578,6 @@ armor_leaf! {
     flippable: Some((0x2B76, 0x316D)),
     default_weight: Some(3.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 15,
-    old_str_req: 15,
-    armor_base: 15,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -2988,16 +1589,6 @@ armor_leaf! {
     flippable: Some((0x2B78, 0x316F)),
     default_weight: Some(5.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 15,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3009,16 +1600,6 @@ armor_leaf! {
     flippable: Some((0x2B77, 0x316E)),
     default_weight: Some(4.0),
     required_races: Some(ALLOW_ELVES_ONLY),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 4,
-    base_poison_resistance: 3,
-    base_energy_resistance: 2,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 20,
-    old_str_req: 20,
-    armor_base: 15,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3029,16 +1610,6 @@ armor_leaf! {
     STUDDED_ARMS, STUDDED_ARMS_CLASS, studded_arms_new = "Server.Items.StuddedArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DC), encoded false;
     flippable: Some((0x13dc, 0x13d4)),
     default_weight: Some(4.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3049,16 +1620,6 @@ armor_leaf! {
     STUDDED_BUSTIER_ARMS, STUDDED_BUSTIER_ARMS_CLASS, studded_bustier_arms_new = "Server.Items.StuddedBustierArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C0C), encoded false;
     flippable: Some((0x1c0c, 0x1c0d)),
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 35,
-    old_str_req: 35,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3070,16 +1631,6 @@ armor_leaf! {
     STUDDED_CHEST, STUDDED_CHEST_CLASS, studded_chest_new = "Server.Items.StuddedChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DB), encoded false;
     flippable: Some((0x13db, 0x13e2)),
     default_weight: Some(8.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 35,
-    old_str_req: 35,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3089,16 +1640,6 @@ armor_leaf! {
     /// `Server.Items.StuddedDo`.
     STUDDED_DO, STUDDED_DO_CLASS, studded_do_new = "Server.Items.StuddedDo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x27C7), encoded false;
     default_weight: Some(8.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 55,
-    old_str_req: 55,
-    armor_base: 3,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
 }
@@ -3108,16 +1649,6 @@ armor_leaf! {
     STUDDED_GLOVES, STUDDED_GLOVES_CLASS, studded_gloves_new = "Server.Items.StuddedGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D5), encoded false;
     flippable: Some((0x13d5, 0x13dd)),
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3127,16 +1658,6 @@ armor_leaf! {
     /// `Server.Items.StuddedGorget`.
     STUDDED_GORGET, STUDDED_GORGET_CLASS, studded_gorget_new = "Server.Items.StuddedGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D6), encoded false;
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3146,16 +1667,6 @@ armor_leaf! {
     /// `Server.Items.StuddedHaidate`.
     STUDDED_HAIDATE, STUDDED_HAIDATE_CLASS, studded_haidate_new = "Server.Items.StuddedHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278B), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 30,
-    old_str_req: 30,
-    armor_base: 3,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
 }
@@ -3164,16 +1675,6 @@ armor_leaf! {
     /// `Server.Items.StuddedHiroSode`.
     STUDDED_HIRO_SODE, STUDDED_HIRO_SODE_CLASS, studded_hiro_sode_new = "Server.Items.StuddedHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277F), encoded false;
     default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 45,
-    init_max_hits: 55,
-    aos_str_req: 30,
-    old_str_req: 30,
-    armor_base: 3,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
 }
@@ -3183,16 +1684,6 @@ armor_leaf! {
     STUDDED_LEGS, STUDDED_LEGS_CLASS, studded_legs_new = "Server.Items.StuddedLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DA), encoded false;
     flippable: Some((0x13da, 0x13e1)),
     default_weight: Some(5.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 30,
-    old_str_req: 35,
-    armor_base: 16,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: ArmorMeditationAllowance::Half,
@@ -3202,16 +1693,6 @@ armor_leaf! {
     /// `Server.Items.StuddedMempo`.
     STUDDED_MEMPO, STUDDED_MEMPO_CLASS, studded_mempo_new = "Server.Items.StuddedMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x279D), encoded false;
     default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 30,
-    old_str_req: 30,
-    armor_base: 3,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
 }
@@ -3220,16 +1701,6 @@ armor_leaf! {
     /// `Server.Items.StuddedSuneate`.
     STUDDED_SUNEATE, STUDDED_SUNEATE_CLASS, studded_suneate_new = "Server.Items.StuddedSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x27D2), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 50,
-    aos_str_req: 30,
-    old_str_req: 30,
-    armor_base: 3,
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
 }
@@ -3246,9 +1717,6 @@ armor_leaf! {
     };
     label_number: 1061602,
     artifact_rarity: 11,
-    base_physical_resistance: 15,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -3264,38 +1732,18 @@ armor_leaf! {
     };
     label_number: 1061101,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
     /// `Server.Items.BronzeShield`.
     BRONZE_SHIELD, BRONZE_SHIELD_CLASS, bronze_shield_new = "Server.Items.BronzeShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B72), encoded false;
     default_weight: Some(6.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 1,
-    base_poison_resistance: 0,
-    base_energy_resistance: 0,
-    init_min_hits: 25,
-    init_max_hits: 30,
-    aos_str_req: 35,
-    armor_base: 10,
 }
 
 armor_leaf! {
     /// `Server.Items.Buckler`.
     BUCKLER, BUCKLER_CLASS, buckler_new = "Server.Items.Buckler" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B73), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 1,
-    base_energy_resistance: 0,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 20,
-    armor_base: 7,
 }
 
 armor_leaf! {
@@ -3303,14 +1751,6 @@ armor_leaf! {
     GARGISH_WOODEN_SHIELD, GARGISH_WOODEN_SHIELD_CLASS, gargish_wooden_shield_new = "Server.Items.GargishWoodenShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x4200), encoded true;
     flippable: Some((0x4200, 0x4207)),
     default_weight: Some(5.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 1,
-    init_min_hits: 20,
-    init_max_hits: 25,
-    aos_str_req: 20,
     required_races: Some(ALLOW_GARGOYLES_ONLY),
     material_type: ArmorMaterialType::Wood,
 }
@@ -3319,60 +1759,24 @@ armor_leaf! {
     /// `Server.Items.HeaterShield`.
     HEATER_SHIELD, HEATER_SHIELD_CLASS, heater_shield_new = "Server.Items.HeaterShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B76), encoded false;
     default_weight: Some(8.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 1,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 0,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 90,
-    armor_base: 23,
 }
 
 armor_leaf! {
     /// `Server.Items.MetalKiteShield`.
     METAL_KITE_SHIELD, METAL_KITE_SHIELD_CLASS, metal_kite_shield_new = "Server.Items.MetalKiteShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B74), encoded false;
     default_weight: Some(7.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 1,
-    init_min_hits: 45,
-    init_max_hits: 60,
-    aos_str_req: 45,
-    armor_base: 16,
 }
 
 armor_leaf! {
     /// `Server.Items.MetalShield`.
     METAL_SHIELD, METAL_SHIELD_CLASS, metal_shield_new = "Server.Items.MetalShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B7B), encoded false;
     default_weight: Some(6.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 1,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 0,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 45,
-    armor_base: 11,
 }
 
 armor_leaf! {
     /// `Server.Items.WoodenKiteShield`.
     WOODEN_KITE_SHIELD, WOODEN_KITE_SHIELD_CLASS, wooden_kite_shield_new = "Server.Items.WoodenKiteShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B79), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 1,
-    init_min_hits: 50,
-    init_max_hits: 65,
-    aos_str_req: 20,
-    armor_base: 12,
     material_type: ArmorMaterialType::Wood,
 }
 
@@ -3380,15 +1784,6 @@ armor_leaf! {
     /// `Server.Items.WoodenShield`.
     WOODEN_SHIELD, WOODEN_SHIELD_CLASS, wooden_shield_new = "Server.Items.WoodenShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B7A), encoded false;
     default_weight: Some(5.0),
-    base_physical_resistance: 0,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 1,
-    init_min_hits: 20,
-    init_max_hits: 25,
-    aos_str_req: 20,
-    armor_base: 8,
     material_type: ArmorMaterialType::Wood,
 }
 

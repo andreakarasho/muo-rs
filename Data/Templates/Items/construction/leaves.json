@@ -1,0 +1,342 @@
+[
+  {
+    "type": "Server.Items.WoodenBench",
+    "itemId": 2861
+  },
+  {
+    "type": "Server.Items.BambooChair",
+    "itemId": 2907
+  },
+  {
+    "type": "Server.Items.BigElvenChair",
+    "itemId": 11755
+  },
+  {
+    "type": "Server.Items.ElvenReadingChair",
+    "itemId": 11765
+  },
+  {
+    "type": "Server.Items.FancyWoodenChairCushion",
+    "itemId": 2895
+  },
+  {
+    "type": "Server.Items.OrnateElvenChair",
+    "itemId": 11747
+  },
+  {
+    "type": "Server.Items.StoneChair",
+    "itemId": 4632
+  },
+  {
+    "type": "Server.Items.WoodenChair",
+    "itemId": 2903
+  },
+  {
+    "type": "Server.Items.WoodenChairCushion",
+    "itemId": 2899
+  },
+  {
+    "type": "Server.Items.FootStool",
+    "itemId": 2910
+  },
+  {
+    "type": "Server.Items.Stool",
+    "itemId": 2602
+  },
+  {
+    "type": "Server.Items.Throne",
+    "itemId": 2867
+  },
+  {
+    "type": "Server.Items.WoodenThrone",
+    "itemId": 2862
+  },
+  {
+    "type": "Server.Items.DecorativeShield1",
+    "itemId": 5484,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield10",
+    "itemId": 5502,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield11",
+    "itemId": 5504,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield2",
+    "itemId": 5486,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield3",
+    "itemId": 5488,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield4",
+    "itemId": 5490,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield5",
+    "itemId": 5492,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield6",
+    "itemId": 5494,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield7",
+    "itemId": 5496,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield8",
+    "itemId": 5498,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShield9",
+    "itemId": 5500,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.GiantReplicaAcorn",
+    "itemId": 11594
+  },
+  {
+    "type": "Server.Items.MountedDreadHorn",
+    "itemId": 12632
+  },
+  {
+    "type": "Server.Items.LadyPortrait1",
+    "itemId": 3750,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.LadyPortrait2",
+    "itemId": 3751,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.LargePainting",
+    "itemId": 3744,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.ManPortrait1",
+    "itemId": 3746,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.ManPortrait2",
+    "itemId": 3747,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.WomanPortrait1",
+    "itemId": 3743,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.WomanPortrait2",
+    "itemId": 3815,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.BarrelHoops",
+    "itemId": 7607
+  },
+  {
+    "type": "Server.Items.BarrelLid",
+    "itemId": 7608
+  },
+  {
+    "type": "Server.Items.BarrelStaves",
+    "itemId": 7857
+  },
+  {
+    "type": "Server.Items.BarrelTap",
+    "itemId": 4100
+  },
+  {
+    "type": "Server.Items.Easel",
+    "itemId": 3941
+  },
+  {
+    "type": "Server.Items.MeltedWax",
+    "itemId": 4650,
+    "movable": false,
+    "hue": 2101
+  },
+  {
+    "type": "Server.Items.ShortMusicStand",
+    "itemId": 3766
+  },
+  {
+    "type": "Server.Items.TallMusicStand",
+    "itemId": 3771
+  },
+  {
+    "type": "Server.Items.Obelisk",
+    "itemId": 4484,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.BambooScreen",
+    "itemId": 9424
+  },
+  {
+    "type": "Server.Items.ShojiScreen",
+    "itemId": 9419
+  },
+  {
+    "type": "Server.Items.BustEast",
+    "itemId": 4810
+  },
+  {
+    "type": "Server.Items.BustSouth",
+    "itemId": 4811
+  },
+  {
+    "type": "Server.Items.SmallTowerSculpture",
+    "itemId": 9242
+  },
+  {
+    "type": "Server.Items.StatueEast",
+    "itemId": 5020
+  },
+  {
+    "type": "Server.Items.StatueEast2",
+    "itemId": 4644
+  },
+  {
+    "type": "Server.Items.StatueNorth",
+    "itemId": 5019
+  },
+  {
+    "type": "Server.Items.StatuePegasus",
+    "itemId": 5021
+  },
+  {
+    "type": "Server.Items.StatuePegasus2",
+    "itemId": 4648
+  },
+  {
+    "type": "Server.Items.StatueSouth",
+    "itemId": 5018
+  },
+  {
+    "type": "Server.Items.StatueSouth2",
+    "itemId": 4647
+  },
+  {
+    "type": "Server.Items.StatueSouthEast",
+    "itemId": 4645
+  },
+  {
+    "type": "Server.Items.StatueWest",
+    "itemId": 4646
+  },
+  {
+    "type": "Server.Items.LargeVase",
+    "itemId": 2885
+  },
+  {
+    "type": "Server.Items.SmallUrn",
+    "itemId": 9244
+  },
+  {
+    "type": "Server.Items.Vase",
+    "itemId": 2886
+  },
+  {
+    "type": "Server.Items.CoveredChair",
+    "itemId": 3095,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedArmoire",
+    "itemId": 3091,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedBookcase",
+    "itemId": 3092,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedBooks",
+    "itemId": 3094,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedChair",
+    "itemId": 3099,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedClock",
+    "itemId": 3103,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedDrawers",
+    "itemId": 3108,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedFallenChairA",
+    "itemId": 3088,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedFallenChairB",
+    "itemId": 3097,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.RuinedPainting",
+    "itemId": 3116,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.WoodDebris",
+    "itemId": 3117,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.ElvenPodium",
+    "itemId": 11741
+  },
+  {
+    "type": "Server.Items.ElegantLowTable",
+    "itemId": 10265
+  },
+  {
+    "type": "Server.Items.LargeTable",
+    "itemId": 2960
+  },
+  {
+    "type": "Server.Items.Nightstand",
+    "itemId": 2869
+  },
+  {
+    "type": "Server.Items.PlainLowTable",
+    "itemId": 10266
+  },
+  {
+    "type": "Server.Items.YewWoodTable",
+    "itemId": 2959
+  },
+  {
+    "type": "Server.Items.WritingTable",
+    "itemId": 2890
+  }
+]

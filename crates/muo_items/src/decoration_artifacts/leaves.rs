@@ -2,12 +2,11 @@
 //! are hand-written next to this file.
 
 use crate::decoration_artifacts::DecoClass;
-use crate::simple::{hue, leaf};
+use crate::simple::leaf;
 use muo_content::items::cont::new_base_container;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ItemType, ops};
-use muo_server::light_type::LightType;
+use muo_server::item::ItemType;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::decoration_artifacts::BASE_DECORATION_ARTIFACT;
@@ -15,9 +14,7 @@ use crate::decoration_artifacts::BASE_DECORATION_CONTAINER_ARTIFACT;
 
 /// `AcademicBooksArtifact()`.
 pub fn academic_books_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1E25);
-    hue(w, id, 2413);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.AcademicBooksArtifact")
 }
 
 static ACADEMIC_BOOKS_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -44,7 +41,7 @@ leaf! {
 
 /// `BloodyWaterArtifact()`.
 pub fn bloody_water_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xE23)
+    crate::simple::from_template(w, ty, "Server.Items.BloodyWaterArtifact")
 }
 
 static BLOODY_WATER_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -57,7 +54,7 @@ leaf! {
 
 /// `BooksFaceDownArtifact()`.
 pub fn books_face_down_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E21)
+    crate::simple::from_template(w, ty, "Server.Items.BooksFaceDownArtifact")
 }
 
 static BOOKS_FACE_DOWN_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -70,7 +67,7 @@ leaf! {
 
 /// `BooksNorthArtifact()`.
 pub fn books_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E24)
+    crate::simple::from_template(w, ty, "Server.Items.BooksNorthArtifact")
 }
 
 static BOOKS_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -83,7 +80,7 @@ leaf! {
 
 /// `BooksWestArtifact()`.
 pub fn books_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E25)
+    crate::simple::from_template(w, ty, "Server.Items.BooksWestArtifact")
 }
 
 static BOOKS_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -96,7 +93,7 @@ leaf! {
 
 /// `BottleArtifact()`.
 pub fn bottle_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xE28)
+    crate::simple::from_template(w, ty, "Server.Items.BottleArtifact")
 }
 
 static BOTTLE_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -109,9 +106,7 @@ leaf! {
 
 /// `BrazierArtifact()`.
 pub fn brazier_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xE31);
-    ops::set_light(w, id, LightType::Circle150);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.BrazierArtifact")
 }
 
 static BRAZIER_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };
@@ -124,7 +119,7 @@ leaf! {
 
 /// `CocoonArtifact()`.
 pub fn cocoon_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x10DA)
+    crate::simple::from_template(w, ty, "Server.Items.CocoonArtifact")
 }
 
 static COCOON_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 7 };
@@ -137,7 +132,7 @@ leaf! {
 
 /// `DamagedBooksArtifact()`.
 pub fn damaged_books_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xC16)
+    crate::simple::from_template(w, ty, "Server.Items.DamagedBooksArtifact")
 }
 
 static DAMAGED_BOOKS_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -150,7 +145,7 @@ leaf! {
 
 /// `EggCaseArtifact()`.
 pub fn egg_case_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x10D9)
+    crate::simple::from_template(w, ty, "Server.Items.EggCaseArtifact")
 }
 
 static EGG_CASE_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -163,7 +158,7 @@ leaf! {
 
 /// `GruesomeStandardArtifact()`.
 pub fn gruesome_standard_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x428)
+    crate::simple::from_template(w, ty, "Server.Items.GruesomeStandardArtifact")
 }
 
 static GRUESOME_STANDARD_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -176,9 +171,7 @@ leaf! {
 
 /// `LampPostArtifact()`.
 pub fn lamp_post_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xB24);
-    ops::set_light(w, id, LightType::Circle300);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.LampPostArtifact")
 }
 
 static LAMP_POST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -191,7 +184,7 @@ leaf! {
 
 /// `LeatherTunicArtifact()`.
 pub fn leather_tunic_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x13CA)
+    crate::simple::from_template(w, ty, "Server.Items.LeatherTunicArtifact")
 }
 
 static LEATHER_TUNIC_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -204,7 +197,7 @@ leaf! {
 
 /// `RockArtifact()`.
 pub fn rock_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1363)
+    crate::simple::from_template(w, ty, "Server.Items.RockArtifact")
 }
 
 static ROCK_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -217,7 +210,7 @@ leaf! {
 
 /// `RuinedPaintingArtifact()`.
 pub fn ruined_painting_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xC2C)
+    crate::simple::from_template(w, ty, "Server.Items.RuinedPaintingArtifact")
 }
 
 static RUINED_PAINTING_ARTIFACT_CLASS: DecoClass = DecoClass {
@@ -232,7 +225,7 @@ leaf! {
 
 /// `SaddleArtifact()`.
 pub fn saddle_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xF38)
+    crate::simple::from_template(w, ty, "Server.Items.SaddleArtifact")
 }
 
 static SADDLE_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -245,7 +238,7 @@ leaf! {
 
 /// `SkinnedDeerArtifact()`.
 pub fn skinned_deer_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E91)
+    crate::simple::from_template(w, ty, "Server.Items.SkinnedDeerArtifact")
 }
 
 static SKINNED_DEER_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -258,7 +251,7 @@ leaf! {
 
 /// `SkinnedGoatArtifact()`.
 pub fn skinned_goat_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E88)
+    crate::simple::from_template(w, ty, "Server.Items.SkinnedGoatArtifact")
 }
 
 static SKINNED_GOAT_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -271,9 +264,7 @@ leaf! {
 
 /// `SkullCandleArtifact()`.
 pub fn skull_candle_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1858);
-    ops::set_light(w, id, LightType::Circle150);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SkullCandleArtifact")
 }
 
 static SKULL_CANDLE_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -286,7 +277,7 @@ leaf! {
 
 /// `StretchedHideArtifact()`.
 pub fn stretched_hide_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x106B)
+    crate::simple::from_template(w, ty, "Server.Items.StretchedHideArtifact")
 }
 
 static STRETCHED_HIDE_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };
@@ -299,7 +290,7 @@ leaf! {
 
 /// `StuddedLeggingsArtifact()`.
 pub fn studded_leggings_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x13D8)
+    crate::simple::from_template(w, ty, "Server.Items.StuddedLeggingsArtifact")
 }
 
 static STUDDED_LEGGINGS_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -312,7 +303,7 @@ leaf! {
 
 /// `StuddedTunicArtifact()`.
 pub fn studded_tunic_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x13D9)
+    crate::simple::from_template(w, ty, "Server.Items.StuddedTunicArtifact")
 }
 
 static STUDDED_TUNIC_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 7 };
@@ -325,7 +316,7 @@ leaf! {
 
 /// `TarotCardsArtifact()`.
 pub fn tarot_cards_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x12A5)
+    crate::simple::from_template(w, ty, "Server.Items.TarotCardsArtifact")
 }
 
 static TAROT_CARDS_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -442,7 +433,7 @@ leaf! {
 
 /// `BowlArtifact()`.
 pub fn bowl_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24DE)
+    crate::simple::from_template(w, ty, "Server.Items.BowlArtifact")
 }
 
 static BOWL_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -455,7 +446,7 @@ leaf! {
 
 /// `BowlsHorizontalArtifact()`.
 pub fn bowls_horizontal_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E0)
+    crate::simple::from_template(w, ty, "Server.Items.BowlsHorizontalArtifact")
 }
 
 static BOWLS_HORIZONTAL_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -468,7 +459,7 @@ leaf! {
 
 /// `BowlsVerticalArtifact()`.
 pub fn bowls_vertical_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24DF)
+    crate::simple::from_template(w, ty, "Server.Items.BowlsVerticalArtifact")
 }
 
 static BOWLS_VERTICAL_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -481,7 +472,7 @@ leaf! {
 
 /// `CupsArtifact()`.
 pub fn cups_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E1)
+    crate::simple::from_template(w, ty, "Server.Items.CupsArtifact")
 }
 
 static CUPS_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -494,7 +485,7 @@ leaf! {
 
 /// `DolphinLeftArtifact()`.
 pub fn dolphin_left_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2846)
+    crate::simple::from_template(w, ty, "Server.Items.DolphinLeftArtifact")
 }
 
 static DOLPHIN_LEFT_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -507,7 +498,7 @@ leaf! {
 
 /// `DolphinRightArtifact()`.
 pub fn dolphin_right_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2847)
+    crate::simple::from_template(w, ty, "Server.Items.DolphinRightArtifact")
 }
 
 static DOLPHIN_RIGHT_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -520,7 +511,7 @@ leaf! {
 
 /// `FanNorthArtifact()`.
 pub fn fan_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2409)
+    crate::simple::from_template(w, ty, "Server.Items.FanNorthArtifact")
 }
 
 static FAN_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -533,7 +524,7 @@ leaf! {
 
 /// `FanWestArtifact()`.
 pub fn fan_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x240A)
+    crate::simple::from_template(w, ty, "Server.Items.FanWestArtifact")
 }
 
 static FAN_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -546,7 +537,7 @@ leaf! {
 
 /// `FlowersArtifact()`.
 pub fn flowers_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x284A)
+    crate::simple::from_template(w, ty, "Server.Items.FlowersArtifact")
 }
 
 static FLOWERS_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 7 };
@@ -559,7 +550,7 @@ leaf! {
 
 /// `ManStatuetteEastArtifact()`.
 pub fn man_statuette_east_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2849)
+    crate::simple::from_template(w, ty, "Server.Items.ManStatuetteEastArtifact")
 }
 
 static MAN_STATUETTE_EAST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -572,7 +563,7 @@ leaf! {
 
 /// `ManStatuetteSouthArtifact()`.
 pub fn man_statuette_south_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2848)
+    crate::simple::from_template(w, ty, "Server.Items.ManStatuetteSouthArtifact")
 }
 
 static MAN_STATUETTE_SOUTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -585,7 +576,7 @@ leaf! {
 
 /// `Painting1NorthArtifact()`.
 pub fn painting1_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x240D)
+    crate::simple::from_template(w, ty, "Server.Items.Painting1NorthArtifact")
 }
 
 static PAINTING1_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -598,7 +589,7 @@ leaf! {
 
 /// `Painting1WestArtifact()`.
 pub fn painting1_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x240E)
+    crate::simple::from_template(w, ty, "Server.Items.Painting1WestArtifact")
 }
 
 static PAINTING1_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -611,7 +602,7 @@ leaf! {
 
 /// `Painting2NorthArtifact()`.
 pub fn painting2_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x240F)
+    crate::simple::from_template(w, ty, "Server.Items.Painting2NorthArtifact")
 }
 
 static PAINTING2_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -624,7 +615,7 @@ leaf! {
 
 /// `Painting2WestArtifact()`.
 pub fn painting2_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2410)
+    crate::simple::from_template(w, ty, "Server.Items.Painting2WestArtifact")
 }
 
 static PAINTING2_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -637,7 +628,7 @@ leaf! {
 
 /// `Painting3Artifact()`.
 pub fn painting3_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2411)
+    crate::simple::from_template(w, ty, "Server.Items.Painting3Artifact")
 }
 
 static PAINTING3_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -650,7 +641,7 @@ leaf! {
 
 /// `Painting4NorthArtifact()`.
 pub fn painting4_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2411)
+    crate::simple::from_template(w, ty, "Server.Items.Painting4NorthArtifact")
 }
 
 static PAINTING4_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 6 };
@@ -663,7 +654,7 @@ leaf! {
 
 /// `Painting4WestArtifact()`.
 pub fn painting4_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2412)
+    crate::simple::from_template(w, ty, "Server.Items.Painting4WestArtifact")
 }
 
 static PAINTING4_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 6 };
@@ -676,7 +667,7 @@ leaf! {
 
 /// `Painting5NorthArtifact()`.
 pub fn painting5_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2415)
+    crate::simple::from_template(w, ty, "Server.Items.Painting5NorthArtifact")
 }
 
 static PAINTING5_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -689,7 +680,7 @@ leaf! {
 
 /// `Painting5WestArtifact()`.
 pub fn painting5_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2416)
+    crate::simple::from_template(w, ty, "Server.Items.Painting5WestArtifact")
 }
 
 static PAINTING5_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -702,7 +693,7 @@ leaf! {
 
 /// `Painting6NorthArtifact()`.
 pub fn painting6_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2417)
+    crate::simple::from_template(w, ty, "Server.Items.Painting6NorthArtifact")
 }
 
 static PAINTING6_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -715,7 +706,7 @@ leaf! {
 
 /// `Painting6WestArtifact()`.
 pub fn painting6_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2418)
+    crate::simple::from_template(w, ty, "Server.Items.Painting6WestArtifact")
 }
 
 static PAINTING6_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -728,7 +719,7 @@ leaf! {
 
 /// `SakeArtifact()`.
 pub fn sake_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E2)
+    crate::simple::from_template(w, ty, "Server.Items.SakeArtifact")
 }
 
 static SAKE_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -741,7 +732,7 @@ leaf! {
 
 /// `Sculpture1Artifact()`.
 pub fn sculpture1_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2419)
+    crate::simple::from_template(w, ty, "Server.Items.Sculpture1Artifact")
 }
 
 static SCULPTURE1_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -754,7 +745,7 @@ leaf! {
 
 /// `Sculpture2Artifact()`.
 pub fn sculpture2_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x241B)
+    crate::simple::from_template(w, ty, "Server.Items.Sculpture2Artifact")
 }
 
 static SCULPTURE2_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -767,7 +758,7 @@ leaf! {
 
 /// `SwordDisplay1NorthArtifact()`.
 pub fn sword_display1_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2843)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay1NorthArtifact")
 }
 
 static SWORD_DISPLAY1_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -780,7 +771,7 @@ leaf! {
 
 /// `SwordDisplay1WestArtifact()`.
 pub fn sword_display1_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2842)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay1WestArtifact")
 }
 
 static SWORD_DISPLAY1_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -793,7 +784,7 @@ leaf! {
 
 /// `SwordDisplay2NorthArtifact()`.
 pub fn sword_display2_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2845)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay2NorthArtifact")
 }
 
 static SWORD_DISPLAY2_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 6 };
@@ -806,7 +797,7 @@ leaf! {
 
 /// `SwordDisplay2WestArtifact()`.
 pub fn sword_display2_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2844)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay2WestArtifact")
 }
 
 static SWORD_DISPLAY2_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 6 };
@@ -819,7 +810,7 @@ leaf! {
 
 /// `SwordDisplay3EastArtifact()`.
 pub fn sword_display3_east_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2856)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay3EastArtifact")
 }
 
 static SWORD_DISPLAY3_EAST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -832,7 +823,7 @@ leaf! {
 
 /// `SwordDisplay3SouthArtifact()`.
 pub fn sword_display3_south_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2855)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay3SouthArtifact")
 }
 
 static SWORD_DISPLAY3_SOUTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -845,7 +836,7 @@ leaf! {
 
 /// `SwordDisplay4NorthArtifact()`.
 pub fn sword_display4_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2854)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay4NorthArtifact")
 }
 
 static SWORD_DISPLAY4_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -858,7 +849,7 @@ leaf! {
 
 /// `SwordDisplay4WestArtifact()`.
 pub fn sword_display4_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2853)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay4WestArtifact")
 }
 
 static SWORD_DISPLAY4_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 8 };
@@ -871,7 +862,7 @@ leaf! {
 
 /// `SwordDisplay5NorthArtifact()`.
 pub fn sword_display5_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2852)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay5NorthArtifact")
 }
 
 static SWORD_DISPLAY5_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -884,7 +875,7 @@ leaf! {
 
 /// `SwordDisplay5WestArtifact()`.
 pub fn sword_display5_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2851)
+    crate::simple::from_template(w, ty, "Server.Items.SwordDisplay5WestArtifact")
 }
 
 static SWORD_DISPLAY5_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 9 };
@@ -897,7 +888,7 @@ leaf! {
 
 /// `TeapotNorthArtifact()`.
 pub fn teapot_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E6)
+    crate::simple::from_template(w, ty, "Server.Items.TeapotNorthArtifact")
 }
 
 static TEAPOT_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -910,7 +901,7 @@ leaf! {
 
 /// `TeapotWestArtifact()`.
 pub fn teapot_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E7)
+    crate::simple::from_template(w, ty, "Server.Items.TeapotWestArtifact")
 }
 
 static TEAPOT_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -923,7 +914,7 @@ leaf! {
 
 /// `TripleFanNorthArtifact()`.
 pub fn triple_fan_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x240B)
+    crate::simple::from_template(w, ty, "Server.Items.TripleFanNorthArtifact")
 }
 
 static TRIPLE_FAN_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -936,7 +927,7 @@ leaf! {
 
 /// `TripleFanWestArtifact()`.
 pub fn triple_fan_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x240C)
+    crate::simple::from_template(w, ty, "Server.Items.TripleFanWestArtifact")
 }
 
 static TRIPLE_FAN_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 4 };
@@ -949,7 +940,7 @@ leaf! {
 
 /// `Urn1Artifact()`.
 pub fn urn1_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x241D)
+    crate::simple::from_template(w, ty, "Server.Items.Urn1Artifact")
 }
 
 static URN1_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -962,7 +953,7 @@ leaf! {
 
 /// `Urn2Artifact()`.
 pub fn urn2_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x241E)
+    crate::simple::from_template(w, ty, "Server.Items.Urn2Artifact")
 }
 
 static URN2_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -975,7 +966,7 @@ leaf! {
 
 /// `ZenRock1Artifact()`.
 pub fn zen_rock1_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E4)
+    crate::simple::from_template(w, ty, "Server.Items.ZenRock1Artifact")
 }
 
 static ZEN_ROCK1_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };
@@ -988,7 +979,7 @@ leaf! {
 
 /// `ZenRock2Artifact()`.
 pub fn zen_rock2_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E3)
+    crate::simple::from_template(w, ty, "Server.Items.ZenRock2Artifact")
 }
 
 static ZEN_ROCK2_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
@@ -1001,7 +992,7 @@ leaf! {
 
 /// `ZenRock3Artifact()`.
 pub fn zen_rock3_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24E5)
+    crate::simple::from_template(w, ty, "Server.Items.ZenRock3Artifact")
 }
 
 static ZEN_ROCK3_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };

@@ -1,0 +1,56 @@
+[
+  {
+    "type": "Server.Items.EmptyBentoBox",
+    "itemId": 10292
+  },
+  {
+    "type": "Server.Items.GreenTeaBasket",
+    "itemId": 10315
+  },
+  {
+    "type": "Server.Items.Glass",
+    "itemId": 8065
+  },
+  {
+    "type": "Server.Items.GlassBottle",
+    "itemId": 3627
+  },
+  {
+    "type": "Server.Items.EmptyPewterBowl",
+    "itemId": 5629
+  },
+  {
+    "type": "Server.Items.EmptyPewterTub",
+    "itemId": 5635
+  },
+  {
+    "type": "Server.Items.EmptyWoodenBowl",
+    "itemId": 5624
+  },
+  {
+    "type": "Server.Items.EmptyWoodenTub",
+    "itemId": 5637
+  },
+  {
+    "type": "Server.Items.CocoaButter",
+    "itemId": 4164,
+    "hue": 1111
+  },
+  {
+    "type": "Server.Items.CocoaLiquor",
+    "itemId": 4159,
+    "hue": 1130
+  },
+  {
+    "type": "Server.Items.Eggshells",
+    "itemId": 2484
+  },
+  {
+    "type": "Server.Items.WoodenBowl",
+    "itemId": 5624
+  },
+  {
+    "type": "Server.Items.SheafOfHay",
+    "itemId": 3894
+  }
+]

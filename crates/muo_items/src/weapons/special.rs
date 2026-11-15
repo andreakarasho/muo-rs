@@ -39,9 +39,7 @@ pub const THROWING_DAGGER_FLIP: (i32, i32) = (0xF52, 0xF51);
 
 /// `ThrowingDagger()`: `base(0xF52)`, `Layer = Layer.OneHanded`.
 pub fn throwing_dagger_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xF52);
-    ctor::set_layer(w, id, Layer::OneHanded);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ThrowingDagger")
 }
 
 /// `Server.Items.ThrowingDagger` (`[SerializationGenerator(0, false)]`).

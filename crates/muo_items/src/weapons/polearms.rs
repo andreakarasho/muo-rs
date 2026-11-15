@@ -9,17 +9,6 @@ weapon_leaf! {
     default_weight: Some(7.0),
     primary_ability: Some(Ability::ParalyzingBlow),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 45,
-    aos_min_damage: same(17),
-    aos_max_damage: same(18),
-    aos_speed: 28,
-    ml_speed: 3.75,
-    old_str_req: 40,
-    old_min_damage: 5,
-    old_max_damage: 43,
-    old_speed: 26,
-    init_min_hits: 31,
-    init_max_hits: 100,
 }
 
 weapon_leaf! {
@@ -29,17 +18,6 @@ weapon_leaf! {
     default_weight: Some(16.0),
     primary_ability: Some(Ability::WhirlwindAttack),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 95,
-    aos_min_damage: same(18),
-    aos_max_damage: same(19),
-    aos_speed: 25,
-    ml_speed: 4.25,
-    old_str_req: 45,
-    old_min_damage: 5,
-    old_max_damage: 49,
-    old_speed: 25,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -49,17 +27,6 @@ weapon_leaf! {
     default_weight: Some(5.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 45,
-    aos_min_damage: same(15),
-    aos_max_damage: same(18),
-    aos_speed: 32,
-    ml_speed: 3.50,
-    old_str_req: 45,
-    old_min_damage: 15,
-    old_max_damage: 18,
-    old_speed: 32,
-    init_min_hits: 31,
-    init_max_hits: 100,
     harvest_system: None,
 }
 

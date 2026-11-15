@@ -1,0 +1,143 @@
+[
+  {
+    "type": "Server.Items.BladedStaff",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 14,
+      "aosMaxDamage": 16,
+      "aosSpeed": 37,
+      "mlSpeed": 3.0,
+      "oldStrReq": 40,
+      "oldMinDamage": 14,
+      "oldMaxDamage": 16,
+      "oldSpeed": 37,
+      "initMinHits": 21,
+      "initMaxHits": 110
+    }
+  },
+  {
+    "type": "Server.Items.DoubleBladedStaff",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 12,
+      "aosMaxDamage": 13,
+      "aosSpeed": 49,
+      "mlSpeed": 2.25,
+      "oldStrReq": 50,
+      "oldMinDamage": 12,
+      "oldMaxDamage": 13,
+      "oldSpeed": 49,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.DualPointedSpear",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 14,
+      "mlSpeed": 2.25,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.Pike",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 14,
+      "aosMaxDamage": 16,
+      "aosSpeed": 37,
+      "mlSpeed": 3.0,
+      "oldStrReq": 50,
+      "oldMinDamage": 14,
+      "oldMaxDamage": 16,
+      "oldSpeed": 37,
+      "initMinHits": 31,
+      "initMaxHits": 110
+    }
+  },
+  {
+    "type": "Server.Items.Pitchfork",
+    "props": {
+      "aosStrReq": 55,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 14,
+      "aosSpeed": 43,
+      "mlSpeed": 2.5,
+      "oldStrReq": 15,
+      "oldMinDamage": 4,
+      "oldMaxDamage": 16,
+      "oldSpeed": 45,
+      "initMinHits": 31,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.ShortSpear",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 13,
+      "aosSpeed": 55,
+      "mlSpeed": 2.0,
+      "oldStrReq": 15,
+      "oldMinDamage": 4,
+      "oldMaxDamage": 32,
+      "oldSpeed": 50,
+      "initMinHits": 31,
+      "initMaxHits": 70
+    }
+  },
+  {
+    "type": "Server.Items.Spear",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 42,
+      "mlSpeed": 2.75,
+      "oldStrReq": 30,
+      "oldMinDamage": 2,
+      "oldMaxDamage": 36,
+      "oldSpeed": 46,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.TribalSpear",
+    "props": {
+      "aosStrReq": 50,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 42,
+      "mlSpeed": 2.75,
+      "oldStrReq": 30,
+      "oldMinDamage": 2,
+      "oldMaxDamage": 36,
+      "oldSpeed": 46,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.WarFork",
+    "props": {
+      "aosStrReq": 45,
+      "aosMinDamage": 12,
+      "aosMaxDamage": 13,
+      "aosSpeed": 43,
+      "mlSpeed": 2.5,
+      "oldStrReq": 35,
+      "oldMinDamage": 4,
+      "oldMaxDamage": 32,
+      "oldSpeed": 45,
+      "defHitSound": 566,
+      "defMissSound": 568,
+      "initMinHits": 31,
+      "initMaxHits": 110
+    }
+  }
+]

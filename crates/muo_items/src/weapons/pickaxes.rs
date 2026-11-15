@@ -36,17 +36,6 @@ weapon_leaf! {
     harvest_system: Some("Mining"),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 35,
-    ml_speed: 3.00,
-    old_str_req: 25,
-    old_min_damage: 1,
-    old_max_damage: 15,
-    old_speed: 35,
-    init_min_hits: 31,
-    init_max_hits: 60,
     def_animation: WeaponAnimation::Slash1H,
 }
 
@@ -68,15 +57,6 @@ weapon_leaf! {
     harvest_system: Some("Mining"),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 35,
-    ml_speed: 3.00,
-    old_str_req: 25,
-    old_min_damage: 1,
-    old_max_damage: 15,
-    old_speed: 35,
     def_animation: WeaponAnimation::Slash1H,
 }
 

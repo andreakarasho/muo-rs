@@ -32,11 +32,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
     };
     label_number: 1077675,
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 5,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
 }
 
 jewel_leaf! {
@@ -62,11 +57,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 1);
     };
     label_number: 1077727,
-    base_physical_resistance: 9,
-    base_fire_resistance: 5,
-    base_cold_resistance: 5,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
 }
 
 weapon_art! {
@@ -118,11 +108,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
     };
     label_number: 1077614,
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 5,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
 }
 
 armor_leaf! {
@@ -134,11 +119,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
     };
     label_number: 1077684,
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 5,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
 }
 
 weapon_art! {
@@ -228,8 +208,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
     };
     label_number: 1078015,
-    init_min_hits: 80,
-    init_max_hits: 80,
 }
 
 armor_leaf! {
@@ -241,11 +219,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
     };
     label_number: 1077693,
-    base_physical_resistance: 6,
-    base_fire_resistance: 6,
-    base_cold_resistance: 5,
-    base_poison_resistance: 5,
-    base_energy_resistance: 5,
 }
 
 armor_leaf! {
@@ -256,11 +229,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
     };
     label_number: 1078183,
-    base_physical_resistance: 6,
-    base_fire_resistance: 12,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
 }
 
 armor_leaf! {
@@ -270,11 +238,6 @@ armor_leaf! {
         ops::set_loot_type(w, id, LootType::Blessed);
     };
     label_number: 1078222,
-    base_physical_resistance: 10,
-    base_fire_resistance: 6,
-    base_cold_resistance: 6,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.
