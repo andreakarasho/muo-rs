@@ -19,7 +19,8 @@ pub use base::*;
 
 /// `Torch()`: `base(0xF6B)`.
 pub fn torch_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_equipable_light_new(w, ty, 0xF6B);
+    let id = base_equipable_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Torch");
     set_duration(
         w,
         id,
@@ -60,7 +61,8 @@ pub const LANTERN_FULL_DURATION: TimeSpan = TimeSpan::from_mins(20);
 
 /// `Lantern()`: `base(0xA25)`.
 pub fn lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_equipable_light_new(w, ty, 0xA25);
+    let id = base_equipable_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Lantern");
     set_duration(
         w,
         id,

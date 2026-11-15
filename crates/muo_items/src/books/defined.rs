@@ -6,7 +6,6 @@ use muo_server::item::{ItemType, ops};
 use muo_server::type_registry::TypeRegistry;
 
 use super::{BASE_BOOK, BLUE_BOOK, BookClass, BookContent, RED_BOOK, book_leaf, new_book};
-use crate::misc::{hue, random_from};
 
 /// `BlackthornWelcomeBook.Content`.
 pub static BLACKTHORN_WELCOME_BOOK_CONTENT: BookContent = BookContent {
@@ -249,9 +248,8 @@ pub static BLACKTHORN_WELCOME_BOOK_CONTENT: BookContent = BookContent {
 
 /// `new BlackthornWelcomeBook()`.
 pub fn blackthorn_welcome_book_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_book(w, ty, 0xFF1, None, None, 0, false);
-    hue(w, id, 0x89B);
-    id
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.BlackthornWelcomeBook")
 }
 
 book_leaf! {
@@ -351,7 +349,8 @@ pub static DRAKOVS_JOURNAL_CONTENT: BookContent = BookContent {
 
 /// `new DrakovsJournal()`.
 pub fn drakovs_journal_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_book(w, ty, 0xFF2, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.DrakovsJournal")
 }
 
 book_leaf! {
@@ -489,7 +488,8 @@ pub static FROPOZ_JOURNAL_CONTENT: BookContent = BookContent {
 
 /// `new FropozJournal()`.
 pub fn fropoz_journal_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_book(w, ty, 0xFF1, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.FropozJournal")
 }
 
 book_leaf! {
@@ -706,7 +706,8 @@ pub static KABUR_JOURNAL_CONTENT: BookContent = BookContent {
 
 /// `new KaburJournal()`.
 pub fn kabur_journal_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_book(w, ty, 0xFF1, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.KaburJournal")
 }
 
 book_leaf! {
@@ -954,8 +955,8 @@ pub static GRAMMAR_OF_ORCISH_CONTENT: BookContent = BookContent {
 
 /// `new GrammarOfOrcish()`.
 pub fn grammar_of_orcish_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.GrammarOfOrcish")
 }
 
 book_leaf! {
@@ -1114,8 +1115,8 @@ pub static CALL_TO_ANARCHY_CONTENT: BookContent = BookContent {
 
 /// `new CallToAnarchy()`.
 pub fn call_to_anarchy_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.CallToAnarchy")
 }
 
 book_leaf! {
@@ -1284,8 +1285,8 @@ pub static ARMS_AND_WEAPONS_PRIMER_CONTENT: BookContent = BookContent {
 
 /// `new ArmsAndWeaponsPrimer()`.
 pub fn arms_and_weapons_primer_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.ArmsAndWeaponsPrimer")
 }
 
 book_leaf! {
@@ -1354,8 +1355,8 @@ pub static SONG_OF_SAMLETHE_CONTENT: BookContent = BookContent {
 
 /// `new SongOfSamlethe()`.
 pub fn song_of_samlethe_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.SongOfSamlethe")
 }
 
 book_leaf! {
@@ -1469,8 +1470,8 @@ pub static TALE_OF_THREE_TRIBES_CONTENT: BookContent = BookContent {
 
 /// `new TaleOfThreeTribes()`.
 pub fn tale_of_three_tribes_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TaleOfThreeTribes")
 }
 
 book_leaf! {
@@ -1660,8 +1661,8 @@ pub static GUIDE_TO_GUILDS_CONTENT: BookContent = BookContent {
 
 /// `new GuideToGuilds()`.
 pub fn guide_to_guilds_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.GuideToGuilds")
 }
 
 book_leaf! {
@@ -1950,8 +1951,8 @@ pub static BIRDS_OF_BRITANNIA_CONTENT: BookContent = BookContent {
 
 /// `new BirdsOfBritannia()`.
 pub fn birds_of_britannia_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.BirdsOfBritannia")
 }
 
 book_leaf! {
@@ -2148,8 +2149,8 @@ pub static BRITANNIAN_FLORA_CONTENT: BookContent = BookContent {
 
 /// `new BritannianFlora()`.
 pub fn britannian_flora_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.BritannianFlora")
 }
 
 book_leaf! {
@@ -2258,8 +2259,8 @@ pub static CHILDREN_TALES_VOL2_CONTENT: BookContent = BookContent {
 
 /// `new ChildrenTalesVol2()`.
 pub fn children_tales_vol2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.ChildrenTalesVol2")
 }
 
 book_leaf! {
@@ -2478,8 +2479,8 @@ pub static TALES_OF_VESPER_VOL1_CONTENT: BookContent = BookContent {
 
 /// `new TalesOfVesperVol1()`.
 pub fn tales_of_vesper_vol1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TalesOfVesperVol1")
 }
 
 book_leaf! {
@@ -2613,8 +2614,8 @@ pub static DECEIT_DUNGEON_OF_HORROR_CONTENT: BookContent = BookContent {
 
 /// `new DeceitDungeonOfHorror()`.
 pub fn deceit_dungeon_of_horror_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.DeceitDungeonOfHorror")
 }
 
 book_leaf! {
@@ -2812,8 +2813,8 @@ pub static DIMENSIONAL_TRAVEL_CONTENT: BookContent = BookContent {
 
 /// `new DimensionalTravel()`.
 pub fn dimensional_travel_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.DimensionalTravel")
 }
 
 book_leaf! {
@@ -3072,8 +3073,8 @@ pub static ETHICAL_HEDONISM_CONTENT: BookContent = BookContent {
 
 /// `new EthicalHedonism()`.
 pub fn ethical_hedonism_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.EthicalHedonism")
 }
 
 book_leaf! {
@@ -3577,8 +3578,8 @@ pub static MY_STORY_CONTENT: BookContent = BookContent {
 
 /// `new MyStory()`.
 pub fn my_story_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.MyStory")
 }
 
 book_leaf! {
@@ -3743,8 +3744,8 @@ pub static DIVERSITY_OF_OUR_LAND_CONTENT: BookContent = BookContent {
 
 /// `new DiversityOfOurLand()`.
 pub fn diversity_of_our_land_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.DiversityOfOurLand")
 }
 
 book_leaf! {
@@ -4139,8 +4140,8 @@ pub static QUEST_OF_VIRTUES_CONTENT: BookContent = BookContent {
 
 /// `new QuestOfVirtues()`.
 pub fn quest_of_virtues_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.QuestOfVirtues")
 }
 
 book_leaf! {
@@ -4196,8 +4197,8 @@ pub static REGARDING_LLAMAS_CONTENT: BookContent = BookContent {
 
 /// `new RegardingLlamas()`.
 pub fn regarding_llamas_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.RegardingLlamas")
 }
 
 book_leaf! {
@@ -4296,8 +4297,8 @@ pub static TALKING_TO_WISPS_CONTENT: BookContent = BookContent {
 
 /// `new TalkingToWisps()`.
 pub fn talking_to_wisps_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TalkingToWisps")
 }
 
 book_leaf! {
@@ -4386,8 +4387,8 @@ pub static TAMING_DRAGONS_CONTENT: BookContent = BookContent {
 
 /// `new TamingDragons()`.
 pub fn taming_dragons_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TamingDragons")
 }
 
 book_leaf! {
@@ -4542,8 +4543,8 @@ pub static BOLD_STRANGER_CONTENT: BookContent = BookContent {
 
 /// `new BoldStranger()`.
 pub fn bold_stranger_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.BoldStranger")
 }
 
 book_leaf! {
@@ -4789,8 +4790,8 @@ pub static BURNING_OF_TRINSIC_CONTENT: BookContent = BookContent {
 
 /// `new BurningOfTrinsic()`.
 pub fn burning_of_trinsic_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.BurningOfTrinsic")
 }
 
 book_leaf! {
@@ -4934,8 +4935,8 @@ pub static THE_FIGHT_CONTENT: BookContent = BookContent {
 
 /// `new TheFight()`.
 pub fn the_fight_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TheFight")
 }
 
 book_leaf! {
@@ -5124,8 +5125,8 @@ pub static LIFE_OF_A_TRAVELLING_MINSTREL_CONTENT: BookContent = BookContent {
 
 /// `new LifeOfATravellingMinstrel()`.
 pub fn life_of_a_travelling_minstrel_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.LifeOfATravellingMinstrel")
 }
 
 book_leaf! {
@@ -5317,8 +5318,8 @@ pub static MAJOR_TRADE_ASSOCIATION_CONTENT: BookContent = BookContent {
 
 /// `new MajorTradeAssociation()`.
 pub fn major_trade_association_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.MajorTradeAssociation")
 }
 
 book_leaf! {
@@ -5417,8 +5418,8 @@ pub static RANKINGS_OF_TRADES_CONTENT: BookContent = BookContent {
 
 /// `new RankingsOfTrades()`.
 pub fn rankings_of_trades_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.RankingsOfTrades")
 }
 
 book_leaf! {
@@ -5594,8 +5595,8 @@ pub static WILD_GIRL_OF_THE_FOREST_CONTENT: BookContent = BookContent {
 
 /// `new WildGirlOfTheForest()`.
 pub fn wild_girl_of_the_forest_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.WildGirlOfTheForest")
 }
 
 book_leaf! {
@@ -5724,8 +5725,8 @@ pub static TREATISE_ON_ALCHEMY_CONTENT: BookContent = BookContent {
 
 /// `new TreatiseOnAlchemy()`.
 pub fn treatise_on_alchemy_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TreatiseOnAlchemy")
 }
 
 book_leaf! {
@@ -5941,8 +5942,8 @@ pub static VIRTUE_BOOK_CONTENT: BookContent = BookContent {
 
 /// `new VirtueBook()`.
 pub fn virtue_book_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0xFEF, 2);
-    new_book(w, ty, graphic, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.VirtueBook")
 }
 
 book_leaf! {
@@ -6044,9 +6045,8 @@ pub static NEW_AQUARIUM_BOOK_CONTENT: BookContent = BookContent {
 
 /// `new NewAquariumBook()`.
 pub fn new_aquarium_book_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_book(w, ty, 0xFF2, None, None, 0, false);
-    hue(w, id, 0);
-    id
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.NewAquariumBook")
 }
 
 book_leaf! {
@@ -6158,7 +6158,8 @@ pub static TRANSLATED_GARGOYLE_JOURNAL_CONTENT: BookContent = BookContent {
 
 /// `new TranslatedGargoyleJournal()`.
 pub fn translated_gargoyle_journal_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_book(w, ty, 0xFF2, None, None, 0, false)
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    crate::simple::own_template(w, id, "Server.Items.TranslatedGargoyleJournal")
 }
 
 book_leaf! {

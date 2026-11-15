@@ -1,0 +1,336 @@
+[
+  {
+    "type": "Server.Items.BlackthornWelcomeBook",
+    "itemId": 4081,
+    "hue": 2203
+  },
+  {
+    "type": "Server.Items.DrakovsJournal",
+    "itemId": 4082
+  },
+  {
+    "type": "Server.Items.FropozJournal",
+    "itemId": 4081
+  },
+  {
+    "type": "Server.Items.KaburJournal",
+    "itemId": 4081
+  },
+  {
+    "type": "Server.Items.GrammarOfOrcish",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.CallToAnarchy",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.ArmsAndWeaponsPrimer",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.SongOfSamlethe",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.TaleOfThreeTribes",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.GuideToGuilds",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.BirdsOfBritannia",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.BritannianFlora",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.ChildrenTalesVol2",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.TalesOfVesperVol1",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.DeceitDungeonOfHorror",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.DimensionalTravel",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.EthicalHedonism",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.MyStory",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.DiversityOfOurLand",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.QuestOfVirtues",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.RegardingLlamas",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.TalkingToWisps",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.TamingDragons",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.BoldStranger",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.BurningOfTrinsic",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.TheFight",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.LifeOfATravellingMinstrel",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.MajorTradeAssociation",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.RankingsOfTrades",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.WildGirlOfTheForest",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.TreatiseOnAlchemy",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.VirtueBook",
+    "oneOf": [
+      {
+        "itemId": 4079
+      },
+      {
+        "itemId": 4080
+      }
+    ]
+  },
+  {
+    "type": "Server.Items.NewAquariumBook",
+    "itemId": 4082,
+    "hue": 0
+  },
+  {
+    "type": "Server.Items.TranslatedGargoyleJournal",
+    "itemId": 4082
+  }
+]

@@ -12,7 +12,8 @@ use muo_content::items::cont::BASE_CONTAINER;
 
 /// `CherryArmoire()`.
 pub fn cherry_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x285D)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CherryArmoire")
 }
 
 leaf! {
@@ -24,7 +25,8 @@ leaf! {
 
 /// `Drawer()`.
 pub fn drawer_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA2C)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Drawer")
 }
 
 leaf! {
@@ -36,7 +38,8 @@ leaf! {
 
 /// `ElegantArmoire()`.
 pub fn elegant_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2859)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.ElegantArmoire")
 }
 
 leaf! {
@@ -48,7 +51,8 @@ leaf! {
 
 /// `EmptyBookcase()`.
 pub fn empty_bookcase_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA9D)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.EmptyBookcase")
 }
 
 leaf! {
@@ -59,7 +63,8 @@ leaf! {
 
 /// `FancyDrawer()`.
 pub fn fancy_drawer_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA30)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.FancyDrawer")
 }
 
 leaf! {
@@ -71,7 +76,8 @@ leaf! {
 
 /// `FancyElvenArmoire()`.
 pub fn fancy_elven_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2D07)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.FancyElvenArmoire")
 }
 
 leaf! {
@@ -85,7 +91,8 @@ leaf! {
 
 /// `FullBookcase()`.
 pub fn full_bookcase_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA97)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.FullBookcase")
 }
 
 leaf! {
@@ -97,7 +104,8 @@ leaf! {
 
 /// `MapleArmoire()`.
 pub fn maple_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x285B)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.MapleArmoire")
 }
 
 leaf! {
@@ -109,7 +117,8 @@ leaf! {
 
 /// `RedArmoire()`.
 pub fn red_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2857)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.RedArmoire")
 }
 
 leaf! {
@@ -121,7 +130,8 @@ leaf! {
 
 /// `ShortCabinet()`.
 pub fn short_cabinet_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2817)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.ShortCabinet")
 }
 
 leaf! {
@@ -133,7 +143,8 @@ leaf! {
 
 /// `SimpleElvenArmoire()`.
 pub fn simple_elven_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2D05)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.SimpleElvenArmoire")
 }
 
 leaf! {
@@ -147,7 +158,8 @@ leaf! {
 
 /// `TallCabinet()`.
 pub fn tall_cabinet_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2815)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.TallCabinet")
 }
 
 leaf! {

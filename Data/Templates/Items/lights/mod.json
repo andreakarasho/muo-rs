@@ -1,12 +1,14 @@
 [
   {
     "type": "Server.Items.Torch",
+    "itemId": 3947,
     "props": {
       "defaultWeight": 1.0
     }
   },
   {
     "type": "Server.Items.Lantern",
+    "itemId": 2597,
     "props": {
       "defaultWeight": 2.0
     }

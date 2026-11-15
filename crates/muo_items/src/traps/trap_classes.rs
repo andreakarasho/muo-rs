@@ -15,7 +15,6 @@ use muo_server::World;
 use muo_server::ext::Ext;
 use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::item::{ITEM_BASE, ItemType, deps, effect_item, ops};
-use muo_server::light_type::LightType;
 use muo_server::map::MapId;
 use muo_server::mobile::AccessLevel;
 use muo_server::packets::message::MessageType;
@@ -263,7 +262,8 @@ pub static FIRE_COLUMN_TRAP: ItemType = ItemType {
     full_name: "Server.Items.FireColumnTrap",
     parent: Some(&BASE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &FIRE_COLUMN_TRAP, 0x1B71);
+        let id = new_trap(w, &FIRE_COLUMN_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.FireColumnTrap");
         if let Some(d) = data_mut(w, id) {
             d.min_damage = 10;
             d.max_damage = 40;
@@ -424,9 +424,8 @@ pub static FLAME_SPURT_TRAP: ItemType = ItemType {
     full_name: "Server.Items.FlameSpurtTrap",
     parent: Some(&BASE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &FLAME_SPURT_TRAP, 0x1B71);
-        ops::set_visible(w, id, false);
-        id
+        let id = new_trap(w, &FLAME_SPURT_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.FlameSpurtTrap")
     }),
     on_movement: spurt_on_movement,
     on_move_over: spurt_on_move_over,
@@ -904,9 +903,8 @@ pub static STONE_FACE_TRAP: ItemType = ItemType {
     full_name: "Server.Items.StoneFaceTrap",
     parent: Some(&BASE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &STONE_FACE_TRAP, 0x10FC);
-        ops::set_light(w, id, LightType::Circle225);
-        id
+        let id = new_trap(w, &STONE_FACE_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.StoneFaceTrap")
     }),
     family: Some(&STONE_FACE_CLASS),
     serialize: |w, id, out| {
@@ -927,9 +925,8 @@ pub static STONE_FACE_TRAP_NO_DAMAGE: ItemType = ItemType {
     full_name: "Server.Items.StoneFaceTrapNoDamage",
     parent: Some(&STONE_FACE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &STONE_FACE_TRAP_NO_DAMAGE, 0x10FC);
-        ops::set_light(w, id, LightType::Circle225);
-        id
+        let id = new_trap(w, &STONE_FACE_TRAP_NO_DAMAGE, 0);
+        crate::simple::own_template(w, id, "Server.Items.StoneFaceTrapNoDamage")
     }),
     serialize: |w, id, out| {
         (STONE_FACE_TRAP.serialize)(w, id, out);

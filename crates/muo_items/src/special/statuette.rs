@@ -354,11 +354,7 @@ pub static MONSTER_STATUETTE: ItemType = ItemType {
 pub static HERITAGE_TOKEN: ItemType = ItemType {
     full_name: "Server.Items.HeritageToken",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &HERITAGE_TOKEN, 0x367A);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &HERITAGE_TOKEN, "Server.Items.HeritageToken")),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // A Heritage Token
     on_double_click: |w, id, from| {

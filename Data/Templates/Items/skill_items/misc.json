@@ -1,6 +1,8 @@
 [
   {
     "type": "Server.Items.FireHorn",
+    "itemId": 4039,
+    "hue": 1126,
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1060456

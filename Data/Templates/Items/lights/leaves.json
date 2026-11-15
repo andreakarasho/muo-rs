@@ -13,90 +13,114 @@
   },
   {
     "type": "Server.Items.Brazier",
+    "itemId": 3633,
+    "movable": false,
     "props": {
       "defaultWeight": 20.0
     }
   },
   {
     "type": "Server.Items.BrazierTall",
+    "itemId": 6570,
+    "movable": false,
     "props": {
       "defaultWeight": 25.0
     }
   },
   {
     "type": "Server.Items.CandelabraStand",
+    "itemId": 2601,
     "props": {
       "defaultWeight": 20.0
     }
   },
   {
     "type": "Server.Items.Candle",
+    "itemId": 2600,
     "props": {
       "defaultWeight": 1.0
     }
   },
   {
     "type": "Server.Items.CandleLarge",
+    "itemId": 2598,
     "props": {
       "defaultWeight": 2.0
     }
   },
   {
     "type": "Server.Items.CandleLong",
+    "itemId": 5171,
     "props": {
       "defaultWeight": 1.0
     }
   },
   {
     "type": "Server.Items.CandleShort",
+    "itemId": 5167,
     "props": {
       "defaultWeight": 1.0
     }
   },
   {
     "type": "Server.Items.CandleSkull",
+    "itemId": 6227,
     "props": {
       "defaultWeight": 5.0
     }
   },
   {
     "type": "Server.Items.HangingLantern",
+    "itemId": 2589,
+    "movable": false,
     "props": {
       "defaultWeight": 40.0
     }
   },
   {
     "type": "Server.Items.LampPost1",
+    "itemId": 2849,
+    "movable": false,
     "props": {
       "defaultWeight": 40.0
     }
   },
   {
     "type": "Server.Items.LampPost2",
+    "itemId": 2851,
+    "movable": false,
     "props": {
       "defaultWeight": 40.0
     }
   },
   {
     "type": "Server.Items.LampPost3",
+    "itemId": 2853,
+    "movable": false,
     "props": {
       "defaultWeight": 40.0
     }
   },
   {
     "type": "Server.Items.PaperLantern",
+    "itemId": 9406,
+    "movable": true,
     "props": {
       "defaultWeight": 3.0
     }
   },
   {
     "type": "Server.Items.RoundPaperLantern",
+    "itemId": 9418,
+    "movable": true,
     "props": {
       "defaultWeight": 3.0
     }
   },
   {
     "type": "Server.Items.ShojiLantern",
+    "itemId": 9404,
+    "movable": true,
     "props": {
       "defaultWeight": 3.0
     }

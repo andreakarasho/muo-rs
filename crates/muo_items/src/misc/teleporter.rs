@@ -834,10 +834,7 @@ pub static TIMEOUT_GOAL: ItemType = ItemType {
     full_name: "Server.Items.TimeoutGoal",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &TIMEOUT_GOAL, 0x1822);
-        ops::set_movable(w, id, false);
-        ops::set_visible(w, id, false);
-        super::hue(w, id, 1154);
+        let id = crate::simple::from_template(w, &TIMEOUT_GOAL, "Server.Items.TimeoutGoal");
         if let Some(i) = w.item_mut(id) {
             i.ext = Ext::new(GoalData::default());
         }

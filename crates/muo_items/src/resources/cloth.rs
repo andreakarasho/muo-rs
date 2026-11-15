@@ -421,7 +421,7 @@ pub static BIG_FISH: ItemType = ItemType {
     full_name: "Server.Items.BigFish",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BIG_FISH, 0x09CC);
+        let id = crate::simple::from_template(w, &BIG_FISH, "Server.Items.BigFish");
         if let Some(i) = w.item_mut(id) {
             i.ext = Ext::new(FishData::default());
         }
@@ -637,11 +637,7 @@ static PECULIAR_C: MagicFishClass = MagicFishClass {
 pub static PECULIAR_FISH: ItemType = ItemType {
     full_name: "Server.Items.PeculiarFish",
     parent: Some(&BASE_MAGIC_FISH),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &PECULIAR_FISH, 0xDD6);
-        hue(w, id, 66);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &PECULIAR_FISH, "Server.Items.PeculiarFish")),
     family: Some(&PECULIAR_C),
     label_number: crate::class_props::label_number, // highly peculiar fish
     serialize: |w, id, out| {

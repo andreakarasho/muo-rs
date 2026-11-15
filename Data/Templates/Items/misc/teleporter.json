@@ -10,6 +10,10 @@
   },
   {
     "type": "Server.Items.TimeoutGoal",
+    "itemId": 6178,
+    "movable": false,
+    "visible": false,
+    "hue": 1154,
     "props": {
       "defaultName": "timeout teleporter goal"
     }

@@ -13,6 +13,7 @@
   },
   {
     "type": "Server.Items.BigFish",
+    "itemId": 2508,
     "props": {
       "labelNumber": 1041112
     }
@@ -31,6 +32,8 @@
   },
   {
     "type": "Server.Items.PeculiarFish",
+    "itemId": 3542,
+    "hue": 66,
     "props": {
       "labelNumber": 1041076
     }

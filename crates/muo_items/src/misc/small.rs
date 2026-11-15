@@ -14,7 +14,7 @@ use muo_server::packets::message::MessageType;
 use muo_server::timer::{self, TimerHandle};
 use muo_server::type_registry::TypeRegistry;
 
-use super::{hue, item_id, read_version, write_version};
+use super::{item_id, read_version, write_version};
 
 // ---- TrashChest ----
 
@@ -34,9 +34,8 @@ pub static TRASH_CHEST: ItemType = ItemType {
     full_name: "Server.Items.TrashChest",
     parent: Some(&CONTAINER),
     construct: Some(|w| {
-        let id = container::new_container(w, &TRASH_CHEST, 0xE41);
-        ops::set_movable(w, id, false);
-        id
+        let id = container::new_container(w, &TRASH_CHEST, 0);
+        crate::simple::own_template(w, id, "Server.Items.TrashChest")
     }),
     default_max_weight: crate::class_props::default_max_weight, // A value of 0 signals unlimited weight
     is_deco_container: |_, _| false,
@@ -155,10 +154,8 @@ pub static TRASH_BARREL: ItemType = ItemType {
     full_name: "Server.Items.TrashBarrel",
     parent: Some(&CONTAINER),
     construct: Some(|w| {
-        let id = container::new_container(w, &TRASH_BARREL, 0xE77);
-        hue(w, id, 0x3B2);
-        ops::set_movable(w, id, false);
-        id
+        let id = container::new_container(w, &TRASH_BARREL, 0);
+        crate::simple::own_template(w, id, "Server.Items.TrashBarrel")
     }),
     label_number: crate::class_props::label_number, // a trash barrel
     default_max_weight: crate::class_props::default_max_weight, // A value of 0 signals unlimited weight

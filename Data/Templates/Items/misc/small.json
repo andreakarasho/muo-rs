@@ -1,12 +1,17 @@
 [
   {
     "type": "Server.Items.TrashChest",
+    "itemId": 3649,
+    "movable": false,
     "props": {
       "maxWeight": 0
     }
   },
   {
     "type": "Server.Items.TrashBarrel",
+    "itemId": 3703,
+    "hue": 946,
+    "movable": false,
     "props": {
       "labelNumber": 1041064,
       "maxWeight": 0

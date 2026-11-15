@@ -1,6 +1,8 @@
 [
   {
     "type": "Server.Items.MelisandesFermentedWine",
+    "itemId": 3853,
+    "stackable": false,
     "props": {
       "labelNumber": 1072114
     }

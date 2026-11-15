@@ -284,10 +284,7 @@ leaf! {
 
 /// `DecorativeShieldSword1North()`.
 pub fn decorative_shield_sword1_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1582, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword1North")
 }
 
 leaf! {
@@ -298,10 +295,7 @@ leaf! {
 
 /// `DecorativeShieldSword1West()`.
 pub fn decorative_shield_sword1_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1634, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword1West")
 }
 
 leaf! {
@@ -312,10 +306,7 @@ leaf! {
 
 /// `DecorativeShieldSword2North()`.
 pub fn decorative_shield_sword2_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1584, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword2North")
 }
 
 leaf! {
@@ -326,10 +317,7 @@ leaf! {
 
 /// `DecorativeShieldSword2West()`.
 pub fn decorative_shield_sword2_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1636, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword2West")
 }
 
 leaf! {
@@ -340,10 +328,7 @@ leaf! {
 
 /// `DecorativeAxeNorth()`.
 pub fn decorative_axe_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1560, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeAxeNorth")
 }
 
 leaf! {
@@ -354,10 +339,7 @@ leaf! {
 
 /// `DecorativeAxeWest()`.
 pub fn decorative_axe_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1562, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeAxeWest")
 }
 
 leaf! {
@@ -368,10 +350,7 @@ leaf! {
 
 /// `DecorativeBowNorth()`.
 pub fn decorative_bow_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x155C, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeBowNorth")
 }
 
 leaf! {
@@ -382,10 +361,7 @@ leaf! {
 
 /// `DecorativeBowWest()`.
 pub fn decorative_bow_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x155E, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeBowWest")
 }
 
 leaf! {

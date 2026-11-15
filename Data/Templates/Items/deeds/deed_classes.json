@@ -9,12 +9,16 @@
   },
   {
     "type": "Server.Items.NameChangeDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
     "props": {
       "defaultName": "a name change deed"
     }
   },
   {
     "type": "Server.Items.ClothingBlessDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
     "props": {
       "defaultWeight": 1.0,
       "defaultName": "a clothing bless deed"
@@ -22,6 +26,8 @@
   },
   {
     "type": "Server.Items.NewPlayerTicket",
+    "itemId": 5359,
+    "lootType": "Blessed",
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1062094

@@ -1,0 +1,21 @@
+[
+  {
+    "type": "Server.Items.FireColumnTrap",
+    "itemId": 7025
+  },
+  {
+    "type": "Server.Items.FlameSpurtTrap",
+    "itemId": 7025,
+    "visible": false
+  },
+  {
+    "type": "Server.Items.StoneFaceTrap",
+    "itemId": 4348,
+    "light": "Circle225"
+  },
+  {
+    "type": "Server.Items.StoneFaceTrapNoDamage",
+    "itemId": 4348,
+    "light": "Circle225"
+  }
+]

@@ -201,11 +201,7 @@ fn use_horn(w: &mut World, horn: ItemId, from: MobileId, loc: Point3D) {
 pub static FIRE_HORN: ItemType = ItemType {
     full_name: "Server.Items.FireHorn",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &FIRE_HORN, 0xFC7);
-        super::hue(w, id, 0x466);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &FIRE_HORN, "Server.Items.FireHorn")),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // fire horn
     on_double_click: horn_double_click,

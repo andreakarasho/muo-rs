@@ -4,5 +4,9 @@
     "props": {
       "defaultWeight": 0.1
     }
+  },
+  {
+    "type": "Server.Items.BagOfReagents",
+    "itemId": 3702
   }
 ]

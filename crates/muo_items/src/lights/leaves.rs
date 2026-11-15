@@ -18,8 +18,8 @@ use crate::lights::BASE_LIGHT;
 
 /// `Brazier()`.
 pub fn brazier_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xE31);
-    ops::set_movable(w, id, false);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Brazier");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, true);
     ops::set_light(w, id, LightType::Circle225);
@@ -40,8 +40,8 @@ leaf! {
 
 /// `BrazierTall()`.
 pub fn brazier_tall_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x19AA);
-    ops::set_movable(w, id, false);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.BrazierTall");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, true);
     ops::set_light(w, id, LightType::Circle300);
@@ -62,7 +62,8 @@ leaf! {
 
 /// `CandelabraStand()`.
 pub fn candelabra_stand_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA29);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandelabraStand");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle225);
@@ -84,7 +85,8 @@ leaf! {
 
 /// `Candle()`.
 pub fn candle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_equipable_light_new(w, ty, 0xA28);
+    let id = base_equipable_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Candle");
     set_duration(
         w,
         id,
@@ -115,7 +117,8 @@ leaf! {
 
 /// `CandleLarge()`.
 pub fn candle_large_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA26);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleLarge");
     set_duration(
         w,
         id,
@@ -145,7 +148,8 @@ leaf! {
 
 /// `CandleLong()`.
 pub fn candle_long_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x1433);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleLong");
     set_duration(
         w,
         id,
@@ -175,7 +179,8 @@ leaf! {
 
 /// `CandleShort()`.
 pub fn candle_short_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x142F);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleShort");
     set_duration(
         w,
         id,
@@ -205,7 +210,8 @@ leaf! {
 
 /// `CandleSkull()`.
 pub fn candle_skull_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x1853);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleSkull");
     set_duration(
         w,
         id,
@@ -260,8 +266,8 @@ leaf! {
 
 /// `HangingLantern()`.
 pub fn hanging_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA1D);
-    ops::set_movable(w, id, false);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.HangingLantern");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle300);
@@ -283,8 +289,8 @@ leaf! {
 
 /// `LampPost1()`.
 pub fn lamp_post1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xB21);
-    ops::set_movable(w, id, false);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.LampPost1");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle300);
@@ -306,8 +312,8 @@ leaf! {
 
 /// `LampPost2()`.
 pub fn lamp_post2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xB23);
-    ops::set_movable(w, id, false);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.LampPost2");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle300);
@@ -329,8 +335,8 @@ leaf! {
 
 /// `LampPost3()`.
 pub fn lamp_post3_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xb25);
-    ops::set_movable(w, id, false);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.LampPost3");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle300);
@@ -363,8 +369,8 @@ leaf! {
 
 /// `PaperLantern()`.
 pub fn paper_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x24BE);
-    ops::set_movable(w, id, true);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.PaperLantern");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle150);
@@ -386,8 +392,8 @@ leaf! {
 
 /// `RoundPaperLantern()`.
 pub fn round_paper_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x24CA);
-    ops::set_movable(w, id, true);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.RoundPaperLantern");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle150);
@@ -409,8 +415,8 @@ leaf! {
 
 /// `ShojiLantern()`.
 pub fn shoji_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x24BC);
-    ops::set_movable(w, id, true);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.ShojiLantern");
     set_duration(w, id, TimeSpan::ZERO);
     set_burning(w, id, false);
     ops::set_light(w, id, LightType::Circle150);

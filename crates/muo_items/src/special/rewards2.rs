@@ -96,7 +96,7 @@ leaf! {
     /// `Server.Items.ColoredAnvil` (`[Anvil]`, `[Flippable(0xFAF, 0xFB0)]`).
     COLORED_ANVIL = "Server.Items.ColoredAnvil" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &COLORED_ANVIL, 0xFAF);
+        let id = crate::simple::from_template(w, &COLORED_ANVIL, "Server.Items.ColoredAnvil");
         let h = random_ore_hue(w);
         super::hue(w, id, h); // TODO: Color weighted by rarity?
         id

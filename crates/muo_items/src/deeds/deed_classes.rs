@@ -337,11 +337,7 @@ impl StaticGumpLogic for NameChangeGump {
 pub static NAME_CHANGE_DEED: ItemType = ItemType {
     full_name: "Server.Items.NameChangeDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &NAME_CHANGE_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &NAME_CHANGE_DEED, "Server.Items.NameChangeDeed")),
     default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         if ops::root_parent(w, id) == Some(EntityId::Mobile(from)) {
@@ -412,11 +408,7 @@ fn clothing_bless_target(w: &mut World, deed: ItemId, from: MobileId, t: Targete
 pub static CLOTHING_BLESS_DEED: ItemType = ItemType {
     full_name: "Server.Items.ClothingBlessDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &CLOTHING_BLESS_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &CLOTHING_BLESS_DEED, "Server.Items.ClothingBlessDeed")),
     default_weight: crate::class_props::default_weight,
     default_name: crate::class_props::default_name,
     display_loot_type: |_, _| false,
@@ -574,8 +566,7 @@ pub static NEW_PLAYER_TICKET: ItemType = ItemType {
     full_name: "Server.Items.NewPlayerTicket",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &NEW_PLAYER_TICKET, 0x14EF);
-        ops::set_loot_type(w, id, LootType::Blessed);
+        let id = crate::simple::from_template(w, &NEW_PLAYER_TICKET, "Server.Items.NewPlayerTicket");
         set_ticket_owner(w, id, None);
         id
     }),

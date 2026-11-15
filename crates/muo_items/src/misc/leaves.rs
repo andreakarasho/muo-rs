@@ -3,10 +3,10 @@
 
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::type_registry::TypeRegistry;
 
-use super::{hue, random_element, random_from, random_list, random_min_max};
+use super::{hue, random_element, random_min_max};
 
 /// `new GlobOfMonstreousInterredGrizzle()` of class `ty`.
 pub fn glob_of_monstreous_interred_grizzle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
@@ -54,8 +54,7 @@ item_leaf! {
 
 /// `new TombstoneOfTheDamned()` of class `ty`.
 pub fn tombstone_of_the_damned_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_min_max(w, 0xED7, 0xEDE);
-    ops::new_item_with_id(w, ty, graphic)
+    crate::simple::from_template(w, ty, "Server.Items.TombstoneOfTheDamned")
 }
 
 item_leaf! {
@@ -690,11 +689,7 @@ item_leaf! {
 
 /// `new MinotaurArtifact()` of class `ty`.
 pub fn minotaur_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_list(w, &[0xB46, 0xB48, 0x9ED]);
-    let id = ops::new_item_with_id(w, ty, graphic);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x100);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.MinotaurArtifact")
 }
 
 item_leaf! {
@@ -1249,8 +1244,7 @@ item_leaf! {
 
 /// `new TravestysFineTeakwoodTray()` of class `ty`.
 pub fn travestys_fine_teakwood_tray_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0x991, 2);
-    ops::new_item_with_id(w, ty, graphic)
+    crate::simple::from_template(w, ty, "Server.Items.TravestysFineTeakwoodTray")
 }
 
 item_leaf! {
@@ -1261,8 +1255,7 @@ item_leaf! {
 
 /// `new TravestysSushiPreparations()` of class `ty`.
 pub fn travestys_sushi_preparations_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_from(w, 0x1E15, 2);
-    ops::new_item_with_id(w, ty, graphic)
+    crate::simple::from_template(w, ty, "Server.Items.TravestysSushiPreparations")
 }
 
 item_leaf! {
@@ -1310,8 +1303,7 @@ item_leaf! {
 
 /// `new TaintedMushroom()` of class `ty`.
 pub fn tainted_mushroom_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let graphic = random_min_max(w, 0x222E, 0x2231);
-    ops::new_item_with_id(w, ty, graphic)
+    crate::simple::from_template(w, ty, "Server.Items.TaintedMushroom")
 }
 
 item_leaf! {

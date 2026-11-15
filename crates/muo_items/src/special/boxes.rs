@@ -23,8 +23,8 @@ fn add_to_box(w: &mut World, cont: ItemId, item: ItemId, loc: Point3D) {
 
 /// `RedVelvetGiftBox(fill)`.
 pub fn red_velvet_gift_box_new(w: &mut World, ty: &'static ItemType, fill: bool) -> ItemId {
-    let id = new_base_container(w, ty, 0xE7A);
-    super::hue(w, id, 0x20);
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.RedVelvetGiftBox");
     if fill {
         for i in 0..5 {
             if let Some(c) = value_card(w, "Server.Items.ValentinesCardSouth") {
@@ -276,8 +276,8 @@ pub static COMMODITY_DEED_BOX: ItemType = ItemType {
     full_name: "Server.Items.CommodityDeedBox",
     parent: Some(&BASE_CONTAINER),
     construct: Some(|w| {
-        let id = new_base_container(w, &COMMODITY_DEED_BOX, 0x9AA);
-        super::hue(w, id, 0x47);
+        let id = new_base_container(w, &COMMODITY_DEED_BOX, 0);
+        crate::simple::own_template(w, id, "Server.Items.CommodityDeedBox");
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(RewardFlag(false));
         }

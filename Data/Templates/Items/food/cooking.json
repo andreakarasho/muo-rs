@@ -1,6 +1,7 @@
 [
   {
     "type": "Server.Items.SackFlour",
+    "itemId": 4153,
     "props": {
       "defaultWeight": 5.0
     }

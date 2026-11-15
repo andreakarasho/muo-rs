@@ -1,12 +1,14 @@
 [
   {
     "type": "Server.Items.Candelabra",
+    "itemId": 2599,
     "props": {
       "defaultWeight": 3.0
     }
   },
   {
     "type": "Server.Items.HeatingStand",
+    "itemId": 6217,
     "props": {
       "defaultWeight": 1.0
     }

@@ -204,11 +204,7 @@ fn send_world_packet_gm(w: &mut World, id: ItemId, ns: NetStateId, world: &[u8],
 pub static BLOCKER: ItemType = ItemType {
     full_name: "Server.Items.Blocker",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BLOCKER, 0x21A4);
-        ops::set_movable(w, id, false);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &BLOCKER, "Server.Items.Blocker")),
     label_number: crate::class_props::label_number, // Impassable!
     send_world_packet_to: |w, id, ns, world| send_world_packet_gm(w, id, ns, world, 0x1183),
     serialize: |w, id, out| {
@@ -227,11 +223,7 @@ pub static BLOCKER: ItemType = ItemType {
 pub static LOS_BLOCKER: ItemType = ItemType {
     full_name: "Server.Items.LOSBlocker",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &LOS_BLOCKER, 0x21A2);
-        ops::set_movable(w, id, false);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &LOS_BLOCKER, "Server.Items.LOSBlocker")),
     default_name: crate::class_props::default_name,
     send_world_packet_to: |w, id, ns, world| send_world_packet_gm(w, id, ns, world, 0x36FF),
     serialize: |w, id, out| {
@@ -520,11 +512,7 @@ fn guillotine_use(w: &mut World, id: ItemId, from: MobileId) {
 pub static GUILLOTINE: ItemType = ItemType {
     full_name: "Server.Items.Guillotine",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &GUILLOTINE, 4656);
-        ops::set_movable(w, id, false);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &GUILLOTINE, "Server.Items.Guillotine")),
     on_double_click: guillotine_use,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

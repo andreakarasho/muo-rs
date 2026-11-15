@@ -535,10 +535,8 @@ use muo_content::items::tool;
 
 /// `AmeliasToolbox()`: `base(500)` of `TinkerTools`.
 pub fn amelias_toolbox_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = tool::new_tool(w, ty, 0x1EB8, 500);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 1895);
-    id
+    let id = tool::new_tool(w, ty, 0, 500);
+    crate::simple::own_template(w, id, "Server.Items.AmeliasToolbox")
 }
 
 /// `Server.Items.AmeliasToolbox`.
@@ -568,7 +566,8 @@ pub static HAMMER_OF_HEPHAESTUS_CLASS: tool::ToolClass = tool::ToolClass {
 /// `HammerOfHephaestus()`: `SmithHammer()`, `UsesRemaining = 20`, blessed. The recharge timer is not implemented
 /// (`StartRechargeTimer` is empty), so nothing recharges.
 pub fn hammer_of_hephaestus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = tool::new_tool_random(w, ty, 0x13E3);
+    let id = tool::new_tool_random(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.HammerOfHephaestus");
     (ty.set_layer)(w, id, muo_server::layer::Layer::OneHanded);
     tool::set_uses_remaining(w, id, 20);
     ops::set_loot_type(w, id, LootType::Blessed);

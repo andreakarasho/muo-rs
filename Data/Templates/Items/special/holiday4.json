@@ -7,6 +7,8 @@
   },
   {
     "type": "Server.Items.PileOfGlacialSnow",
+    "itemId": 2323,
+    "hue": 1152,
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1070874
@@ -14,6 +16,8 @@
   },
   {
     "type": "Server.Items.SnowPile",
+    "itemId": 2323,
+    "hue": 1153,
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1005578
@@ -45,12 +49,15 @@
   },
   {
     "type": "Server.Items.CreepyCake",
+    "itemId": 2537,
+    "hue": 996,
     "props": {
       "defaultName": "Creepy Cake"
     }
   },
   {
     "type": "Server.Items.MrPlainsCookies",
+    "itemId": 5644,
     "props": {
       "defaultWeight": 1.0,
       "defaultName": "Mr Plain's Cookies"
@@ -58,6 +65,8 @@
   },
   {
     "type": "Server.Items.PumpkinPizza",
+    "itemId": 4160,
+    "stackable": false,
     "props": {
       "defaultName": "Pumpkin Pizza"
     }
@@ -84,14 +93,20 @@
   },
   {
     "type": "Server.Items.CupidStatue",
+    "itemId": 20349,
     "props": {
       "labelNumber": 1099220
     }
   },
   {
     "type": "Server.Items.CupidsArrow",
+    "itemId": 20351,
     "props": {
       "labelNumber": 1152270
     }
+  },
+  {
+    "type": "Server.Items.AnimatedHeartShapedBox",
+    "itemId": 18890
   }
 ]

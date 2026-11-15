@@ -269,8 +269,8 @@ leaf! {
     /// `Server.Items.PileOfGlacialSnow`.
     PILE_OF_GLACIAL_SNOW = "Server.Items.PileOfGlacialSnow" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = new_item(w, &PILE_OF_GLACIAL_SNOW, 0x913);
-        crate::simple::hue(w, id, 0x480);
+        let id = new_item(w, &PILE_OF_GLACIAL_SNOW, 0);
+        crate::simple::own_template(w, id, "Server.Items.PileOfGlacialSnow");
         blessed(w, id);
         id
     }),
@@ -285,8 +285,8 @@ leaf! {
     /// `Server.Items.SnowPile`.
     SNOW_PILE = "Server.Items.SnowPile" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = new_item(w, &SNOW_PILE, 0x913);
-        crate::simple::hue(w, id, 0x481);
+        let id = new_item(w, &SNOW_PILE, 0);
+        crate::simple::own_template(w, id, "Server.Items.SnowPile");
         blessed(w, id);
         id
     }),
@@ -579,9 +579,8 @@ leaf! {
     /// `Server.Items.CreepyCake`.
     CREEPY_CAKE = "Server.Items.CreepyCake" : FOOD, v0;
     construct: Some(|w| {
-        let id = new_food(w, &CREEPY_CAKE, 0x9e9, 1);
-        crate::simple::hue(w, id, 0x3E4);
-        id
+        let id = new_food(w, &CREEPY_CAKE, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.CreepyCake")
     }),
     default_name: crate::class_props::default_name,
 }
@@ -590,7 +589,8 @@ leaf! {
     /// `Server.Items.MrPlainsCookies`.
     MR_PLAINS_COOKIES = "Server.Items.MrPlainsCookies" : FOOD, v0;
     construct: Some(|w| {
-        let id = new_food(w, &MR_PLAINS_COOKIES, 0x160C, 1);
+        let id = new_food(w, &MR_PLAINS_COOKIES, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.MrPlainsCookies");
         set_fill_factor(w, id, 4);
         crate::simple::hue(w, id, 0xF4);
         id
@@ -603,8 +603,8 @@ leaf! {
     /// `Server.Items.PumpkinPizza` (`CheesePizza()`: 0x1040, fill 6, not stackable).
     PUMPKIN_PIZZA = "Server.Items.PumpkinPizza" : CHEESE_PIZZA, v0;
     construct: Some(|w| {
-        let id = new_food(w, &PUMPKIN_PIZZA, 0x1040, 1);
-        ops::set_stackable(w, id, false);
+        let id = new_food(w, &PUMPKIN_PIZZA, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.PumpkinPizza");
         set_fill_factor(w, id, 6);
         crate::simple::hue(w, id, 0xF3);
         id
@@ -667,7 +667,8 @@ leaf! {
     /// `Server.Items.CupidStatue` (`[Flippable(0x4F7C, 0x4F7D)]`).
     CUPID_STATUE = "Server.Items.CupidStatue" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = new_item(w, &CUPID_STATUE, 0x4F7D);
+        let id = new_item(w, &CUPID_STATUE, 0);
+        crate::simple::own_template(w, id, "Server.Items.CupidStatue");
         blessed(w, id);
         id
     }),
@@ -703,7 +704,8 @@ leaf! {
     /// `Server.Items.AnimatedHeartShapedBox` (`[Flippable(0x49CC, 0x49D0)]`).
     ANIMATED_HEART_SHAPED_BOX = "Server.Items.AnimatedHeartShapedBox" : HEART_SHAPED_BOX, v0;
     construct: Some(|w| {
-        let id = new_base_container(w, &ANIMATED_HEART_SHAPED_BOX, 0x49CA);
+        let id = new_base_container(w, &ANIMATED_HEART_SHAPED_BOX, 0);
+        crate::simple::own_template(w, id, "Server.Items.AnimatedHeartShapedBox");
         crate::simple::item_id(w, id, 0x49CC);
         id
     }),
@@ -736,7 +738,8 @@ pub static CUPIDS_ARROW: ItemType = ItemType {
     full_name: "Server.Items.CupidsArrow",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = new_item(w, &CUPIDS_ARROW, 0x4F7F);
+        let id = new_item(w, &CUPIDS_ARROW, 0);
+        crate::simple::own_template(w, id, "Server.Items.CupidsArrow");
         blessed(w, id);
         id
     }),

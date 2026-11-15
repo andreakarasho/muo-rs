@@ -1154,8 +1154,8 @@ pub static FISH_BOWL: ItemType = ItemType {
     full_name: "Server.Items.FishBowl",
     parent: Some(&BASE_CONTAINER),
     construct: Some(|w| {
-        let id = new_base_container(w, &FISH_BOWL, 0x241C);
-        super::hue(w, id, 0x47E);
+        let id = new_base_container(w, &FISH_BOWL, 0);
+        crate::simple::own_template(w, id, "Server.Items.FishBowl");
         container::set_max_items(w, id, 1);
         id
     }),

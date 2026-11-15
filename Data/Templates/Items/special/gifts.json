@@ -1,6 +1,8 @@
 [
   {
     "type": "Server.Items.TapestryOfSosaria",
+    "itemId": 9038,
+    "lootType": "Blessed",
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1062917
@@ -8,6 +10,8 @@
   },
   {
     "type": "Server.Items.RoseOfTrinsic",
+    "itemId": 9037,
+    "lootType": "Blessed",
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1062913

@@ -125,8 +125,8 @@ leaf! {
     /// `Server.Items.GreenStocking` (`[Flippable(0x2bd9, 0x2bda)]`).
     GREEN_STOCKING = "Server.Items.GreenStocking" : BASE_CONTAINER, enc;
     construct: Some(|w| {
-        let g = utility::random_from(&mut w.rng, 0x2BD9, 2);
-        new_base_container(w, &GREEN_STOCKING, g)
+        let id = new_base_container(w, &GREEN_STOCKING, 0);
+        crate::simple::own_template(w, id, "Server.Items.GreenStocking")
     }),
     default_gump_id: crate::class_props::default_gump_id,
     default_drop_sound: crate::class_props::default_drop_sound,
@@ -136,8 +136,8 @@ leaf! {
     /// `Server.Items.RedStocking` (`[Flippable(0x2bdb, 0x2bdc)]`).
     RED_STOCKING = "Server.Items.RedStocking" : BASE_CONTAINER, enc;
     construct: Some(|w| {
-        let g = utility::random_from(&mut w.rng, 0x2BDB, 2);
-        new_base_container(w, &RED_STOCKING, g)
+        let id = new_base_container(w, &RED_STOCKING, 0);
+        crate::simple::own_template(w, id, "Server.Items.RedStocking")
     }),
     default_gump_id: crate::class_props::default_gump_id,
     default_drop_sound: crate::class_props::default_drop_sound,
@@ -857,11 +857,7 @@ impl super::vet::Pick for PlantPick {
 leaf! {
     /// `Server.Items.PottedPlantDeed`.
     POTTED_PLANT_DEED = "Server.Items.PottedPlantDeed" : ITEM_BASE, enc;
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &POTTED_PLANT_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &POTTED_PLANT_DEED, "Server.Items.PottedPlantDeed")),
     label_number: crate::class_props::label_number, // A deed for a potted plant.
     default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
@@ -892,7 +888,7 @@ leaf! {
     /// `Server.Items.BadCard`.
     BAD_CARD = "Server.Items.BadCard" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BAD_CARD, 0x14ef);
+        let id = crate::simple::from_template(w, &BAD_CARD, "Server.Items.BadCard");
         let hues = [0x45, 0x27, 0x3d0];
         let h = utility::random_element(&mut w.rng, &hues).copied().unwrap_or(0x45);
         super::hue(w, id, h);
@@ -908,10 +904,8 @@ leaf! {
     /// `Server.Items.Spam`.
     SPAM = "Server.Items.Spam" : FOOD, v0;
     construct: Some(|w| {
-        let id = new_food(w, &SPAM, 0x1044, 1);
-        ops::set_stackable(w, id, false);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
+        let id = new_food(w, &SPAM, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.Spam")
     }),
 }
 
@@ -981,11 +975,7 @@ impl super::vet::Pick for SnowStatuePick {
 leaf! {
     /// `Server.Items.SnowStatueDeed`.
     SNOW_STATUE_DEED = "Server.Items.SnowStatueDeed" : ITEM_BASE, enc;
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &SNOW_STATUE_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &SNOW_STATUE_DEED, "Server.Items.SnowStatueDeed")),
     label_number: crate::class_props::label_number, // snow statue deed
     default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {

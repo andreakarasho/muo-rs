@@ -56,6 +56,7 @@
   },
   {
     "type": "Server.Items.ColoredAnvil",
+    "itemId": 4015,
     "props": {
       "defaultWeight": 20.0
     }

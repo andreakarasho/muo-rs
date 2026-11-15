@@ -708,6 +708,32 @@
   },
   {
     "type": "Server.Items.TombstoneOfTheDamned",
+    "oneOf": [
+      {
+        "itemId": 3799
+      },
+      {
+        "itemId": 3800
+      },
+      {
+        "itemId": 3801
+      },
+      {
+        "itemId": 3802
+      },
+      {
+        "itemId": 3803
+      },
+      {
+        "itemId": 3804
+      },
+      {
+        "itemId": 3805
+      },
+      {
+        "itemId": 3806
+      }
+    ],
     "props": {
       "labelNumber": 1072123
     }
@@ -737,6 +763,19 @@
   },
   {
     "type": "Server.Items.MinotaurArtifact",
+    "oneOf": [
+      {
+        "itemId": 2886
+      },
+      {
+        "itemId": 2888
+      },
+      {
+        "itemId": 2541
+      }
+    ],
+    "lootType": "Blessed",
+    "hue": 256,
     "props": {
       "labelNumber": 1074826
     }
@@ -821,12 +860,28 @@
   },
   {
     "type": "Server.Items.TravestysFineTeakwoodTray",
+    "oneOf": [
+      {
+        "itemId": 2449
+      },
+      {
+        "itemId": 2450
+      }
+    ],
     "props": {
       "labelNumber": 1075094
     }
   },
   {
     "type": "Server.Items.TravestysSushiPreparations",
+    "oneOf": [
+      {
+        "itemId": 7701
+      },
+      {
+        "itemId": 7702
+      }
+    ],
     "props": {
       "labelNumber": 1075093
     }
@@ -842,6 +897,20 @@
   },
   {
     "type": "Server.Items.TaintedMushroom",
+    "oneOf": [
+      {
+        "itemId": 8750
+      },
+      {
+        "itemId": 8751
+      },
+      {
+        "itemId": 8752
+      },
+      {
+        "itemId": 8753
+      }
+    ],
     "props": {
       "labelNumber": 1075088
     }

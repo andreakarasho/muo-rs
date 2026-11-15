@@ -479,5 +479,101 @@
     "props": {
       "defaultWeight": 1.0
     }
+  },
+  {
+    "type": "Server.Items.DecorativeShieldSword1North",
+    "oneOf": [
+      {
+        "itemId": 5506
+      },
+      {
+        "itemId": 5507
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShieldSword1West",
+    "oneOf": [
+      {
+        "itemId": 5684
+      },
+      {
+        "itemId": 5685
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShieldSword2North",
+    "oneOf": [
+      {
+        "itemId": 5508
+      },
+      {
+        "itemId": 5509
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeShieldSword2West",
+    "oneOf": [
+      {
+        "itemId": 5686
+      },
+      {
+        "itemId": 5687
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeAxeNorth",
+    "oneOf": [
+      {
+        "itemId": 5472
+      },
+      {
+        "itemId": 5473
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeAxeWest",
+    "oneOf": [
+      {
+        "itemId": 5474
+      },
+      {
+        "itemId": 5475
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeBowNorth",
+    "oneOf": [
+      {
+        "itemId": 5468
+      },
+      {
+        "itemId": 5469
+      }
+    ],
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeBowWest",
+    "oneOf": [
+      {
+        "itemId": 5470
+      },
+      {
+        "itemId": 5471
+      }
+    ],
+    "movable": false
   }
 ]

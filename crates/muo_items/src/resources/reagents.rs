@@ -175,7 +175,8 @@ pub fn new_reagent_bag(
     names: &[&str],
     amount: i32,
 ) -> ItemId {
-    let id = new_base_container(w, ty, 0xE76);
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.BagOfReagents");
     drop_reagents(w, id, names, amount);
     id
 }

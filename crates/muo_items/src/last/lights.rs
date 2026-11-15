@@ -39,7 +39,8 @@ pub fn set_shipwrecked(w: &mut World, id: ItemId, value: bool) {
 
 /// `Candelabra()`: `base(0xA27)`.
 pub fn candelabra_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA27);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Candelabra");
     set_shipwrecked(w, id, false);
     set_duration(w, id, TimeSpan::ZERO); // Never burnt out
     set_burning(w, id, false);
@@ -91,7 +92,8 @@ pub static CANDELABRA: ItemType = ItemType {
 
 /// `HeatingStand()`: `base(0x1849)`.
 pub fn heating_stand_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x1849);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.HeatingStand");
     set_duration(
         w,
         id,

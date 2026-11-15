@@ -101,6 +101,20 @@
   },
   {
     "type": "Server.Items.MinotaurHedge",
+    "oneOf": [
+      {
+        "itemId": 3215
+      },
+      {
+        "itemId": 3216
+      },
+      {
+        "itemId": 3217
+      },
+      {
+        "itemId": 3218
+      }
+    ],
     "props": {
       "defaultWeight": 1.0,
       "defaultName": "minotaur hedge"
@@ -108,12 +122,22 @@
   },
   {
     "type": "Server.Items.TormentedChains",
+    "oneOf": [
+      {
+        "itemId": 6663
+      },
+      {
+        "itemId": 6664
+      }
+    ],
     "props": {
       "defaultWeight": 1.0
     }
   },
   {
     "type": "Server.Items.RewardCake",
+    "itemId": 2537,
+    "stackable": false,
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1049786

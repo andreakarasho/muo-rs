@@ -80,8 +80,7 @@ pub static TAPESTRY_OF_SOSARIA: ItemType = ItemType {
     full_name: "Server.Items.TapestryOfSosaria",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &TAPESTRY_OF_SOSARIA, 0x234E);
-        ops::set_loot_type(w, id, LootType::Blessed);
+        let id = crate::simple::from_template(w, &TAPESTRY_OF_SOSARIA, "Server.Items.TapestryOfSosaria");
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(Secure(0));
         }
@@ -207,8 +206,7 @@ pub static ROSE_OF_TRINSIC: ItemType = ItemType {
     full_name: "Server.Items.RoseOfTrinsic",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &ROSE_OF_TRINSIC, 0x234D);
-        ops::set_loot_type(w, id, LootType::Blessed);
+        let id = crate::simple::from_template(w, &ROSE_OF_TRINSIC, "Server.Items.RoseOfTrinsic");
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(RoseData {
                 petals: 0,
