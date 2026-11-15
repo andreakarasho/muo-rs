@@ -48,7 +48,12 @@
       "initMinHits": 5,
       "initMaxHits": 5,
       "secondaryAbility": null,
-      "primaryAbility": null
+      "primaryAbility": null,
+      "physicalResistance": 1,
+      "fireResistance": 1,
+      "coldResistance": 1,
+      "poisonResistance": 1,
+      "energyResistance": 1
     }
   },
   {

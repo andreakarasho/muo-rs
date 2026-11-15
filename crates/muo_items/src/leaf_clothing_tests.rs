@@ -290,7 +290,7 @@ fn a_quiver_weighs_less_and_holds_one_ammo_type() {
     let fire = (quivers::QUIVER_OF_FIRE.construct.unwrap())(&mut w);
     assert_eq!(w.item(fire).unwrap().hue, 0x4E7);
     let mut split = [0; 7];
-    (quivers::QUIVER_OF_FIRE_CLASS.alter_bow_damage)(&mut split);
+    quivers::alter_bow_damage(&w, fire, &mut split);
     assert_eq!(split, [50, 50, 0, 0, 0, 0, 0]);
     // the elven quiver's own part is its encoded version 0; before it, the base's flags (damage increase 0x8,
     // weight reduction 0x4, quality Low is not Regular 0x20, capacity 0x40) and values

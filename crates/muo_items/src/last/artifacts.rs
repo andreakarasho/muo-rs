@@ -49,19 +49,20 @@ armor_leaf! {
 }
 
 clothing_leaf! {
-    /// `Server.Items.PadsOfTheCuSidhe` (`base(0x47E)`).
-    PADS_OF_THE_CU_SIDHE, PADS_OF_THE_CU_SIDHE_CLASS, pads_of_the_cu_sidhe_new = "Server.Items.PadsOfTheCuSidhe" : FUR_BOOTS / FUR_BOOTS_CLASS, fur_boots_new, hue 0x47E, encoded true;
+    /// `Server.Items.PadsOfTheCuSidhe` (`base(0x47E)`: the template's hue).
+    PADS_OF_THE_CU_SIDHE, PADS_OF_THE_CU_SIDHE_CLASS, pads_of_the_cu_sidhe_new = "Server.Items.PadsOfTheCuSidhe" : FUR_BOOTS / FUR_BOOTS_CLASS, fur_boots_new, hue 0, encoded true;
+    @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEclipse`.
-    ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0x486), hue 0, encoded true;
+    ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded true;
     @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEquinox`.
-    ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0xD6), hue 0, encoded true;
+    ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded true;
     @template;
 }
 
@@ -120,19 +121,19 @@ clothing_leaf! {
 
 clothing_leaf! {
     /// `Server.Items.EmbroideredOakLeafCloak`.
-    EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0), hue 0, encoded false;
+    EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.TheMostKnowledgePerson`.
-    THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0), hue 0, encoded false;
+    THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.TheRobeOfBritanniaAri`.
-    THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0), hue 0, encoded false;
+    THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @template;
 }
 
@@ -356,43 +357,20 @@ pub static TOTEM_OF_VOID: ItemType = ItemType {
     ..talismans::BASE_TALISMAN
 };
 
-use crate::quivers::{self, QuiverClass};
-
-/// `QuiverOfElements`: all chaos damage.
-pub static QUIVER_OF_ELEMENTS_CLASS: QuiverClass = QuiverClass {
-    alter_bow_damage: |s| *s = [0, 0, 0, 0, 0, 100, 0],
-};
-
-/// `QuiverOfRage`: 20 of each element, no chaos or direct.
-pub static QUIVER_OF_RAGE_CLASS: QuiverClass = QuiverClass {
-    alter_bow_damage: |s| *s = [20, 20, 20, 20, 20, 0, 0],
-};
-
-/// `QuiverOfElements()`: `BaseQuiver()` (graphic 0x2FB7), `Hue = 0xEB`, `WeightReduction = 50`.
-pub fn quiver_of_elements_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = quivers::new_quiver(w, ty, 0x2FB7);
-    hue(w, id, 0xEB);
-    quivers::set_weight_reduction(w, id, 50);
-    id
-}
-
-/// `QuiverOfRage()`.
-pub fn quiver_of_rage_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = quivers::new_quiver(w, ty, 0x2FB7);
-    hue(w, id, 0x24C);
-    quivers::set_weight_reduction(w, id, 25);
-    quivers::set_damage_increase(w, id, 10);
-    id
-}
+use crate::quivers;
 
 macro_rules! quiver_leaf {
-    ($name:ident = $full:literal, $new:ident, $class:ident, label $label:expr) => {
+    ($name:ident = $full:literal, $new:ident) => {
+        /// `new T()`: `BaseQuiver(graphic)` and the class's template.
+        pub fn $new(w: &mut World, ty: &'static ItemType) -> ItemId {
+            quivers::quiver_from_template(w, ty, $full)
+        }
+
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&quivers::BASE_QUIVER),
             construct: Some(|w| $new(w, &$name)),
-            family: Some(&$class),
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 (quivers::BASE_QUIVER.serialize)(w, id, out);
                 out.write_encoded_int(0);
@@ -407,8 +385,14 @@ macro_rules! quiver_leaf {
     };
 }
 
-quiver_leaf!(QUIVER_OF_ELEMENTS = "Server.Items.QuiverOfElements", quiver_of_elements_new, QUIVER_OF_ELEMENTS_CLASS, label 1075040);
-quiver_leaf!(QUIVER_OF_RAGE = "Server.Items.QuiverOfRage", quiver_of_rage_new, QUIVER_OF_RAGE_CLASS, label 1075038);
+quiver_leaf!(
+    QUIVER_OF_ELEMENTS = "Server.Items.QuiverOfElements",
+    quiver_of_elements_new
+);
+quiver_leaf!(
+    QUIVER_OF_RAGE = "Server.Items.QuiverOfRage",
+    quiver_of_rage_new
+);
 
 use muo_content::items::tool;
 

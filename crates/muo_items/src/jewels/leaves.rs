@@ -33,7 +33,7 @@ jewel_leaf! {
     RESILIENT_BRACER, RESILIENT_BRACER_CLASS, resilient_bracer_new = "Server.Items.ResilientBracer" : GOLD_BRACELET / GOLD_BRACELET_CLASS, gold_bracelet_new, encoded true;
     @template;
     @ty {
-        physical_resistance: |_, _| 20,
+        physical_resistance: crate::class_props::physical_resistance,
     };
 }
 
@@ -104,7 +104,7 @@ jewel_leaf! {
     /// `Server.Items.WeddingRing`.
     WEDDING_RING, WEDDING_RING_CLASS, wedding_ring_new = "Server.Items.WeddingRing" : BASE_RING / BASE_RING_CLASS, crate::jewels::new_jewel_json, encoded false;
     @ty {
-        default_name: |_, _| Some("wedding ring".to_string()),
+        default_name: crate::class_props::default_name,
     };
 }
 

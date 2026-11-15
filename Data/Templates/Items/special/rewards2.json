@@ -16,7 +16,8 @@
       "defaultWeight": 1.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 5062
     }
   },
   {
@@ -35,7 +36,8 @@
       "labelNumber": 1045123,
       "defaultWeight": 2.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5077
     }
   },
   {
@@ -54,7 +56,8 @@
       "armorBase": 22,
       "labelNumber": 1045124,
       "defaultWeight": 1.0,
-      "materialType": "Ringmail"
+      "materialType": "Ringmail",
+      "graphic": 5099
     }
   },
   {

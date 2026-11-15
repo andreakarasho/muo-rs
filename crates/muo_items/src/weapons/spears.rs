@@ -42,7 +42,7 @@ weapon_leaf! {
     TRIBAL_SPEAR, TRIBAL_SPEAR_CLASS, tribal_spear_new = "Server.Items.TribalSpear" : BASE_SPEAR / BASE_SPEAR_CLASS, json (), v0;
     @json;
     @item {
-        default_name: |_, _| Some("a tribal spear".to_string()),
+        default_name: crate::class_props::default_name,
     }
 }
 

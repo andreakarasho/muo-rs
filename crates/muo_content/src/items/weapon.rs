@@ -819,6 +819,22 @@ pub fn lower_stat_req(w: &World, id: ItemId) -> i32 {
     v.min(100)
 }
 
+/// `ScalesUses` (BaseAxe's `UsesRemaining` follows durability): the `scalesUses` prop, else the class table.
+pub fn scales_uses(w: &World, id: ItemId) -> bool {
+    ep::boolean(w, id, "scalesUses", class(w, id).scales_uses)
+}
+
+/// `AccuracySkill`: the `accuracySkill` prop, else the class table.
+pub fn accuracy_skill(w: &World, id: ItemId) -> SkillName {
+    ep::named(
+        w,
+        id,
+        "accuracySkill",
+        &ep::SKILLS,
+        class(w, id).accuracy_skill,
+    )
+}
+
 /// `GetUsesScalar()` of BaseAxe.
 fn uses_scalar(d: &WeaponData) -> i32 {
     if d.quality == WeaponQuality::Exceptional {
@@ -831,7 +847,7 @@ fn uses_scalar(d: &WeaponData) -> i32 {
 /// `UnscaleDurability()` (BaseAxe's override also unscales `UsesRemaining`).
 pub fn unscale_durability(w: &mut World, id: ItemId) {
     let scale = 100 + durability_bonus(w, id);
-    let scales_uses = class(w, id).scales_uses;
+    let scales_uses = scales_uses(w, id);
     if let Some(d) = data_mut(w, id) {
         d.hit_points = (d.hit_points * 100 + (scale - 1)) / scale;
         d.max_hit_points = (d.max_hit_points * 100 + (scale - 1)) / scale;
@@ -846,7 +862,7 @@ pub fn unscale_durability(w: &mut World, id: ItemId) {
 /// `ScaleDurability()` (BaseAxe's override also scales `UsesRemaining`).
 pub fn scale_durability(w: &mut World, id: ItemId) {
     let scale = 100 + durability_bonus(w, id);
-    let scales_uses = class(w, id).scales_uses;
+    let scales_uses = scales_uses(w, id);
     if let Some(d) = data_mut(w, id) {
         d.hit_points = (d.hit_points * scale + 99) / 100;
         d.max_hit_points = (d.max_hit_points * scale + 99) / 100;

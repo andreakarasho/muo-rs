@@ -14,7 +14,11 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 7.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 3937
     }
   },
   {
@@ -32,11 +36,17 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 6.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "ArmorIgnore",
+      "graphic": 5119
     }
   },
   {
     "type": "Server.Items.Bow",
+    "layer": "TwoHanded",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 30,
       "aosMinDamage": [
@@ -55,7 +65,14 @@
       "oldSpeed": 20,
       "defMaxRange": 10,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 6.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "ParalyzingBlow",
+      "secondaryAbility": "MortalStrike",
+      "defAnimation": "ShootBow",
+      "graphic": 5042
     }
   },
   {
@@ -71,7 +88,10 @@
       "aosStrReq": 95,
       "oldStrReq": 60,
       "oldDexBonus": -8,
-      "armorBase": 40
+      "armorBase": 40,
+      "defaultWeight": 10.0,
+      "materialType": "Plate",
+      "graphic": 5141
     }
   },
   {
@@ -86,7 +106,12 @@
       "initMaxHits": 40,
       "aosStrReq": 25,
       "oldStrReq": 15,
-      "armorBase": 13
+      "armorBase": 13,
+      "defaultWeight": 6.0,
+      "materialType": "Leather",
+      "defaultResource": "RegularLeather",
+      "defMedAllowance": "All",
+      "graphic": 5068
     }
   },
   {
@@ -102,7 +127,45 @@
       "aosStrReq": 60,
       "oldStrReq": 20,
       "oldDexBonus": -5,
-      "armorBase": 28
+      "armorBase": 28,
+      "defaultWeight": 7.0,
+      "materialType": "Chainmail",
+      "graphic": 5055
+    }
+  },
+  {
+    "type": "Server.Items.Cap",
+    "props": {
+      "defaultWeight": 1.0,
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 5,
+      "baseColdResistance": 9,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5,
+      "initMinHits": 20,
+      "initMaxHits": 30,
+      "graphic": 5909
+    }
+  },
+  {
+    "type": "Server.Items.FancyShirt",
+    "props": {
+      "defaultWeight": 2.0,
+      "graphic": 7933
+    }
+  },
+  {
+    "type": "Server.Items.GoldRing",
+    "props": {
+      "defaultWeight": 0.1,
+      "graphic": 4234
+    }
+  },
+  {
+    "type": "Server.Items.Necklace",
+    "props": {
+      "defaultWeight": 0.1,
+      "graphic": 4229
     }
   }
 ]

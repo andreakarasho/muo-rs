@@ -155,7 +155,8 @@
       "primaryAbility": "ArmorIgnore",
       "secondaryAbility": "ParalyzingBlow",
       "virtualDamageBonus": 25,
-      "graphic": 3938
+      "graphic": 3938,
+      "defaultName": "a tribal spear"
     }
   },
   {

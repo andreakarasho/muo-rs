@@ -4,7 +4,8 @@
     "props": {
       "wandEffect": "Clumsiness",
       "minCharges": 5,
-      "maxCharges": 30
+      "maxCharges": 30,
+      "wandSpell": "Server.Spells.First.ClumsySpell"
     }
   },
   {
@@ -12,7 +13,8 @@
     "props": {
       "wandEffect": "Feeblemindedness",
       "minCharges": 5,
-      "maxCharges": 30
+      "maxCharges": 30,
+      "wandSpell": "Server.Spells.First.FeeblemindSpell"
     }
   },
   {
@@ -23,7 +25,8 @@
       "maxCharges": [
         15,
         109
-      ]
+      ],
+      "wandSpell": "Server.Spells.Third.FireballSpell"
     }
   },
   {
@@ -34,7 +37,8 @@
       "maxCharges": [
         5,
         109
-      ]
+      ],
+      "wandSpell": "Server.Spells.Fourth.GreaterHealSpell"
     }
   },
   {
@@ -45,7 +49,8 @@
       "maxCharges": [
         30,
         109
-      ]
+      ],
+      "wandSpell": "Server.Spells.Second.HarmSpell"
     }
   },
   {
@@ -56,7 +61,8 @@
       "maxCharges": [
         25,
         109
-      ]
+      ],
+      "wandSpell": "Server.Spells.First.HealSpell"
     }
   },
   {
@@ -75,7 +81,8 @@
       "maxCharges": [
         20,
         109
-      ]
+      ],
+      "wandSpell": "Server.Spells.Fourth.LightningSpell"
     }
   },
   {
@@ -86,7 +93,8 @@
       "maxCharges": [
         30,
         109
-      ]
+      ],
+      "wandSpell": "Server.Spells.First.MagicArrowSpell"
     }
   },
   {
@@ -94,7 +102,8 @@
     "props": {
       "wandEffect": "ManaDraining",
       "minCharges": 5,
-      "maxCharges": 30
+      "maxCharges": 30,
+      "wandSpell": "Server.Spells.Fourth.ManaDrainSpell"
     }
   },
   {
@@ -102,7 +111,27 @@
     "props": {
       "wandEffect": "Weakness",
       "minCharges": 5,
-      "maxCharges": 30
+      "maxCharges": 30,
+      "wandSpell": "Server.Spells.First.WeakenSpell"
+    }
+  },
+  {
+    "type": "Server.Items.BaseWand",
+    "props": {
+      "defaultWeight": 1.0,
+      "primaryAbility": "Dismount",
+      "secondaryAbility": "Disarm",
+      "aosStrReq": 5,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 40,
+      "mlSpeed": 2.75,
+      "oldStrReq": 0,
+      "oldMinDamage": 2,
+      "oldMaxDamage": 6,
+      "oldSpeed": 35,
+      "initMinHits": 31,
+      "initMaxHits": 110
     }
   }
 ]

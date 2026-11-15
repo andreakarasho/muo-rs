@@ -1357,8 +1357,8 @@ pub static BASE_TALISMAN: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: None,
     family: Some(&BASE_TALISMAN_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1071023, // Talisman
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Talisman
     on_after_duped,
     can_equip,
     on_added,

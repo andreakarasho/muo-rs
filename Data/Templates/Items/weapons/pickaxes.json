@@ -47,8 +47,22 @@
   },
   {
     "type": "Server.Items.ProspectorsTool",
+    "usesRemaining": 50,
+    "weaponShowUsesRemaining": true,
     "props": {
-      "labelNumber": 1049065
+      "labelNumber": 1049065,
+      "defaultWeight": 9.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ShadowStrike",
+      "aosStrReq": 40,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 33,
+      "oldStrReq": 10,
+      "oldMinDamage": 6,
+      "oldMaxDamage": 8,
+      "oldSpeed": 33,
+      "graphic": 4020
     }
   }
 ]

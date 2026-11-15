@@ -59,6 +59,30 @@ member!(
     /// `DefaultMaxWeight`: the `maxWeight` prop.
     default_max_weight, default_max_weight, "maxWeight", i32, |v| props::as_i32(Some(v))
 );
+member!(
+    /// `PhysicalResistance` (an override of the whole value): the `physicalResistance` prop.
+    physical_resistance, physical_resistance, "physicalResistance", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `FireResistance`: the `fireResistance` prop.
+    fire_resistance, fire_resistance, "fireResistance", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `ColdResistance`: the `coldResistance` prop.
+    cold_resistance, cold_resistance, "coldResistance", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `PoisonResistance`: the `poisonResistance` prop.
+    poison_resistance, poison_resistance, "poisonResistance", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `EnergyResistance`: the `energyResistance` prop.
+    energy_resistance, energy_resistance, "energyResistance", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `Hue` overridden by the class (`Hue => 1150`): the `hue` prop.
+    hue, hue, "hue", i32, |v| props::as_i32(Some(v))
+);
 
 member!(
     /// `Bounds` of a container: the `containerBounds` prop, `[x, y, width, height]`.

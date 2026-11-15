@@ -782,11 +782,12 @@ fn bound(w: &World, id: ItemId) -> Option<ItemId> {
     bracelet(w, id).bound.filter(|&b| !deleted(w, b))
 }
 
-/// `BraceletOfBinding()`.
+/// `BraceletOfBinding()`: `base(graphic)`, its state, then its template (`Hue = 0x489`).
 pub fn bracelet_of_binding_new(w: &mut World) -> ItemId {
-    let id = muo_content::items::jewel::new_jewel(w, &BRACELET_OF_BINDING, 0x1086);
+    let g = muo_content::items::equip_props::graphic(w, &BRACELET_OF_BINDING);
+    let id = muo_content::items::jewel::new_jewel(w, &BRACELET_OF_BINDING, g);
     set_bracelet(w, id, BraceletData::default());
-    super::hue(w, id, 0x489);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.BraceletOfBinding");
     id
 }
 

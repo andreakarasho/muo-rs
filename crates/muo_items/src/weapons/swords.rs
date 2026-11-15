@@ -23,11 +23,11 @@ weapon_leaf! {
     BONE_MACHETE, BONE_MACHETE_CLASS, bone_machete_new = "Server.Items.BoneMachete" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
     @json;
     @item {
-        physical_resistance: |_, _| 1,
-        fire_resistance: |_, _| 1,
-        cold_resistance: |_, _| 1,
-        poison_resistance: |_, _| 1,
-        energy_resistance: |_, _| 1,
+        physical_resistance: crate::class_props::physical_resistance,
+        fire_resistance: crate::class_props::fire_resistance,
+        cold_resistance: crate::class_props::cold_resistance,
+        poison_resistance: crate::class_props::poison_resistance,
+        energy_resistance: crate::class_props::energy_resistance,
     }
 }
 

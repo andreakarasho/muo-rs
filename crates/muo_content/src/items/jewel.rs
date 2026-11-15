@@ -144,7 +144,8 @@ pub fn new_jewel(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
     // Hue = CraftResources.GetHue(_resource)
     let hue = craft::hue(w, CraftResource::Iron);
     (ty.set_hue)(w, id, hue);
-    (ty.set_layer)(w, id, c.layer);
+    let layer = super::equip_props::layer(w, id, c.layer);
+    (ty.set_layer)(w, id, layer);
     id
 }
 

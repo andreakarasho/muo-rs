@@ -64,7 +64,8 @@
       "DefendChance": 10
     },
     "props": {
-      "labelNumber": 1072933
+      "labelNumber": 1072933,
+      "physicalResistance": 20
     }
   },
   {
@@ -172,7 +173,8 @@
     "type": "Server.Items.WeddingRing",
     "props": {
       "defaultWeight": 0.1,
-      "graphic": 4234
+      "graphic": 4234,
+      "defaultName": "wedding ring"
     }
   }
 ]

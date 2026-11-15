@@ -439,11 +439,11 @@ armor_leaf! {
     /// `Server.Items.GargishLeatherWingArmor`.
     GARGISH_LEATHER_WING_ARMOR, GARGISH_LEATHER_WING_ARMOR_CLASS, gargish_leather_wing_armor_new = "Server.Items.GargishLeatherWingArmor" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @ty {
-        physical_resistance: |_, _| 0,
-        fire_resistance: |_, _| 0,
-        cold_resistance: |_, _| 0,
-        poison_resistance: |_, _| 0,
-        energy_resistance: |_, _| 0,
+        physical_resistance: crate::class_props::physical_resistance,
+        fire_resistance: crate::class_props::fire_resistance,
+        cold_resistance: crate::class_props::cold_resistance,
+        poison_resistance: crate::class_props::poison_resistance,
+        energy_resistance: crate::class_props::energy_resistance,
     };
 }
 

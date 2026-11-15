@@ -1,5 +1,5 @@
 //! The four plain items that are talisman reagents and `RunedSwitch`, which
-//! recharges a talisman.
+//! recharges a talisman. Graphics, weights and labels are their templates (`Data/Templates/Items/talismans`).
 
 use std::rc::Rc;
 
@@ -10,15 +10,15 @@ use muo_server::target::{self, TargetFlags, Targeted};
 use muo_server::type_registry::TypeRegistry;
 
 macro_rules! reagent_leaves {
-    ($($(#[$m:meta])* $name:ident = $full:literal, graphic $gid:expr, label $label:expr;)*) => {
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {
         $(
             $(#[$m])*
             pub static $name: ItemType = ItemType {
                 full_name: $full,
                 parent: Some(&ITEM_BASE),
-                construct: Some(|w| ops::new_item_with_id(w, &$name, $gid)),
-                default_weight: |_, _| 1.0,
-                label_number: |_, _| $label,
+                construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+                default_weight: crate::class_props::default_weight,
+                label_number: crate::class_props::label_number,
                 serialize: |w, id, out| {
                     (ITEM_BASE.serialize)(w, id, out);
                     out.write_i32(0); // [SerializationGenerator(0, false)]
@@ -36,13 +36,13 @@ macro_rules! reagent_leaves {
 
 reagent_leaves! {
     /// `Server.Items.EnchantedSwitch`.
-    ENCHANTED_SWITCH = "Server.Items.EnchantedSwitch", graphic 0x2F5C, label 1072893; // enchanted switch
+    ENCHANTED_SWITCH = "Server.Items.EnchantedSwitch"; // enchanted switch
     /// `Server.Items.HollowPrism`.
-    HOLLOW_PRISM = "Server.Items.HollowPrism", graphic 0x2F5D, label 1072895; // hollow prism
+    HOLLOW_PRISM = "Server.Items.HollowPrism"; // hollow prism
     /// `Server.Items.JeweledFiligree`.
-    JEWELED_FILIGREE = "Server.Items.JeweledFiligree", graphic 0x2F5E, label 1072894; // jeweled filigree
+    JEWELED_FILIGREE = "Server.Items.JeweledFiligree"; // jeweled filigree
     /// `Server.Items.RunedPrism`.
-    RUNED_PRISM = "Server.Items.RunedPrism", graphic 0x2F57, label 1073465; // runed prism
+    RUNED_PRISM = "Server.Items.RunedPrism"; // runed prism
 }
 
 fn on_double_click(w: &mut World, id: ItemId, from: MobileId) {
@@ -87,9 +87,9 @@ fn on_target(w: &mut World, switch: ItemId, from: MobileId, o: Targeted) {
 pub static RUNED_SWITCH: ItemType = ItemType {
     full_name: "Server.Items.RunedSwitch",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &RUNED_SWITCH, 0x2F61)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1072896, // runed switch
+    construct: Some(|w| crate::simple::from_template(w, &RUNED_SWITCH, "Server.Items.RunedSwitch")),
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // runed switch
     on_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

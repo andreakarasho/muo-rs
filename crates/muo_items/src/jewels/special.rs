@@ -4,20 +4,21 @@
 use muo_content::items::jewel::new_jewel;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
-/// `GoldRing()`: `base(0x108a)`.
+/// `GoldRing()`: `base(graphic)` with the sample's `graphic` prop.
 pub fn gold_ring_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_jewel(w, ty, 0x108A)
+    let g = muo_content::items::equip_props::graphic(w, &muo_content::items::leaves::GOLD_RING);
+    new_jewel(w, ty, g)
 }
 
 /// `Server.Items.Beads` (`[SerializationGenerator(0, false)]`, `base(0x108B)`, `DefaultWeight => 1.0`).
 pub static BEADS: ItemType = ItemType {
     full_name: "Server.Items.Beads",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &BEADS, 0x108B)),
-    default_weight: |_, _| 1.0,
+    construct: Some(|w| crate::simple::from_template(w, &BEADS, "Server.Items.Beads")),
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_i32(0);

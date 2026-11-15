@@ -67,7 +67,7 @@ const MOVED: &[(&str, bool, i32, i32)] = &[
     ("Server.Items.OrnateAxe", true, 0, 0),
     ("Server.Items.OverseerSunderedBlade", true, 1072920, 0),
     ("Server.Items.PhantomStaff", true, 1072919, 0),
-    ("Server.Items.ProspectorsTool", false, 1049065, 0),
+    ("Server.Items.ProspectorsTool", true, 1049065, 0),
     ("Server.Items.RangersShortbow", true, 1073509, 0),
     ("Server.Items.RaptorClaw", true, 1112394, 0),
     ("Server.Items.RubyMace", true, 1073529, 0),

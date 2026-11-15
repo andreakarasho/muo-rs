@@ -95,13 +95,13 @@ fn make(ty: &'static ItemType) -> (World, ItemId) {
 
 #[test]
 fn decoration_artifact_constructor_and_rarity() {
-    use crate::decoration_artifacts::DecoClass;
     use crate::decoration_artifacts::leaves::ACADEMIC_BOOKS_ARTIFACT;
     // `: base(0x1E25) => Hue = 2413`, ArtifactRarity 8, LabelNumber 1071202, DefaultWeight 10 from the base
     let (w, id) = make(&ACADEMIC_BOOKS_ARTIFACT);
     let item = w.item(id).unwrap();
     assert_eq!((item.item_id, item.hue), (0x1E25, 2413));
-    assert_eq!(item.ty.family::<DecoClass>().unwrap().artifact_rarity, 8);
+    let rarity = muo_content::templates::item_props::int(&w, id, "artifactRarity", 0);
+    assert_eq!(rarity, 8);
     assert_eq!((item.ty.label_number)(&w, id), 1071202);
     assert_eq!((item.ty.default_weight)(&w, id), 10.0);
     assert!((item.ty.force_show_properties)(&w, id));

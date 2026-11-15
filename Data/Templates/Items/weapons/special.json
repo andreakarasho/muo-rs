@@ -2,6 +2,39 @@
   {
     "type": "Server.Items.ThrowingDagger",
     "itemId": 3922,
-    "layer": "OneHanded"
+    "layer": "OneHanded",
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "a throwing dagger"
+    }
+  },
+  {
+    "type": "Server.Items.Fists",
+    "visible": false,
+    "movable": false,
+    "props": {
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "ParalyzingBlow",
+      "aosStrReq": 0,
+      "aosMinDamage": 1,
+      "aosMaxDamage": 4,
+      "aosSpeed": 50,
+      "mlSpeed": 2.5,
+      "oldStrReq": 0,
+      "oldMinDamage": 1,
+      "oldMaxDamage": 8,
+      "oldSpeed": 30,
+      "defHitSound": -1,
+      "defMissSound": -1,
+      "defSkill": "Wrestling",
+      "defType": "Fists",
+      "defAnimation": "Wrestle",
+      "graphic": 0
+    }
+  },
+  {
+    "type": "Server.Items.FireworksWand",
+    "weaponCharges": 100,
+    "lootType": "Blessed"
   }
 ]

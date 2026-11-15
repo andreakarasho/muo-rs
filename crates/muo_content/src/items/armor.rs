@@ -442,7 +442,7 @@ pub fn allow_wearer(w: &World, id: ItemId) -> (bool, bool) {
     let c = class(w, id);
     (
         ep::boolean(w, id, "allowMaleWearer", c.allow_male_wearer),
-        c.allow_female_wearer,
+        ep::boolean(w, id, "allowFemaleWearer", c.allow_female_wearer),
     )
 }
 

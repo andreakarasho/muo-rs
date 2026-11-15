@@ -145,6 +145,22 @@ pub fn graphic(w: &mut World, ty: &'static muo_server::item::ItemType) -> i32 {
 }
 
 pub static SKILLS: Names<muo_server::skills::SkillName> = Names::new(skills);
+pub static LAYERS: Names<muo_server::layer::Layer> = Names::new(layers);
+
+fn layers() -> Vec<muo_server::layer::Layer> {
+    (0..=muo_server::layer::Layer::Bank.0)
+        .map(muo_server::layer::Layer)
+        .collect()
+}
+
+/// The `layer` prop (the layer an abstract jewel/clothing class passes to its base constructor), else `fallback`.
+pub fn layer(
+    w: &World,
+    id: ItemId,
+    fallback: muo_server::layer::Layer,
+) -> muo_server::layer::Layer {
+    named(w, id, "layer", &LAYERS, fallback)
+}
 pub static RESOURCES: Names<crate::craft::CraftResource> = Names::new(resources);
 
 fn skills() -> Vec<muo_server::skills::SkillName> {

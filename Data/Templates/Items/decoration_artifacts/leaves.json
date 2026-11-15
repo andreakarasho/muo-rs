@@ -4,310 +4,536 @@
     "itemId": 7717,
     "hue": 2413,
     "props": {
-      "labelNumber": 1071202
+      "labelNumber": 1071202,
+      "artifactRarity": 8
     }
   },
   {
     "type": "Server.Items.BloodyWaterArtifact",
-    "itemId": 3619
+    "itemId": 3619,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.BooksFaceDownArtifact",
-    "itemId": 7713
+    "itemId": 7713,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.BooksNorthArtifact",
-    "itemId": 7716
+    "itemId": 7716,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.BooksWestArtifact",
-    "itemId": 7717
+    "itemId": 7717,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.BottleArtifact",
-    "itemId": 3624
+    "itemId": 3624,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.BrazierArtifact",
     "itemId": 3633,
-    "light": "Circle150"
+    "light": "Circle150",
+    "props": {
+      "artifactRarity": 2
+    }
   },
   {
     "type": "Server.Items.CocoonArtifact",
-    "itemId": 4314
+    "itemId": 4314,
+    "props": {
+      "artifactRarity": 7
+    }
   },
   {
     "type": "Server.Items.DamagedBooksArtifact",
-    "itemId": 3094
+    "itemId": 3094,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.EggCaseArtifact",
-    "itemId": 4313
+    "itemId": 4313,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.GruesomeStandardArtifact",
-    "itemId": 1064
+    "itemId": 1064,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.LampPostArtifact",
     "itemId": 2852,
-    "light": "Circle300"
+    "light": "Circle300",
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.LeatherTunicArtifact",
-    "itemId": 5066
+    "itemId": 5066,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.RockArtifact",
-    "itemId": 4963
+    "itemId": 4963,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.RuinedPaintingArtifact",
-    "itemId": 3116
+    "itemId": 3116,
+    "props": {
+      "artifactRarity": 12
+    }
   },
   {
     "type": "Server.Items.SaddleArtifact",
-    "itemId": 3896
+    "itemId": 3896,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.SkinnedDeerArtifact",
-    "itemId": 7825
+    "itemId": 7825,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.SkinnedGoatArtifact",
-    "itemId": 7816
+    "itemId": 7816,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.SkullCandleArtifact",
     "itemId": 6232,
-    "light": "Circle150"
+    "light": "Circle150",
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.StretchedHideArtifact",
-    "itemId": 4203
+    "itemId": 4203,
+    "props": {
+      "artifactRarity": 2
+    }
   },
   {
     "type": "Server.Items.StuddedLeggingsArtifact",
-    "itemId": 5080
+    "itemId": 5080,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.StuddedTunicArtifact",
-    "itemId": 5081
+    "itemId": 5081,
+    "props": {
+      "artifactRarity": 7
+    }
   },
   {
     "type": "Server.Items.TarotCardsArtifact",
-    "itemId": 4773
+    "itemId": 4773,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.BowlArtifact",
-    "itemId": 9438
+    "itemId": 9438,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.BowlsHorizontalArtifact",
-    "itemId": 9440
+    "itemId": 9440,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.BowlsVerticalArtifact",
-    "itemId": 9439
+    "itemId": 9439,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.CupsArtifact",
-    "itemId": 9441
+    "itemId": 9441,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.DolphinLeftArtifact",
-    "itemId": 10310
+    "itemId": 10310,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.DolphinRightArtifact",
-    "itemId": 10311
+    "itemId": 10311,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.FanNorthArtifact",
-    "itemId": 9225
+    "itemId": 9225,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.FanWestArtifact",
-    "itemId": 9226
+    "itemId": 9226,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.FlowersArtifact",
-    "itemId": 10314
+    "itemId": 10314,
+    "props": {
+      "artifactRarity": 7
+    }
   },
   {
     "type": "Server.Items.ManStatuetteEastArtifact",
-    "itemId": 10313
+    "itemId": 10313,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.ManStatuetteSouthArtifact",
-    "itemId": 10312
+    "itemId": 10312,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.Painting1NorthArtifact",
-    "itemId": 9229
+    "itemId": 9229,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.Painting1WestArtifact",
-    "itemId": 9230
+    "itemId": 9230,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.Painting2NorthArtifact",
-    "itemId": 9231
+    "itemId": 9231,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.Painting2WestArtifact",
-    "itemId": 9232
+    "itemId": 9232,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.Painting3Artifact",
-    "itemId": 9233
+    "itemId": 9233,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.Painting4NorthArtifact",
-    "itemId": 9233
+    "itemId": 9233,
+    "props": {
+      "artifactRarity": 6
+    }
   },
   {
     "type": "Server.Items.Painting4WestArtifact",
-    "itemId": 9234
+    "itemId": 9234,
+    "props": {
+      "artifactRarity": 6
+    }
   },
   {
     "type": "Server.Items.Painting5NorthArtifact",
-    "itemId": 9237
+    "itemId": 9237,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.Painting5WestArtifact",
-    "itemId": 9238
+    "itemId": 9238,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.Painting6NorthArtifact",
-    "itemId": 9239
+    "itemId": 9239,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.Painting6WestArtifact",
-    "itemId": 9240
+    "itemId": 9240,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.SakeArtifact",
-    "itemId": 9442
+    "itemId": 9442,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.Sculpture1Artifact",
-    "itemId": 9241
+    "itemId": 9241,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.Sculpture2Artifact",
-    "itemId": 9243
+    "itemId": 9243,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.SwordDisplay1NorthArtifact",
-    "itemId": 10307
+    "itemId": 10307,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.SwordDisplay1WestArtifact",
-    "itemId": 10306
+    "itemId": 10306,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.SwordDisplay2NorthArtifact",
-    "itemId": 10309
+    "itemId": 10309,
+    "props": {
+      "artifactRarity": 6
+    }
   },
   {
     "type": "Server.Items.SwordDisplay2WestArtifact",
-    "itemId": 10308
+    "itemId": 10308,
+    "props": {
+      "artifactRarity": 6
+    }
   },
   {
     "type": "Server.Items.SwordDisplay3EastArtifact",
-    "itemId": 10326
+    "itemId": 10326,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.SwordDisplay3SouthArtifact",
-    "itemId": 10325
+    "itemId": 10325,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.SwordDisplay4NorthArtifact",
-    "itemId": 10324
+    "itemId": 10324,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.SwordDisplay4WestArtifact",
-    "itemId": 10323
+    "itemId": 10323,
+    "props": {
+      "artifactRarity": 8
+    }
   },
   {
     "type": "Server.Items.SwordDisplay5NorthArtifact",
-    "itemId": 10322
+    "itemId": 10322,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.SwordDisplay5WestArtifact",
-    "itemId": 10321
+    "itemId": 10321,
+    "props": {
+      "artifactRarity": 9
+    }
   },
   {
     "type": "Server.Items.TeapotNorthArtifact",
-    "itemId": 9446
+    "itemId": 9446,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.TeapotWestArtifact",
-    "itemId": 9447
+    "itemId": 9447,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.TripleFanNorthArtifact",
-    "itemId": 9227
+    "itemId": 9227,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.TripleFanWestArtifact",
-    "itemId": 9228
+    "itemId": 9228,
+    "props": {
+      "artifactRarity": 4
+    }
   },
   {
     "type": "Server.Items.Urn1Artifact",
-    "itemId": 9245
+    "itemId": 9245,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.Urn2Artifact",
-    "itemId": 9246
+    "itemId": 9246,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.ZenRock1Artifact",
-    "itemId": 9444
+    "itemId": 9444,
+    "props": {
+      "artifactRarity": 2
+    }
   },
   {
     "type": "Server.Items.ZenRock2Artifact",
-    "itemId": 9443
+    "itemId": 9443,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.ZenRock3Artifact",
-    "itemId": 9445
+    "itemId": 9445,
+    "props": {
+      "artifactRarity": 3
+    }
   },
   {
     "type": "Server.Items.BackpackArtifact",
-    "itemId": 2482
+    "itemId": 2482,
+    "props": {
+      "artifactRarity": 5
+    }
   },
   {
     "type": "Server.Items.Basket1Artifact",
-    "itemId": 9437
+    "itemId": 9437,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.Basket2Artifact",
-    "itemId": 9431
+    "itemId": 9431,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.Basket3NorthArtifact",
-    "itemId": 9434
+    "itemId": 9434,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.Basket3WestArtifact",
-    "itemId": 9433
+    "itemId": 9433,
+    "props": {
+      "artifactRarity": 1
+    }
   },
   {
     "type": "Server.Items.Basket4Artifact",
-    "itemId": 9432
+    "itemId": 9432,
+    "props": {
+      "artifactRarity": 2
+    }
   },
   {
     "type": "Server.Items.Basket5NorthArtifact",
-    "itemId": 9435
+    "itemId": 9435,
+    "props": {
+      "artifactRarity": 2
+    }
   },
   {
     "type": "Server.Items.Basket5WestArtifact",
-    "itemId": 9436
+    "itemId": 9436,
+    "props": {
+      "artifactRarity": 2
+    }
   },
   {
     "type": "Server.Items.Basket6Artifact",
-    "itemId": 9429
+    "itemId": 9429,
+    "props": {
+      "artifactRarity": 2
+    }
   }
 ]
