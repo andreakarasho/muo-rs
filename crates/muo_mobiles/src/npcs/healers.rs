@@ -5,16 +5,14 @@ use muo_content::creature;
 use muo_content::creature::enums::{AIType, FightMode};
 use muo_content::hooks::rnd;
 use muo_content::vendor::{
-    self, BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, ShoeType, VendorClass, new_vendor,
+    self, BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass, new_vendor,
 };
 use muo_primitives::{DateTime, Point3D, TimeSpan, utility};
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::mobile::part1::props_a;
-use muo_server::mobile::{MobileType, ResistanceType};
+use muo_server::mobile::MobileType;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
-use super::vendors::add_item_hued;
 use crate::common::*;
 
 /// What `BaseHealer` adds to a `BaseVendor`.
@@ -89,7 +87,8 @@ fn mage_ai(w: &mut World, id: MobileId) {
     }
 }
 
-/// `BaseHealer(price)` after `BaseVendor(null)`.
+/// `BaseHealer(price)` after `BaseVendor(null)`: the class data and the AI; its statements are the
+/// `Server.Mobiles.BaseHealer` template every healer template `inherits`.
 fn base_healer_init(w: &mut World, id: MobileId, price: i32) {
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(HealerData {
@@ -98,36 +97,6 @@ fn base_healer_init(w: &mut World, id: MobileId, price: i32) {
         });
     }
     mage_ai(w, id);
-
-    speech_hue(w, id, 0);
-
-    set_str_range(w, id, 304, 400);
-    set_dex_range(w, id, 102, 150);
-    set_int_range(w, id, 204, 300);
-
-    set_damage(w, id, 10, 23);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-
-    set_skill_range(w, id, SkillName::Anatomy, 75.0, 97.5);
-    set_skill_range(w, id, SkillName::EvalInt, 82.0, 100.0);
-    set_skill_range(w, id, SkillName::Healing, 75.0, 97.5);
-    set_skill_range(w, id, SkillName::Magery, 82.0, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 82.0, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 82.0, 100.0);
-
-    fame(w, id, 1000);
-    karma(w, id, 10000);
-
-    let n = rnd::min_max(w, 5, 10);
-    pack_new_amount(w, id, "Server.Items.Bandage", n);
-    pack_new(w, id, "Server.Items.HealPotion");
-    pack_new(w, id, "Server.Items.CurePotion");
 }
 
 /// `OfferResurrection(m)`.
@@ -194,9 +163,9 @@ fn on_movement(w: &mut World, healer: MobileId, m: MobileId, old: Point3D) {
 }
 
 static BASE_HEALER_V: VendorClass = VendorClass {
-    init_sb_info: |_, _| Vec::new(),
+    init_sb_info: super::vendors::sb::from_props,
     is_active_vendor: |_, _| false,
-    shoe_type: |_, _| ShoeType::Sandals,
+    shoe_type: crate::template_keys_npcs::shoe_type,
     init_outfit: |w, id| {
         vendor::init_outfit(w, id);
         let h = (hclass(w, id).get_robe_color)(w, id);
@@ -289,6 +258,7 @@ macro_rules! healer_leaf {
 fn new_healer_base(w: &mut World, ty: &'static MobileType, price: i32) -> MobileId {
     let id = new_vendor(w, ty, None);
     base_healer_init(w, id, price);
+    muo_content::templates::apply_mobile(w, id);
     id
 }
 
@@ -330,17 +300,7 @@ fn evil_check_resurrect(w: &mut World, id: MobileId, m: MobileId) -> bool {
 
 // Healer
 fn healer_new(w: &mut World) -> MobileId {
-    let id = new_healer_base(w, &HEALER, 0);
-    props_a::set_title(w, id, Some("the healer".to_owned()));
-    if !w.core_aos()
-        && let Some(m) = w.mobile_mut(id)
-    {
-        m.name_hue = 0x35;
-    }
-    set_skill_range(w, id, SkillName::Forensics, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::Swords, 80.0, 100.0);
-    id
+    new_healer_base(w, &HEALER, 0)
 }
 static HEALER_H: HealerClass = HealerClass {
     check_resurrect: healer_check_resurrect,
@@ -348,7 +308,6 @@ static HEALER_H: HealerClass = HealerClass {
 };
 static HEALER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| true,
-    init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBHealer")],
     subclass: Some(&HEALER_H),
     ..BASE_HEALER_V
 };
@@ -363,13 +322,7 @@ healer_leaf!(HEALER, HEALER_C, HEALER_V, HEALER_H = "Server.Mobiles.Healer", ver
 
 // EvilHealer
 fn evil_healer_new(w: &mut World) -> MobileId {
-    let id = new_healer_base(w, &EVIL_HEALER, 0);
-    props_a::set_title(w, id, Some("the healer".to_owned()));
-    karma(w, id, -10000);
-    set_skill_range(w, id, SkillName::Forensics, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::Swords, 80.0, 100.0);
-    id
+    new_healer_base(w, &EVIL_HEALER, 0)
 }
 static EVIL_HEALER_H: HealerClass = HealerClass {
     check_resurrect: evil_check_resurrect,
@@ -377,7 +330,6 @@ static EVIL_HEALER_H: HealerClass = HealerClass {
 };
 static EVIL_HEALER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| true,
-    init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBHealer")],
     subclass: Some(&EVIL_HEALER_H),
     ..BASE_HEALER_V
 };
@@ -392,19 +344,7 @@ healer_leaf!(EVIL_HEALER, EVIL_HEALER_C, EVIL_HEALER_V, EVIL_HEALER_H = "Server.
 
 // EvilWanderingHealer
 fn evil_wandering_healer_new(w: &mut World) -> MobileId {
-    let id = new_healer_base(w, &EVIL_WANDERING_HEALER, 0);
-    let t = if w.core_aos() {
-        "the priest Of Mondain"
-    } else {
-        "the evil wandering healer"
-    };
-    props_a::set_title(w, id, Some(t.to_owned()));
-    karma(w, id, -10000);
-    add_new(w, id, "Server.Items.GnarledStaff");
-    set_skill_range(w, id, SkillName::Camping, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::Forensics, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 80.0, 100.0);
-    id
+    new_healer_base(w, &EVIL_WANDERING_HEALER, 0)
 }
 static EVIL_WANDERING_HEALER_H: HealerClass = HealerClass {
     check_resurrect: evil_check_resurrect,
@@ -425,13 +365,7 @@ healer_leaf!(EVIL_WANDERING_HEALER, EVIL_WANDERING_HEALER_C, EVIL_WANDERING_HEAL
 
 // FortuneTeller
 fn fortune_teller_new(w: &mut World) -> MobileId {
-    let id = new_healer_base(w, &FORTUNE_TELLER, 0);
-    props_a::set_title(w, id, Some("the fortune teller".to_owned()));
-    set_skill_range(w, id, SkillName::Anatomy, 85.0, 100.0);
-    set_skill_range(w, id, SkillName::Healing, 90.0, 100.0);
-    set_skill_range(w, id, SkillName::Forensics, 75.0, 98.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 65.0, 88.0);
-    id
+    new_healer_base(w, &FORTUNE_TELLER, 0)
 }
 static FORTUNE_TELLER_H: HealerClass = HealerClass {
     get_robe_color: |w, _| utility::random_bright_hue(&mut w.rng),
@@ -439,26 +373,7 @@ static FORTUNE_TELLER_H: HealerClass = HealerClass {
 };
 static FORTUNE_TELLER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| true,
-    init_sb_info: |w, id| {
-        vec![
-            crate::npcs::vendors::sb::named(w, id, "SBMage"),
-            crate::npcs::vendors::sb::named(w, id, "SBFortuneTeller"),
-        ]
-    },
-    init_outfit: |w, id| {
-        // BaseHealer.InitOutfit
-        vendor::init_outfit(w, id);
-        let h = utility::random_bright_hue(&mut w.rng);
-        vendor::add_hued(w, id, "Server.Items.Robe", h);
-        let hat = match rnd::below(w, 3) {
-            0 => "Server.Items.SkullCap",
-            1 => "Server.Items.WizardsHat",
-            _ => "Server.Items.Bandana",
-        };
-        let h = utility::random_bright_hue(&mut w.rng);
-        vendor::add_hued(w, id, hat, h);
-        add_item_hued(w, id, "Server.Items.Spellbook", None);
-    },
+    init_outfit: crate::template_keys_npcs::init_outfit,
     subclass: Some(&FORTUNE_TELLER_H),
     ..BASE_HEALER_V
 };
@@ -473,13 +388,7 @@ healer_leaf!(FORTUNE_TELLER, FORTUNE_TELLER_C, FORTUNE_TELLER_V, FORTUNE_TELLER_
 
 // WanderingHealer
 fn wandering_healer_new(w: &mut World) -> MobileId {
-    let id = new_healer_base(w, &WANDERING_HEALER, 0);
-    props_a::set_title(w, id, Some("the wandering healer".to_owned()));
-    add_new(w, id, "Server.Items.GnarledStaff");
-    set_skill_range(w, id, SkillName::Camping, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::Forensics, 80.0, 100.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 80.0, 100.0);
-    id
+    new_healer_base(w, &WANDERING_HEALER, 0)
 }
 static WANDERING_HEALER_H: HealerClass = HealerClass {
     check_resurrect: healer_check_resurrect,
@@ -504,13 +413,7 @@ fn priced_healer_new(w: &mut World) -> MobileId {
 
 /// `new PricedHealer(price)`.
 pub fn priced_healer_with(w: &mut World, price: i32) -> MobileId {
-    let id = new_healer_base(w, &PRICED_HEALER, price);
-    if !w.core_aos()
-        && let Some(m) = w.mobile_mut(id)
-    {
-        m.name_hue = 0x35;
-    }
-    id
+    new_healer_base(w, &PRICED_HEALER, price)
 }
 static PRICED_HEALER_H: HealerClass = HealerClass {
     heals_young_players: |_, _| false,

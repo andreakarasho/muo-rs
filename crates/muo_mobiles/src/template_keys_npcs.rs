@@ -14,7 +14,7 @@
 //!   Race.RandomFacialHair(this);` (the facial roll is discarded, as the hireling constructors do).
 //! - `npcHair: {"hue": <hue>, "facialSkipOneIn": n}`: `AssignRandomHair(this, hue)`, then
 //!   `if (Utility.Random(n) != 0) AssignRandomFacialHair(this, hue)` with the same hue.
-//! - `npcInitStats: [str, dex, int]`, `npcSpeed: [active, passive]`, `npcBlessed: true`.
+//! - `npcInitStats: [str, dex, int]`, `npcSpeed: [active, passive]`, `npcBlessed: true`, `npcNameHue: n`.
 //! - `npcEquip` (`EquipItem`), `npcAddItem` (`AddItem`), `npcReplaceEquipment` (`ReplaceEquipment`).
 //! - `npcGoldPack: [min, max]`: an unmovable backpack holding `new Gold(min, max)`.
 //! - `npcHoldGold: n`: the `BaseHire(AIType)` constructor's `HoldGold = 8`.
@@ -255,6 +255,16 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         |w, id, v| {
             let (a, p) = (v[0].as_f64().unwrap_or(0.2), v[1].as_f64().unwrap_or(0.4));
             muo_content::creature::speeds::set_speed(w, id, a, p, true);
+        },
+    );
+    mobile_key(
+        types,
+        "npcNameHue",
+        muo_content::templates::keys::check_int,
+        |w, id, v| {
+            if let Some(m) = w.mobile_mut(id) {
+                m.name_hue = muo_content::templates::keys::int(v);
+            }
         },
     );
     mobile_key(types, "npcBlessed", check_bool, |w, id, v| {
