@@ -108,6 +108,7 @@
   },
   {
     "type": "Server.Items.TribalSpear",
+    "hue": 837,
     "props": {
       "aosStrReq": 50,
       "aosMinDamage": 13,

@@ -69,8 +69,22 @@ macro_rules! ver_read {
 /// `graphic X` is `: base(X)` of an abstract base; `via f` runs the constructor `f` of the parent leaf (an implicit
 /// `base()`), both for the leaf's own type (so a virtual the constructor reads is the leaf's). `v0` is
 /// `[SerializationGenerator(0, false)]` (the version as an int), `enc` is `[SerializationGenerator(0)]` (an
-/// encoded int).
+/// encoded int). `@json;` in place of `@init` replays the class's own template (`Data/Templates/Items`).
 macro_rules! weapon_leaf {
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,
+        $how:ident $arg:expr, $ver:ident;
+        @json;
+        $($rest:tt)*
+    ) => {
+        weapon_leaf! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, $how $arg, $ver;
+            @init |w, id| muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,
@@ -163,5 +177,7 @@ pub fn register(types: &mut TypeRegistry) {
     wooden::register(types);
 }
 
+#[cfg(test)]
+mod template_tests;
 #[cfg(test)]
 mod tests;

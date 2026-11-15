@@ -32,7 +32,6 @@ weapon_leaf! {
     /// `Server.Items.GargoylesPickaxe`.
     GARGOYLES_PICKAXE, GARGOYLES_PICKAXE_CLASS, gargoyles_pickaxe_new = "Server.Items.GargoylesPickaxe" : BASE_AXE / BASE_AXE_CLASS, via gargoyles_default, v0;
     default_weight: Some(11.0),
-    label_number: 1041281, // a gargoyle's pickaxe
     harvest_system: Some("Mining"),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::Disarm),
@@ -53,7 +52,6 @@ weapon_leaf! {
         ctor::set_show_uses_remaining(w, id, true);
     };
     default_weight: Some(11.0),
-    label_number: 1045126, // sturdy pickaxe
     harvest_system: Some("Mining"),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::Disarm),
@@ -102,7 +100,6 @@ pub fn prospectors_tool_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 /// The `override`s of the class.
 pub static PROSPECTORS_TOOL_CLASS: WeaponClass = WeaponClass {
     default_weight: Some(9.0),
-    label_number: 1049065, // prospector's tool
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::ShadowStrike),
     aos_str_req: 40,

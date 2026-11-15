@@ -14,9 +14,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Daisho`.
     DAISHO, DAISHO_CLASS, daisho_new = "Server.Items.Daisho" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x27A9, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27A9, 0x27F4)),
     default_weight: Some(8.0),
     primary_ability: Some(Ability::Feint),
@@ -26,9 +24,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Kama`.
     KAMA, KAMA_CLASS, kama_new = "Server.Items.Kama" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x27AD, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27AD, 0x27F8)),
     default_weight: Some(7.0),
     primary_ability: Some(Ability::WhirlwindAttack),
@@ -41,9 +37,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Lajatang`.
     LAJATANG, LAJATANG_CLASS, lajatang_new = "Server.Items.Lajatang" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x27A7, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27A7, 0x27F2)),
     default_weight: Some(12.0),
     primary_ability: Some(Ability::DefenseMastery),
@@ -56,9 +50,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.NoDachi`.
     NO_DACHI, NO_DACHI_CLASS, no_dachi_new = "Server.Items.NoDachi" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x27A2, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27A2, 0x27ED)),
     default_weight: Some(10.0),
     primary_ability: Some(Ability::CrushingBlow),
@@ -77,9 +69,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Sai`.
     SAI, SAI_CLASS, sai_new = "Server.Items.Sai" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x27AF, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27AF, 0x27FA)),
     default_weight: Some(7.0),
     primary_ability: Some(Ability::Block),
@@ -92,9 +82,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Tekagi`.
     TEKAGI, TEKAGI_CLASS, tekagi_new = "Server.Items.Tekagi" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x27AB, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27AB, 0x27F6)),
     default_weight: Some(5.0),
     primary_ability: Some(Ability::DualWield),
@@ -107,9 +95,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Tessen`.
     TESSEN, TESSEN_CLASS, tessen_new = "Server.Items.Tessen" : BASE_BASHING / BASE_BASHING_CLASS, graphic 0x27A3, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27A3, 0x27EE)),
     default_weight: Some(6.0),
     primary_ability: Some(Ability::Feint),
@@ -120,9 +106,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Tetsubo`.
     TETSUBO, TETSUBO_CLASS, tetsubo_new = "Server.Items.Tetsubo" : BASE_BASHING / BASE_BASHING_CLASS, graphic 0x27A6, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x27A6, 0x27F1)),
     default_weight: Some(8.0),
     primary_ability: Some(Ability::FrenziedWhirlwind),
@@ -133,9 +117,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Wakizashi`.
     WAKIZASHI, WAKIZASHI_CLASS, wakizashi_new = "Server.Items.Wakizashi" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x27A4, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::OneHanded);
-    };
+    @json;
     flippable: Some((0x27A4, 0x27EF)),
     default_weight: Some(5.0),
     primary_ability: Some(Ability::FrenziedWhirlwind),

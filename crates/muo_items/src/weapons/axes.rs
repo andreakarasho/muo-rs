@@ -14,9 +14,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.BattleAxe`.
     BATTLE_AXE, BATTLE_AXE_CLASS, battle_axe_new = "Server.Items.BattleAxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0xF47, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0xF47, 0xF48)),
     default_weight: Some(4.0),
     primary_ability: Some(Ability::BleedAttack),
@@ -55,11 +53,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.GuardianAxe`.
     GUARDIAN_AXE, GUARDIAN_AXE_CLASS, guardian_axe_new = "Server.Items.GuardianAxe" : ORNATE_AXE / ORNATE_AXE_CLASS, via ornate_axe_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 4);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
-    };
-    label_number: 1073545,
+    @json;
 }
 
 weapon_leaf! {
@@ -74,10 +68,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.HeavyOrnateAxe`.
     HEAVY_ORNATE_AXE, HEAVY_ORNATE_AXE_CLASS, heavy_ornate_axe_new = "Server.Items.HeavyOrnateAxe" : ORNATE_AXE / ORNATE_AXE_CLASS, via ornate_axe_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 8);
-    };
-    label_number: 1073548,
+    @json;
 }
 
 weapon_leaf! {
@@ -108,19 +99,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.SingingAxe`.
     SINGING_AXE, SINGING_AXE_CLASS, singing_axe_new = "Server.Items.SingingAxe" : ORNATE_AXE / ORNATE_AXE_CLASS, via ornate_axe_new, enc;
-    @init |w, id| {
-        ctor::skill_bonus(w, id, 0, SkillName::Musicianship, 5.0);
-    };
-    label_number: 1073546,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.ThunderingAxe`.
     THUNDERING_AXE, THUNDERING_AXE_CLASS, thundering_axe_new = "Server.Items.ThunderingAxe" : ORNATE_AXE / ORNATE_AXE_CLASS, via ornate_axe_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 10);
-    };
-    label_number: 1073547,
+    @json;
 }
 
 weapon_leaf! {

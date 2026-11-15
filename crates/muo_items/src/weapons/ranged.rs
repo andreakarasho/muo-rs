@@ -5,20 +5,13 @@ use super::*;
 weapon_leaf! {
     /// `Server.Items.AssassinsShortbow`.
     ASSASSINS_SHORTBOW, ASSASSINS_SHORTBOW_CLASS, assassins_shortbow_new = "Server.Items.AssassinsShortbow" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 4);
-    };
-    label_number: 1073512,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.BarbedLongbow`.
     BARBED_LONGBOW, BARBED_LONGBOW_CLASS, barbed_longbow_new = "Server.Items.BarbedLongbow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 12);
-    };
-    label_number: 1073505,
+    @json;
 }
 
 weapon_leaf! {
@@ -54,11 +47,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.FrozenLongbow`.
     FROZEN_LONGBOW, FROZEN_LONGBOW_CLASS, frozen_longbow_new = "Server.Items.FrozenLongbow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, -5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 10);
-    };
-    label_number: 1073507,
+    @json;
 }
 
 weapon_leaf! {
@@ -94,35 +83,24 @@ weapon_leaf! {
     @init |w, id| {
         ctor::set_balanced(w, id, true);
     };
-    label_number: 1073510,
 }
 
 weapon_leaf! {
     /// `Server.Items.LongbowOfMight`.
     LONGBOW_OF_MIGHT, LONGBOW_OF_MIGHT_CLASS, longbow_of_might_new = "Server.Items.LongbowOfMight" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 5);
-    };
-    label_number: 1073508,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.MysticalShortbow`.
     MYSTICAL_SHORTBOW, MYSTICAL_SHORTBOW_CLASS, mystical_shortbow_new = "Server.Items.MysticalShortbow" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, -1);
-    };
-    label_number: 1073511,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.RangersShortbow`.
     RANGERS_SHORTBOW, RANGERS_SHORTBOW_CLASS, rangers_shortbow_new = "Server.Items.RangersShortbow" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 5);
-    };
-    label_number: 1073509,
+    @json;
 }
 
 weapon_leaf! {
@@ -145,7 +123,6 @@ weapon_leaf! {
     @init |w, id| {
         let v = random_min_max(w, 1, 27); ctor::set_slayer2(w, id, v);
     };
-    label_number: 1073506,
 }
 
 pub fn register(types: &mut TypeRegistry) {

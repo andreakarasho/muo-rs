@@ -3,11 +3,13 @@
     "type": "Server.Items.BansheesCall",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1113529
     }
   },
   {
     "type": "Server.Items.Boomerang",
+    "layer": "OneHanded",
     "props": {
       "aosStrReq": 25,
       "aosMinDamage": 11,
@@ -19,6 +21,7 @@
   },
   {
     "type": "Server.Items.Cyclone",
+    "layer": "OneHanded",
     "props": {
       "aosStrReq": 40,
       "aosMinDamage": 13,
@@ -32,11 +35,13 @@
     "type": "Server.Items.RaptorClaw",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1112394
     }
   },
   {
     "type": "Server.Items.SoulGlaive",
+    "layer": "OneHanded",
     "props": {
       "aosStrReq": 60,
       "aosMinDamage": 16,
@@ -50,28 +55,56 @@
     "type": "Server.Items.StoneSlithClaw",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1112393
     }
   },
   {
     "type": "Server.Items.StormCaller",
+    "hue": 456,
+    "weaponAttributes": {
+      "HitLightning": 40,
+      "HitLowerDefend": 30
+    },
+    "attributes": {
+      "BonusStr": 5,
+      "WeaponSpeed": 30,
+      "WeaponDamage": 40
+    },
+    "elementAttributes": {
+      "Physical": 20,
+      "Fire": 20,
+      "Cold": 20,
+      "Poison": 20,
+      "Energy": 20
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1113530
     }
   },
   {
     "type": "Server.Items.ValkyriesGlaive",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1113531,
+      "artifactRarity": 5
     }
   },
   {
     "type": "Server.Items.WindOfCorruption",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1150358
+    }
+  },
+  {
+    "type": "Server.Items.AbyssReaver",
+    "props": {
+      "labelNumber": 1112694
     }
   }
 ]

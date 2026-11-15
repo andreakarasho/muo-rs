@@ -15,10 +15,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Engines.Quests.Doom.ChylothStaff`.
     CHYLOTH_STAFF, CHYLOTH_STAFF_CLASS, chyloth_staff_new = "Server.Engines.Quests.Doom.ChylothStaff" : BLACK_STAFF / BLACK_STAFF_CLASS, via black_staff_new, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x482);
-    };
-    label_number: 1041111, // a magic staff
+    @json;
 }
 
 weapon_leaf! {
@@ -30,7 +27,6 @@ weapon_leaf! {
         let v = random_min_max(w, 5, 10); set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::MageWeapon as u32, v);
         let v = 20 + 5 * random_min_max(w, 0, 6); set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, v);
     };
-    label_number: 1017413,
 }
 
 weapon_leaf! {
