@@ -72,19 +72,6 @@ fn set_dryad_state(w: &mut World, id: MobileId, s: DryadState) {
     }
 }
 
-/// `if (Core.ML && Utility.RandomDouble() < .60) PackItem(Seed.RandomPeculiarSeed(1));`
-pub fn ml_dryad_ctor1(w: &mut World, id: MobileId) {
-    if w.core_ml() && rnd::double(w) < 0.60 {
-        let s = super::seed::random_peculiar_seed(w, 1);
-        pack_item(w, id, s);
-    }
-}
-
-/// `PackArcanceScroll(0.05);`
-pub fn ml_dryad_ctor2(w: &mut World, id: MobileId) {
-    pack_arcane_scroll_chance(w, id, 0.05);
-}
-
 pub fn ml_dryad_on_think(w: &mut World, id: MobileId) {
     (BASE_CREATURE_C.on_think)(w, id);
     ml_dryad_area_peace(w, id);
@@ -188,11 +175,6 @@ fn update_satyr(w: &mut World, id: MobileId, f: impl FnOnce(&mut SatyrState)) {
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(s);
     }
-}
-
-/// `PackArcanceScroll(0.05);`
-pub fn satyr_ctor1(w: &mut World, id: MobileId) {
-    pack_arcane_scroll_chance(w, id, 0.05);
 }
 
 pub fn satyr_on_think(w: &mut World, id: MobileId) {
@@ -359,14 +341,8 @@ pub fn satyr_provoke(w: &mut World, id: MobileId, target: Option<MobileId>) {
 
 // ---- VorpalBunny ----
 
-/// `var carrots = Utility.RandomMinMax(5, 10); PackItem(new Carrot(carrots));`
-pub fn vorpal_bunny_ctor1(w: &mut World, id: MobileId) {
-    let n = rnd::min_max(w, 5, 10);
-    pack_new_amount(w, id, "Server.Items.Carrot", n);
-}
-
 /// `DelayBeginTunnel();`: three minutes later the bunny digs back to its lair.
-pub fn vorpal_bunny_ctor2(w: &mut World, id: MobileId) {
+pub fn vorpal_bunny_tunnel(w: &mut World, id: MobileId) {
     timer::start(w, TimeSpan::from_secs(180), TimeSpan::ZERO, 1, move |w| {
         muo_items::talismans::summons::begin_tunnel(w, id)
     });

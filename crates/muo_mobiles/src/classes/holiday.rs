@@ -102,12 +102,12 @@ creature_leaf! {
     /// `Server.Mobiles.PumpkinHead`.
     PUMPKIN_HEAD, PUMPKIN_HEAD_C = "Server.Mobiles.PumpkinHead" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(pumpkin_head_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a killer pumpkin corpse"),
-        default_name: |_w, _id| Some("a killer pumpkin"),
-        auto_dispel: |_w, _id| true,
-        bard_immune: |_w, _id| true,
-        unprovokable: |_w, _id| true,
-        area_peace_immune: |_w, _id| true,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        default_name: muo_content::templates::creature_props::default_name,
+        auto_dispel: crate::cprops::auto_dispel,
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         new_harmful_item: pumpkin_head_harmful_item,
         generate_loot: |w, id| {
             if rnd::double(w) < 0.05 {
@@ -238,8 +238,8 @@ creature_leaf! {
     /// `Server.Engines.Events.ZombieSkeleton` (no `[Constructible]`).
     ZOMBIE_SKELETON, ZOMBIE_SKELETON_C = "Server.Engines.Events.ZombieSkeleton" : BASE_CREATURE / BASE_CREATURE_C, ctor None, state zombie_serialize, zombie_deserialize;
     c {
-        corpse_name: |_w, _id| Some("a rotting corpse"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        bleed_immune: muo_content::templates::creature_props::bleed_immune,
         poison_immune: |_w, _id| Some(PoisonId(1)), // Poison.Regular
         generate_loot: zombie_generate_loot,
     }

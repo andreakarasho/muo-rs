@@ -20,6 +20,8 @@ fn all() -> Vec<(&'static MobileType, &'static [&'static str])> {
 
 fn world(era: Option<Expansion>) -> World {
     let mut w = World::new();
+    // the creature template keys (`creatureSetup`, ...): a bare registry would skip them
+    crate::template_keys::register(&mut w.types);
     w.core.expansion = era;
     // Every class takes the table's "Medium" speeds (Data/npc-speeds.json is not loaded in a test world).
     w.resources
@@ -388,7 +390,11 @@ fn templated_classes() -> Vec<(String, String)> {
         include_str!("monsters/leaves.rs"),
         include_str!("animals/leaves.rs"),
     ] {
-        for part in text.split("templates::new_creature(w, &").skip(1) {
+        let parts = text
+            .split("cprops::new_creature(w, &")
+            .skip(1)
+            .chain(text.split("cprops::new_mount(w, &").skip(1));
+        for part in parts {
             let ident = &part[..part.find(')').unwrap()];
             let head = format!("\n    {ident}, {ident}_C = \"");
             let at = text.find(&head).unwrap_or_else(|| panic!("{ident}")) + head.len();

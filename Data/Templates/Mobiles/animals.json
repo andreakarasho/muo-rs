@@ -33,7 +33,9 @@
       "defaultName": "a silver serpent",
       "meat": 1,
       "poisonImmune": 4,
-      "loot": [["Average", 1], ["Gems", 2]]
+      "loot": [["Average", 1], ["Gems", 2]],
+      "deathAdderCharmable": true,
+      "hitPoison": 4
     }
   },
   {
@@ -70,7 +72,9 @@
       "corpseName": "an alligator corpse",
       "defaultName": "an alligator",
       "meat": 1,
-      "hides": 12
+      "hides": 12,
+      "hideType": "Spined",
+      "favoriteFood": ["Meat", "Fish"]
     }
   },
   {
@@ -112,7 +116,8 @@
       "meat": 1,
       "feathers": 36,
       "canFly": true,
-      "loot": [["FilthyRich", 1], ["Rich", 1]]
+      "loot": [["FilthyRich", 1], ["Rich", 1]],
+      "meatType": "Bird"
     }
   },
   {
@@ -150,7 +155,9 @@
       "corpseName": "a bear corpse",
       "defaultName": "a black bear",
       "meat": 1,
-      "hides": 12
+      "hides": 12,
+      "favoriteFood": ["Fish", "Meat", "FruitsAndVeggies"],
+      "packInstinct": ["Bear"]
     }
   },
   {
@@ -188,7 +195,10 @@
       "corpseName": "a dire wolf corpse",
       "defaultName": "a dire wolf",
       "meat": 1,
-      "hides": 7
+      "hides": 7,
+      "hideType": "Spined",
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Canine"]
     }
   },
   {
@@ -229,7 +239,9 @@
       "defaultName": "an eagle",
       "meat": 1,
       "feathers": 36,
-      "canFly": true
+      "canFly": true,
+      "meatType": "Bird",
+      "favoriteFood": ["Meat", "Fish"]
     }
   },
   {
@@ -267,7 +279,9 @@
       "corpseName": "a bear corpse",
       "defaultName": "a brown bear",
       "meat": 1,
-      "hides": 12
+      "hides": 12,
+      "favoriteFood": ["Fish", "FruitsAndVeggies", "Meat"],
+      "packInstinct": ["Bear"]
     }
   },
   {
@@ -306,7 +320,9 @@
       "corpseName": "a grizzly bear corpse",
       "defaultName": "a grizzly bear",
       "meat": 2,
-      "hides": 16
+      "hides": 16,
+      "favoriteFood": ["Fish", "FruitsAndVeggies", "Meat"],
+      "packInstinct": ["Bear"]
     }
   },
   {
@@ -345,7 +361,9 @@
       "corpseName": "a polar bear corpse",
       "defaultName": "a polar bear",
       "meat": 2,
-      "hides": 16
+      "hides": 16,
+      "favoriteFood": ["Fish", "FruitsAndVeggies", "Meat"],
+      "packInstinct": ["Bear"]
     }
   },
   {
@@ -382,7 +400,9 @@
       "defaultName": "a chicken",
       "meat": 1,
       "canFly": true,
-      "feathers": 25
+      "feathers": 25,
+      "meatType": "Bird",
+      "favoriteFood": ["GrainsAndHay"]
     }
   },
   {
@@ -455,7 +475,9 @@
       "corpseName": "a grey wolf corpse",
       "defaultName": "a grey wolf",
       "meat": 1,
-      "hides": 6
+      "hides": 6,
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Canine"]
     }
   },
   {
@@ -495,7 +517,9 @@
       "corpseName": "a timber wolf corpse",
       "defaultName": "a timber wolf",
       "meat": 1,
-      "hides": 5
+      "hides": 5,
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Canine"]
     }
   },
   {
@@ -535,7 +559,9 @@
       "corpseName": "a white wolf corpse",
       "defaultName": "a white wolf",
       "meat": 1,
-      "hides": 6
+      "hides": 6,
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Canine"]
     }
   },
   {
@@ -574,7 +600,9 @@
       "corpseName": "a cougar corpse",
       "defaultName": "a cougar",
       "meat": 1,
-      "hides": 10
+      "hides": 10,
+      "favoriteFood": ["Fish", "Meat"],
+      "packInstinct": ["Feline"]
     }
   },
   {
@@ -614,7 +642,9 @@
       "corpseName": "a panther corpse",
       "defaultName": "a panther",
       "meat": 1,
-      "hides": 10
+      "hides": 10,
+      "favoriteFood": ["Meat", "Fish"],
+      "packInstinct": ["Feline"]
     }
   },
   {
@@ -650,7 +680,10 @@
       "corpseName": "a hell cat corpse",
       "defaultName": "a hell cat",
       "hides": 10,
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "hideType": "Spined",
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Feline"]
     }
   },
   {
@@ -690,7 +723,9 @@
       "corpseName": "a leopard corpse",
       "defaultName": "a snow leopard",
       "meat": 1,
-      "hides": 8
+      "hides": 8,
+      "favoriteFood": ["Meat", "Fish"],
+      "packInstinct": ["Feline"]
     }
   },
   {
@@ -727,7 +762,8 @@
     "props": {
       "corpseName": "a pig corpse",
       "defaultName": "a boar",
-      "meat": 2
+      "meat": 2,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
     }
   },
   {
@@ -802,7 +838,8 @@
       "corpseName": "a gaman corpse",
       "defaultName": "a gaman",
       "meat": 10,
-      "hides": 15
+      "hides": 15,
+      "favoriteFood": ["GrainsAndHay"]
     }
   },
   {
@@ -838,7 +875,9 @@
       "corpseName": "a giant toad corpse",
       "defaultName": "a giant toad",
       "hides": 12,
-      "loot": [["Poor", 1]]
+      "loot": [["Poor", 1]],
+      "hideType": "Spined",
+      "favoriteFood": ["Fish", "Meat"]
     }
   },
   {
@@ -874,7 +913,8 @@
       "corpseName": "a goat corpse",
       "defaultName": "a goat",
       "meat": 2,
-      "hides": 8
+      "hides": 8,
+      "favoriteFood": ["GrainsAndHay", "FruitsAndVeggies", "Leather"]
     }
   },
   {
@@ -912,7 +952,8 @@
       "corpseName": "a gorilla corpse",
       "defaultName": "a gorilla",
       "meat": 1,
-      "hides": 6
+      "hides": 6,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
     }
   },
   {
@@ -948,7 +989,8 @@
       "corpseName": "a deer corpse",
       "defaultName": "a great hart",
       "meat": 6,
-      "hides": 15
+      "hides": 15,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
     }
   },
   {
@@ -984,7 +1026,8 @@
       "corpseName": "a deer corpse",
       "defaultName": "a hind",
       "meat": 5,
-      "hides": 8
+      "hides": 8,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
     }
   },
   {
@@ -1020,7 +1063,8 @@
       "corpseName": "a llama corpse",
       "defaultName": "a llama",
       "meat": 1,
-      "hides": 12
+      "hides": 12,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
     }
   },
   {
@@ -1060,7 +1104,8 @@
       "corpseName": "a mountain goat corpse",
       "defaultName": "a mountain goat",
       "meat": 2,
-      "hides": 12
+      "hides": 12,
+      "favoriteFood": ["GrainsAndHay", "FruitsAndVeggies"]
     }
   },
   {
@@ -1095,7 +1140,8 @@
     "props": {
       "corpseName": "a pig corpse",
       "defaultName": "a pig",
-      "meat": 1
+      "meat": 1,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
     }
   },
   {
@@ -1135,7 +1181,8 @@
       "corpseName": "a walrus corpse",
       "defaultName": "a walrus",
       "meat": 1,
-      "hides": 12
+      "hides": 12,
+      "favoriteFood": ["Fish"]
     }
   },
   {
@@ -1171,7 +1218,8 @@
       "corpseName": "an ice snake corpse",
       "defaultName": "an ice snake",
       "meat": 1,
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "deathAdderCharmable": true
     }
   },
   {
@@ -1211,7 +1259,9 @@
       "defaultName": "a lava serpent",
       "meat": 4,
       "hides": 15,
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "deathAdderCharmable": true,
+      "hideType": "Spined"
     }
   },
   {
@@ -1248,7 +1298,8 @@
       "defaultName": "a giant rat",
       "meat": 1,
       "hides": 6,
-      "loot": [["Poor", 1]]
+      "loot": [["Poor", 1]],
+      "favoriteFood": ["Fish", "Meat", "FruitsAndVeggies", "Eggs"]
     }
   },
   {
@@ -1284,7 +1335,8 @@
       "corpseName": "a jack rabbit corpse",
       "defaultName": "a jack rabbit",
       "meat": 1,
-      "hides": 1
+      "hides": 1,
+      "favoriteFood": ["FruitsAndVeggies"]
     }
   },
   {
@@ -1320,7 +1372,8 @@
       "corpseName": "a rat corpse",
       "defaultName": "a sewer rat",
       "meat": 1,
-      "loot": [["Poor", 1]]
+      "loot": [["Poor", 1]],
+      "favoriteFood": ["Meat", "Eggs", "FruitsAndVeggies"]
     }
   },
   {
@@ -1357,7 +1410,1844 @@
       "corpseName": "a rat corpse",
       "defaultName": "a rat",
       "meat": 1,
+      "loot": [["Poor", 1]],
+      "favoriteFood": ["Meat", "Fish", "Eggs", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BaseWarHorse",
+    "baseSoundId": 168,
+    "creatureInitStats": [
+      {"from": 300, "count": 100},
+      125,
+      60
+    ],
+    "str": 400,
+    "dex": 125,
+    "int": [51, 55],
+    "hits": 240,
+    "mana": 0,
+    "damage": [5, 8],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [30, 40],
+      "Cold": [30, 40],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [25.1, 30.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 300,
+    "karma": 300,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "defaultName": "a war horse",
+      "stepsMax": 6400,
+      "corpseName": "a war horse corpse",
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SkeletalMount",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "str": [91, 100],
+    "dex": [46, 55],
+    "int": [46, 60],
+    "hits": [41, 50],
+    "damage": [5, 12],
+    "damageTypes": {
+      "Physical": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Cold": [90, 95],
+      "Poison": 100,
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [95.1, 100.0],
+      "Tactics": 50.0,
+      "Wrestling": [70.1, 80.0]
+    },
+    "fame": 0,
+    "karma": 0,
+    "props": {
+      "mountBody": 793,
+      "mountItemId": 16059,
+      "stepsMax": 4480,
+      "corpseName": "an undead horse corpse",
+      "defaultName": "a skeletal steed",
+      "poisonImmune": 4,
+      "bleedImmune": true
+    }
+  },
+  {
+    "type": "Server.Mobiles.Bull",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "bodies": [232, 233],
+    "baseSoundId": 100,
+    "coin": {
+      "then": {
+        "hue": 2305
+      }
+    },
+    "str": [77, 111],
+    "dex": [56, 75],
+    "int": [47, 75],
+    "hits": [50, 64],
+    "mana": 0,
+    "damage": [4, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Cold": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [17.6, 25.0],
+      "Tactics": [67.6, 85.0],
+      "Wrestling": [40.1, 57.5]
+    },
+    "fame": 600,
+    "karma": 0,
+    "virtualArmor": 28,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 71.1,
+    "props": {
+      "corpseName": "a bull corpse",
+      "defaultName": "a bull",
+      "meat": 10,
+      "hides": 15,
+      "favoriteFood": ["GrainsAndHay"],
+      "packInstinct": ["Bull"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Cow",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "creatureSetup": "Cow",
+    "bodies": [216, 231],
+    "baseSoundId": 120,
+    "str": 30,
+    "dex": 15,
+    "int": 5,
+    "hits": 18,
+    "mana": 0,
+    "damage": [1, 4],
+    "era": {
+      "atLeast": "None",
+      "then": {
+        "damage": [1, 4],
+        "damageTypes": {
+          "Physical": 100
+        },
+        "resists": {
+          "Physical": [5, 15]
+        },
+        "skills": {
+          "MagicResist": 5.5,
+          "Tactics": 5.5,
+          "Wrestling": 5.5
+        },
+        "fame": 300,
+        "karma": 0,
+        "virtualArmor": 10,
+        "tamable": true,
+        "controlSlots": 1,
+        "minTameSkill": 11.1,
+        "era": {
+          "atLeast": "AOS",
+          "then": {
+            "creatureOneIn": {
+              "n": 1000,
+              "then": {
+                "creatureFightMode": "Closest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "props": {
+      "corpseName": "a cow corpse",
+      "defaultName": "a cow",
+      "meat": 8,
+      "hides": 12,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.HellCat",
+    "body": 201,
+    "creatureHue": {
+      "pick": [1607, 1616, 1625, 1634, 1643, 1652]
+    },
+    "baseSoundId": 105,
+    "str": [51, 100],
+    "dex": [52, 150],
+    "int": [13, 85],
+    "hits": [48, 67],
+    "damage": [6, 12],
+    "damageTypes": {
+      "Physical": 40,
+      "Fire": 60
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [80, 90],
+      "Energy": [15, 20]
+    },
+    "skills": {
+      "MagicResist": [45.1, 60.0],
+      "Tactics": [40.1, 55.0],
+      "Wrestling": [30.1, 40.0]
+    },
+    "fame": 1000,
+    "karma": -1000,
+    "virtualArmor": 30,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 71.1,
+    "props": {
+      "corpseName": "a hell cat corpse",
+      "defaultName": "a hell cat",
+      "hides": 10,
+      "hideType": "Spined",
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Feline"],
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BullFrog",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 81,
+    "creatureHue": {
+      "pick": [1452, 1443, 1434, 1425, 1416, 1407]
+    },
+    "baseSoundId": 614,
+    "str": [46, 70],
+    "dex": [6, 25],
+    "int": [11, 20],
+    "hits": [28, 42],
+    "mana": 0,
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [40.1, 60.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 350,
+    "karma": 0,
+    "virtualArmor": 6,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 23.1,
+    "props": {
+      "corpseName": "a bull frog corpse",
+      "defaultName": "a bull frog",
+      "meat": 1,
+      "hides": 4,
+      "favoriteFood": ["Fish", "Meat"],
       "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.PackHorse",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 291,
+    "baseSoundId": 168,
+    "str": [44, 120],
+    "dex": [36, 55],
+    "int": [6, 10],
+    "hits": [61, 80],
+    "stam": [81, 100],
+    "mana": 0,
+    "damage": [5, 11],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [10, 15],
+      "Cold": [20, 25],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [25.1, 30.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 0,
+    "karma": 200,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 11.1,
+    "creatureSetup": "StrongBackpack",
+    "props": {
+      "corpseName": "a horse corpse",
+      "defaultName": "a pack horse",
+      "meat": 3,
+      "hides": 10,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.PackLlama",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 292,
+    "baseSoundId": 1011,
+    "str": [52, 80],
+    "dex": [36, 55],
+    "int": [16, 30],
+    "hits": 50,
+    "stam": [86, 105],
+    "mana": 0,
+    "damage": [2, 6],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [10, 15],
+      "Cold": [10, 15],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.2, 29.0],
+      "Wrestling": [19.2, 29.0]
+    },
+    "fame": 0,
+    "karma": 200,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 11.1,
+    "creatureSetup": "StrongBackpack",
+    "props": {
+      "corpseName": "a llama corpse",
+      "defaultName": "a pack llama",
+      "meat": 1,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Sheep",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "creatureSetup": "Sheep",
+    "body": 207,
+    "baseSoundId": 214,
+    "str": 19,
+    "dex": 25,
+    "int": 5,
+    "hits": 12,
+    "mana": 0,
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 6.0,
+      "Wrestling": 5.0
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 6,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 11.1,
+    "props": {
+      "corpseName": "a sheep corpse",
+      "defaultName": "a sheep",
+      "meat": 3,
+      "meatType": "LambLeg",
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Beetle",
+    "str": 300,
+    "dex": 100,
+    "int": 500,
+    "hits": 200,
+    "damage": [7, 20],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [20, 30],
+      "Cold": [20, 30],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": 80.0,
+      "Tactics": 100.0,
+      "Wrestling": 100.0
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "tamable": true,
+    "controlSlots": 3,
+    "minTameSkill": 29.1,
+    "creatureSetup": "StrongBackpack",
+    "props": {
+      "mountBody": 791,
+      "mountItemId": 16060,
+      "defaultName": "a giant beetle",
+      "stepsMax": 4480,
+      "corpseName": "a giant beetle corpse",
+      "subdueBeforeTame": true,
+      "reduceSpeedWithDamage": false,
+      "favoriteFood": ["Meat"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.DesertOstard",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "baseSoundId": 624,
+    "str": [94, 170],
+    "dex": [56, 75],
+    "int": [6, 10],
+    "hits": [71, 88],
+    "mana": 0,
+    "damage": [5, 11],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [5, 15]
+    },
+    "skills": {
+      "MagicResist": [25.1, 30.0],
+      "Tactics": [25.3, 40.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "mountBody": 210,
+      "mountItemId": 16035,
+      "defaultName": "a desert ostard",
+      "corpseName": "an ostard corpse",
+      "meat": 3,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "packInstinct": ["Ostard"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FireSteed",
+    "baseSoundId": 168,
+    "str": [376, 400],
+    "dex": [91, 120],
+    "int": [291, 300],
+    "hits": [226, 240],
+    "damage": [11, 30],
+    "damageTypes": {
+      "Physical": 20,
+      "Fire": 80
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [70, 80],
+      "Cold": [20, 30],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [100.0, 120.0],
+      "Tactics": 100.0,
+      "Wrestling": 100.0
+    },
+    "fame": 20000,
+    "karma": -20000,
+    "tamable": true,
+    "controlSlots": 2,
+    "minTameSkill": 106.0,
+    "pack": [
+      {"item": "Server.Items.SulfurousAsh", "amount": [151, 300]},
+      {"item": "Server.Items.Ruby", "amount": [16, 30]}
+    ],
+    "props": {
+      "mountBody": 190,
+      "mountItemId": 16030,
+      "defaultName": "a fire steed",
+      "corpseName": "a fire steed corpse",
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Daemon", "Equine"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ForestOstard",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "creatureHue": {
+      "from": 2201,
+      "count": 24,
+      "or": 32768
+    },
+    "baseSoundId": 624,
+    "str": [94, 170],
+    "dex": [56, 75],
+    "int": [6, 10],
+    "hits": [71, 88],
+    "mana": 0,
+    "damage": [8, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20]
+    },
+    "skills": {
+      "MagicResist": [27.1, 32.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "mountBody": 219,
+      "mountItemId": 16037,
+      "defaultName": "a forest ostard",
+      "corpseName": "an ostard corpse",
+      "meat": 3,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "packInstinct": ["Ostard"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FrenziedOstard",
+    "creatureHue": {
+      "raceHairHue": "Human",
+      "or": 32768
+    },
+    "baseSoundId": 629,
+    "str": [94, 170],
+    "dex": [96, 115],
+    "int": [6, 10],
+    "hits": [71, 110],
+    "mana": 0,
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Fire": [10, 15],
+      "Poison": [20, 25],
+      "Energy": [20, 25]
+    },
+    "skills": {
+      "MagicResist": [75.1, 80.0],
+      "Tactics": [79.3, 94.0],
+      "Wrestling": [79.3, 94.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 77.1,
+    "props": {
+      "mountBody": 218,
+      "mountItemId": 16036,
+      "defaultName": "a frenzied ostard",
+      "stepsMax": 5120,
+      "corpseName": "an ostard corpse",
+      "meat": 3,
+      "favoriteFood": ["Meat", "Fish", "Eggs", "FruitsAndVeggies"],
+      "packInstinct": ["Ostard"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.HellSteed",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "str": [201, 210],
+    "dex": [101, 110],
+    "int": [101, 115],
+    "hits": [201, 220],
+    "damage": [20, 24],
+    "damageTypes": {
+      "Physical": 25,
+      "Fire": 75
+    },
+    "resists": {
+      "Physical": [60, 70],
+      "Fire": 90,
+      "Poison": 100
+    },
+    "skills": {
+      "MagicResist": [90.1, 110.0],
+      "Tactics": 50.0,
+      "Wrestling": [90.1, 110.0]
+    },
+    "fame": 0,
+    "karma": 0,
+    "props": {
+      "mountBody": 793,
+      "mountItemId": 16059,
+      "defaultName": "a hellsteed",
+      "stepsMax": 5120,
+      "corpseName": "a hellsteed corpse",
+      "poisonImmune": 4
+    }
+  },
+  {
+    "type": "Server.Mobiles.GrizzledMare",
+    "inherits": "Server.Mobiles.HellSteed",
+    "props": {
+      "mountBody": 793,
+      "mountItemId": 16059,
+      "defaultName": "a grizzled mare",
+      "deleteOnRelease": true
+    }
+  },
+  {
+    "type": "Server.Mobiles.Hiryu",
+    "creatureHue": {
+      "below": 1075,
+      "table": [
+        [1074, 2140],
+        [1073, 1168],
+        [1071, 48],
+        [1069, 55],
+        [1066, 661],
+        [1063, 291],
+        [1058, 1154],
+        [1050, 1159],
+        [
+          1040,
+          {"craftHue": "Gold"}
+        ],
+        [
+          1030,
+          {"craftHue": "Agapite"}
+        ],
+        [1020, 1173],
+        [1010, 1165],
+        [1000, 1151],
+        [0, 0]
+      ],
+      "or": 32768
+    },
+    "str": [1201, 1410],
+    "dex": [171, 270],
+    "int": [301, 325],
+    "hits": [901, 1100],
+    "mana": 60,
+    "damage": [20, 30],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [55, 70],
+      "Fire": [70, 90],
+      "Cold": [15, 25],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Anatomy": [75.1, 80.0],
+      "MagicResist": [85.1, 100.0],
+      "Tactics": [100.1, 110.0],
+      "Wrestling": [100.1, 120.0]
+    },
+    "fame": 18000,
+    "karma": -18000,
+    "tamable": true,
+    "controlSlots": 4,
+    "minTameSkill": 98.7,
+    "chance": {
+      "p": 0.33,
+      "then": {
+        "creatureItem": {
+          "loot": "BonsaiSeed"
+        }
+      }
+    },
+    "era": {
+      "atLeast": "ML",
+      "then": {
+        "chance": {
+          "p": 0.33,
+          "then": {
+            "creatureItem": {
+              "loot": "PeculiarSeed",
+              "group": 3
+            }
+          }
+        }
+      }
+    },
+    "props": {
+      "mountBody": 243,
+      "mountItemId": 16020,
+      "defaultName": "a hiryu",
+      "stepsMax": 4480,
+      "corpseName": "a hiryu corpse",
+      "weaponAbilityChance": 0.07,
+      "statLossAfterTame": true,
+      "treasureMapLevel": 5,
+      "meat": 16,
+      "hides": 60,
+      "favoriteFood": ["Meat"],
+      "canAngerOnTame": true,
+      "weaponAbility": "Dismount",
+      "loot": [["FilthyRich", 3], ["Gems", 4]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Horse",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "oneOf": [
+      {"body": 200, "creatureMountItemId": 16031},
+      {"body": 226, "creatureMountItemId": 16032},
+      {"body": 228, "creatureMountItemId": 16033},
+      {"body": 204, "creatureMountItemId": 16034}
+    ],
+    "baseSoundId": 168,
+    "str": [22, 98],
+    "dex": [56, 75],
+    "int": [6, 10],
+    "hits": [28, 45],
+    "mana": 0,
+    "damage": [3, 4],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20]
+    },
+    "skills": {
+      "MagicResist": [25.1, 30.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 300,
+    "karma": 300,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "mountBody": 226,
+      "mountItemId": 16032,
+      "defaultName": "a horse",
+      "corpseName": "a horse corpse",
+      "meat": 3,
+      "hides": 10,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Kirin",
+    "ai": "AiMage",
+    "fightMode": "Evil",
+    "baseSoundId": 965,
+    "str": [296, 325],
+    "dex": [86, 105],
+    "int": [186, 225],
+    "hits": [191, 210],
+    "damage": [16, 22],
+    "damageTypes": {
+      "Physical": 70,
+      "Fire": 10,
+      "Cold": 10,
+      "Energy": 10
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [35, 45],
+      "Cold": [25, 35],
+      "Poison": [25, 35],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "EvalInt": [80.1, 90.0],
+      "Magery": [60.4, 100.0],
+      "Meditation": [90.1, 100.0],
+      "MagicResist": [85.3, 100.0],
+      "Tactics": [20.1, 22.5],
+      "Wrestling": [80.5, 92.5]
+    },
+    "fame": 9000,
+    "karma": 9000,
+    "tamable": true,
+    "controlSlots": 2,
+    "minTameSkill": 95.1,
+    "props": {
+      "mountBody": 132,
+      "mountItemId": 16045,
+      "defaultName": "a ki-rin",
+      "stepsMax": 4480,
+      "corpseName": "a ki-rin corpse",
+      "allowFemaleRider": false,
+      "allowFemaleTamer": false,
+      "initialInnocent": true,
+      "mountAbilityDelay": 3600.0,
+      "oppositionGroup": "FeyAndUndead",
+      "meat": 3,
+      "hides": 10,
+      "hideType": "Horned",
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "loot": [["Rich", 1], ["LowScrolls", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LesserHiryu",
+    "creatureHue": {
+      "below": 525,
+      "table": [
+        [524, 600],
+        [
+          523,
+          {"craftHue": "Valorite"}
+        ],
+        [520, 2004],
+        [510, 355],
+        [500, 661],
+        [0, 0]
+      ],
+      "or": 32768
+    },
+    "str": [301, 410],
+    "dex": [171, 270],
+    "int": [301, 325],
+    "hits": [401, 600],
+    "mana": 60,
+    "damage": [18, 23],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 70],
+      "Fire": [60, 80],
+      "Cold": [5, 15],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Anatomy": [75.1, 80.0],
+      "MagicResist": [85.1, 100.0],
+      "Tactics": [100.1, 110.0],
+      "Wrestling": [100.1, 120.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "tamable": true,
+    "controlSlots": 3,
+    "minTameSkill": 98.7,
+    "chance": {
+      "p": 0.33,
+      "then": {
+        "creatureItem": {
+          "loot": "BonsaiSeed"
+        }
+      }
+    },
+    "props": {
+      "mountBody": 243,
+      "mountItemId": 16020,
+      "defaultName": "a lesser hiryu",
+      "stepsMax": 4480,
+      "corpseName": "a hiryu corpse",
+      "weaponAbilityChance": 0.07,
+      "statLossAfterTame": true,
+      "treasureMapLevel": 3,
+      "meat": 16,
+      "hides": 60,
+      "favoriteFood": ["Meat"],
+      "canAngerOnTame": true,
+      "weaponAbility": "Dismount",
+      "loot": [["FilthyRich", 2], ["Gems", 4]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Nightmare",
+    "ai": "AiMage",
+    "era": {
+      "atLeast": "AOS",
+      "then": {
+        "baseSoundId": 168
+      },
+      "else": {
+        "baseSoundId": 362
+      }
+    },
+    "oneOf": [
+      {
+        "era": {
+          "atLeast": "TOL",
+          "then": {
+            "chance": {
+              "p": 0.3,
+              "then": {
+                "str": [296, 315],
+                "controlSlots": 2
+              },
+              "else": {
+                "str": [496, 525],
+                "controlSlots": 3
+              }
+            }
+          },
+          "else": {
+            "str": [496, 525],
+            "controlSlots": 2
+          }
+        },
+        "dex": [86, 105],
+        "int": [86, 125],
+        "hits": [298, 315],
+        "damage": [16, 22],
+        "damageTypes": {
+          "Physical": 40,
+          "Fire": 40,
+          "Energy": 20
+        },
+        "resists": {
+          "Physical": [55, 65],
+          "Fire": [30, 40],
+          "Cold": [30, 40],
+          "Poison": [30, 40],
+          "Energy": [20, 30]
+        },
+        "skills": {
+          "EvalInt": [10.4, 50.0],
+          "Magery": [10.4, 50.0],
+          "MagicResist": [85.3, 100.0],
+          "Tactics": [97.6, 100.0],
+          "Wrestling": [80.5, 92.5]
+        },
+        "fame": 14000,
+        "karma": -14000,
+        "virtualArmor": 60,
+        "tamable": true,
+        "minTameSkill": 95.1,
+        "oneOf": [
+          {"body": 116, "creatureMountItemId": 16039},
+          {"body": 178, "creatureMountItemId": 16041},
+          {"body": 179, "creatureMountItemId": 16055}
+        ],
+        "pack": [
+          {"item": "Server.Items.SulfurousAsh", "amount": [3, 5]}
+        ]
+      }
+    ],
+    "props": {
+      "mountBody": 116,
+      "mountItemId": 16039,
+      "defaultName": "a nightmare",
+      "stepsMax": 6400,
+      "corpseName": "a nightmare corpse",
+      "meat": 5,
+      "hides": 10,
+      "hideType": "Barbed",
+      "favoriteFood": ["Meat"],
+      "canAngerOnTame": true,
+      "loot": [["Rich", 1], ["Average", 1], ["LowScrolls", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RidableLlama",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "baseSoundId": 1011,
+    "str": [21, 49],
+    "dex": [56, 75],
+    "int": [16, 30],
+    "hits": [15, 27],
+    "mana": 0,
+    "damage": [3, 5],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [10, 15],
+      "Fire": [5, 10],
+      "Cold": [5, 10],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.2, 29.0],
+      "Wrestling": [19.2, 29.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "mountBody": 220,
+      "mountItemId": 16038,
+      "defaultName": "a ridable llama",
+      "stepsMax": 2560,
+      "corpseName": "a llama corpse",
+      "meat": 1,
+      "hides": 12,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Ridgeback",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "baseSoundId": 1011,
+    "str": [58, 100],
+    "dex": [56, 75],
+    "int": [16, 30],
+    "hits": [41, 54],
+    "mana": 0,
+    "damage": [3, 5],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 25],
+      "Fire": [5, 10],
+      "Cold": [5, 10],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [25.3, 40.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [35.1, 45.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 83.1,
+    "props": {
+      "mountBody": 187,
+      "mountItemId": 16058,
+      "defaultName": "a ridgeback",
+      "stepsMax": 4480,
+      "corpseName": "a ridgeback corpse",
+      "meat": 1,
+      "hides": 12,
+      "hideType": "Spined",
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "overrideBondingReqs": true
+    }
+  },
+  {
+    "type": "Server.Mobiles.SavageRidgeback",
+    "fightMode": "Aggressor",
+    "baseSoundId": 1011,
+    "str": [58, 100],
+    "dex": [56, 75],
+    "int": [16, 30],
+    "hits": [41, 54],
+    "mana": 0,
+    "damage": [3, 5],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [10, 15],
+      "Cold": [15, 20],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [25.3, 40.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [35.1, 45.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 83.1,
+    "props": {
+      "mountBody": 188,
+      "mountItemId": 16056,
+      "defaultName": "a savage ridgeback",
+      "stepsMax": 4480,
+      "corpseName": "a savage ridgeback corpse",
+      "meat": 1,
+      "hides": 12,
+      "hideType": "Spined",
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "overrideBondingReqs": true
+    }
+  },
+  {
+    "type": "Server.Mobiles.ScaledSwampDragon",
+    "fightMode": "Aggressor",
+    "str": [201, 300],
+    "dex": [66, 85],
+    "int": [61, 100],
+    "hits": [121, 180],
+    "damage": [3, 4],
+    "damageTypes": {
+      "Physical": 75,
+      "Poison": 25
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [20, 30],
+      "Cold": [20, 40],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Anatomy": [45.1, 55.0],
+      "MagicResist": [45.1, 55.0],
+      "Tactics": [45.1, 55.0],
+      "Wrestling": [45.1, 55.0]
+    },
+    "fame": 2000,
+    "karma": -2000,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 93.9,
+    "props": {
+      "mountBody": 799,
+      "mountItemId": 16062,
+      "defaultName": "a swamp dragon",
+      "stepsMax": 4480,
+      "corpseName": "a swamp dragon corpse",
+      "favoriteFood": ["Meat"],
+      "overrideBondingReqs": true
+    }
+  },
+  {
+    "type": "Server.Mobiles.SeaHorse",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "creatureInitStats": [
+      {"from": 50, "count": 30},
+      {"from": 50, "count": 30},
+      10
+    ],
+    "creatureSkillBase": {
+      "MagicResist": {
+        "base": 25.0,
+        "random": 5.0
+      },
+      "Wrestling": {
+        "base": 35.0,
+        "random": 10.0
+      },
+      "Tactics": {
+        "base": 30.0,
+        "random": 15.0
+      }
+    },
+    "props": {
+      "mountBody": 144,
+      "mountItemId": 16051,
+      "defaultName": "a sea horse",
+      "corpseName": "a sea horse corpse"
+    }
+  },
+  {
+    "type": "Server.Mobiles.SilverSteed",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "creatureInitStats": [
+      {"from": 50, "count": 30},
+      {"from": 50, "count": 30},
+      10
+    ],
+    "creatureSkillBase": {
+      "MagicResist": {
+        "base": 25.0,
+        "random": 5.0
+      },
+      "Wrestling": {
+        "base": 35.0,
+        "random": 10.0
+      },
+      "Tactics": {
+        "base": 30.0,
+        "random": 15.0
+      }
+    },
+    "controlSlots": 1,
+    "tamable": true,
+    "minTameSkill": 103.1,
+    "props": {
+      "mountBody": 117,
+      "mountItemId": 16040,
+      "defaultName": "a silver steed",
+      "stepsMax": 4480,
+      "corpseName": "a silver steed corpse"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Unicorn",
+    "ai": "AiMage",
+    "fightMode": "Evil",
+    "baseSoundId": 1212,
+    "str": [296, 325],
+    "dex": [96, 115],
+    "int": [186, 225],
+    "hits": [191, 210],
+    "damage": [16, 22],
+    "damageTypes": {
+      "Physical": 75,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [25, 40],
+      "Cold": [25, 40],
+      "Poison": [55, 65],
+      "Energy": [25, 40]
+    },
+    "skills": {
+      "EvalInt": [80.1, 90.0],
+      "Magery": [60.2, 80.0],
+      "Meditation": [50.1, 60.0],
+      "MagicResist": [75.3, 90.0],
+      "Tactics": [20.1, 22.5],
+      "Wrestling": [80.5, 92.5]
+    },
+    "fame": 9000,
+    "karma": 9000,
+    "tamable": true,
+    "controlSlots": 2,
+    "minTameSkill": 95.1,
+    "props": {
+      "mountBody": 122,
+      "mountItemId": 16052,
+      "defaultName": "a unicorn",
+      "stepsMax": 4480,
+      "corpseName": "a unicorn corpse",
+      "allowMaleRider": false,
+      "allowMaleTamer": false,
+      "initialInnocent": true,
+      "mountAbilityDelay": 3600.0,
+      "oppositionGroup": "FeyAndUndead",
+      "poisonImmune": 4,
+      "meat": 3,
+      "hides": 10,
+      "hideType": "Horned",
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "loot": [["Rich", 1], ["LowScrolls", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CoMWarHorse",
+    "inherits": "Server.Mobiles.BaseWarHorse",
+    "fightMode": "Aggressor",
+    "props": {
+      "mountBody": 119,
+      "mountItemId": 16049
+    }
+  },
+  {
+    "type": "Server.Mobiles.MinaxWarHorse",
+    "inherits": "Server.Mobiles.BaseWarHorse",
+    "fightMode": "Aggressor",
+    "props": {
+      "mountBody": 120,
+      "mountItemId": 16047
+    }
+  },
+  {
+    "type": "Server.Mobiles.SLWarHorse",
+    "inherits": "Server.Mobiles.BaseWarHorse",
+    "fightMode": "Aggressor",
+    "props": {
+      "mountBody": 121,
+      "mountItemId": 16048
+    }
+  },
+  {
+    "type": "Server.Mobiles.TBWarHorse",
+    "inherits": "Server.Mobiles.BaseWarHorse",
+    "fightMode": "Aggressor",
+    "props": {
+      "mountBody": 118,
+      "mountItemId": 16050
+    }
+  },
+  {
+    "type": "Server.Mobiles.GiantSerpent",
+    "body": 21,
+    "creatureHue": {
+      "from": 2001,
+      "count": 18
+    },
+    "baseSoundId": 219,
+    "str": [186, 215],
+    "dex": [56, 80],
+    "int": [66, 85],
+    "hits": [112, 129],
+    "mana": 0,
+    "damage": [7, 17],
+    "damageTypes": {
+      "Physical": 40,
+      "Poison": 60
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": [5, 10],
+      "Cold": [10, 20],
+      "Poison": [70, 90],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Poisoning": [70.1, 100.0],
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [65.1, 70.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 32,
+    "pack": [
+      {"item": "Server.Items.Bone"}
+    ],
+    "props": {
+      "corpseName": "a giant serpent corpse",
+      "defaultName": "a giant snake",
+      "poisonImmune": 2,
+      "deathAdderCharmable": true,
+      "meat": 4,
+      "hides": 15,
+      "hideType": "Spined",
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.IceSerpent",
+    "body": 89,
+    "baseSoundId": 219,
+    "str": [216, 245],
+    "dex": [26, 50],
+    "int": [66, 85],
+    "hits": [130, 147],
+    "mana": 0,
+    "damage": [7, 17],
+    "damageTypes": {
+      "Physical": 10,
+      "Cold": 90
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Cold": [80, 90],
+      "Poison": [15, 25],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Anatomy": [27.5, 50.0],
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [75.1, 80.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 32,
+    "creatureItem": [
+      {"loot": "ArmorOrShieldOrWeapon"},
+      {
+        "pick": [
+          "Server.Items.LeftArm",
+          "Server.Items.RightArm",
+          "Server.Items.Torso",
+          "Server.Items.Bone",
+          "Server.Items.RibCage",
+          "Server.Items.RibCage",
+          "Server.Items.BonePile",
+          "Server.Items.BonePile",
+          "Server.Items.BonePile",
+          "Server.Items.BonePile"
+        ]
+      }
+    ],
+    "pack": [
+      {"chance": 0.025, "item": "Server.Items.GlacialStaff"}
+    ],
+    "props": {
+      "corpseName": "an ice serpent corpse",
+      "defaultName": "a giant ice serpent",
+      "deathAdderCharmable": true,
+      "meat": 4,
+      "hides": 15,
+      "hideType": "Spined",
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LavaLizard",
+    "body": 206,
+    "creatureHue": {
+      "pick": [1607, 1616, 1625, 1634, 1643, 1652]
+    },
+    "baseSoundId": 90,
+    "str": [126, 150],
+    "dex": [56, 75],
+    "int": [11, 20],
+    "hits": [76, 90],
+    "mana": 0,
+    "damage": [6, 24],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [30, 45],
+      "Poison": [25, 35],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [60.1, 80.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 40,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 80.7,
+    "creatureItem": {
+      "item": "Server.Items.SulfurousAsh",
+      "amount": {
+        "from": 4,
+        "count": 10
+      }
+    },
+    "props": {
+      "corpseName": "a lava lizard corpse",
+      "defaultName": "a lava lizard",
+      "hides": 12,
+      "hideType": "Spined",
+      "favoriteFood": ["Metal", "Gold"],
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LavaSnake",
+    "body": 52,
+    "creatureHue": {
+      "pick": [1607, 1616, 1625, 1634, 1643, 1652]
+    },
+    "baseSoundId": 219,
+    "str": [43, 55],
+    "dex": [16, 25],
+    "int": [6, 10],
+    "hits": [28, 32],
+    "mana": 0,
+    "damage": [1, 8],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [30, 40],
+      "Poison": [20, 30],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.3, 34.0],
+      "Wrestling": [19.3, 34.0]
+    },
+    "fame": 600,
+    "karma": -600,
+    "virtualArmor": 24,
+    "pack": [
+      {"item": "Server.Items.SulfurousAsh"}
+    ],
+    "props": {
+      "corpseName": "a lava snake corpse",
+      "defaultName": "a lava snake",
+      "deathAdderCharmable": true,
+      "meat": 1,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Snake",
+    "body": 52,
+    "creatureHue": {
+      "from": 2001,
+      "count": 18
+    },
+    "baseSoundId": 219,
+    "str": [22, 34],
+    "dex": [16, 25],
+    "int": [6, 10],
+    "hits": [15, 19],
+    "mana": 0,
+    "damage": [1, 4],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Poison": [20, 30]
+    },
+    "skills": {
+      "Poisoning": [50.1, 70.0],
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.3, 34.0],
+      "Wrestling": [19.3, 34.0]
+    },
+    "fame": 300,
+    "karma": -300,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 59.1,
+    "props": {
+      "corpseName": "a snake corpse",
+      "defaultName": "a snake",
+      "poisonImmune": 0,
+      "hitPoison": 0,
+      "deathAdderCharmable": true,
+      "meat": 1,
+      "favoriteFood": ["Eggs"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Rabbit",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 205,
+    "coin": {
+      "then": {
+        "creatureHue": {
+          "from": 2301,
+          "count": 18
+        }
+      }
+    },
+    "str": [6, 10],
+    "dex": [26, 38],
+    "int": [6, 14],
+    "hits": [4, 6],
+    "mana": 0,
+    "damage": [1, 1],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 5.0,
+      "Wrestling": 5.0
+    },
+    "fame": 150,
+    "karma": 0,
+    "virtualArmor": 6,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -18.9,
+    "props": {
+      "corpseName": "a hare corpse",
+      "defaultName": "a rabbit",
+      "meat": 1,
+      "hides": 1,
+      "favoriteFood": ["FruitsAndVeggies"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Jwilson",
+    "creatureHue": {
+      "pick": [2204, 2210, 2216, 2222]
+    },
+    "body": 51,
+    "virtualArmor": 8,
+    "creatureInitStats": [
+      {"from": 22, "count": 13},
+      {"from": 16, "count": 6},
+      {"from": 16, "count": 5}
+    ],
+    "creatureSkillBase": {
+      "Wrestling": {
+        "from": 24,
+        "count": 17
+      },
+      "Tactics": {
+        "from": 18,
+        "count": 14
+      },
+      "MagicResist": {
+        "from": 15,
+        "count": 6
+      },
+      "Poisoning": {
+        "from": 31,
+        "count": 20
+      }
+    },
+    "creatureFame": {
+      "from": 0,
+      "count": 1249
+    },
+    "creatureKarma": {
+      "from": 0,
+      "count": 624,
+      "neg": true
+    },
+    "props": {
+      "corpseName": "a jwilson corpse",
+      "defaultName": "a jwilson"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Parrot",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 831,
+    "creatureVirtualArmor": {
+      "from": 0,
+      "count": 6
+    },
+    "creatureInitStats": [
+      10,
+      {"from": 25, "count": 16},
+      10
+    ],
+    "skillBase": {
+      "Wrestling": 6.0,
+      "Tactics": 6.0,
+      "MagicResist": 5.0
+    },
+    "creatureFame": {
+      "from": 0,
+      "count": 1249
+    },
+    "creatureKarma": {
+      "from": 0,
+      "count": 624,
+      "neg": true
+    },
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 0.0,
+    "props": {
+      "corpseName": "a parrot corpse",
+      "defaultName": "a parrot"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Bird",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "coin": {
+      "then": {
+        "hue": 2305,
+        "oneOf": [
+          {"name": "a crow"},
+          {"name": "a magpie"},
+          {"name": "a raven"}
+        ]
+      },
+      "else": {
+        "creatureHue": {
+          "from": 2101,
+          "count": 30
+        },
+        "nameRandom": "bird"
+      }
+    },
+    "body": 6,
+    "baseSoundId": 27,
+    "creatureVirtualArmor": {
+      "min": 0,
+      "max": 6
+    },
+    "str": 10,
+    "dex": [25, 35],
+    "int": 10,
+    "damage": [0, 0],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "skills": {
+      "Wrestling": [4.2, 6.4],
+      "Tactics": [4.0, 6.0],
+      "MagicResist": [4.0, 5.0]
+    },
+    "fame": 150,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -6.9,
+    "props": {
+      "corpseName": "a bird corpse",
+      "meatType": "Bird",
+      "meat": 1,
+      "feathers": 25,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.TropicalBird",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "creatureHue": {
+      "from": 2101,
+      "count": 30
+    },
+    "body": 6,
+    "baseSoundId": 191,
+    "creatureVirtualArmor": {
+      "min": 0,
+      "max": 6
+    },
+    "str": 10,
+    "dex": [25, 35],
+    "int": 10,
+    "damage": [0, 0],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "skills": {
+      "Wrestling": [4.2, 6.4],
+      "Tactics": [4.0, 6.0],
+      "MagicResist": [4.0, 5.0]
+    },
+    "fame": 150,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -6.9,
+    "props": {
+      "corpseName": "a bird corpse",
+      "defaultName": "a tropical bird",
+      "meatType": "Bird",
+      "meat": 1,
+      "feathers": 25,
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Cat",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 201,
+    "creatureHue": {
+      "from": 2301,
+      "count": 18
+    },
+    "baseSoundId": 105,
+    "str": 9,
+    "dex": 35,
+    "int": 5,
+    "hits": 6,
+    "mana": 0,
+    "damage": [1, 1],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 4.0,
+      "Wrestling": 5.0
+    },
+    "fame": 0,
+    "karma": 150,
+    "virtualArmor": 8,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -0.9,
+    "props": {
+      "corpseName": "a cat corpse",
+      "defaultName": "a cat",
+      "meat": 1,
+      "favoriteFood": ["Meat", "Fish"],
+      "packInstinct": ["Feline"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Dog",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 217,
+    "creatureHue": {
+      "from": 2301,
+      "count": 18
+    },
+    "baseSoundId": 133,
+    "str": [27, 37],
+    "dex": [28, 43],
+    "int": [29, 37],
+    "hits": [17, 22],
+    "mana": 0,
+    "damage": [4, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [22.1, 47.0],
+      "Tactics": [19.2, 31.0],
+      "Wrestling": [19.2, 31.0]
+    },
+    "fame": 0,
+    "karma": 300,
+    "virtualArmor": 12,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -15.3,
+    "props": {
+      "corpseName": "a dog corpse",
+      "defaultName": "a dog",
+      "meat": 1,
+      "favoriteFood": ["Meat"],
+      "packInstinct": ["Canine"]
     }
   }
 ]

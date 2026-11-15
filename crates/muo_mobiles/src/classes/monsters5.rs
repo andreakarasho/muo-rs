@@ -162,15 +162,15 @@ creature_leaf! {
     /// `Server.Mobiles.Revenant` (not constructible by the registry: `new_revenant`).
     REVENANT, REVENANT_C = "Server.Mobiles.Revenant" : BASE_CREATURE / BASE_CREATURE_C, ctor None, encoded false;
     c {
-        default_name: |_w, _id| Some("a revenant"),
+        default_name: muo_content::templates::creature_props::default_name,
         constant_focus: constant_focus,
-        no_house_restrictions: |_w, _id| true,
-        dispel_difficulty: |_w, _id| 80.0,
-        dispel_focus: |_w, _id| 20.0,
-        always_murderer: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        bard_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        no_house_restrictions: crate::cprops::no_house_restrictions,
+        dispel_difficulty: crate::cprops::dispel_difficulty,
+        dispel_focus: crate::cprops::dispel_focus,
+        always_murderer: muo_content::templates::creature_props::always_murderer,
+        bleed_immune: muo_content::templates::creature_props::bleed_immune,
+        bard_immune: crate::cprops::bard_immune,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
         on_think: revenant_on_think,
     }
     m {
@@ -297,12 +297,12 @@ creature_leaf! {
     /// `Server.Mobiles.KhaldunRevenant` (not constructible by the registry: `new_khaldun_revenant`).
     KHALDUN_REVENANT, KHALDUN_REVENANT_C = "Server.Mobiles.KhaldunRevenant" : BASE_CREATURE / BASE_CREATURE_C, ctor None, encoded false;
     c {
-        default_name: |_w, _id| Some("a revenant"),
-        delete_corpse_on_death: |_w, _id| true,
+        default_name: muo_content::templates::creature_props::default_name,
+        delete_corpse_on_death: crate::cprops::delete_corpse_on_death,
         constant_focus: constant_focus,
-        always_attackable: |_w, _id| true,
-        bard_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        always_attackable: crate::cprops::always_attackable,
+        bard_immune: crate::cprops::bard_immune,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
         on_think: khaldun_on_think,
     }
     m {
@@ -349,5 +349,3 @@ pub fn configure(w: &mut World) {
         .new_revenant = Some(|w, caster, target, d| Some(new_revenant(w, caster, target, d)));
     muo_content::player_mobile::subscribe_death(w, on_player_death_event);
 }
-
-use muo_server::poison::PoisonId;

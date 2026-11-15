@@ -37,14 +37,6 @@ fn cancel_disguise_token(w: &mut World, id: MobileId) {
     set_disguise_token(w, id, h);
 }
 
-/// `if (Utility.RandomDouble() < .25) PackItem(Seed.RandomBonsaiSeed());`
-pub fn bake_kitsune_ctor1(w: &mut World, id: MobileId) {
-    if rnd::double(w) < 0.25 {
-        let s = super::seed::random_bonsai_seed(w);
-        pack_item(w, id, s);
-    }
-}
-
 /// `OnCombatantChange`: no `base` call. After a fight, half the time it disguises in 15-30 seconds.
 pub fn bake_kitsune_on_combatant_change(w: &mut World, id: MobileId) {
     let controlled = muo_content::creature::cd(w, id).is_some_and(|d| d.controlled);

@@ -2,6 +2,7 @@
 
 pub mod classes;
 mod common;
+pub mod cprops;
 #[rustfmt::skip] // generated, and tests/ctors.rs reads the text
 mod ctor_tables;
 pub(crate) mod hand;
@@ -11,6 +12,8 @@ mod leaf;
 #[cfg(test)]
 mod ai_tests;
 pub mod animals;
+#[cfg(test)]
+mod creature_template_tests;
 pub mod monsters;
 pub mod npcs;
 #[cfg(test)]
@@ -22,6 +25,7 @@ mod template_keys_npcs;
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
     template_keys::register(types);
+    cprops::register(types);
     template_keys_npcs::register(types);
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,

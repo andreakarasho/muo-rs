@@ -9,69 +9,13 @@ use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::item::{container, ops};
 use muo_server::mobile::part2::effects;
-use muo_server::poison::PoisonId;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::common::*;
 use crate::leaf::creature_leaf;
 
-pub(crate) fn demon_knight_make(
-    w: &mut World,
-    ty: &'static muo_server::mobile::MobileType,
-) -> MobileId {
-    new_creature(
-        w,
-        ty,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    )
-}
-
-const ALL_TYPES: [ResistanceType; 5] = [
-    ResistanceType::Physical,
-    ResistanceType::Fire,
-    ResistanceType::Cold,
-    ResistanceType::Poison,
-    ResistanceType::Energy,
-];
-
-pub(crate) fn demon_knight_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "demon knight");
-    title(w, id, "the Dark Father");
-    body(w, id, 318);
-    base_sound_id(w, id, 0x165);
-    set_str(w, id, 500);
-    set_dex(w, id, 100);
-    set_int(w, id, 1000);
-    set_hits(w, id, 30000);
-    set_mana(w, id, 5000);
-    set_damage(w, id, 17, 21);
-    for t in ALL_TYPES {
-        set_damage_type(w, id, t, 20);
-    }
-    for t in ALL_TYPES {
-        set_resistance(w, id, t, 30);
-    }
-    set_skill_range(w, id, SkillName::Necromancy, 120.0, 120.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 120.0, 120.0);
-    set_skill(w, id, SkillName::DetectHidden, 80.0);
-    set_skill(w, id, SkillName::EvalInt, 100.0);
-    set_skill(w, id, SkillName::Magery, 100.0);
-    set_skill(w, id, SkillName::Meditation, 120.0);
-    set_skill(w, id, SkillName::MagicResist, 150.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 120.0);
-    fame(w, id, 28000);
-    karma(w, id, -28000);
-    virtual_armor(w, id, 64);
-}
-
 fn demon_knight_new(w: &mut World) -> MobileId {
-    let id = demon_knight_make(w, &DEMON_KNIGHT);
-    demon_knight_init(w, id);
-    id
+    crate::cprops::new_creature(w, &DEMON_KNIGHT)
 }
 
 const ARTIFACT_RARITY_10: [&str; 2] = ["LegacyOfTheDreadLord", "TheTaskmaster"];
@@ -250,24 +194,20 @@ creature_leaf! {
     /// `Server.Mobiles.DemonKnight`.
     DEMON_KNIGHT, DEMON_KNIGHT_C = "Server.Mobiles.DemonKnight" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(demon_knight_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a demon knight corpse"),
+        corpse_name: muo_content::templates::creature_props::corpse_name,
         ignore_young_protection: |w, _id| w.core_ml(),
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
+        treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
         get_weapon_ability: |w, _id| Some(match rnd::below(w, 3) {
             0 => Ability::DoubleStrike,
             1 => Ability::WhirlwindAttack,
             2 => Ability::CrushingBlow,
             _ => Ability::DoubleStrike,
         }),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::super_boss(w), 2);
-            let n = rnd::min_max(w, 6, 60);
-            add_loot_n(w, id, &loot_pack::HIGH_SCROLLS, n);
-        },
+        generate_loot: crate::cprops::generate_loot,
     }
     m {
         on_death: on_death,

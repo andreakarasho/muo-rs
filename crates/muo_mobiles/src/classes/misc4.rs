@@ -159,15 +159,15 @@ creature_leaf! {
     /// `Server.Mobiles.Golem`.
     GOLEM, GOLEM_C = "Server.Mobiles.Golem" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_golem(w, false, 1.0)), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a golem corpse"),
-        is_scared_of_scary_things: |_w, _id| false,
-        is_scary_to_pets: |_w, _id| true,
-        is_bondable: |_w, _id| false,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        is_scared_of_scary_things: crate::cprops::is_scared_of_scary_things,
+        is_scary_to_pets: crate::cprops::is_scary_to_pets,
+        is_bondable: crate::cprops::is_bondable,
         favorite_food: |_w, _id| FoodType::empty(),
-        default_name: |_w, _id| Some("a golem"),
-        delete_on_release: |_w, _id| true,
+        default_name: muo_content::templates::creature_props::default_name,
+        delete_on_release: crate::cprops::delete_on_release,
         auto_dispel: |w, id| !controlled(w, id),
-        bleed_immune: |_w, _id| true,
+        bleed_immune: muo_content::templates::creature_props::bleed_immune,
         bard_immune: |w, id| !w.core_aos() || controlled(w, id),
         poison_immune: |_w, _id| Some(LETHAL),
         get_monster_abilities: |_, _| &GOLEM_ABILITIES,
@@ -280,14 +280,11 @@ creature_leaf! {
     /// `Server.Mobiles.PlagueSpawn`.
     PLAGUE_SPAWN, PLAGUE_SPAWN_C = "Server.Mobiles.PlagueSpawn" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_plague_spawn(w, None)), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a plague spawn corpse"),
-        always_murderer: |_w, _id| true,
-        default_name: |_w, _id| Some("a plague spawn"),
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        always_murderer: muo_content::templates::creature_props::always_murderer,
+        default_name: muo_content::templates::creature_props::default_name,
         on_think: plague_spawn_on_think,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        generate_loot: muo_content::templates::creature_props::generate_loot,
     }
     m {
         display_paperdoll_to: crate::hand::restless_soul_display_paperdoll_to,
@@ -455,15 +452,13 @@ creature_leaf! {
     /// `Server.Mobiles.Leviathan`.
     LEVIATHAN, LEVIATHAN_C = "Server.Mobiles.Leviathan" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_leviathan(w, None)), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a leviathan corpse"),
-        default_name: |_w, _id| Some("a leviathan"),
-        treasure_map_level: |_w, _id| 5,
-        treasure_map_chance: |_w, _id| 0.25,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        default_name: muo_content::templates::creature_props::default_name,
+        treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
+        treasure_map_chance: crate::cprops::treasure_map_chance,
         get_monster_abilities: |_, _| &LEVIATHAN_ABILITIES,
         on_killed_by: leviathan_on_killed_by,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 5);
-        },
+        generate_loot: muo_content::templates::creature_props::generate_loot,
     }
     m {
         on_before_death: leviathan_on_before_death,
@@ -476,42 +471,7 @@ creature_leaf! {
 static TWAULO_ABILITIES: [&MonsterAbility; 1] = [&abilities::SUMMON_PIXIES_COUNTER];
 
 fn twaulo_new(w: &mut World) -> MobileId {
-    let id = crate::npcs::special::champions::champion_make(
-        w,
-        &TWAULO,
-        AIType::AiMelee,
-        FightMode::Closest,
-    );
-    title(w, id, "of the Glade");
-    body(w, id, 101);
-    base_sound_id(w, id, 679);
-    hue(w, id, 0x455);
-    set_str_range(w, id, 1751, 1950);
-    set_dex_range(w, id, 251, 450);
-    set_int_range(w, id, 801, 1000);
-    set_hits(w, id, 7500);
-    set_damage(w, id, 19, 24);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 60);
-    set_skill(w, id, SkillName::EvalInt, 0.0);
-    set_skill(w, id, SkillName::Magery, 0.0);
-    set_skill(w, id, SkillName::Meditation, 0.0);
-    set_skill_range(w, id, SkillName::Anatomy, 95.1, 115.0);
-    set_skill_range(w, id, SkillName::Archery, 95.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 50.3, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 95.1, 100.0);
-    fame(w, id, 50000);
-    karma(w, id, 50000);
-    virtual_armor(w, id, 50);
-    crate::hand::add(w, id, "Bow");
-    let n = rnd::min_max(w, 500, 700);
-    pack_new_amount(w, id, &si("Arrow"), n);
-    id
+    crate::cprops::new_creature(w, &TWAULO)
 }
 
 /// `base.OnGaveMeleeAttack(..)`, then 10-29 damage and as much stamina and mana drained.
@@ -533,21 +493,17 @@ creature_leaf! {
     /// `Server.Mobiles.Twaulo`.
     TWAULO, TWAULO_C = "Server.Mobiles.Twaulo" : BASE_CHAMPION / BASE_CHAMPION_C, ctor Some(twaulo_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a corpse of Twaulo"),
-        default_name: |_w, _id| Some("Twaulo"),
-        opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        unprovokable: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        treasure_map_level: |_w, _id| 5,
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 8,
-        hide_type: |_w, _id| HideType::Spined,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        default_name: muo_content::templates::creature_props::default_name,
+        opposition_group: crate::cprops::opposition_group,
+        unprovokable: crate::cprops::unprovokable,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
+        treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
+        meat: muo_content::templates::creature_props::meat,
+        hides: muo_content::templates::creature_props::hides,
+        hide_type: crate::cprops::hide_type,
         get_monster_abilities: |_, _| &TWAULO_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        generate_loot: muo_content::templates::creature_props::generate_loot,
         on_gave_melee_attack: twaulo_on_gave_melee_attack,
     }
     m {

@@ -54,10 +54,8 @@ fn default_hue_of(w: &World, id: MobileId) -> i32 {
 }
 
 /// `Hue = DefaultHue;`
-pub fn changeling_ctor1(w: &mut World, id: MobileId) {
+pub fn changeling_data(w: &mut World, id: MobileId) {
     set_data(w, id, ChangelingData::default());
-    let h = default_hue_of(w, id);
-    hue(w, id, h);
 }
 
 pub fn changeling_serialize(w: &World, id: MobileId, out: &mut dyn GenericWriter) {
