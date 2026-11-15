@@ -3,7 +3,9 @@
     "type": "Server.Items.Torch",
     "itemId": 3947,
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "litItemId": 2578,
+      "unlitItemId": 3947
     }
   },
   {

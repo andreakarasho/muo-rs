@@ -27,7 +27,7 @@ pub fn brazier_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static BRAZIER_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xE31,
+    lit_item_id: crate::class_props::lit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -49,7 +49,7 @@ pub fn brazier_tall_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static BRAZIER_TALL_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x19AA,
+    lit_item_id: crate::class_props::lit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -71,8 +71,8 @@ pub fn candelabra_stand_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static CANDELABRA_STAND_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB26,
-    unlit_item_id: |_, _| 0xA29,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -103,8 +103,8 @@ pub fn candle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static CANDLE_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xA0F,
-    unlit_item_id: |_, _| 0xA28,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_EQUIPABLE_LIGHT_CLASS
 };
 leaf! {
@@ -134,8 +134,8 @@ pub fn candle_large_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static CANDLE_LARGE_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB1A,
-    unlit_item_id: |_, _| 0xA26,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -165,8 +165,8 @@ pub fn candle_long_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 pub static CANDLE_LONG_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x1430,
-    unlit_item_id: |_, _| 0x1433,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -196,8 +196,8 @@ pub fn candle_short_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static CANDLE_SHORT_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x142C,
-    unlit_item_id: |_, _| 0x142F,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -275,8 +275,8 @@ pub fn hanging_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static HANGING_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xA1A,
-    unlit_item_id: |_, _| 0xA1D,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -298,8 +298,8 @@ pub fn lamp_post1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static LAMP_POST1_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB20,
-    unlit_item_id: |_, _| 0xB21,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -321,8 +321,8 @@ pub fn lamp_post2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static LAMP_POST2_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB22,
-    unlit_item_id: |_, _| 0xB23,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -344,8 +344,8 @@ pub fn lamp_post3_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static LAMP_POST3_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB24,
-    unlit_item_id: |_, _| 0xB25,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -378,8 +378,8 @@ pub fn paper_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static PAPER_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x24BD,
-    unlit_item_id: |_, _| 0x24BE,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -401,8 +401,8 @@ pub fn round_paper_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static ROUND_PAPER_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x24C9,
-    unlit_item_id: |_, _| 0x24CA,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -424,8 +424,8 @@ pub fn shoji_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static SHOJI_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x24BB,
-    unlit_item_id: |_, _| 0x24BC,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {

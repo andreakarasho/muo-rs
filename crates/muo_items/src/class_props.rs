@@ -73,6 +73,16 @@ member!(
     }
 );
 
+/// `BaseLight.LitItemID`: the `litItemId` prop (0, `BaseLight`'s, without one).
+pub fn lit_item_id(w: &World, id: ItemId) -> i32 {
+    props::as_i32(props::item(w, id, "litItemId")).unwrap_or(0)
+}
+
+/// `BaseLight.UnlitItemID`: the `unlitItemId` prop (0, `BaseLight`'s, without one).
+pub fn unlit_item_id(w: &World, id: ItemId) -> i32 {
+    props::as_i32(props::item(w, id, "unlitItemId")).unwrap_or(0)
+}
+
 /// The prop `key` of class `ty` (its class chain), for callers that hold a class and no item.
 pub fn of_class<'a>(w: &'a World, ty: &'static ItemType, key: &str) -> Option<&'a Value> {
     let t = templates::loaded(w)?;

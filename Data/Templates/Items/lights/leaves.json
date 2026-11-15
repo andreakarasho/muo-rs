@@ -16,7 +16,8 @@
     "itemId": 3633,
     "movable": false,
     "props": {
-      "defaultWeight": 20.0
+      "defaultWeight": 20.0,
+      "litItemId": 3633
     }
   },
   {
@@ -24,42 +25,53 @@
     "itemId": 6570,
     "movable": false,
     "props": {
-      "defaultWeight": 25.0
+      "defaultWeight": 25.0,
+      "litItemId": 6570
     }
   },
   {
     "type": "Server.Items.CandelabraStand",
     "itemId": 2601,
     "props": {
-      "defaultWeight": 20.0
+      "defaultWeight": 20.0,
+      "litItemId": 2854,
+      "unlitItemId": 2601
     }
   },
   {
     "type": "Server.Items.Candle",
     "itemId": 2600,
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "litItemId": 2575,
+      "unlitItemId": 2600
     }
   },
   {
     "type": "Server.Items.CandleLarge",
     "itemId": 2598,
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "litItemId": 2842,
+      "unlitItemId": 2598
     }
   },
   {
     "type": "Server.Items.CandleLong",
     "itemId": 5171,
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "litItemId": 5168,
+      "unlitItemId": 5171
     }
   },
   {
     "type": "Server.Items.CandleShort",
     "itemId": 5167,
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "litItemId": 5164,
+      "unlitItemId": 5167
     }
   },
   {
@@ -74,7 +86,9 @@
     "itemId": 2589,
     "movable": false,
     "props": {
-      "defaultWeight": 40.0
+      "defaultWeight": 40.0,
+      "litItemId": 2586,
+      "unlitItemId": 2589
     }
   },
   {
@@ -82,7 +96,9 @@
     "itemId": 2849,
     "movable": false,
     "props": {
-      "defaultWeight": 40.0
+      "defaultWeight": 40.0,
+      "litItemId": 2848,
+      "unlitItemId": 2849
     }
   },
   {
@@ -90,7 +106,9 @@
     "itemId": 2851,
     "movable": false,
     "props": {
-      "defaultWeight": 40.0
+      "defaultWeight": 40.0,
+      "litItemId": 2850,
+      "unlitItemId": 2851
     }
   },
   {
@@ -98,7 +116,9 @@
     "itemId": 2853,
     "movable": false,
     "props": {
-      "defaultWeight": 40.0
+      "defaultWeight": 40.0,
+      "litItemId": 2852,
+      "unlitItemId": 2853
     }
   },
   {
@@ -106,7 +126,9 @@
     "itemId": 9406,
     "movable": true,
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "litItemId": 9405,
+      "unlitItemId": 9406
     }
   },
   {
@@ -114,7 +136,9 @@
     "itemId": 9418,
     "movable": true,
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "litItemId": 9417,
+      "unlitItemId": 9418
     }
   },
   {
@@ -122,7 +146,9 @@
     "itemId": 9404,
     "movable": true,
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "litItemId": 9403,
+      "unlitItemId": 9404
     }
   }
 ]

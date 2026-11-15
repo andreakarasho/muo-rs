@@ -3,14 +3,18 @@
     "type": "Server.Items.Candelabra",
     "itemId": 2599,
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "litItemId": 2845,
+      "unlitItemId": 2599
     }
   },
   {
     "type": "Server.Items.HeatingStand",
     "itemId": 6217,
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "litItemId": 6218,
+      "unlitItemId": 6217
     }
   }
 ]

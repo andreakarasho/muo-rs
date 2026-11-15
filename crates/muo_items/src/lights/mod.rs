@@ -37,8 +37,8 @@ pub fn torch_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static TORCH_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xA12,
-    unlit_item_id: |_, _| 0xF6B,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     lit_sound: 0x54,
     unlit_sound: 0x4BB,
     ignite: torch_ignite,

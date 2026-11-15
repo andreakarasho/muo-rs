@@ -74,8 +74,8 @@ pub struct LightClass {
 }
 
 pub static BASE_LIGHT_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0,
-    unlit_item_id: |_, _| 0,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     burnt_out_item_id: |_, _| 0,
     lit_sound: 0x47,
     unlit_sound: 0x3be,

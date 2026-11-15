@@ -49,8 +49,8 @@ pub fn candelabra_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 }
 
 static CANDELABRA_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB1D,
-    unlit_item_id: |_, _| 0xA27,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 
@@ -119,8 +119,8 @@ fn heating_stand_light(w: &mut World, id: ItemId) {
 }
 
 static HEATING_STAND_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x184A,
-    unlit_item_id: |_, _| 0x1849,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ignite: |w, id| {
         (BASE_LIGHT_CLASS.ignite)(w, id);
         heating_stand_light(w, id);
