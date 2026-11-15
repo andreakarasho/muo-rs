@@ -8,8 +8,11 @@ license.workspace = true
 muo_primitives.workspace = true
 muo_server.workspace = true
 muo_content.workspace = true
+muo_data.workspace = true
 rhai.workspace = true
+serde_json.workspace = true
 tracing.workspace = true
 
 [dev-dependencies]
+muo_io.workspace = true
 muo_server = { workspace = true, features = ["test-support"] }

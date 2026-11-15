@@ -229,3 +229,24 @@ pub fn apply(w: &mut World, id: ItemId, s: &Step) {
         Step::Ext(_, def, v) => (def.apply)(w, id, v),
     }
 }
+
+/// Every built-in key (the step functions scripts get, one per key).
+pub const KEYS: &[&str] = &[
+    "itemId",
+    "hue",
+    "weight",
+    "amount",
+    "name",
+    "movable",
+    "stackable",
+    "visible",
+    "lootType",
+    "layer",
+    "light",
+    "attributes",
+    "weaponAttributes",
+    "armorAttributes",
+    "elementAttributes",
+    "skillBonuses",
+    "set",
+];

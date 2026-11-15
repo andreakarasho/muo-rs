@@ -509,3 +509,128 @@ fn attr_bit(bag: &str, name: &str) -> Option<(muo_content::aos::AttrKind, u32)> 
         .find(|(n, _)| *n == name)
         .map(|(_, b)| (kind, *b))
 }
+
+/// One function per template key, built-in or registered by a content crate, named exactly like the key
+/// (`str(m, [96, 120])`, `damageTypes(m, #{ Physical: 100 })`, `creatureHue(m, ..)`): the value is the key's JSON
+/// value and the step runs the same setter the template did. A rhai object map iterates in key order, not written
+/// order, so a statement whose map entries draw the RNG in sequence is written one entry per call, or with the
+/// one-entry functions `resist`, `skill`, `damage_type`, `skill_base`.
+pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::TypeRegistry) {
+    use muo_content::templates::keys::{ItemKeys, Keys, MobileKeys};
+    use muo_content::templates::{item_steps, mobile_steps};
+    fn json(key: &str, v: &Dynamic) -> R<serde_json::Value> {
+        rhai::serde::from_dynamic(v).map_err(|e| format!("{key}: {e}").into())
+    }
+    let mut mobile_keys: Vec<&'static str> = mobile_steps::KEYS.to_vec();
+    if let Some(k) = types.extensions.get::<MobileKeys>() {
+        mobile_keys.extend(k.0.keys().copied());
+    }
+    let mut item_keys: Vec<&'static str> = item_steps::KEYS.to_vec();
+    if let Some(k) = types.extensions.get::<ItemKeys>() {
+        item_keys.extend(k.0.keys().copied());
+    }
+    for key in mobile_keys {
+        e.register_fn(
+            key,
+            move |ctx: NativeCallContext, m: Mobile, v: Dynamic| -> R<()> {
+                let v = json(key, &v)?;
+                with_world(&ctx, |w| {
+                    if live_m(w, m).is_none() {
+                        return Ok(());
+                    }
+                    let step = mobile_steps::parse(key, &v, &Keys::of(&w.types))
+                        .map_err(|e| format!("{key}: {e}"))?;
+                    mobile_steps::apply(w, m.0, &step);
+                    Ok::<(), Box<EvalAltResult>>(())
+                })?
+            },
+        );
+    }
+    for key in item_keys {
+        e.register_fn(
+            key,
+            move |ctx: NativeCallContext, i: Item, v: Dynamic| -> R<()> {
+                let v = json(key, &v)?;
+                with_world(&ctx, |w| {
+                    if live_i(w, i).is_none() {
+                        return Ok(());
+                    }
+                    let step = item_steps::parse(key, &v, &Keys::of(&w.types))
+                        .map_err(|e| format!("{key}: {e}"))?;
+                    item_steps::apply(w, i.0, &step);
+                    Ok::<(), Box<EvalAltResult>>(())
+                })?
+            },
+        );
+    }
+    // one-entry forms of the map keys whose entries draw the RNG in order
+    fn one(
+        ctx: &NativeCallContext,
+        m: Mobile,
+        key: &'static str,
+        name: &str,
+        v: serde_json::Value,
+    ) -> R<()> {
+        let mut o = serde_json::Map::new();
+        o.insert(name.to_owned(), v);
+        with_world(ctx, |w| {
+            if live_m(w, m).is_none() {
+                return Ok(());
+            }
+            let step =
+                muo_content::templates::mobile_steps::parse(key, &o.into(), &Keys::of(&w.types))
+                    .map_err(|e| format!("{key}: {e}"))?;
+            muo_content::templates::mobile_steps::apply(w, m.0, &step);
+            Ok::<(), Box<EvalAltResult>>(())
+        })?
+    }
+    e.register_fn(
+        "resist",
+        |ctx: NativeCallContext, m: Mobile, n: &str, v: i64| one(&ctx, m, "resists", n, v.into()),
+    );
+    e.register_fn(
+        "resist",
+        |ctx: NativeCallContext, m: Mobile, n: &str, a: i64, b: i64| {
+            one(&ctx, m, "resists", n, serde_json::json!([a, b]))
+        },
+    );
+    e.register_fn(
+        "damage_type",
+        |ctx: NativeCallContext, m: Mobile, n: &str, v: i64| {
+            one(&ctx, m, "damageTypes", n, v.into())
+        },
+    );
+    e.register_fn(
+        "damage_type",
+        |ctx: NativeCallContext, m: Mobile, n: &str, a: i64, b: i64| {
+            one(&ctx, m, "damageTypes", n, serde_json::json!([a, b]))
+        },
+    );
+    e.register_fn(
+        "skill",
+        |ctx: NativeCallContext, m: Mobile, n: &str, v: f64| one(&ctx, m, "skills", n, v.into()),
+    );
+    e.register_fn(
+        "skill",
+        |ctx: NativeCallContext, m: Mobile, n: &str, a: f64, b: f64| {
+            one(&ctx, m, "skills", n, serde_json::json!([a, b]))
+        },
+    );
+    e.register_fn(
+        "skill_base",
+        |ctx: NativeCallContext, m: Mobile, n: &str, v: f64| one(&ctx, m, "skillBase", n, v.into()),
+    );
+    // `Core.AOS`-style checks for constructors: `if era_at_least("AOS") { .. }`
+    e.register_fn(
+        "era_at_least",
+        |ctx: NativeCallContext, era: &str| -> R<bool> {
+            let Some(at) = (0..64)
+                .filter_map(muo_data::expansion::Expansion::from_index)
+                .find(|x| format!("{x:?}") == era)
+            else {
+                return Err(format!("unknown era {era}").into());
+            };
+            with_world(&ctx, |w| w.expansion() >= at)
+        },
+    );
+}

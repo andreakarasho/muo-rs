@@ -26,7 +26,7 @@ use std::rc::Rc;
 
 use serde_json::{Map, Value};
 
-use muo_server::ids::{ItemId, MobileId};
+use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::mobile::MobileType;
 use muo_server::script_hooks::ScriptArg;
 use muo_server::world::World;
@@ -142,6 +142,9 @@ pub struct Template {
     pub props: Map<String, Value>,
     pub mobile_steps: Vec<mobile_steps::Step>,
     pub item_steps: Vec<item_steps::Step>,
+    /// A constructor body declared in a script (`class(name, #{..}, |e| { .. })`): run after the steps by the
+    /// [`CtorRunner`] the scripting crate installs.
+    pub ctor: Option<u32>,
 }
 
 /// Every loaded template, by full type name.
@@ -372,7 +375,8 @@ fn field_err(file: &Path, ty: &str, key: &str, msg: impl std::fmt::Display) -> S
     format!("{}: {ty}: \"{key}\": {msg}", file.display())
 }
 
-fn parse_template(
+/// A template from one JSON-shaped object (a file entry, or a script `class` declaration converted to JSON).
+pub fn parse_template(
     file: &Path,
     kind: Kind,
     obj: &Map<String, Value>,
@@ -397,6 +401,7 @@ fn parse_template(
         props: Map::new(),
         mobile_steps: Vec::new(),
         item_steps: Vec::new(),
+        ctor: None,
     };
     let s = |v: &Value| v.as_str().map(str::to_owned).ok_or("expected a string");
     let n = |v: &Value| {
@@ -483,6 +488,31 @@ fn load_dir_keeping(
         interned,
         ..TemplateTable::default()
     };
+    read_json(root, &mut table, keys)?;
+    finish(&mut table)?;
+    Ok(table)
+}
+
+/// Adds `t`; a type defined twice is an error naming both places.
+pub fn insert(table: &mut TemplateTable, t: Template) -> Result<(), String> {
+    let map = match t.kind {
+        Kind::Mobile => &mut table.mobiles,
+        Kind::Item => &mut table.items,
+    };
+    if let Some(old) = map.get(&t.type_name) {
+        return Err(format!(
+            "{}: {} is already defined in {}",
+            t.file.display(),
+            t.type_name,
+            old.file.display()
+        ));
+    }
+    map.insert(t.type_name.clone(), t);
+    Ok(())
+}
+
+/// `<root>/Mobiles/**/*.json` and `<root>/Items/**/*.json` into `table`.
+fn read_json(root: &Path, table: &mut TemplateTable, keys: &keys::Keys<'_>) -> Result<(), String> {
     for (sub, kind) in [("Mobiles", Kind::Mobile), ("Items", Kind::Item)] {
         let mut files = Vec::new();
         json_files(&root.join(sub), &mut files)?;
@@ -498,23 +528,15 @@ fn load_dir_keeping(
                 let o = o
                     .as_object()
                     .ok_or_else(|| format!("{}: expected a template object", file.display()))?;
-                let t = parse_template(&file, kind, o, keys)?;
-                let map = match kind {
-                    Kind::Mobile => &mut table.mobiles,
-                    Kind::Item => &mut table.items,
-                };
-                if let Some(old) = map.get(&t.type_name) {
-                    return Err(format!(
-                        "{}: {} is already defined in {}",
-                        file.display(),
-                        t.type_name,
-                        old.file.display()
-                    ));
-                }
-                map.insert(t.type_name.clone(), t);
+                insert(table, parse_template(&file, kind, o, keys)?)?;
             }
         }
     }
+    Ok(())
+}
+
+/// Checks every `inherits` and interns the string props: the last step of a load.
+fn finish(table: &mut TemplateTable) -> Result<(), String> {
     for kind in [Kind::Mobile, Kind::Item] {
         let map = match kind {
             Kind::Mobile => &table.mobiles,
@@ -541,13 +563,15 @@ fn load_dir_keeping(
             }
         }
     }
-    props::intern_all(&mut table);
-    Ok(table)
+    props::intern_all(table);
+    Ok(())
 }
 
 /// `Data/Templates` under the server folder.
 pub fn templates_dir(w: &World) -> PathBuf {
-    w.core.base_directory.join("Data").join("Templates")
+    data_root(w)
+        .unwrap_or_else(|| w.core.base_directory.join("Data"))
+        .join("Templates")
 }
 
 /// Where a world that was never configured (a test world) finds the templates: `MUO_TEMPLATES`, else the first
@@ -562,19 +586,77 @@ fn fallback_dir() -> Option<PathBuf> {
         .find(|p| p.is_dir())
 }
 
+/// The `Data` folder: the server folder's, else (a test world never configured) `MUO_DATA`, else the first `Data`
+/// in the current directory or one of its ancestors.
+pub fn data_root(w: &World) -> Option<PathBuf> {
+    if !w.core.base_directory.as_os_str().is_empty() {
+        // a configured server reads only its own folder, never a `Data` found elsewhere
+        let own = w.core.base_directory.join("Data");
+        return own.is_dir().then_some(own);
+    }
+    if let Some(p) = std::env::var_os("MUO_DATA") {
+        return Some(PathBuf::from(p));
+    }
+    let cwd = std::env::current_dir().ok()?;
+    cwd.ancestors().map(|a| a.join("Data")).find(|p| p.is_dir())
+}
+
+/// A source of templates besides the JSON files (the scripting crate's `class` declarations), registered at
+/// type registration. `lenient` is the test-world load: unknown keys are skipped and errors only logged.
+pub type SourceFn = fn(&mut World, bool, &mut TemplateTable) -> Result<(), String>;
+
+#[derive(Default)]
+pub struct Sources(pub Vec<SourceFn>);
+
+/// Adds a template source; registering the same one twice is a no-op.
+pub fn register_source(types: &mut muo_server::type_registry::TypeRegistry, f: SourceFn) {
+    let s = types.extensions.get_mut::<Sources>();
+    if !s.0.iter().any(|g| std::ptr::fn_addr_eq(*g, f)) {
+        s.0.push(f);
+    }
+}
+
+fn run_sources(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Result<(), String> {
+    let sources = w
+        .types
+        .extensions
+        .get::<Sources>()
+        .map(|s| s.0.clone())
+        .unwrap_or_default();
+    for f in sources {
+        f(w, lenient, t)?;
+    }
+    Ok(())
+}
+
+/// Runs a script-declared constructor body ([`Template::ctor`]) on a new entity, with the constructor's arguments.
+#[derive(Copy, Clone)]
+pub struct CtorRunner(pub fn(&mut World, EntityId, u32, &[ScriptArg<'_>]));
+
+fn run_ctor(w: &mut World, e: EntityId, ctor: u32, args: &[ScriptArg<'_>]) {
+    match w.resources.get::<CtorRunner>().copied() {
+        Some(r) => (r.0)(w, e, ctor, args),
+        None => tracing::warn!("Templates: a scripted constructor ran with no script host"),
+    }
+}
+
 /// The table, loading it on first use in a world whose Configure phase did not (test worlds).
 pub fn table(w: &mut World) -> Rc<TemplateTable> {
     if let Some(t) = w.resources.get::<Rc<TemplateTable>>() {
         return t.clone();
     }
-    let t = match fallback_dir().map(|d| load_dir_with(&d, &keys::Keys::lenient(&w.types))) {
-        Some(Ok(t)) => t,
-        Some(Err(e)) => {
-            tracing::error!("Templates: {e}");
-            TemplateTable::default()
+    let mut t = TemplateTable::default();
+    let r = (|| {
+        if let Some(d) = fallback_dir() {
+            read_json(&d, &mut t, &keys::Keys::lenient(&w.types))?;
         }
-        None => TemplateTable::default(),
-    };
+        run_sources(w, true, &mut t)?;
+        finish(&mut t)
+    })();
+    if let Err(e) = r {
+        tracing::error!("Templates: {e}");
+        t = TemplateTable::default();
+    }
     let t = Rc::new(t);
     w.resources.insert(t.clone());
     t
@@ -592,7 +674,13 @@ pub fn reload(w: &mut World) -> Result<(), String> {
         .get::<Rc<TemplateTable>>()
         .map(|t| t.interned.clone())
         .unwrap_or_default();
-    let mut t = load_dir_keeping(&templates_dir(w), old, &keys::Keys::of(&w.types))?;
+    let mut t = TemplateTable {
+        interned: old,
+        ..TemplateTable::default()
+    };
+    read_json(&templates_dir(w), &mut t, &keys::Keys::of(&w.types))?;
+    run_sources(w, false, &mut t)?;
+    finish(&mut t)?;
     runtime_types::register_all(w, &mut t)?;
     w.resources.insert(Rc::new(t));
     Ok(())
@@ -601,16 +689,15 @@ pub fn reload(w: &mut World) -> Result<(), String> {
 /// The Configure phase: a bad template file stops startup.
 fn configure(w: &mut World) {
     // Converted creatures and items get their graphic and stats only from here: without it they come out blank.
-    let dir = templates_dir(w);
-    if !dir.is_dir() {
-        w.core.startup_error = Some(format!(
-            "Templates: {} is missing; copy the repository's Data/Templates folder",
-            dir.display()
-        ));
-        return;
-    }
     if let Err(e) = reload(w) {
         w.core.startup_error = Some(format!("Templates: {e}"));
+        return;
+    }
+    if loaded(w).is_none_or(|t| t.mobiles.is_empty() && t.items.is_empty()) {
+        w.core.startup_error = Some(format!(
+            "Templates: no class templates under {}; copy the repository's Data folder",
+            w.core.base_directory.join("Data").display()
+        ));
     }
 }
 
@@ -647,6 +734,10 @@ pub fn apply_mobile_with(w: &mut World, id: MobileId, name: &str, args: &[Script
     for tmpl in chain.into_iter().rev() {
         for s in &tmpl.mobile_steps {
             mobile_steps::apply(w, id, s);
+        }
+        if let Some(c) = tmpl.ctor {
+            let a = if tmpl.type_name == name { args } else { &[] };
+            run_ctor(w, EntityId::Mobile(id), c, a);
         }
     }
     // `on_spawn` once, on the replay of the mobile's own class: a parent constructor replaying the parent's
@@ -694,6 +785,10 @@ pub fn apply_item_with(w: &mut World, id: ItemId, name: &str, args: &[ScriptArg<
     for tmpl in chain.into_iter().rev() {
         for s in &tmpl.item_steps {
             item_steps::apply(w, id, s);
+        }
+        if let Some(c) = tmpl.ctor {
+            let a = if tmpl.type_name == name { args } else { &[] };
+            run_ctor(w, EntityId::Item(id), c, a);
         }
     }
     // as `apply_mobile_as`: only the replay of the item's own class fires `on_spawn`

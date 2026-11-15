@@ -9,8 +9,10 @@
 //! - Commands: `fn command_<name>(m, args)` registers `[<name>`; a `// access: <AccessLevel>` comment line right
 //!   above it sets the level (default `GameMaster`).
 //!
-//! Only functions run: top-level statements of a script are never evaluated. Functions resolve by name at call
-//! time, so a reload applies immediately. A script error (including a runaway loop hitting the operation limit) is
+//! - Classes: `class(name, #{..}, |e| {..})` at a script's top level declares a class template (see `classes`).
+//!
+//! A script's top level runs once, when the templates load, to collect its `class` declarations; after that only
+//! functions run. Functions resolve by name at call time, so a reload applies immediately. A script error (including a runaway loop hitting the operation limit) is
 //! logged with the file and function, and the default behavior runs.
 
 mod api;
@@ -20,6 +22,7 @@ mod api_misc_items;
 mod api_misc_items2;
 mod api_mobiles;
 mod api_npcs;
+mod classes;
 #[cfg(test)]
 mod tests;
 
@@ -35,7 +38,7 @@ use muo_server::mobile::AccessLevel;
 use muo_server::script_hooks::{self, ScriptArg, ScriptHook, ScriptHooks};
 use muo_server::type_registry::{Phase, TypeRegistry};
 use muo_server::world::World;
-use rhai::{AST, CallFnOptions, Dynamic, Engine, Scope};
+use rhai::{AST, CallFnOptions, Dynamic, Engine, FnPtr, Scope};
 
 /// One compiled file.
 pub struct Script {
@@ -54,11 +57,18 @@ const GLOBALS: [(&str, usize); 3] = [("on_login", 1), ("on_speech", 2), ("on_ser
 pub struct ScriptHost {
     engine: Engine,
     pub scripts: Vec<Script>,
-    /// class key (`script_hooks::*_class_key`) -> script index, for classes whose script defines a hook.
-    mobiles: HashMap<usize, usize>,
-    items: HashMap<usize, usize>,
+    /// The constructor closures of the `class` declarations: (script, closure); `Template::ctor` indexes this.
+    ctors: Vec<(usize, FnPtr)>,
     /// The scripts defining each of [`GLOBALS`].
     globals: [Vec<usize>; 3],
+}
+
+/// class key (`script_hooks::*_class_key`) -> script index, for classes whose script defines a hook. Rebuilt by
+/// [`install`] after every template load.
+#[derive(Default)]
+struct ClassScripts {
+    mobiles: HashMap<usize, usize>,
+    items: HashMap<usize, usize>,
 }
 
 /// Script calls in progress: a script action can raise a hook that runs a script again.
@@ -136,9 +146,16 @@ impl ScriptHost {
         }
     }
 
-    /// Compiles every `.rhai` under `dir`. A file that fails is left out and named in the errors.
-    pub fn load(dir: &Path) -> (ScriptHost, Vec<String>) {
-        let engine = api::engine();
+    /// Compiles every `.rhai` under `dir` and runs each top level once, collecting its `class` declarations. A file
+    /// that fails is left out and named in the errors.
+    pub(crate) fn load(
+        dir: &Path,
+        types: &TypeRegistry,
+    ) -> (ScriptHost, Vec<classes::Decl>, Vec<String>) {
+        let mut engine = api::engine();
+        api::register_steps(&mut engine, types);
+        let collector = Rc::new(std::cell::RefCell::new(classes::Collector::default()));
+        classes::register(&mut engine, &collector);
         let mut files = Vec::new();
         rhai_files(dir, &mut files);
         let mut scripts = Vec::new();
@@ -168,11 +185,17 @@ impl ScriptHost {
                 Err(e) => errors.push(format!("{name}: {e}")),
             }
         }
+        for (i, sc) in scripts.iter().enumerate() {
+            collector.borrow_mut().current = i;
+            if let Err(e) = engine.run_ast(&sc.ast) {
+                errors.push(format!("{}: {e}", sc.name));
+            }
+        }
+        let decls = std::mem::take(&mut collector.borrow_mut().decls);
         let mut host = ScriptHost {
             engine,
             scripts,
-            mobiles: HashMap::new(),
-            items: HashMap::new(),
+            ctors: Vec::new(),
             globals: Default::default(),
         };
         for (g, (name, arity)) in GLOBALS.iter().enumerate() {
@@ -180,7 +203,7 @@ impl ScriptHost {
                 .filter(|&i| host.has_fn(i, name, *arity))
                 .collect();
         }
-        (host, errors)
+        (host, decls, errors)
     }
 }
 
@@ -255,7 +278,11 @@ fn script_of(
 
 /// Binds the classes to scripts, installs the host and the hook table, and re-registers the script commands.
 /// Returns the problems found (a template naming a script that is not loaded).
-fn install(w: &mut World, mut host: ScriptHost) -> Vec<String> {
+/// Binds the classes of the loaded templates to their scripts and registers the script commands.
+fn install(w: &mut World) -> Vec<String> {
+    let Some(host) = host(w) else {
+        return Vec::new();
+    };
     let by_name: HashMap<&str, usize> = host
         .scripts
         .iter()
@@ -305,14 +332,12 @@ fn install(w: &mut World, mut host: ScriptHost) -> Vec<String> {
             }
         }
     }
-    host.mobiles = mobiles;
-    host.items = items;
+    w.resources.insert(ClassScripts { mobiles, items });
     let commands: Vec<(String, AccessLevel)> = host
         .scripts
         .iter()
         .flat_map(|s| s.commands.clone())
         .collect();
-    w.resources.insert(Rc::new(host));
     w.resources.insert(hooks);
     register_commands(w, commands);
     let mut missing: Vec<String> = missing
@@ -361,14 +386,18 @@ fn run_command(w: &mut World, fn_name: &str, e: &mut CommandEventArgs) {
 fn dispatch(w: &mut World, e: EntityId, hook: ScriptHook, args: &[ScriptArg]) -> bool {
     let Some(host) = host(w) else { return false };
     let script = match e {
-        EntityId::Mobile(m) => w
-            .mobile(m)
-            .and_then(|m| host.mobiles.get(&script_hooks::mobile_class_key(m.ty))),
-        EntityId::Item(i) => w
-            .item(i)
-            .and_then(|i| host.items.get(&script_hooks::item_class_key(i.ty))),
+        EntityId::Mobile(m) => w.mobile(m).and_then(|m| {
+            let c = w.resources.get::<ClassScripts>()?;
+            c.mobiles
+                .get(&script_hooks::mobile_class_key(m.ty))
+                .copied()
+        }),
+        EntityId::Item(i) => w.item(i).and_then(|i| {
+            let c = w.resources.get::<ClassScripts>()?;
+            c.items.get(&script_hooks::item_class_key(i.ty)).copied()
+        }),
     };
-    let Some(&script) = script else { return false };
+    let Some(script) = script else { return false };
     let mut v = Vec::with_capacity(args.len() + 1);
     v.push(api::entity(Some(e)));
     v.extend(args.iter().map(|a| api::arg(*a)));
@@ -414,12 +443,52 @@ pub fn scripts_dir(w: &World) -> PathBuf {
     w.core.base_directory.join("Data").join("Scripts")
 }
 
-/// Recompiles every script and rebinds the classes; returns the errors (a file that fails is left out, the others
-/// load).
+/// Reloads the templates (JSON and the scripts' `class` declarations, recompiling every script) and rebinds the
+/// classes. A load error keeps everything that was loaded before and is returned.
 pub fn reload_scripts(w: &mut World) -> Vec<String> {
-    let (host, mut errors) = ScriptHost::load(&scripts_dir(w));
-    errors.extend(install(w, host));
+    let mut errors: Vec<String> = templates::reload(w).err().into_iter().collect();
+    errors.extend(install(w));
     errors
+}
+
+/// The template source: compiles `Data/Scripts`, turns its `class` declarations into templates, and makes the new
+/// host current. A strict (server) load fails on any script error, so a broken file never leaves classes blank.
+fn source(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Result<(), String> {
+    let Some(dir) = templates::data_root(w).map(|d| d.join("Scripts")) else {
+        return Ok(());
+    };
+    let (mut host, decls, errors) = ScriptHost::load(&dir, &w.types);
+    if !errors.is_empty() {
+        if !lenient {
+            return Err(format!("Scripts: {}", errors.join("; ")));
+        }
+        for e in &errors {
+            tracing::error!("Scripts: {e}");
+        }
+    }
+    let names: Vec<String> = host.scripts.iter().map(|s| s.name.clone()).collect();
+    let mut ctors = Vec::new();
+    classes::build(w, decls, &names, lenient, t, &mut ctors)?;
+    host.ctors = ctors;
+    w.resources.insert(Rc::new(host));
+    w.resources.insert(templates::CtorRunner(run_ctor));
+    Ok(())
+}
+
+/// [`templates::CtorRunner`]: a class's constructor closure on a new entity, with the constructor's arguments
+/// fitted to the closure's parameters as for `on_spawn`.
+fn run_ctor(w: &mut World, e: EntityId, ctor: u32, args: &[ScriptArg<'_>]) {
+    let Some(host) = host(w) else { return };
+    let Some((script, f)) = host.ctors.get(ctor as usize).cloned() else {
+        return;
+    };
+    let mut v: Vec<Dynamic> = f.curry().to_vec();
+    v.push(api::entity(Some(e)));
+    v.extend(args.iter().map(|a| api::arg(*a)));
+    if let Some(n) = host.arity(script, f.fn_name(), v.len()) {
+        v.resize(n.max(f.curry().len() + 1), Dynamic::UNIT);
+    }
+    host.call(w, script, f.fn_name(), v);
 }
 
 fn report(w: &mut World, to: muo_server::ids::MobileId, what: &str, errors: &[String]) {
@@ -440,7 +509,7 @@ fn report(w: &mut World, to: muo_server::ids::MobileId, what: &str, errors: &[St
 
 /// The Configure phase (after the templates): compile, bind, subscribe the global hooks, register the commands.
 fn configure(w: &mut World) {
-    for e in reload_scripts(w) {
+    for e in install(w) {
         tracing::error!("Scripts: {e}");
     }
     w.events.connected.subscribe(|w, m| {
@@ -472,9 +541,8 @@ fn configure(w: &mut World) {
         AccessLevel::Administrator,
         &[],
         Rc::new(|w, e| {
-            // the scripts are rebound too: a reload can add JSON-only classes or change a "script" key
-            let mut errors: Vec<String> = templates::reload(w).err().into_iter().collect();
-            errors.extend(reload_scripts(w));
+            // one load: the classes declared in scripts are templates too
+            let errors = reload_scripts(w);
             report(w, e.mobile, "Templates", &errors);
         }),
     );
@@ -482,6 +550,7 @@ fn configure(w: &mut World) {
 
 /// Registers the scripting Configure phase; call last, after every content crate.
 pub fn register(types: &mut TypeRegistry) {
+    templates::register_source(types, source);
     types.register_phase(
         Phase::Configure,
         "muo_scripting.Scripts.Configure",

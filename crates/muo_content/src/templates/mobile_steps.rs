@@ -454,3 +454,38 @@ pub fn apply(w: &mut World, id: MobileId, s: &Step) {
         Step::Ext(_, def, v) => (def.apply)(w, id, v),
     }
 }
+
+/// Every built-in key (the step functions scripts get, one per key).
+pub const KEYS: &[&str] = &[
+    "name",
+    "nameRandom",
+    "title",
+    "body",
+    "bodies",
+    "hue",
+    "baseSoundId",
+    "speechHue",
+    "str",
+    "dex",
+    "int",
+    "hits",
+    "stam",
+    "mana",
+    "damage",
+    "damageTypes",
+    "resists",
+    "skills",
+    "skillBase",
+    "fame",
+    "karma",
+    "virtualArmor",
+    "tamable",
+    "controlSlots",
+    "minTameSkill",
+    "female",
+    "canSwim",
+    "cantWalk",
+    "paragon",
+    "randomHair",
+    "pack",
+];
