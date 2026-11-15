@@ -4,8 +4,7 @@
 use muo_content::hooks::rnd;
 use muo_content::player_mobile::{self};
 use muo_content::vendor::{
-    BASE_VENDOR_CLASS, VendorClass, add_hued, init_outfit as base_init_outfit,
-    is_tokuno_vendor,
+    BASE_VENDOR_CLASS, VendorClass, add_hued, init_outfit as base_init_outfit, is_tokuno_vendor,
 };
 use muo_primitives::{TimeSpan, utility};
 use muo_server::ids::{ItemId, MobileId};
@@ -175,7 +174,12 @@ pub static BLACKSMITH_V: VendorClass = VendorClass {
     on_successful_bulk_order_receive: smith_bod::received,
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(BLACKSMITH, BLACKSMITH_C, BLACKSMITH_V = "Server.Mobiles.Blacksmith", ctor |w| new_template_vendor(w, &BLACKSMITH));
+vendor_leaf!(
+    BLACKSMITH,
+    BLACKSMITH_C,
+    BLACKSMITH_V = "Server.Mobiles.Blacksmith",
+    ctor | w | new_template_vendor(w, &BLACKSMITH)
+);
 
 static WEAPONSMITH_V: VendorClass = VendorClass {
     supports_bulk_orders: |w, _v, from| {
@@ -187,7 +191,12 @@ static WEAPONSMITH_V: VendorClass = VendorClass {
     on_successful_bulk_order_receive: smith_bod::received,
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(WEAPONSMITH, WEAPONSMITH_C, WEAPONSMITH_V = "Server.Mobiles.Weaponsmith", ctor |w| new_template_vendor(w, &WEAPONSMITH));
+vendor_leaf!(
+    WEAPONSMITH,
+    WEAPONSMITH_C,
+    WEAPONSMITH_V = "Server.Mobiles.Weaponsmith",
+    ctor | w | new_template_vendor(w, &WEAPONSMITH)
+);
 
 static TAILOR_V: VendorClass = VendorClass {
     supports_bulk_orders: |w, _v, from| {
@@ -199,7 +208,12 @@ static TAILOR_V: VendorClass = VendorClass {
     on_successful_bulk_order_receive: tailor_bod::received,
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(TAILOR_NPC, TAILOR_C, TAILOR_V = "Server.Mobiles.Tailor", ctor |w| new_template_vendor(w, &TAILOR_NPC));
+vendor_leaf!(
+    TAILOR_NPC,
+    TAILOR_C,
+    TAILOR_V = "Server.Mobiles.Tailor",
+    ctor | w | new_template_vendor(w, &TAILOR_NPC)
+);
 
 static WEAVER_V: VendorClass = VendorClass {
     supports_bulk_orders: |w, _v, from| {
@@ -211,7 +225,12 @@ static WEAVER_V: VendorClass = VendorClass {
     on_successful_bulk_order_receive: tailor_bod::received,
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(WEAVER, WEAVER_C, WEAVER_V = "Server.Mobiles.Weaver", ctor |w| new_template_vendor(w, &WEAVER));
+vendor_leaf!(
+    WEAVER,
+    WEAVER_C,
+    WEAVER_V = "Server.Mobiles.Weaver",
+    ctor | w | new_template_vendor(w, &WEAVER)
+);
 
 // ---- outfits that edit the worn items ----
 
@@ -248,7 +267,12 @@ static IRON_WORKER_V: VendorClass = VendorClass {
     },
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(IRON_WORKER, IRON_WORKER_C, IRON_WORKER_V = "Server.Mobiles.IronWorker", ctor |w| new_template_vendor(w, &IRON_WORKER));
+vendor_leaf!(
+    IRON_WORKER,
+    IRON_WORKER_C,
+    IRON_WORKER_V = "Server.Mobiles.IronWorker",
+    ctor | w | new_template_vendor(w, &IRON_WORKER)
+);
 
 static VAGABOND_V: VendorClass = VendorClass {
     // The outfit does not call the base InitOutfit.
@@ -283,12 +307,22 @@ static VAGABOND_V: VendorClass = VendorClass {
     },
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(VAGABOND, VAGABOND_C, VAGABOND_V = "Server.Mobiles.Vagabond", ctor |w| new_template_vendor(w, &VAGABOND));
+vendor_leaf!(
+    VAGABOND,
+    VAGABOND_C,
+    VAGABOND_V = "Server.Mobiles.Vagabond",
+    ctor | w | new_template_vendor(w, &VAGABOND)
+);
 
 pub static KEEPER_OF_CHIVALRY_V: VendorClass = VendorClass {
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(KEEPER_OF_CHIVALRY, KEEPER_OF_CHIVALRY_C, KEEPER_OF_CHIVALRY_V = "Server.Mobiles.KeeperOfChivalry", ctor |w| new_template_vendor(w, &KEEPER_OF_CHIVALRY));
+vendor_leaf!(
+    KEEPER_OF_CHIVALRY,
+    KEEPER_OF_CHIVALRY_C,
+    KEEPER_OF_CHIVALRY_V = "Server.Mobiles.KeeperOfChivalry",
+    ctor | w | new_template_vendor(w, &KEEPER_OF_CHIVALRY)
+);
 
 static GYPSY_MAIDEN_V: VendorClass = VendorClass {
     get_gender: |_, _| true,
@@ -305,7 +339,12 @@ static GYPSY_MAIDEN_V: VendorClass = VendorClass {
     },
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(GYPSY_MAIDEN, GYPSY_MAIDEN_C, GYPSY_MAIDEN_V = "Server.Mobiles.GypsyMaiden", ctor |w| new_template_vendor(w, &GYPSY_MAIDEN));
+vendor_leaf!(
+    GYPSY_MAIDEN,
+    GYPSY_MAIDEN_C,
+    GYPSY_MAIDEN_V = "Server.Mobiles.GypsyMaiden",
+    ctor | w | new_template_vendor(w, &GYPSY_MAIDEN)
+);
 
 static HOLY_MAGE_V: VendorClass = VendorClass {
     // The outfit does not call the base InitOutfit.
@@ -332,13 +371,17 @@ static HOLY_MAGE_V: VendorClass = VendorClass {
     },
     ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(HOLY_MAGE, HOLY_MAGE_C, HOLY_MAGE_V = "Server.Mobiles.HolyMage", ctor |w| new_template_vendor(w, &HOLY_MAGE));
+vendor_leaf!(
+    HOLY_MAGE,
+    HOLY_MAGE_C,
+    HOLY_MAGE_V = "Server.Mobiles.HolyMage",
+    ctor | w | new_template_vendor(w, &HOLY_MAGE)
+);
 
 // ---- Scribe ----
 
 /// `m_NextShush`.
 struct NextShush(muo_primitives::DateTime);
-
 
 fn scribe_on_speech(w: &mut World, id: MobileId, e: &mut muo_server::events::SpeechEventArgs) {
     (muo_content::vendor::BASE_VENDOR.on_speech)(w, id, e);

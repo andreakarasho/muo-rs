@@ -31,15 +31,15 @@ use muo_server::world::World;
 /// The `SBInfo` classes other crates name.
 pub static SBMAGE: SbInfo = SbInfo {
     name: "SBMage",
-    build: |w, v, sb| build(w, v, "SBMage", sb),
+    build: |w, _, sb| build(w, "SBMage", sb),
 };
 pub static SBNINJA: SbInfo = SbInfo {
     name: "SBNinja",
-    build: |w, v, sb| build(w, v, "SBNinja", sb),
+    build: |w, _, sb| build(w, "SBNinja", sb),
 };
 pub static SBSAMURAI: SbInfo = SbInfo {
     name: "SBSamurai",
-    build: |w, v, sb| build(w, v, "SBSamurai", sb),
+    build: |w, _, sb| build(w, "SBSamurai", sb),
 };
 
 #[derive(Debug)]
@@ -210,7 +210,10 @@ fn load_dir(dir: &Path, names: &mut Interned) -> Result<HashMap<String, Vec<Stmt
     let mut files: Vec<PathBuf> = rd
         .filter_map(Result::ok)
         .map(|e| e.path())
-        .filter(|p| p.extension().is_some_and(|e| e.eq_ignore_ascii_case("json")))
+        .filter(|p| {
+            p.extension()
+                .is_some_and(|e| e.eq_ignore_ascii_case("json"))
+        })
         .collect();
     files.sort();
     let mut sbs = HashMap::new();
@@ -281,7 +284,10 @@ pub fn table(w: &mut World) -> Rc<SbTable> {
     if let Err(e) = reload(w) {
         tracing::error!("Vendors: {e}");
     }
-    w.resources.get::<Rc<SbTable>>().cloned().unwrap_or_default()
+    w.resources
+        .get::<Rc<SbTable>>()
+        .cloned()
+        .unwrap_or_default()
 }
 
 /// The Configure phase (after the templates): a bad file stops startup.
@@ -291,7 +297,7 @@ pub(crate) fn configure(w: &mut World) {
     }
 }
 
-fn run(w: &mut World, vendor: MobileId, list: &[Stmt], sb: &mut SbInstance) {
+fn run(w: &mut World, list: &[Stmt], sb: &mut SbInstance) {
     for s in list {
         match s {
             Stmt::Sell(t, p) => sb.sell.add(t, *p),
@@ -325,7 +331,7 @@ fn run(w: &mut World, vendor: MobileId, list: &[Stmt], sb: &mut SbInstance) {
                     Cond::NewGuildSystem => muo_content::misc::guild::new_guild_system(w),
                     Cond::OneIn(n) => rnd::below(w, *n) == 0,
                 };
-                run(w, vendor, if yes { then } else { otherwise }, sb);
+                run(w, if yes { then } else { otherwise }, sb);
             }
             Stmt::ScrollBuy(n) => scroll_buy(w, sb, *n),
             Stmt::ScrollSell(m) => scroll_sell(sb, *m),
@@ -335,18 +341,18 @@ fn run(w: &mut World, vendor: MobileId, list: &[Stmt], sb: &mut SbInstance) {
 }
 
 /// Runs the `SBInfo` named `name` into `sb`; an unknown name builds nothing (logged).
-pub fn build(w: &mut World, vendor: MobileId, name: &str, sb: &mut SbInstance) {
+pub fn build(w: &mut World, name: &str, sb: &mut SbInstance) {
     let t = table(w);
     match t.sbs.get(name) {
-        Some(list) => run(w, vendor, list, sb),
+        Some(list) => run(w, list, sb),
         None => tracing::warn!("Vendors: no SBInfo {name}"),
     }
 }
 
 /// `new SBAlchemist()` for vendor `vendor`.
-pub fn named(w: &mut World, vendor: MobileId, name: &str) -> SbInstance {
+pub fn named(w: &mut World, _vendor: MobileId, name: &str) -> SbInstance {
     let mut sb = SbInstance::default();
-    build(w, vendor, name, &mut sb);
+    build(w, name, &mut sb);
     sb
 }
 

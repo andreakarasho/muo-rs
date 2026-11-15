@@ -1,27 +1,33 @@
 [
   {
     "type": "Server.Mobiles.BardGuildmaster",
-    "npcTitleByGender": {"female": "the bard guildmistress", "male": "the bard guildmaster"},
-    "skills": {
-      "Archery": [80.0, 100.0],
-      "Discordance": [80.0, 100.0],
-      "Musicianship": [80.0, 100.0],
-      "Peacemaking": [80.0, 100.0],
-      "Provocation": [80.0, 100.0],
-      "Swords": [80.0, 100.0]
-    },
-    "props": {"npcGuild": "BardsGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the bard guildmistress", "male": "the bard guildmaster"},
+        "skills": {
+          "Archery": [80.0, 100.0],
+          "Discordance": [80.0, 100.0],
+          "Musicianship": [80.0, 100.0],
+          "Peacemaking": [80.0, 100.0],
+          "Provocation": [80.0, 100.0],
+          "Swords": [80.0, 100.0]
+        }
+      },
+      "npcGuild": "BardsGuild"
+    }
   },
   {
     "type": "Server.Mobiles.BlacksmithGuildmaster",
-    "npcTitleByGender": {"female": "the blacksmith guildmistress", "male": "the blacksmith guildmaster"},
-    "skills": {
-      "ArmsLore": [65.0, 88.0],
-      "Blacksmith": [90.0, 100.0],
-      "Macing": [36.0, 68.0],
-      "Parry": [36.0, 68.0]
-    },
     "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the blacksmith guildmistress", "male": "the blacksmith guildmaster"},
+        "skills": {
+          "ArmsLore": [65.0, 88.0],
+          "Blacksmith": [90.0, 100.0],
+          "Macing": [36.0, 68.0],
+          "Parry": [36.0, 68.0]
+        }
+      },
       "npcGuild": "BlacksmithsGuild",
       "npcSbInfos": ["SBBlacksmith"],
       "npcShoeType": "ThighBoots"
@@ -29,23 +35,29 @@
   },
   {
     "type": "Server.Mobiles.FisherGuildmaster",
-    "npcTitleByGender": {"female": "the fisher guildmistress", "male": "the fisher guildmaster"},
-    "skills": {
-      "Fishing": [80.0, 100.0]
-    },
-    "props": {"npcGuild": "FishermensGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the fisher guildmistress", "male": "the fisher guildmaster"},
+        "skills": {
+          "Fishing": [80.0, 100.0]
+        }
+      },
+      "npcGuild": "FishermensGuild"
+    }
   },
   {
     "type": "Server.Mobiles.HealerGuildmaster",
-    "npcTitleByGender": {"female": "the healer guildmistress", "male": "the healer guildmaster"},
-    "skills": {
-      "Anatomy": [85.0, 100.0],
-      "Healing": [90.0, 100.0],
-      "Forensics": [75.0, 98.0],
-      "MagicResist": [75.0, 98.0],
-      "SpiritSpeak": [65.0, 88.0]
-    },
     "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the healer guildmistress", "male": "the healer guildmaster"},
+        "skills": {
+          "Anatomy": [85.0, 100.0],
+          "Healing": [90.0, 100.0],
+          "Forensics": [75.0, 98.0],
+          "MagicResist": [75.0, 98.0],
+          "SpiritSpeak": [65.0, 88.0]
+        }
+      },
       "npcGuild": "HealersGuild",
       "npcShoeType": "Sandals",
       "npcOutfit": {
@@ -58,17 +70,19 @@
   },
   {
     "type": "Server.Mobiles.MageGuildmaster",
-    "npcTitleByGender": {"female": "the mage guildmistress", "male": "the mage guildmaster"},
-    "skills": {
-      "EvalInt": [85.0, 100.0],
-      "Inscribe": [65.0, 88.0],
-      "MagicResist": [64.0, 100.0],
-      "Magery": [90.0, 100.0],
-      "Wrestling": [60.0, 83.0],
-      "Meditation": [85.0, 100.0],
-      "Macing": [36.0, 68.0]
-    },
     "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the mage guildmistress", "male": "the mage guildmaster"},
+        "skills": {
+          "EvalInt": [85.0, 100.0],
+          "Inscribe": [65.0, 88.0],
+          "MagicResist": [64.0, 100.0],
+          "Magery": [90.0, 100.0],
+          "Wrestling": [60.0, 83.0],
+          "Meditation": [85.0, 100.0],
+          "Macing": [36.0, 68.0]
+        }
+      },
       "npcGuild": "MagesGuild",
       "npcShoeType": ["Shoes", "Sandals"],
       "npcOutfit": {
@@ -82,63 +96,81 @@
   },
   {
     "type": "Server.Mobiles.MerchantGuildmaster",
-    "npcTitleByGender": {"female": "the merchant guildmistress", "male": "the merchant guildmaster"},
-    "skills": {
-      "ItemID": [85.0, 100.0],
-      "ArmsLore": [85.0, 100.0]
-    },
-    "props": {"npcGuild": "MerchantsGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the merchant guildmistress", "male": "the merchant guildmaster"},
+        "skills": {
+          "ItemID": [85.0, 100.0],
+          "ArmsLore": [85.0, 100.0]
+        }
+      },
+      "npcGuild": "MerchantsGuild"
+    }
   },
   {
     "type": "Server.Mobiles.MinerGuildmaster",
-    "npcTitleByGender": {"female": "the miner guildmistress", "male": "the miner guildmaster"},
-    "skills": {
-      "ItemID": [60.0, 83.0],
-      "Mining": [90.0, 100.0]
-    },
-    "props": {"npcGuild": "MinersGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the miner guildmistress", "male": "the miner guildmaster"},
+        "skills": {
+          "ItemID": [60.0, 83.0],
+          "Mining": [90.0, 100.0]
+        }
+      },
+      "npcGuild": "MinersGuild"
+    }
   },
   {
     "type": "Server.Mobiles.RangerGuildmaster",
-    "npcTitleByGender": {"female": "the ranger guildmistress", "male": "the ranger guildmaster"},
-    "skills": {
-      "AnimalLore": [64.0, 100.0],
-      "Camping": [75.0, 98.0],
-      "Hiding": [75.0, 98.0],
-      "MagicResist": [75.0, 98.0],
-      "Tactics": [65.0, 88.0],
-      "Archery": [90.0, 100.0],
-      "Tracking": [90.0, 100.0],
-      "Stealth": [60.0, 83.0],
-      "Fencing": [36.0, 68.0],
-      "Herding": [36.0, 68.0],
-      "Swords": [45.0, 68.0]
-    },
-    "props": {"npcGuild": "RangersGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the ranger guildmistress", "male": "the ranger guildmaster"},
+        "skills": {
+          "AnimalLore": [64.0, 100.0],
+          "Camping": [75.0, 98.0],
+          "Hiding": [75.0, 98.0],
+          "MagicResist": [75.0, 98.0],
+          "Tactics": [65.0, 88.0],
+          "Archery": [90.0, 100.0],
+          "Tracking": [90.0, 100.0],
+          "Stealth": [60.0, 83.0],
+          "Fencing": [36.0, 68.0],
+          "Herding": [36.0, 68.0],
+          "Swords": [45.0, 68.0]
+        }
+      },
+      "npcGuild": "RangersGuild"
+    }
   },
   {
     "type": "Server.Mobiles.TailorGuildmaster",
-    "npcTitleByGender": {"female": "the tailor guildmistress", "male": "the tailor guildmaster"},
-    "skills": {
-      "Tailoring": [90.0, 100.0]
-    },
-    "props": {"npcGuild": "TailorsGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the tailor guildmistress", "male": "the tailor guildmaster"},
+        "skills": {
+          "Tailoring": [90.0, 100.0]
+        }
+      },
+      "npcGuild": "TailorsGuild"
+    }
   },
   {
     "type": "Server.Mobiles.ThiefGuildmaster",
-    "npcTitleByGender": {"female": "the thief guildmistress", "male": "the thief guildmaster"},
-    "skills": {
-      "DetectHidden": [75.0, 98.0],
-      "Hiding": [65.0, 88.0],
-      "Lockpicking": [85.0, 100.0],
-      "Snooping": [90.0, 100.0],
-      "Poisoning": [60.0, 83.0],
-      "Stealing": [90.0, 100.0],
-      "Fencing": [75.0, 98.0],
-      "Stealth": [85.0, 100.0],
-      "RemoveTrap": [85.0, 100.0]
-    },
     "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the thief guildmistress", "male": "the thief guildmaster"},
+        "skills": {
+          "DetectHidden": [75.0, 98.0],
+          "Hiding": [65.0, 88.0],
+          "Lockpicking": [85.0, 100.0],
+          "Snooping": [90.0, 100.0],
+          "Poisoning": [60.0, 83.0],
+          "Stealing": [90.0, 100.0],
+          "Fencing": [75.0, 98.0],
+          "Stealth": [85.0, 100.0],
+          "RemoveTrap": [85.0, 100.0]
+        }
+      },
       "npcGuild": "ThievesGuild",
       "npcOutfit": {
         "npcVendorOutfit": true,
@@ -155,26 +187,34 @@
   },
   {
     "type": "Server.Mobiles.TinkerGuildmaster",
-    "npcTitleByGender": {"female": "the tinker guildmistress", "male": "the tinker guildmaster"},
-    "skills": {
-      "Lockpicking": [65.0, 88.0],
-      "Tinkering": [90.0, 100.0],
-      "RemoveTrap": [85.0, 100.0]
-    },
-    "props": {"npcGuild": "TinkersGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the tinker guildmistress", "male": "the tinker guildmaster"},
+        "skills": {
+          "Lockpicking": [65.0, 88.0],
+          "Tinkering": [90.0, 100.0],
+          "RemoveTrap": [85.0, 100.0]
+        }
+      },
+      "npcGuild": "TinkersGuild"
+    }
   },
   {
     "type": "Server.Mobiles.WarriorGuildmaster",
-    "npcTitleByGender": {"female": "the warrior guildmistress", "male": "the warrior guildmaster"},
-    "skills": {
-      "ArmsLore": [75.0, 98.0],
-      "Parry": [85.0, 100.0],
-      "MagicResist": [60.0, 83.0],
-      "Tactics": [85.0, 100.0],
-      "Swords": [90.0, 100.0],
-      "Macing": [60.0, 83.0],
-      "Fencing": [60.0, 83.0]
-    },
-    "props": {"npcGuild": "WarriorsGuild"}
+    "props": {
+      "npcInit": {
+        "npcTitleByGender": {"female": "the warrior guildmistress", "male": "the warrior guildmaster"},
+        "skills": {
+          "ArmsLore": [75.0, 98.0],
+          "Parry": [85.0, 100.0],
+          "MagicResist": [60.0, 83.0],
+          "Tactics": [85.0, 100.0],
+          "Swords": [90.0, 100.0],
+          "Macing": [60.0, 83.0],
+          "Fencing": [60.0, 83.0]
+        }
+      },
+      "npcGuild": "WarriorsGuild"
+    }
   }
 ]

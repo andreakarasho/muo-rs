@@ -3,9 +3,7 @@
 use muo_content::items::gold::n0;
 use muo_content::mx;
 use muo_content::vendor::banker::{get_balance, withdraw};
-use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, VendorClass, init_outfit,
-};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, VendorClass, init_outfit};
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::events::SpeechEventArgs;
 use muo_server::iaccount;
@@ -225,9 +223,7 @@ pub static BANKER: MobileType = MobileType {
 
 // ---- Minter ----
 
-static MINTER_V: VendorClass = VendorClass {
-    ..BANKER_V
-};
+static MINTER_V: VendorClass = VendorClass { ..BANKER_V };
 static MINTER_C: muo_content::creature::CreatureType = muo_content::creature::CreatureType {
     subclass: Some(&MINTER_V),
     ..BANKER_C

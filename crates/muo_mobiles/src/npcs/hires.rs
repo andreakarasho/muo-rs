@@ -45,9 +45,9 @@ struct PayTimer {
     timer: TimerHandle,
 }
 
-/// `new BaseHire(...)` for class `ty`: `BaseCreature(ai, FightMode.Aggressor)`, `ControlSlots = 2`, and
-/// `HoldGold = 8` for the constructor that takes an AI type.
-pub fn new_hire(w: &mut World, ty: &'static MobileType, ai: AIType, ai_param: bool) -> MobileId {
+/// `new BaseHire(...)` for class `ty`: `BaseCreature(ai, FightMode.Aggressor)` and `ControlSlots = 2` (the
+/// `BaseHire(AIType)` constructor's `HoldGold = 8` is the template key `npcHoldGold`).
+pub fn new_hire(w: &mut World, ty: &'static MobileType, ai: AIType) -> MobileId {
     let id = new_creature(w, ty, ai, FightMode::Aggressor, DEFAULT_RANGE_PERCEPTION, 1);
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(HireData {
@@ -58,9 +58,6 @@ pub fn new_hire(w: &mut World, ty: &'static MobileType, ai: AIType, ai_param: bo
         });
     }
     control_slots(w, id, 2);
-    if ai_param && let Some(d) = data_mut(w, id) {
-        d.hold_gold = 8;
-    }
     id
 }
 
@@ -74,9 +71,11 @@ pub fn set_hold_gold(w: &mut World, id: MobileId, v: i32) {
 /// `new T()` of a hireling class whose constructor is its template: `BaseHire(ai)` with the template's `"ai"`,
 /// then the template (its `npcHoldGold` is the `BaseHire(AIType)` constructor's).
 pub fn new_template_hire(w: &mut World, ty: &'static MobileType) -> MobileId {
-    let ai = muo_content::templates::table(w).creature_args(ty.full_name).ai;
-    let id = new_hire(w, ty, ai, false);
-    muo_content::templates::apply_mobile(w, id);
+    let ai = muo_content::templates::table(w)
+        .creature_args(ty.full_name)
+        .ai;
+    let id = new_hire(w, ty, ai);
+    crate::template_keys_npcs::apply_template(w, id);
     id
 }
 

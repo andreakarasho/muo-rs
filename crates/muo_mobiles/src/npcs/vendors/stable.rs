@@ -9,9 +9,7 @@ use muo_content::gumps::base::{DynamicGumpLogic, DynamicGumpObj, RelayInfo};
 use muo_content::gumps::builder::DynamicGumpBuilder;
 use muo_content::gumps::system::send_gump_to_mobile;
 use muo_content::player_mobile::{self, add_stabled, remove_stabled};
-use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, VendorClass, banker,
-};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, VendorClass, banker};
 use muo_content::{factory, mx};
 use muo_primitives::{MessageType, Point3D, TimeSpan};
 use muo_server::World;

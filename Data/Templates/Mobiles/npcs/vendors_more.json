@@ -87,11 +87,7 @@
       "Parry": [61.0, 93.0]
     },
     "props": {
-      "npcSbInfos": [
-        "SBAxeWeapon", "SBKnifeWeapon", "SBMaceWeapon", "SBSmithTools", "SBPoleArmWeapon", "SBSpearForkWeapon",
-        "SBSwordWeapon", "SBMetalShields", "SBHelmetArmor", "SBPlateArmor", "SBChainmailArmor", "SBRingmailArmor",
-        "SBStuddedArmor", "SBLeatherArmor"
-      ],
+      "npcSbInfos": ["SBAxeWeapon", "SBKnifeWeapon", "SBMaceWeapon", "SBSmithTools", "SBPoleArmWeapon", "SBSpearForkWeapon", "SBSwordWeapon", "SBMetalShields", "SBHelmetArmor", "SBPlateArmor", "SBChainmailArmor", "SBRingmailArmor", "SBStuddedArmor", "SBLeatherArmor"],
       "npcShoeType": "None"
     }
   },
@@ -117,25 +113,39 @@
     "props": {
       "npcSbInfos": ["SBKeeperOfChivalry"],
       "npcOutfit": {
-        "npcAddItem": [
-          "Server.Items.PlateArms",
-          "Server.Items.PlateChest",
-          "Server.Items.PlateGloves",
-          "Server.Items.StuddedGorget",
-          "Server.Items.PlateLegs"
-        ],
+        "npcAddItem": ["Server.Items.PlateArms", "Server.Items.PlateChest", "Server.Items.PlateGloves", "Server.Items.StuddedGorget", "Server.Items.PlateLegs"],
         "oneOf": [
-          {"npcAddItem": ["Server.Items.PlateHelm"]},
-          {"npcAddItem": ["Server.Items.NorseHelm"]},
-          {"npcAddItem": ["Server.Items.CloseHelm"]},
-          {"npcAddItem": ["Server.Items.Helmet"]}
+          {
+            "npcAddItem": ["Server.Items.PlateHelm"]
+          },
+          {
+            "npcAddItem": ["Server.Items.NorseHelm"]
+          },
+          {
+            "npcAddItem": ["Server.Items.CloseHelm"]
+          },
+          {
+            "npcAddItem": ["Server.Items.Helmet"]
+          }
         ],
         "npcSeq": [
           {
             "oneOf": [
-              {"npcAddItem": [{"item": "Server.Items.BodySash", "hue": 1154}]},
-              {"npcAddItem": [{"item": "Server.Items.Doublet", "hue": 1154}]},
-              {"npcAddItem": [{"item": "Server.Items.Tunic", "hue": 1154}]}
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.BodySash", "hue": 1154}
+                ]
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.Doublet", "hue": 1154}
+                ]
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.Tunic", "hue": 1154}
+                ]
+              }
             ]
           },
           {
@@ -144,10 +154,18 @@
               {"item": "Server.Items.MetalKiteShield", "hueAfter": "randomNondyed"}
             ],
             "coin": {
-              "then": {"npcAddItem": ["Server.Items.Boots"]},
-              "else": {"npcAddItem": ["Server.Items.ThighBoots"]}
+              "then": {
+                "npcAddItem": ["Server.Items.Boots"]
+              },
+              "else": {
+                "npcAddItem": ["Server.Items.ThighBoots"]
+              }
             },
-            "pack": [{"gold": [100, 200]}]
+            "pack": [
+              {
+                "gold": [100, 200]
+              }
+            ]
           }
         ]
       }
@@ -201,16 +219,11 @@
       "npcGuild": "MerchantsGuild"
     }
   },
-  {
-    "type": "Server.Mobiles.Minter",
-    "title": "the minter"
-  },
+  {"type": "Server.Mobiles.Minter", "title": "the minter"},
   {
     "type": "Server.Mobiles.GypsyBanker",
     "title": "the gypsy banker",
-    "props": {
-      "npcGuild": "None"
-    }
+    "props": {"npcGuild": "None"}
   },
   {
     "type": "Server.Mobiles.AnimalTrainer",
@@ -227,8 +240,12 @@
       "npcOutfit": {
         "npcVendorOutfit": true,
         "coin": {
-          "then": {"npcAddItem": ["Server.Items.QuarterStaff"]},
-          "else": {"npcAddItem": ["Server.Items.ShepherdsCrook"]}
+          "then": {
+            "npcAddItem": ["Server.Items.QuarterStaff"]
+          },
+          "else": {
+            "npcAddItem": ["Server.Items.ShepherdsCrook"]
+          }
         }
       }
     }

@@ -22,7 +22,7 @@ pub static TEMPLATE_VENDOR_V: VendorClass = VendorClass {
 /// `new T()` of a vendor class whose constructor is its template.
 pub fn new_template_vendor(w: &mut World, ty: &'static MobileType) -> MobileId {
     let id = new_vendor(w, ty, None);
-    muo_content::templates::apply_mobile(w, id);
+    crate::template_keys_npcs::apply_template(w, id);
     id
 }
 

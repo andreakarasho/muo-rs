@@ -42,10 +42,12 @@ use muo_server::world::World;
 #[derive(Copy, Clone, Debug)]
 pub enum Hue {
     Fixed(i32),
-    Random(fn(&mut World) -> i32),
+    Random(HueFn),
 }
 
-const RANDOM_HUES: [(&str, fn(&mut World) -> i32); 11] = [
+type HueFn = fn(&mut World) -> i32;
+
+const RANDOM_HUES: [(&str, HueFn); 11] = [
     ("randomDyed", |w| utility::random_dyed_hue(&mut w.rng)),
     ("randomNeutral", |w| utility::random_neutral_hue(&mut w.rng)),
     ("randomBlue", |w| utility::random_blue_hue(&mut w.rng)),
@@ -128,7 +130,10 @@ fn check_items(v: &Value) -> Result<(), String> {
     let a = v.as_array().ok_or("expected an array of items")?;
     for x in a {
         if let Some(o) = x.as_object() {
-            if let Some(k) = o.keys().find(|k| !["item", "hue", "hueAfter"].contains(&k.as_str())) {
+            if let Some(k) = o
+                .keys()
+                .find(|k| !["item", "hue", "hueAfter"].contains(&k.as_str()))
+            {
                 return Err(format!("unknown item key \"{k}\""));
             }
             for k in ["hue", "hueAfter"] {
@@ -197,6 +202,34 @@ pub fn run_block(w: &mut World, id: MobileId, v: &Value) {
     }
 }
 
+/// `apply_mobile` for the NPC classes: each template of the class's `inherits` chain replays its keys, then its
+/// `"npcInit"` prop (a block of keys that may use the NPC keys); the script's `on_spawn` runs last.
+///
+/// shortcut: the NPC keys sit in a prop, not at the template's top level, because a world whose registry lacks
+/// them (the bare test worlds of other crates) would reject the whole table; move them up once the loader
+/// tolerates keys it does not know there.
+pub fn apply_template(w: &mut World, id: MobileId) {
+    let Some(name) = w.mobile(id).map(|m| m.ty.full_name) else {
+        return;
+    };
+    let t = muo_content::templates::table(w);
+    let chain: Vec<_> = t
+        .chain(muo_content::templates::Kind::Mobile, name)
+        .collect();
+    if chain.is_empty() {
+        tracing::warn!("Templates: no mobile template for {name}");
+    }
+    for tmpl in chain.into_iter().rev() {
+        for s in &tmpl.mobile_steps {
+            mobile_steps::apply(w, id, s);
+        }
+        if let Some(b) = tmpl.props.get("npcInit") {
+            run_block(w, id, b);
+        }
+    }
+    muo_server::script_hooks::mobile(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+}
+
 fn layer(s: &str) -> Option<Layer> {
     (0..=0x1F).map(Layer).find(|l| format!("{l:?}") == s)
 }
@@ -219,7 +252,9 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         types,
         "npcHair",
         |v| {
-            let o = v.as_object().ok_or("expected {\"hue\", \"facialSkipOneIn\"}")?;
+            let o = v
+                .as_object()
+                .ok_or("expected {\"hue\", \"facialSkipOneIn\"}")?;
             check_hue(o.get("hue").ok_or("\"hue\" is missing")?)?;
             match o.get("facialSkipOneIn") {
                 Some(n) if n.as_i64().is_none_or(|n| n < 1) => {
@@ -294,12 +329,20 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         types,
         "npcTitleByGender",
         |v| match (v.get("female"), v.get("male")) {
-            (Some(Value::String(_)), Some(Value::String(_))) if v.as_object().is_some_and(|o| o.len() == 2) => Ok(()),
-            _ => Err(format!("expected {{\"female\": title, \"male\": title}}, got {v}")),
+            (Some(Value::String(_)), Some(Value::String(_)))
+                if v.as_object().is_some_and(|o| o.len() == 2) =>
+            {
+                Ok(())
+            }
+            _ => Err(format!(
+                "expected {{\"female\": title, \"male\": title}}, got {v}"
+            )),
         },
         |w, id, v| {
             let female = w.mobile(id).is_some_and(|m| m.female);
-            let t = v[if female { "female" } else { "male" }].as_str().map(str::to_owned);
+            let t = v[if female { "female" } else { "male" }]
+                .as_str()
+                .map(str::to_owned);
             muo_server::mobile::part1::props_a::set_title(w, id, t);
         },
     );
