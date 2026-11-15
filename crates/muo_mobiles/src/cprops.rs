@@ -356,7 +356,7 @@ pub fn new_creature(w: &mut World, ty: &'static MobileType) -> MobileId {
 pub fn new_mount(w: &mut World, ty: &'static MobileType) -> MobileId {
     refresh(w);
     let t = templates::table(w);
-    let a = t.creature_args(ty.full_name);
+    let a = t.roll_args(w, ty.full_name);
     let prop = |key: &str| {
         std::iter::successors(Some(ty), |t| t.parent)
             .find_map(|c| {

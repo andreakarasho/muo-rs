@@ -229,3 +229,32 @@ fn unbound_classes_cost_no_script_call() {
     damage(&mut w, id, 10);
     assert_eq!(hits(&w, id), 50);
 }
+
+#[test]
+fn constructor_arguments_reach_on_spawn() {
+    let base = server(
+        "ctorargs",
+        &[(
+            "a.rhai",
+            r#"fn on_spawn(e, hue, name) { e.hue = hue; e.name = name; }"#,
+        )],
+    );
+    let (mut w, errors) = world(base);
+    assert!(errors.is_empty(), "{errors:?}");
+    let ty = match w.types.find_type_by_full_name("Test.ScriptedItem", false) {
+        Some(muo_server::type_registry::EntityType::Item(t)) => t,
+        _ => panic!("registered"),
+    };
+    let id = muo_server::item::ops::new_item_with_id(&mut w, ty, 0);
+    templates::apply_item_with(
+        &mut w,
+        id,
+        "Test.ScriptedItem",
+        &[ScriptArg::Int(33), ScriptArg::Str("from the constructor")],
+    );
+    let i = w.item(id).unwrap();
+    assert_eq!(
+        (i.hue, i.name.as_deref()),
+        (33, Some("from the constructor"))
+    );
+}

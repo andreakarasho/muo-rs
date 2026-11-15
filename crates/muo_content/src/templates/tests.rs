@@ -247,3 +247,37 @@ fn a_lenient_load_skips_unregistered_keys_and_a_strict_one_rejects_them() {
     let e = load_dir_with(&root, &keys::Keys::of(&w.types)).unwrap_err();
     assert!(e.contains("\"someCrateKey\": unknown key"), "{e}");
 }
+
+#[test]
+fn a_random_ai_is_drawn_before_the_creature_exists() {
+    let base = server_dir(
+        "aichoice",
+        r#"[{ "type": "Custom.Pumpkin", "parent": "Server.Mobiles.BaseCreature",
+              "ai": { "coin": ["AiMelee", "AiMage"] }, "fightMode": { "oneOf": ["Closest", "Strongest"] } }]"#,
+    );
+    let mut w = world(base);
+    reload(&mut w).unwrap();
+    for seed in 0..8 {
+        w.rng = muo_primitives::BuiltInRng::from_seed(seed);
+        let id = crate::factory::make_mobile(&mut w, "Custom.Pumpkin").unwrap();
+        let mut r = muo_primitives::BuiltInRng::from_seed(seed);
+        let ai = if muo_primitives::utility::random_bool(&mut r) {
+            AIType::AiMelee
+        } else {
+            AIType::AiMage
+        };
+        let mode = [FightMode::Closest, FightMode::Strongest]
+            [muo_primitives::utility::random(&mut r, 2) as usize];
+        let d = crate::creature::cd(&w, id).unwrap();
+        assert_eq!((d.current_ai, d.fight_mode), (ai, mode), "seed {seed}");
+    }
+    let base = server_dir(
+        "aibad",
+        r#"[{ "type": "X", "ai": { "coin": ["AiMelee"] } }]"#,
+    );
+    assert!(
+        load_dir(&base.join("Data/Templates"))
+            .unwrap_err()
+            .contains("coin")
+    );
+}

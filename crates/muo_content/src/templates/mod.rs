@@ -28,6 +28,7 @@ use serde_json::{Map, Value};
 
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::mobile::MobileType;
+use muo_server::script_hooks::ScriptArg;
 use muo_server::world::World;
 
 use crate::creature::enums::{AIType, DEFAULT_RANGE_PERCEPTION, FightMode};
@@ -59,6 +60,71 @@ impl Default for CreatureArgs {
     }
 }
 
+/// A `BaseCreature` constructor argument: fixed, or drawn when the creature is made (before it exists, as a C#
+/// constructor computing `ai` before `base(ai, ..)` does).
+#[derive(Clone, Debug, PartialEq)]
+pub enum Choice<T> {
+    One(T),
+    /// `Utility.RandomBool() ? a : b`.
+    Coin(T, T),
+    /// `values[Utility.Random(values.Length)]`.
+    OneOf(Vec<T>),
+}
+
+impl<T: Copy> Choice<T> {
+    /// The value without drawing (the first one of a choice).
+    pub fn first(&self) -> T {
+        match self {
+            Self::One(v) | Self::Coin(v, _) => *v,
+            Self::OneOf(l) => l[0],
+        }
+    }
+
+    pub fn roll(&self, w: &mut World) -> T {
+        use crate::hooks::rnd;
+        match self {
+            Self::One(v) => *v,
+            Self::Coin(a, b) => {
+                if rnd::bool(w) {
+                    *a
+                } else {
+                    *b
+                }
+            }
+            Self::OneOf(l) => l[rnd::below(w, l.len() as i32) as usize],
+        }
+    }
+}
+
+/// `"Name"`, `{"coin": ["A", "B"]}` or `{"oneOf": ["A", "B", ..]}`.
+fn parse_choice<T>(v: &Value, one: impl Fn(&str) -> Option<T>) -> Result<Choice<T>, String> {
+    let name = |v: &Value| {
+        let s = v
+            .as_str()
+            .ok_or_else(|| format!("expected a name, got {v}"))?;
+        one(s).ok_or_else(|| format!("unknown value {s}"))
+    };
+    if v.is_string() {
+        return name(v).map(Choice::One);
+    }
+    let o = v.as_object().filter(|o| o.len() == 1).ok_or_else(|| {
+        format!("expected a name, {{\"coin\": [a, b]}} or {{\"oneOf\": [..]}}, got {v}")
+    })?;
+    match o.iter().next() {
+        Some((k, Value::Array(a))) if k == "coin" && a.len() == 2 => {
+            Ok(Choice::Coin(name(&a[0])?, name(&a[1])?))
+        }
+        Some((k, Value::Array(a))) if k == "oneOf" && !a.is_empty() => a
+            .iter()
+            .map(name)
+            .collect::<Result<_, _>>()
+            .map(Choice::OneOf),
+        _ => Err(format!(
+            "expected {{\"coin\": [a, b]}} or a non-empty {{\"oneOf\": [..]}}, got {v}"
+        )),
+    }
+}
+
 /// One parsed template.
 #[derive(Debug)]
 pub struct Template {
@@ -69,8 +135,8 @@ pub struct Template {
     pub parent: Option<String>,
     pub script: Option<String>,
     /// Only the keys present in the file; unset ones fall back to the inherited template, then the default.
-    pub ai: Option<AIType>,
-    pub fight_mode: Option<FightMode>,
+    pub ai: Option<Choice<AIType>>,
+    pub fight_mode: Option<Choice<FightMode>>,
     pub range_perception: Option<i32>,
     pub range_fight: Option<i32>,
     pub props: Map<String, Value>,
@@ -115,16 +181,48 @@ impl TemplateTable {
         v
     }
 
+    /// The constructor arguments without drawing a random choice (its first value); [`TemplateTable::roll_args`]
+    /// is what a constructor uses.
     pub fn creature_args(&self, name: &str) -> CreatureArgs {
+        let (ai, mode, a) = self.arg_choices(name);
+        CreatureArgs {
+            ai: ai.map_or(a.ai, |c| c.first()),
+            fight_mode: mode.map_or(a.fight_mode, |c| c.first()),
+            ..a
+        }
+    }
+
+    /// The constructor arguments of a new creature of class `name`: a random `ai` is drawn, then a random
+    /// `fightMode`, once each from the most derived template that sets it.
+    pub fn roll_args(&self, w: &mut World, name: &str) -> CreatureArgs {
+        let (ai, mode, a) = self.arg_choices(name);
+        let ai = ai.map_or(a.ai, |c| c.roll(w));
+        let fight_mode = mode.map_or(a.fight_mode, |c| c.roll(w));
+        CreatureArgs {
+            ai,
+            fight_mode,
+            ..a
+        }
+    }
+
+    fn arg_choices(
+        &self,
+        name: &str,
+    ) -> (
+        Option<&Choice<AIType>>,
+        Option<&Choice<FightMode>>,
+        CreatureArgs,
+    ) {
         let mut a = CreatureArgs::default();
+        let (mut ai, mut mode) = (None, None);
         let chain: Vec<_> = self.chain(Kind::Mobile, name).collect();
         for t in chain.iter().rev() {
-            a.ai = t.ai.unwrap_or(a.ai);
-            a.fight_mode = t.fight_mode.unwrap_or(a.fight_mode);
+            ai = t.ai.as_ref().or(ai);
+            mode = t.fight_mode.as_ref().or(mode);
             a.range_perception = t.range_perception.unwrap_or(a.range_perception);
             a.range_fight = t.range_fight.unwrap_or(a.range_fight);
         }
-        a
+        (ai, mode, a)
     }
 }
 
@@ -320,14 +418,12 @@ fn parse_template(
                     .ok_or_else(|| e("expected an object"))?
             }
             "ai" if kind == Kind::Mobile => {
-                let name = s(v).map_err(e)?;
                 t.ai =
-                    Some(parse_enum(&name, AIType::from_i32).ok_or_else(|| e("unknown AIType"))?);
+                    Some(parse_choice(v, |n| parse_enum(n, AIType::from_i32)).map_err(|m| e(&m))?);
             }
             "fightMode" if kind == Kind::Mobile => {
-                let name = s(v).map_err(e)?;
                 t.fight_mode = Some(
-                    parse_enum(&name, FightMode::from_i32).ok_or_else(|| e("unknown FightMode"))?,
+                    parse_choice(v, |n| parse_enum(n, FightMode::from_i32)).map_err(|m| e(&m))?,
                 );
             }
             "rangePerception" if kind == Kind::Mobile => {
@@ -538,6 +634,11 @@ pub fn apply_mobile(w: &mut World, id: MobileId) {
 
 /// [`apply_mobile`] with the template of `name` (a JSON-only class replays only its own chain).
 pub fn apply_mobile_as(w: &mut World, id: MobileId, name: &str) {
+    apply_mobile_with(w, id, name, &[]);
+}
+
+/// [`apply_mobile_as`] for a constructor with arguments: the class's script gets `on_spawn(e, args..)`.
+pub fn apply_mobile_with(w: &mut World, id: MobileId, name: &str, args: &[ScriptArg<'_>]) {
     let t = table(w);
     let chain: Vec<_> = t.chain(Kind::Mobile, name).collect();
     if chain.is_empty() {
@@ -551,14 +652,14 @@ pub fn apply_mobile_as(w: &mut World, id: MobileId, name: &str) {
     // `on_spawn` once, on the replay of the mobile's own class: a parent constructor replaying the parent's
     // template for a derived class does not fire it. Rust classes not built from a template never get it.
     if w.mobile(id).is_some_and(|m| m.ty.full_name == name) {
-        muo_server::script_hooks::mobile(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+        muo_server::script_hooks::mobile(w, id, muo_server::script_hooks::ScriptHook::Spawn, args);
     }
 }
 
 /// `new T()` of a creature class whose constructor is its template: the `BaseCreature` arguments and every
 /// statement come from the template of `ty.full_name`.
 pub fn new_creature(w: &mut World, ty: &'static MobileType) -> MobileId {
-    let args = table(w).creature_args(ty.full_name);
+    let args = table(w).roll_args(w, ty.full_name);
     let id = crate::creature::setters::new_creature(
         w,
         ty,
@@ -580,6 +681,11 @@ pub fn apply_item(w: &mut World, id: ItemId) {
 }
 
 pub fn apply_item_as(w: &mut World, id: ItemId, name: &str) {
+    apply_item_with(w, id, name, &[]);
+}
+
+/// [`apply_item_as`] for a constructor with arguments: the class's script gets `on_spawn(e, args..)`.
+pub fn apply_item_with(w: &mut World, id: ItemId, name: &str, args: &[ScriptArg<'_>]) {
     let t = table(w);
     let chain: Vec<_> = t.chain(Kind::Item, name).collect();
     if chain.is_empty() {
@@ -592,7 +698,7 @@ pub fn apply_item_as(w: &mut World, id: ItemId, name: &str) {
     }
     // as `apply_mobile_as`: only the replay of the item's own class fires `on_spawn`
     if w.item(id).is_some_and(|i| i.ty.full_name == name) {
-        muo_server::script_hooks::item(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+        muo_server::script_hooks::item(w, id, muo_server::script_hooks::ScriptHook::Spawn, args);
     }
 }
 

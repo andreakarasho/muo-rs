@@ -58,7 +58,7 @@ fn construct_mobile(w: &mut World, slot: usize) -> MobileId {
             id
         }
         None if is_creature_class(parent) => {
-            let a = super::table(w).creature_args(ty.full_name);
+            let a = super::table(w).roll_args(w, ty.full_name);
             crate::creature::setters::new_creature(
                 w,
                 ty,

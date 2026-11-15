@@ -71,9 +71,8 @@ pub fn set_hold_gold(w: &mut World, id: MobileId, v: i32) {
 /// `new T()` of a hireling class whose constructor is its template: `BaseHire(ai)` with the template's `"ai"`,
 /// then the template (its `npcHoldGold` is the `BaseHire(AIType)` constructor's).
 pub fn new_template_hire(w: &mut World, ty: &'static MobileType) -> MobileId {
-    let ai = muo_content::templates::table(w)
-        .creature_args(ty.full_name)
-        .ai;
+    let t = muo_content::templates::table(w);
+    let ai = t.roll_args(w, ty.full_name).ai;
     let id = new_hire(w, ty, ai);
     muo_content::templates::apply_mobile(w, id);
     id

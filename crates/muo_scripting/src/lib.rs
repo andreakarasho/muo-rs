@@ -70,6 +70,22 @@ const MAX_DEPTH: u32 = 8;
 struct ScriptCommands(Vec<(String, CommandEventHandler)>);
 
 impl ScriptHost {
+    /// The parameter count of `name` in the script: the one taking `want` if it is overloaded, else any.
+    fn arity(&self, script: usize, name: &str, want: usize) -> Option<usize> {
+        let mut found = None;
+        for f in self.scripts[script]
+            .ast
+            .iter_functions()
+            .filter(|f| f.name == name)
+        {
+            if f.params.len() == want {
+                return Some(want);
+            }
+            found = Some(f.params.len());
+        }
+        found
+    }
+
     fn has_fn(&self, script: usize, name: &str, arity: usize) -> bool {
         self.scripts[script]
             .ast
@@ -262,7 +278,11 @@ fn install(w: &mut World, mut host: ScriptHost) -> Vec<String> {
                 .iter()
                 .filter(|h| {
                     let (f, n) = h.fn_name();
-                    host.has_fn(i, f, n)
+                    // `on_spawn` takes the constructor's arguments after the entity, so any arity of 1 or more
+                    match h {
+                        ScriptHook::Spawn => host.arity(i, f, n).is_some_and(|a| a >= 1),
+                        _ => host.has_fn(i, f, n),
+                    }
                 })
                 .fold(0, |b, h| b | h.bit());
             (bits != 0).then_some((i, bits))
@@ -351,6 +371,12 @@ fn dispatch(w: &mut World, e: EntityId, hook: ScriptHook, args: &[ScriptArg]) ->
     let mut v = Vec::with_capacity(args.len() + 1);
     v.push(api::entity(Some(e)));
     v.extend(args.iter().map(|a| api::arg(*a)));
+    if hook == ScriptHook::Spawn {
+        // fit the constructor's arguments to the parameters the script declares: `on_spawn(e)` ignores them,
+        // a parameter the constructor did not pass is `()`
+        let n = host.arity(script, "on_spawn", v.len()).unwrap_or(1);
+        v.resize(n.max(1), Dynamic::UNIT);
+    }
     host.call(w, script, hook.fn_name().0, v)
         .is_some_and(|r| r.as_bool().unwrap_or(false))
 }
