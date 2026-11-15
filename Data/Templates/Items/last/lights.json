@@ -19,5 +19,49 @@
       "litItemId": 6218,
       "unlitItemId": 6217
     }
+  },
+  {
+    "type": "Server.Items.RedHangingLantern",
+    "itemId": 9410,
+    "movable": true,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.WhiteHangingLantern",
+    "itemId": 9414,
+    "movable": true,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.WallSconce",
+    "itemId": 2555,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "WestBig",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.WallTorch",
+    "itemId": 2565,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "WestBig",
+    "props": {
+      "defaultWeight": 3.0
+    }
   }
 ]

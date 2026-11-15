@@ -133,8 +133,8 @@ leaf! {
 
 /// One light that never burns out; `movable` and `light` are what the constructor sets.
 macro_rules! flip_light {
-    ($(#[$m:meta])* $name:ident, $class:ident, $new:ident = $full:literal, graphic $gid:expr, movable $mov:expr,
-     light $light:expr, lit $lit:expr, unlit $unlit:expr;) => {
+    ($(#[$m:meta])* $name:ident, $class:ident, $new:ident = $full:literal,
+     lit $lit:expr, unlit $unlit:expr;) => {
         static $class: LightClass = LightClass {
             lit_item_id: |w, id| { let cur = cur_id(w, id); $lit(cur) },
             unlit_item_id: |w, id| { let cur = cur_id(w, id); $unlit(cur) },
@@ -143,12 +143,9 @@ macro_rules! flip_light {
 
         /// The constructor.
         pub fn $new(w: &mut World, ty: &'static ItemType) -> ItemId {
-            let id = base_light_new(w, ty, $gid);
-            ops::set_movable(w, id, $mov);
-            set_duration(w, id, TimeSpan::ZERO); // Never burnt out
-            set_burning(w, id, false);
-            ops::set_light(w, id, $light);
-            id
+            // graphic, Movable, Duration (never burnt out), Burning and Light are the template
+            let id = base_light_new(w, ty, 0);
+            crate::simple::own_template(w, id, $full)
         }
 
         leaf! {
@@ -156,7 +153,7 @@ macro_rules! flip_light {
             $name = $full : BASE_LIGHT, v0;
             construct: Some(|w| $new(w, &$name)),
             family: Some(&$class),
-            default_weight: |_, _| 3.0,
+            default_weight: crate::class_props::default_weight,
         }
     };
 }
@@ -164,7 +161,6 @@ macro_rules! flip_light {
 flip_light! {
     /// `Server.Items.RedHangingLantern`.
     RED_HANGING_LANTERN, RED_HANGING_LANTERN_CLASS, red_hanging_lantern_new = "Server.Items.RedHangingLantern",
-    graphic 0x24C2, movable true, light LightType::Circle300,
     lit |c| if c == 0x24C2 { 0x24C1 } else { 0x24C3 },
     unlit |c| if c == 0x24C1 { 0x24C2 } else { 0x24C4 };
 }
@@ -172,7 +168,6 @@ flip_light! {
 flip_light! {
     /// `Server.Items.WhiteHangingLantern`.
     WHITE_HANGING_LANTERN, WHITE_HANGING_LANTERN_CLASS, white_hanging_lantern_new = "Server.Items.WhiteHangingLantern",
-    graphic 0x24C6, movable true, light LightType::Circle300,
     lit |c| if c == 0x24C6 { 0x24C5 } else { 0x24C7 },
     unlit |c| if c == 0x24C5 { 0x24C6 } else { 0x24C8 };
 }
@@ -180,7 +175,6 @@ flip_light! {
 flip_light! {
     /// `Server.Items.WallSconce`.
     WALL_SCONCE, WALL_SCONCE_CLASS, wall_sconce_new = "Server.Items.WallSconce",
-    graphic 0x9FB, movable false, light LightType::WestBig,
     lit |c| if c == 0x9FB { 0x9FD } else { 0xA02 },
     unlit |c| if c == 0x9FD { 0x9FB } else { 0xA00 };
 }
@@ -188,7 +182,6 @@ flip_light! {
 flip_light! {
     /// `Server.Items.WallTorch`.
     WALL_TORCH, WALL_TORCH_CLASS, wall_torch_new = "Server.Items.WallTorch",
-    graphic 0xA05, movable false, light LightType::WestBig,
     lit |c| if c == 0xA05 { 0xA07 } else { 0xA0C },
     unlit |c| if c == 0xA07 { 0xA05 } else { 0xA0A };
 }
