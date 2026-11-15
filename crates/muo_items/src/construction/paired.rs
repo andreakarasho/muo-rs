@@ -111,9 +111,24 @@ fn new_pair(
     id
 }
 
+/// `new T()` of a paired class: both halves are made from their templates (graphic, `Movable`) and linked.
+fn new_pair_of(
+    w: &mut World,
+    main: &'static ItemType,
+    main_name: &str,
+    inner: &'static ItemType,
+    inner_name: &str,
+) -> ItemId {
+    let id = crate::simple::from_template(w, main, main_name);
+    let o = crate::simple::from_template(w, inner, inner_name);
+    set_other(w, id, Some(o));
+    set_other(w, o, Some(id));
+    id
+}
+
 macro_rules! pairs {
-    ($($main:ident, $mclass:ident = $mfull:literal, $mgid:expr, ($mdx:expr, $mdy:expr), $menc:expr;
-       $inner:ident, $iclass:ident = $ifull:literal, $igid:expr, ($idx:expr, $idy:expr), $ienc:expr;)*) => {$(
+    ($($main:ident, $mclass:ident = $mfull:literal, ($mdx:expr, $mdy:expr), $menc:expr;
+       $inner:ident, $iclass:ident = $ifull:literal, ($idx:expr, $idy:expr), $ienc:expr;)*) => {$(
         static $mclass: PairClass = PairClass { dx: $mdx, dy: $mdy, ankh: false };
         static $iclass: PairClass = PairClass { dx: $idx, dy: $idy, ankh: false };
 
@@ -121,7 +136,7 @@ macro_rules! pairs {
         pub static $main: ItemType = ItemType {
             full_name: $mfull,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| new_pair(w, &$main, $mgid, &$inner, $igid, true)),
+            construct: Some(|w| new_pair_of(w, &$main, $mfull, &$inner, $ifull)),
             family: Some(&$mclass),
             on_location_change,
             on_map_change,
@@ -147,36 +162,36 @@ macro_rules! pairs {
 }
 
 pairs! {
-    TAPESTRY1N, T1N_C = "Server.Items.Tapestry1N", 0xEAA, (1, 0), false;
-    TAPESTRY1N_INNER, T1N_IC = "Server.Items.Tapestry1N+InternalItem", 0xEAB, (-1, 0), true;
-    TAPESTRY2N, T2N_C = "Server.Items.Tapestry2N", 0xEAC, (1, 0), false;
-    TAPESTRY2N_INNER, T2N_IC = "Server.Items.Tapestry2N+InternalItem", 0xEAD, (-1, 0), false;
-    TAPESTRY2W, T2W_C = "Server.Items.Tapestry2W", 0xEAE, (0, -1), false;
-    TAPESTRY2W_INNER, T2W_IC = "Server.Items.Tapestry2W+InternalItem", 0xEAF, (0, 1), false;
-    TAPESTRY3N, T3N_C = "Server.Items.Tapestry3N", 0xFD6, (-2, 0), false;
-    TAPESTRY3N_INNER, T3N_IC = "Server.Items.Tapestry3N+InternalItem", 0xFD5, (2, 0), false;
-    TAPESTRY3W, T3W_C = "Server.Items.Tapestry3W", 0xFD7, (0, -2), false;
-    TAPESTRY3W_INNER, T3W_IC = "Server.Items.Tapestry3W+InternalItem", 0xFD8, (0, 2), false;
-    TAPESTRY4N, T4N_C = "Server.Items.Tapestry4N", 0xFDA, (-1, 0), false;
-    TAPESTRY4N_INNER, T4N_IC = "Server.Items.Tapestry4N+InternalItem", 0xFD9, (1, 0), false;
-    TAPESTRY4W, T4W_C = "Server.Items.Tapestry4W", 0xFDB, (0, -1), false;
-    TAPESTRY4W_INNER, T4W_IC = "Server.Items.Tapestry4W+InternalItem", 0xFDC, (0, 1), false;
-    TAPESTRY5N, T5N_C = "Server.Items.Tapestry5N", 0xFDE, (-1, 0), false;
-    TAPESTRY5N_INNER, T5N_IC = "Server.Items.Tapestry5N+InternalItem", 0xFDD, (1, 0), false;
-    TAPESTRY5W, T5W_C = "Server.Items.Tapestry5W", 0xFDF, (0, -1), false;
-    TAPESTRY5W_INNER, T5W_IC = "Server.Items.Tapestry5W+InternalItem", 0xFE0, (0, 1), false;
-    TAPESTRY6N, T6N_C = "Server.Items.Tapestry6N", 0xFE2, (-1, 0), false;
-    TAPESTRY6N_INNER, T6N_IC = "Server.Items.Tapestry6N+InternalItem", 0xFE1, (1, 0), false;
-    TAPESTRY6W, T6W_C = "Server.Items.Tapestry6W", 0xFE3, (0, -1), false;
-    TAPESTRY6W_INNER, T6W_IC = "Server.Items.Tapestry6W+InternalItem", 0xFE4, (0, 1), false;
-    DECORATIVE_SWORD_NORTH, DSN_C = "Server.Items.DecorativeSwordNorth", 0x1565, (-1, 0), false;
-    DECORATIVE_SWORD_NORTH_INNER, DSN_IC = "Server.Items.DecorativeSwordNorth+InternalItem", 0x1564, (1, 0), false;
-    DECORATIVE_SWORD_WEST, DSW_C = "Server.Items.DecorativeSwordWest", 0x1566, (0, -1), true;
-    DECORATIVE_SWORD_WEST_INNER, DSW_IC = "Server.Items.DecorativeSwordWest+InternalItem", 0x1567, (0, 1), true;
-    DECORATIVE_DAXE_NORTH, DDN_C = "Server.Items.DecorativeDAxeNorth", 0x1569, (-1, 0), true;
-    DECORATIVE_DAXE_NORTH_INNER, DDN_IC = "Server.Items.DecorativeDAxeNorth+InternalItem", 0x1568, (1, 0), true;
-    DECORATIVE_DAXE_WEST, DDW_C = "Server.Items.DecorativeDAxeWest", 0x156A, (0, -1), true;
-    DECORATIVE_DAXE_WEST_INNER, DDW_IC = "Server.Items.DecorativeDAxeWest+InternalItem", 0x156B, (0, 1), true;
+    TAPESTRY1N, T1N_C = "Server.Items.Tapestry1N", (1, 0), false;
+    TAPESTRY1N_INNER, T1N_IC = "Server.Items.Tapestry1N+InternalItem", (-1, 0), true;
+    TAPESTRY2N, T2N_C = "Server.Items.Tapestry2N", (1, 0), false;
+    TAPESTRY2N_INNER, T2N_IC = "Server.Items.Tapestry2N+InternalItem", (-1, 0), false;
+    TAPESTRY2W, T2W_C = "Server.Items.Tapestry2W", (0, -1), false;
+    TAPESTRY2W_INNER, T2W_IC = "Server.Items.Tapestry2W+InternalItem", (0, 1), false;
+    TAPESTRY3N, T3N_C = "Server.Items.Tapestry3N", (-2, 0), false;
+    TAPESTRY3N_INNER, T3N_IC = "Server.Items.Tapestry3N+InternalItem", (2, 0), false;
+    TAPESTRY3W, T3W_C = "Server.Items.Tapestry3W", (0, -2), false;
+    TAPESTRY3W_INNER, T3W_IC = "Server.Items.Tapestry3W+InternalItem", (0, 2), false;
+    TAPESTRY4N, T4N_C = "Server.Items.Tapestry4N", (-1, 0), false;
+    TAPESTRY4N_INNER, T4N_IC = "Server.Items.Tapestry4N+InternalItem", (1, 0), false;
+    TAPESTRY4W, T4W_C = "Server.Items.Tapestry4W", (0, -1), false;
+    TAPESTRY4W_INNER, T4W_IC = "Server.Items.Tapestry4W+InternalItem", (0, 1), false;
+    TAPESTRY5N, T5N_C = "Server.Items.Tapestry5N", (-1, 0), false;
+    TAPESTRY5N_INNER, T5N_IC = "Server.Items.Tapestry5N+InternalItem", (1, 0), false;
+    TAPESTRY5W, T5W_C = "Server.Items.Tapestry5W", (0, -1), false;
+    TAPESTRY5W_INNER, T5W_IC = "Server.Items.Tapestry5W+InternalItem", (0, 1), false;
+    TAPESTRY6N, T6N_C = "Server.Items.Tapestry6N", (-1, 0), false;
+    TAPESTRY6N_INNER, T6N_IC = "Server.Items.Tapestry6N+InternalItem", (1, 0), false;
+    TAPESTRY6W, T6W_C = "Server.Items.Tapestry6W", (0, -1), false;
+    TAPESTRY6W_INNER, T6W_IC = "Server.Items.Tapestry6W+InternalItem", (0, 1), false;
+    DECORATIVE_SWORD_NORTH, DSN_C = "Server.Items.DecorativeSwordNorth", (-1, 0), false;
+    DECORATIVE_SWORD_NORTH_INNER, DSN_IC = "Server.Items.DecorativeSwordNorth+InternalItem", (1, 0), false;
+    DECORATIVE_SWORD_WEST, DSW_C = "Server.Items.DecorativeSwordWest", (0, -1), true;
+    DECORATIVE_SWORD_WEST_INNER, DSW_IC = "Server.Items.DecorativeSwordWest+InternalItem", (0, 1), true;
+    DECORATIVE_DAXE_NORTH, DDN_C = "Server.Items.DecorativeDAxeNorth", (-1, 0), true;
+    DECORATIVE_DAXE_NORTH_INNER, DDN_IC = "Server.Items.DecorativeDAxeNorth+InternalItem", (1, 0), true;
+    DECORATIVE_DAXE_WEST, DDW_C = "Server.Items.DecorativeDAxeWest", (0, -1), true;
+    DECORATIVE_DAXE_WEST_INNER, DDW_IC = "Server.Items.DecorativeDAxeWest+InternalItem", (0, 1), true;
 }
 
 // ---- Ankhs ----
@@ -304,8 +319,8 @@ fn ankh_set_hue(w: &mut World, id: ItemId, value: i32) {
 }
 
 macro_rules! ankhs {
-    ($($main:ident, $mclass:ident = $mfull:literal, $mgid:expr, $mblood:expr, ($mdx:expr, $mdy:expr);
-       $inner:ident, $iclass:ident = $ifull:literal, $igid:expr, $iblood:expr, ($idx:expr, $idy:expr);)*) => {$(
+    ($($main:ident, $mclass:ident = $mfull:literal, ($mdx:expr, $mdy:expr);
+       $inner:ident, $iclass:ident = $ifull:literal, ($idx:expr, $idy:expr);)*) => {$(
         static $mclass: PairClass = PairClass { dx: $mdx, dy: $mdy, ankh: true };
         static $iclass: PairClass = PairClass { dx: $idx, dy: $idy, ankh: true };
 
@@ -313,7 +328,7 @@ macro_rules! ankhs {
         pub static $main: ItemType = ItemType {
             full_name: $mfull,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| new_ankh(w, &$main, $mgid, &$inner, $igid)),
+            construct: Some(|w| new_pair_of(w, &$main, $mfull, &$inner, $ifull)),
             family: Some(&$mclass),
             handles_on_movement: |_, _| true,
             on_movement: ankh_on_movement,
@@ -348,15 +363,6 @@ macro_rules! ankhs {
     )*};
 }
 
-fn new_ankh(
-    w: &mut World,
-    main: &'static ItemType,
-    gid: i32,
-    inner: &'static ItemType,
-    inner_gid: i32,
-) -> ItemId {
-    new_pair(w, main, gid, inner, inner_gid, false)
-}
 
 /// `new AnkhWest(bloodied)` / `new AnkhNorth(bloodied)`.
 pub fn new_ankh_bloodied(w: &mut World, north: bool, bloodied: bool) -> ItemId {
@@ -379,10 +385,10 @@ pub fn new_ankh_bloodied(w: &mut World, north: bool, bloodied: bool) -> ItemId {
 }
 
 ankhs! {
-    ANKH_WEST, AW_C = "Server.Items.AnkhWest", 0x3, false, (0, 1);
-    ANKH_WEST_INNER, AWI_C = "Server.Items.AnkhWest+InternalItem", 0x2, false, (0, -1);
-    ANKH_NORTH, AN_C = "Server.Items.AnkhNorth", 0x4, false, (1, 0);
-    ANKH_NORTH_INNER, ANI_C = "Server.Items.AnkhNorth+InternalItem", 0x5, false, (-1, 0);
+    ANKH_WEST, AW_C = "Server.Items.AnkhWest", (0, 1);
+    ANKH_WEST_INNER, AWI_C = "Server.Items.AnkhWest+InternalItem", (0, -1);
+    ANKH_NORTH, AN_C = "Server.Items.AnkhNorth", (1, 0);
+    ANKH_NORTH_INNER, ANI_C = "Server.Items.AnkhNorth+InternalItem", (-1, 0);
 }
 
 static BLOODIED: [Param; 1] = [Param {
