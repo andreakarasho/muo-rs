@@ -180,12 +180,12 @@ fn clock_double_click(w: &mut World, id: ItemId, from: MobileId) {
 }
 
 macro_rules! clocks {
-    ($($name:ident, $parent:expr, $full:literal, gid $gid:expr, $ctor_arg:literal, $enc:expr;)*) => {$(
+    ($($name:ident, $parent:expr, $full:literal, $ctor_arg:literal, $enc:expr;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&$parent),
-            construct: Some(|w| ops::new_item_with_id(w, &$name, $gid)),
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
             serialize: |w, id, out| {
                 ($parent.serialize)(w, id, out);
                 write_version(out, $enc);
@@ -225,8 +225,8 @@ pub fn new_clock(w: &mut World, item_id: i32) -> ItemId {
 }
 
 clocks! {
-    CLOCK_RIGHT, CLOCK, "Server.Items.ClockRight", gid 0x104B, "", false;
-    CLOCK_LEFT, CLOCK, "Server.Items.ClockLeft", gid 0x104C, "", false;
+    CLOCK_RIGHT, CLOCK, "Server.Items.ClockRight", "", false;
+    CLOCK_LEFT, CLOCK, "Server.Items.ClockLeft", "", false;
 }
 
 // ---- Spyglass ----

@@ -127,13 +127,13 @@ fn craftable(w: &mut World, id: ItemId, a: &CraftArgs) -> Option<i32> {
 }
 
 macro_rules! ninja {
-    ($($name:ident = $full:literal, $ctor:expr, weight $weight:expr;)*) => {$(
+    ($($name:ident = $full:literal, $ctor:expr;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
             construct: Some($ctor),
-            default_weight: |_, _| $weight,
+            default_weight: crate::class_props::default_weight,
             get_properties,
             serialize,
             deserialize,
@@ -143,8 +143,8 @@ macro_rules! ninja {
 }
 
 ninja! {
-    FUKIYA_DARTS = "Server.Items.FukiyaDarts", |w| new_fukiya_darts(w, 1), weight 1.0;
-    SHURIKEN = "Server.Items.Shuriken", |w| new_shuriken(w, 1), weight 1.0;
+    FUKIYA_DARTS = "Server.Items.FukiyaDarts", |w| new_fukiya_darts(w, 1);
+    SHURIKEN = "Server.Items.Shuriken", |w| new_shuriken(w, 1);
 }
 
 // ---- NinjaWeapon ----

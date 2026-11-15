@@ -23,5 +23,17 @@
     "props": {
       "labelNumber": 1030249
     }
+  },
+  {
+    "type": "Server.Items.FukiyaDarts",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Shuriken",
+    "props": {
+      "defaultWeight": 1.0
+    }
   }
 ]
