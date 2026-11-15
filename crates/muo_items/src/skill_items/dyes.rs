@@ -353,14 +353,12 @@ pub static DYE_TUB: ItemType = ItemType {
 };
 
 macro_rules! tubs {
-    ($($name:ident, $init:ident = $full:literal : $parent:ident, label $label:expr, $class:ident { $($f:ident : $v:expr),* $(,)? }, reward $reward:expr, init $initfn:expr;)*) => {$(
+    ($($name:ident, $init:ident = $full:literal : $parent:ident, $class:ident { $($f:ident : $v:expr),* $(,)? }, reward $reward:expr;)*) => {$(
         pub static $class: TubClass = TubClass { reward: $reward, $($f: $v,)* ..DYE_TUB_CLASS };
         #[doc = concat!("`new ", $full, "()`.")]
         pub fn $init(w: &mut World) -> ItemId {
             let id = new_tub(w, &$name);
-            let init: fn(&mut World, ItemId) = $initfn;
-            init(w, id);
-            id
+            crate::simple::own_template(w, id, $full)
         }
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
@@ -368,7 +366,7 @@ macro_rules! tubs {
             parent: Some(&$parent),
             construct: Some($init),
             family: Some(&$class),
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 ($parent.serialize)(w, id, out);
                 // A class under another reward tub (Metallic/White leather) has only its own plain version.
@@ -399,55 +397,42 @@ macro_rules! tubs {
     )*};
 }
 
-fn set_dyed(w: &mut World, id: ItemId, h: i32) {
+/// `DyedHue = value` without the `Hue` (the `dyedHue` template key).
+pub fn set_dyed_hue_raw(w: &mut World, id: ItemId, value: i32) {
     if let Some(d) = data_mut(w, id) {
-        d.dyed_hue = h;
+        d.dyed_hue = value;
     }
-    hue(w, id, h);
 }
-fn blessed(w: &mut World, id: ItemId) {
-    ops::set_loot_type(w, id, LootType::Blessed);
-}
-fn no_redye(w: &mut World, id: ItemId) {
+
+/// `Redyable = value` (the `redyable` template key).
+pub fn set_redyable(w: &mut World, id: ItemId, value: bool) {
     if let Some(d) = data_mut(w, id) {
-        d.redyable = false;
+        d.redyable = value;
     }
 }
 
 tubs! {
-    BLACK_DYE_TUB, new_black = "Server.Items.BlackDyeTub" : DYE_TUB, label 0, BLACK_CLASS {}, reward false,
-        init |w, id| { set_dyed(w, id, 1); no_redye(w, id); };
-    BLAZE_DYE_TUB, new_blaze = "Server.Items.BlazeDyeTub" : DYE_TUB, label 0, BLAZE_CLASS {}, reward false,
-        init |w, id| { set_dyed(w, id, 0x489); no_redye(w, id); };
-    FURNITURE_DYE_TUB, new_furniture = "Server.Items.FurnitureDyeTub" : DYE_TUB, label 1041246, FURNITURE_CLASS {
-        allow_dyables: false, allow_furniture: true, target_message: 501019, fail_message: 501021, year: 1076217 }, reward true,
-        init |w, id| blessed(w, id);
-    LEATHER_DYE_TUB, new_leather = "Server.Items.LeatherDyeTub" : DYE_TUB, label 1041284, LEATHER_CLASS {
-        allow_dyables: false, allow_leather: true, target_message: 1042416, fail_message: 1042418, year: 1076218, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward true,
-        init |w, id| blessed(w, id);
-    METALLIC_CLOTH_DYETUB, new_metallic_cloth = "Server.Items.MetallicClothDyetub" : DYE_TUB, label 1152920, METALLIC_CLOTH_CLASS {
-        metallic: true }, reward false,
-        init |w, id| blessed(w, id);
-    METALLIC_LEATHER_DYE_TUB, new_metallic_leather = "Server.Items.MetallicLeatherDyeTub" : LEATHER_DYE_TUB, label 1153495, METALLIC_LEATHER_CLASS {
-        allow_dyables: false, allow_leather: true, target_message: 1042416, fail_message: 1042418, metallic: true, year: 1076221 }, reward true,
-        init |w, id| blessed(w, id);
-    REWARD_BLACK_DYE_TUB, new_reward_black = "Server.Items.RewardBlackDyeTub" : DYE_TUB, label 1006008, REWARD_BLACK_CLASS {
-        year: 1076217 }, reward true,
-        init |w, id| { set_dyed(w, id, 1); no_redye(w, id); blessed(w, id); };
-    RUNEBOOK_DYE_TUB, new_runebook_tub = "Server.Items.RunebookDyeTub" : DYE_TUB, label 1049740, RUNEBOOK_TUB_CLASS {
-        allow_dyables: false, allow_runebooks: true, target_message: 1049774, fail_message: 1049775, year: 1076220, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward true,
-        init |w, id| blessed(w, id);
-    SPECIAL_DYE_TUB, new_special = "Server.Items.SpecialDyeTub" : DYE_TUB, label 1041285, SPECIAL_CLASS { year: 1076217, picker: Some(&hue_pickers::SPECIAL_DYE_TUB) }, reward true,
-        init |w, id| blessed(w, id);
-    STATUETTE_DYE_TUB, new_statuette_tub = "Server.Items.StatuetteDyeTub" : DYE_TUB, label 1049741, STATUETTE_TUB_CLASS {
-        allow_dyables: false, allow_statuettes: true, target_message: 1049777, fail_message: 1049778, year: 1076221, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward true,
-        init |w, id| blessed(w, id);
-    WHITE_CLOTH_DYE_TUB, new_white_cloth = "Server.Items.WhiteClothDyeTub" : DYE_TUB, label 1149984, WHITE_CLOTH_CLASS {
-        never_redyable: true }, reward false,
-        init |w, id| { set_dyed(w, id, 0x9C2); };
-    WHITE_LEATHER_DYE_TUB, new_white_leather = "Server.Items.WhiteLeatherDyeTub" : LEATHER_DYE_TUB, label 1149900, WHITE_LEATHER_CLASS {
-        allow_dyables: false, allow_leather: true, target_message: 1042416, fail_message: 1042418, never_redyable: true, year: 1076218, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward false,
-        init |w, id| { set_dyed(w, id, 0x9C2); blessed(w, id); };
+    BLACK_DYE_TUB, new_black = "Server.Items.BlackDyeTub" : DYE_TUB, BLACK_CLASS {}, reward false;
+    BLAZE_DYE_TUB, new_blaze = "Server.Items.BlazeDyeTub" : DYE_TUB, BLAZE_CLASS {}, reward false;
+    FURNITURE_DYE_TUB, new_furniture = "Server.Items.FurnitureDyeTub" : DYE_TUB, FURNITURE_CLASS {
+        allow_dyables: false, allow_furniture: true, target_message: 501019, fail_message: 501021, year: 1076217 }, reward true;
+    LEATHER_DYE_TUB, new_leather = "Server.Items.LeatherDyeTub" : DYE_TUB, LEATHER_CLASS {
+        allow_dyables: false, allow_leather: true, target_message: 1042416, fail_message: 1042418, year: 1076218, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward true;
+    METALLIC_CLOTH_DYETUB, new_metallic_cloth = "Server.Items.MetallicClothDyetub" : DYE_TUB, METALLIC_CLOTH_CLASS {
+        metallic: true }, reward false;
+    METALLIC_LEATHER_DYE_TUB, new_metallic_leather = "Server.Items.MetallicLeatherDyeTub" : LEATHER_DYE_TUB, METALLIC_LEATHER_CLASS {
+        allow_dyables: false, allow_leather: true, target_message: 1042416, fail_message: 1042418, metallic: true, year: 1076221 }, reward true;
+    REWARD_BLACK_DYE_TUB, new_reward_black = "Server.Items.RewardBlackDyeTub" : DYE_TUB, REWARD_BLACK_CLASS {
+        year: 1076217 }, reward true;
+    RUNEBOOK_DYE_TUB, new_runebook_tub = "Server.Items.RunebookDyeTub" : DYE_TUB, RUNEBOOK_TUB_CLASS {
+        allow_dyables: false, allow_runebooks: true, target_message: 1049774, fail_message: 1049775, year: 1076220, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward true;
+    SPECIAL_DYE_TUB, new_special = "Server.Items.SpecialDyeTub" : DYE_TUB, SPECIAL_CLASS { year: 1076217, picker: Some(&hue_pickers::SPECIAL_DYE_TUB) }, reward true;
+    STATUETTE_DYE_TUB, new_statuette_tub = "Server.Items.StatuetteDyeTub" : DYE_TUB, STATUETTE_TUB_CLASS {
+        allow_dyables: false, allow_statuettes: true, target_message: 1049777, fail_message: 1049778, year: 1076221, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward true;
+    WHITE_CLOTH_DYE_TUB, new_white_cloth = "Server.Items.WhiteClothDyeTub" : DYE_TUB, WHITE_CLOTH_CLASS {
+        never_redyable: true }, reward false;
+    WHITE_LEATHER_DYE_TUB, new_white_leather = "Server.Items.WhiteLeatherDyeTub" : LEATHER_DYE_TUB, WHITE_LEATHER_CLASS {
+        allow_dyables: false, allow_leather: true, target_message: 1042416, fail_message: 1042418, never_redyable: true, year: 1076218, picker: Some(&hue_pickers::LEATHER_DYE_TUB) }, reward false;
 }
 
 /// Every tub class.

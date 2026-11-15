@@ -1,6 +1,6 @@
 //! Template keys of the non-equipment items (`muo_content::templates::keys`).
 
-use muo_content::templates::keys::{check_int, check_name, int, item_key};
+use muo_content::templates::keys::{check_bool, check_int, check_name, int, item_key};
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::type_registry::TypeRegistry;
@@ -38,6 +38,14 @@ pub(crate) fn register(types: &mut TypeRegistry) {
             }
         },
     );
+    // `DyeTub.DyedHue` (the field only; the template's `hue` sets the hue).
+    item_key(types, "dyedHue", check_int, |w, id, v| {
+        crate::skill_items::dyes::set_dyed_hue_raw(w, id, int(v));
+    });
+    // `DyeTub.Redyable`.
+    item_key(types, "redyable", check_bool, |w, id, v| {
+        crate::skill_items::dyes::set_redyable(w, id, v.as_bool().unwrap_or(false));
+    });
     // `CookableFood.CookingLevel`.
     item_key(types, "cookingLevel", check_int, |w, id, v| {
         if let Some(d) = ext_mut::<crate::food::cooking::CookData>(w, id) {
