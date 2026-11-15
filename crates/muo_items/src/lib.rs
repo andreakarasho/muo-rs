@@ -49,6 +49,7 @@ pub mod wiring;
 pub mod class_props;
 mod template_keys_equipment;
 mod template_keys_misc;
+mod template_keys_misc2;
 
 /// `World::new()` knowing this crate's template keys (a bare world's registry has none, so its table skips the
 /// steps of these keys), with the template table loaded (class props read the loaded table).
@@ -65,6 +66,7 @@ pub(crate) fn test_world() -> muo_server::World {
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
     template_keys_equipment::register(types);
     template_keys_misc::register(types);
+    template_keys_misc2::register(types);
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,
         "muo_items.PropsGen.Configure",
