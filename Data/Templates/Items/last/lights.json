@@ -11,6 +11,9 @@
   {
     "type": "Server.Items.HeatingStand",
     "itemId": 6217,
+    "burnoutMinutes": 25,
+    "burning": false,
+    "light": "Empty",
     "props": {
       "defaultWeight": 1.0,
       "litItemId": 6218,

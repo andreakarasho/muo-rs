@@ -21,18 +21,6 @@ pub use base::*;
 pub fn torch_new(w: &mut World, ty: &'static ItemType) -> ItemId {
     let id = base_equipable_light_new(w, ty, 0);
     crate::simple::own_template(w, id, "Server.Items.Torch");
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(30)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_stackable(w, id, true);
-    ops::set_light(w, id, LightType::Circle300);
     id
 }
 

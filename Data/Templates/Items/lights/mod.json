@@ -2,6 +2,10 @@
   {
     "type": "Server.Items.Torch",
     "itemId": 3947,
+    "burnoutMinutes": 30,
+    "burning": false,
+    "stackable": true,
+    "light": "Circle300",
     "props": {
       "defaultWeight": 1.0,
       "litItemId": 2578,

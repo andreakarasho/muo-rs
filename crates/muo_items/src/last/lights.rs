@@ -94,17 +94,6 @@ pub static CANDELABRA: ItemType = ItemType {
 pub fn heating_stand_new(w: &mut World, ty: &'static ItemType) -> ItemId {
     let id = base_light_new(w, ty, 0);
     crate::simple::own_template(w, id, "Server.Items.HeatingStand");
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(25)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Empty);
     id
 }
 

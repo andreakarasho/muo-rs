@@ -568,9 +568,6 @@ pub static HAMMER_OF_HEPHAESTUS_CLASS: tool::ToolClass = tool::ToolClass {
 pub fn hammer_of_hephaestus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
     let id = tool::new_tool_random(w, ty, 0);
     crate::simple::own_template(w, id, "Server.Items.HammerOfHephaestus");
-    (ty.set_layer)(w, id, muo_server::layer::Layer::OneHanded);
-    tool::set_uses_remaining(w, id, 20);
-    ops::set_loot_type(w, id, LootType::Blessed);
     id
 }
 

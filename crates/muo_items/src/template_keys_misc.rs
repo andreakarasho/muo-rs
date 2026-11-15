@@ -5,6 +5,7 @@ use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::type_registry::TypeRegistry;
 
+use crate::lights;
 use crate::skill_items::potions;
 
 /// A check for an array of `N` integers.
@@ -70,6 +71,27 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         if let [x1, y1, x2, y2, wd, h] = ints::<6>(v) {
             crate::maps::set_display(w, id, x1, y1, x2, y2, wd, h);
         }
+    });
+    // `BaseLight.Duration = Burnout ? TimeSpan.FromMinutes(n) : TimeSpan.Zero`.
+    item_key(types, "burnoutMinutes", check_int, |w, id, v| {
+        let d = if lights::BURNOUT {
+            muo_primitives::TimeSpan::from_mins(i64::from(int(v)))
+        } else {
+            muo_primitives::TimeSpan::ZERO
+        };
+        lights::set_duration(w, id, d);
+    });
+    // `BaseLight.Burning`.
+    item_key(types, "burning", check_bool, |w, id, v| {
+        lights::set_burning(w, id, v.as_bool().unwrap_or(false));
+    });
+    // `BaseLight.Protected`.
+    item_key(types, "protected", check_bool, |w, id, v| {
+        lights::set_protected(w, id, v.as_bool().unwrap_or(false));
+    });
+    // `BaseTool.UsesRemaining`.
+    item_key(types, "toolUses", check_int, |w, id, v| {
+        muo_content::items::tool::set_uses_remaining(w, id, int(v));
     });
     // `CookableFood.CookingLevel`.
     item_key(types, "cookingLevel", check_int, |w, id, v| {
