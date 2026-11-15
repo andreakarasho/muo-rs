@@ -142,7 +142,6 @@ pub struct BoatDeedData {
 /// What a concrete deed overrides: `Boat => new XBoat()` and the label.
 pub struct BoatDeedClass {
     pub boat: fn(&mut World) -> ItemId,
-    pub label: i32,
 }
 
 fn deed_data(w: &World, id: ItemId) -> BoatDeedData {
@@ -157,11 +156,12 @@ fn deed_class(w: &World, id: ItemId) -> Option<&'static BoatDeedClass> {
 }
 
 /// `new XBoatDeed()`: `base(id, offset)`.
-fn new_deed(w: &mut World, ty: &'static ItemType, multi_id: i32, offset: Point3D) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F2);
-    if !muo_content::core::aos(w) {
-        ops::set_loot_type(w, id, LootType::Newbied);
-    }
+/// `BaseBoatDeed(id, offset)` of class `ty`: the class's template (it inherits `BaseBoatDeed`'s), then
+/// the multi and offset of its props `multiId` and `offset`.
+fn new_deed(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let id = ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
+    let (multi_id, offset) = crate::template_props::deed_props(w, id);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(BoatDeedData { multi_id, offset });
     }
@@ -341,11 +341,8 @@ fn deed_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
 }
 
 macro_rules! deed_leaf {
-    ($name:ident, $cls:ident, $full:literal, $new:ident, $multi:expr, $offset:expr, $boat:ident, $label:expr) => {
-        pub static $cls: BoatDeedClass = BoatDeedClass {
-            boat: $boat,
-            label: $label,
-        };
+    ($name:ident, $cls:ident, $full:literal, $new:ident, $boat:ident) => {
+        pub static $cls: BoatDeedClass = BoatDeedClass { boat: $boat };
 
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
@@ -353,7 +350,9 @@ macro_rules! deed_leaf {
             parent: Some(&ITEM_BASE),
             construct: Some(|w| $new(w)),
             family: Some(&$cls),
-            label_number: |_, _| $label,
+            label_number: |w, id| {
+                crate::template_props::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+            },
             default_weight: |_, _| 1.0,
             on_double_click: deed_on_double_click,
             serialize: |w, id, out| {
@@ -379,7 +378,7 @@ macro_rules! deed_leaf {
         };
 
         pub fn $new(w: &mut World) -> ItemId {
-            new_deed(w, &$name, $multi, $offset)
+            new_deed(w, &$name)
         }
     };
 }
@@ -389,60 +388,42 @@ deed_leaf!(
     SMALL_BOAT_DEED_CLASS,
     "Server.Multis.SmallBoatDeed",
     new_small_boat_deed,
-    0x0,
-    Point3D::ZERO,
-    new_small_boat,
-    1041205
+    new_small_boat
 );
 deed_leaf!(
     SMALL_DRAGON_BOAT_DEED,
     SMALL_DRAGON_BOAT_DEED_CLASS,
     "Server.Multis.SmallDragonBoatDeed",
     new_small_dragon_boat_deed,
-    0x4,
-    Point3D::ZERO,
-    new_small_dragon_boat,
-    1041206
+    new_small_dragon_boat
 );
 deed_leaf!(
     MEDIUM_BOAT_DEED,
     MEDIUM_BOAT_DEED_CLASS,
     "Server.Multis.MediumBoatDeed",
     new_medium_boat_deed,
-    0x8,
-    Point3D::ZERO,
-    new_medium_boat,
-    1041207
+    new_medium_boat
 );
 deed_leaf!(
     MEDIUM_DRAGON_BOAT_DEED,
     MEDIUM_DRAGON_BOAT_DEED_CLASS,
     "Server.Multis.MediumDragonBoatDeed",
     new_medium_dragon_boat_deed,
-    0xC,
-    Point3D::ZERO,
-    new_medium_dragon_boat,
-    1041208
+    new_medium_dragon_boat
 );
 deed_leaf!(
     LARGE_BOAT_DEED,
     LARGE_BOAT_DEED_CLASS,
     "Server.Multis.LargeBoatDeed",
     new_large_boat_deed,
-    0x10,
-    Point3D { x: 0, y: -1, z: 0 },
-    new_large_boat,
-    1041209
+    new_large_boat
 );
 deed_leaf!(
     LARGE_DRAGON_BOAT_DEED,
     LARGE_DRAGON_BOAT_DEED_CLASS,
     "Server.Multis.LargeDragonBoatDeed",
     new_large_dragon_boat_deed,
-    0x14,
-    Point3D { x: 0, y: -1, z: 0 },
-    new_large_dragon_boat,
-    1041210
+    new_large_dragon_boat
 );
 
 // ---- BaseDockedBoat ----

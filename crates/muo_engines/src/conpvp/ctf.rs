@@ -28,7 +28,7 @@ pub static CTF_BOARD: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.CTFBoard",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_board(w, &CTF_BOARD)),
-    default_name: |_, _| Some("scoreboard".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: board_double_click,
     serialize: |w, id, out| board_serialize(w, id, out),
     deserialize: |w, id, r| board_deserialize(w, id, r),
@@ -373,7 +373,7 @@ pub static CTF_FLAG: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.CTFFlag",
     parent: Some(&ITEM_BASE),
     construct: Some(new_flag),
-    default_name: |_, _| Some("old people cookies".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: flag_double_click,
     // `Delete()`: carried, it goes home instead
     delete: |w, id| {

@@ -1,0 +1,108 @@
+[
+  {
+    "type": "Server.Items.Longsword",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 15,
+      "aosMaxDamage": 16,
+      "aosSpeed": 30,
+      "mlSpeed": 3.5,
+      "oldStrReq": 25,
+      "oldMinDamage": 5,
+      "oldMaxDamage": 33,
+      "oldSpeed": 35,
+      "defHitSound": 567,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 110
+    }
+  },
+  {
+    "type": "Server.Items.Katana",
+    "props": {
+      "aosStrReq": 25,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 13,
+      "aosSpeed": 46,
+      "mlSpeed": 2.5,
+      "oldStrReq": 10,
+      "oldMinDamage": 5,
+      "oldMaxDamage": 26,
+      "oldSpeed": 58,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.Bow",
+    "props": {
+      "aosStrReq": 30,
+      "aosMinDamage": [
+        16,
+        15
+      ],
+      "aosMaxDamage": [
+        18,
+        19
+      ],
+      "aosSpeed": 25,
+      "mlSpeed": 4.25,
+      "oldStrReq": 20,
+      "oldMinDamage": 9,
+      "oldMaxDamage": 41,
+      "oldSpeed": 20,
+      "defMaxRange": 10,
+      "initMinHits": 31,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.PlateChest",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 95,
+      "oldStrReq": 60,
+      "oldDexBonus": -8,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.LeatherChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 25,
+      "oldStrReq": 15,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.ChainChest",
+    "props": {
+      "basePhysicalResistance": 4,
+      "baseFireResistance": 4,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 1,
+      "baseEnergyResistance": 2,
+      "initMinHits": 45,
+      "initMaxHits": 60,
+      "aosStrReq": 60,
+      "oldStrReq": 20,
+      "oldDexBonus": -5,
+      "armorBase": 28
+    }
+  }
+]

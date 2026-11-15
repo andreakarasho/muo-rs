@@ -446,7 +446,7 @@ pub static GAUNTLET_SPAWNER: ItemType = ItemType {
     full_name: "Server.Engines.Doom.GauntletSpawner",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_spawner(w, None)),
-    default_name: |_, _| Some("doom spawner".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_delete,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

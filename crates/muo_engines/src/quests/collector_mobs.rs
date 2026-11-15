@@ -7,7 +7,7 @@ use muo_content::gumps::{
 use muo_server::World;
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::mobile::MobileType;
 use muo_server::net_state::NetStateId;
 use muo_server::packets::message::MessageType;
@@ -20,9 +20,7 @@ use super::core::{
 use super::gumps::{LIGHT_GREEN, WHITE};
 use super::items::{QUEST_ITEM, QuestItemClass};
 use super::quester::{BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps};
-use super::util::{
-    add_item_hued, add_item_named, begin_target, in_backpack, random_min_max, set_body,
-};
+use super::util::{begin_target, in_backpack, random_min_max};
 use crate::quester;
 
 fn quest(w: &World, player: MobileId) -> Option<Quest> {
@@ -41,23 +39,6 @@ fn pending(q: &Quest, c: &super::core::ObjClass) -> Option<usize> {
 
 fn dont(q: &mut Quest, w: &mut World, c: &'static super::core::ConvClass) {
     q.add_conversation(w, Conversation::new(c));
-}
-
-fn init_stats_body(w: &mut World, id: MobileId, hue: i32, female: bool) {
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    muo_server::mobile::part1::props_b::set_female(w, id, female);
-    set_body(w, id, if female { 0x191 } else { 0x190 });
-}
-
-fn hair(w: &mut World, id: MobileId, item: i32, hue: i32) {
-    muo_server::mobile::part1::props_b::set_hair_item_id(w, id, item);
-    muo_server::mobile::part1::props_b::set_hair_hue(w, id, hue);
-}
-
-fn facial(w: &mut World, id: MobileId, item: i32, hue: i32) {
-    muo_server::mobile::part1::props_b::set_facial_hair_item_id(w, id, item);
-    muo_server::mobile::part1::props_b::set_facial_hair_hue(w, id, hue);
 }
 
 // ---- Alberta Giacco ----
@@ -94,17 +75,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops ALBERTA_OPS, encoded false, title Some("the respected painter"), extra |_, _| {};
     v {
-        init_body: |w, id| init_stats_body(w, id, 0x83F2, true),
-        init_outfit: |w, id| {
-            add_item_named(w, id, "Server.Items.FancyShirt");
-            add_item_hued(w, id, "Server.Items.Skirt", 0x59B);
-            add_item_named(w, id, "Server.Items.Boots");
-            add_item_hued(w, id, "Server.Items.FeatheredHat", 0x59B);
-            add_item_hued(w, id, "Server.Items.FullApron", 0x59B);
-            hair(w, id, 0x203D, 0x457); // Pony Tail
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Collector.AlbertaGiacco"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Alberta Giacco"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -252,18 +226,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops ELWOOD_OPS, encoded false, title Some("the well-known collector"), extra |_, _| {};
     v {
-        init_body: |w, id| init_stats_body(w, id, 0x83ED, false),
-        init_outfit: |w, id| {
-            add_item_named(w, id, "Server.Items.FancyShirt");
-            add_item_hued(w, id, "Server.Items.LongPants", 0x544);
-            add_item_hued(w, id, "Server.Items.Shoes", 0x454);
-            add_item_hued(w, id, "Server.Items.JesterHat", 0x4D2);
-            add_item_hued(w, id, "Server.Items.FullApron", 0x4D2);
-            hair(w, id, 0x203D, 0x47D); // Pony Tail
-            facial(w, id, 0x2040, 0x47D); // Goatee
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Collector.ElwoodMcCarrin"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Elwood McCarrin"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -304,16 +270,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops GABRIEL_OPS, encoded false, title Some("the renowned minstrel"), extra |_, _| {};
     v {
-        init_body: |w, id| init_stats_body(w, id, 0x83EF, false),
-        init_outfit: |w, id| {
-            add_item_named(w, id, "Server.Items.FancyShirt");
-            add_item_hued(w, id, "Server.Items.LongPants", 0x5F7);
-            add_item_hued(w, id, "Server.Items.Shoes", 0x5F7);
-            hair(w, id, 0x2049, 0x460); // Pig Tails
-            facial(w, id, 0x2041, 0x460); // Mustache
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Collector.GabrielPiete"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Gabriel Piete"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -344,27 +304,8 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops IMPRESARIO_OPS, encoded false, title Some("the impresario"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            let hue = muo_content::vendor::human_random_skin_hue(w);
-            muo_server::mobile::base::set_hue(w, id, hue);
-            muo_server::mobile::part1::props_b::set_female(w, id, false);
-            set_body(w, id, 0x190);
-            let name = muo_content::misc::small::random_name(w, "male");
-            if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-                f(w, id, Some(name));
-            }
-        },
-        init_outfit: |w, id| {
-            let h = muo_primitives::utility::random_dyed_hue(&mut w.rng);
-            add_item_hued(w, id, "Server.Items.FancyShirt", h);
-            let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-            add_item_hued(w, id, "Server.Items.LongPants", h);
-            let h = muo_primitives::utility::random_neutral_hue(&mut w.rng);
-            add_item_hued(w, id, "Server.Items.Shoes", h);
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            super::util::assign_facial_random_hue(w, id);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Collector.Impresario"),
+        init_outfit: |_, _| {},
     }
     c { }
     m { }
@@ -502,16 +443,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops TOMAS_OPS, encoded false, title Some("the famed toymaker"), extra |_, _| {};
     v {
-        init_body: |w, id| init_stats_body(w, id, 0x83F8, false),
-        init_outfit: |w, id| {
-            add_item_named(w, id, "Server.Items.FancyShirt");
-            add_item_hued(w, id, "Server.Items.LongPants", 0x546);
-            add_item_hued(w, id, "Server.Items.Boots", 0x452);
-            add_item_hued(w, id, "Server.Items.FullApron", 0x455);
-            hair(w, id, 0x203B, 0x455); // ShortHair
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Collector.TomasONeerlan"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Tomas O'Neerlan"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -545,7 +480,9 @@ pub static PAINTED_IMAGE: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: None,
     make: Some(|w| new_painted_image(w, 0)),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
     add_name_property: |w, id, list| {
         let info = image_info(painted_image(w, id));
         list.add_str(1060847, &format!("#1055126\t#{}", info.name())); // a painted image of:
@@ -619,13 +556,11 @@ static ENCHANTED_PAINTS_CLASS: QuestItemClass = QuestItemClass {
 pub static ENCHANTED_PAINTS: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Collector.EnchantedPaints",
     parent: Some(&QUEST_ITEM),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &ENCHANTED_PAINTS, 0xFC1);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &ENCHANTED_PAINTS)),
     family: Some(&ENCHANTED_PAINTS_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", QUEST_ITEM.default_weight)
+    },
     on_double_click: |w, id, from| {
         let is_player = w
             .mobile(from)
@@ -875,8 +810,8 @@ pub static OBSIDIAN: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Collector.Obsidian",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &OBSIDIAN, 0x1EA7);
-        muo_server::item::base::set_hue(w, id, 0x497);
+        let id = ops::new_item_with_id(w, &OBSIDIAN, 0);
+        muo_content::templates::apply_item_as(w, id, OBSIDIAN.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(ObsidianData {
                 quantity: 1,

@@ -189,7 +189,7 @@ pub static TRANSFER_ITEM: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: None,
     skip_serialization: |_, _| true,
-    default_name: |_, _| Some("a house transfer contract".to_string()),
+    default_name: |w, id| crate::template_props::item_name(w, id, ITEM_BASE.default_name),
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         let house = transfer_house(w, id);

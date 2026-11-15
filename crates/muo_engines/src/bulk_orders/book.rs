@@ -879,7 +879,9 @@ pub static BULK_ORDER_BOOK: ItemType = ItemType {
     full_name: "Server.Engines.BulkOrders.BulkOrderBook",
     parent: Some(&ITEM_BASE),
     construct: Some(new_book),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
     on_double_click,
     on_double_click_secure_trade,
     on_drag_drop,

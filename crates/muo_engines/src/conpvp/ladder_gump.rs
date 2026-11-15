@@ -270,14 +270,14 @@ pub static LADDER_ITEM: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.LadderItem",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &LADDER_ITEM, 0x117F);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &LADDER_ITEM, 0);
+        muo_content::templates::apply_item_as(w, id, LADDER_ITEM.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(LadderItemData::default());
         }
         id
     }),
-    default_name: |_, _| Some("1v1 leaderboard".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

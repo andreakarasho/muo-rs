@@ -55,7 +55,9 @@ pub static ARENA_MOONGATE: ItemType = ItemType {
     parent: Some(&CONFIRMATION_MOONGATE),
     construct: None,
     family: Some(&ARENA_MOONGATE_CLASS),
-    default_name: |_, _| Some("spectator moongate".to_owned()),
+    default_name: |w, id| {
+        crate::template_keys::item_name(w, id, CONFIRMATION_MOONGATE.default_name)
+    },
     skip_serialization: |_, _| true,
     ..CONFIRMATION_MOONGATE
 };

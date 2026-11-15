@@ -56,7 +56,9 @@ pub static HARROWER_GATE: ItemType = ItemType {
     full_name: "Server.Items.HarrowerGate",
     parent: Some(&MOONGATE),
     construct: None,
-    label_number: |_, _| 1049498, // dark moongate
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", MOONGATE.label_number)
+    },
     serialize: |w, id, out| {
         (MOONGATE.serialize)(w, id, out);
         out.write_i32(0);
@@ -149,7 +151,9 @@ pub static STAR_ROOM_GATE: ItemType = ItemType {
     full_name: "Server.Items.StarRoomGate",
     parent: Some(&MOONGATE),
     construct: Some(|w| star_room_gate_new(w, false)),
-    label_number: |_, _| 1049498, // dark moongate
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", MOONGATE.label_number)
+    },
     on_after_delete: |w, id| {
         let mut h = star(w, id).timer;
         h.cancel(w);

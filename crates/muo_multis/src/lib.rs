@@ -22,6 +22,7 @@ pub mod secure_entry;
 pub mod secure_gump;
 pub mod sign;
 pub mod teleporter;
+mod template_props;
 pub mod vendor_inventory;
 
 use muo_server::type_registry::{Phase, TypeRegistry};

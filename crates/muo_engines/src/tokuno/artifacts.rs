@@ -3,13 +3,11 @@
 //! `TomeOfEnlightenment`, `TomeOfLostKnowledge` (`Spellbook`) and `FluteOfRenewal` (`BambooFlute`) are at the end.
 //! `FluteOfRenewal.InitMaxUses` (300) is `instruments::init_uses_of`.
 
-use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind, Attrs};
+use muo_content::aos::{AosAttribute, AttrKind, Attrs};
 use muo_content::items::set_attr;
-use muo_content::items::slayer::SlayerName;
 use muo_content::items::weapon_combat::DamageTypes;
 use muo_items::armor::leaves::*;
 use muo_items::clothing::leaves::*;
-use muo_items::weapons::ctor;
 use muo_items::weapons::*;
 use muo_server::World;
 use muo_server::ids::ItemId;
@@ -36,10 +34,6 @@ fn skill_bonus(w: &mut World, id: ItemId, index: u32, skill: SkillName, bonus: f
 
 fn attr(w: &mut World, id: ItemId, a: AosAttribute, v: i32) {
     set_attr(w, id, AttrKind::Attributes, a as u32, v);
-}
-
-fn weapon_attr(w: &mut World, id: ItemId, a: AosWeaponAttribute, v: i32) {
-    set_attr(w, id, AttrKind::Weapon, a as u32, v);
 }
 
 /// One concrete class under an armor, clothing or weapon class of muo_items (the same shape as `armor_leaf!`,
@@ -125,24 +119,12 @@ art! {
     /// `Server.Items.AncientSamuraiDo`.
     ANCIENT_SAMURAI_DO, ANCIENT_SAMURAI_DO_CLASS: ArmorClass, ancient_samurai_do_new = "Server.Items.AncientSamuraiDo" : PLATE_DO, PLATE_DO_CLASS, plate_do_new;
     @template;
-    base_physical_resistance: 15,
-    base_fire_resistance: 12,
-    base_cold_resistance: 10,
-    base_poison_resistance: 11,
-    base_energy_resistance: 8,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 art! {
     /// `Server.Items.ArmsOfTacticalExcellence`.
     ARMS_OF_TACTICAL_EXCELLENCE, ARMS_OF_TACTICAL_EXCELLENCE_CLASS: ArmorClass, arms_of_tactical_excellence_new = "Server.Items.ArmsOfTacticalExcellence" : LEATHER_HIRO_SODE, LEATHER_HIRO_SODE_CLASS, leather_hiro_sode_new;
     @template;
-    base_fire_resistance: 9,
-    base_cold_resistance: 13,
-    base_poison_resistance: 8,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 art! {
@@ -155,53 +137,24 @@ art! {
     /// `Server.Items.DaimyosHelm`.
     DAIMYOS_HELM, DAIMYOS_HELM_CLASS: ArmorClass, daimyos_helm_new = "Server.Items.DaimyosHelm" : PLATE_BATTLE_KABUTO, PLATE_BATTLE_KABUTO_CLASS, plate_battle_kabuto_new;
     @template;
-    base_cold_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 art! {
     /// `Server.Items.DemonForks`.
     DEMON_FORKS, DEMON_FORKS_CLASS: WeaponClass, demon_forks_new = "Server.Items.DemonForks" : SAI, SAI_CLASS, sai_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::ResistFireBonus, 10);
-        weapon_attr(w, id, AosWeaponAttribute::ResistPoisonBonus, 10);
-        attr(w, id, AosAttribute::ReflectPhysical, 10);
-        attr(w, id, AosAttribute::WeaponDamage, 35);
-        attr(w, id, AosAttribute::DefendChance, 10);
-    };
-    label_number: 1070917,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 art! {
     /// `Server.Items.DragonNunchaku`.
     DRAGON_NUNCHAKU, DRAGON_NUNCHAKU_CLASS: WeaponClass, dragon_nunchaku_new = "Server.Items.DragonNunchaku" : NUNCHAKU, NUNCHAKU_CLASS, nunchaku_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::ResistFireBonus, 5);
-        weapon_attr(w, id, AosWeaponAttribute::SelfRepair, 3);
-        weapon_attr(w, id, AosWeaponAttribute::HitFireball, 50);
-        attr(w, id, AosAttribute::WeaponDamage, 40);
-        attr(w, id, AosAttribute::WeaponSpeed, 20);
-    };
-    label_number: 1070914,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 art! {
     /// `Server.Items.Exiler`.
     EXILER, EXILER_CLASS: WeaponClass, exiler_new = "Server.Items.Exiler" : TETSUBO, TETSUBO_CLASS, tetsubo_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::HitDispel, 33);
-        ctor::set_slayer(w, id, SlayerName::Exorcism);
-        attr(w, id, AosAttribute::WeaponDamage, 40);
-        attr(w, id, AosAttribute::WeaponSpeed, 20);
-    };
-    label_number: 1070913,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
     get_damage_types: |_, _, _| dmg(0, 0, 0, 0, 100),
 }
 
@@ -209,90 +162,42 @@ art! {
     /// `Server.Items.GlovesOfTheSun`.
     GLOVES_OF_THE_SUN, GLOVES_OF_THE_SUN_CLASS: ArmorClass, gloves_of_the_sun_new = "Server.Items.GlovesOfTheSun" : LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new;
     @template;
-    base_fire_resistance: 24,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 art! {
     /// `Server.Items.HanzosBow`.
     HANZOS_BOW, HANZOS_BOW_CLASS: WeaponClass, hanzos_bow_new = "Server.Items.HanzosBow" : YUMI, YUMI_CLASS, yumi_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::HitLeechHits, 40);
-        weapon_attr(w, id, AosWeaponAttribute::SelfRepair, 3);
-        attr(w, id, AosAttribute::WeaponDamage, 50);
-        skill_bonus(w, id, 0, SkillName::Ninjitsu, 10.0);
-    };
-    label_number: 1070918,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 art! {
     /// `Server.Items.LegsOfStability`.
     LEGS_OF_STABILITY, LEGS_OF_STABILITY_CLASS: ArmorClass, legs_of_stability_new = "Server.Items.LegsOfStability" : PLATE_SUNEATE, PLATE_SUNEATE_CLASS, plate_suneate_new;
     @template;
-    base_physical_resistance: 20,
-    base_poison_resistance: 18,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 art! {
     /// `Server.Items.PeasantsBokuto`.
     PEASANTS_BOKUTO, PEASANTS_BOKUTO_CLASS: WeaponClass, peasants_bokuto_new = "Server.Items.PeasantsBokuto" : BOKUTO, BOKUTO_CLASS, bokuto_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::SelfRepair, 3);
-        weapon_attr(w, id, AosWeaponAttribute::HitLowerDefend, 30);
-        attr(w, id, AosAttribute::WeaponDamage, 35);
-        attr(w, id, AosAttribute::WeaponSpeed, 10);
-        ctor::set_slayer(w, id, SlayerName::SnakesBane);
-    };
-    label_number: 1070912,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 art! {
     /// `Server.Items.PilferedDancerFans`.
     PILFERED_DANCER_FANS, PILFERED_DANCER_FANS_CLASS: WeaponClass, pilfered_dancer_fans_new = "Server.Items.PilferedDancerFans" : TESSEN, TESSEN_CLASS, tessen_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::WeaponDamage, 20);
-        attr(w, id, AosAttribute::WeaponSpeed, 20);
-        attr(w, id, AosAttribute::CastRecovery, 2);
-        attr(w, id, AosAttribute::DefendChance, 5);
-        attr(w, id, AosAttribute::SpellChanneling, 1);
-    };
-    label_number: 1070916,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 art! {
     /// `Server.Items.TheDestroyer`.
     THE_DESTROYER, THE_DESTROYER_CLASS: WeaponClass, the_destroyer_new = "Server.Items.TheDestroyer" : NO_DACHI, NO_DACHI_CLASS, no_dachi_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::HitLeechStam, 40);
-        attr(w, id, AosAttribute::BonusStr, 6);
-        attr(w, id, AosAttribute::AttackChance, 10);
-        attr(w, id, AosAttribute::WeaponDamage, 50);
-    };
-    label_number: 1070915,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 art! {
     /// `Server.Items.LeurociansMempoOfFortune`: `LootType = Regular; Hue = 0x501`.
     LEUROCIANS_MEMPO_OF_FORTUNE, LEUROCIANS_MEMPO_OF_FORTUNE_CLASS: ArmorClass, leurocians_mempo_of_fortune_new = "Server.Items.LeurociansMempoOfFortune" : LEATHER_MEMPO, LEATHER_MEMPO_CLASS, leather_mempo_new;
     @template;
-    base_physical_resistance: 15,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 15,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 // ---- Greater artifacts ----
@@ -300,14 +205,7 @@ art! {
 art! {
     /// `Server.Items.DarkenedSky`.
     DARKENED_SKY, DARKENED_SKY_CLASS: WeaponClass, darkened_sky_new = "Server.Items.DarkenedSky" : KAMA, KAMA_CLASS, kama_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::HitLightning, 60);
-        attr(w, id, AosAttribute::WeaponSpeed, 25);
-        attr(w, id, AosAttribute::WeaponDamage, 50);
-    };
-    init_min_hits: 255,
-    init_max_hits: 255,
-    label_number: 1070966,
+    @template;
     get_damage_types: |_, _, _| dmg(0, 0, 50, 0, 50),
 }
 
@@ -321,80 +219,38 @@ art! {
     /// `Server.Items.RuneBeetleCarapace`.
     RUNE_BEETLE_CARAPACE, RUNE_BEETLE_CARAPACE_CLASS: ArmorClass, rune_beetle_carapace_new = "Server.Items.RuneBeetleCarapace" : PLATE_DO, PLATE_DO_CLASS, plate_do_new;
     @template;
-    init_min_hits: 255,
-    init_max_hits: 255,
-    base_cold_resistance: 14,
-    base_energy_resistance: 14,
 }
 
 art! {
     /// `Server.Items.Stormgrip`.
     STORMGRIP, STORMGRIP_CLASS: ArmorClass, stormgrip_new = "Server.Items.Stormgrip" : LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new;
     @template;
-    init_min_hits: 255,
-    init_max_hits: 255,
-    base_physical_resistance: 10,
-    base_cold_resistance: 18,
-    base_energy_resistance: 18,
 }
 
 art! {
     /// `Server.Items.SwordOfTheStampede`.
     SWORD_OF_THE_STAMPEDE, SWORD_OF_THE_STAMPEDE_CLASS: WeaponClass, sword_of_the_stampede_new = "Server.Items.SwordOfTheStampede" : NO_DACHI, NO_DACHI_CLASS, no_dachi_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::HitHarm, 100);
-        attr(w, id, AosAttribute::AttackChance, 10);
-        attr(w, id, AosAttribute::WeaponDamage, 60);
-    };
-    init_min_hits: 255,
-    init_max_hits: 255,
-    label_number: 1070964,
+    @template;
     get_damage_types: |_, _, _| dmg(0, 0, 100, 0, 0),
 }
 
 art! {
     /// `Server.Items.SwordsOfProsperity`.
     SWORDS_OF_PROSPERITY, SWORDS_OF_PROSPERITY_CLASS: WeaponClass, swords_of_prosperity_new = "Server.Items.SwordsOfProsperity" : DAISHO, DAISHO_CLASS, daisho_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::MageWeapon, 30);
-        attr(w, id, AosAttribute::SpellChanneling, 1);
-        attr(w, id, AosAttribute::CastSpeed, 1);
-        attr(w, id, AosAttribute::Luck, 200);
-    };
-    init_min_hits: 255,
-    init_max_hits: 255,
-    label_number: 1070963,
+    @template;
     get_damage_types: |_, _, _| dmg(0, 100, 0, 0, 0),
 }
 
 art! {
     /// `Server.Items.TheHorselord`.
     THE_HORSELORD, THE_HORSELORD_CLASS: WeaponClass, the_horselord_new = "Server.Items.TheHorselord" : YUMI, YUMI_CLASS, yumi_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::BonusDex, 5);
-        attr(w, id, AosAttribute::RegenMana, 1);
-        attr(w, id, AosAttribute::Luck, 125);
-        attr(w, id, AosAttribute::WeaponDamage, 50);
-        ctor::set_slayer(w, id, SlayerName::ElementalBan);
-        ctor::set_slayer2(w, id, SlayerName::ReptilianDeath as i32);
-    };
-    init_min_hits: 255,
-    init_max_hits: 255,
-    label_number: 1070967,
+    @template;
 }
 
 art! {
     /// `Server.Items.WindsEdge`.
     WINDS_EDGE, WINDS_EDGE_CLASS: WeaponClass, winds_edge_new = "Server.Items.WindsEdge" : TESSEN, TESSEN_CLASS, tessen_new;
-    @init |w, id| {
-        weapon_attr(w, id, AosWeaponAttribute::HitLeechMana, 40);
-        attr(w, id, AosAttribute::WeaponDamage, 50);
-        attr(w, id, AosAttribute::WeaponSpeed, 50);
-        attr(w, id, AosAttribute::DefendChance, 10);
-    };
-    label_number: 1070965,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
     get_damage_types: |_, _, _| dmg(0, 0, 0, 0, 100),
 }
 
@@ -494,8 +350,12 @@ pub static ANCIENT_URN: ItemType = ItemType {
     full_name: "Server.Items.AncientUrn",
     parent: Some(&ITEM_BASE),
     construct: Some(ancient_urn_new_random),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1071014, // Ancient Urn
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     add_name_property: |w, id, list| list.add_str(1070935, &name_of(w, id)), // Ancient Urn of ~1_name~
     on_single_click: |w, id, from| ops::label_to_number(w, id, from, 1070935, &name_of(w, id)),
     serialize: |w, id, out| {
@@ -515,8 +375,12 @@ pub static HONORABLE_SWORDS: ItemType = ItemType {
     full_name: "Server.Items.HonorableSwords",
     parent: Some(&ITEM_BASE),
     construct: Some(honorable_swords_new_random),
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1071015, // Honorable Swords
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     add_name_property: |w, id, list| list.add_str(1070936, &name_of(w, id)), // Honorable Swords of ~1_name~
     on_single_click: |w, id, from| ops::label_to_number(w, id, from, 1070936, &name_of(w, id)),
     serialize: |w, id, out| {
@@ -613,7 +477,14 @@ pub static CHEST_OF_HEIRLOOMS: ItemType = ItemType {
     full_name: "Server.Items.ChestOfHeirlooms",
     parent: Some(&muo_content::items::cont::LOCKABLE_CONTAINER),
     construct: Some(|w| chest_of_heirlooms_new(w, &CHEST_OF_HEIRLOOMS)),
-    label_number: |_, _| 1070937, // Chest of heirlooms
+    label_number: |w, id| {
+        crate::template_keys::item_int(
+            w,
+            id,
+            "labelNumber",
+            muo_content::items::cont::LOCKABLE_CONTAINER.label_number,
+        )
+    },
     serialize: |w, id, out| {
         (muo_content::items::cont::LOCKABLE_CONTAINER.serialize)(w, id, out);
         out.write_i32(0);

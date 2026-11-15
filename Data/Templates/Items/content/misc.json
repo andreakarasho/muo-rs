@@ -1,0 +1,537 @@
+[
+  {
+    "type": "Server.Items.BaseBagBall",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BankCheck",
+    "props": {
+      "labelNumber": 1041361,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Key",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.KeyRing",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.FruitBasket",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.ResGate",
+    "itemId": 3948,
+    "movable": false,
+    "hue": 721,
+    "light": "Circle300",
+    "props": {
+      "defaultName": "a resurrection gate"
+    }
+  },
+  {
+    "type": "Server.Items.GamblingStone",
+    "itemId": 3796,
+    "movable": false,
+    "hue": 86,
+    "props": {
+      "defaultName": "a gambling stone"
+    }
+  },
+  {
+    "type": "Server.Items.Backpack",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.StrongBackpack",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "props": {
+      "defaultWeight": 13.0
+    }
+  },
+  {
+    "type": "Server.Items.CreatureBackpack",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "hue": 5,
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.Pouch",
+    "itemId": 3705,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SmallBagBall",
+    "itemId": 8790
+  },
+  {
+    "type": "Server.Items.Bag",
+    "itemId": 3702,
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.Barrel",
+    "itemId": 3703,
+    "props": {
+      "defaultWeight": 25.0
+    }
+  },
+  {
+    "type": "Server.Items.Keg",
+    "itemId": 3711,
+    "props": {
+      "defaultWeight": 15.0
+    }
+  },
+  {
+    "type": "Server.Items.PicnicBasket",
+    "itemId": 3706,
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.Basket",
+    "itemId": 2448,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.RarewoodChest",
+    "itemId": 11761
+  },
+  {
+    "type": "Server.Items.WoodenFootLocker",
+    "itemId": 10257
+  },
+  {
+    "type": "Server.Items.LargeBagBall",
+    "itemId": 8791
+  },
+  {
+    "type": "Server.Items.DecorativeBox",
+    "itemId": 11764
+  },
+  {
+    "type": "Server.Items.WoodenBox",
+    "itemId": 2474,
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.SmallCrate",
+    "itemId": 2473,
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.MediumCrate",
+    "itemId": 3647,
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.LargeCrate",
+    "itemId": 3645,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.MetalBox",
+    "itemId": 2472
+  },
+  {
+    "type": "Server.Items.MetalChest",
+    "itemId": 2475
+  },
+  {
+    "type": "Server.Items.MetalGoldenChest",
+    "itemId": 3649
+  },
+  {
+    "type": "Server.Items.WoodenChest",
+    "itemId": 3651,
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.PlainWoodenChest",
+    "itemId": 10251
+  },
+  {
+    "type": "Server.Items.OrnateWoodenChest",
+    "itemId": 10253
+  },
+  {
+    "type": "Server.Items.GildedWoodenChest",
+    "itemId": 10255
+  },
+  {
+    "type": "Server.Items.FinishedWoodenChest",
+    "itemId": 10259
+  },
+  {
+    "type": "Server.Items.Log",
+    "props": {
+      "resource": "RegularWood"
+    }
+  },
+  {
+    "type": "Server.Items.Board",
+    "props": {
+      "resource": "RegularWood"
+    }
+  },
+  {
+    "type": "Server.Items.IronIngot",
+    "props": {
+      "resource": "Iron"
+    }
+  },
+  {
+    "type": "Server.Items.DullCopperIngot",
+    "props": {
+      "resource": "DullCopper"
+    }
+  },
+  {
+    "type": "Server.Items.ShadowIronIngot",
+    "props": {
+      "resource": "ShadowIron"
+    }
+  },
+  {
+    "type": "Server.Items.CopperIngot",
+    "props": {
+      "resource": "Copper"
+    }
+  },
+  {
+    "type": "Server.Items.BronzeIngot",
+    "props": {
+      "resource": "Bronze"
+    }
+  },
+  {
+    "type": "Server.Items.GoldIngot",
+    "props": {
+      "resource": "Gold"
+    }
+  },
+  {
+    "type": "Server.Items.AgapiteIngot",
+    "props": {
+      "resource": "Agapite"
+    }
+  },
+  {
+    "type": "Server.Items.VeriteIngot",
+    "props": {
+      "resource": "Verite"
+    }
+  },
+  {
+    "type": "Server.Items.ValoriteIngot",
+    "props": {
+      "resource": "Valorite"
+    }
+  },
+  {
+    "type": "Server.Items.IronOre",
+    "props": {
+      "resource": "Iron"
+    }
+  },
+  {
+    "type": "Server.Items.DullCopperOre",
+    "props": {
+      "resource": "DullCopper"
+    }
+  },
+  {
+    "type": "Server.Items.ShadowIronOre",
+    "props": {
+      "resource": "ShadowIron"
+    }
+  },
+  {
+    "type": "Server.Items.CopperOre",
+    "props": {
+      "resource": "Copper"
+    }
+  },
+  {
+    "type": "Server.Items.BronzeOre",
+    "props": {
+      "resource": "Bronze"
+    }
+  },
+  {
+    "type": "Server.Items.GoldOre",
+    "props": {
+      "resource": "Gold"
+    }
+  },
+  {
+    "type": "Server.Items.AgapiteOre",
+    "props": {
+      "resource": "Agapite"
+    }
+  },
+  {
+    "type": "Server.Items.VeriteOre",
+    "props": {
+      "resource": "Verite"
+    }
+  },
+  {
+    "type": "Server.Items.ValoriteOre",
+    "props": {
+      "resource": "Valorite"
+    }
+  },
+  {
+    "type": "Server.Items.HeartwoodLog",
+    "props": {
+      "resource": "Heartwood"
+    }
+  },
+  {
+    "type": "Server.Items.BloodwoodLog",
+    "props": {
+      "resource": "Bloodwood"
+    }
+  },
+  {
+    "type": "Server.Items.FrostwoodLog",
+    "props": {
+      "resource": "Frostwood"
+    }
+  },
+  {
+    "type": "Server.Items.OakLog",
+    "props": {
+      "resource": "OakWood"
+    }
+  },
+  {
+    "type": "Server.Items.AshLog",
+    "props": {
+      "resource": "AshWood"
+    }
+  },
+  {
+    "type": "Server.Items.YewLog",
+    "props": {
+      "resource": "YewWood"
+    }
+  },
+  {
+    "type": "Server.Items.HeartwoodBoard",
+    "props": {
+      "resource": "Heartwood"
+    }
+  },
+  {
+    "type": "Server.Items.BloodwoodBoard",
+    "props": {
+      "resource": "Bloodwood"
+    }
+  },
+  {
+    "type": "Server.Items.FrostwoodBoard",
+    "props": {
+      "resource": "Frostwood"
+    }
+  },
+  {
+    "type": "Server.Items.OakBoard",
+    "props": {
+      "resource": "OakWood"
+    }
+  },
+  {
+    "type": "Server.Items.AshBoard",
+    "props": {
+      "resource": "AshWood"
+    }
+  },
+  {
+    "type": "Server.Items.YewBoard",
+    "props": {
+      "resource": "YewWood"
+    }
+  },
+  {
+    "type": "Server.Items.Leather",
+    "props": {
+      "resource": "RegularLeather"
+    }
+  },
+  {
+    "type": "Server.Items.SpinedLeather",
+    "props": {
+      "resource": "SpinedLeather"
+    }
+  },
+  {
+    "type": "Server.Items.HornedLeather",
+    "props": {
+      "resource": "HornedLeather"
+    }
+  },
+  {
+    "type": "Server.Items.BarbedLeather",
+    "props": {
+      "resource": "BarbedLeather"
+    }
+  },
+  {
+    "type": "Server.Items.Hides",
+    "props": {
+      "resource": "RegularLeather"
+    }
+  },
+  {
+    "type": "Server.Items.SpinedHides",
+    "props": {
+      "resource": "SpinedLeather"
+    }
+  },
+  {
+    "type": "Server.Items.HornedHides",
+    "props": {
+      "resource": "HornedLeather"
+    }
+  },
+  {
+    "type": "Server.Items.BarbedHides",
+    "props": {
+      "resource": "BarbedLeather"
+    }
+  },
+  {
+    "type": "Server.Items.RedScales",
+    "props": {
+      "resource": "RedScales"
+    }
+  },
+  {
+    "type": "Server.Items.YellowScales",
+    "props": {
+      "resource": "YellowScales"
+    }
+  },
+  {
+    "type": "Server.Items.BlackScales",
+    "props": {
+      "resource": "BlackScales"
+    }
+  },
+  {
+    "type": "Server.Items.GreenScales",
+    "props": {
+      "resource": "GreenScales"
+    }
+  },
+  {
+    "type": "Server.Items.WhiteScales",
+    "props": {
+      "resource": "WhiteScales"
+    }
+  },
+  {
+    "type": "Server.Items.BlueScales",
+    "props": {
+      "resource": "BlueScales"
+    }
+  },
+  {
+    "type": "Server.Items.Granite",
+    "props": {
+      "resource": "Iron"
+    }
+  },
+  {
+    "type": "Server.Items.DullCopperGranite",
+    "props": {
+      "resource": "DullCopper"
+    }
+  },
+  {
+    "type": "Server.Items.ShadowIronGranite",
+    "props": {
+      "resource": "ShadowIron"
+    }
+  },
+  {
+    "type": "Server.Items.CopperGranite",
+    "props": {
+      "resource": "Copper"
+    }
+  },
+  {
+    "type": "Server.Items.BronzeGranite",
+    "props": {
+      "resource": "Bronze"
+    }
+  },
+  {
+    "type": "Server.Items.GoldGranite",
+    "props": {
+      "resource": "Gold"
+    }
+  },
+  {
+    "type": "Server.Items.AgapiteGranite",
+    "props": {
+      "resource": "Agapite"
+    }
+  },
+  {
+    "type": "Server.Items.VeriteGranite",
+    "props": {
+      "resource": "Verite"
+    }
+  },
+  {
+    "type": "Server.Items.ValoriteGranite",
+    "props": {
+      "resource": "Valorite"
+    }
+  },
+  {
+    "type": "Server.Items.Gold",
+    "itemId": 3821,
+    "stackable": true
+  }
+]

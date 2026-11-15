@@ -1,0 +1,364 @@
+[
+  {
+    "type": "Server.Multis.Deeds.HouseDeed",
+    "itemId": 5360,
+    "lootType": "Newbied"
+  },
+  {
+    "type": "Server.Multis.Deeds.StonePlasterHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 100,
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "labelNumber": 1041211
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.FieldStoneHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 102,
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "labelNumber": 1041212
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.SmallBrickHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 104,
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "labelNumber": 1041213
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.WoodHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 106,
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "labelNumber": 1041214
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.WoodPlasterHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 108,
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "labelNumber": 1041215
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.ThatchedRoofCottageDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 110,
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "labelNumber": 1041216
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.BrickHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 116,
+      "offset": [
+        -1,
+        7,
+        0
+      ],
+      "labelNumber": 1041219
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.TwoStoryWoodPlasterHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 118,
+      "offset": [
+        -3,
+        7,
+        0
+      ],
+      "labelNumber": 1041220
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.TwoStoryStonePlasterHouseDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 120,
+      "offset": [
+        -3,
+        7,
+        0
+      ],
+      "labelNumber": 1041221
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.TowerDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 122,
+      "offset": [
+        0,
+        7,
+        0
+      ],
+      "labelNumber": 1041222
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.KeepDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 124,
+      "offset": [
+        0,
+        11,
+        0
+      ],
+      "labelNumber": 1041223
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.CastleDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 126,
+      "offset": [
+        0,
+        16,
+        0
+      ],
+      "labelNumber": 1041224
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.LargePatioDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 140,
+      "offset": [
+        -4,
+        7,
+        0
+      ],
+      "labelNumber": 1041231
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.LargeMarbleDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 150,
+      "offset": [
+        -4,
+        7,
+        0
+      ],
+      "labelNumber": 1041236
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.SmallTowerDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 152,
+      "offset": [
+        3,
+        4,
+        0
+      ],
+      "labelNumber": 1041237
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.LogCabinDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 154,
+      "offset": [
+        1,
+        6,
+        0
+      ],
+      "labelNumber": 1041238
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.SandstonePatioDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 156,
+      "offset": [
+        -1,
+        4,
+        0
+      ],
+      "labelNumber": 1041239
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.VillaDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 158,
+      "offset": [
+        3,
+        6,
+        0
+      ],
+      "labelNumber": 1041240
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.StoneWorkshopDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 160,
+      "offset": [
+        -1,
+        4,
+        0
+      ],
+      "labelNumber": 1041241
+    }
+  },
+  {
+    "type": "Server.Multis.Deeds.MarbleWorkshopDeed",
+    "inherits": "Server.Multis.Deeds.HouseDeed",
+    "props": {
+      "multiId": 162,
+      "offset": [
+        -1,
+        4,
+        0
+      ],
+      "labelNumber": 1041242
+    }
+  },
+  {
+    "type": "Server.Multis.BaseBoatDeed",
+    "itemId": 5362,
+    "era": {
+      "atLeast": "AOS",
+      "else": {
+        "lootType": "Newbied"
+      }
+    }
+  },
+  {
+    "type": "Server.Multis.SmallBoatDeed",
+    "inherits": "Server.Multis.BaseBoatDeed",
+    "props": {
+      "multiId": 0,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "labelNumber": 1041205
+    }
+  },
+  {
+    "type": "Server.Multis.SmallDragonBoatDeed",
+    "inherits": "Server.Multis.BaseBoatDeed",
+    "props": {
+      "multiId": 4,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "labelNumber": 1041206
+    }
+  },
+  {
+    "type": "Server.Multis.MediumBoatDeed",
+    "inherits": "Server.Multis.BaseBoatDeed",
+    "props": {
+      "multiId": 8,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "labelNumber": 1041207
+    }
+  },
+  {
+    "type": "Server.Multis.MediumDragonBoatDeed",
+    "inherits": "Server.Multis.BaseBoatDeed",
+    "props": {
+      "multiId": 12,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "labelNumber": 1041208
+    }
+  },
+  {
+    "type": "Server.Multis.LargeBoatDeed",
+    "inherits": "Server.Multis.BaseBoatDeed",
+    "props": {
+      "multiId": 16,
+      "offset": [
+        0,
+        -1,
+        0
+      ],
+      "labelNumber": 1041209
+    }
+  },
+  {
+    "type": "Server.Multis.LargeDragonBoatDeed",
+    "inherits": "Server.Multis.BaseBoatDeed",
+    "props": {
+      "multiId": 20,
+      "offset": [
+        0,
+        -1,
+        0
+      ],
+      "labelNumber": 1041210
+    }
+  },
+  {
+    "type": "Server.Items.HousePlacementTool",
+    "itemId": 5366,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 3.0,
+      "labelNumber": 1060651
+    }
+  }
+]

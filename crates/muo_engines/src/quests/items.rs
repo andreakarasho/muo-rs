@@ -195,7 +195,9 @@ pub static DYNAMIC_TELEPORTER: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: None,
     family: Some(&TELEPORTER_CLASS),
-    label_number: |_, _| 1049382, // a magical teleporter
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version0(out);
@@ -351,8 +353,12 @@ pub static HORN_OF_RETREAT: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_horn(w, &HORN_OF_RETREAT)),
     family: Some(&HORN_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049117, // Horn of Retreat
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         list.add_int(1060741, horn(w, id).map_or(0, |h| h.charges)); // charges: ~1_val~

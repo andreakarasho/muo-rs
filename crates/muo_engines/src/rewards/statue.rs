@@ -716,7 +716,9 @@ pub static CHARACTER_STATUE_DEED: ItemType = ItemType {
     full_name: "Server.Mobiles.CharacterStatueDeed",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
     label_number: |w, id| {
         // `t = _statueType; if (Statue != null) t = Statue.StatueType`
         match deed_statue_type(w, id) {
@@ -868,8 +870,12 @@ pub static CHARACTER_STATUE_MAKER: ItemType = ItemType {
     full_name: "Server.Items.CharacterStatueMaker",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1076173, // Character Statue Maker
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);
         if maker(w, id).is_some_and(|d| d.is_reward_item) {
@@ -984,7 +990,7 @@ pub static CHARACTER_STATUE_PLINTH: ItemType = ItemType {
     full_name: "Server.Items.CharacterStatuePlinth",
     parent: Some(&STATIC),
     construct: None,
-    label_number: |_, _| 1076201, // Character Statue
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", STATIC.label_number),
     on_after_delete: |w, id| {
         (STATIC.on_after_delete)(w, id);
         if let Some(s) = plinth_statue(w, id)

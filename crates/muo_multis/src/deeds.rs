@@ -6,7 +6,7 @@
 use muo_primitives::{Direction, Point3D, Rectangle2D};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::region;
 use muo_server::target::{Target, TargetFlags, Targeted, add_target, set_mobile_target};
 use muo_server::type_registry::TypeRegistry;
@@ -63,14 +63,14 @@ pub fn multi_id(w: &World, id: ItemId) -> i32 {
 }
 
 /// `new HouseDeed(id, offset)` of class `ty`.
-pub fn new_deed(w: &mut World, ty: &'static ItemType, id: i32, offset: Point3D) -> ItemId {
-    let item = ops::new_item_with_id(w, ty, 0x14F0);
-    ops::set_loot_type(w, item, LootType::Newbied);
+/// `HouseDeed(id, offset)` of class `ty`: the class's template (it inherits `HouseDeed`'s), then the multi and
+/// offset of its props `multiId` and `offset`.
+pub fn new_deed(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let item = ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, item, ty.full_name);
+    let (multi_id, offset) = crate::template_props::deed_props(w, item);
     if let Some(i) = w.item_mut(item) {
-        i.ext.insert(DeedData {
-            offset,
-            multi_id: id,
-        });
+        i.ext.insert(DeedData { offset, multi_id });
     }
     item
 }
@@ -254,7 +254,7 @@ pub static HOUSE_DEED: ItemType = ItemType {
 };
 
 macro_rules! deeds {
-    ($($name:ident, $cls:ident, $full:literal, $label:literal, $id:literal, ($ox:literal, $oy:literal, $oz:literal),
+    ($($name:ident, $cls:ident, $full:literal,
        $area:expr, $house:expr;)*) => {
         $(
             pub static $cls: DeedClass = DeedClass {
@@ -267,9 +267,9 @@ macro_rules! deeds {
             pub static $name: ItemType = ItemType {
                 full_name: $full,
                 parent: Some(&HOUSE_DEED),
-                construct: Some(|w| new_deed(w, &$name, $id, Point3D::new($ox, $oy, $oz))),
+                construct: Some(|w| new_deed(w, &$name)),
                 family: Some(&$cls),
-                label_number: |_, _| $label,
+                label_number: |w, id| crate::template_props::item_int(w, id, "labelNumber", HOUSE_DEED.label_number),
                 serialize: |w, id, out| {
                     (HOUSE_DEED.serialize)(w, id, out);
                     out.write_i32(0);
@@ -290,45 +290,45 @@ macro_rules! deeds {
 }
 
 deeds! {
-    STONE_PLASTER_HOUSE_DEED, STONE_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.StonePlasterHouseDeed", 1041211, 0x64, (0, 4, 0),
+    STONE_PLASTER_HOUSE_DEED, STONE_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.StonePlasterHouseDeed",
         SMALL_OLD_HOUSE_AREA, |w, o| new_small_old_house(w, o, 0x64);
-    FIELD_STONE_HOUSE_DEED, FIELD_STONE_HOUSE_DEED_CLASS, "Server.Multis.Deeds.FieldStoneHouseDeed", 1041212, 0x66, (0, 4, 0),
+    FIELD_STONE_HOUSE_DEED, FIELD_STONE_HOUSE_DEED_CLASS, "Server.Multis.Deeds.FieldStoneHouseDeed",
         SMALL_OLD_HOUSE_AREA, |w, o| new_small_old_house(w, o, 0x66);
-    SMALL_BRICK_HOUSE_DEED, SMALL_BRICK_HOUSE_DEED_CLASS, "Server.Multis.Deeds.SmallBrickHouseDeed", 1041213, 0x68, (0, 4, 0),
+    SMALL_BRICK_HOUSE_DEED, SMALL_BRICK_HOUSE_DEED_CLASS, "Server.Multis.Deeds.SmallBrickHouseDeed",
         SMALL_OLD_HOUSE_AREA, |w, o| new_small_old_house(w, o, 0x68);
-    WOOD_HOUSE_DEED, WOOD_HOUSE_DEED_CLASS, "Server.Multis.Deeds.WoodHouseDeed", 1041214, 0x6A, (0, 4, 0),
+    WOOD_HOUSE_DEED, WOOD_HOUSE_DEED_CLASS, "Server.Multis.Deeds.WoodHouseDeed",
         SMALL_OLD_HOUSE_AREA, |w, o| new_small_old_house(w, o, 0x6A);
-    WOOD_PLASTER_HOUSE_DEED, WOOD_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.WoodPlasterHouseDeed", 1041215, 0x6C, (0, 4, 0),
+    WOOD_PLASTER_HOUSE_DEED, WOOD_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.WoodPlasterHouseDeed",
         SMALL_OLD_HOUSE_AREA, |w, o| new_small_old_house(w, o, 0x6C);
-    THATCHED_ROOF_COTTAGE_DEED, THATCHED_ROOF_COTTAGE_DEED_CLASS, "Server.Multis.Deeds.ThatchedRoofCottageDeed", 1041216, 0x6E, (0, 4, 0),
+    THATCHED_ROOF_COTTAGE_DEED, THATCHED_ROOF_COTTAGE_DEED_CLASS, "Server.Multis.Deeds.ThatchedRoofCottageDeed",
         SMALL_OLD_HOUSE_AREA, |w, o| new_small_old_house(w, o, 0x6E);
-    BRICK_HOUSE_DEED, BRICK_HOUSE_DEED_CLASS, "Server.Multis.Deeds.BrickHouseDeed", 1041219, 0x74, (-1, 7, 0),
+    BRICK_HOUSE_DEED, BRICK_HOUSE_DEED_CLASS, "Server.Multis.Deeds.BrickHouseDeed",
         GUILD_HOUSE_AREA, new_guild_house;
-    TWO_STORY_WOOD_PLASTER_HOUSE_DEED, TWO_STORY_WOOD_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.TwoStoryWoodPlasterHouseDeed", 1041220, 0x76, (-3, 7, 0),
+    TWO_STORY_WOOD_PLASTER_HOUSE_DEED, TWO_STORY_WOOD_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.TwoStoryWoodPlasterHouseDeed",
         TWO_STORY_HOUSE_AREA, |w, o| new_two_story_house(w, o, 0x76);
-    TWO_STORY_STONE_PLASTER_HOUSE_DEED, TWO_STORY_STONE_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.TwoStoryStonePlasterHouseDeed", 1041221, 0x78, (-3, 7, 0),
+    TWO_STORY_STONE_PLASTER_HOUSE_DEED, TWO_STORY_STONE_PLASTER_HOUSE_DEED_CLASS, "Server.Multis.Deeds.TwoStoryStonePlasterHouseDeed",
         TWO_STORY_HOUSE_AREA, |w, o| new_two_story_house(w, o, 0x78);
-    TOWER_DEED, TOWER_DEED_CLASS, "Server.Multis.Deeds.TowerDeed", 1041222, 0x7A, (0, 7, 0),
+    TOWER_DEED, TOWER_DEED_CLASS, "Server.Multis.Deeds.TowerDeed",
         TOWER_AREA, new_tower;
-    KEEP_DEED, KEEP_DEED_CLASS, "Server.Multis.Deeds.KeepDeed", 1041223, 0x7C, (0, 11, 0),
+    KEEP_DEED, KEEP_DEED_CLASS, "Server.Multis.Deeds.KeepDeed",
         KEEP_AREA, new_keep;
-    CASTLE_DEED, CASTLE_DEED_CLASS, "Server.Multis.Deeds.CastleDeed", 1041224, 0x7E, (0, 16, 0),
+    CASTLE_DEED, CASTLE_DEED_CLASS, "Server.Multis.Deeds.CastleDeed",
         CASTLE_AREA, new_castle;
-    LARGE_PATIO_DEED, LARGE_PATIO_DEED_CLASS, "Server.Multis.Deeds.LargePatioDeed", 1041231, 0x8C, (-4, 7, 0),
+    LARGE_PATIO_DEED, LARGE_PATIO_DEED_CLASS, "Server.Multis.Deeds.LargePatioDeed",
         LARGE_PATIO_AREA, new_large_patio_house;
-    LARGE_MARBLE_DEED, LARGE_MARBLE_DEED_CLASS, "Server.Multis.Deeds.LargeMarbleDeed", 1041236, 0x96, (-4, 7, 0),
+    LARGE_MARBLE_DEED, LARGE_MARBLE_DEED_CLASS, "Server.Multis.Deeds.LargeMarbleDeed",
         LARGE_MARBLE_AREA, new_large_marble_house;
-    SMALL_TOWER_DEED, SMALL_TOWER_DEED_CLASS, "Server.Multis.Deeds.SmallTowerDeed", 1041237, 0x98, (3, 4, 0),
+    SMALL_TOWER_DEED, SMALL_TOWER_DEED_CLASS, "Server.Multis.Deeds.SmallTowerDeed",
         SMALL_TOWER_AREA, new_small_tower;
-    LOG_CABIN_DEED, LOG_CABIN_DEED_CLASS, "Server.Multis.Deeds.LogCabinDeed", 1041238, 0x9A, (1, 6, 0),
+    LOG_CABIN_DEED, LOG_CABIN_DEED_CLASS, "Server.Multis.Deeds.LogCabinDeed",
         LOG_CABIN_AREA, new_log_cabin;
-    SANDSTONE_PATIO_DEED, SANDSTONE_PATIO_DEED_CLASS, "Server.Multis.Deeds.SandstonePatioDeed", 1041239, 0x9C, (-1, 4, 0),
+    SANDSTONE_PATIO_DEED, SANDSTONE_PATIO_DEED_CLASS, "Server.Multis.Deeds.SandstonePatioDeed",
         SANDSTONE_PATIO_AREA, new_sand_stone_patio;
-    VILLA_DEED, VILLA_DEED_CLASS, "Server.Multis.Deeds.VillaDeed", 1041240, 0x9E, (3, 6, 0),
+    VILLA_DEED, VILLA_DEED_CLASS, "Server.Multis.Deeds.VillaDeed",
         TWO_STORY_VILLA_AREA, new_two_story_villa;
-    STONE_WORKSHOP_DEED, STONE_WORKSHOP_DEED_CLASS, "Server.Multis.Deeds.StoneWorkshopDeed", 1041241, 0xA0, (-1, 4, 0),
+    STONE_WORKSHOP_DEED, STONE_WORKSHOP_DEED_CLASS, "Server.Multis.Deeds.StoneWorkshopDeed",
         SMALL_SHOP_AREA_2, |w, o| new_small_shop(w, o, 0xA0);
-    MARBLE_WORKSHOP_DEED, MARBLE_WORKSHOP_DEED_CLASS, "Server.Multis.Deeds.MarbleWorkshopDeed", 1041242, 0xA2, (-1, 4, 0),
+    MARBLE_WORKSHOP_DEED, MARBLE_WORKSHOP_DEED_CLASS, "Server.Multis.Deeds.MarbleWorkshopDeed",
         SMALL_SHOP_AREA_1, |w, o| new_small_shop(w, o, 0xA2);
 }
 

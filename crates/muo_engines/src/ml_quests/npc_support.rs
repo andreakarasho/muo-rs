@@ -14,9 +14,28 @@ pub use muo_server::skills::SkillName;
 /// `creature_leaf!`: one concrete creature class (a `MobileType` plus its `CreatureType` table of overrides).
 /// The save is "parent part + version int 0" (`encoded` for `[SerializationGenerator(0)]` without `false`).
 macro_rules! creature_leaf {
+    // `template`: the constructor and `DefaultName`/`IsInvulnerable`/`CanShout`/`CanTeach` are the class's mobile
+    // template (`Data/Templates/Mobiles`) and its props.
     (
         $(#[$m:meta])*
-        $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, ctor $ctor:ident, encoded $enc:literal;
+        $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, template, encoded $enc:literal;
+        $($rest:tt)*
+    ) => {
+        creature_leaf! {
+            $(#[$m])*
+            $name, $class = $full : $parent / $pclass, ctor (|w| muo_content::templates::new_creature(w, &$name)), encoded $enc;
+            c {
+                default_name: muo_content::templates::creature_props::default_name,
+                is_invulnerable: |w, id| $crate::template_keys::mobile_bool(w, id, "isInvulnerable", $pclass.is_invulnerable),
+                can_shout: |w, id| $crate::template_keys::mobile_bool(w, id, "canShout", $pclass.can_shout),
+                can_teach: |w, id| $crate::template_keys::mobile_bool(w, id, "canTeach", $pclass.can_teach),
+            }
+            $($rest)*
+        }
+    };
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, ctor $ctor:expr, encoded $enc:literal;
         c { $($cf:ident : $cv:expr,)* }
         m { $($mf:ident : $mv:expr,)* }
     ) => {
@@ -115,13 +134,6 @@ pub fn init_stats(w: &mut World, id: MobileId, str: i32, dex: i32, intel: i32) {
     stats::init_stats(w, id, str, dex, intel);
 }
 
-/// `BaseSoundID = value`.
-pub fn base_sound_id(w: &mut World, id: MobileId, value: i32) {
-    if let Some(m) = w.mobile_mut(id) {
-        m.base_sound_id = value;
-    }
-}
-
 /// `Race.RandomSkinHue()` of the mobile's race.
 pub fn race_skin_hue(w: &mut World, id: MobileId) -> i32 {
     let race = w.mobile(id).and_then(|m| m.race);
@@ -141,11 +153,6 @@ pub fn assign_random_hair(w: &mut World, id: MobileId) {
     muo_content::vendor::assign_random_hair(w, id, 0);
     let hue = muo_content::vendor::race_random_hair_hue(w, id);
     props_b::set_hair_hue(w, id, hue);
-}
-
-/// `Utility.AssignRandomHair(m, hue)`.
-pub fn assign_random_hair_hue(w: &mut World, id: MobileId, hue: i32) {
-    muo_content::vendor::assign_random_hair(w, id, hue);
 }
 
 /// `Utility.AssignRandomFacialHair(m)`.

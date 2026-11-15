@@ -372,21 +372,42 @@ resource_base!(
 resource_base!(
     /// `Server.Items.Log`.
     LOG = "Server.Items.Log", LOG_CLASS,
-    construct: Some(|w| new_resource(w, &LOG, CraftResource::RegularWood, 1))
+    construct: Some(|w| class_new(w, &LOG))
 );
 resource_base!(
     /// `Server.Items.Board`.
     BOARD = "Server.Items.Board", BOARD_CLASS,
-    construct: Some(|w| new_resource(w, &BOARD, CraftResource::RegularWood, 1))
+    construct: Some(|w| class_new(w, &BOARD))
 );
 
+/// The `CraftResource` a class's constructor passes to its base: the `resource` prop of its template.
+fn class_resource(w: &mut World, ty: &'static ItemType) -> CraftResource {
+    let t = crate::templates::table(w);
+    let name = std::iter::successors(Some(ty), |c| c.parent).find_map(|c| {
+        t.chain(crate::templates::Kind::Item, c.full_name)
+            .find_map(|tm| tm.props.get("resource")?.as_str())
+    });
+    name.and_then(|n| {
+        (0..512)
+            .filter_map(CraftResource::from_i32)
+            .find(|r| format!("{r:?}") == n)
+    })
+    .unwrap_or(CraftResource::None)
+}
+
+/// `new T()` of a resource class: one of its template's `resource`.
+fn class_new(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let r = class_resource(w, ty);
+    new_resource(w, ty, r, 1)
+}
+
 macro_rules! resource_leaves {
-    ($parent:ident, amount: $amount:tt; $($name:ident = $full:literal, $res:ident;)+) => {
+    ($parent:ident; $($name:ident = $full:literal;)+) => {
         $(
             pub static $name: ItemType = ItemType {
                 full_name: $full,
                 parent: Some(&$parent),
-                construct: Some(|w| new_resource(w, &$name, CraftResource::$res, resource_leaves!(@amount $amount))),
+                construct: Some(|w| class_new(w, &$name)),
                 serialize: |w, id, out| {
                     ($parent.serialize)(w, id, out);
                     out.write_i32(0);
@@ -400,85 +421,83 @@ macro_rules! resource_leaves {
             };
         )+
     };
-    (@amount one) => { 1 };
-    (@amount default) => { 1 };
 }
 
-resource_leaves! { BASE_INGOT, amount: default;
-    IRON_INGOT = "Server.Items.IronIngot", Iron;
-    DULL_COPPER_INGOT = "Server.Items.DullCopperIngot", DullCopper;
-    SHADOW_IRON_INGOT = "Server.Items.ShadowIronIngot", ShadowIron;
-    COPPER_INGOT = "Server.Items.CopperIngot", Copper;
-    BRONZE_INGOT = "Server.Items.BronzeIngot", Bronze;
-    GOLD_INGOT = "Server.Items.GoldIngot", Gold;
-    AGAPITE_INGOT = "Server.Items.AgapiteIngot", Agapite;
-    VERITE_INGOT = "Server.Items.VeriteIngot", Verite;
-    VALORITE_INGOT = "Server.Items.ValoriteIngot", Valorite;
+resource_leaves! { BASE_INGOT;
+    IRON_INGOT = "Server.Items.IronIngot";
+    DULL_COPPER_INGOT = "Server.Items.DullCopperIngot";
+    SHADOW_IRON_INGOT = "Server.Items.ShadowIronIngot";
+    COPPER_INGOT = "Server.Items.CopperIngot";
+    BRONZE_INGOT = "Server.Items.BronzeIngot";
+    GOLD_INGOT = "Server.Items.GoldIngot";
+    AGAPITE_INGOT = "Server.Items.AgapiteIngot";
+    VERITE_INGOT = "Server.Items.VeriteIngot";
+    VALORITE_INGOT = "Server.Items.ValoriteIngot";
 }
 
-resource_leaves! { BASE_ORE, amount: default;
-    IRON_ORE = "Server.Items.IronOre", Iron;
-    DULL_COPPER_ORE = "Server.Items.DullCopperOre", DullCopper;
-    SHADOW_IRON_ORE = "Server.Items.ShadowIronOre", ShadowIron;
-    COPPER_ORE = "Server.Items.CopperOre", Copper;
-    BRONZE_ORE = "Server.Items.BronzeOre", Bronze;
-    GOLD_ORE = "Server.Items.GoldOre", Gold;
-    AGAPITE_ORE = "Server.Items.AgapiteOre", Agapite;
-    VERITE_ORE = "Server.Items.VeriteOre", Verite;
-    VALORITE_ORE = "Server.Items.ValoriteOre", Valorite;
+resource_leaves! { BASE_ORE;
+    IRON_ORE = "Server.Items.IronOre";
+    DULL_COPPER_ORE = "Server.Items.DullCopperOre";
+    SHADOW_IRON_ORE = "Server.Items.ShadowIronOre";
+    COPPER_ORE = "Server.Items.CopperOre";
+    BRONZE_ORE = "Server.Items.BronzeOre";
+    GOLD_ORE = "Server.Items.GoldOre";
+    AGAPITE_ORE = "Server.Items.AgapiteOre";
+    VERITE_ORE = "Server.Items.VeriteOre";
+    VALORITE_ORE = "Server.Items.ValoriteOre";
 }
 
-resource_leaves! { LOG, amount: default;
-    HEARTWOOD_LOG = "Server.Items.HeartwoodLog", Heartwood;
-    BLOODWOOD_LOG = "Server.Items.BloodwoodLog", Bloodwood;
-    FROSTWOOD_LOG = "Server.Items.FrostwoodLog", Frostwood;
-    OAK_LOG = "Server.Items.OakLog", OakWood;
-    ASH_LOG = "Server.Items.AshLog", AshWood;
-    YEW_LOG = "Server.Items.YewLog", YewWood;
+resource_leaves! { LOG;
+    HEARTWOOD_LOG = "Server.Items.HeartwoodLog";
+    BLOODWOOD_LOG = "Server.Items.BloodwoodLog";
+    FROSTWOOD_LOG = "Server.Items.FrostwoodLog";
+    OAK_LOG = "Server.Items.OakLog";
+    ASH_LOG = "Server.Items.AshLog";
+    YEW_LOG = "Server.Items.YewLog";
 }
 
-resource_leaves! { BOARD, amount: default;
-    HEARTWOOD_BOARD = "Server.Items.HeartwoodBoard", Heartwood;
-    BLOODWOOD_BOARD = "Server.Items.BloodwoodBoard", Bloodwood;
-    FROSTWOOD_BOARD = "Server.Items.FrostwoodBoard", Frostwood;
-    OAK_BOARD = "Server.Items.OakBoard", OakWood;
-    ASH_BOARD = "Server.Items.AshBoard", AshWood;
-    YEW_BOARD = "Server.Items.YewBoard", YewWood;
+resource_leaves! { BOARD;
+    HEARTWOOD_BOARD = "Server.Items.HeartwoodBoard";
+    BLOODWOOD_BOARD = "Server.Items.BloodwoodBoard";
+    FROSTWOOD_BOARD = "Server.Items.FrostwoodBoard";
+    OAK_BOARD = "Server.Items.OakBoard";
+    ASH_BOARD = "Server.Items.AshBoard";
+    YEW_BOARD = "Server.Items.YewBoard";
 }
 
-resource_leaves! { BASE_LEATHER, amount: default;
-    LEATHER = "Server.Items.Leather", RegularLeather;
-    SPINED_LEATHER = "Server.Items.SpinedLeather", SpinedLeather;
-    HORNED_LEATHER = "Server.Items.HornedLeather", HornedLeather;
-    BARBED_LEATHER = "Server.Items.BarbedLeather", BarbedLeather;
+resource_leaves! { BASE_LEATHER;
+    LEATHER = "Server.Items.Leather";
+    SPINED_LEATHER = "Server.Items.SpinedLeather";
+    HORNED_LEATHER = "Server.Items.HornedLeather";
+    BARBED_LEATHER = "Server.Items.BarbedLeather";
 }
 
-resource_leaves! { BASE_HIDES, amount: default;
-    HIDES = "Server.Items.Hides", RegularLeather;
-    SPINED_HIDES = "Server.Items.SpinedHides", SpinedLeather;
-    HORNED_HIDES = "Server.Items.HornedHides", HornedLeather;
-    BARBED_HIDES = "Server.Items.BarbedHides", BarbedLeather;
+resource_leaves! { BASE_HIDES;
+    HIDES = "Server.Items.Hides";
+    SPINED_HIDES = "Server.Items.SpinedHides";
+    HORNED_HIDES = "Server.Items.HornedHides";
+    BARBED_HIDES = "Server.Items.BarbedHides";
 }
 
-resource_leaves! { BASE_SCALES, amount: default;
-    RED_SCALES = "Server.Items.RedScales", RedScales;
-    YELLOW_SCALES = "Server.Items.YellowScales", YellowScales;
-    BLACK_SCALES = "Server.Items.BlackScales", BlackScales;
-    GREEN_SCALES = "Server.Items.GreenScales", GreenScales;
-    WHITE_SCALES = "Server.Items.WhiteScales", WhiteScales;
-    BLUE_SCALES = "Server.Items.BlueScales", BlueScales;
+resource_leaves! { BASE_SCALES;
+    RED_SCALES = "Server.Items.RedScales";
+    YELLOW_SCALES = "Server.Items.YellowScales";
+    BLACK_SCALES = "Server.Items.BlackScales";
+    GREEN_SCALES = "Server.Items.GreenScales";
+    WHITE_SCALES = "Server.Items.WhiteScales";
+    BLUE_SCALES = "Server.Items.BlueScales";
 }
 
-resource_leaves! { BASE_GRANITE, amount: one;
-    GRANITE = "Server.Items.Granite", Iron;
-    DULL_COPPER_GRANITE = "Server.Items.DullCopperGranite", DullCopper;
-    SHADOW_IRON_GRANITE = "Server.Items.ShadowIronGranite", ShadowIron;
-    COPPER_GRANITE = "Server.Items.CopperGranite", Copper;
-    BRONZE_GRANITE = "Server.Items.BronzeGranite", Bronze;
-    GOLD_GRANITE = "Server.Items.GoldGranite", Gold;
-    AGAPITE_GRANITE = "Server.Items.AgapiteGranite", Agapite;
-    VERITE_GRANITE = "Server.Items.VeriteGranite", Verite;
-    VALORITE_GRANITE = "Server.Items.ValoriteGranite", Valorite;
+resource_leaves! { BASE_GRANITE;
+    GRANITE = "Server.Items.Granite";
+    DULL_COPPER_GRANITE = "Server.Items.DullCopperGranite";
+    SHADOW_IRON_GRANITE = "Server.Items.ShadowIronGranite";
+    COPPER_GRANITE = "Server.Items.CopperGranite";
+    BRONZE_GRANITE = "Server.Items.BronzeGranite";
+    GOLD_GRANITE = "Server.Items.GoldGranite";
+    AGAPITE_GRANITE = "Server.Items.AgapiteGranite";
+    VERITE_GRANITE = "Server.Items.VeriteGranite";
+    VALORITE_GRANITE = "Server.Items.ValoriteGranite";
 }
 
 /// `Resource` of the resource classes (`BaseIngot`, `BaseOre`, `BaseScales`, `BaseHides`, `BaseLeather`,

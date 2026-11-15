@@ -1,28 +1,19 @@
 //! The ML quest items. `items_gen.rs` holds the simple ones; those with their own behavior are written below.
 
-use muo_content::hooks::rnd;
-use muo_content::items::cont::{BACKPACK, new_base_container};
-use muo_primitives::{MessageType, utility};
+use muo_content::items::cont::BACKPACK;
+use muo_primitives::MessageType;
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, ops};
-use muo_server::layer::Layer;
+use muo_server::item::{ITEM_BASE, ops};
 use muo_server::map::MapId;
 use muo_server::mobile::part2::messages as mm;
 use muo_server::type_registry::TypeRegistry;
 
 use super::engine;
-use super::item_support::{drop_new, hue, layer, leaf};
+use super::item_support::leaf;
 use super::model::flag;
 
 // ---- BedlamTeleporter ------------------------------------------------------------------------------------
-
-/// `BedlamTeleporter(): base(0x124D) => Movable = false`.
-pub fn bedlam_teleporter_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x124D);
-    ops::set_movable(w, id, false);
-    id
-}
 
 /// `BedlamTeleporter.OnDoubleClick`.
 fn bedlam_teleporter_double_click(w: &mut World, id: ItemId, from: MobileId) {
@@ -52,40 +43,17 @@ leaf! {
     /// `Server.Engines.MLQuests.Items.BedlamTeleporter`.
     BEDLAM_TELEPORTER = "Server.Engines.MLQuests.Items.BedlamTeleporter" : ITEM_BASE, v0;
     construct: None,
-    make: Some(|w| bedlam_teleporter_new(w, &BEDLAM_TELEPORTER)),
-    label_number: |_, _| 1074161, // Access to Bedlam by invitation only
+    make: Some(|w| super::item_support::template_new(w, &BEDLAM_TELEPORTER)),
+    label_number: |w, id| crate::template_keys::item_label(w, id, ITEM_BASE.label_number),
     on_double_click: bedlam_teleporter_double_click,
 }
 
 // ---- NibbetSatchel ---------------------------------------------------------------------------------------
 
-/// `NibbetSatchel()`.
-pub fn nibbet_satchel_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_base_container(w, ty, 0xE75);
-    layer(w, id, Layer::Backpack);
-    let h = utility::random_bright_hue(&mut w.rng);
-    hue(w, id, h);
-    drop_new(w, id, "TinkerTools", None);
-    let (name, amount) = match rnd::below(w, 10) {
-        0 => ("Springs", Some(3)),
-        1 => ("Axle", Some(3)),
-        2 => ("Hinge", Some(3)),
-        3 => ("Key", None),
-        4 => ("Scissors", None),
-        5 => ("BarrelTap", None),
-        6 => ("BarrelHoops", None),
-        7 => ("Gears", Some(3)),
-        8 => ("Lockpick", Some(3)),
-        _ => ("ClockFrame", Some(3)), // 9
-    };
-    drop_new(w, id, name, amount);
-    id
-}
-
 leaf! {
     /// `Server.Items.NibbetSatchel`.
     NIBBET_SATCHEL = "Server.Items.NibbetSatchel" : BACKPACK, v0;
-    construct: Some(|w| nibbet_satchel_new(w, &NIBBET_SATCHEL)),
+    construct: Some(|w| super::item_support::template_container(w, &NIBBET_SATCHEL)),
 }
 
 /// Registers the item classes.

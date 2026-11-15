@@ -1,7 +1,5 @@
 //! The Emino's Undertaking quest's items and mobiles (namespace `Server.Engines.Quests.Ninja`).
 
-use muo_content::creature::enums::{AIType, FightMode};
-use muo_content::creature::setters::{new_creature, set_skill};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C, CreatureType};
 use muo_content::items::cont::{self, WOODEN_CHEST};
 use muo_primitives::Point3D;
@@ -11,7 +9,6 @@ use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::lr_reason::LRReason;
 use muo_server::map::MapId;
 use muo_server::mobile::{AccessLevel, MobileType};
-use muo_server::skills::SkillName;
 
 use super::core::{Conversation, Quest, load, with_quest};
 use super::emino::*;
@@ -36,18 +33,6 @@ fn pending(q: &Quest, c: &super::core::ObjClass) -> Option<usize> {
 fn is_player(w: &World, m: MobileId) -> bool {
     w.mobile(m)
         .is_some_and(|m| m.ty.is(&muo_content::player_mobile::PLAYER_MOBILE))
-}
-
-fn full_hair(w: &mut World, id: MobileId, item: i32, hue: i32) {
-    muo_server::mobile::part1::props_b::set_hair_item_id(w, id, item);
-    muo_server::mobile::part1::props_b::set_hair_hue(w, id, hue);
-}
-
-fn init_body(w: &mut World, id: MobileId, hue: i32, female: bool) {
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    muo_server::mobile::part1::props_b::set_female(w, id, female);
-    set_body(w, id, if female { 0x191 } else { 0x190 });
 }
 
 // ---- the teleporters ----
@@ -118,10 +103,14 @@ static EMINOS_KATANA_CLASS: QuestItemClass = QuestItemClass {
 pub static EMINOS_KATANA: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Ninja.EminosKatana",
     parent: Some(&QUEST_ITEM),
-    construct: Some(|w| ops::new_item_with_id(w, &EMINOS_KATANA, 0x13FF)),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &EMINOS_KATANA)),
     family: Some(&EMINOS_KATANA_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1063214, // Daimyo Emino's Katana
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", QUEST_ITEM.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", QUEST_ITEM.label_number)
+    },
     serialize: |w, id, out| {
         (QUEST_ITEM.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -230,11 +219,8 @@ pub static EMINOS_KATANA_CHEST: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Ninja.EminosKatanaChest",
     parent: Some(&WOODEN_CHEST),
     construct: Some(|w| {
-        let id = cont::new_lockable(w, &EMINOS_KATANA_CHEST, 0xE43);
-        ops::set_movable(w, id, false);
-        if let Some(f) = w.item(id).map(|i| i.ty.set_item_id) {
-            f(w, id, 0xE42);
-        }
+        let id = cont::new_lockable(w, &EMINOS_KATANA_CHEST, 0);
+        muo_content::templates::apply_item_as(w, id, EMINOS_KATANA_CHEST.full_name);
         generate_treasure(w, id);
         id
     }),
@@ -467,21 +453,10 @@ quester! {
     EMINO, EMINO_C, EMINO_V = "Server.Engines.Quests.Ninja.Emino" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops EMINO_OPS, encoded false, title Some("the Notorious"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83FE, false),
-        init_outfit: |w, id| {
-            full_hair(w, id, 0x203B, 0x901);
-            add_item_named(w, id, "Server.Items.MaleKimono");
-            add_item_named(w, id, "Server.Items.SamuraiTabi");
-            add_item_named(w, id, "Server.Items.Bandana");
-            add_item_named(w, id, "Server.Items.PlateHaidate");
-            add_item_named(w, id, "Server.Items.PlateDo");
-            add_item_named(w, id, "Server.Items.PlateHiroSode");
-            if let Some(n) = add_item_named(w, id, "Server.Items.Nunchaku") {
-                ops::set_movable(w, n, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Ninja.Emino"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Daimyo Emino"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { on_movement: on_movement_resurrect, }
 }
 
@@ -496,13 +471,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops SILENT_OPS, encoded true, title None, extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x8401, false),
-        init_outfit: |w, id| {
-            add_item_named(w, id, "Server.Items.DeathShroud");
-            add_item_named(w, id, "Server.Items.ThighBoots");
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Ninja.EnshroudedFigure"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("an enshrouded figure"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -512,15 +484,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops SILENT_OPS, encoded true, title Some("the Silent"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83FE, true),
-        init_outfit: |w, id| {
-            full_hair(w, id, 0x203C, 0x6BE);
-            add_item_hued(w, id, "Server.Items.PlainDress", 0x528);
-            add_item_named(w, id, "Server.Items.ThighBoots");
-            add_item_named(w, id, "Server.Items.FloppyHat");
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Ninja.JedahEntille"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Jedah Entille"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -625,20 +592,10 @@ quester! {
     ZOEL, ZOEL_C, ZOEL_V = "Server.Engines.Quests.Ninja.Zoel" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops ZOEL_OPS, encoded false, title Some("the Masterful Tactician"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83FE, false),
-        init_outfit: |w, id| {
-            full_hair(w, id, 0x203B, 0x901);
-            add_item_hued(w, id, "Server.Items.HakamaShita", 0x1);
-            add_item_named(w, id, "Server.Items.NinjaTabi");
-            add_item_named(w, id, "Server.Items.TattsukeHakama");
-            add_item_named(w, id, "Server.Items.Bandana");
-            add_item_named(w, id, "Server.Items.LeatherNinjaBelt");
-            if let Some(t) = add_item_named(w, id, "Server.Items.Tekagi") {
-                ops::set_movable(w, t, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Ninja.Zoel"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Elite Ninja Zoel"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m {
         on_movement: on_movement_resurrect,
         on_drag_drop: |w, zoel, from, dropped| {
@@ -660,8 +617,8 @@ quester! {
 // ---- Henchman ----
 
 static HENCHMAN_C: CreatureType = CreatureType {
-    default_name: |_, _| Some("a henchman"),
-    always_murderer: |_, _| true,
+    default_name: muo_content::templates::creature_props::default_name,
+    always_murderer: muo_content::templates::creature_props::always_murderer,
     ..BASE_CREATURE_C
 };
 
@@ -669,34 +626,7 @@ static HENCHMAN_C: CreatureType = CreatureType {
 pub static HENCHMAN: MobileType = MobileType {
     full_name: "Server.Engines.Quests.Ninja.Henchman",
     parent: Some(&BASE_CREATURE),
-    construct: Some(|w| {
-        let id = new_creature(
-            w,
-            &HENCHMAN,
-            AIType::AiMelee,
-            FightMode::Aggressor,
-            muo_content::creature::enums::DEFAULT_RANGE_PERCEPTION,
-            1,
-        );
-        muo_server::mobile::part2::stats::init_stats(w, id, 45, 30, 5);
-        let hue = muo_content::vendor::human_random_skin_hue(w);
-        muo_server::mobile::base::set_hue(w, id, hue);
-        set_body(w, id, 0x190);
-        muo_content::vendor::assign_random_hair_random_hue(w, id);
-        super::util::assign_facial_random_hue(w, id);
-        add_item_named(w, id, "Server.Items.LeatherNinjaJacket");
-        add_item_named(w, id, "Server.Items.LeatherNinjaPants");
-        add_item_named(w, id, "Server.Items.NinjaTabi");
-        let weapon = if muo_content::hooks::rnd::bool(w) {
-            "Server.Items.Kama"
-        } else {
-            "Server.Items.Tessen"
-        };
-        add_item_named(w, id, weapon);
-        set_skill(w, id, SkillName::Swords, 50.0);
-        set_skill(w, id, SkillName::Tactics, 50.0);
-        id
-    }),
+    construct: Some(|w| muo_content::templates::new_creature(w, &HENCHMAN)),
     family: Some(&HENCHMAN_C),
     serialize: |w, id, out| {
         (BASE_CREATURE.serialize)(w, id, out);

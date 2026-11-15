@@ -262,8 +262,10 @@ pub static SALVAGE_BAG: ItemType = ItemType {
     full_name: "Server.Items.SalvageBag",
     parent: Some(&BAG),
     construct: Some(salvage_bag_new),
-    default_weight: |_, _| 2.0,
-    label_number: |_, _| 1079931, // Salvage Bag
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", BAG.default_weight)
+    },
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", BAG.label_number),
     get_context_menu_entries: |w, id, from, list| {
         (BAG.get_context_menu_entries)(w, id, from, list);
         if w.mobile(from).is_some_and(|m| (m.ty.alive)(w, from)) {

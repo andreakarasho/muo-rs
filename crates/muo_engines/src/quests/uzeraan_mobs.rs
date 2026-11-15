@@ -75,11 +75,6 @@ fn hair(w: &mut World, id: MobileId, item: i32, hue: i32) {
     muo_server::mobile::part1::props_b::set_hair_hue(w, id, hue);
 }
 
-fn facial(w: &mut World, id: MobileId, item: i32, hue: i32) {
-    muo_server::mobile::part1::props_b::set_facial_hair_item_id(w, id, item);
-    muo_server::mobile::part1::props_b::set_facial_hair_hue(w, id, hue);
-}
-
 fn ignite(w: &mut World, light: ItemId) {
     muo_items::lights::base::ignite(w, light);
 }
@@ -915,19 +910,10 @@ quester! {
     UZERAAN, UZERAAN_C, UZERAAN_V = "Server.Engines.Quests.Haven.Uzeraan" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops UZERAAN_OPS, encoded false, title Some("the Conjurer"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83F3, false),
-        init_outfit: |w, id| {
-            add_item_hued(w, id, "Server.Items.Robe", 0x4DD);
-            add_item_hued(w, id, "Server.Items.WizardsHat", 0x8A5);
-            add_item_hued(w, id, "Server.Items.Shoes", 0x8A5);
-            hair(w, id, 0x203C, 0x455);
-            facial(w, id, 0x203E, 0x455);
-            if let Some(s) = add_item_named(w, id, "Server.Items.BlackStaff") {
-                ops::set_movable(w, s, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Haven.Uzeraan"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Uzeraan"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { on_drag_drop: uzeraan_on_drag_drop, }
 }
 
@@ -964,22 +950,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops SCHMENDRICK_OPS, encoded false, title Some("the High Mage"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83F3, false),
-        init_outfit: |w, id| {
-            add_item_hued(w, id, "Server.Items.Robe", 0x4DD);
-            add_item_hued(w, id, "Server.Items.WizardsHat", 0x482);
-            add_item_hued(w, id, "Server.Items.Shoes", 0x482);
-            hair(w, id, 0x203C, 0x455);
-            facial(w, id, 0x203E, 0x455);
-            if let Some(s) = add_item_named(w, id, "Server.Items.GlacialStaff") {
-                ops::set_movable(w, s, false);
-            }
-            if let Some(p) = add_item_named(w, id, "Server.Items.Backpack") {
-                ops::set_movable(w, p, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Haven.Schmendrick"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Schmendrick"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m {
         on_movement: |w, npc, m, old| super::emino_mobs::resurrect_on_movement(w, npc, m, old, true),
         on_drag_drop: |w, schmendrick, from, dropped| {

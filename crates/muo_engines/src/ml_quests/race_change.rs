@@ -13,7 +13,7 @@ use muo_net::net_state::NetState;
 use muo_primitives::{MessageType, Point3D, TimeSpan, utility};
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::layer::Layer;
 use muo_server::mobile::part1::{props_a, props_b};
 use muo_server::mobile::part2::messages as mm;
@@ -451,12 +451,8 @@ fn deed_double_click(w: &mut World, id: ItemId, from: MobileId) {
 pub static RACE_CHANGE_DEED: ItemType = ItemType {
     full_name: "Server.Engines.MLQuests.Gumps.RaceChangeDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &RACE_CHANGE_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
-    default_name: |_, _| Some("a race change deed".to_string()),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &RACE_CHANGE_DEED)),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: deed_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

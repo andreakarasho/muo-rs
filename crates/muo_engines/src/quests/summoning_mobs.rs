@@ -204,15 +204,16 @@ pub static BELL_OF_THE_DEAD: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Doom.BellOfTheDead",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BELL_OF_THE_DEAD, 0x91A);
-        muo_server::item::base::set_hue(w, id, 0x835);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &BELL_OF_THE_DEAD, 0);
+        muo_content::templates::apply_item_as(w, id, BELL_OF_THE_DEAD.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(BellData::default());
         }
         id
     }),
-    label_number: |_, _| 1050018, // bell of the dead
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     on_double_click: |w, id, from| {
         if muo_content::mx::in_range_point(w, from, ops::get_world_location(w, id), 2) {
             begin_summon(w, id, from);

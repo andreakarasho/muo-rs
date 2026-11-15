@@ -120,7 +120,7 @@ use super::core::{Quest as QuestT, can_offer_quest_ex, has_quest, load, with_que
 use super::quester::{
     BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps, get_new_container,
 };
-use super::util::{add_item_hued, add_item_named, say_to_number, set_body};
+use super::util::say_to_number;
 
 fn ansella_on_talk(w: &mut World, quester: MobileId, player: MobileId, context_menu: bool) {
     let Some(qs) = load(w, player).filter(|q| q.is(&QUEST)) else {
@@ -212,23 +212,11 @@ crate::quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops ANSELLA_OPS, encoded true, title None, extra |_, _| {};
     v {
-        turn_to_tokuno: |_, _| {}, // TurnToTokuno() {}: she keeps her name on the Tokuno map
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            muo_server::mobile::base::set_hue(w, id, 0x83EA);
-            muo_server::mobile::part1::props_b::set_female(w, id, true);
-            set_body(w, id, 0x191);
-        },
-        init_outfit: |w, id| {
-            muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203B);
-            muo_server::mobile::part1::props_b::set_hair_hue(w, id, 0x1BB);
-            add_item_hued(w, id, "Server.Items.SamuraiTabi", 0x8FD);
-            add_item_hued(w, id, "Server.Items.FemaleKimono", 0x4B6);
-            add_item_hued(w, id, "Server.Items.Obi", 0x526);
-            add_item_named(w, id, "Server.Items.GoldBracelet");
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Zento.AnsellaGryen"),
+        init_outfit: |_, _| {},
+        turn_to_tokuno: |_, _| {}, // TurnToTokuno() {}: she keeps her name on the Tokuno map,
     }
-    c { default_name: |_, _| Some("Ansella Gryen"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
