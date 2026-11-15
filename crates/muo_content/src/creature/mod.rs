@@ -10,6 +10,7 @@ pub mod data;
 pub mod death;
 pub mod enums;
 pub mod events;
+pub mod init_ops;
 pub mod misc;
 pub mod mount;
 pub mod overrides;

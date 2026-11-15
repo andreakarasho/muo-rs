@@ -29,6 +29,7 @@ mod props_gen;
 pub mod props_hosts;
 pub mod skills_props;
 mod systems;
+pub mod templates;
 pub mod vendor;
 pub mod wiring;
 pub use systems::*;
@@ -42,6 +43,7 @@ pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
     items::common::register(types);
     login::register(types);
     creature::register(types);
+    templates::register(types);
     pathing::register(types);
     vendor::register(types);
     types.register_phase_default(
