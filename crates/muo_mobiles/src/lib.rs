@@ -17,10 +17,12 @@ pub mod npcs;
 mod tests;
 
 mod template_keys;
+mod template_keys_npcs;
 
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
     template_keys::register(types);
+    template_keys_npcs::register(types);
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,
         "muo_mobiles.PropsGen.Configure",

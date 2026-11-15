@@ -111,6 +111,7 @@ pub(crate) fn engine() -> Engine {
     super::api_equipment::register(&mut e);
     super::api_misc_items::register(&mut e);
     super::api_mobiles::register(&mut e);
+    super::api_npcs::register(&mut e);
     super::api_engines::register(&mut e);
     e
 }

@@ -18,6 +18,7 @@ mod api_engines;
 mod api_equipment;
 mod api_misc_items;
 mod api_mobiles;
+mod api_npcs;
 #[cfg(test)]
 mod tests;
 
