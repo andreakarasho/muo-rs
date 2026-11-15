@@ -2,21 +2,20 @@
 //! pigments, clothing, containers, teleporters) and the reward bags / craftsman satchels. See also `transient.rs`.
 
 use muo_content::hooks::rnd;
-use muo_content::items::cont::{BACKPACK, BAG, BASE_CONTAINER, WOODEN_BOX, new_base_container};
+use muo_content::items::cont::{BACKPACK, BAG, BASE_CONTAINER, WOODEN_BOX};
 use muo_content::loot;
 use muo_io::text::TextDefinition;
 use muo_primitives::{MessageType, Point3D, utility};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
-use muo_server::layer::Layer;
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::map::MapId;
 use muo_server::mobile::part2::messages as mm;
 use muo_server::property_list::PropertyList;
 use muo_server::type_registry::TypeRegistry;
 
 use super::engine;
-use super::item_support::{add_quest_item_property, hue, layer, leaf};
+use super::item_support::{add_quest_item_property, hue, leaf};
 
 /// `new Parent()` then the class swapped to `ty`: the base constructor of a class this crate extends. A class that
 /// changes none of the parent's virtuals the constructor calls (all of these) builds the same object.
@@ -28,29 +27,32 @@ fn new_as(w: &mut World, parent: &'static ItemType, ty: &'static ItemType) -> It
     id
 }
 
-/// One concrete class on a ready-made parent: `construct` is the parent's, then `$init`.
+/// One concrete class on a ready-made parent: `construct` is the parent's, then the class's item template.
 macro_rules! sub {
     (
         $(#[$m:meta])*
-        $name:ident = $full:literal : $parent:ident, init $init:expr;
+        $name:ident = $full:literal : $parent:ident;
         $($f:ident : $v:expr,)*
     ) => {
         leaf! {
             $(#[$m])*
             $name = $full : $parent, v0;
-            construct: Some(|w| {
+            @props |w| {
                 let id = new_as(w, &$parent, &$name);
-                let init: fn(&mut World, ItemId) = $init;
-                init(w, id);
+                muo_content::templates::apply_item_as(w, id, $full);
                 id
-            }),
+            };
             $($f: $v,)*
         }
     };
 }
 
-fn blessed(w: &mut World, id: ItemId) {
-    ops::set_loot_type(w, id, LootType::Blessed);
+/// The class's item template applied to `id`, made by its parent's constructor.
+fn with_template(w: &mut World, id: ItemId) -> ItemId {
+    if let Some(ty) = w.item(id).map(|i| i.ty) {
+        muo_content::templates::apply_item_as(w, id, ty.full_name);
+    }
+    id
 }
 
 fn quest_name_properties(w: &World, id: ItemId, list: &mut PropertyList) {
@@ -62,52 +64,42 @@ fn quest_name_properties(w: &World, id: ItemId, list: &mut PropertyList) {
 
 sub! {
     /// `Server.Items.AnOldNecklace`.
-    AN_OLD_NECKLACE = "Server.Items.AnOldNecklace" : NECKLACE, init |w, id| hue(w, id, 0x222);
-    label_number: |_, _| 1075525, // an old necklace
+    AN_OLD_NECKLACE = "Server.Items.AnOldNecklace" : NECKLACE;
 }
 use muo_content::items::leaves::{GOLD_RING, NECKLACE};
 
 sub! {
     /// `Server.Items.AnOldRing`.
-    AN_OLD_RING = "Server.Items.AnOldRing" : GOLD_RING, init |w, id| hue(w, id, 0x222);
-    label_number: |_, _| 1075524, // an old ring
+    AN_OLD_RING = "Server.Items.AnOldRing" : GOLD_RING;
 }
 
 sub! {
     /// `Server.Items.ReginasRing`.
-    REGINAS_RING = "Server.Items.ReginasRing" : SILVER_RING, init blessed;
-    label_number: |_, _| 1075305, // Regina's Ring
-    nontransferable: |_, _| true,
+    REGINAS_RING = "Server.Items.ReginasRing" : SILVER_RING;
     add_name_properties: quest_name_properties,
 }
 use muo_items::jewels::leaves::{GOLD_EARRINGS, SILVER_RING};
 
 sub! {
     /// `Server.Items.TransparentHeart`.
-    TRANSPARENT_HEART = "Server.Items.TransparentHeart" : GOLD_EARRINGS, init |w, id| {
-        blessed(w, id);
-        hue(w, id, 0x4AB);
-    };
-    label_number: |_, _| 1075400, // Transparent Heart
+    TRANSPARENT_HEART = "Server.Items.TransparentHeart" : GOLD_EARRINGS;
 }
 
 // ---- AndrosGratitude -------------------------------------------------------------------------------------
 
-/// `AndrosGratitude(): base(10) => LootType = Blessed`.
+/// `AndrosGratitude(): base(10)`, then the template.
 fn andros_gratitude_new(w: &mut World) -> ItemId {
     let id = muo_items::skill_items::tools::new_smith_hammer(w, Some(10));
     if let Some(i) = w.item_mut(id) {
         i.ty = &ANDROS_GRATITUDE;
     }
-    blessed(w, id);
-    id
+    with_template(w, id)
 }
 
 leaf! {
     /// `Server.Items.AndrosGratitude`.
     ANDROS_GRATITUDE = "Server.Items.AndrosGratitude" : SMITH_HAMMER, v0;
-    construct: Some(andros_gratitude_new),
-    label_number: |_, _| 1075345, // Andros Gratitude
+    @props andros_gratitude_new;
 }
 use muo_items::skill_items::tools::SMITH_HAMMER;
 
@@ -115,8 +107,7 @@ use muo_items::skill_items::tools::SMITH_HAMMER;
 
 fn bleach_new(w: &mut World) -> ItemId {
     let id = muo_engines_pigments::base_new(w, &BLEACH, 10);
-    blessed(w, id);
-    id
+    with_template(w, id)
 }
 use crate::tokuno::pigments as muo_engines_pigments;
 use crate::tokuno::pigments::PIGMENTS_OF_TOKUNO;
@@ -124,8 +115,7 @@ use crate::tokuno::pigments::PIGMENTS_OF_TOKUNO;
 leaf! {
     /// `Server.Items.Bleach`.
     BLEACH = "Server.Items.Bleach" : PIGMENTS_OF_TOKUNO, v0;
-    construct: Some(bleach_new),
-    label_number: |_, _| 1075375, // Bleach
+    @props bleach_new;
 }
 
 // ---- food ------------------------------------------------------------------------------------------------------
@@ -133,35 +123,28 @@ leaf! {
 leaf! {
     /// `Server.Items.MiniatureMushroom`.
     MINIATURE_MUSHROOM = "Server.Items.MiniatureMushroom" : FOOD, v0;
-    construct: Some(|w| {
-        let id = muo_content::items::food::new_food(w, &MINIATURE_MUSHROOM, 0xD16, 1);
-        blessed(w, id);
-        id
-    }),
-    label_number: |_, _| 1073138, // Miniature mushroom
+    @props |w| {
+        let id = muo_content::items::food::new_food(w, &MINIATURE_MUSHROOM, 0, 1);
+        with_template(w, id)
+    };
 }
 use muo_content::items::food::{CHICKEN_LEG, FISH_STEAK, FOOD};
 
 sub! {
     /// `Server.Items.PeppercornFishsteak`.
-    PEPPERCORN_FISHSTEAK = "Server.Items.PeppercornFishsteak" : FISH_STEAK, init |w, id| hue(w, id, 0x222);
-    label_number: |_, _| 1075557, // peppercorn fishsteak
+    PEPPERCORN_FISHSTEAK = "Server.Items.PeppercornFishsteak" : FISH_STEAK;
 }
 
 sub! {
     /// `Server.Items.PixieLeg` (`PixieLeg(int amount = 1)`).
-    PIXIE_LEG = "Server.Items.PixieLeg" : CHICKEN_LEG, init |w, id| {
-        blessed(w, id);
-        hue(w, id, 0x1C2);
-    };
-    label_number: |_, _| 1074613, // Pixie Leg
+    PIXIE_LEG = "Server.Items.PixieLeg" : CHICKEN_LEG;
 }
 
 // ---- RedLeatherBook -----------------------------------------------------------------------------------------
 
 sub! {
     /// `Server.Items.RedLeatherBook`.
-    RED_LEATHER_BOOK = "Server.Items.RedLeatherBook" : BLUE_BOOK, init |w, id| hue(w, id, 0x485);
+    RED_LEATHER_BOOK = "Server.Items.RedLeatherBook" : BLUE_BOOK;
 }
 use muo_items::books::BLUE_BOOK;
 
@@ -177,8 +160,7 @@ fn amber_destroy(w: &mut World, id: ItemId, from: MobileId) {
 
 sub! {
     /// `Server.Items.PrismaticAmber`.
-    PRISMATIC_AMBER = "Server.Items.PrismaticAmber" : AMBER, init |_, _| {};
-    label_number: |_, _| 1075299, // Prismatic Amber
+    PRISMATIC_AMBER = "Server.Items.PrismaticAmber" : AMBER;
     add_name_properties: |w, id, list| {
         (ITEM_BASE.add_name_properties)(w, id, list);
         list.add(1075269); // Destroyed when dropped
@@ -214,12 +196,11 @@ use muo_items::gems::AMBER;
 leaf! {
     /// `Server.Engines.MLQuests.Definitions.GustarShroud`.
     GUSTAR_SHROUD = "Server.Engines.MLQuests.Definitions.GustarShroud" : BASE_OUTER_TORSO, v0;
-    construct: Some(|w| {
-        let id = muo_content::items::clothing::new_clothing(w, &GUSTAR_SHROUD, 0x2684, 0);
-        hue(w, id, 0x479);
-        id
-    }),
-    default_name: |_, _| Some(" ".to_string()),
+    @props |w| {
+        let id = muo_content::items::clothing::new_clothing(w, &GUSTAR_SHROUD, 0, 0);
+        with_template(w, id)
+    };
+    default_name: |w, id| crate::template_keys::item_name(w, id, BASE_OUTER_TORSO.default_name),
 }
 use muo_content::items::clothing::BASE_OUTER_TORSO;
 
@@ -228,14 +209,8 @@ use muo_content::items::clothing::BASE_OUTER_TORSO;
 leaf! {
     /// `Server.Items.GiftForArielle`.
     GIFT_FOR_ARIELLE = "Server.Items.GiftForArielle" : BASE_CONTAINER, v0;
-    construct: Some(|w| {
-        let id = new_base_container(w, &GIFT_FOR_ARIELLE, 0x1882);
-        hue(w, id, 0x2C4);
-        id
-    }),
-    label_number: |_, _| 1074356, // gift for arielle
-    default_gump_id: |_, _| 0x41,
-    nontransferable: |_, _| true,
+    @template template_container;
+    default_gump_id: |w, id| crate::template_keys::item_int(w, id, "defaultGumpId", BASE_CONTAINER.default_gump_id),
     add_name_properties: quest_name_properties,
 }
 
@@ -294,13 +269,7 @@ fn prismatic_crystal_double_click(w: &mut World, id: ItemId, from: MobileId) {
 leaf! {
     /// `Server.Items.PrismaticCrystal`.
     PRISMATIC_CRYSTAL = "Server.Items.PrismaticCrystal" : ITEM_BASE, v0;
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &PRISMATIC_CRYSTAL, 0x2DA);
-        ops::set_movable(w, id, false);
-        hue(w, id, 0x32);
-        id
-    }),
-    label_number: |_, _| 1074269, // prismatic crystal
+    @template template_new;
     on_double_click: prismatic_crystal_double_click,
 }
 
@@ -371,28 +340,39 @@ pub fn fill(w: &mut World, c: ItemId, item_count: i32, talisman_chance: f64) {
     }
 }
 
+/// `Fill(this, itemCount, talismanChance)` with the class's props `rewardItemCount` and `rewardTalismanChance`.
+fn fill_from_props(w: &mut World, id: ItemId) {
+    use muo_content::templates::props;
+    let count = props::as_i32(props::item(w, id, "rewardItemCount")).unwrap_or(0);
+    let chance = props::as_f64(props::item(w, id, "rewardTalismanChance")).unwrap_or(0.0);
+    fill(w, id, count, chance);
+}
+
+/// A reward bag: its template (the graphic) then [`fill_from_props`].
+fn reward_bag_new(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let id = super::item_support::template_container(w, ty);
+    fill_from_props(w, id);
+    id
+}
+
 macro_rules! bag {
-    ($(#[$m:meta])* $name:ident = $full:literal : $parent:ident, $gid:expr, $count:expr, $chance:expr) => {
+    ($(#[$m:meta])* $name:ident = $full:literal : $parent:ident) => {
         leaf! {
             $(#[$m])*
             $name = $full : $parent, v0;
-            construct: Some(|w| {
-                let id = new_base_container(w, &$name, $gid);
-                fill(w, id, $count, $chance);
-                id
-            }),
+            construct: Some(|w| reward_bag_new(w, &$name)),
         }
     };
 }
 
 bag!(/// `Server.Engines.MLQuests.Items.SmallBagOfTrinkets`.
-    SMALL_BAG_OF_TRINKETS = "Server.Engines.MLQuests.Items.SmallBagOfTrinkets" : BAG, 0xE76, 1, 0.0);
+    SMALL_BAG_OF_TRINKETS = "Server.Engines.MLQuests.Items.SmallBagOfTrinkets" : BAG);
 bag!(/// `Server.Engines.MLQuests.Items.BagOfTrinkets`.
-    BAG_OF_TRINKETS = "Server.Engines.MLQuests.Items.BagOfTrinkets" : BAG, 0xE76, 2, 0.05);
+    BAG_OF_TRINKETS = "Server.Engines.MLQuests.Items.BagOfTrinkets" : BAG);
 bag!(/// `Server.Engines.MLQuests.Items.BagOfTreasure`.
-    BAG_OF_TREASURE = "Server.Engines.MLQuests.Items.BagOfTreasure" : BAG, 0xE76, 3, 0.20);
+    BAG_OF_TREASURE = "Server.Engines.MLQuests.Items.BagOfTreasure" : BAG);
 bag!(/// `Server.Engines.MLQuests.Items.LargeBagOfTreasure`.
-    LARGE_BAG_OF_TREASURE = "Server.Engines.MLQuests.Items.LargeBagOfTreasure" : BAG, 0xE76, 4, 0.50);
+    LARGE_BAG_OF_TREASURE = "Server.Engines.MLQuests.Items.LargeBagOfTreasure" : BAG);
 
 // ---- CraftmansSatchel ------------------------------------------------------------------------------------------
 
@@ -427,13 +407,9 @@ fn add_recipe(w: &mut World, id: ItemId, system: &str) {
 
 const TALISMAN: &[&str] = &["Server.Items.RandomTalisman"];
 
-/// `BaseCraftmansSatchel()`: a `Backpack` with a bright hue.
+/// `BaseCraftmansSatchel()`: the class's template (it inherits the `BaseCraftmansSatchel` one).
 fn satchel_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_base_container(w, ty, 0xE75);
-    layer(w, id, Layer::Backpack);
-    let h = utility::random_bright_hue(&mut w.rng);
-    hue(w, id, h);
-    id
+    super::item_support::template_container(w, ty)
 }
 
 leaf! {
@@ -524,11 +500,7 @@ leaf! {
 leaf! {
     /// `Server.Engines.MLQuests.Items.RewardStrongbox`.
     REWARD_STRONGBOX = "Server.Engines.MLQuests.Items.RewardStrongbox" : WOODEN_BOX, v0;
-    construct: Some(|w| {
-        let id = new_base_container(w, &REWARD_STRONGBOX, 0x9AA);
-        fill(w, id, 5, 1.0);
-        id
-    }),
+    construct: Some(|w| reward_bag_new(w, &REWARD_STRONGBOX)),
 }
 
 // ---- Teleporters ---------------------------------------------------------------------------------------------

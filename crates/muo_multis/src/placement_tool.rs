@@ -16,7 +16,7 @@ use muo_content::vendor::banker;
 use muo_primitives::Point3D;
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::mobile::AccessLevel;
 use muo_server::net_state::NetStateId;
 use muo_server::region;
@@ -50,12 +50,16 @@ pub static HOUSE_PLACEMENT_TOOL: ItemType = ItemType {
     full_name: "Server.Items.HousePlacementTool",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &HOUSE_PLACEMENT_TOOL, 0x14F6);
-        ops::set_loot_type(w, id, LootType::Blessed);
+        let id = ops::new_item_with_id(w, &HOUSE_PLACEMENT_TOOL, 0);
+        muo_content::templates::apply_item_as(w, id, HOUSE_PLACEMENT_TOOL.full_name);
         id
     }),
-    default_weight: |_, _| 3.0,
-    label_number: |_, _| 1060651, // a house placement tool
+    default_weight: |w, id| {
+        crate::template_props::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_props::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     on_double_click: |w, id, from| {
         let pack = w.mobile(from).and_then(|m| m.backpack);
         let in_pack = match pack {

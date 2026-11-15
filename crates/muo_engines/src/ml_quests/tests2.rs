@@ -22,6 +22,7 @@ fn world() -> World {
     muo_items::register(&mut w.types);
     muo_mobiles::register(&mut w.types);
     super::register(&mut w.types);
+    crate::template_keys::register(&mut w.types);
     state(&mut w).enabled = true;
     w
 }

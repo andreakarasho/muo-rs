@@ -7,7 +7,12 @@
       "WeaponDamage": 25
     },
     "props": {
-      "labelNumber": 1070970
+      "labelNumber": 1070970,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "basePhysicalResistance": 10,
+      "baseColdResistance": 18,
+      "baseEnergyResistance": 18
     }
   },
   {
@@ -22,7 +27,11 @@
       "MageArmor": 1
     },
     "props": {
-      "labelNumber": 1070968
+      "labelNumber": 1070968,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "baseColdResistance": 14,
+      "baseEnergyResistance": 14
     }
   },
   {
@@ -43,7 +52,14 @@
       "RegenMana": 1
     },
     "props": {
-      "labelNumber": 1071460
+      "labelNumber": 1071460,
+      "basePhysicalResistance": 15,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 15,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -57,7 +73,11 @@
       "MageArmor": 1
     },
     "props": {
-      "labelNumber": 1070925
+      "labelNumber": 1070925,
+      "basePhysicalResistance": 20,
+      "basePoisonResistance": 18,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -69,7 +89,10 @@
       "LowerRegCost": 18
     },
     "props": {
-      "labelNumber": 1070924
+      "labelNumber": 1070924,
+      "baseFireResistance": 24,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -83,7 +106,10 @@
       "WeaponSpeed": 10
     },
     "props": {
-      "labelNumber": 1070920
+      "labelNumber": 1070920,
+      "baseColdResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -111,7 +137,12 @@
       ]
     ],
     "props": {
-      "labelNumber": 1070921
+      "labelNumber": 1070921,
+      "baseFireResistance": 9,
+      "baseColdResistance": 13,
+      "basePoisonResistance": 8,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -127,7 +158,14 @@
       ]
     ],
     "props": {
-      "labelNumber": 1070926
+      "labelNumber": 1070926,
+      "basePhysicalResistance": 15,
+      "baseFireResistance": 12,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 11,
+      "baseEnergyResistance": 8,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   },
   {
@@ -145,6 +183,203 @@
     ],
     "props": {
       "labelNumber": 1070922
+    }
+  },
+  {
+    "type": "Server.Items.DemonForks",
+    "weaponAttributes": {
+      "ResistFireBonus": 10,
+      "ResistPoisonBonus": 10
+    },
+    "attributes": {
+      "ReflectPhysical": 10,
+      "WeaponDamage": 35,
+      "DefendChance": 10
+    },
+    "props": {
+      "labelNumber": 1070917,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.DragonNunchaku",
+    "weaponAttributes": {
+      "ResistFireBonus": 5,
+      "SelfRepair": 3,
+      "HitFireball": 50
+    },
+    "attributes": {
+      "WeaponDamage": 40,
+      "WeaponSpeed": 20
+    },
+    "props": {
+      "labelNumber": 1070914,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Exiler",
+    "weaponAttributes": {
+      "HitDispel": 33
+    },
+    "tokunoSlayer": "Exorcism",
+    "attributes": {
+      "WeaponDamage": 40,
+      "WeaponSpeed": 20
+    },
+    "props": {
+      "labelNumber": 1070913,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.HanzosBow",
+    "weaponAttributes": {
+      "HitLeechHits": 40,
+      "SelfRepair": 3
+    },
+    "attributes": {
+      "WeaponDamage": 50
+    },
+    "skillBonuses": [
+      [
+        "Ninjitsu",
+        10.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1070918,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.PeasantsBokuto",
+    "weaponAttributes": {
+      "SelfRepair": 3,
+      "HitLowerDefend": 30
+    },
+    "attributes": {
+      "WeaponDamage": 35,
+      "WeaponSpeed": 10
+    },
+    "tokunoSlayer": "SnakesBane",
+    "props": {
+      "labelNumber": 1070912,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.PilferedDancerFans",
+    "attributes": {
+      "WeaponDamage": 20,
+      "WeaponSpeed": 20,
+      "CastRecovery": 2,
+      "DefendChance": 5,
+      "SpellChanneling": 1
+    },
+    "props": {
+      "labelNumber": 1070916,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TheDestroyer",
+    "weaponAttributes": {
+      "HitLeechStam": 40
+    },
+    "attributes": {
+      "BonusStr": 6,
+      "AttackChance": 10,
+      "WeaponDamage": 50
+    },
+    "props": {
+      "labelNumber": 1070915,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.DarkenedSky",
+    "weaponAttributes": {
+      "HitLightning": 60
+    },
+    "attributes": {
+      "WeaponSpeed": 25,
+      "WeaponDamage": 50
+    },
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "labelNumber": 1070966
+    }
+  },
+  {
+    "type": "Server.Items.SwordOfTheStampede",
+    "weaponAttributes": {
+      "HitHarm": 100
+    },
+    "attributes": {
+      "AttackChance": 10,
+      "WeaponDamage": 60
+    },
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "labelNumber": 1070964
+    }
+  },
+  {
+    "type": "Server.Items.SwordsOfProsperity",
+    "weaponAttributes": {
+      "MageWeapon": 30
+    },
+    "attributes": {
+      "SpellChanneling": 1,
+      "CastSpeed": 1,
+      "Luck": 200
+    },
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "labelNumber": 1070963
+    }
+  },
+  {
+    "type": "Server.Items.TheHorselord",
+    "attributes": {
+      "BonusDex": 5,
+      "RegenMana": 1,
+      "Luck": 125,
+      "WeaponDamage": 50
+    },
+    "tokunoSlayer": "ElementalBan",
+    "tokunoSlayer2": "ReptilianDeath",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "labelNumber": 1070967
+    }
+  },
+  {
+    "type": "Server.Items.WindsEdge",
+    "weaponAttributes": {
+      "HitLeechMana": 40
+    },
+    "attributes": {
+      "WeaponDamage": 50,
+      "WeaponSpeed": 50,
+      "DefendChance": 10
+    },
+    "props": {
+      "labelNumber": 1070965,
+      "initMinHits": 255,
+      "initMaxHits": 255
     }
   }
 ]

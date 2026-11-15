@@ -1,0 +1,375 @@
+[
+  {
+    "type": "Server.Items.ABauble",
+    "itemId": 571,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073137
+    }
+  },
+  {
+    "type": "Server.Items.AlchemistsBandage",
+    "itemId": 3617,
+    "lootType": "Blessed",
+    "hue": 1154,
+    "props": {
+      "labelNumber": 1075452,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.AndricSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "Feather",
+        10
+      ],
+      [
+        "FletcherTools"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.AsandosSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "SackFlour"
+      ],
+      [
+        "Skillet"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.BasinOfCrystalClearWater",
+    "itemId": 4104,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075303,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.BridesLetter",
+    "itemId": 5357,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075301,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.CompletedTuitionReimbursementForm",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074625,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.DreadSpiderSilk",
+    "itemId": 3576,
+    "lootType": "Blessed",
+    "hue": 1153,
+    "props": {
+      "labelNumber": 1075319,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.FragmentOfAMap",
+    "itemId": 5357,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074533
+    }
+  },
+  {
+    "type": "Server.Items.FragmentOfAMapDelivery",
+    "itemId": 5357,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074533,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.FriendOfTheLibraryToken",
+    "itemId": 12120,
+    "layer": "Talisman",
+    "hue": 650,
+    "props": {
+      "labelNumber": 1073136
+    }
+  },
+  {
+    "type": "Server.Items.FriendsOfTheLibraryApplication",
+    "itemId": 3776,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073131,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.GamanHorns",
+    "itemId": 4228,
+    "lootType": "Blessed",
+    "stackable": true,
+    "hue": 917,
+    "props": {
+      "labelNumber": 1074557
+    }
+  },
+  {
+    "type": "Server.Items.GervisSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "IronIngot",
+        10
+      ],
+      [
+        "SmithHammer"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.HargroveSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "Gold",
+        15
+      ],
+      [
+        "Hatchet"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.KirinBrains",
+    "itemId": 7408,
+    "lootType": "Blessed",
+    "hue": 215,
+    "props": {
+      "labelNumber": 1074612
+    }
+  },
+  {
+    "type": "Server.Items.LowelSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "Board",
+        10
+      ],
+      [
+        "DovetailSaw"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.MirrorOfPurification",
+    "itemId": 4104,
+    "lootType": "Blessed",
+    "hue": 1328,
+    "props": {
+      "labelNumber": 1075304
+    }
+  },
+  {
+    "type": "Server.Items.MuggSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "Pickaxe"
+      ],
+      [
+        "Pickaxe"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.NotarizedApplication",
+    "itemId": 5359,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073135,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.OfficialSealingWax",
+    "itemId": 5158,
+    "lootType": "Blessed",
+    "hue": 132,
+    "props": {
+      "labelNumber": 1072744,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.PortraitOfTheBride",
+    "itemId": 3743,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075300,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.ReginasLetter",
+    "itemId": 5357,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075306,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.SadrahSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      [
+        "Bloodmoss",
+        10
+      ],
+      [
+        "MortarPestle"
+      ]
+    ]
+  },
+  {
+    "type": "Server.Items.SapOfSosaria",
+    "itemId": 6216,
+    "lootType": "Blessed",
+    "stackable": true,
+    "props": {
+      "labelNumber": 1074178
+    }
+  },
+  {
+    "type": "Server.Items.SealedNotesForJamal",
+    "itemId": 3833,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074998,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.SealingWaxOrderAddressedToPetrus",
+    "itemId": 3775,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073132,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.SeveredElfEars",
+    "oneOf": [
+      {
+        "itemId": 12589
+      },
+      {
+        "itemId": 12590
+      }
+    ],
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.SeveredHumanEars",
+    "oneOf": [
+      {
+        "itemId": 12591
+      },
+      {
+        "itemId": 12592
+      }
+    ],
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.SignedTuitionReimbursementForm",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074614,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.SpecialTreatForDrithen",
+    "itemId": 539,
+    "lootType": "Blessed",
+    "hue": 1161,
+    "props": {
+      "labelNumber": 1074517
+    }
+  },
+  {
+    "type": "Server.Items.SpiritBottle",
+    "itemId": 3835,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075283,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.StoutWhip",
+    "itemId": 5743,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074812
+    }
+  },
+  {
+    "type": "Server.Items.TaintedTreeSample",
+    "itemId": 3554,
+    "lootType": "Blessed",
+    "hue": 157,
+    "props": {
+      "labelNumber": 1074997,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.TuitionReimbursementForm",
+    "itemId": 3642,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074610,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.UnicornRibs",
+    "itemId": 2545,
+    "lootType": "Blessed",
+    "hue": 331,
+    "stackable": true,
+    "props": {
+      "labelNumber": 1074611
+    }
+  }
+]

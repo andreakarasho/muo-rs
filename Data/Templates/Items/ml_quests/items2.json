@@ -1,0 +1,201 @@
+[
+  {
+    "type": "Server.Items.AnOldNecklace",
+    "hue": 546,
+    "props": {
+      "labelNumber": 1075525
+    }
+  },
+  {
+    "type": "Server.Items.AnOldRing",
+    "hue": 546,
+    "props": {
+      "labelNumber": 1075524
+    }
+  },
+  {
+    "type": "Server.Items.ReginasRing",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075305,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.TransparentHeart",
+    "lootType": "Blessed",
+    "hue": 1195,
+    "props": {
+      "labelNumber": 1075400
+    }
+  },
+  {
+    "type": "Server.Items.AndrosGratitude",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075345
+    }
+  },
+  {
+    "type": "Server.Items.Bleach",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075375
+    }
+  },
+  {
+    "type": "Server.Items.MiniatureMushroom",
+    "itemId": 3350,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073138
+    }
+  },
+  {
+    "type": "Server.Items.PeppercornFishsteak",
+    "hue": 546,
+    "props": {
+      "labelNumber": 1075557
+    }
+  },
+  {
+    "type": "Server.Items.PixieLeg",
+    "lootType": "Blessed",
+    "hue": 450,
+    "props": {
+      "labelNumber": 1074613
+    }
+  },
+  {
+    "type": "Server.Items.RedLeatherBook",
+    "hue": 1157
+  },
+  {
+    "type": "Server.Items.PrismaticAmber",
+    "props": {
+      "labelNumber": 1075299
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Definitions.GustarShroud",
+    "itemId": 9860,
+    "hue": 1145,
+    "props": {
+      "defaultName": " "
+    }
+  },
+  {
+    "type": "Server.Items.GiftForArielle",
+    "itemId": 6274,
+    "hue": 708,
+    "props": {
+      "labelNumber": 1074356,
+      "defaultGumpId": 65,
+      "nontransferable": true
+    }
+  },
+  {
+    "type": "Server.Items.PrismaticCrystal",
+    "itemId": 730,
+    "movable": false,
+    "hue": 50,
+    "props": {
+      "labelNumber": 1074269
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.SmallBagOfTrinkets",
+    "itemId": 3702,
+    "props": {
+      "rewardItemCount": 1,
+      "rewardTalismanChance": 0.0
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.BagOfTrinkets",
+    "itemId": 3702,
+    "props": {
+      "rewardItemCount": 2,
+      "rewardTalismanChance": 0.05
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.BagOfTreasure",
+    "itemId": 3702,
+    "props": {
+      "rewardItemCount": 3,
+      "rewardTalismanChance": 0.2
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.LargeBagOfTreasure",
+    "itemId": 3702,
+    "props": {
+      "rewardItemCount": 4,
+      "rewardTalismanChance": 0.5
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.RewardStrongbox",
+    "itemId": 2474,
+    "props": {
+      "rewardItemCount": 5,
+      "rewardTalismanChance": 1.0
+    }
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.BaseCraftmansSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue"
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.TailorSatchel",
+    "inherits": "Server.Engines.MLQuests.Items.BaseCraftmansSatchel"
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.BlacksmithSatchel",
+    "inherits": "Server.Engines.MLQuests.Items.BaseCraftmansSatchel"
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.TinkerSatchel",
+    "inherits": "Server.Engines.MLQuests.Items.BaseCraftmansSatchel"
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.FletchingSatchel",
+    "inherits": "Server.Engines.MLQuests.Items.BaseCraftmansSatchel"
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.CarpentrySatchel",
+    "inherits": "Server.Engines.MLQuests.Items.BaseCraftmansSatchel"
+  },
+  {
+    "type": "Server.Engines.MLQuests.Items.BedlamTeleporter",
+    "itemId": 4685,
+    "movable": false,
+    "props": {
+      "labelNumber": 1074161
+    }
+  },
+  {
+    "type": "Server.Items.NibbetSatchel",
+    "itemId": 3701,
+    "layer": "Backpack",
+    "questItemHue": "randomBrightHue",
+    "questItemDrop": [
+      ["TinkerTools"]
+    ],
+    "oneOf": [
+      { "questItemDrop": [["Springs", 3]] },
+      { "questItemDrop": [["Axle", 3]] },
+      { "questItemDrop": [["Hinge", 3]] },
+      { "questItemDrop": [["Key"]] },
+      { "questItemDrop": [["Scissors"]] },
+      { "questItemDrop": [["BarrelTap"]] },
+      { "questItemDrop": [["BarrelHoops"]] },
+      { "questItemDrop": [["Gears", 3]] },
+      { "questItemDrop": [["Lockpick", 3]] },
+      { "questItemDrop": [["ClockFrame", 3]] }
+    ]
+  }
+]
