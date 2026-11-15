@@ -9,22 +9,15 @@ use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
 use muo_server::layer::Layer;
-use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
-use crate::armor::{armor_leaf, skill_bonus};
+use crate::armor::armor_leaf;
 
 armor_leaf! {
     /// `Server.Items.DupresShield`.
     DUPRES_SHIELD, DUPRES_SHIELD_CLASS, dupres_shield_new = "Server.Items.DupresShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x2B01), encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
-        skill_bonus(w, id, 0, SkillName::Parry, 5.0);
-    };
+    @template;
     default_weight: Some(6.0),
-    label_number: 1075196, // Dupre's Shield
 }
 
 /// `QuiverOfInfinity()`.

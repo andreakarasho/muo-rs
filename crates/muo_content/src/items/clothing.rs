@@ -187,6 +187,17 @@ pub fn class(w: &World, id: ItemId) -> &'static ClothingClass {
         .unwrap_or(&BASE_CLOTHING_CLASS)
 }
 
+/// `LabelNumber` when overridden: the class's template prop `labelNumber`, else its table field (0 keeps the
+/// tiledata name).
+pub fn class_label_number(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "labelNumber", class(w, id).label_number)
+}
+
+/// `ArtifactRarity`: the class's template prop `artifactRarity`, else its table field.
+pub fn artifact_rarity(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "artifactRarity", class(w, id).artifact_rarity)
+}
+
 /// `item is BaseClothing`.
 pub fn is_clothing(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.ty.is(&BASE_CLOTHING))
@@ -767,7 +778,7 @@ fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
     }
     add_skill_bonus_properties(&d.skill_bonuses, list, aos);
 
-    let rarity = class(w, id).artifact_rarity;
+    let rarity = artifact_rarity(w, id);
     if rarity > 0 {
         list.add_int(1061078, rarity); // artifact rarity ~1_val~
     }
@@ -1153,7 +1164,7 @@ pub static BASE_CLOTHING: ItemType = ItemType {
             .default_weight
             .unwrap_or_else(|| base::default_weight_base(w, id))
     },
-    label_number: |w, id| match class(w, id).label_number {
+    label_number: |w, id| match class_label_number(w, id) {
         0 => base::label_number_base(w, id),
         n => n,
     },

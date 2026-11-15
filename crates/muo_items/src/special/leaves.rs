@@ -11,9 +11,7 @@ use crate::clothing::clothing_leaf;
 use crate::jewels::jewel_leaf;
 use crate::simple::{leaf, random_from, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{
-    AosArmorAttribute, AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind,
-};
+use muo_content::aos::{AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::items::armor::{
     ArmorClass, ArmorMaterialType, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor,
 };
@@ -50,14 +48,7 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.LeggingsOfEmbers`.
     LEGGINGS_OF_EMBERS, LEGGINGS_OF_EMBERS_CLASS, leggings_of_embers_new = "Server.Items.LeggingsOfEmbers" : PLATE_LEGS / PLATE_LEGS_CLASS, plate_legs_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x2C);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-    };
-    label_number: 1062911,
+    @template;
 }
 
 weapon_art! {
@@ -118,16 +109,9 @@ leaf! {
 armor_leaf! {
     /// `Server.Items.SamuraiHelm`.
     SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x236C), encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
+    @template;
     flippable: Some((0x236C, 0x236D)),
     default_weight: Some(5.0),
-    label_number: 1062923,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -135,24 +119,17 @@ armor_leaf! {
 jewel_leaf! {
     /// `Server.Items.LuckyNecklace`.
     LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, |w, ty| new_jewel(w, ty, 0x1088), encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 200);
-        ops::set_loot_type(w, id, LootType::Blessed);
-    };
+    @template;
     @ty { hue: |_, _| 1150, };
     layer: Layer::Neck,
-    label_number: 1075239,
 }
 
 // ---- JesterHatofChuckles: BaseHat(0x171C, hue) ----
 clothing_leaf! {
     /// `Server.Items.JesterHatofChuckles`.
     JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x171C, hue), hue 0, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 150);
-    };
+    @template;
     default_weight: Some(1.0),
-    label_number: 1073256,
     base_physical_resistance: 12,
     base_fire_resistance: 12,
     base_cold_resistance: 12,
@@ -166,9 +143,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.HoodedShroudOfShadows`.
     HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2684, hue), hue 0x455, encoded false;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-    };
+    @template;
     flippable: Some((0x2684, 0x2683)),
     default_weight: Some(3.0),
     dye: crate::clothing::dye_refused,

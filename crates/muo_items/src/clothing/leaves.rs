@@ -1,47 +1,29 @@
 //! The concrete clothing classes that are tables. Classes with logic of their own are in `special.rs`.
 
-use muo_content::aos::{AosAttribute, AttrKind};
 use muo_content::craft::CraftResource;
-use muo_content::items::{ml, same, set_attr};
+use muo_content::items::{ml, same};
 use muo_server::item::ItemType;
 use muo_server::race::ALLOW_ELVES_ONLY;
-use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
-use super::{dye_false, dye_refused, layer, scissor_refused};
-use crate::armor::{hue, skill_bonus};
+use super::{dye_false, dye_refused, scissor_refused};
 use muo_content::items::clothing::{
     self, BASE_CLOAK, BASE_CLOAK_CLASS, BASE_HAT, BASE_HAT_CLASS, BASE_MIDDLE_TORSO,
     BASE_MIDDLE_TORSO_CLASS, BASE_OUTER_LEGS, BASE_OUTER_LEGS_CLASS, BASE_OUTER_TORSO,
     BASE_OUTER_TORSO_CLASS, BASE_PANTS, BASE_PANTS_CLASS, BASE_SHIRT, BASE_SHIRT_CLASS, BASE_SHOES,
     BASE_SHOES_CLASS, BASE_WAIST, BASE_WAIST_CLASS, new_clothing,
 };
-use muo_server::layer::Layer;
 
 clothing_leaf! {
     /// `Server.Items.CrimsonCincture`.
     CRIMSON_CINCTURE, CRIMSON_CINCTURE_CLASS, crimson_cincture_new = "Server.Items.CrimsonCincture" : HALF_APRON / HALF_APRON_CLASS, half_apron_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x485);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 2);
-    };
-    label_number: 1075043,
+    @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.DivineCountenance`.
     DIVINE_COUNTENANCE, DIVINE_COUNTENANCE_CLASS, divine_countenance_new = "Server.Items.DivineCountenance" : HORNED_TRIBAL_MASK / HORNED_TRIBAL_MASK_CLASS, horned_tribal_mask_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x482);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 8);
-    };
-    label_number: 1061289,
-    artifact_rarity: 11,
+    @template;
     base_physical_resistance: 8,
     base_fire_resistance: 6,
     base_cold_resistance: 9,
@@ -53,14 +35,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.HatOfTheMagi`.
     HAT_OF_THE_MAGI, HAT_OF_THE_MAGI_CLASS, hat_of_the_magi_new = "Server.Items.HatOfTheMagi" : WIZARDS_HAT / WIZARDS_HAT_CLASS, wizards_hat_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x481);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 4);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 10);
-    };
-    label_number: 1061597,
-    artifact_rarity: 11,
+    @template;
     base_poison_resistance: 20,
     base_energy_resistance: 20,
     init_min_hits: same(255),
@@ -70,15 +45,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.HuntersHeaddress`.
     HUNTERS_HEADDRESS, HUNTERS_HEADDRESS_CLASS, hunters_headdress_new = "Server.Items.HuntersHeaddress" : DEER_MASK / DEER_MASK_CLASS, deer_mask_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x594);
-        skill_bonus(w, id, 0, SkillName::Archery, 20.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-    };
-    label_number: 1061595,
-    artifact_rarity: 11,
+    @template;
     base_cold_resistance: 23,
     init_min_hits: same(255),
     init_max_hits: same(255),
@@ -87,14 +54,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.SpiritOfTheTotem`.
     SPIRIT_OF_THE_TOTEM, SPIRIT_OF_THE_TOTEM_CLASS, spirit_of_the_totem_new = "Server.Items.SpiritOfTheTotem" : BEAR_MASK / BEAR_MASK_CLASS, bear_mask_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-    };
-    label_number: 1061599,
-    artifact_rarity: 11,
+    @template;
     base_physical_resistance: 20,
     init_min_hits: same(255),
     init_max_hits: same(255),
@@ -307,7 +267,6 @@ clothing_leaf! {
     base_energy_resistance: 5,
     init_min_hits: same(20),
     init_max_hits: same(30),
-    label_number: 1041072,
     base_str_bonus: -5,
     base_dex_bonus: -5,
     base_int_bonus: 5,
@@ -471,7 +430,6 @@ clothing_leaf! {
     };
     dye: dye_refused,
     default_weight: Some(1.0),
-    label_number: 1076584,
     can_be_blessed: false,
 }
 
@@ -565,9 +523,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.ClothNinjaJacket`.
     CLOTH_NINJA_JACKET, CLOTH_NINJA_JACKET_CLASS, cloth_ninja_jacket_new = "Server.Items.ClothNinjaJacket" : BASE_SHIRT / BASE_SHIRT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2794, hue), hue 0, encoded false;
-    @init |w, id| {
-        layer(w, id, Layer::InnerTorso);
-    };
+    @template;
     flippable: Some((0x2794, 0x27DF)),
     default_weight: Some(5.0),
 }

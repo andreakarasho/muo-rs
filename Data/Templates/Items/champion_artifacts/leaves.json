@@ -8,6 +8,12 @@
   },
   {
     "type": "Server.Items.GuantletsOfAnger",
+    "hue": 667,
+    "attributes": {
+      "BonusHits": 8,
+      "RegenHits": 2,
+      "DefendChance": 10
+    },
     "props": {
       "basePhysicalResistance": 4,
       "baseFireResistance": 4,
@@ -15,7 +21,8 @@
       "basePoisonResistance": 6,
       "baseEnergyResistance": 5,
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094902
     }
   },
   {
@@ -48,6 +55,14 @@
   },
   {
     "type": "Server.Items.GladiatorsCollar",
+    "hue": 621,
+    "attributes": {
+      "BonusHits": 10,
+      "AttackChance": 10
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 18,
       "baseFireResistance": 18,
@@ -55,7 +70,8 @@
       "basePoisonResistance": 18,
       "baseEnergyResistance": 16,
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094917
     }
   },
   {
@@ -119,5 +135,62 @@
   {
     "type": "Server.Items.WindSpirit",
     "itemId": 7967
+  },
+  {
+    "type": "Server.Items.CrownOfTalKeesh",
+    "hue": 1266,
+    "attributes": {
+      "BonusInt": 8,
+      "RegenMana": 4,
+      "SpellDamage": 10
+    },
+    "props": {
+      "labelNumber": 1094903
+    }
+  },
+  {
+    "type": "Server.Items.AcidProofRobe",
+    "hue": 1109,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1095236
+    }
+  },
+  {
+    "type": "Server.Items.SamaritanRobe",
+    "hue": 675,
+    "props": {
+      "labelNumber": 1094926
+    }
+  },
+  {
+    "type": "Server.Items.LieutenantOfTheBritannianRoyalGuard",
+    "hue": 232,
+    "attributes": {
+      "BonusInt": 5,
+      "RegenMana": 2,
+      "LowerRegCost": 10
+    },
+    "props": {
+      "labelNumber": 1094910
+    }
+  },
+  {
+    "type": "Server.Items.DjinnisRing",
+    "attributes": {
+      "BonusInt": 5,
+      "SpellDamage": 10,
+      "CastSpeed": 2
+    },
+    "props": {
+      "labelNumber": 1094927
+    }
+  },
+  {
+    "type": "Server.Items.ANecromancerShroud",
+    "hue": 1109,
+    "props": {
+      "labelNumber": 1094913
+    }
   }
 ]

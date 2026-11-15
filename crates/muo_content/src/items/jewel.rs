@@ -109,6 +109,17 @@ pub fn class(w: &World, id: ItemId) -> &'static JewelClass {
         .unwrap_or(&BASE_JEWEL_CLASS)
 }
 
+/// `LabelNumber` when overridden: the class's template prop `labelNumber`, else its table field (0 keeps the
+/// tiledata name).
+pub fn class_label_number(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "labelNumber", class(w, id).label_number)
+}
+
+/// `ArtifactRarity`: the class's template prop `artifactRarity`, else its table field.
+pub fn artifact_rarity(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "artifactRarity", class(w, id).artifact_rarity)
+}
+
 /// `item is BaseJewel`.
 pub fn is_jewel(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.ty.is(&BASE_JEWEL))
@@ -292,8 +303,9 @@ fn on_after_duped(w: &mut World, id: ItemId, new_item: ItemId) {
 
 fn label_number(w: &World, id: ItemId) -> i32 {
     let c = class(w, id);
-    if c.label_number != 0 {
-        return c.label_number;
+    let n = class_label_number(w, id);
+    if n != 0 {
+        return n;
     }
     match data(w, id).map(|d| d.gem_type) {
         Some(g) if g != GemType::None => c.base_gem_type_number + g as i32 - 1,
@@ -308,7 +320,7 @@ fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
     };
     let aos = core::aos(w);
     add_skill_bonus_properties(&d.skill_bonuses, list, aos);
-    let rarity = class(w, id).artifact_rarity;
+    let rarity = artifact_rarity(w, id);
     if rarity > 0 {
         list.add_int(1061078, rarity); // artifact rarity ~1_val~
     }

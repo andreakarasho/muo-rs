@@ -44,7 +44,6 @@ pub fn chain_chest_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 /// `ElvenGlasses`' constants.
 pub static ELVEN_GLASSES_CLASS: ArmorClass = ArmorClass {
     default_weight: Some(2.0),
-    label_number: 1032216, // elven glasses
     base_physical_resistance: 2,
     base_fire_resistance: 4,
     base_cold_resistance: 4,

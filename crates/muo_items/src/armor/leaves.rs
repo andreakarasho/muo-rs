@@ -1,6 +1,6 @@
 //! The concrete armor and shield classes that are tables. Classes with logic of their own are in `special.rs`.
 
-use muo_content::aos::{AosArmorAttribute, AosAttribute, AosWeaponAttribute, AttrKind};
+use muo_content::aos::{AosArmorAttribute, AosAttribute, AttrKind};
 use muo_content::craft::CraftResource;
 use muo_content::items::armor::{
     ArmorClass, ArmorMaterialType, ArmorMeditationAllowance, BASE_ARMOR, BASE_ARMOR_CLASS,
@@ -9,155 +9,78 @@ use muo_content::items::armor::{
 use muo_content::items::set_attr;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ItemType, LootType, ops};
+use muo_server::item::ItemType;
 use muo_server::race::{ALLOW_ELVES_ONLY, ALLOW_GARGOYLES_ONLY};
-use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
 use super::special::*;
-use super::{hue, item_id, max_and_hit_points, skill_bonus};
+use super::{hue, max_and_hit_points};
 use muo_content::items::leaves::{CHAIN_CHEST, CHAIN_CHEST_CLASS, PLATE_CHEST, PLATE_CHEST_CLASS};
 
 armor_leaf! {
     /// `Server.Items.ArmorOfFortune`.
     ARMOR_OF_FORTUNE, ARMOR_OF_FORTUNE_CLASS, armor_of_fortune_new = "Server.Items.ArmorOfFortune" : STUDDED_CHEST / STUDDED_CHEST_CLASS, studded_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x501);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 200);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 40);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1061098,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.BrambleCoat`.
     BRAMBLE_COAT, BRAMBLE_COAT_CLASS, bramble_coat_new = "Server.Items.BrambleCoat" : WOODLAND_CHEST / WOODLAND_CHEST_CLASS, woodland_chest_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x1);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 4);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 150);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-    };
-    label_number: 1072925,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.IronwoodCrown`.
     IRONWOOD_CROWN, IRONWOOD_CROWN_CLASS, ironwood_crown_new = "Server.Items.IronwoodCrown" : RAVEN_HELM / RAVEN_HELM_CLASS, raven_helm_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x1);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
-    };
-    label_number: 1072924,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.SongWovenMantle`.
     SONG_WOVEN_MANTLE, SONG_WOVEN_MANTLE_CLASS, song_woven_mantle_new = "Server.Items.SongWovenMantle" : LEAF_ARMS / LEAF_ARMS_CLASS, leaf_arms_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x493);
-        skill_bonus(w, id, 0, SkillName::Musicianship, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 100);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-    };
-    label_number: 1072931,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.SpellWovenBritches`.
     SPELL_WOVEN_BRITCHES, SPELL_WOVEN_BRITCHES_CLASS, spell_woven_britches_new = "Server.Items.SpellWovenBritches" : LEAF_LEGS / LEAF_LEGS_CLASS, leaf_legs_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x487);
-        skill_bonus(w, id, 0, SkillName::Meditation, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 10);
-    };
-    label_number: 1072929,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.StitchersMittens`.
     STITCHERS_MITTENS, STITCHERS_MITTENS_CLASS, stitchers_mittens_new = "Server.Items.StitchersMittens" : LEAF_GLOVES / LEAF_GLOVES_CLASS, leaf_gloves_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x481);
-        skill_bonus(w, id, 0, SkillName::Healing, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 30);
-    };
-    label_number: 1072932,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.GauntletsOfNobility`.
     GAUNTLETS_OF_NOBILITY, GAUNTLETS_OF_NOBILITY_CLASS, gauntlets_of_nobility_new = "Server.Items.GauntletsOfNobility" : RINGMAIL_GLOVES / RINGMAIL_GLOVES_CLASS, ringmail_gloves_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4FE);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 100);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 20);
-    };
-    label_number: 1061092,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.HelmOfInsight`.
     HELM_OF_INSIGHT, HELM_OF_INSIGHT_CLASS, helm_of_insight_new = "Server.Items.HelmOfInsight" : PLATE_HELM / PLATE_HELM_CLASS, plate_helm_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x554);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusMana as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 8);
-    };
-    label_number: 1061096,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.HolyKnightsBreastplate`.
     HOLY_KNIGHTS_BREASTPLATE, HOLY_KNIGHTS_BREASTPLATE_CLASS, holy_knights_breastplate_new = "Server.Items.HolyKnightsBreastplate" : PLATE_CHEST / PLATE_CHEST_CLASS, plate_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x47E);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 15);
-    };
-    label_number: 1061097,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.InquisitorsResolution`.
     INQUISITORS_RESOLUTION, INQUISITORS_RESOLUTION_CLASS, inquisitors_resolution_new = "Server.Items.InquisitorsResolution" : PLATE_GLOVES / PLATE_GLOVES_CLASS, plate_gloves_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4F2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastRecovery as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 8);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1060206,
-    artifact_rarity: 10,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.JackalsCollar`.
     JACKALS_COLLAR, JACKALS_COLLAR_CLASS, jackals_collar_new = "Server.Items.JackalsCollar" : PLATE_GORGET / PLATE_GORGET_CLASS, plate_gorget_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x6D1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 2);
-    };
-    label_number: 1061594,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
@@ -170,73 +93,36 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 8);
         set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 20);
     };
-    label_number: 1061100,
-    artifact_rarity: 11,
 }
 
 armor_leaf! {
     /// `Server.Items.MidnightBracers`.
     MIDNIGHT_BRACERS, MIDNIGHT_BRACERS_CLASS, midnight_bracers_new = "Server.Items.MidnightBracers" : BONE_ARMS / BONE_ARMS_CLASS, bone_arms_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        skill_bonus(w, id, 0, SkillName::Necromancy, 20.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 10);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1061093,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.OrnateCrownOfTheHarrower`.
     ORNATE_CROWN_OF_THE_HARROWER, ORNATE_CROWN_OF_THE_HARROWER_CLASS, ornate_crown_of_the_harrower_new = "Server.Items.OrnateCrownOfTheHarrower" : BONE_HELM / BONE_HELM_CLASS, bone_helm_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4F6);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenStam as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-    };
-    label_number: 1061095,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.ShadowDancerLeggings`.
     SHADOW_DANCER_LEGGINGS, SHADOW_DANCER_LEGGINGS_CLASS, shadow_dancer_leggings_new = "Server.Items.ShadowDancerLeggings" : LEATHER_LEGS / LEATHER_LEGS_CLASS, leather_legs_new, encoded false;
-    @init |w, id| {
-        item_id(w, id, 0x13D2);
-        hue(w, id, 0x455);
-        skill_bonus(w, id, 0, SkillName::Stealth, 20.0);
-        skill_bonus(w, id, 1, SkillName::Stealing, 20.0);
-    };
-    label_number: 1061598,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.TunicOfFire`.
     TUNIC_OF_FIRE, TUNIC_OF_FIRE_CLASS, tunic_of_fire_new = "Server.Items.TunicOfFire" : CHAIN_CHEST / CHAIN_CHEST_CLASS, chain_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x54F);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 15);
-    };
-    label_number: 1061099,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.VoiceOfTheFallenKing`.
     VOICE_OF_THE_FALLEN_KING, VOICE_OF_THE_FALLEN_KING_CLASS, voice_of_the_fallen_king_new = "Server.Items.VoiceOfTheFallenKing" : LEATHER_GORGET / LEATHER_GORGET_CLASS, leather_gorget_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x76D);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenStam as u32, 3);
-    };
-    label_number: 1061094,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
@@ -377,57 +263,41 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.DaemonArms`.
     DAEMON_ARMS, DAEMON_ARMS_CLASS, daemon_arms_new = "Server.Items.DaemonArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144E), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x648);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 1);
-    };
+    @template;
     flippable: Some((0x144e, 0x1453)),
     default_weight: Some(2.0),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041371,
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonChest`.
     DAEMON_CHEST, DAEMON_CHEST_CLASS, daemon_chest_new = "Server.Items.DaemonChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144F), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x648);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 1);
-    };
+    @template;
     flippable: Some((0x144f, 0x1454)),
     default_weight: Some(6.0),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041372,
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonGloves`.
     DAEMON_GLOVES, DAEMON_GLOVES_CLASS, daemon_gloves_new = "Server.Items.DaemonGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1450), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x648);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 1);
-    };
+    @template;
     flippable: Some((0x1450, 0x1455)),
     default_weight: Some(2.0),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041373,
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonLegs`.
     DAEMON_LEGS, DAEMON_LEGS_CLASS, daemon_legs_new = "Server.Items.DaemonLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1452), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x648);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 1);
-    };
+    @template;
     flippable: Some((0x1452, 0x1457)),
     default_weight: Some(3.0),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041375,
 }
 
 armor_leaf! {
@@ -478,141 +348,73 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.AnthropomorphistGlasses`.
     ANTHROPOMORPHIST_GLASSES, ANTHROPOMORPHIST_GLASSES_CLASS, anthropomorphist_glasses_new = "Server.Items.AnthropomorphistGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 20);
-        hue(w, id, 0x80);
-    };
-    label_number: 1073379,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.ArtsGlasses`.
     ARTS_GLASSES, ARTS_GLASSES_CLASS, arts_glasses_new = "Server.Items.ArtsGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 15);
-        hue(w, id, 0x73);
-    };
-    label_number: 1073363,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.FoldedSteelGlasses`.
     FOLDED_STEEL_GLASSES, FOLDED_STEEL_GLASSES_CLASS, folded_steel_glasses_new = "Server.Items.FoldedSteelGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        hue(w, id, 0x47E);
-    };
-    label_number: 1073380,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.LightOfWayGlasses`.
     LIGHT_OF_WAY_GLASSES, LIGHT_OF_WAY_GLASSES_CLASS, light_of_way_glasses_new = "Server.Items.LightOfWayGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 7);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 30);
-        hue(w, id, 0x256);
-    };
-    label_number: 1073378,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.LyricalGlasses`.
     LYRICAL_GLASSES, LYRICAL_GLASSES_CLASS, lyrical_glasses_new = "Server.Items.LyricalGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 15);
-        hue(w, id, 0x47F);
-    };
-    label_number: 1073382,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.MaceShieldGlasses`.
     MACE_SHIELD_GLASSES, MACE_SHIELD_GLASSES_CLASS, mace_shield_glasses_new = "Server.Items.MaceShieldGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-        hue(w, id, 0x1DD);
-    };
-    label_number: 1073381,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.MaritimeGlasses`.
     MARITIME_GLASSES, MARITIME_GLASSES_CLASS, maritime_glasses_new = "Server.Items.MaritimeGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 150);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 20);
-        hue(w, id, 0x581);
-    };
-    label_number: 1073364,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.NecromanticGlasses`.
     NECROMANTIC_GLASSES, NECROMANTIC_GLASSES_CLASS, necromantic_glasses_new = "Server.Items.NecromanticGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 30);
-        hue(w, id, 0x22D);
-    };
-    label_number: 1073377,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.PoisonedGlasses`.
     POISONED_GLASSES, POISONED_GLASSES_CLASS, poisoned_glasses_new = "Server.Items.PoisonedGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenStam as u32, 4);
-        hue(w, id, 0x113);
-    };
-    label_number: 1073376,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.TradeGlasses`.
     TRADE_GLASSES, TRADE_GLASSES_CLASS, trade_glasses_new = "Server.Items.TradeGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 10);
-    };
-    label_number: 1073362,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.TreasureTrinketGlasses`.
     TREASURE_TRINKET_GLASSES, TREASURE_TRINKET_GLASSES_CLASS, treasure_trinket_glasses_new = "Server.Items.TreasureTrinketGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 10);
-        hue(w, id, 0x1C2);
-    };
-    label_number: 1073373,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.WizardsGlasses`.
     WIZARDS_GLASSES, WIZARDS_GLASSES_CLASS, wizards_glasses_new = "Server.Items.WizardsGlasses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusMana as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 15);
-        hue(w, id, 0x2B0);
-    };
-    label_number: 1073374,
+    @template;
 }
 
 armor_leaf! {
@@ -658,15 +460,11 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.DaemonHelm`.
     DAEMON_HELM, DAEMON_HELM_CLASS, daemon_helm_new = "Server.Items.DaemonHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1451), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x648);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 1);
-    };
+    @template;
     flippable: Some((0x1451, 0x1456)),
     default_weight: Some(3.0),
     material_type: ArmorMaterialType::Bone,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041374,
 }
 
 armor_leaf! {
@@ -1262,65 +1060,50 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.RangerArms`.
     RANGER_ARMS, RANGER_ARMS_CLASS, ranger_arms_new = "Server.Items.RangerArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DC), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x59C);
-    };
+    @template;
     flippable: Some((0x13dc, 0x13d4)),
     default_weight: Some(4.0),
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041493,
 }
 
 armor_leaf! {
     /// `Server.Items.RangerChest`.
     RANGER_CHEST, RANGER_CHEST_CLASS, ranger_chest_new = "Server.Items.RangerChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DB), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x59C);
-    };
+    @template;
     flippable: Some((0x13db, 0x13e2)),
     default_weight: Some(8.0),
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041497,
 }
 
 armor_leaf! {
     /// `Server.Items.RangerGloves`.
     RANGER_GLOVES, RANGER_GLOVES_CLASS, ranger_gloves_new = "Server.Items.RangerGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D5), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x59C);
-    };
+    @template;
     flippable: Some((0x13d5, 0x13dd)),
     default_weight: Some(1.0),
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041494,
 }
 
 armor_leaf! {
     /// `Server.Items.RangerGorget`.
     RANGER_GORGET, RANGER_GORGET_CLASS, ranger_gorget_new = "Server.Items.RangerGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D6), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x59C);
-    };
+    @template;
     default_weight: Some(1.0),
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041495,
 }
 
 armor_leaf! {
     /// `Server.Items.RangerLegs`.
     RANGER_LEGS, RANGER_LEGS_CLASS, ranger_legs_new = "Server.Items.RangerLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DA), encoded false;
-    @init |w, id| {
-        hue(w, id, 0x59C);
-    };
+    @template;
     flippable: Some((0x13da, 0x13e1)),
     default_weight: Some(3.0),
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1041496,
 }
 
 armor_leaf! {
@@ -1358,28 +1141,16 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.SpiritualityHelm`.
     SPIRITUALITY_HELM, SPIRITUALITY_HELM_CLASS, spirituality_helm_new = "Server.Items.SpiritualityHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B10), encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        ops::set_weight(w, id, 6.0);
-        hue(w, id, 0x226);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 5);
-    };
+    @template;
     flippable: Some((0x2B10, 0x2B11)),
-    label_number: 1075237,
     material_type: ArmorMaterialType::Plate,
 }
 
 armor_leaf! {
     /// `Server.Items.ValorGauntlets`.
     VALOR_GAUNTLETS, VALOR_GAUNTLETS_CLASS, valor_gauntlets_new = "Server.Items.ValorGauntlets" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B0C), encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        ops::set_weight(w, id, 4.0);
-        hue(w, id, 0x226);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 5);
-    };
+    @template;
     flippable: Some((0x2B0C, 0x2B0D)),
-    label_number: 1075238,
     material_type: ArmorMaterialType::Plate,
 }
 
@@ -1708,30 +1479,13 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.Aegis`.
     AEGIS, AEGIS_CLASS, aegis_new = "Server.Items.Aegis" : HEATER_SHIELD / HEATER_SHIELD_CLASS, heater_shield_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x47E);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 8);
-    };
-    label_number: 1061602,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.ArcaneShield`.
     ARCANE_SHIELD, ARCANE_SHIELD_CLASS, arcane_shield_new = "Server.Items.ArcaneShield" : WOODEN_KITE_SHIELD / WOODEN_KITE_SHIELD_CLASS, wooden_kite_shield_new, encoded false;
-    @init |w, id| {
-        item_id(w, id, 0x1B78);
-        hue(w, id, 0x556);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, 1);
-    };
-    label_number: 1061101,
-    artifact_rarity: 11,
+    @template;
 }
 
 armor_leaf! {

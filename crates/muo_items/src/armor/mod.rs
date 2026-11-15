@@ -50,6 +50,20 @@ macro_rules! armor_construct {
 }
 
 macro_rules! armor_leaf {
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr, encoded $enc:literal;
+        @template;
+        $($rest:tt)*
+    ) => {
+        $crate::armor::armor_leaf! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, $base, encoded $enc;
+            @init |w, id| ::muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr, encoded $enc:literal;
@@ -95,6 +109,8 @@ pub(crate) use armor_leaf;
 pub mod leaves;
 pub mod special;
 
+#[cfg(test)]
+mod template_tests;
 #[cfg(test)]
 mod tests;
 

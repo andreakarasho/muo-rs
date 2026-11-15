@@ -338,7 +338,6 @@ armor_leaf! {
     material_type: ArmorMaterialType::Leather,
     default_resource: CraftResource::RegularLeather,
     def_med_allowance: muo_content::items::armor::ArmorMeditationAllowance::All,
-    label_number: 1045122, // leather blacksmith gloves of mining
 }
 
 /// `StuddedGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
@@ -353,7 +352,6 @@ armor_leaf! {
     default_weight: Some(2.0),
     material_type: ArmorMaterialType::Studded,
     default_resource: CraftResource::RegularLeather,
-    label_number: 1045123, // studded leather blacksmith gloves of mining
 }
 
 /// `RingmailGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
@@ -367,7 +365,6 @@ armor_leaf! {
     @no_construct none;
     default_weight: Some(1.0),
     material_type: ArmorMaterialType::Ringmail,
-    label_number: 1045124, // ringmail blacksmith gloves of mining
 }
 
 // ---- PowderOfTemperament ----
