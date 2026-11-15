@@ -453,7 +453,7 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     // An addon's plain components: `AddComponent(new AddonComponent(itemID), x, y, z)` for each `[itemID, x, y, z]`.
     item_key(
         types,
-        "addonComponents",
+        "engineAddonComponents",
         |v| check_list(v, |c| check_nums(c, 4)),
         |w, id, v| {
             use muo_content::items::addon;
