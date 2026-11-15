@@ -1322,6 +1322,7 @@ name = "muo_server"
 version = "0.1.0"
 dependencies = [
  "bitflags",
+ "foldhash",
  "indexmap",
  "muo_data",
  "muo_io",

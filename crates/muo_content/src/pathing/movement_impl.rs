@@ -22,6 +22,49 @@ const STEP_HEIGHT: i32 = 2;
 pub struct MovementStatics {
     pub always_ignore_doors: bool,
     pub goal: Point3D,
+    /// While a path search runs: the mobiles of the search area by tile, read once. Nothing moves during a search,
+    /// and looking each neighbour up here instead of walking the sector's whole mobile list per check is what keeps
+    /// searching through a crowd (hundreds of mobiles per sector) affordable.
+    pub mobs_at: Option<ByTile<MobileId>>,
+    /// The same for ground items, only those whose tile data can block or carry (impassable, surface, wet): a melee
+    /// leaves hundreds of blood splats around, which no movement check looks at but every sector walk pays for.
+    pub items_at: Option<ByTile<ItemId>>,
+}
+
+pub type ByTile<T> = std::collections::HashMap<(i32, i32), Vec<T>, muo_server::world::EntityHasher>;
+
+/// Whether a ground item can take part in a movement check (the search snapshot keeps only these).
+pub fn may_block(w: &World, id: ItemId) -> bool {
+    w.item(id).is_some_and(|i| {
+        i.item_id > 0xFFFF
+            || idata(w, (i.item_id & 0xFFFF) as usize)
+                .has(TileFlag::IMPASSABLE | TileFlag::SURFACE | TileFlag::WET)
+    })
+}
+
+/// The ground items on tile `(x, y)` in sector order: from the search snapshot when one is set (it holds only
+/// [`may_block`] items), else from the sector.
+pub fn items_at(w: &World, map: MapId, x: i32, y: i32) -> Vec<ItemId> {
+    match w
+        .resources
+        .get::<MovementStatics>()
+        .and_then(|s| s.items_at.as_ref())
+    {
+        Some(snap) => snap.get(&(x, y)).cloned().unwrap_or_default(),
+        None => enumerate::items_at(w, Some(map), x, y).collect(),
+    }
+}
+
+/// The mobiles on tile `(x, y)` in sector order: from the search snapshot when one is set, else from the sector.
+pub fn mobiles_at(w: &World, map: MapId, x: i32, y: i32) -> Vec<MobileId> {
+    match w
+        .resources
+        .get::<MovementStatics>()
+        .and_then(|s| s.mobs_at.as_ref())
+    {
+        Some(snap) => snap.get(&(x, y)).cloned().unwrap_or_default(),
+        None => enumerate::mobiles_at(w, Some(map), x, y).collect(),
+    }
 }
 
 pub struct Impl;
@@ -420,7 +463,17 @@ impl MovementImpl for Impl {
             && (xf != goal.x || yf != goal.y);
 
         let (mut mobs_f, mut mobs_l, mut mobs_r) = (Vec::new(), Vec::new(), Vec::new());
-        if check_mobs {
+        let searching = w
+            .resources
+            .get::<MovementStatics>()
+            .is_some_and(|s| s.mobs_at.is_some());
+        if check_mobs && searching {
+            mobs_f = mobiles_at(w, map, xf, yf);
+            if check_diagonals {
+                mobs_l = mobiles_at(w, map, xl, yl);
+                mobs_r = mobiles_at(w, map, xr, yr);
+            }
+        } else if check_mobs {
             let near: Vec<MobileId> =
                 enumerate::mobiles_in_range(w, Some(map), loc.x, loc.y, 1).collect();
             for mob in near {
@@ -439,7 +492,14 @@ impl MovementImpl for Impl {
 
         let (mut i_start, mut i_f, mut i_l, mut i_r) =
             (Vec::new(), Vec::new(), Vec::new(), Vec::new());
-        let near: Vec<ItemId> = enumerate::items_in_range(w, Some(map), loc.x, loc.y, 1).collect();
+        let near: Vec<ItemId> = if searching {
+            [(x_start, y_start), (xf, yf), (xl, yl), (xr, yr)]
+                .into_iter()
+                .flat_map(|(x, y)| items_at(w, map, x, y))
+                .collect()
+        } else {
+            enumerate::items_in_range(w, Some(map), loc.x, loc.y, 1).collect()
+        };
         for id in near {
             let Some(item) = w.item(id) else { continue };
             let data = idata(w, (item.item_id & 0xFFFF) as usize);
