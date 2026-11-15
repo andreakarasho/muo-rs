@@ -56,13 +56,19 @@ static AMOUNT_50: [Param; 1] = [Param {
     ty: "",
 }];
 
+/// A reagent class's constructor: `base(itemID, amount)` with the graphic of the class's template.
+fn new_listed_reagent(w: &mut World, ty: &'static ItemType, name: &str, amount: i32) -> ItemId {
+    let id = new_reagent(w, ty, 0, amount);
+    crate::simple::own_template(w, id, name)
+}
+
 macro_rules! reagents {
-    ($($name:ident, $ctor:ident = $full:literal, $gid:expr $(, $field:ident : $v:expr)*;)*) => {$(
+    ($($name:ident, $ctor:ident = $full:literal $(, $field:ident : $v:expr)*;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_REAGENT),
-            construct: Some(|w| new_reagent(w, &$name, $gid, 1)),
+            construct: Some(|w| new_listed_reagent(w, &$name, $full, 1)),
             $($field: $v,)*
             serialize: |w, id, out| {
                 (BASE_REAGENT.serialize)(w, id, out);
@@ -78,28 +84,28 @@ macro_rules! reagents {
         static $ctor: [Ctor; 1] = [Ctor {
             access: None,
             params: &AMOUNT_1,
-            make: |w, v| EntityId::Item(new_reagent(w, &$name, $gid, v[0].i32())),
+            make: |w, v| EntityId::Item(new_listed_reagent(w, &$name, $full, v[0].i32())),
         }];
     )*};
 }
 
 reagents! {
-    BAT_WING, C_BAT_WING = "Server.Items.BatWing", 0xF78;
-    BLACK_PEARL, C_BLACK_PEARL = "Server.Items.BlackPearl", 0xF7A;
-    BLOODMOSS, C_BLOODMOSS = "Server.Items.Bloodmoss", 0xF7B;
-    DAEMON_BLOOD, C_DAEMON_BLOOD = "Server.Items.DaemonBlood", 0xF7D;
-    DAEMON_BONE, C_DAEMON_BONE = "Server.Items.DaemonBone", 0xF80, default_weight: |_, _| 1.0;
-    DEAD_WOOD, C_DEAD_WOOD = "Server.Items.DeadWood", 0xF90;
-    DRAGONS_BLOOD, C_DRAGONS_BLOOD = "Server.Items.DragonsBlood", 0x4077;
-    GARLIC, C_GARLIC = "Server.Items.Garlic", 0xF84;
-    GINSENG, C_GINSENG = "Server.Items.Ginseng", 0xF85;
-    GRAVE_DUST, C_GRAVE_DUST = "Server.Items.GraveDust", 0xF8F;
-    MANDRAKE_ROOT, C_MANDRAKE_ROOT = "Server.Items.MandrakeRoot", 0xF86;
-    NIGHTSHADE, C_NIGHTSHADE = "Server.Items.Nightshade", 0xF88;
-    NOX_CRYSTAL, C_NOX_CRYSTAL = "Server.Items.NoxCrystal", 0xF8E;
-    PIG_IRON, C_PIG_IRON = "Server.Items.PigIron", 0xF8A;
-    SPIDERS_SILK, C_SPIDERS_SILK = "Server.Items.SpidersSilk", 0xF8D;
-    SULFUROUS_ASH, C_SULFUROUS_ASH = "Server.Items.SulfurousAsh", 0xF8C;
+    BAT_WING, C_BAT_WING = "Server.Items.BatWing";
+    BLACK_PEARL, C_BLACK_PEARL = "Server.Items.BlackPearl";
+    BLOODMOSS, C_BLOODMOSS = "Server.Items.Bloodmoss";
+    DAEMON_BLOOD, C_DAEMON_BLOOD = "Server.Items.DaemonBlood";
+    DAEMON_BONE, C_DAEMON_BONE = "Server.Items.DaemonBone", default_weight: crate::class_props::default_weight;
+    DEAD_WOOD, C_DEAD_WOOD = "Server.Items.DeadWood";
+    DRAGONS_BLOOD, C_DRAGONS_BLOOD = "Server.Items.DragonsBlood";
+    GARLIC, C_GARLIC = "Server.Items.Garlic";
+    GINSENG, C_GINSENG = "Server.Items.Ginseng";
+    GRAVE_DUST, C_GRAVE_DUST = "Server.Items.GraveDust";
+    MANDRAKE_ROOT, C_MANDRAKE_ROOT = "Server.Items.MandrakeRoot";
+    NIGHTSHADE, C_NIGHTSHADE = "Server.Items.Nightshade";
+    NOX_CRYSTAL, C_NOX_CRYSTAL = "Server.Items.NoxCrystal";
+    PIG_IRON, C_PIG_IRON = "Server.Items.PigIron";
+    SPIDERS_SILK, C_SPIDERS_SILK = "Server.Items.SpidersSilk";
+    SULFUROUS_ASH, C_SULFUROUS_ASH = "Server.Items.SulfurousAsh";
 }
 
 const ALL: [&ItemType; 16] = [
@@ -123,38 +129,6 @@ const ALL: [&ItemType; 16] = [
 
 // ---- the bags ----
 
-const MAGERY: &[&str] = &[
-    "BlackPearl",
-    "Bloodmoss",
-    "Garlic",
-    "Ginseng",
-    "MandrakeRoot",
-    "Nightshade",
-    "SulfurousAsh",
-    "SpidersSilk",
-];
-const ALL_REGS: &[&str] = &[
-    "BlackPearl",
-    "Bloodmoss",
-    "Garlic",
-    "Ginseng",
-    "MandrakeRoot",
-    "Nightshade",
-    "SulfurousAsh",
-    "SpidersSilk",
-    "BatWing",
-    "GraveDust",
-    "DaemonBlood",
-    "NoxCrystal",
-    "PigIron",
-];
-const NECRO: &[&str] = &[
-    "BatWing",
-    "GraveDust",
-    "DaemonBlood",
-    "NoxCrystal",
-    "PigIron",
-];
 
 /// `DropItem(new <name>(amount))` for each name, in order.
 pub fn drop_reagents(w: &mut World, bag: ItemId, names: &[&str], amount: i32) {
@@ -168,26 +142,22 @@ pub fn drop_reagents(w: &mut World, bag: ItemId, names: &[&str], amount: i32) {
     }
 }
 
-/// `new BagOfReagents(amount)` and its two kin, of class `ty` holding `names`.
-pub fn new_reagent_bag(
-    w: &mut World,
-    ty: &'static ItemType,
-    names: &[&str],
-    amount: i32,
-) -> ItemId {
+/// `new BagOfReagents(amount)` and its kin, of class `ty`: `amount` of each reagent of the class's `reagents` prop.
+pub fn new_reagent_bag(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
     let id = new_base_container(w, ty, 0);
     crate::simple::own_template(w, id, "Server.Items.BagOfReagents");
-    drop_reagents(w, id, names, amount);
+    let names = crate::class_props::str_list(w, id, "reagents");
+    drop_reagents(w, id, &names, amount);
     id
 }
 
 macro_rules! bags {
-    ($($name:ident, $ctor:ident = $full:literal, $names:expr, $enc:expr;)*) => {$(
+    ($($name:ident, $ctor:ident = $full:literal, $enc:expr;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BAG),
-            construct: Some(|w| new_reagent_bag(w, &$name, $names, 50)),
+            construct: Some(|w| new_reagent_bag(w, &$name, 50)),
             serialize: |w, id, out| {
                 (BAG.serialize)(w, id, out);
                 crate::simple::write_version(out, $enc);
@@ -202,17 +172,17 @@ macro_rules! bags {
         static $ctor: [Ctor; 1] = [Ctor {
             access: None,
             params: &AMOUNT_50,
-            make: |w, v| EntityId::Item(new_reagent_bag(w, &$name, $names, v[0].i32())),
+            make: |w, v| EntityId::Item(new_reagent_bag(w, &$name, v[0].i32())),
         }];
     )*};
 }
 
 bags! {
-    BAG_OF_REAGENTS, C_BAG_OF_REAGENTS = "Server.Items.BagOfReagents", MAGERY, false;
-    BAG_OF_ALL_REAGENTS, C_BAG_OF_ALL_REAGENTS = "Server.Items.BagOfAllReagents", ALL_REGS, false;
-    BAG_OF_NECRO_REAGENTS, C_BAG_OF_NECRO_REAGENTS = "Server.Items.BagOfNecroReagents", NECRO, false;
+    BAG_OF_REAGENTS, C_BAG_OF_REAGENTS = "Server.Items.BagOfReagents", false;
+    BAG_OF_ALL_REAGENTS, C_BAG_OF_ALL_REAGENTS = "Server.Items.BagOfAllReagents", false;
+    BAG_OF_NECRO_REAGENTS, C_BAG_OF_NECRO_REAGENTS = "Server.Items.BagOfNecroReagents", false;
     // BagOfNecromancerReagents (a New Haven quest reward): the same five, `[SerializationGenerator(0)]`
-    BAG_OF_NECROMANCER_REAGENTS, C_BAG_OF_NECROMANCER_REAGENTS = "Server.Items.BagOfNecromancerReagents", NECRO, true;
+    BAG_OF_NECROMANCER_REAGENTS, C_BAG_OF_NECROMANCER_REAGENTS = "Server.Items.BagOfNecromancerReagents", true;
 }
 
 // ---- BagOfSmokeBombs ----

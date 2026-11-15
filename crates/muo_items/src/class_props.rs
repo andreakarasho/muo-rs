@@ -72,6 +72,17 @@ pub fn str_of(w: &World, id: ItemId, key: &str) -> Option<&'static str> {
     props::as_static_str(w, props::item(w, id, key)).flatten()
 }
 
+/// A list-of-strings prop of the item's class (empty when unset).
+pub fn str_list(w: &World, id: ItemId, key: &str) -> Vec<&'static str> {
+    match props::item(w, id, key) {
+        Some(Value::Array(a)) => a
+            .iter()
+            .filter_map(|v| props::as_static_str(w, Some(v)).flatten())
+            .collect(),
+        _ => Vec::new(),
+    }
+}
+
 /// A string prop of class `ty`.
 pub fn class_str(w: &World, ty: &'static ItemType, key: &str) -> Option<&'static str> {
     props::as_static_str(w, of_class(w, ty, key)).flatten()
