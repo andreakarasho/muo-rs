@@ -1,0 +1,13 @@
+[
+  {
+    "name": "SBShipwright",
+    "build": [
+      {"buy": "Server.Multis.SmallBoatDeed", "name": "1041205", "price": 10177, "amount": 20, "itemId": 5362, "hue": 0},
+      {"buy": "Server.Multis.SmallDragonBoatDeed", "name": "1041206", "price": 10177, "amount": 20, "itemId": 5362, "hue": 0},
+      {"buy": "Server.Multis.MediumBoatDeed", "name": "1041207", "price": 11552, "amount": 20, "itemId": 5362, "hue": 0},
+      {"buy": "Server.Multis.MediumDragonBoatDeed", "name": "1041208", "price": 11552, "amount": 20, "itemId": 5362, "hue": 0},
+      {"buy": "Server.Multis.LargeBoatDeed", "name": "1041209", "price": 12927, "amount": 20, "itemId": 5362, "hue": 0},
+      {"buy": "Server.Multis.LargeDragonBoatDeed", "name": "1041210", "price": 12927, "amount": 20, "itemId": 5362, "hue": 0}
+    ]
+  }
+]

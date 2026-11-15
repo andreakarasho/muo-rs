@@ -1,0 +1,13 @@
+[
+  {
+    "name": "SBChainmailArmor",
+    "build": [
+      {"sell": "Server.Items.ChainCoif", "price": 6},
+      {"sell": "Server.Items.ChainChest", "price": 71},
+      {"sell": "Server.Items.ChainLegs", "price": 74},
+      {"buy": "Server.Items.ChainCoif", "price": 17, "amount": 20, "itemId": 5051, "hue": 0},
+      {"buy": "Server.Items.ChainChest", "price": 143, "amount": 20, "itemId": 5055, "hue": 0},
+      {"buy": "Server.Items.ChainLegs", "price": 149, "amount": 20, "itemId": 5054, "hue": 0}
+    ]
+  }
+]

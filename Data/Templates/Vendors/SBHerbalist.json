@@ -1,0 +1,21 @@
+[
+  {
+    "name": "SBHerbalist",
+    "build": [
+      {"sell": "Server.Items.Bloodmoss", "price": 3},
+      {"sell": "Server.Items.MandrakeRoot", "price": 2},
+      {"sell": "Server.Items.Garlic", "price": 2},
+      {"sell": "Server.Items.Ginseng", "price": 2},
+      {"sell": "Server.Items.Nightshade", "price": 2},
+      {"sell": "Server.Items.Bottle", "price": 3},
+      {"sell": "Server.Items.MortarPestle", "price": 4},
+      {"buy": "Server.Items.Ginseng", "price": 3, "amount": 20, "itemId": 3973, "hue": 0},
+      {"buy": "Server.Items.Garlic", "price": 3, "amount": 20, "itemId": 3972, "hue": 0},
+      {"buy": "Server.Items.MandrakeRoot", "price": 3, "amount": 20, "itemId": 3974, "hue": 0},
+      {"buy": "Server.Items.Nightshade", "price": 3, "amount": 20, "itemId": 3976, "hue": 0},
+      {"buy": "Server.Items.Bloodmoss", "price": 5, "amount": 20, "itemId": 3963, "hue": 0},
+      {"buy": "Server.Items.MortarPestle", "price": 8, "amount": 20, "itemId": 3739, "hue": 0},
+      {"buy": "Server.Items.Bottle", "price": 5, "amount": 20, "itemId": 3854, "hue": 0}
+    ]
+  }
+]

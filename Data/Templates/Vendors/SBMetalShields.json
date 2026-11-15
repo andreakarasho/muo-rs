@@ -1,0 +1,19 @@
+[
+  {
+    "name": "SBMetalShields",
+    "build": [
+      {"sell": "Server.Items.Buckler", "price": 25},
+      {"sell": "Server.Items.BronzeShield", "price": 33},
+      {"sell": "Server.Items.MetalShield", "price": 60},
+      {"sell": "Server.Items.MetalKiteShield", "price": 62},
+      {"sell": "Server.Items.HeaterShield", "price": 115},
+      {"sell": "Server.Items.WoodenKiteShield", "price": 35},
+      {"buy": "Server.Items.BronzeShield", "price": 66, "amount": 20, "itemId": 7026, "hue": 0},
+      {"buy": "Server.Items.Buckler", "price": 50, "amount": 20, "itemId": 7027, "hue": 0},
+      {"buy": "Server.Items.MetalKiteShield", "price": 123, "amount": 20, "itemId": 7028, "hue": 0},
+      {"buy": "Server.Items.HeaterShield", "price": 231, "amount": 20, "itemId": 7030, "hue": 0},
+      {"buy": "Server.Items.WoodenKiteShield", "price": 70, "amount": 20, "itemId": 7032, "hue": 0},
+      {"buy": "Server.Items.MetalShield", "price": 121, "amount": 20, "itemId": 7035, "hue": 0}
+    ]
+  }
+]

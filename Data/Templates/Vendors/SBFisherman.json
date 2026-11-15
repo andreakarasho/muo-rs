@@ -1,0 +1,23 @@
+[
+  {
+    "name": "SBFisherman",
+    "build": [
+      {"sell": "Server.Items.RawFishSteak", "price": 1},
+      {"sell": "Server.Items.Fish", "price": 1},
+      {"sell": "Server.Items.FishingPole", "price": 7},
+      {"buy": "Server.Items.RawFishSteak", "price": 3, "amount": 20, "itemId": 2426, "hue": 0},
+      {"buy": "Server.Items.Fish", "price": 6, "amount": 80, "itemId": 2508, "hue": 0},
+      {"buy": "Server.Items.Fish", "price": 6, "amount": 80, "itemId": 2509, "hue": 0},
+      {"buy": "Server.Items.Fish", "price": 6, "amount": 80, "itemId": 2510, "hue": 0},
+      {"buy": "Server.Items.Fish", "price": 6, "amount": 80, "itemId": 2511, "hue": 0},
+      {"buy": "Server.Items.FishingPole", "price": 15, "amount": 20, "itemId": 3520, "hue": 0},
+      {"buy": "Server.Items.AquariumFishNet", "price": 250, "amount": 20, "itemId": 3528, "hue": 576},
+      {"buy": "Server.Items.AquariumFood", "price": 62, "amount": 20, "itemId": 3836, "hue": 0},
+      {"buy": "Server.Items.FishBowl", "price": 6312, "amount": 20, "itemId": 9244, "hue": 1154},
+      {"buy": "Server.Items.VacationWafer", "price": 67, "amount": 20, "itemId": 2417, "hue": 0},
+      {"buy": "Server.Items.AquariumNorthDeed", "price": 250002, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Items.AquariumEastDeed", "price": 250002, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Items.NewAquariumBook", "price": 15, "amount": 20, "itemId": 4082, "hue": 0}
+    ]
+  }
+]

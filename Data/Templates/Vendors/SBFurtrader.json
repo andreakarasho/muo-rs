@@ -1,0 +1,9 @@
+[
+  {
+    "name": "SBFurtrader",
+    "build": [
+      {"sell": "Server.Items.Hides", "price": 2},
+      {"buy": "Server.Items.Hides", "price": 3, "amount": 40, "itemId": 4217, "hue": 0}
+    ]
+  }
+]

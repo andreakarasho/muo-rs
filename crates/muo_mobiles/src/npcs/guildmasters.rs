@@ -23,7 +23,6 @@ use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
 use super::vendors::add_item_hued;
-use super::vendors::sb::SBBLACKSMITH;
 use crate::common::set_skill_range;
 
 /// The virtuals `BaseGuildmaster` adds.
@@ -288,7 +287,7 @@ guildmaster!(BLACKSMITH_GUILDMASTER, blacksmith_guildmaster_new = "Server.Mobile
     v {
         is_active_vendor: |_, _| true,
         shoe_type: |_, _| ShoeType::ThighBoots,
-        init_sb_info: |w, id| vec![SBBLACKSMITH.new_for(w, id)],
+        init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBBlacksmith")],
         init_outfit: |w, id| {
             init_outfit(w, id);
             let name = if rnd::bool(w) { "Server.Items.FullApron" } else { "Server.Items.RingmailChest" };

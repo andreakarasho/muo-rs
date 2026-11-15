@@ -1,0 +1,27 @@
+[
+  {
+    "name": "SBSECook",
+    "build": [
+      {"sell": "Server.Items.Wasabi", "price": 1},
+      {"sell": "Server.Items.BentoBox", "price": 3},
+      {"sell": "Server.Items.GreenTea", "price": 1},
+      {"sell": "Server.Items.SushiRolls", "price": 1},
+      {"sell": "Server.Items.SushiPlatter", "price": 2},
+      {"sell": "Server.Items.MisoSoup", "price": 1},
+      {"sell": "Server.Items.RedMisoSoup", "price": 1},
+      {"sell": "Server.Items.WhiteMisoSoup", "price": 1},
+      {"sell": "Server.Items.AwaseMisoSoup", "price": 1},
+      {"buy": "Server.Items.Wasabi", "price": 2, "amount": 20, "itemId": 9448, "hue": 0},
+      {"buy": "Server.Items.Wasabi", "price": 2, "amount": 20, "itemId": 9449, "hue": 0},
+      {"buy": "Server.Items.SushiRolls", "price": 3, "amount": 20, "itemId": 10302, "hue": 0},
+      {"buy": "Server.Items.SushiPlatter", "price": 3, "amount": 20, "itemId": 10304, "hue": 0},
+      {"buy": "Server.Items.GreenTea", "price": 3, "amount": 20, "itemId": 10316, "hue": 0},
+      {"buy": "Server.Items.MisoSoup", "price": 3, "amount": 20, "itemId": 10317, "hue": 0},
+      {"buy": "Server.Items.WhiteMisoSoup", "price": 3, "amount": 20, "itemId": 10318, "hue": 0},
+      {"buy": "Server.Items.RedMisoSoup", "price": 3, "amount": 20, "itemId": 10319, "hue": 0},
+      {"buy": "Server.Items.AwaseMisoSoup", "price": 3, "amount": 20, "itemId": 10320, "hue": 0},
+      {"buy": "Server.Items.BentoBox", "price": 6, "amount": 20, "itemId": 10294, "hue": 0},
+      {"buy": "Server.Items.BentoBox", "price": 6, "amount": 20, "itemId": 10295, "hue": 0}
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "name": "SBRangedWeapon",
+    "build": [
+      {"sell": "Server.Items.Bolt", "price": 1},
+      {"sell": "Server.Items.Arrow", "price": 1},
+      {"sell": "Server.Items.Shaft", "price": 1},
+      {"sell": "Server.Items.Feather", "price": 1},
+      {"sell": "Server.Items.HeavyCrossbow", "price": 27},
+      {"sell": "Server.Items.Bow", "price": 17},
+      {"sell": "Server.Items.Crossbow", "price": 25},
+      {
+        "era": "AOS",
+        "then": [
+          {"sell": "Server.Items.CompositeBow", "price": 23},
+          {"sell": "Server.Items.RepeatingCrossbow", "price": 22}
+        ]
+      },
+      {"buy": "Server.Items.Crossbow", "price": 55, "amount": 20, "itemId": 3920, "hue": 0},
+      {"buy": "Server.Items.HeavyCrossbow", "price": 55, "amount": 20, "itemId": 5117, "hue": 0},
+      {
+        "era": "AOS",
+        "then": [
+          {"buy": "Server.Items.RepeatingCrossbow", "price": 46, "amount": 20, "itemId": 9923, "hue": 0},
+          {"buy": "Server.Items.CompositeBow", "price": 45, "amount": 20, "itemId": 9922, "hue": 0}
+        ]
+      },
+      {"buy": "Server.Items.Bolt", "price": 3, "amount": {"from": 30, "count": 60}, "itemId": 7163, "hue": 0},
+      {"buy": "Server.Items.Bow", "price": 40, "amount": 20, "itemId": 5042, "hue": 0},
+      {"buy": "Server.Items.Arrow", "price": 2, "amount": {"from": 30, "count": 60}, "itemId": 3903, "hue": 0},
+      {"buy": "Server.Items.Feather", "price": 2, "amount": {"from": 30, "count": 60}, "itemId": 7121, "hue": 0},
+      {"buy": "Server.Items.Shaft", "price": 3, "amount": {"from": 30, "count": 60}, "itemId": 7124, "hue": 0}
+    ]
+  }
+]

@@ -21,7 +21,6 @@ use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
 use super::vendors::hand::{add_gypsy_hat, rehue_layer_bright};
-use super::vendors::sb::SBBANKER;
 
 fn say(w: &mut World, id: MobileId, n: i32) {
     messages::say_number(w, id, n, "");
@@ -198,7 +197,7 @@ fn banker_new(w: &mut World) -> MobileId {
     new_vendor(w, &BANKER, Some("the banker"))
 }
 static BANKER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBBANKER.new_for(w, id)],
+    init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBBanker")],
     npc_guild: |_, _| NpcGuild::MerchantsGuild,
     ..BASE_VENDOR_CLASS
 };

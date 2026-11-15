@@ -15,7 +15,6 @@ use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
 use super::add_item_hued;
-use super::sb::*;
 use crate::common::*;
 
 // ---- shared pieces ----
@@ -165,10 +164,10 @@ fn blacksmith_new(w: &mut World) -> MobileId {
 pub static BLACKSMITH_V: VendorClass = VendorClass {
     init_sb_info: |w, id| {
         // The older SBInfo set is not used.
-        let mut v = vec![SBBLACKSMITH.new_for(w, id)];
+        let mut v = vec![super::sb::named(w, id, "SBBlacksmith")];
         if is_tokuno_vendor(w, id) {
-            v.push(SBSEARMOR.new_for(w, id));
-            v.push(SBSEWEAPONS.new_for(w, id));
+            v.push(super::sb::named(w, id, "SBSEArmor"));
+            v.push(super::sb::named(w, id, "SBSEWeapons"));
         }
         v
     },
@@ -211,9 +210,9 @@ fn weaponsmith_new(w: &mut World) -> MobileId {
 }
 static WEAPONSMITH_V: VendorClass = VendorClass {
     init_sb_info: |w, id| {
-        let mut v = vec![SBWEAPON_SMITH.new_for(w, id)];
+        let mut v = vec![super::sb::named(w, id, "SBWeaponSmith")];
         if is_tokuno_vendor(w, id) {
-            v.push(SBSEWEAPONS.new_for(w, id));
+            v.push(super::sb::named(w, id, "SBSEWeapons"));
         }
         v
     },
@@ -246,7 +245,7 @@ fn tailor_new(w: &mut World) -> MobileId {
     id
 }
 static TAILOR_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBTAILOR.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBTailor")],
     npc_guild: |_, _| NpcGuild::TailorsGuild,
     shoe_type: |w, _| {
         if rnd::bool(w) {
@@ -272,7 +271,7 @@ fn weaver_new(w: &mut World) -> MobileId {
     id
 }
 static WEAVER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBWEAVER.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBWeaver")],
     npc_guild: |_, _| NpcGuild::TailorsGuild,
     shoe_type: |_, _| ShoeType::Sandals,
     supports_bulk_orders: |w, _v, from| {
@@ -302,20 +301,20 @@ fn ironworker_new(w: &mut World) -> MobileId {
 static IRON_WORKER_V: VendorClass = VendorClass {
     init_sb_info: |w, id| {
         vec![
-            SBAXE_WEAPON.new_for(w, id),
-            SBKNIFE_WEAPON.new_for(w, id),
-            SBMACE_WEAPON.new_for(w, id),
-            SBSMITH_TOOLS.new_for(w, id),
-            SBPOLE_ARM_WEAPON.new_for(w, id),
-            SBSPEAR_FORK_WEAPON.new_for(w, id),
-            SBSWORD_WEAPON.new_for(w, id),
-            SBMETAL_SHIELDS.new_for(w, id),
-            SBHELMET_ARMOR.new_for(w, id),
-            SBPLATE_ARMOR.new_for(w, id),
-            SBCHAINMAIL_ARMOR.new_for(w, id),
-            SBRINGMAIL_ARMOR.new_for(w, id),
-            SBSTUDDED_ARMOR.new_for(w, id),
-            SBLEATHER_ARMOR.new_for(w, id),
+            super::sb::named(w, id, "SBAxeWeapon"),
+            super::sb::named(w, id, "SBKnifeWeapon"),
+            super::sb::named(w, id, "SBMaceWeapon"),
+            super::sb::named(w, id, "SBSmithTools"),
+            super::sb::named(w, id, "SBPoleArmWeapon"),
+            super::sb::named(w, id, "SBSpearForkWeapon"),
+            super::sb::named(w, id, "SBSwordWeapon"),
+            super::sb::named(w, id, "SBMetalShields"),
+            super::sb::named(w, id, "SBHelmetArmor"),
+            super::sb::named(w, id, "SBPlateArmor"),
+            super::sb::named(w, id, "SBChainmailArmor"),
+            super::sb::named(w, id, "SBRingmailArmor"),
+            super::sb::named(w, id, "SBStuddedArmor"),
+            super::sb::named(w, id, "SBLeatherArmor"),
         ]
     },
     shoe_type: |_, _| ShoeType::None,
@@ -359,7 +358,7 @@ fn vagabond_new(w: &mut World) -> MobileId {
     id
 }
 static VAGABOND_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBTINKER.new_for(w, id), SBVAGABOND.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBTinker"), super::sb::named(w, id, "SBVagabond")],
     // The outfit does not call the base InitOutfit.
     init_outfit: |w, id| {
         let h = utility::random_bright_hue(&mut w.rng);
@@ -403,7 +402,7 @@ fn keeper_of_chivalry_new(w: &mut World) -> MobileId {
     id
 }
 pub static KEEPER_OF_CHIVALRY_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBKEEPER_OF_CHIVALRY.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBKeeperOfChivalry")],
     init_outfit: |w, id| {
         for n in [
             "PlateArms",
@@ -449,7 +448,7 @@ fn gypsy_maiden_new(w: &mut World) -> MobileId {
     new_vendor(w, &GYPSY_MAIDEN, Some("the gypsy maiden"))
 }
 static GYPSY_MAIDEN_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBPROVISIONER.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBProvisioner")],
     get_gender: |_, _| true,
     init_outfit: |w, id| {
         base_init_outfit(w, id);
@@ -477,7 +476,7 @@ fn holy_mage_new(w: &mut World) -> MobileId {
     id
 }
 static HOLY_MAGE_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBHOLY_MAGE.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBHolyMage")],
     // The outfit does not call the base InitOutfit.
     init_outfit: |w, id| {
         for n in ["Robe", "ThighBoots", "BlackStaff"] {
@@ -546,12 +545,12 @@ fn scribe_on_speech(w: &mut World, id: MobileId, e: &mut muo_server::events::Spe
 
 static SCRIBE_V: VendorClass = VendorClass {
     init_sb_info: |w, id| {
-        let mut v = vec![SBSCRIBE.new_for(w, id)];
+        let mut v = vec![super::sb::named(w, id, "SBScribe")];
         if (w.core_se() && is_tokuno_vendor(w, id))
             || (w.core_tol() && muo_content::vendor::is_ter_mur_vendor(w, id))
         {
-            v.push(SBSAMURAI.new_for(w, id));
-            v.push(SBNINJA.new_for(w, id));
+            v.push(super::sb::named(w, id, "SBSamurai"));
+            v.push(super::sb::named(w, id, "SBNinja"));
         }
         v
     },

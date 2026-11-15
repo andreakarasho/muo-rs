@@ -1,0 +1,13 @@
+[
+  {
+    "name": "SBHairStylist",
+    "build": [
+      {"sell": "Server.Items.HairDye", "price": 30},
+      {"sell": "Server.Items.SpecialBeardDye", "price": 250000},
+      {"sell": "Server.Items.SpecialHairDye", "price": 250000},
+      {"buy": "Server.Items.SpecialBeardDye", "name": "special beard dye", "price": 500000, "amount": 20, "itemId": 3622, "hue": 0},
+      {"buy": "Server.Items.SpecialHairDye", "name": "special hair dye", "price": 500000, "amount": 20, "itemId": 3622, "hue": 0},
+      {"buy": "Server.Items.HairDye", "name": "1041060", "price": 60, "amount": 20, "itemId": 3839, "hue": 0}
+    ]
+  }
+]

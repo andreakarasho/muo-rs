@@ -1,0 +1,13 @@
+[
+  {
+    "name": "SBVeterinarian",
+    "build": [
+      {"sell": "Server.Items.Bandage", "price": 1},
+      {"buy": "Server.Items.Bandage", "price": 6, "amount": 20, "itemId": 3617, "hue": 0},
+      {"buy": "Server.Mobiles.PackHorse", "name": "a pack horse", "controlSlots": 1, "price": 616, "amount": 10, "itemId": 291, "hue": 0},
+      {"buy": "Server.Mobiles.PackLlama", "name": "a pack llama", "controlSlots": 1, "price": 523, "amount": 10, "itemId": 292, "hue": 0},
+      {"buy": "Server.Mobiles.Dog", "name": "a dog", "controlSlots": 1, "price": 158, "amount": 10, "itemId": 217, "hue": 0},
+      {"buy": "Server.Mobiles.Cat", "name": "a cat", "controlSlots": 1, "price": 131, "amount": 10, "itemId": 201, "hue": 0}
+    ]
+  }
+]

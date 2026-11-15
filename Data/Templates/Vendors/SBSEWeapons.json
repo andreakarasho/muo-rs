@@ -1,0 +1,27 @@
+[
+  {
+    "name": "SBSEWeapons",
+    "build": [
+      {"sell": "Server.Items.NoDachi", "price": 41},
+      {"sell": "Server.Items.Tessen", "price": 41},
+      {"sell": "Server.Items.Wakizashi", "price": 19},
+      {"sell": "Server.Items.Tetsubo", "price": 21},
+      {"sell": "Server.Items.Lajatang", "price": 54},
+      {"sell": "Server.Items.Daisho", "price": 33},
+      {"sell": "Server.Items.Tekagi", "price": 22},
+      {"sell": "Server.Items.Shuriken", "price": 9},
+      {"sell": "Server.Items.Kama", "price": 30},
+      {"sell": "Server.Items.Sai", "price": 28},
+      {"buy": "Server.Items.NoDachi", "price": 82, "amount": 20, "itemId": 10146, "hue": 0},
+      {"buy": "Server.Items.Tessen", "price": 83, "amount": 20, "itemId": 10147, "hue": 0},
+      {"buy": "Server.Items.Wakizashi", "price": 38, "amount": 20, "itemId": 10148, "hue": 0},
+      {"buy": "Server.Items.Tetsubo", "price": 43, "amount": 20, "itemId": 10150, "hue": 0},
+      {"buy": "Server.Items.Lajatang", "price": 108, "amount": 20, "itemId": 10151, "hue": 0},
+      {"buy": "Server.Items.Daisho", "price": 66, "amount": 20, "itemId": 10153, "hue": 0},
+      {"buy": "Server.Items.Tekagi", "price": 55, "amount": 20, "itemId": 10155, "hue": 0},
+      {"buy": "Server.Items.Shuriken", "price": 18, "amount": 20, "itemId": 10156, "hue": 0},
+      {"buy": "Server.Items.Kama", "price": 61, "amount": 20, "itemId": 10157, "hue": 0},
+      {"buy": "Server.Items.Sai", "price": 56, "amount": 20, "itemId": 10159, "hue": 0}
+    ]
+  }
+]

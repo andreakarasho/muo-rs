@@ -1,0 +1,16 @@
+[
+  {
+    "name": "SBSECarpenter",
+    "build": [
+      {"sell": "Server.Items.Tetsubo", "price": 21},
+      {"sell": "Server.Items.Fukiya", "price": 10},
+      {"sell": "Server.Items.BambooFlute", "price": 10},
+      {"sell": "Server.Items.Bokuto", "price": 10},
+      {"buy": "Server.Items.Bokuto", "price": 21, "amount": 20, "itemId": 10152, "hue": 0},
+      {"buy": "Server.Items.Tetsubo", "price": 43, "amount": 20, "itemId": 10150, "hue": 0},
+      {"buy": "Server.Items.Fukiya", "price": 20, "amount": 20, "itemId": 10154, "hue": 0},
+      {"buy": "Server.Items.BambooFlute", "price": 21, "amount": 20, "itemId": 10245, "hue": 0},
+      {"buy": "Server.Items.BambooFlute", "price": 21, "amount": 20, "itemId": 10245, "hue": 0}
+    ]
+  }
+]

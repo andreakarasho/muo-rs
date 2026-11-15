@@ -348,7 +348,7 @@ static HEALER_H: HealerClass = HealerClass {
 };
 static HEALER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| true,
-    init_sb_info: |w, id| vec![super::vendors::sb::SBHEALER.new_for(w, id)],
+    init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBHealer")],
     subclass: Some(&HEALER_H),
     ..BASE_HEALER_V
 };
@@ -377,7 +377,7 @@ static EVIL_HEALER_H: HealerClass = HealerClass {
 };
 static EVIL_HEALER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| true,
-    init_sb_info: |w, id| vec![super::vendors::sb::SBHEALER.new_for(w, id)],
+    init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBHealer")],
     subclass: Some(&EVIL_HEALER_H),
     ..BASE_HEALER_V
 };
@@ -441,8 +441,8 @@ static FORTUNE_TELLER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| true,
     init_sb_info: |w, id| {
         vec![
-            super::vendors::sb::SBMAGE.new_for(w, id),
-            super::vendors::sb::SBFORTUNE_TELLER.new_for(w, id),
+            crate::npcs::vendors::sb::named(w, id, "SBMage"),
+            crate::npcs::vendors::sb::named(w, id, "SBFortuneTeller"),
         ]
     },
     init_outfit: |w, id| {

@@ -29,7 +29,6 @@ use muo_server::target::{self, TargetFlags, Targeted};
 use muo_server::type_registry::TypeRegistry;
 
 use super::hand::rehue_layer_bright;
-use super::sb::*;
 use crate::common::{OrderType, add_new};
 
 // ---- AnimalTrainer ----
@@ -493,7 +492,7 @@ fn animal_trainer_outfit(w: &mut World, id: MobileId) {
 }
 
 static ANIMAL_TRAINER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBANIMAL_TRAINER.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBAnimalTrainer")],
     shoe_type: |w, id| {
         if female(w, id) {
             ShoeType::ThighBoots
@@ -790,7 +789,7 @@ fn broker_on_drag_drop(w: &mut World, id: MobileId, from: MobileId, dropped: Ite
 }
 
 static REAL_ESTATE_BROKER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBREAL_ESTATE_BROKER.new_for(w, id)],
+    init_sb_info: |w, id| vec![super::sb::named(w, id, "SBRealEstateBroker")],
     ..BASE_VENDOR_CLASS
 };
 

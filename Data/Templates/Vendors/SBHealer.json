@@ -1,0 +1,17 @@
+[
+  {
+    "name": "SBHealer",
+    "build": [
+      {"sell": "Server.Items.Bandage", "price": 1},
+      {"sell": "Server.Items.LesserHealPotion", "price": 7},
+      {"sell": "Server.Items.RefreshPotion", "price": 7},
+      {"sell": "Server.Items.Garlic", "price": 2},
+      {"sell": "Server.Items.Ginseng", "price": 2},
+      {"buy": "Server.Items.Bandage", "price": 5, "amount": 20, "itemId": 3617, "hue": 0},
+      {"buy": "Server.Items.LesserHealPotion", "price": 15, "amount": 20, "itemId": 3852, "hue": 0},
+      {"buy": "Server.Items.Ginseng", "price": 3, "amount": 20, "itemId": 3973, "hue": 0},
+      {"buy": "Server.Items.Garlic", "price": 3, "amount": 20, "itemId": 3972, "hue": 0},
+      {"buy": "Server.Items.RefreshPotion", "price": 15, "amount": 20, "itemId": 3851, "hue": 0}
+    ]
+  }
+]
