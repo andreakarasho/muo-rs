@@ -123,6 +123,45 @@ pub mod fx {
     pub const FLINTS_PUNGENT_BREW: i32 = 29;
 }
 
+/// `PotionEffect = value`: the `potionEffect` template key.
+pub fn set_effect(w: &mut World, id: ItemId, value: i32) {
+    if let Some(d) = w.item_mut(id).and_then(|i| i.ext.get_mut::<PotionData>()) {
+        d.effect = value;
+    }
+}
+
+/// The `PotionEffect` names, for the `potionEffect` template key.
+pub const EFFECT_NAMES: &[(&str, i32)] = &[
+    ("Nightsight", fx::NIGHTSIGHT),
+    ("CureLesser", fx::CURE_LESSER),
+    ("Cure", fx::CURE),
+    ("CureGreater", fx::CURE_GREATER),
+    ("Agility", fx::AGILITY),
+    ("AgilityGreater", fx::AGILITY_GREATER),
+    ("Strength", fx::STRENGTH),
+    ("StrengthGreater", fx::STRENGTH_GREATER),
+    ("PoisonLesser", fx::POISON_LESSER),
+    ("Poison", fx::POISON),
+    ("PoisonGreater", fx::POISON_GREATER),
+    ("PoisonDeadly", fx::POISON_DEADLY),
+    ("Refresh", fx::REFRESH),
+    ("RefreshTotal", fx::REFRESH_TOTAL),
+    ("HealLesser", fx::HEAL_LESSER),
+    ("Heal", fx::HEAL),
+    ("HealGreater", fx::HEAL_GREATER),
+    ("ExplosionLesser", fx::EXPLOSION_LESSER),
+    ("Explosion", fx::EXPLOSION),
+    ("ExplosionGreater", fx::EXPLOSION_GREATER),
+    ("Conflagration", fx::CONFLAGRATION),
+    ("ConflagrationGreater", fx::CONFLAGRATION_GREATER),
+    ("ConfusionBlast", fx::CONFUSION_BLAST),
+    ("ConfusionBlastGreater", fx::CONFUSION_BLAST_GREATER),
+    ("Invisibility", fx::INVISIBILITY),
+    ("Parasitic", fx::PARASITIC),
+    ("Darkglow", fx::DARKGLOW),
+    ("FlintsPungentBrew", fx::FLINTS_PUNGENT_BREW),
+];
+
 /// `new BasePotion(itemID, effect)` of class `ty`.
 pub fn new_potion(w: &mut World, ty: &'static ItemType, item_id: i32, effect: i32) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
@@ -645,14 +684,11 @@ families! {
 }
 
 macro_rules! potions {
-    ($($name:ident, $new:ident = $full:literal : $parent:ident, gid $gid:expr, effect $fx:expr, hue $hue:expr, label $label:expr, $kind:expr;)*) => {$(
-        #[doc = concat!("`new ", $full, "()`.")]
+    ($($name:ident, $new:ident = $full:literal : $parent:ident, label $label:expr, $kind:expr;)*) => {$(
+        #[doc = concat!("`new ", $full, "()`: graphic, `PotionEffect` and hue are the class's template.")]
         pub fn $new(w: &mut World) -> ItemId {
-            let id = new_potion(w, &$name, $gid, $fx);
-            if $hue != 0 {
-                hue(w, id, $hue);
-            }
-            id
+            let id = new_potion(w, &$name, 0, 0);
+            crate::simple::own_template(w, id, $full)
         }
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
@@ -705,33 +741,33 @@ const GREATER_AOS: &[(&str, f64)] = &[
 ];
 
 potions! {
-    INVISIBILITY_POTION, new_invisibility = "Server.Items.InvisibilityPotion" : BASE_POTION, gid 0xF0A, effect fx::INVISIBILITY, hue 0x48D, label 1072941, Kind::Invisibility;
-    NIGHT_SIGHT_POTION, new_night_sight = "Server.Items.NightSightPotion" : BASE_POTION, gid 0xF06, effect fx::NIGHTSIGHT, hue 0, label 0, Kind::NightSight;
-    LESSER_HEAL_POTION, new_lesser_heal = "Server.Items.LesserHealPotion" : BASE_HEAL_POTION, gid 0xF0C, effect fx::HEAL_LESSER, hue 0, label 0, Kind::Heal { aos: (6, 8, 3.0), pre: (3, 10, 10.0) };
-    HEAL_POTION, new_heal = "Server.Items.HealPotion" : BASE_HEAL_POTION, gid 0xF0C, effect fx::HEAL, hue 0, label 0, Kind::Heal { aos: (13, 16, 8.0), pre: (6, 20, 10.0) };
-    GREATER_HEAL_POTION, new_greater_heal = "Server.Items.GreaterHealPotion" : BASE_HEAL_POTION, gid 0xF0C, effect fx::HEAL_GREATER, hue 0, label 0, Kind::Heal { aos: (20, 25, 10.0), pre: (9, 30, 10.0) };
-    LESSER_CURE_POTION, new_lesser_cure = "Server.Items.LesserCurePotion" : BASE_CURE_POTION, gid 0xF07, effect fx::CURE_LESSER, hue 0, label 0, Kind::Cure { aos: LESSER_AOS, pre: LESSER_OLD };
-    CURE_POTION, new_cure = "Server.Items.CurePotion" : BASE_CURE_POTION, gid 0xF07, effect fx::CURE, hue 0, label 0, Kind::Cure { aos: CURE_AOS, pre: CURE_OLD };
-    GREATER_CURE_POTION, new_greater_cure = "Server.Items.GreaterCurePotion" : BASE_CURE_POTION, gid 0xF07, effect fx::CURE_GREATER, hue 0, label 0, Kind::Cure { aos: GREATER_AOS, pre: GREATER_OLD };
-    REFRESH_POTION, new_refresh = "Server.Items.RefreshPotion" : BASE_REFRESH_POTION, gid 0xF0B, effect fx::REFRESH, hue 0, label 0, Kind::Refresh(0.25);
-    TOTAL_REFRESH_POTION, new_total_refresh = "Server.Items.TotalRefreshPotion" : BASE_REFRESH_POTION, gid 0xF0B, effect fx::REFRESH_TOTAL, hue 0, label 0, Kind::Refresh(1.0);
-    AGILITY_POTION, new_agility = "Server.Items.AgilityPotion" : BASE_AGILITY_POTION, gid 0xF08, effect fx::AGILITY, hue 0, label 0, Kind::Agility(10);
-    GREATER_AGILITY_POTION, new_greater_agility = "Server.Items.GreaterAgilityPotion" : BASE_AGILITY_POTION, gid 0xF08, effect fx::AGILITY_GREATER, hue 0, label 0, Kind::Agility(20);
-    STRENGTH_POTION, new_strength = "Server.Items.StrengthPotion" : BASE_STRENGTH_POTION, gid 0xF09, effect fx::STRENGTH, hue 0, label 0, Kind::Strength(10);
-    GREATER_STRENGTH_POTION, new_greater_strength = "Server.Items.GreaterStrengthPotion" : BASE_STRENGTH_POTION, gid 0xF09, effect fx::STRENGTH_GREATER, hue 0, label 0, Kind::Strength(20);
-    LESSER_POISON_POTION, new_lesser_poison = "Server.Items.LesserPoisonPotion" : BASE_POISON_POTION, gid 0xF0A, effect fx::POISON_LESSER, hue 0, label 0, Kind::Poison("Lesser", 0.0, 60.0);
-    POISON_POTION, new_poison = "Server.Items.PoisonPotion" : BASE_POISON_POTION, gid 0xF0A, effect fx::POISON, hue 0, label 0, Kind::Poison("Regular", 30.0, 70.0);
-    GREATER_POISON_POTION, new_greater_poison = "Server.Items.GreaterPoisonPotion" : BASE_POISON_POTION, gid 0xF0A, effect fx::POISON_GREATER, hue 0, label 0, Kind::Poison("Greater", 60.0, 100.0);
-    DEADLY_POISON_POTION, new_deadly_poison = "Server.Items.DeadlyPoisonPotion" : BASE_POISON_POTION, gid 0xF0A, effect fx::POISON_DEADLY, hue 0, label 0, Kind::Poison("Deadly", 95.0, 100.0);
-    DARKGLOW_POTION, new_darkglow = "Server.Items.DarkglowPotion" : BASE_POISON_POTION, gid 0xF0A, effect fx::DARKGLOW, hue 0x96, label 1072849, Kind::Poison("GreaterDarkglow", 95.0, 100.0);
-    PARASITIC_POTION, new_parasitic = "Server.Items.ParasiticPotion" : BASE_POISON_POTION, gid 0xF0A, effect fx::PARASITIC, hue 0x17C, label 1072848, Kind::Poison("DeadlyParasitic", 95.0, 100.0);
-    LESSER_EXPLOSION_POTION, new_lesser_explosion = "Server.Items.LesserExplosionPotion" : BASE_EXPLOSION_POTION, gid 0xF0D, effect fx::EXPLOSION_LESSER, hue 0, label 0, Kind::Explosion { aos: (5, 10), pre: (5, 10) };
-    EXPLOSION_POTION, new_explosion = "Server.Items.ExplosionPotion" : BASE_EXPLOSION_POTION, gid 0xF0D, effect fx::EXPLOSION, hue 0, label 0, Kind::Explosion { aos: (10, 20), pre: (10, 20) };
-    GREATER_EXPLOSION_POTION, new_greater_explosion = "Server.Items.GreaterExplosionPotion" : BASE_EXPLOSION_POTION, gid 0xF0D, effect fx::EXPLOSION_GREATER, hue 0, label 0, Kind::Explosion { aos: (20, 40), pre: (15, 30) };
-    CONFLAGRATION_POTION, new_conflagration = "Server.Items.ConflagrationPotion" : BASE_CONFLAGRATION_POTION, gid 0xF06, effect fx::CONFLAGRATION, hue 0x489, label 1072095, Kind::Conflagration(2, 4);
-    GREATER_CONFLAGRATION_POTION, new_greater_conflagration = "Server.Items.GreaterConflagrationPotion" : BASE_CONFLAGRATION_POTION, gid 0xF06, effect fx::CONFLAGRATION_GREATER, hue 0x489, label 1072098, Kind::Conflagration(4, 8);
-    CONFUSION_BLAST_POTION, new_confusion_blast = "Server.Items.ConfusionBlastPotion" : BASE_CONFUSION_BLAST_POTION, gid 0xF06, effect fx::CONFUSION_BLAST, hue 0x48D, label 1072105, Kind::Confusion(5);
-    GREATER_CONFUSION_BLAST_POTION, new_greater_confusion_blast = "Server.Items.GreaterConfusionBlastPotion" : BASE_CONFUSION_BLAST_POTION, gid 0xF06, effect fx::CONFUSION_BLAST_GREATER, hue 0x48D, label 1072108, Kind::Confusion(7);
+    INVISIBILITY_POTION, new_invisibility = "Server.Items.InvisibilityPotion" : BASE_POTION, label 1072941, Kind::Invisibility;
+    NIGHT_SIGHT_POTION, new_night_sight = "Server.Items.NightSightPotion" : BASE_POTION, label 0, Kind::NightSight;
+    LESSER_HEAL_POTION, new_lesser_heal = "Server.Items.LesserHealPotion" : BASE_HEAL_POTION, label 0, Kind::Heal { aos: (6, 8, 3.0), pre: (3, 10, 10.0) };
+    HEAL_POTION, new_heal = "Server.Items.HealPotion" : BASE_HEAL_POTION, label 0, Kind::Heal { aos: (13, 16, 8.0), pre: (6, 20, 10.0) };
+    GREATER_HEAL_POTION, new_greater_heal = "Server.Items.GreaterHealPotion" : BASE_HEAL_POTION, label 0, Kind::Heal { aos: (20, 25, 10.0), pre: (9, 30, 10.0) };
+    LESSER_CURE_POTION, new_lesser_cure = "Server.Items.LesserCurePotion" : BASE_CURE_POTION, label 0, Kind::Cure { aos: LESSER_AOS, pre: LESSER_OLD };
+    CURE_POTION, new_cure = "Server.Items.CurePotion" : BASE_CURE_POTION, label 0, Kind::Cure { aos: CURE_AOS, pre: CURE_OLD };
+    GREATER_CURE_POTION, new_greater_cure = "Server.Items.GreaterCurePotion" : BASE_CURE_POTION, label 0, Kind::Cure { aos: GREATER_AOS, pre: GREATER_OLD };
+    REFRESH_POTION, new_refresh = "Server.Items.RefreshPotion" : BASE_REFRESH_POTION, label 0, Kind::Refresh(0.25);
+    TOTAL_REFRESH_POTION, new_total_refresh = "Server.Items.TotalRefreshPotion" : BASE_REFRESH_POTION, label 0, Kind::Refresh(1.0);
+    AGILITY_POTION, new_agility = "Server.Items.AgilityPotion" : BASE_AGILITY_POTION, label 0, Kind::Agility(10);
+    GREATER_AGILITY_POTION, new_greater_agility = "Server.Items.GreaterAgilityPotion" : BASE_AGILITY_POTION, label 0, Kind::Agility(20);
+    STRENGTH_POTION, new_strength = "Server.Items.StrengthPotion" : BASE_STRENGTH_POTION, label 0, Kind::Strength(10);
+    GREATER_STRENGTH_POTION, new_greater_strength = "Server.Items.GreaterStrengthPotion" : BASE_STRENGTH_POTION, label 0, Kind::Strength(20);
+    LESSER_POISON_POTION, new_lesser_poison = "Server.Items.LesserPoisonPotion" : BASE_POISON_POTION, label 0, Kind::Poison("Lesser", 0.0, 60.0);
+    POISON_POTION, new_poison = "Server.Items.PoisonPotion" : BASE_POISON_POTION, label 0, Kind::Poison("Regular", 30.0, 70.0);
+    GREATER_POISON_POTION, new_greater_poison = "Server.Items.GreaterPoisonPotion" : BASE_POISON_POTION, label 0, Kind::Poison("Greater", 60.0, 100.0);
+    DEADLY_POISON_POTION, new_deadly_poison = "Server.Items.DeadlyPoisonPotion" : BASE_POISON_POTION, label 0, Kind::Poison("Deadly", 95.0, 100.0);
+    DARKGLOW_POTION, new_darkglow = "Server.Items.DarkglowPotion" : BASE_POISON_POTION, label 1072849, Kind::Poison("GreaterDarkglow", 95.0, 100.0);
+    PARASITIC_POTION, new_parasitic = "Server.Items.ParasiticPotion" : BASE_POISON_POTION, label 1072848, Kind::Poison("DeadlyParasitic", 95.0, 100.0);
+    LESSER_EXPLOSION_POTION, new_lesser_explosion = "Server.Items.LesserExplosionPotion" : BASE_EXPLOSION_POTION, label 0, Kind::Explosion { aos: (5, 10), pre: (5, 10) };
+    EXPLOSION_POTION, new_explosion = "Server.Items.ExplosionPotion" : BASE_EXPLOSION_POTION, label 0, Kind::Explosion { aos: (10, 20), pre: (10, 20) };
+    GREATER_EXPLOSION_POTION, new_greater_explosion = "Server.Items.GreaterExplosionPotion" : BASE_EXPLOSION_POTION, label 0, Kind::Explosion { aos: (20, 40), pre: (15, 30) };
+    CONFLAGRATION_POTION, new_conflagration = "Server.Items.ConflagrationPotion" : BASE_CONFLAGRATION_POTION, label 1072095, Kind::Conflagration(2, 4);
+    GREATER_CONFLAGRATION_POTION, new_greater_conflagration = "Server.Items.GreaterConflagrationPotion" : BASE_CONFLAGRATION_POTION, label 1072098, Kind::Conflagration(4, 8);
+    CONFUSION_BLAST_POTION, new_confusion_blast = "Server.Items.ConfusionBlastPotion" : BASE_CONFUSION_BLAST_POTION, label 1072105, Kind::Confusion(5);
+    GREATER_CONFUSION_BLAST_POTION, new_greater_confusion_blast = "Server.Items.GreaterConfusionBlastPotion" : BASE_CONFUSION_BLAST_POTION, label 1072108, Kind::Confusion(7);
 }
 
 /// Every concrete potion class.
