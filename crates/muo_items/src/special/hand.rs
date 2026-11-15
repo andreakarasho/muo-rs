@@ -4,7 +4,7 @@
 //! The other addon families with timers or movement (Evil Home Decor, Heritage, Holiday) are in `decor.rs` and
 //! `addons.rs`.
 
-use muo_content::items::addon::{self, ADDON_COMPONENT};
+use muo_content::items::addon::ADDON_COMPONENT;
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{ItemType, deps};
@@ -12,10 +12,6 @@ use muo_server::type_registry::TypeRegistry;
 
 use crate::simple::leaf;
 
-/// `WallTorchComponent()`.
-pub fn wall_torch_component_new(w: &mut World) -> ItemId {
-    addon::new_component(w, &WALL_TORCH_COMPONENT, 0x3D98)
-}
 
 /// `WallTorchComponent.OnDoubleClick`.
 fn wall_torch_on_double_click(w: &mut World, id: ItemId, from: MobileId) {

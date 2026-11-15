@@ -10,7 +10,7 @@
 
 use muo_content::items::addon::{
     self, ADDON_COMPONENT, ADDON_COMPONENT_CLASS, AddonClass, BASE_ADDON, BASE_ADDON_CLASS,
-    BASE_ADDON_DEED, Comp, ComponentClass, DeedClass,
+    BASE_ADDON_DEED, ComponentClass,
 };
 use muo_content::items::weapon;
 use muo_content::mx;
@@ -48,18 +48,15 @@ fn cur_item_id(w: &World, id: ItemId) -> i32 {
     w.item(id).map_or(0, |i| i.item_id)
 }
 
+/// A deed whose addon (`deedAddon`) and label (`labelNumber`) are template props.
 macro_rules! deed {
-    ($ty:ident, $cls:ident, $full:literal, $ver:ident, $addon:path, $label:expr) => {
-        static $cls: DeedClass = DeedClass {
-            addon: |w, _| $addon(w),
-            select_direction: None,
-        };
+    ($ty:ident, $full:literal, $ver:ident) => {
         leaf! {
             #[doc = concat!("`", $full, "`.")]
             $ty = $full : BASE_ADDON_DEED, $ver;
             construct: Some(|w| addon::new_deed(w, &$ty)),
-            family: Some(&$cls),
-            label_number: |_, _| $label,
+            family: Some(&crate::addons::TMPL_DEED_CLASS),
+            label_number: crate::class_props::label_number,
         }
     };
 }
@@ -185,81 +182,60 @@ fn wheel_on_component_loaded(w: &mut World, a: ItemId, c: ItemId) {
     }
 }
 
+static WHEEL_CLASS: AddonClass = AddonClass {
+    deed_of: Some(crate::addons::deed_by_prop),
+    on_component_loaded: wheel_on_component_loaded,
+    ..BASE_ADDON_CLASS
+};
+
+/// A spinning wheel: components, label and deed are its template's.
 macro_rules! wheel {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal, $ver:ident,
-     $comp:expr, $alabel:expr, $dlabel:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal, $ver:ident) => {
         pub fn $anew(w: &mut World) -> ItemId {
-            let id = addon::new_addon(w, &$addon);
-            addon::add_components(w, id, &[(Comp::Plain($comp), 0, 0, 0)]);
-            id
+            crate::addons::tmpl_addon(w, &$addon)
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| addon::new_deed(w, &$deed)),
-            on_component_loaded: wheel_on_component_loaded,
-            ..BASE_ADDON_CLASS
-        };
         leaf! {
             #[doc = concat!("`", $afull, "`.")]
             $addon = $afull : BASE_ADDON, $ver;
             construct: Some($anew),
-            family: Some(&$acls),
-            label_number: |_, _| $alabel,
+            family: Some(&WHEEL_CLASS),
+            label_number: crate::class_props::label_number,
         }
-        deed!($deed, $dcls, $dfull, $ver, $anew, $dlabel);
+        deed!($deed, $dfull, $ver);
     };
 }
 
 wheel!(
     SPINNING_WHEEL_EAST_ADDON,
-    SPINNING_WHEEL_EAST_ADDON_CLASS,
     spinning_wheel_east_addon_new,
     SPINNING_WHEEL_EAST_DEED,
-    SPINNING_WHEEL_EAST_DEED_CLASS,
     "Server.Items.SpinningWheelEastAddon",
     "Server.Items.SpinningWheelEastDeed",
-    v0,
-    0x1019,
-    1024117,
-    1044341
+    v0
 );
 wheel!(
     SPINNING_WHEEL_SOUTH_ADDON,
-    SPINNING_WHEEL_SOUTH_ADDON_CLASS,
     spinning_wheel_south_addon_new,
     SPINNING_WHEEL_SOUTH_DEED,
-    SPINNING_WHEEL_SOUTH_DEED_CLASS,
     "Server.Items.SpinningWheelSouthAddon",
     "Server.Items.SpinningWheelSouthDeed",
-    v0,
-    0x1015,
-    1024117,
-    1044342
+    v0
 );
 wheel!(
     ELVEN_SPINNING_WHEEL_EAST_ADDON,
-    ELVEN_SPINNING_WHEEL_EAST_ADDON_CLASS,
     elven_spinning_wheel_east_addon_new,
     ELVEN_SPINNING_WHEEL_EAST_DEED,
-    ELVEN_SPINNING_WHEEL_EAST_DEED_CLASS,
     "Server.Items.ElvenSpinningWheelEastAddon",
     "Server.Items.ElvenSpinningWheelEastDeed",
-    enc,
-    0x2E3D,
-    1031737,
-    1073393
+    enc
 );
 wheel!(
     ELVEN_SPINNING_WHEEL_SOUTH_ADDON,
-    ELVEN_SPINNING_WHEEL_SOUTH_ADDON_CLASS,
     elven_spinning_wheel_south_addon_new,
     ELVEN_SPINNING_WHEEL_SOUTH_DEED,
-    ELVEN_SPINNING_WHEEL_SOUTH_DEED_CLASS,
     "Server.Items.ElvenSpinningWheelSouthAddon",
     "Server.Items.ElvenSpinningWheelSouthDeed",
-    enc,
-    0x2E3F,
-    1031737,
-    1072878
+    enc
 );
 
 // ---- Loom ---------------------------------------------------------------------------------------------------
@@ -287,25 +263,21 @@ pub fn loom_set_phase(w: &mut World, id: ItemId, value: i32) {
 }
 
 macro_rules! loom {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal, $rows:expr, $dlabel:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal) => {
         pub fn $anew(w: &mut World) -> ItemId {
             let id = addon::new_addon(w, &$addon);
             if let Some(i) = w.item_mut(id) {
                 i.ext.insert(LoomData::default());
             }
-            addon::add_components(w, id, &$rows);
+            muo_content::templates::apply_item_as(w, id, $afull);
             id
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| addon::new_deed(w, &$deed)),
-            ..BASE_ADDON_CLASS
-        };
         #[doc = concat!("`", $afull, "`.")]
         pub static $addon: ItemType = ItemType {
             full_name: $afull,
             parent: Some(&BASE_ADDON),
             construct: Some($anew),
-            family: Some(&$acls),
+            family: Some(&crate::addons::TMPL_ADDON_CLASS),
             serialize: |w, id, out| {
                 (BASE_ADDON.serialize)(w, id, out);
                 write_ver(out, false);
@@ -322,37 +294,23 @@ macro_rules! loom {
             },
             ..BASE_ADDON
         };
-        deed!($deed, $dcls, $dfull, v0, $anew, $dlabel);
+        deed!($deed, $dfull, v0);
     };
 }
 
 loom!(
     LOOM_EAST_ADDON,
-    LOOM_EAST_ADDON_CLASS,
     loom_east_addon_new,
     LOOM_EAST_DEED,
-    LOOM_EAST_DEED_CLASS,
     "Server.Items.LoomEastAddon",
-    "Server.Items.LoomEastDeed",
-    [
-        (Comp::Plain(0x1060), 0, 0, 0),
-        (Comp::Plain(0x105F), 0, 1, 0)
-    ],
-    1044343
+    "Server.Items.LoomEastDeed"
 );
 loom!(
     LOOM_SOUTH_ADDON,
-    LOOM_SOUTH_ADDON_CLASS,
     loom_south_addon_new,
     LOOM_SOUTH_DEED,
-    LOOM_SOUTH_DEED_CLASS,
     "Server.Items.LoomSouthAddon",
-    "Server.Items.LoomSouthDeed",
-    [
-        (Comp::Plain(0x1061), 0, 0, 0),
-        (Comp::Plain(0x1062), 1, 0, 0)
-    ],
-    1044344
+    "Server.Items.LoomSouthDeed"
 );
 
 // ---- FlourMill ----------------------------------------------------------------------------------------------
@@ -523,27 +481,28 @@ fn flour_mill_on_component_used(w: &mut World, a: ItemId, _c: ItemId, from: Mobi
     }
 }
 
+static MILL_CLASS: AddonClass = AddonClass {
+    deed_of: Some(crate::addons::deed_by_prop),
+    on_component_used: flour_mill_on_component_used,
+    ..BASE_ADDON_CLASS
+};
+
 macro_rules! flour_mill {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal, $rows:expr, $dlabel:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal) => {
         pub fn $anew(w: &mut World) -> ItemId {
             let id = addon::new_addon(w, &$addon);
             if let Some(i) = w.item_mut(id) {
                 i.ext.insert(MillData::default());
             }
-            addon::add_components(w, id, &$rows);
+            muo_content::templates::apply_item_as(w, id, $afull);
             id
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| addon::new_deed(w, &$deed)),
-            on_component_used: flour_mill_on_component_used,
-            ..BASE_ADDON_CLASS
-        };
         #[doc = concat!("`", $afull, "`.")]
         pub static $addon: ItemType = ItemType {
             full_name: $afull,
             parent: Some(&BASE_ADDON),
             construct: Some($anew),
-            family: Some(&$acls),
+            family: Some(&MILL_CLASS),
             serialize: |w, id, out| {
                 (BASE_ADDON.serialize)(w, id, out);
                 write_ver(out, false);
@@ -564,39 +523,23 @@ macro_rules! flour_mill {
             },
             ..BASE_ADDON
         };
-        deed!($deed, $dcls, $dfull, v0, $anew, $dlabel);
+        deed!($deed, $dfull, v0);
     };
 }
 
 flour_mill!(
     FLOUR_MILL_EAST_ADDON,
-    FLOUR_MILL_EAST_ADDON_CLASS,
     flour_mill_east_addon_new,
     FLOUR_MILL_EAST_DEED,
-    FLOUR_MILL_EAST_DEED_CLASS,
     "Server.Items.FlourMillEastAddon",
-    "Server.Items.FlourMillEastDeed",
-    [
-        (Comp::Plain(0x1920), -1, 0, 0),
-        (Comp::Plain(0x1922), 0, 0, 0),
-        (Comp::Plain(0x1924), 1, 0, 0)
-    ],
-    1044347
+    "Server.Items.FlourMillEastDeed"
 );
 flour_mill!(
     FLOUR_MILL_SOUTH_ADDON,
-    FLOUR_MILL_SOUTH_ADDON_CLASS,
     flour_mill_south_addon_new,
     FLOUR_MILL_SOUTH_DEED,
-    FLOUR_MILL_SOUTH_DEED_CLASS,
     "Server.Items.FlourMillSouthAddon",
-    "Server.Items.FlourMillSouthDeed",
-    [
-        (Comp::Plain(0x192C), 0, -1, 0),
-        (Comp::Plain(0x192E), 0, 0, 0),
-        (Comp::Plain(0x1930), 0, 1, 0)
-    ],
-    1044348
+    "Server.Items.FlourMillSouthDeed"
 );
 
 // ---- WaterTrough --------------------------------------------------------------------------------------------
@@ -605,47 +548,35 @@ flour_mill!(
 pub const WATER_TROUGH_QUANTITY: i32 = 500;
 
 macro_rules! trough {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal, $rows:expr, $dlabel:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal) => {
         pub fn $anew(w: &mut World) -> ItemId {
             let id = addon::new_addon(w, &$addon);
-            addon::add_components(w, id, &$rows);
+            muo_content::templates::apply_item_as(w, id, $afull);
             id
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| addon::new_deed(w, &$deed)),
-            ..BASE_ADDON_CLASS
-        };
         leaf! {
             #[doc = concat!("`", $afull, "`.")]
             $addon = $afull : BASE_ADDON, v0;
             construct: Some($anew),
-            family: Some(&$acls),
+            family: Some(&crate::addons::TMPL_ADDON_CLASS),
         }
-        deed!($deed, $dcls, $dfull, v0, $anew, $dlabel);
+        deed!($deed, $dfull, v0);
     };
 }
 
 trough!(
     WATER_TROUGH_EAST_ADDON,
-    WATER_TROUGH_EAST_ADDON_CLASS,
     water_trough_east_addon_new,
     WATER_TROUGH_EAST_DEED,
-    WATER_TROUGH_EAST_DEED_CLASS,
     "Server.Items.WaterTroughEastAddon",
-    "Server.Items.WaterTroughEastDeed",
-    [(Comp::Plain(0xB41), 0, 0, 0), (Comp::Plain(0xB42), 0, 1, 0)],
-    1044349
+    "Server.Items.WaterTroughEastDeed"
 );
 trough!(
     WATER_TROUGH_SOUTH_ADDON,
-    WATER_TROUGH_SOUTH_ADDON_CLASS,
     water_trough_south_addon_new,
     WATER_TROUGH_SOUTH_DEED,
-    WATER_TROUGH_SOUTH_DEED_CLASS,
     "Server.Items.WaterTroughSouthAddon",
-    "Server.Items.WaterTroughSouthDeed",
-    [(Comp::Plain(0xB43), 0, 0, 0), (Comp::Plain(0xB44), 1, 0, 0)],
-    1044350
+    "Server.Items.WaterTroughSouthDeed"
 );
 
 // ---- RejuvinationAnkhs --------------------------------------------------------------------------------------
@@ -694,10 +625,6 @@ fn rejuvination_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
     });
 }
 
-/// `RejuvinationAddonComponent(itemID)`.
-pub fn rejuvination_addon_component_new(w: &mut World, item_id: i32) -> ItemId {
-    addon::new_component(w, &REJUVINATION_ADDON_COMPONENT, item_id)
-}
 
 leaf! {
     /// `Server.Items.RejuvinationAddonComponent`.
@@ -750,30 +677,12 @@ pub static BASE_REJUVINATION_ANKH: ItemType = ItemType {
 
 /// `RejuvinationAnkhWest()`.
 pub fn rejuvination_ankh_west_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &REJUVINATION_ANKH_WEST);
-    addon::add_components(
-        w,
-        id,
-        &[
-            (Comp::Typed(rejuvination_addon_component_new, 0x3), 0, 0, 0),
-            (Comp::Typed(rejuvination_addon_component_new, 0x2), 0, 1, 0),
-        ],
-    );
-    id
+    crate::addons::tmpl_addon(w, &REJUVINATION_ANKH_WEST)
 }
 
 /// `RejuvinationAnkhNorth()`.
 pub fn rejuvination_ankh_north_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &REJUVINATION_ANKH_NORTH);
-    addon::add_components(
-        w,
-        id,
-        &[
-            (Comp::Typed(rejuvination_addon_component_new, 0x4), 0, 0, 0),
-            (Comp::Typed(rejuvination_addon_component_new, 0x5), 1, 0, 0),
-        ],
-    );
-    id
+    crate::addons::tmpl_addon(w, &REJUVINATION_ANKH_NORTH)
 }
 
 leaf! {
@@ -885,56 +794,27 @@ leaf! {
 
 /// `DartBoardEastAddon()`.
 pub fn dart_board_east_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &DART_BOARD_EAST_ADDON);
-    let c = dart_board_new(w, true);
-    addon::add_component(w, id, c, 0, 0, 0);
-    id
+    crate::addons::tmpl_addon(w, &DART_BOARD_EAST_ADDON)
 }
 
 /// `DartBoardSouthAddon()`.
 pub fn dart_board_south_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &DART_BOARD_SOUTH_ADDON);
-    let c = dart_board_new(w, false);
-    addon::add_component(w, id, c, 0, 0, 0);
-    id
+    crate::addons::tmpl_addon(w, &DART_BOARD_SOUTH_ADDON)
 }
 
-static DART_BOARD_EAST_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| addon::new_deed(w, &DART_BOARD_EAST_DEED)),
-    ..BASE_ADDON_CLASS
-};
-static DART_BOARD_SOUTH_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| addon::new_deed(w, &DART_BOARD_SOUTH_DEED)),
-    ..BASE_ADDON_CLASS
-};
-
-// The addons have no [Constructible] constructor (`DartBoardEastAddon()` is not marked).
+// The addons have no [Constructible] constructor (`DartBoardEastAddon()` is not marked): their deeds make them.
 leaf! {
     /// `Server.Items.DartBoardEastAddon`.
     DART_BOARD_EAST_ADDON = "Server.Items.DartBoardEastAddon" : BASE_ADDON, enc;
-    family: Some(&DART_BOARD_EAST_ADDON_CLASS),
+    family: Some(&crate::addons::TMPL_ADDON_CLASS),
 }
 leaf! {
     /// `Server.Items.DartBoardSouthAddon`.
     DART_BOARD_SOUTH_ADDON = "Server.Items.DartBoardSouthAddon" : BASE_ADDON, enc;
-    family: Some(&DART_BOARD_SOUTH_ADDON_CLASS),
+    family: Some(&crate::addons::TMPL_ADDON_CLASS),
 }
-deed!(
-    DART_BOARD_EAST_DEED,
-    DART_BOARD_EAST_DEED_CLASS,
-    "Server.Items.DartBoardEastDeed",
-    enc,
-    dart_board_east_addon_new,
-    1044326
-);
-deed!(
-    DART_BOARD_SOUTH_DEED,
-    DART_BOARD_SOUTH_DEED_CLASS,
-    "Server.Items.DartBoardSouthDeed",
-    enc,
-    dart_board_south_addon_new,
-    1044325
-);
+deed!(DART_BOARD_EAST_DEED, "Server.Items.DartBoardEastDeed", enc);
+deed!(DART_BOARD_SOUTH_DEED, "Server.Items.DartBoardSouthDeed", enc);
 
 // ---- PickpocketDip and TrainingDummy (the same shape: a swinging component with a skill window) ----------------
 
@@ -1209,70 +1089,47 @@ pub static TRAINING_DUMMY: ItemType = ItemType {
 };
 
 macro_rules! practice_addon {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal, $comp:expr, $dlabel:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal) => {
         pub fn $anew(w: &mut World) -> ItemId {
-            let id = addon::new_addon(w, &$addon);
-            let c = $comp(w);
-            addon::add_component(w, id, c, 0, 0, 0);
-            id
+            crate::addons::tmpl_addon(w, &$addon)
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| addon::new_deed(w, &$deed)),
-            ..BASE_ADDON_CLASS
-        };
         leaf! {
             #[doc = concat!("`", $afull, "`.")]
             $addon = $afull : BASE_ADDON, v0;
             construct: Some($anew),
-            family: Some(&$acls),
+            family: Some(&crate::addons::TMPL_ADDON_CLASS),
         }
-        deed!($deed, $dcls, $dfull, v0, $anew, $dlabel);
+        deed!($deed, $dfull, v0);
     };
 }
 
 practice_addon!(
     PICKPOCKET_DIP_EAST_ADDON,
-    PICKPOCKET_DIP_EAST_ADDON_CLASS,
     pickpocket_dip_east_addon_new,
     PICKPOCKET_DIP_EAST_DEED,
-    PICKPOCKET_DIP_EAST_DEED_CLASS,
     "Server.Items.PickpocketDipEastAddon",
-    "Server.Items.PickpocketDipEastDeed",
-    |w| pickpocket_dip_new(w, 0x1EC3),
-    1044337
+    "Server.Items.PickpocketDipEastDeed"
 );
 practice_addon!(
     PICKPOCKET_DIP_SOUTH_ADDON,
-    PICKPOCKET_DIP_SOUTH_ADDON_CLASS,
     pickpocket_dip_south_addon_new,
     PICKPOCKET_DIP_SOUTH_DEED,
-    PICKPOCKET_DIP_SOUTH_DEED_CLASS,
     "Server.Items.PickpocketDipSouthAddon",
-    "Server.Items.PickpocketDipSouthDeed",
-    |w| pickpocket_dip_new(w, 0x1EC0),
-    1044338
+    "Server.Items.PickpocketDipSouthDeed"
 );
 practice_addon!(
     TRAINING_DUMMY_EAST_ADDON,
-    TRAINING_DUMMY_EAST_ADDON_CLASS,
     training_dummy_east_addon_new,
     TRAINING_DUMMY_EAST_DEED,
-    TRAINING_DUMMY_EAST_DEED_CLASS,
     "Server.Items.TrainingDummyEastAddon",
-    "Server.Items.TrainingDummyEastDeed",
-    |w| training_dummy_new(w, 0x1074),
-    1044335
+    "Server.Items.TrainingDummyEastDeed"
 );
 practice_addon!(
     TRAINING_DUMMY_SOUTH_ADDON,
-    TRAINING_DUMMY_SOUTH_ADDON_CLASS,
     training_dummy_south_addon_new,
     TRAINING_DUMMY_SOUTH_DEED,
-    TRAINING_DUMMY_SOUTH_DEED_CLASS,
     "Server.Items.TrainingDummySouthAddon",
-    "Server.Items.TrainingDummySouthDeed",
-    |w| training_dummy_new(w, 0x1070),
-    1044336
+    "Server.Items.TrainingDummySouthDeed"
 );
 
 // ---- ArcheryButte -------------------------------------------------------------------------------------------
@@ -1578,31 +1435,16 @@ pub static ARCHERY_BUTTE: ItemType = ItemType {
 
 /// `ArcheryButteAddon()`.
 pub fn archery_butte_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &ARCHERY_BUTTE_ADDON);
-    let c = archery_butte_new(w, 0x100A);
-    addon::add_component(w, id, c, 0, 0, 0);
-    id
+    crate::addons::tmpl_addon(w, &ARCHERY_BUTTE_ADDON)
 }
-
-static ARCHERY_BUTTE_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| addon::new_deed(w, &ARCHERY_BUTTE_DEED)),
-    ..BASE_ADDON_CLASS
-};
 
 leaf! {
     /// `Server.Items.ArcheryButteAddon`.
     ARCHERY_BUTTE_ADDON = "Server.Items.ArcheryButteAddon" : BASE_ADDON, v0;
     construct: Some(archery_butte_addon_new),
-    family: Some(&ARCHERY_BUTTE_ADDON_CLASS),
+    family: Some(&crate::addons::TMPL_ADDON_CLASS),
 }
-deed!(
-    ARCHERY_BUTTE_DEED,
-    ARCHERY_BUTTE_DEED_CLASS,
-    "Server.Items.ArcheryButteDeed",
-    v0,
-    archery_butte_addon_new,
-    1024106
-);
+deed!(ARCHERY_BUTTE_DEED, "Server.Items.ArcheryButteDeed", v0);
 
 // ---- registry -----------------------------------------------------------------------------------------------
 
