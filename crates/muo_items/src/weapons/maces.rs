@@ -25,18 +25,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.EmeraldMace`.
     EMERALD_MACE, EMERALD_MACE_CLASS, emerald_mace_new = "Server.Items.EmeraldMace" : DIAMOND_MACE / DIAMOND_MACE_CLASS, via diamond_mace_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 5);
-    };
-    label_number: 1073530,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.HammerPick`.
     HAMMER_PICK, HAMMER_PICK_CLASS, hammer_pick_new = "Server.Items.HammerPick" : BASE_BASHING / BASE_BASHING_CLASS, graphic 0x143D, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::OneHanded);
-    };
+    @json;
     flippable: Some((0x143D, 0x143C)),
     default_weight: Some(9.0),
     primary_ability: Some(Ability::ArmorIgnore),
@@ -72,19 +67,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.RubyMace`.
     RUBY_MACE, RUBY_MACE_CLASS, ruby_mace_new = "Server.Items.RubyMace" : DIAMOND_MACE / DIAMOND_MACE_CLASS, via diamond_mace_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 5);
-    };
-    label_number: 1073529,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.SapphireMace`.
     SAPPHIRE_MACE, SAPPHIRE_MACE_CLASS, sapphire_mace_new = "Server.Items.SapphireMace" : DIAMOND_MACE / DIAMOND_MACE_CLASS, via diamond_mace_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistEnergyBonus as u32, 5);
-    };
-    label_number: 1073531,
+    @json;
 }
 
 weapon_leaf! {
@@ -102,15 +91,12 @@ weapon_leaf! {
     @init |w, id| {
         ctor::set_slayer(w, id, SlayerName::Exorcism);
     };
-    label_number: 1073532,
 }
 
 weapon_leaf! {
     /// `Server.Items.WarHammer`.
     WAR_HAMMER, WAR_HAMMER_CLASS, war_hammer_new = "Server.Items.WarHammer" : BASE_BASHING / BASE_BASHING_CLASS, graphic 0x1439, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x1439, 0x1438)),
     default_weight: Some(10.0),
     primary_ability: Some(Ability::WhirlwindAttack),

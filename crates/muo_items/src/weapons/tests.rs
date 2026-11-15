@@ -190,14 +190,14 @@ const CLASSES: &[(&str, bool)] = &[
     ("Server.Items.Fists", false),
 ];
 
-fn registry() -> TypeRegistry {
+pub(super) fn registry() -> TypeRegistry {
     let mut t = TypeRegistry::new();
     muo_content::items::leaves::register(&mut t);
     register(&mut t);
     t
 }
 
-fn find(types: &TypeRegistry, name: &str) -> &'static ItemType {
+pub(super) fn find(types: &TypeRegistry, name: &str) -> &'static ItemType {
     match types.find_type_by_full_name(name, false) {
         Some(EntityType::Item(t)) => t,
         _ => panic!("{name} is not registered"),

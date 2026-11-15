@@ -32,6 +32,7 @@
   },
   {
     "type": "Server.Items.BoneMachete",
+    "itemId": 526,
     "props": {
       "initMinHits": 5,
       "initMaxHits": 5
@@ -218,6 +219,260 @@
       "defMissSound": 570,
       "initMinHits": 31,
       "initMaxHits": 100
+    }
+  },
+  {
+    "type": "Server.Items.AdventurersMachete",
+    "attributes": {
+      "Luck": 20
+    },
+    "props": {
+      "labelNumber": 1073533
+    }
+  },
+  {
+    "type": "Server.Items.ChargedAssassinSpike",
+    "weaponAttributes": {
+      "HitLightning": 10
+    },
+    "props": {
+      "labelNumber": 1073518
+    }
+  },
+  {
+    "type": "Server.Items.CorruptedRuneBlade",
+    "weaponAttributes": {
+      "ResistPhysicalBonus": -5,
+      "ResistPoisonBonus": 12
+    },
+    "props": {
+      "labelNumber": 1073540
+    }
+  },
+  {
+    "type": "Server.Items.DarkglowScimitar",
+    "weaponAttributes": {
+      "HitDispel": 10
+    },
+    "props": {
+      "labelNumber": 1073542
+    }
+  },
+  {
+    "type": "Server.Items.DiseasedMachete",
+    "weaponAttributes": {
+      "HitPoisonArea": 25
+    },
+    "props": {
+      "labelNumber": 1073536
+    }
+  },
+  {
+    "type": "Server.Items.FierySpellblade",
+    "weaponAttributes": {
+      "ResistFireBonus": 5
+    },
+    "props": {
+      "labelNumber": 1073515
+    }
+  },
+  {
+    "type": "Server.Items.IcyScimitar",
+    "weaponAttributes": {
+      "HitHarm": 15
+    },
+    "props": {
+      "labelNumber": 1073543
+    }
+  },
+  {
+    "type": "Server.Items.IcySpellblade",
+    "weaponAttributes": {
+      "ResistColdBonus": 5
+    },
+    "props": {
+      "labelNumber": 1073514
+    }
+  },
+  {
+    "type": "Server.Items.KnightsWarCleaver",
+    "attributes": {
+      "RegenHits": 3
+    },
+    "props": {
+      "labelNumber": 1073525
+    }
+  },
+  {
+    "type": "Server.Items.LeafbladeOfEase",
+    "weaponAttributes": {
+      "UseBestSkill": 1
+    },
+    "props": {
+      "labelNumber": 1073524
+    }
+  },
+  {
+    "type": "Server.Items.Luckblade",
+    "attributes": {
+      "Luck": 20
+    },
+    "props": {
+      "labelNumber": 1073522
+    }
+  },
+  {
+    "type": "Server.Items.MacheteOfDefense",
+    "attributes": {
+      "DefendChance": 5
+    },
+    "props": {
+      "labelNumber": 1073535
+    }
+  },
+  {
+    "type": "Server.Items.MagekillerAssassinSpike",
+    "weaponAttributes": {
+      "HitLeechMana": 16
+    },
+    "props": {
+      "labelNumber": 1073519
+    }
+  },
+  {
+    "type": "Server.Items.MagekillerLeafblade",
+    "weaponAttributes": {
+      "HitLeechMana": 16
+    },
+    "props": {
+      "labelNumber": 1073523
+    }
+  },
+  {
+    "type": "Server.Items.MagesRuneBlade",
+    "attributes": {
+      "CastSpeed": 1
+    },
+    "props": {
+      "labelNumber": 1073538
+    }
+  },
+  {
+    "type": "Server.Items.OrcishMachete",
+    "attributes": {
+      "BonusInt": -5,
+      "WeaponDamage": 10
+    },
+    "props": {
+      "labelNumber": 1073534
+    }
+  },
+  {
+    "type": "Server.Items.RuneBladeOfKnowledge",
+    "attributes": {
+      "SpellDamage": 5
+    },
+    "props": {
+      "labelNumber": 1073539
+    }
+  },
+  {
+    "type": "Server.Items.Runesabre",
+    "skillBonuses": [
+      [
+        "MagicResist",
+        5.0
+      ]
+    ],
+    "weaponAttributes": {
+      "MageWeapon": -29
+    },
+    "props": {
+      "labelNumber": 1073537
+    }
+  },
+  {
+    "type": "Server.Items.SerratedWarCleaver",
+    "attributes": {
+      "WeaponDamage": 7
+    },
+    "props": {
+      "labelNumber": 1073527
+    }
+  },
+  {
+    "type": "Server.Items.SpellbladeOfDefense",
+    "attributes": {
+      "DefendChance": 5
+    },
+    "props": {
+      "labelNumber": 1073516
+    }
+  },
+  {
+    "type": "Server.Items.TrueAssassinSpike",
+    "attributes": {
+      "AttackChance": 4,
+      "WeaponDamage": 4
+    },
+    "props": {
+      "labelNumber": 1073517
+    }
+  },
+  {
+    "type": "Server.Items.TrueLeafblade",
+    "weaponAttributes": {
+      "ResistPoisonBonus": 5
+    },
+    "props": {
+      "labelNumber": 1073521
+    }
+  },
+  {
+    "type": "Server.Items.TrueRadiantScimitar",
+    "attributes": {
+      "NightSight": 1
+    },
+    "props": {
+      "labelNumber": 1073541
+    }
+  },
+  {
+    "type": "Server.Items.TrueSpellblade",
+    "attributes": {
+      "SpellChanneling": 1,
+      "CastSpeed": -1
+    },
+    "props": {
+      "labelNumber": 1073513
+    }
+  },
+  {
+    "type": "Server.Items.TrueWarCleaver",
+    "attributes": {
+      "WeaponDamage": 4,
+      "RegenHits": 2
+    },
+    "props": {
+      "labelNumber": 1073528
+    }
+  },
+  {
+    "type": "Server.Items.TwinklingScimitar",
+    "attributes": {
+      "DefendChance": 6
+    },
+    "props": {
+      "labelNumber": 1073544
+    }
+  },
+  {
+    "type": "Server.Items.WoundingAssassinSpike",
+    "weaponAttributes": {
+      "HitHarm": 15
+    },
+    "props": {
+      "labelNumber": 1073520
     }
   }
 ]

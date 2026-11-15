@@ -17,6 +17,7 @@
   },
   {
     "type": "Server.Items.BattleAxe",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": 15,
@@ -154,6 +155,46 @@
       "defMissSound": 569,
       "initMinHits": 31,
       "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.GuardianAxe",
+    "attributes": {
+      "BonusHits": 4,
+      "RegenHits": 1
+    },
+    "props": {
+      "labelNumber": 1073545
+    }
+  },
+  {
+    "type": "Server.Items.HeavyOrnateAxe",
+    "attributes": {
+      "WeaponDamage": 8
+    },
+    "props": {
+      "labelNumber": 1073548
+    }
+  },
+  {
+    "type": "Server.Items.SingingAxe",
+    "skillBonuses": [
+      [
+        "Musicianship",
+        5.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1073546
+    }
+  },
+  {
+    "type": "Server.Items.ThunderingAxe",
+    "weaponAttributes": {
+      "HitLightning": 10
+    },
+    "props": {
+      "labelNumber": 1073547
     }
   }
 ]

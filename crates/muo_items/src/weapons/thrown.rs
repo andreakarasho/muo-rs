@@ -10,7 +10,6 @@ weapon_leaf! {
         let v = random_min_max(w, 25, 35); set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, v);
         ctor::set_slayer(w, id, SlayerName::Exorcism);
     };
-    label_number: 1112694,
 }
 
 weapon_leaf! {
@@ -26,15 +25,12 @@ weapon_leaf! {
         ctor::set_velocity(w, id, 35);
         set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, 100);
     };
-    label_number: 1113529,
 }
 
 weapon_leaf! {
     /// `Server.Items.Boomerang`.
     BOOMERANG, BOOMERANG_CLASS, boomerang_new = "Server.Items.Boomerang" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x8FF, enc;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::OneHanded);
-    };
+    @json;
     @item {
         required_races: |_, _| ALLOW_GARGOYLES_ONLY,
     }
@@ -47,9 +43,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Cyclone`.
     CYCLONE, CYCLONE_CLASS, cyclone_new = "Server.Items.Cyclone" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x901, enc;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::OneHanded);
-    };
+    @json;
     @item {
         required_races: |_, _| ALLOW_GARGOYLES_ONLY,
     }
@@ -70,15 +64,12 @@ weapon_leaf! {
         ctor::set_slayer(w, id, SlayerName::Silver);
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 40);
     };
-    label_number: 1112394,
 }
 
 weapon_leaf! {
     /// `Server.Items.SoulGlaive`.
     SOUL_GLAIVE, SOUL_GLAIVE_CLASS, soul_glaive_new = "Server.Items.SoulGlaive" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x090A, enc;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::OneHanded);
-    };
+    @json;
     @item {
         required_races: |_, _| ALLOW_GARGOYLES_ONLY,
     }
@@ -99,26 +90,12 @@ weapon_leaf! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 40);
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 40);
     };
-    label_number: 1112393,
 }
 
 weapon_leaf! {
     /// `Server.Items.StormCaller`.
     STORM_CALLER, STORM_CALLER_CLASS, storm_caller_new = "Server.Items.StormCaller" : BOOMERANG / BOOMERANG_CLASS, via boomerang_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 456);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Physical as u32, 20);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Fire as u32, 20);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, 20);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Poison as u32, 20);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Energy as u32, 20);
-    };
-    label_number: 1113530,
+    @json;
 }
 
 weapon_leaf! {
@@ -133,8 +110,6 @@ weapon_leaf! {
         ctor::set_slayer(w, id, SlayerName::Silver);
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitFireball as u32, 40);
     };
-    label_number: 1113531,
-    artifact_rarity: 5,
 }
 
 weapon_leaf! {
@@ -149,7 +124,6 @@ weapon_leaf! {
         ctor::set_slayer(w, id, SlayerName::Fey);
         set_attr(w, id, AttrKind::Element, AosElementAttribute::Chaos as u32, 100);
     };
-    label_number: 1150358,
 }
 
 pub fn register(types: &mut TypeRegistry) {

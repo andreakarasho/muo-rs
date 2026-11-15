@@ -5,10 +5,7 @@ use super::*;
 weapon_leaf! {
     /// `Server.Items.AdventurersMachete`.
     ADVENTURERS_MACHETE, ADVENTURERS_MACHETE_CLASS, adventurers_machete_new = "Server.Items.AdventurersMachete" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 20);
-    };
-    label_number: 1073533,
+    @json;
 }
 
 weapon_leaf! {
@@ -37,9 +34,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.BoneMachete`.
     BONE_MACHETE, BONE_MACHETE_CLASS, bone_machete_new = "Server.Items.BoneMachete" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
-    @init |w, id| {
-        ctor::set_item_id(w, id, 0x20E);
-    };
+    @json;
     @item {
         physical_resistance: |_, _| 1,
         fire_resistance: |_, _| 1,
@@ -63,20 +58,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.ChargedAssassinSpike`.
     CHARGED_ASSASSIN_SPIKE, CHARGED_ASSASSIN_SPIKE_CLASS, charged_assassin_spike_new = "Server.Items.ChargedAssassinSpike" : ASSASSIN_SPIKE / ASSASSIN_SPIKE_CLASS, via assassin_spike_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 10);
-    };
-    label_number: 1073518,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.CorruptedRuneBlade`.
     CORRUPTED_RUNE_BLADE, CORRUPTED_RUNE_BLADE_CLASS, corrupted_rune_blade_new = "Server.Items.CorruptedRuneBlade" : RUNE_BLADE / RUNE_BLADE_CLASS, via rune_blade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPhysicalBonus as u32, -5);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 12);
-    };
-    label_number: 1073540,
+    @json;
 }
 
 weapon_leaf! {
@@ -100,19 +88,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.DarkglowScimitar`.
     DARKGLOW_SCIMITAR, DARKGLOW_SCIMITAR_CLASS, darkglow_scimitar_new = "Server.Items.DarkglowScimitar" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitDispel as u32, 10);
-    };
-    label_number: 1073542,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.DiseasedMachete`.
     DISEASED_MACHETE, DISEASED_MACHETE_CLASS, diseased_machete_new = "Server.Items.DiseasedMachete" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitPoisonArea as u32, 25);
-    };
-    label_number: 1073536,
+    @json;
 }
 
 weapon_leaf! {
@@ -129,10 +111,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.FierySpellblade`.
     FIERY_SPELLBLADE, FIERY_SPELLBLADE_CLASS, fiery_spellblade_new = "Server.Items.FierySpellblade" : ELVEN_SPELLBLADE / ELVEN_SPELLBLADE_CLASS, via elven_spellblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 5);
-    };
-    label_number: 1073515,
+    @json;
 }
 
 weapon_leaf! {
@@ -161,28 +140,19 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.IcyScimitar`.
     ICY_SCIMITAR, ICY_SCIMITAR_CLASS, icy_scimitar_new = "Server.Items.IcyScimitar" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 15);
-    };
-    label_number: 1073543,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.IcySpellblade`.
     ICY_SPELLBLADE, ICY_SPELLBLADE_CLASS, icy_spellblade_new = "Server.Items.IcySpellblade" : ELVEN_SPELLBLADE / ELVEN_SPELLBLADE_CLASS, via elven_spellblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistColdBonus as u32, 5);
-    };
-    label_number: 1073514,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.KnightsWarCleaver`.
     KNIGHTS_WAR_CLEAVER, KNIGHTS_WAR_CLEAVER_CLASS, knights_war_cleaver_new = "Server.Items.KnightsWarCleaver" : WAR_CLEAVER / WAR_CLEAVER_CLASS, via war_cleaver_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 3);
-    };
-    label_number: 1073525,
+    @json;
 }
 
 weapon_leaf! {
@@ -212,84 +182,55 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.LeafbladeOfEase`.
     LEAFBLADE_OF_EASE, LEAFBLADE_OF_EASE_CLASS, leafblade_of_ease_new = "Server.Items.LeafbladeOfEase" : LEAFBLADE / LEAFBLADE_CLASS, via leafblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1073524,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.Luckblade`.
     LUCKBLADE, LUCKBLADE_CLASS, luckblade_new = "Server.Items.Luckblade" : LEAFBLADE / LEAFBLADE_CLASS, via leafblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 20);
-    };
-    label_number: 1073522,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.MacheteOfDefense`.
     MACHETE_OF_DEFENSE, MACHETE_OF_DEFENSE_CLASS, machete_of_defense_new = "Server.Items.MacheteOfDefense" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-    };
-    label_number: 1073535,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.MagekillerAssassinSpike`.
     MAGEKILLER_ASSASSIN_SPIKE, MAGEKILLER_ASSASSIN_SPIKE_CLASS, magekiller_assassin_spike_new = "Server.Items.MagekillerAssassinSpike" : ASSASSIN_SPIKE / ASSASSIN_SPIKE_CLASS, via assassin_spike_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 16);
-    };
-    label_number: 1073519,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.MagekillerLeafblade`.
     MAGEKILLER_LEAFBLADE, MAGEKILLER_LEAFBLADE_CLASS, magekiller_leafblade_new = "Server.Items.MagekillerLeafblade" : LEAFBLADE / LEAFBLADE_CLASS, via leafblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 16);
-    };
-    label_number: 1073523,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.MagesRuneBlade`.
     MAGES_RUNE_BLADE, MAGES_RUNE_BLADE_CLASS, mages_rune_blade_new = "Server.Items.MagesRuneBlade" : RUNE_BLADE / RUNE_BLADE_CLASS, via rune_blade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, 1);
-    };
-    label_number: 1073538,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.OrcishMachete`.
     ORCISH_MACHETE, ORCISH_MACHETE_CLASS, orcish_machete_new = "Server.Items.OrcishMachete" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, -5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 10);
-    };
-    label_number: 1073534,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.RuneBladeOfKnowledge`.
     RUNE_BLADE_OF_KNOWLEDGE, RUNE_BLADE_OF_KNOWLEDGE_CLASS, rune_blade_of_knowledge_new = "Server.Items.RuneBladeOfKnowledge" : RUNE_BLADE / RUNE_BLADE_CLASS, via rune_blade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 5);
-    };
-    label_number: 1073539,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.Runesabre`.
     RUNESABRE, RUNESABRE_CLASS, runesabre_new = "Server.Items.Runesabre" : RUNE_BLADE / RUNE_BLADE_CLASS, via rune_blade_new, enc;
-    @init |w, id| {
-        ctor::skill_bonus(w, id, 0, SkillName::MagicResist, 5.0);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::MageWeapon as u32, -29);
-    };
-    label_number: 1073537,
+    @json;
 }
 
 weapon_leaf! {
@@ -304,19 +245,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.SerratedWarCleaver`.
     SERRATED_WAR_CLEAVER, SERRATED_WAR_CLEAVER_CLASS, serrated_war_cleaver_new = "Server.Items.SerratedWarCleaver" : WAR_CLEAVER / WAR_CLEAVER_CLASS, via war_cleaver_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 7);
-    };
-    label_number: 1073527,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.SpellbladeOfDefense`.
     SPELLBLADE_OF_DEFENSE, SPELLBLADE_OF_DEFENSE_CLASS, spellblade_of_defense_new = "Server.Items.SpellbladeOfDefense" : ELVEN_SPELLBLADE / ELVEN_SPELLBLADE_CLASS, via elven_spellblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-    };
-    label_number: 1073516,
+    @json;
 }
 
 weapon_leaf! {
@@ -329,58 +264,37 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.TrueAssassinSpike`.
     TRUE_ASSASSIN_SPIKE, TRUE_ASSASSIN_SPIKE_CLASS, true_assassin_spike_new = "Server.Items.TrueAssassinSpike" : ASSASSIN_SPIKE / ASSASSIN_SPIKE_CLASS, via assassin_spike_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 4);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 4);
-    };
-    label_number: 1073517,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.TrueLeafblade`.
     TRUE_LEAFBLADE, TRUE_LEAFBLADE_CLASS, true_leafblade_new = "Server.Items.TrueLeafblade" : LEAFBLADE / LEAFBLADE_CLASS, via leafblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 5);
-    };
-    label_number: 1073521,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.TrueRadiantScimitar`.
     TRUE_RADIANT_SCIMITAR, TRUE_RADIANT_SCIMITAR_CLASS, true_radiant_scimitar_new = "Server.Items.TrueRadiantScimitar" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-    };
-    label_number: 1073541,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.TrueSpellblade`.
     TRUE_SPELLBLADE, TRUE_SPELLBLADE_CLASS, true_spellblade_new = "Server.Items.TrueSpellblade" : ELVEN_SPELLBLADE / ELVEN_SPELLBLADE_CLASS, via elven_spellblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, -1);
-    };
-    label_number: 1073513,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.TrueWarCleaver`.
     TRUE_WAR_CLEAVER, TRUE_WAR_CLEAVER_CLASS, true_war_cleaver_new = "Server.Items.TrueWarCleaver" : WAR_CLEAVER / WAR_CLEAVER_CLASS, via war_cleaver_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 4);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 2);
-    };
-    label_number: 1073528,
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.TwinklingScimitar`.
     TWINKLING_SCIMITAR, TWINKLING_SCIMITAR_CLASS, twinkling_scimitar_new = "Server.Items.TwinklingScimitar" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 6);
-    };
-    label_number: 1073544,
+    @json;
 }
 
 weapon_leaf! {
@@ -395,10 +309,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.WoundingAssassinSpike`.
     WOUNDING_ASSASSIN_SPIKE, WOUNDING_ASSASSIN_SPIKE_CLASS, wounding_assassin_spike_new = "Server.Items.WoundingAssassinSpike" : ASSASSIN_SPIKE / ASSASSIN_SPIKE_CLASS, via assassin_spike_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 15);
-    };
-    label_number: 1073520,
+    @json;
 }
 
 pub fn register(types: &mut TypeRegistry) {

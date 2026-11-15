@@ -1,107 +1,340 @@
 [
   {
     "type": "Server.Items.AxeOfTheHeavens",
+    "hue": 1237,
+    "weaponAttributes": {
+      "HitLightning": 50
+    },
+    "attributes": {
+      "AttackChance": 15,
+      "DefendChance": 15,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061106,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.BladeOfInsanity",
+    "hue": 1901,
+    "weaponAttributes": {
+      "HitLeechStam": 100
+    },
+    "attributes": {
+      "RegenStam": 2,
+      "WeaponSpeed": 30,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061088,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.BladeOfTheRighteous",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061107,
+      "artifactRarity": 10
     }
   },
   {
     "type": "Server.Items.BoneCrusher",
+    "itemId": 5126,
+    "hue": 1548,
+    "weaponAttributes": {
+      "HitLowerDefend": 50
+    },
+    "attributes": {
+      "BonusStr": 10,
+      "WeaponDamage": 75
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061596,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.BreathOfTheDead",
+    "hue": 1109,
+    "weaponAttributes": {
+      "HitLeechHits": 100,
+      "HitHarm": 25
+    },
+    "attributes": {
+      "SpellDamage": 5,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061109,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.Frostbringer",
+    "hue": 1266,
+    "weaponAttributes": {
+      "HitDispel": 50
+    },
+    "attributes": {
+      "RegenStam": 10,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061111,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.LegacyOfTheDreadLord",
+    "hue": 1654,
+    "attributes": {
+      "SpellChanneling": 1,
+      "CastRecovery": 3,
+      "WeaponSpeed": 30,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1060860,
+      "artifactRarity": 10
     }
   },
   {
     "type": "Server.Items.SerpentsFang",
+    "itemId": 5120,
+    "hue": 1160,
+    "weaponAttributes": {
+      "HitPoisonArea": 100,
+      "ResistPoisonBonus": 20
+    },
+    "attributes": {
+      "AttackChance": 15,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061601,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.StaffOfTheMagi",
+    "hue": 1153,
+    "weaponAttributes": {
+      "MageWeapon": 30
+    },
+    "attributes": {
+      "SpellChanneling": 1,
+      "CastSpeed": 1,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061600,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.TheBeserkersMaul",
+    "hue": 33,
+    "attributes": {
+      "WeaponSpeed": 75,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061108,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.TheDragonSlayer",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061248,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.TheDryadBow",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061090,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.TheTaskmaster",
+    "hue": 1272,
+    "weaponAttributes": {
+      "HitPoisonArea": 100
+    },
+    "attributes": {
+      "BonusDex": 5,
+      "AttackChance": 15,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061110,
+      "artifactRarity": 10
     }
   },
   {
     "type": "Server.Items.TitansHammer",
+    "hue": 1154,
+    "weaponAttributes": {
+      "HitEnergyArea": 100
+    },
+    "attributes": {
+      "BonusStr": 15,
+      "AttackChance": 15,
+      "WeaponDamage": 50
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1060024,
+      "artifactRarity": 10
     }
   },
   {
     "type": "Server.Items.ZyronicClaw",
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061593,
+      "artifactRarity": 10
+    }
+  },
+  {
+    "type": "Server.Items.BlightGrippedLongbow",
+    "hue": 2212,
+    "weaponAttributes": {
+      "HitPoisonArea": 20
+    },
+    "attributes": {
+      "RegenStam": 3,
+      "NightSight": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 35
+    },
+    "props": {
+      "labelNumber": 1072907
+    }
+  },
+  {
+    "type": "Server.Items.ColdForgedBlade",
+    "props": {
+      "labelNumber": 1072916
+    }
+  },
+  {
+    "type": "Server.Items.FaerieFire",
+    "props": {
+      "labelNumber": 1072908
+    }
+  },
+  {
+    "type": "Server.Items.LuminousRuneBlade",
+    "props": {
+      "labelNumber": 1072922
+    }
+  },
+  {
+    "type": "Server.Items.MischiefMaker",
+    "props": {
+      "labelNumber": 1072910
+    }
+  },
+  {
+    "type": "Server.Items.OverseerSunderedBlade",
+    "props": {
+      "labelNumber": 1072920
+    }
+  },
+  {
+    "type": "Server.Items.PhantomStaff",
+    "hue": 1,
+    "attributes": {
+      "RegenHits": 2,
+      "NightSight": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 60
+    },
+    "props": {
+      "labelNumber": 1072919
+    }
+  },
+  {
+    "type": "Server.Items.RuneCarvingKnife",
+    "hue": 1165,
+    "weaponAttributes": {
+      "HitLeechMana": 40
+    },
+    "attributes": {
+      "RegenStam": 2,
+      "LowerManaCost": 10,
+      "WeaponSpeed": 35,
+      "WeaponDamage": 30
+    },
+    "props": {
+      "labelNumber": 1072915
+    }
+  },
+  {
+    "type": "Server.Items.ShardThrasher",
+    "hue": 1266,
+    "weaponAttributes": {
+      "HitPhysicalArea": 30
+    },
+    "attributes": {
+      "BonusStam": 8,
+      "AttackChance": 10,
+      "WeaponSpeed": 35,
+      "WeaponDamage": 40
+    },
+    "props": {
+      "labelNumber": 1072918
+    }
+  },
+  {
+    "type": "Server.Items.SilvanisFeywoodBow",
+    "hue": 26,
+    "attributes": {
+      "SpellChanneling": 1,
+      "AttackChance": 12,
+      "WeaponSpeed": 30,
+      "WeaponDamage": 35
+    },
+    "props": {
+      "labelNumber": 1072955
+    }
+  },
+  {
+    "type": "Server.Items.TheNightReaper",
+    "props": {
+      "labelNumber": 1072912
     }
   }
 ]

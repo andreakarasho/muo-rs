@@ -1,0 +1,39 @@
+[
+  {
+    "type": "Server.Items.AncientWildStaff",
+    "weaponAttributes": {
+      "ResistPoisonBonus": 5
+    },
+    "props": {
+      "labelNumber": 1073550
+    }
+  },
+  {
+    "type": "Server.Items.ArcanistsWildStaff",
+    "attributes": {
+      "BonusMana": 3,
+      "WeaponDamage": 3
+    },
+    "props": {
+      "labelNumber": 1073549
+    }
+  },
+  {
+    "type": "Server.Items.HardenedWildStaff",
+    "attributes": {
+      "WeaponDamage": 5
+    },
+    "props": {
+      "labelNumber": 1073552
+    }
+  },
+  {
+    "type": "Server.Items.ThornedWildStaff",
+    "attributes": {
+      "ReflectPhysical": 12
+    },
+    "props": {
+      "labelNumber": 1073551
+    }
+  }
+]

@@ -122,10 +122,11 @@ pub enum Ability {
 pub struct WeaponClass {
     /// `DefaultWeight` when the class overrides it; else the tiledata weight.
     pub default_weight: Option<f64>,
-    /// `LabelNumber` when overridden (0 keeps the tiledata name).
+    /// `LabelNumber` when overridden (0 keeps the tiledata name); the `labelNumber` prop overrides it.
     pub label_number: i32,
     pub primary_ability: Option<Ability>,
     pub secondary_ability: Option<Ability>,
+    /// Read through [`artifact_rarity`] (the `artifactRarity` prop overrides it).
     pub artifact_rarity: i32,
     pub def_max_range: i32,
     pub def_hit_sound: i32,
@@ -779,10 +780,15 @@ fn default_weight(w: &World, id: ItemId) -> f64 {
 }
 
 fn label_number(w: &World, id: ItemId) -> i32 {
-    match class(w, id).label_number {
+    match ip::int(w, id, "labelNumber", class(w, id).label_number) {
         0 => base::label_number_base(w, id),
         n => n,
     }
+}
+
+/// `ArtifactRarity`: the class's `artifactRarity` prop, else the class table's.
+pub fn artifact_rarity(w: &World, id: ItemId) -> i32 {
+    ip::int(w, id, "artifactRarity", class(w, id).artifact_rarity)
 }
 
 fn set_hue(w: &mut World, id: ItemId, value: i32) {

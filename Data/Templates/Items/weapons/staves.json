@@ -84,5 +84,18 @@
       "initMinHits": 31,
       "initMaxHits": 50
     }
+  },
+  {
+    "type": "Server.Engines.Quests.Doom.ChylothStaff",
+    "hue": 1154,
+    "props": {
+      "labelNumber": 1041111
+    }
+  },
+  {
+    "type": "Server.Items.GlacialStaff",
+    "props": {
+      "labelNumber": 1017413
+    }
   }
 ]

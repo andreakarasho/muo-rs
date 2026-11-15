@@ -19,6 +19,7 @@
   },
   {
     "type": "Server.Items.Daisho",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 40,
       "aosMinDamage": 13,
@@ -37,6 +38,7 @@
   },
   {
     "type": "Server.Items.Kama",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 15,
       "aosMinDamage": 9,
@@ -55,6 +57,7 @@
   },
   {
     "type": "Server.Items.Lajatang",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 65,
       "aosMinDamage": 16,
@@ -73,6 +76,7 @@
   },
   {
     "type": "Server.Items.NoDachi",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 40,
       "aosMinDamage": 16,
@@ -109,6 +113,7 @@
   },
   {
     "type": "Server.Items.Sai",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 15,
       "aosMinDamage": 9,
@@ -127,6 +132,7 @@
   },
   {
     "type": "Server.Items.Tekagi",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 10,
       "aosMinDamage": 10,
@@ -145,6 +151,7 @@
   },
   {
     "type": "Server.Items.Tessen",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 10,
       "aosMinDamage": 10,
@@ -163,6 +170,7 @@
   },
   {
     "type": "Server.Items.Tetsubo",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": 12,
@@ -181,6 +189,7 @@
   },
   {
     "type": "Server.Items.Wakizashi",
+    "layer": "OneHanded",
     "props": {
       "aosStrReq": 20,
       "aosMinDamage": 11,

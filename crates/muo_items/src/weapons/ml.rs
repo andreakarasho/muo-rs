@@ -18,7 +18,6 @@ weapon_leaf! {
     @item {
         append_child_name_properties: butchers_war_cleaver_append_child_name_properties,
     }
-    label_number: 1073526,
 }
 
 weapon_leaf! {
@@ -57,9 +56,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.ElvenSpellblade`.
     ELVEN_SPELLBLADE, ELVEN_SPELLBLADE_CLASS, elven_spellblade_new = "Server.Items.ElvenSpellblade" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x2D20, enc;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x2D20, 0x2D2C)),
     default_weight: Some(5.0),
     primary_ability: Some(Ability::PsychicAttack),
@@ -93,9 +90,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.OrnateAxe`.
     ORNATE_AXE, ORNATE_AXE_CLASS, ornate_axe_new = "Server.Items.OrnateAxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0x2D28, enc;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x2D28, 0x2D34)),
     default_weight: Some(12.0),
     primary_ability: Some(Ability::Disarm),
@@ -114,9 +109,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.RuneBlade`.
     RUNE_BLADE, RUNE_BLADE_CLASS, rune_blade_new = "Server.Items.RuneBlade" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x2D32, enc;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-    };
+    @json;
     flippable: Some((0x2D32, 0x2D26)),
     default_weight: Some(7.0),
     primary_ability: Some(Ability::Disarm),

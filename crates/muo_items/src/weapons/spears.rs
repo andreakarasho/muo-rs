@@ -72,9 +72,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.TribalSpear`.
     TRIBAL_SPEAR, TRIBAL_SPEAR_CLASS, tribal_spear_new = "Server.Items.TribalSpear" : BASE_SPEAR / BASE_SPEAR_CLASS, graphic 0xF62, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 837);
-    };
+    @json;
     @item {
         default_name: |_, _| Some("a tribal spear".to_string()),
     }

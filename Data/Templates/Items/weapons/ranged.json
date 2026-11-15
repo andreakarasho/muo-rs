@@ -90,5 +90,74 @@
       "initMinHits": 31,
       "initMaxHits": 80
     }
+  },
+  {
+    "type": "Server.Items.AssassinsShortbow",
+    "attributes": {
+      "AttackChance": 3,
+      "WeaponDamage": 4
+    },
+    "props": {
+      "labelNumber": 1073512
+    }
+  },
+  {
+    "type": "Server.Items.BarbedLongbow",
+    "attributes": {
+      "ReflectPhysical": 12
+    },
+    "props": {
+      "labelNumber": 1073505
+    }
+  },
+  {
+    "type": "Server.Items.FrozenLongbow",
+    "attributes": {
+      "WeaponSpeed": -5,
+      "DefendChance": 10
+    },
+    "props": {
+      "labelNumber": 1073507
+    }
+  },
+  {
+    "type": "Server.Items.LightweightShortbow",
+    "props": {
+      "labelNumber": 1073510
+    }
+  },
+  {
+    "type": "Server.Items.LongbowOfMight",
+    "attributes": {
+      "WeaponDamage": 5
+    },
+    "props": {
+      "labelNumber": 1073508
+    }
+  },
+  {
+    "type": "Server.Items.MysticalShortbow",
+    "attributes": {
+      "SpellChanneling": 1,
+      "CastSpeed": -1
+    },
+    "props": {
+      "labelNumber": 1073511
+    }
+  },
+  {
+    "type": "Server.Items.RangersShortbow",
+    "attributes": {
+      "WeaponSpeed": 5
+    },
+    "props": {
+      "labelNumber": 1073509
+    }
+  },
+  {
+    "type": "Server.Items.SlayerLongbow",
+    "props": {
+      "labelNumber": 1073506
+    }
   }
 ]

@@ -69,6 +69,7 @@
   },
   {
     "type": "Server.Items.ElvenSpellblade",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": 12,
@@ -120,6 +121,7 @@
   },
   {
     "type": "Server.Items.OrnateAxe",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": 18,
@@ -155,6 +157,7 @@
   },
   {
     "type": "Server.Items.RuneBlade",
+    "layer": "TwoHanded",
     "props": {
       "aosStrReq": 30,
       "aosMinDamage": 15,
@@ -203,6 +206,12 @@
       "oldSpeed": 48,
       "initMinHits": 30,
       "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.ButchersWarCleaver",
+    "props": {
+      "labelNumber": 1073526
     }
   }
 ]
