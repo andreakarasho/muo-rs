@@ -474,7 +474,7 @@ fn bedroll_double_click(w: &mut World, id: ItemId, from: MobileId) {
 pub static BEDROLL: ItemType = ItemType {
     full_name: "Server.Items.Bedroll",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &BEDROLL, 0xA57)),
+    construct: Some(|w| crate::simple::from_template(w, &BEDROLL, "Server.Items.Bedroll")),
     default_weight: crate::class_props::default_weight,
     on_double_click: bedroll_double_click,
     serialize: |w, id, out| {

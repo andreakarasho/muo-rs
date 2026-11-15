@@ -579,7 +579,10 @@ static GIANT_SPIKE_CLASS: TrapClass = TrapClass {
 pub static GIANT_SPIKE_TRAP: ItemType = ItemType {
     full_name: "Server.Items.GiantSpikeTrap",
     parent: Some(&BASE_TRAP),
-    construct: Some(|w| new_trap(w, &GIANT_SPIKE_TRAP, 1)),
+    construct: Some(|w| {
+        let id = new_trap(w, &GIANT_SPIKE_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.GiantSpikeTrap")
+    }),
     family: Some(&GIANT_SPIKE_CLASS),
     serialize: |w, id, out| {
         (BASE_TRAP.serialize)(w, id, out);
@@ -628,7 +631,10 @@ static MUSHROOM_CLASS: TrapClass = TrapClass {
 pub static MUSHROOM_TRAP: ItemType = ItemType {
     full_name: "Server.Items.MushroomTrap",
     parent: Some(&BASE_TRAP),
-    construct: Some(|w| new_trap(w, &MUSHROOM_TRAP, 0x1125)),
+    construct: Some(|w| {
+        let id = new_trap(w, &MUSHROOM_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.MushroomTrap")
+    }),
     family: Some(&MUSHROOM_CLASS),
     serialize: |w, id, out| {
         (BASE_TRAP.serialize)(w, id, out);

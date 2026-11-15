@@ -28,6 +28,7 @@
   },
   {
     "type": "Server.Items.OrigamiPaper",
+    "itemId": 10288,
     "props": {
       "labelNumber": 1030288
     }

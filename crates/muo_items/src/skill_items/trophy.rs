@@ -460,7 +460,7 @@ fn kit_double_click(w: &mut World, id: ItemId, from: MobileId) {
 pub static TAXIDERMY_KIT: ItemType = ItemType {
     full_name: "Server.Items.TaxidermyKit",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &TAXIDERMY_KIT, 0x1EBA)),
+    construct: Some(|w| crate::simple::from_template(w, &TAXIDERMY_KIT, "Server.Items.TaxidermyKit")),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // a taxidermy kit
     on_double_click: kit_double_click,

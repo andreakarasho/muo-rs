@@ -145,7 +145,7 @@ fn sextant_text(s: &SextantView) -> String {
 pub static SEXTANT: ItemType = ItemType {
     full_name: "Server.Items.Sextant",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &SEXTANT, 0x1058)),
+    construct: Some(|w| crate::simple::from_template(w, &SEXTANT, "Server.Items.Sextant")),
     default_weight: crate::class_props::default_weight,
     on_double_click: |w, _id, from| {
         let Some((loc, map)) = w.mobile(from).map(|m| (m.location, m.map)) else {

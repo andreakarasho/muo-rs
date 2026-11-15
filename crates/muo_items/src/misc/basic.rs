@@ -253,7 +253,7 @@ fn los_blocker_initialize(w: &mut World) {
 pub static POWER_CRYSTAL: ItemType = ItemType {
     full_name: "Server.Items.PowerCrystal",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &POWER_CRYSTAL, 0x1F1C)),
+    construct: Some(|w| crate::simple::from_template(w, &POWER_CRYSTAL, "Server.Items.PowerCrystal")),
     default_weight: crate::class_props::default_weight,
     default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
@@ -345,7 +345,7 @@ fn scales_target(w: &mut World, scales: ItemId, from: MobileId, targeted: Target
 pub static SCALES: ItemType = ItemType {
     full_name: "Server.Items.Scales",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &SCALES, 0x1852)),
+    construct: Some(|w| crate::simple::from_template(w, &SCALES, "Server.Items.Scales")),
     default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         deps::send_localized_message(w, from, 502431); // What would you like to weigh?

@@ -1,6 +1,7 @@
 [
   {
     "type": "Server.Items.VacationWafer",
+    "itemId": 2419,
     "props": {
       "labelNumber": 1074431
     }

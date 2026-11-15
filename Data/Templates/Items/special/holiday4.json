@@ -43,6 +43,7 @@
   },
   {
     "type": "Server.Items.DragonEasterEgg",
+    "itemId": 18406,
     "props": {
       "labelNumber": 1097278
     }
@@ -107,6 +108,10 @@
   },
   {
     "type": "Server.Items.AnimatedHeartShapedBox",
+    "itemId": 18890
+  },
+  {
+    "type": "Server.Items.HeartShapedBox",
     "itemId": 18890
   }
 ]

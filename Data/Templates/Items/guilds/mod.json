@@ -1,6 +1,7 @@
 [
   {
     "type": "Server.Items.GuildDeed",
+    "itemId": 5360,
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1041055

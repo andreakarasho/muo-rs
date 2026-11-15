@@ -8,12 +8,14 @@
   },
   {
     "type": "Server.Items.Dyes",
+    "itemId": 4009,
     "props": {
       "defaultWeight": 3.0
     }
   },
   {
     "type": "Server.Items.Scissors",
+    "itemId": 3999,
     "props": {
       "defaultWeight": 1.0
     }

@@ -7,6 +7,7 @@
   },
   {
     "type": "Server.Items.Spyglass",
+    "itemId": 5365,
     "props": {
       "defaultWeight": 3.0
     }

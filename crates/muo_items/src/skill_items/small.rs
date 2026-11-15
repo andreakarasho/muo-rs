@@ -285,7 +285,7 @@ fn spyglass_double_click(w: &mut World, _id: ItemId, from: MobileId) {
 pub static SPYGLASS: ItemType = ItemType {
     full_name: "Server.Items.Spyglass",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &SPYGLASS, 0x14F5)),
+    construct: Some(|w| crate::simple::from_template(w, &SPYGLASS, "Server.Items.Spyglass")),
     default_weight: crate::class_props::default_weight,
     on_double_click: spyglass_double_click,
     serialize: |w, id, out| {

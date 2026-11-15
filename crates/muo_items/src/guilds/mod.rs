@@ -143,7 +143,7 @@ fn guild_deed_response(w: &mut World, deed: ItemId, from: MobileId, text: &str) 
 pub static GUILD_DEED: ItemType = ItemType {
     full_name: "Server.Items.GuildDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &GUILD_DEED, 0x14F0)),
+    construct: Some(|w| crate::simple::from_template(w, &GUILD_DEED, "Server.Items.GuildDeed")),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // a guild deed
     on_double_click: guild_deed_double_click,

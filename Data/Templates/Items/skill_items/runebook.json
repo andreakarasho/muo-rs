@@ -1,6 +1,7 @@
 [
   {
     "type": "Server.Items.Sextant",
+    "itemId": 4184,
     "props": {
       "defaultWeight": 2.0
     }

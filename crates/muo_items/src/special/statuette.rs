@@ -435,7 +435,7 @@ pub static BASE_IMPRISONED_MOBILE: ItemType = ItemType {
 pub static GRIZZLED_MARE_STATUETTE: ItemType = ItemType {
     full_name: "Server.Items.GrizzledMareStatuette",
     parent: Some(&BASE_IMPRISONED_MOBILE),
-    construct: Some(|w| ops::new_item_with_id(w, &GRIZZLED_MARE_STATUETTE, 0x2617)),
+    construct: Some(|w| crate::simple::from_template(w, &GRIZZLED_MARE_STATUETTE, "Server.Items.GrizzledMareStatuette")),
     family: Some(&GRIZZLED_MARE_CLASS),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // Grizzled Mare Statuette

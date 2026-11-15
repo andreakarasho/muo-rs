@@ -1,10 +1,10 @@
 //! The Construction classes that are plain tables (a constructor and constant overrides); the classes with logic
 //! are hand-written next to this file.
 
-use crate::simple::{leaf, random_from};
+use crate::simple::leaf;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 /// `WoodenBench()`.
@@ -473,14 +473,6 @@ leaf! {
     construct: Some(|w| woman_portrait2_new(w, &WOMAN_PORTRAIT2)),
 }
 
-/// `BaseFloor(i32 item_id, i32 count)`.
-pub fn base_floor_new(w: &mut World, ty: &'static ItemType, item_id: i32, count: i32) -> ItemId {
-    let t0 = random_from(w, item_id, count);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
-}
-
 leaf! {
     /// `Server.Items.BaseFloor` (abstract).
     BASE_FLOOR = "Server.Items.BaseFloor" : ITEM_BASE, v0;
@@ -489,7 +481,7 @@ leaf! {
 
 /// `BlueSlateFloorCenter()`.
 pub fn blue_slate_floor_center_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x49B, 1)
+    crate::simple::from_template(w, ty, "Server.Items.BlueSlateFloorCenter")
 }
 
 leaf! {
@@ -500,7 +492,7 @@ leaf! {
 
 /// `BricksFloor1()`.
 pub fn bricks_floor1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x4E2, 8)
+    crate::simple::from_template(w, ty, "Server.Items.BricksFloor1")
 }
 
 leaf! {
@@ -511,7 +503,7 @@ leaf! {
 
 /// `BricksFloor2()`.
 pub fn bricks_floor2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x537, 4)
+    crate::simple::from_template(w, ty, "Server.Items.BricksFloor2")
 }
 
 leaf! {
@@ -522,7 +514,7 @@ leaf! {
 
 /// `CaveFloorCenter()`.
 pub fn cave_floor_center_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x53B, 4)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorCenter")
 }
 
 leaf! {
@@ -533,7 +525,7 @@ leaf! {
 
 /// `CaveFloorEast()`.
 pub fn cave_floor_east_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x544, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorEast")
 }
 
 leaf! {
@@ -544,7 +536,7 @@ leaf! {
 
 /// `CaveFloorNorth()`.
 pub fn cave_floor_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x54D, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorNorth")
 }
 
 leaf! {
@@ -555,7 +547,7 @@ leaf! {
 
 /// `CaveFloorSouth()`.
 pub fn cave_floor_south_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x541, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorSouth")
 }
 
 leaf! {
@@ -566,7 +558,7 @@ leaf! {
 
 /// `CaveFloorWest()`.
 pub fn cave_floor_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x54A, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorWest")
 }
 
 leaf! {
@@ -577,7 +569,7 @@ leaf! {
 
 /// `CobblestonesFloor()`.
 pub fn cobblestones_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x515, 4)
+    crate::simple::from_template(w, ty, "Server.Items.CobblestonesFloor")
 }
 
 leaf! {
@@ -588,7 +580,7 @@ leaf! {
 
 /// `DarkSandstoneFloorN()`.
 pub fn dark_sandstone_floor_n_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x52F, 4)
+    crate::simple::from_template(w, ty, "Server.Items.DarkSandstoneFloorN")
 }
 
 leaf! {
@@ -599,7 +591,7 @@ leaf! {
 
 /// `DarkSandstoneFloorW()`.
 pub fn dark_sandstone_floor_w_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x533, 4)
+    crate::simple::from_template(w, ty, "Server.Items.DarkSandstoneFloorW")
 }
 
 leaf! {
@@ -610,7 +602,7 @@ leaf! {
 
 /// `GreenMarbleFloor()`.
 pub fn green_marble_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x50F, 2)
+    crate::simple::from_template(w, ty, "Server.Items.GreenMarbleFloor")
 }
 
 leaf! {
@@ -621,7 +613,7 @@ leaf! {
 
 /// `GreyFlagstones()`.
 pub fn grey_flagstones_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x4FC, 4)
+    crate::simple::from_template(w, ty, "Server.Items.GreyFlagstones")
 }
 
 leaf! {
@@ -632,7 +624,7 @@ leaf! {
 
 /// `GreyMarbleFloor()`.
 pub fn grey_marble_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x511, 4)
+    crate::simple::from_template(w, ty, "Server.Items.GreyMarbleFloor")
 }
 
 leaf! {
@@ -643,7 +635,7 @@ leaf! {
 
 /// `GreySlateFloor()`.
 pub fn grey_slate_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x49C, 1)
+    crate::simple::from_template(w, ty, "Server.Items.GreySlateFloor")
 }
 
 leaf! {
@@ -654,7 +646,7 @@ leaf! {
 
 /// `MarbleFloor()`.
 pub fn marble_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x50D, 2)
+    crate::simple::from_template(w, ty, "Server.Items.MarbleFloor")
 }
 
 leaf! {
@@ -665,7 +657,7 @@ leaf! {
 
 /// `MarblePavers()`.
 pub fn marble_pavers_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x495, 4)
+    crate::simple::from_template(w, ty, "Server.Items.MarblePavers")
 }
 
 leaf! {
@@ -676,7 +668,7 @@ leaf! {
 
 /// `SandFlagstones()`.
 pub fn sand_flagstones_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x500, 4)
+    crate::simple::from_template(w, ty, "Server.Items.SandFlagstones")
 }
 
 leaf! {
@@ -687,7 +679,7 @@ leaf! {
 
 /// `SandstoneFloorN()`.
 pub fn sandstone_floor_n_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x525, 4)
+    crate::simple::from_template(w, ty, "Server.Items.SandstoneFloorN")
 }
 
 leaf! {
@@ -698,7 +690,7 @@ leaf! {
 
 /// `SandstoneFloorW()`.
 pub fn sandstone_floor_w_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x529, 4)
+    crate::simple::from_template(w, ty, "Server.Items.SandstoneFloorW")
 }
 
 leaf! {
@@ -709,7 +701,7 @@ leaf! {
 
 /// `StonePaversDark()`.
 pub fn stone_pavers_dark_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x521, 4)
+    crate::simple::from_template(w, ty, "Server.Items.StonePaversDark")
 }
 
 leaf! {
@@ -720,7 +712,7 @@ leaf! {
 
 /// `StonePaversLight()`.
 pub fn stone_pavers_light_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x519, 4)
+    crate::simple::from_template(w, ty, "Server.Items.StonePaversLight")
 }
 
 leaf! {
@@ -731,7 +723,7 @@ leaf! {
 
 /// `StonePaversMedium()`.
 pub fn stone_pavers_medium_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x51D, 4)
+    crate::simple::from_template(w, ty, "Server.Items.StonePaversMedium")
 }
 
 leaf! {

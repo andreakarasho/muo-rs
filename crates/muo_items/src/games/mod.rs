@@ -514,7 +514,7 @@ pub fn roll(w: &mut World, id: ItemId, from: MobileId) {
 pub static DICES: ItemType = ItemType {
     full_name: "Server.Items.Dices",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &DICES, 0xFA7)),
+    construct: Some(|w| crate::simple::from_template(w, &DICES, "Server.Items.Dices")),
     default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         let loc = ops::get_world_location(w, id);

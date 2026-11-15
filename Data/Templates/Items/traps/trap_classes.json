@@ -17,5 +17,13 @@
     "type": "Server.Items.StoneFaceTrapNoDamage",
     "itemId": 4348,
     "light": "Circle225"
+  },
+  {
+    "type": "Server.Items.GiantSpikeTrap",
+    "itemId": 1
+  },
+  {
+    "type": "Server.Items.MushroomTrap",
+    "itemId": 4389
   }
 ]

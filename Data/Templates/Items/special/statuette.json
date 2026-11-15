@@ -16,6 +16,7 @@
   },
   {
     "type": "Server.Items.GrizzledMareStatuette",
+    "itemId": 9751,
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1074475

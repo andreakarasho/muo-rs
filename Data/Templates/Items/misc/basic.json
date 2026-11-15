@@ -17,6 +17,7 @@
   },
   {
     "type": "Server.Items.PowerCrystal",
+    "itemId": 7964,
     "props": {
       "defaultWeight": 1.0,
       "defaultName": "power crystal"
@@ -24,6 +25,7 @@
   },
   {
     "type": "Server.Items.Scales",
+    "itemId": 6226,
     "props": {
       "defaultWeight": 4.0
     }

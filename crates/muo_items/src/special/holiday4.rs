@@ -531,7 +531,10 @@ winter_2010! {
 leaf! {
     /// `Server.Items.DragonEasterEgg` (`IDyable`).
     DRAGON_EASTER_EGG = "Server.Items.DragonEasterEgg" : ITEM_BASE, v0;
-    construct: Some(|w| new_item(w, &DRAGON_EASTER_EGG, 0x47E6)),
+    construct: Some(|w| {
+        let id = new_item(w, &DRAGON_EASTER_EGG, 0);
+        crate::simple::own_template(w, id, "Server.Items.DragonEasterEgg")
+    }),
     label_number: crate::class_props::label_number,
 }
 
@@ -688,7 +691,10 @@ use muo_content::items::cont::{BASE_CONTAINER, new_base_container};
 leaf! {
     /// `Server.Items.HeartShapedBox` (`[Flippable(0x49CA, 0x49CB)]`).
     HEART_SHAPED_BOX = "Server.Items.HeartShapedBox" : BASE_CONTAINER, v0;
-    construct: Some(|w| new_base_container(w, &HEART_SHAPED_BOX, 0x49CA)),
+    construct: Some(|w| {
+        let id = new_base_container(w, &HEART_SHAPED_BOX, 0);
+        crate::simple::own_template(w, id, "Server.Items.HeartShapedBox")
+    }),
     default_drop_sound: |_, _| HEART_DROP_SOUND.load(Ordering::Relaxed),
     on_drag_drop_into: |w, id, from, item, p| {
         heart_prepare_sound(w, from);

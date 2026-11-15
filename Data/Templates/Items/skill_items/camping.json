@@ -9,6 +9,7 @@
   },
   {
     "type": "Server.Items.Bedroll",
+    "itemId": 2647,
     "props": {
       "defaultWeight": 5.0
     }

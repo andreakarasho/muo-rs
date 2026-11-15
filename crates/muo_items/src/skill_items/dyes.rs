@@ -510,7 +510,7 @@ fn dyes_double_click(w: &mut World, _id: ItemId, from: MobileId) {
 pub static DYES: ItemType = ItemType {
     full_name: "Server.Items.Dyes",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &DYES, 0xFA9)),
+    construct: Some(|w| crate::simple::from_template(w, &DYES, "Server.Items.Dyes")),
     default_weight: crate::class_props::default_weight,
     on_double_click: dyes_double_click,
     serialize: |w, id, out| {
@@ -606,7 +606,7 @@ fn scissors_double_click(w: &mut World, id: ItemId, from: MobileId) {
 pub static SCISSORS: ItemType = ItemType {
     full_name: "Server.Items.Scissors",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &SCISSORS, 0xF9F)),
+    construct: Some(|w| crate::simple::from_template(w, &SCISSORS, "Server.Items.Scissors")),
     default_weight: crate::class_props::default_weight,
     on_double_click: scissors_double_click,
     serialize: |w, id, out| {

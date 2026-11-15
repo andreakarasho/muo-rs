@@ -357,7 +357,7 @@ impl DynamicGumpLogic for DisguiseGump {
 pub static DISGUISE_KIT: ItemType = ItemType {
     full_name: "Server.Items.DisguiseKit",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &DISGUISE_KIT, 0xE05)),
+    construct: Some(|w| crate::simple::from_template(w, &DISGUISE_KIT, "Server.Items.DisguiseKit")),
     default_weight: crate::class_props::default_weight,
     label_number: crate::class_props::label_number, // a disguise kit
     on_double_click: kit_double_click,
