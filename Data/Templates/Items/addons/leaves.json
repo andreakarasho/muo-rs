@@ -2,412 +2,526 @@
   {
     "type": "Server.Items.AbbatoirDeed",
     "props": {
-      "labelNumber": 1044329
+      "labelNumber": 1044329,
+      "deedAddon": "Server.Items.AbbatoirAddon"
     }
   },
   {
     "type": "Server.Items.AlchemistTableEastDeed",
     "props": {
-      "labelNumber": 1073397
+      "labelNumber": 1073397,
+      "deedAddon": "Server.Items.AlchemistTableEastAddon"
     }
   },
   {
     "type": "Server.Items.AlchemistTableSouthDeed",
     "props": {
-      "labelNumber": 1073396
+      "labelNumber": 1073396,
+      "deedAddon": "Server.Items.AlchemistTableSouthAddon"
     }
   },
   {
     "type": "Server.Items.AnvilEastDeed",
     "props": {
-      "labelNumber": 1044333
+      "labelNumber": 1044333,
+      "deedAddon": "Server.Items.AnvilEastAddon"
     }
   },
   {
     "type": "Server.Items.AnvilSouthDeed",
     "props": {
-      "labelNumber": 1044334
+      "labelNumber": 1044334,
+      "deedAddon": "Server.Items.AnvilSouthAddon"
     }
   },
   {
     "type": "Server.Items.ArcaneBookshelfEastAddon",
+    "itemId": 12420,
+    "addonComponents": [
+      [12421, -1, 0, 0]
+    ],
     "props": {
       "gumpId": 263,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.ArcaneBookshelfEastDeed"
     }
   },
   {
     "type": "Server.Items.ArcaneBookshelfEastDeed",
     "props": {
-      "labelNumber": 1073371
+      "labelNumber": 1073371,
+      "deedAddon": "Server.Items.ArcaneBookshelfEastAddon"
     }
   },
   {
     "type": "Server.Items.ArcaneBookshelfSouthAddon",
+    "itemId": 11759,
+    "addonComponents": [
+      [{"itemId": 8612, "label": 1031760}, -1, 0, 0]
+    ],
     "props": {
       "gumpId": 263,
       "dropSound": 66,
-      "labelNumber": 1032420
+      "labelNumber": 1032420,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.ArcaneBookshelfSouthDeed"
     }
   },
   {
     "type": "Server.Items.ArcaneBookshelfSouthDeed",
     "props": {
-      "labelNumber": 1072871
+      "labelNumber": 1072871,
+      "deedAddon": "Server.Items.ArcaneBookshelfSouthAddon"
     }
   },
   {
     "type": "Server.Items.ArcaneCircleDeed",
     "props": {
-      "labelNumber": 1072703
+      "labelNumber": 1072703,
+      "deedAddon": "Server.Items.ArcaneCircleAddon"
     }
   },
   {
     "type": "Server.Items.ArcanistStatueEastDeed",
     "props": {
-      "labelNumber": 1072886
+      "labelNumber": 1072886,
+      "deedAddon": "Server.Items.ArcanistStatueEastAddon"
     }
   },
   {
     "type": "Server.Items.ArcanistStatueSouthDeed",
     "props": {
-      "labelNumber": 1072885
+      "labelNumber": 1072885,
+      "deedAddon": "Server.Items.ArcanistStatueSouthAddon"
     }
   },
   {
     "type": "Server.Items.BrownBearRugEastDeed",
     "props": {
-      "labelNumber": 1049397
+      "labelNumber": 1049397,
+      "deedAddon": "Server.Items.BrownBearRugEastAddon"
     }
   },
   {
     "type": "Server.Items.BrownBearRugSouthDeed",
     "props": {
-      "labelNumber": 1049398
+      "labelNumber": 1049398,
+      "deedAddon": "Server.Items.BrownBearRugSouthAddon"
     }
   },
   {
     "type": "Server.Items.PolarBearRugEastDeed",
     "props": {
-      "labelNumber": 1049399
+      "labelNumber": 1049399,
+      "deedAddon": "Server.Items.PolarBearRugEastAddon"
     }
   },
   {
     "type": "Server.Items.PolarBearRugSouthDeed",
     "props": {
-      "labelNumber": 1049400
+      "labelNumber": 1049400,
+      "deedAddon": "Server.Items.PolarBearRugSouthAddon"
     }
   },
   {
     "type": "Server.Items.ElvenBedEastDeed",
     "props": {
-      "labelNumber": 1072861
+      "labelNumber": 1072861,
+      "deedAddon": "Server.Items.ElvenBedEastAddon"
     }
   },
   {
     "type": "Server.Items.ElvenBedSouthDeed",
     "props": {
-      "labelNumber": 1072860
+      "labelNumber": 1072860,
+      "deedAddon": "Server.Items.ElvenBedSouthAddon"
     }
   },
   {
     "type": "Server.Items.ElvenDresserEastAddon",
+    "itemId": 12516,
+    "addonComponents": [
+      [12515, 0, -1, 0]
+    ],
     "props": {
       "gumpId": 81,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.ElvenDresserEastDeed"
     }
   },
   {
     "type": "Server.Items.ElvenDresserEastDeed",
     "props": {
-      "labelNumber": 1073388
+      "labelNumber": 1073388,
+      "deedAddon": "Server.Items.ElvenDresserEastAddon"
     }
   },
   {
     "type": "Server.Items.ElvenDresserSouthAddon",
+    "itemId": 12518,
+    "addonComponents": [
+      [12517, -1, 0, 0]
+    ],
     "props": {
       "gumpId": 81,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.ElvenDresserSouthDeed"
     }
   },
   {
     "type": "Server.Items.ElvenDresserSouthDeed",
     "props": {
-      "labelNumber": 1072864
+      "labelNumber": 1072864,
+      "deedAddon": "Server.Items.ElvenDresserSouthAddon"
     }
   },
   {
     "type": "Server.Items.ElvenForgeAddon",
+    "addonComponents": [
+      [11736, 0, 0, 0]
+    ],
     "props": {
-      "labelNumber": 1072875
+      "labelNumber": 1072875,
+      "addonDeed": "Server.Items.ElvenForgeDeed"
     }
   },
   {
     "type": "Server.Items.ElvenForgeDeed",
     "props": {
-      "labelNumber": 1072875
+      "labelNumber": 1072875,
+      "deedAddon": "Server.Items.ElvenForgeAddon"
     }
   },
   {
     "type": "Server.Items.ElvenLoveseatEastDeed",
     "props": {
-      "labelNumber": 1073372
+      "labelNumber": 1073372,
+      "deedAddon": "Server.Items.ElvenLoveseatEastAddon"
     }
   },
   {
     "type": "Server.Items.ElvenLoveseatSouthDeed",
     "props": {
-      "labelNumber": 1072867
+      "labelNumber": 1072867,
+      "deedAddon": "Server.Items.ElvenLoveseatSouthAddon"
     }
   },
   {
     "type": "Server.Items.ElvenStoveEastDeed",
     "props": {
-      "labelNumber": 1073395
+      "labelNumber": 1073395,
+      "deedAddon": "Server.Items.ElvenStoveEastAddon"
     }
   },
   {
     "type": "Server.Items.ElvenStoveSouthDeed",
     "props": {
-      "labelNumber": 1073394
+      "labelNumber": 1073394,
+      "deedAddon": "Server.Items.ElvenStoveSouthAddon"
     }
   },
   {
     "type": "Server.Items.ElvenWashBasinEastAddon",
+    "itemId": 12512,
+    "addonComponents": [
+      [12511, 0, -1, 0]
+    ],
     "props": {
       "gumpId": 260,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.ElvenWashBasinEastDeed"
     }
   },
   {
     "type": "Server.Items.ElvenWashBasinEastDeed",
     "props": {
-      "labelNumber": 1073387
+      "labelNumber": 1073387,
+      "deedAddon": "Server.Items.ElvenWashBasinEastAddon"
     }
   },
   {
     "type": "Server.Items.ElvenWashBasinSouthAddon",
+    "itemId": 12514,
+    "addonComponents": [
+      [12513, -1, 0, 0]
+    ],
     "props": {
       "gumpId": 260,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.ElvenWashBasinSouthDeed"
     }
   },
   {
     "type": "Server.Items.ElvenWashBasinSouthDeed",
     "props": {
-      "labelNumber": 1072865
+      "labelNumber": 1072865,
+      "deedAddon": "Server.Items.ElvenWashBasinSouthAddon"
     }
   },
   {
     "type": "Server.Items.FancyElvenTableEastDeed",
     "props": {
-      "labelNumber": 1073386
+      "labelNumber": 1073386,
+      "deedAddon": "Server.Items.FancyElvenTableEastAddon"
     }
   },
   {
     "type": "Server.Items.FancyElvenTableSouthDeed",
     "props": {
-      "labelNumber": 1073385
+      "labelNumber": 1073385,
+      "deedAddon": "Server.Items.FancyElvenTableSouthAddon"
     }
   },
   {
     "type": "Server.Items.LightFlowerTapestryEastDeed",
     "props": {
-      "labelNumber": 1049393
+      "labelNumber": 1049393,
+      "deedAddon": "Server.Items.LightFlowerTapestryEastAddon"
     }
   },
   {
     "type": "Server.Items.LightFlowerTapestrySouthDeed",
     "props": {
-      "labelNumber": 1049394
+      "labelNumber": 1049394,
+      "deedAddon": "Server.Items.LightFlowerTapestrySouthAddon"
     }
   },
   {
     "type": "Server.Items.DarkFlowerTapestryEastDeed",
     "props": {
-      "labelNumber": 1049395
+      "labelNumber": 1049395,
+      "deedAddon": "Server.Items.DarkFlowerTapestryEastAddon"
     }
   },
   {
     "type": "Server.Items.DarkFlowerTapestrySouthDeed",
     "props": {
-      "labelNumber": 1049396
+      "labelNumber": 1049396,
+      "deedAddon": "Server.Items.DarkFlowerTapestrySouthAddon"
     }
   },
   {
     "type": "Server.Items.GozaMatEastDeed",
     "props": {
-      "labelNumber": 1030404
+      "labelNumber": 1030404,
+      "deedAddon": "Server.Items.GozaMatEastAddon"
     }
   },
   {
     "type": "Server.Items.GozaMatSouthDeed",
     "props": {
-      "labelNumber": 1030405
+      "labelNumber": 1030405,
+      "deedAddon": "Server.Items.GozaMatSouthAddon"
     }
   },
   {
     "type": "Server.Items.SquareGozaMatEastAddon",
+    "addonComponents": [
+      [{"itemId": 10408, "label": 1030688}, 0, 0, 0]
+    ],
     "props": {
-      "labelNumber": 1030688
+      "labelNumber": 1030688,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.SquareGozaMatEastDeed"
     }
   },
   {
     "type": "Server.Items.SquareGozaMatEastDeed",
     "props": {
-      "labelNumber": 1030407
+      "labelNumber": 1030407,
+      "deedAddon": "Server.Items.SquareGozaMatEastAddon"
     }
   },
   {
     "type": "Server.Items.SquareGozaMatSouthDeed",
     "props": {
-      "labelNumber": 1030406
+      "labelNumber": 1030406,
+      "deedAddon": "Server.Items.SquareGozaMatSouthAddon"
     }
   },
   {
     "type": "Server.Items.BrocadeGozaMatEastDeed",
     "props": {
-      "labelNumber": 1030408
+      "labelNumber": 1030408,
+      "deedAddon": "Server.Items.BrocadeGozaMatEastAddon"
     }
   },
   {
     "type": "Server.Items.BrocadeGozaMatSouthDeed",
     "props": {
-      "labelNumber": 1030409
+      "labelNumber": 1030409,
+      "deedAddon": "Server.Items.BrocadeGozaMatSouthAddon"
     }
   },
   {
     "type": "Server.Items.BrocadeSquareGozaMatEastDeed",
     "props": {
-      "labelNumber": 1030411
+      "labelNumber": 1030411,
+      "deedAddon": "Server.Items.BrocadeSquareGozaMatEastAddon"
     }
   },
   {
     "type": "Server.Items.BrocadeSquareGozaMatSouthDeed",
     "props": {
-      "labelNumber": 1030410
+      "labelNumber": 1030410,
+      "deedAddon": "Server.Items.BrocadeSquareGozaMatSouthAddon"
     }
   },
   {
     "type": "Server.Items.GrayBrickFireplaceEastDeed",
     "props": {
-      "labelNumber": 1061846
+      "labelNumber": 1061846,
+      "deedAddon": "Server.Items.GrayBrickFireplaceEastAddon"
     }
   },
   {
     "type": "Server.Items.GrayBrickFireplaceSouthDeed",
     "props": {
-      "labelNumber": 1061847
+      "labelNumber": 1061847,
+      "deedAddon": "Server.Items.GrayBrickFireplaceSouthAddon"
     }
   },
   {
     "type": "Server.Items.LargeBedEastDeed",
     "props": {
-      "labelNumber": 1044324
+      "labelNumber": 1044324,
+      "deedAddon": "Server.Items.LargeBedEastAddon"
     }
   },
   {
     "type": "Server.Items.LargeBedSouthDeed",
     "props": {
-      "labelNumber": 1044323
+      "labelNumber": 1044323,
+      "deedAddon": "Server.Items.LargeBedSouthAddon"
     }
   },
   {
     "type": "Server.Items.LargeForgeEastDeed",
     "props": {
-      "labelNumber": 1044331
+      "labelNumber": 1044331,
+      "deedAddon": "Server.Items.LargeForgeEastAddon"
     }
   },
   {
     "type": "Server.Items.LargeForgeSouthDeed",
     "props": {
-      "labelNumber": 1044332
+      "labelNumber": 1044332,
+      "deedAddon": "Server.Items.LargeForgeSouthAddon"
     }
   },
   {
     "type": "Server.Items.LargeStoneTableEastDeed",
     "props": {
-      "labelNumber": 1044511
+      "labelNumber": 1044511,
+      "deedAddon": "Server.Items.LargeStoneTableEastAddon"
     }
   },
   {
     "type": "Server.Items.LargeStoneTableSouthDeed",
     "props": {
-      "labelNumber": 1044512
+      "labelNumber": 1044512,
+      "deedAddon": "Server.Items.LargeStoneTableSouthAddon"
     }
   },
   {
     "type": "Server.Items.MediumStoneTableEastDeed",
     "props": {
-      "labelNumber": 1044508
+      "labelNumber": 1044508,
+      "deedAddon": "Server.Items.MediumStoneTableEastAddon"
     }
   },
   {
     "type": "Server.Items.MediumStoneTableSouthDeed",
     "props": {
-      "labelNumber": 1044509
+      "labelNumber": 1044509,
+      "deedAddon": "Server.Items.MediumStoneTableSouthAddon"
     }
   },
   {
     "type": "Server.Items.OrnateElvenChestEastAddon",
+    "itemId": 12442,
+    "addonComponents": [
+      [12443, 0, -1, 0]
+    ],
     "props": {
       "gumpId": 268,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.OrnateElvenChestEastDeed"
     }
   },
   {
     "type": "Server.Items.OrnateElvenChestEastDeed",
     "props": {
-      "labelNumber": 1073383
+      "labelNumber": 1073383,
+      "deedAddon": "Server.Items.OrnateElvenChestEastAddon"
     }
   },
   {
     "type": "Server.Items.OrnateElvenChestSouthAddon",
+    "itemId": 12440,
+    "addonComponents": [
+      [12441, -1, 0, 0]
+    ],
     "props": {
       "gumpId": 268,
-      "dropSound": 66
+      "dropSound": 66,
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.OrnateElvenChestSouthDeed"
     }
   },
   {
     "type": "Server.Items.OrnateElvenChestSouthDeed",
     "props": {
-      "labelNumber": 1072862
+      "labelNumber": 1072862,
+      "deedAddon": "Server.Items.OrnateElvenChestSouthAddon"
     }
   },
   {
     "type": "Server.Items.OrnateElvenTableEastDeed",
     "props": {
-      "labelNumber": 1073384
+      "labelNumber": 1073384,
+      "deedAddon": "Server.Items.OrnateElvenTableEastAddon"
     }
   },
   {
     "type": "Server.Items.OrnateElvenTableSouthDeed",
     "props": {
-      "labelNumber": 1072869
+      "labelNumber": 1072869,
+      "deedAddon": "Server.Items.OrnateElvenTableSouthAddon"
     }
   },
   {
     "type": "Server.Items.ParrotPerchDeed",
     "props": {
-      "labelNumber": 1072617
+      "labelNumber": 1072617,
+      "deedAddon": "Server.Items.ParrotPerchAddon"
     }
   },
   {
     "type": "Server.Items.PentagramDeed",
     "props": {
-      "labelNumber": 1044328
+      "labelNumber": 1044328,
+      "deedAddon": "Server.Items.PentagramAddon"
     }
   },
   {
     "type": "Server.Items.SandstoneFireplaceEastDeed",
     "props": {
-      "labelNumber": 1061844
+      "labelNumber": 1061844,
+      "deedAddon": "Server.Items.SandstoneFireplaceEastAddon"
     }
   },
   {
     "type": "Server.Items.SandstoneFireplaceSouthDeed",
     "props": {
-      "labelNumber": 1061845
+      "labelNumber": 1061845,
+      "deedAddon": "Server.Items.SandstoneFireplaceSouthAddon"
     }
   },
   {
@@ -419,103 +533,1161 @@
   {
     "type": "Server.Items.SmallBedEastDeed",
     "props": {
-      "labelNumber": 1044322
+      "labelNumber": 1044322,
+      "deedAddon": "Server.Items.SmallBedEastAddon"
     }
   },
   {
     "type": "Server.Items.SmallBedSouthDeed",
     "props": {
-      "labelNumber": 1044321
+      "labelNumber": 1044321,
+      "deedAddon": "Server.Items.SmallBedSouthAddon"
     }
   },
   {
     "type": "Server.Items.SmallForgeDeed",
     "props": {
-      "labelNumber": 1044330
+      "labelNumber": 1044330,
+      "deedAddon": "Server.Items.SmallForgeAddon"
     }
   },
   {
     "type": "Server.Items.SquirrelStatueEastDeed",
     "props": {
-      "labelNumber": 1073398
+      "labelNumber": 1073398,
+      "deedAddon": "Server.Items.SquirrelStatueEastAddon"
     }
   },
   {
     "type": "Server.Items.SquirrelStatueSouthDeed",
     "props": {
-      "labelNumber": 1072884
+      "labelNumber": 1072884,
+      "deedAddon": "Server.Items.SquirrelStatueSouthAddon"
     }
   },
   {
     "type": "Server.Items.StoneFireplaceEastDeed",
     "props": {
-      "labelNumber": 1061848
+      "labelNumber": 1061848,
+      "deedAddon": "Server.Items.StoneFireplaceEastAddon"
     }
   },
   {
     "type": "Server.Items.StoneFireplaceSouthDeed",
     "props": {
-      "labelNumber": 1061849
+      "labelNumber": 1061849,
+      "deedAddon": "Server.Items.StoneFireplaceSouthAddon"
     }
   },
   {
     "type": "Server.Items.StoneOvenEastDeed",
     "props": {
-      "labelNumber": 1044345
+      "labelNumber": 1044345,
+      "deedAddon": "Server.Items.StoneOvenEastAddon"
     }
   },
   {
     "type": "Server.Items.StoneOvenSouthDeed",
     "props": {
-      "labelNumber": 1044346
+      "labelNumber": 1044346,
+      "deedAddon": "Server.Items.StoneOvenSouthAddon"
     }
   },
   {
     "type": "Server.Items.SmallStretchedHideEastDeed",
     "props": {
-      "labelNumber": 1049401
+      "labelNumber": 1049401,
+      "deedAddon": "Server.Items.SmallStretchedHideEastAddon"
     }
   },
   {
     "type": "Server.Items.SmallStretchedHideSouthDeed",
     "props": {
-      "labelNumber": 1049402
+      "labelNumber": 1049402,
+      "deedAddon": "Server.Items.SmallStretchedHideSouthAddon"
     }
   },
   {
     "type": "Server.Items.MediumStretchedHideEastDeed",
     "props": {
-      "labelNumber": 1049403
+      "labelNumber": 1049403,
+      "deedAddon": "Server.Items.MediumStretchedHideEastAddon"
     }
   },
   {
     "type": "Server.Items.MediumStretchedHideSouthDeed",
     "props": {
-      "labelNumber": 1049404
+      "labelNumber": 1049404,
+      "deedAddon": "Server.Items.MediumStretchedHideSouthAddon"
     }
   },
   {
     "type": "Server.Items.TallElvenBedEastDeed",
     "props": {
-      "labelNumber": 1072859
+      "labelNumber": 1072859,
+      "deedAddon": "Server.Items.TallElvenBedEastAddon"
     }
   },
   {
     "type": "Server.Items.TallElvenBedSouthDeed",
     "props": {
-      "labelNumber": 1072858
+      "labelNumber": 1072858,
+      "deedAddon": "Server.Items.TallElvenBedSouthAddon"
     }
   },
   {
     "type": "Server.Items.WarriorStatueEastDeed",
     "props": {
-      "labelNumber": 1072888
+      "labelNumber": 1072888,
+      "deedAddon": "Server.Items.WarriorStatueEastAddon"
     }
   },
   {
     "type": "Server.Items.WarriorStatueSouthDeed",
     "props": {
-      "labelNumber": 1072887
+      "labelNumber": 1072887,
+      "deedAddon": "Server.Items.WarriorStatueSouthAddon"
     }
+  },
+  {
+    "type": "Server.Items.AbbatoirAddon",
+    "addonComponents": [
+      [4622, -1, -1, 0],
+      [4623, 0, -1, 0],
+      [4624, 1, -1, 0],
+      [4629, -1, 0, 0],
+      [4630, 0, 0, 0],
+      [4625, 1, 0, 0],
+      [4628, -1, 1, 0],
+      [4627, 0, 1, 0],
+      [4626, 1, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.AbbatoirDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AlchemistTableEastAddon",
+    "addonComponents": [
+      [11731, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.AlchemistTableEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AlchemistTableSouthAddon",
+    "addonComponents": [
+      [11732, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.AlchemistTableSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AnvilEastAddon",
+    "addonComponents": [
+      [{"itemId": 4015, "type": "Server.Items.AnvilComponent"}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.AnvilEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AnvilSouthAddon",
+    "addonComponents": [
+      [{"itemId": 4016, "type": "Server.Items.AnvilComponent"}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.AnvilSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneCircleAddon",
+    "addonComponents": [
+      [12419, -1, -1, 0],
+      [12416, -1, 0, 0],
+      [12418, 0, -1, 0],
+      [12417, 1, -1, 0],
+      [12413, -1, 1, 0],
+      [12415, 0, 0, 0],
+      [12414, 1, 0, 0],
+      [12412, 0, 1, 0],
+      [12411, 1, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ArcaneCircleDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ArcanistStatueEastAddon",
+    "addonComponents": [
+      [11534, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ArcanistStatueEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ArcanistStatueSouthAddon",
+    "addonComponents": [
+      [11535, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ArcanistStatueSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BloodPentagram",
+    "addonComponents": [
+      [7417, 0, 1, 0],
+      [7416, 0, 2, 0],
+      [7415, 0, 3, 0],
+      [7414, 0, 4, 0],
+      [7413, 0, 5, 0],
+      [7419, 1, 0, 0],
+      [7418, 1, 1, 0],
+      [7433, 1, 2, 0],
+      [7432, 1, 3, 0],
+      [7431, 1, 4, 0],
+      [7412, 1, 5, 0],
+      [7420, 2, 0, 0],
+      [7434, 2, 1, 0],
+      [7441, 2, 2, 0],
+      [7440, 2, 3, 0],
+      [7430, 2, 4, 0],
+      [7411, 2, 5, 0],
+      [7421, 3, 0, 0],
+      [7435, 3, 1, 0],
+      [7442, 3, 2, 0],
+      [7439, 3, 3, 0],
+      [7429, 3, 4, 0],
+      [7410, 3, 5, 0],
+      [7422, 4, 0, 0],
+      [7436, 4, 1, 0],
+      [7437, 4, 2, 0],
+      [7438, 4, 3, 0],
+      [7428, 4, 4, 0],
+      [7409, 4, 5, 0],
+      [7423, 5, 0, 0],
+      [7424, 5, 1, 0],
+      [7425, 5, 2, 0],
+      [7426, 5, 3, 0],
+      [7427, 5, 4, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.BrocadeGozaMatEastAddon",
+    "addonComponents": [
+      [{"itemId": 10411, "label": 1030688}, 0, 0, 0],
+      [{"itemId": 10410, "label": 1030688}, 1, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.BrocadeGozaMatEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeGozaMatSouthAddon",
+    "addonComponents": [
+      [{"itemId": 10413, "label": 1030688}, 0, 0, 0],
+      [{"itemId": 10412, "label": 1030688}, 0, 1, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.BrocadeGozaMatSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeSquareGozaMatEastAddon",
+    "addonComponents": [
+      [{"itemId": 10414, "label": 1030688}, 0, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.BrocadeSquareGozaMatEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeSquareGozaMatSouthAddon",
+    "addonComponents": [
+      [{"itemId": 10415, "label": 1030688}, 0, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.BrocadeSquareGozaMatSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BrownBearRugEastAddon",
+    "addonComponents": [
+      [7744, 1, 1, 0],
+      [7745, 1, 0, 0],
+      [7746, 1, -1, 0],
+      [7747, 0, -1, 0],
+      [7748, 0, 0, 0],
+      [7749, 0, 1, 0],
+      [7750, -1, 1, 0],
+      [7751, -1, 0, 0],
+      [7752, -1, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.BrownBearRugEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BrownBearRugSouthAddon",
+    "addonComponents": [
+      [7734, 1, 1, 0],
+      [7735, 0, 1, 0],
+      [7736, -1, 1, 0],
+      [7737, -1, 0, 0],
+      [7738, 0, 0, 0],
+      [7739, 1, 0, 0],
+      [7740, 1, -1, 0],
+      [7741, 0, -1, 0],
+      [7742, -1, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.BrownBearRugSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.DarkFlowerTapestryEastAddon",
+    "addonComponents": [
+      [4064, 0, 0, 0],
+      [4063, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.DarkFlowerTapestryEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.DarkFlowerTapestrySouthAddon",
+    "addonComponents": [
+      [4061, 0, 0, 0],
+      [4062, 1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.DarkFlowerTapestrySouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ElvenBedEastAddon",
+    "addonComponents": [
+      [12365, 0, 0, 0],
+      [12364, 1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ElvenBedEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ElvenBedSouthAddon",
+    "addonComponents": [
+      [12368, 0, 0, 0],
+      [12369, 0, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ElvenBedSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ElvenLoveseatEastAddon",
+    "addonComponents": [
+      [12426, 0, 0, 0],
+      [12427, 0, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ElvenLoveseatEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ElvenLoveseatSouthAddon",
+    "addonComponents": [
+      [12424, 0, 0, 0],
+      [12425, -1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ElvenLoveseatSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ElvenStoveEastAddon",
+    "addonComponents": [
+      [11739, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ElvenStoveEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ElvenStoveSouthAddon",
+    "addonComponents": [
+      [11740, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ElvenStoveSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.FancyElvenTableEastAddon",
+    "addonComponents": [
+      [12436, -1, 0, 0],
+      [12435, 0, 0, 0],
+      [12434, 1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.FancyElvenTableEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.FancyElvenTableSouthAddon",
+    "addonComponents": [
+      [12437, 0, 1, 0],
+      [12438, 0, 0, 0],
+      [12439, 0, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.FancyElvenTableSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.FireColumnAddon",
+    "addonComponents": [
+      [933, 0, 0, 0],
+      [933, 0, 0, 5],
+      [933, 0, 0, 10],
+      [933, 0, 0, 15],
+      [6587, 0, 0, 21],
+      [6571, 0, 0, 23]
+    ],
+    "props": {
+      "addonShareHue": false,
+      "addonComponentsBloody": [
+        [4651, -2, 0, 0],
+        [4654, 0, -2, 0],
+        [4653, -1, 1, 0],
+        [4655, 1, -1, 0],
+        [4653, 0, 1, 0],
+        [4650, 1, 0, 0],
+        [4651, 2, -1, 0],
+        [4651, 0, 2, 0],
+        [4654, 1, 1, 0]
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.GiantWeb1",
+    "addonComponents": [
+      [4280, 4, -4, 0],
+      [4281, 3, -3, 0],
+      [4282, 2, -2, 0],
+      [4283, 1, -1, 0],
+      [4284, 0, 0, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.GiantWeb2",
+    "addonComponents": [
+      [4285, 0, 0, 0],
+      [4286, 1, -1, 0],
+      [4287, 2, -2, 0],
+      [4288, 3, -3, 0],
+      [4289, 4, -4, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.GiantWeb3",
+    "addonComponents": [
+      [4290, 0, 0, 0],
+      [4291, 1, -1, 0],
+      [4292, 2, -2, 0],
+      [4293, 3, -3, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.GiantWeb4",
+    "addonComponents": [
+      [4294, 3, -3, 0],
+      [4295, 2, -2, 0],
+      [4296, 1, -1, 0],
+      [4297, 0, 0, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.GiantWeb5",
+    "addonComponents": [
+      [4298, 0, 0, 0],
+      [4299, 1, -1, 0],
+      [4300, 2, -2, 0],
+      [4301, 3, -3, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.GiantWeb6",
+    "addonComponents": [
+      [4302, 3, -3, 0],
+      [4303, 2, -2, 0],
+      [4304, 1, -1, 0],
+      [4305, 0, 0, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.GozaMatEastAddon",
+    "addonComponents": [
+      [{"itemId": 10404, "label": 1030688}, 1, 0, 0],
+      [{"itemId": 10405, "label": 1030688}, 0, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.GozaMatEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.GozaMatSouthAddon",
+    "addonComponents": [
+      [{"itemId": 10406, "label": 1030688}, 0, 1, 0],
+      [{"itemId": 10407, "label": 1030688}, 0, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.GozaMatSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.GrayBrickFireplaceEastAddon",
+    "addonComponents": [
+      [2365, 0, 0, 0],
+      [2359, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.GrayBrickFireplaceEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.GrayBrickFireplaceSouthAddon",
+    "addonComponents": [
+      [2379, -1, 0, 0],
+      [2373, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.GrayBrickFireplaceSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LargeBedEastAddon",
+    "addonComponents": [
+      [2685, 0, 0, 0],
+      [2684, 0, 1, 0],
+      [2681, 1, 0, 0],
+      [2680, 1, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.LargeBedEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LargeBedSouthAddon",
+    "addonComponents": [
+      [2691, 0, 0, 0],
+      [2687, 0, 1, 0],
+      [2690, 1, 0, 0],
+      [2686, 1, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.LargeBedSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LargeForgeEastAddon",
+    "addonComponents": [
+      [{"itemId": 6534, "type": "Server.Items.ForgeComponent"}, 0, 0, 0],
+      [{"itemId": 6538, "type": "Server.Items.ForgeComponent"}, 0, 1, 0],
+      [{"itemId": 6550, "type": "Server.Items.ForgeComponent"}, 0, 2, 0],
+      [{"itemId": 6546, "type": "Server.Items.ForgeComponent"}, 0, 3, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.LargeForgeEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LargeForgeSouthAddon",
+    "addonComponents": [
+      [{"itemId": 6522, "type": "Server.Items.ForgeComponent"}, 0, 0, 0],
+      [{"itemId": 6526, "type": "Server.Items.ForgeComponent"}, 1, 0, 0],
+      [{"itemId": 6562, "type": "Server.Items.ForgeComponent"}, 2, 0, 0],
+      [{"itemId": 6558, "type": "Server.Items.ForgeComponent"}, 3, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.LargeForgeSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LargeStoneTableEastAddon",
+    "addonComponents": [
+      [4610, 0, 0, 0],
+      [4611, 0, 1, 0],
+      [4609, 0, 2, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.LargeStoneTableEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LargeStoneTableSouthAddon",
+    "addonComponents": [
+      [4613, 0, 0, 0],
+      [4614, 1, 0, 0],
+      [4612, 2, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.LargeStoneTableSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LightFlowerTapestryEastAddon",
+    "addonComponents": [
+      [4060, 0, 0, 0],
+      [4059, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.LightFlowerTapestryEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.LightFlowerTapestrySouthAddon",
+    "addonComponents": [
+      [4057, 0, 0, 0],
+      [4058, 1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.LightFlowerTapestrySouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.MediumStoneTableEastAddon",
+    "addonComponents": [
+      [4610, 0, 0, 0],
+      [4609, 0, 1, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.MediumStoneTableEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.MediumStoneTableSouthAddon",
+    "addonComponents": [
+      [4613, 0, 0, 0],
+      [4612, 1, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.MediumStoneTableSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.MediumStretchedHideEastAddon",
+    "addonComponents": [
+      [4203, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.MediumStretchedHideEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.MediumStretchedHideSouthAddon",
+    "addonComponents": [
+      [4220, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.MediumStretchedHideSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenTableEastAddon",
+    "addonComponents": [
+      [12430, -1, 0, 0],
+      [12429, 0, 0, 0],
+      [12428, 1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.OrnateElvenTableEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenTableSouthAddon",
+    "addonComponents": [
+      [12431, 0, 1, 0],
+      [12432, 0, 0, 0],
+      [12433, 0, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.OrnateElvenTableSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.ParrotPerchAddon",
+    "addonComponents": [
+      [12276, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.ParrotPerchDeed"
+    }
+  },
+  {
+    "type": "Server.Items.PentagramAddon",
+    "addonComponents": [
+      [4071, -1, -1, 0],
+      [4072, 0, -1, 0],
+      [4075, 1, -1, 0],
+      [4070, -1, 0, 0],
+      [4074, 0, 0, 0],
+      [4078, 1, 0, 0],
+      [4073, -1, 1, 0],
+      [4076, 0, 1, 0],
+      [4077, 1, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.PentagramDeed"
+    }
+  },
+  {
+    "type": "Server.Items.PolarBearRugEastAddon",
+    "addonComponents": [
+      [7763, 1, 1, 0],
+      [7764, 1, 0, 0],
+      [7765, 1, -1, 0],
+      [7766, 0, -1, 0],
+      [7767, 0, 0, 0],
+      [7768, 0, 1, 0],
+      [7769, -1, 1, 0],
+      [7770, -1, 0, 0],
+      [7771, -1, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.PolarBearRugEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.PolarBearRugSouthAddon",
+    "addonComponents": [
+      [7753, 1, 1, 0],
+      [7754, 0, 1, 0],
+      [7755, -1, 1, 0],
+      [7756, -1, 0, 0],
+      [7757, 0, 0, 0],
+      [7758, 1, 0, 0],
+      [7759, 1, -1, 0],
+      [7760, 0, -1, 0],
+      [7761, -1, -1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.PolarBearRugSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.PyramidAddon",
+    "addonComponents": [
+      [1006, 0, 0, 5],
+      [1011, -1, -1, 5],
+      [1012, 1, 1, 5],
+      [1013, 1, -1, 5],
+      [1014, -1, 1, 5],
+      [1011, -2, -2, 0],
+      [1012, 2, 2, 0],
+      [1013, 2, -2, 0],
+      [1014, -2, 2, 0],
+      [1007, -1, 2, 0],
+      [1008, 2, -1, 0],
+      [1009, -1, -2, 0],
+      [1010, -2, -1, 0],
+      [1007, 0, 2, 0],
+      [1008, 2, 0, 0],
+      [1009, 0, -2, 0],
+      [1010, -2, 0, 0],
+      [1007, 1, 2, 0],
+      [1008, 2, 1, 0],
+      [1009, 1, -2, 0],
+      [1010, -2, 1, 0],
+      [1007, 0, 1, 5],
+      [1008, 1, 0, 5],
+      [1009, 0, -1, 5],
+      [1010, -1, 0, 5]
+    ],
+    "props": {
+      "addonShareHue": false
+    }
+  },
+  {
+    "type": "Server.Items.SandstoneFireplaceEastAddon",
+    "addonComponents": [
+      [1161, 0, 0, 0],
+      [1141, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SandstoneFireplaceEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SandstoneFireplaceSouthAddon",
+    "addonComponents": [
+      [1154, -1, 0, 0],
+      [1147, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SandstoneFireplaceSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SandstoneFountainAddon",
+    "addonComponents": [
+      [6595, -2, 1, 0],
+      [6596, -1, 1, 0],
+      [6597, 0, 1, 0],
+      [6598, 1, 1, 0],
+      [6599, 1, 0, 0],
+      [6600, 1, -1, 0],
+      [6601, 1, -2, 0],
+      [6602, 0, -2, 0],
+      [6603, 0, -1, 0],
+      [6604, 0, 0, 0],
+      [6605, -1, 0, 0],
+      [6606, -2, 0, 0],
+      [6607, -2, -1, 0],
+      [6608, -1, -1, 0],
+      [6609, -1, -2, 0],
+      [6611, -2, -2, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.SerpentPillarAddon",
+    "addonComponents": [
+      [9020, -2, 1, 0],
+      [9021, -2, 0, 0],
+      [9022, -2, -1, 0],
+      [9023, -2, -2, 0],
+      [9024, -1, -2, 0],
+      [9025, 0, -2, 0],
+      [9026, 1, -2, 0],
+      [9027, -1, 1, 0],
+      [9028, -1, 0, 0],
+      [9029, -1, -1, 0],
+      [9030, 0, 1, 0],
+      [9031, 0, 0, 0],
+      [9032, 0, -1, 0],
+      [9033, 1, 0, 0],
+      [9034, 1, -1, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.ShrineOfWisdomAddon",
+    "addonComponents": [
+      [{"itemId": 5315, "type": "Server.Items.ShrineOfWisdomComponent"}, 0, 0, 0],
+      [{"itemId": 5318, "type": "Server.Items.ShrineOfWisdomComponent"}, 1, 0, 0],
+      [{"itemId": 5332, "type": "Server.Items.ShrineOfWisdomComponent"}, 0, 1, 0],
+      [{"itemId": 5333, "type": "Server.Items.ShrineOfWisdomComponent"}, 1, 1, 0]
+    ],
+    "hue": 1150
+  },
+  {
+    "type": "Server.Items.SkullPileAddon",
+    "addonComponents": [
+      [6872, 1, 1, 0],
+      [6873, 0, 1, 0],
+      [6874, -1, 1, 0],
+      [6875, 0, 0, 0],
+      [6876, 1, 0, 0],
+      [6877, 1, -1, 0],
+      [6878, 2, -1, 0],
+      [6879, 2, 0, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.SmallBedEastAddon",
+    "addonComponents": [
+      [2653, 0, 0, 0],
+      [2658, 1, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SmallBedEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SmallBedSouthAddon",
+    "addonComponents": [
+      [2659, 0, 0, 0],
+      [2652, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SmallBedSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SmallForgeAddon",
+    "addonComponents": [
+      [{"itemId": 4017, "type": "Server.Items.ForgeComponent"}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SmallForgeDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SmallStretchedHideEastAddon",
+    "addonComponents": [
+      [4201, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SmallStretchedHideEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SmallStretchedHideSouthAddon",
+    "addonComponents": [
+      [4218, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SmallStretchedHideSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SquareGozaMatSouthAddon",
+    "addonComponents": [
+      [{"itemId": 10409, "label": 1030688}, 0, 0, 0]
+    ],
+    "props": {
+      "addonRetainDeedHue": true,
+      "addonDeed": "Server.Items.SquareGozaMatSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SquirrelStatueEastAddon",
+    "addonComponents": [
+      [11536, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SquirrelStatueEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.SquirrelStatueSouthAddon",
+    "addonComponents": [
+      [11537, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.SquirrelStatueSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.StoneFireplaceEastAddon",
+    "addonComponents": [
+      [2393, 0, 0, 0],
+      [2387, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.StoneFireplaceEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.StoneFireplaceSouthAddon",
+    "addonComponents": [
+      [2407, -1, 0, 0],
+      [2401, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.StoneFireplaceSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.StoneFountainAddon",
+    "addonComponents": [
+      [5937, -2, 1, 0],
+      [5938, -1, 1, 0],
+      [5939, 0, 1, 0],
+      [5940, 1, 1, 0],
+      [5941, 1, 0, 0],
+      [5942, 1, -1, 0],
+      [5943, 1, -2, 0],
+      [5944, 0, -2, 0],
+      [5945, 0, -1, 0],
+      [5946, 0, 0, 0],
+      [5947, -1, 0, 0],
+      [5948, -2, 0, 0],
+      [5949, -2, -1, 0],
+      [5950, -1, -1, 0],
+      [5951, -1, -2, 0],
+      [5953, -2, -2, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.StoneOvenEastAddon",
+    "addonComponents": [
+      [2348, 0, 0, 0],
+      [2347, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.StoneOvenEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.StoneOvenSouthAddon",
+    "addonComponents": [
+      [2353, -1, 0, 0],
+      [2352, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.StoneOvenSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.TallElvenBedEastAddon",
+    "addonComponents": [
+      [12372, 0, 0, 0],
+      [12371, 1, 0, 0],
+      [12373, 2, -1, 0],
+      [12370, 2, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.TallElvenBedEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.TallElvenBedSouthAddon",
+    "addonComponents": [
+      [12376, 0, 0, 0],
+      [12375, -1, 1, 0],
+      [12377, 0, -1, 0],
+      [12374, 0, 1, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.TallElvenBedSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.Telescope",
+    "addonComponents": [
+      [5268, 0, 5, 0],
+      [5211, 0, 6, 0],
+      [5210, 0, 7, 0],
+      [5269, 1, 4, 0],
+      [5212, 1, 7, 0],
+      [5213, 1, 8, 0],
+      [5270, 2, 3, 0],
+      [5273, 2, 4, 0],
+      [5262, 2, 6, 0],
+      [5267, 2, 7, 0],
+      [5266, 2, 8, 0],
+      [5214, 2, 9, 0],
+      [5209, 2, 10, 0],
+      [5271, 3, 2, 0],
+      [5215, 3, 9, 0],
+      [5217, 3, 10, 0],
+      [5274, 4, 1, 0],
+      [5272, 4, 2, 0],
+      [5263, 4, 4, 0],
+      [5261, 4, 6, 0],
+      [5256, 4, 8, 0],
+      [5216, 4, 9, 0],
+      [5218, 4, 10, 0],
+      [5245, 5, 0, 0],
+      [5264, 5, 4, 0],
+      [5259, 5, 5, 0],
+      [5258, 5, 6, 0],
+      [5254, 5, 7, 0],
+      [5253, 5, 8, 0],
+      [5244, 6, 0, 0],
+      [5265, 6, 4, 0],
+      [5260, 6, 5, 0],
+      [5257, 6, 6, 0],
+      [5255, 6, 7, 0],
+      [5252, 6, 8, 0],
+      [5219, 6, 10, 0],
+      [5243, 7, 0, 0],
+      [5247, 7, 3, 0],
+      [5248, 7, 4, 0],
+      [5250, 7, 5, 0],
+      [5225, 7, 6, 0],
+      [5224, 7, 7, 0],
+      [5221, 7, 8, 0],
+      [5220, 7, 9, 0],
+      [5242, 8, 0, 0],
+      [5241, 8, 1, 0],
+      [5239, 8, 2, 0],
+      [5246, 8, 3, 0],
+      [5249, 8, 4, 0],
+      [5251, 8, 5, 0],
+      [5226, 8, 6, 0],
+      [5223, 8, 7, 0],
+      [5222, 8, 8, 0],
+      [5240, 9, 1, 0],
+      [5237, 9, 2, 0],
+      [5236, 9, 3, 0],
+      [5231, 9, 4, 0],
+      [5230, 9, 5, 0],
+      [5229, 9, 6, 0],
+      [5227, 9, 7, 0],
+      [5238, 10, 2, 0],
+      [5235, 10, 3, 0],
+      [5232, 10, 4, 0],
+      [5233, 10, 5, 0],
+      [5234, 10, 6, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.WarriorStatueEastAddon",
+    "addonComponents": [
+      [11538, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.WarriorStatueEastDeed"
+    }
+  },
+  {
+    "type": "Server.Items.WarriorStatueSouthAddon",
+    "addonComponents": [
+      [11539, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.WarriorStatueSouthDeed"
+    }
+  },
+  {
+    "type": "Server.Items.WaterVatEast",
+    "addonComponents": [
+      [5464, 0, 0, 0],
+      [5342, -1, 1, 0],
+      [5458, 0, 1, 0],
+      [5343, 1, -1, 0],
+      [5460, 1, 0, 0],
+      [5465, 1, 1, 0],
+      [5456, 1, 3, 0],
+      [5461, 3, 1, 0],
+      [5335, 2, 2, 0],
+      [8612, 2, -1, 0],
+      [8612, 3, 0, 0],
+      [8612, -1, 2, 0],
+      [8612, 0, 3, 0]
+    ]
+  },
+  {
+    "type": "Server.Items.WaterVatSouth",
+    "addonComponents": [
+      [5464, 0, 0, 0],
+      [5342, -1, 1, 0],
+      [5458, 0, 1, 0],
+      [5343, 1, -1, 0],
+      [5460, 1, 0, 0],
+      [5465, 1, 1, 0],
+      [5457, 1, 3, 0],
+      [5462, 3, 1, 0],
+      [5335, 2, 2, 0],
+      [8612, 2, -1, 0],
+      [8612, 3, 0, 0],
+      [8612, -1, 2, 0],
+      [8612, 0, 3, 0]
+    ]
   }
 ]

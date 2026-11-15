@@ -363,13 +363,13 @@ fn part_after_deserialization(w: &mut World, id: ItemId) {
 }
 
 macro_rules! tree_part {
-    ($name:ident, $full:literal, $label:expr, $dbl:expr) => {
+    ($name:ident, $full:literal, $dbl:expr) => {
         #[doc = concat!("`", $full, "` (`[SerializationGenerator(1, false)]`).")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
             construct: None,
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             on_double_click: $dbl,
             serialize: |w, id, out| {
                 (ITEM_BASE.serialize)(w, id, out);
@@ -392,13 +392,11 @@ macro_rules! tree_part {
 tree_part!(
     ORNAMENT,
     "Server.Items.HolidayTree+Ornament",
-    1041118,
     ITEM_BASE.on_double_click
 ); // a tree ornaments
 tree_part!(
     TREE_TRUNK,
     "Server.Items.HolidayTree+TreeTrunk",
-    1041117,
     |w, id, from| {
         if let Some(t) = tree_of(w, id).filter(|&t| !deleted(w, t)) {
             tree_on_double_click(w, t, from);

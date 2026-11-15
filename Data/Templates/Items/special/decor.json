@@ -62,5 +62,220 @@
       "defaultWeight": 1.0,
       "labelNumber": 1077394
     }
+  },
+  {
+    "type": "Server.Items.GuillotineAddon",
+    "addonComponents": [
+      [{"itemId": 4702, "type": "Server.Items.GuillotineComponent"}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.GuillotineDeed"
+    }
+  },
+  {
+    "type": "Server.Items.IronMaidenAddon",
+    "addonComponents": [
+      [{"itemId": 4681, "label": 1076288}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.IronMaidenDeed"
+    }
+  },
+  {
+    "type": "Server.Items.FountainAddon",
+    "addonComponents": [
+      [5937, -2, 1, 0],
+      [5938, -1, 1, 0],
+      [5939, 0, 1, 0],
+      [5940, 1, 1, 0],
+      [5941, 1, 0, 0],
+      [5942, 1, -1, 0],
+      [5943, 1, -2, 0],
+      [5944, 0, -2, 0],
+      [5945, 0, -1, 0],
+      [5946, 0, 0, 0],
+      [5947, -1, 0, 0],
+      [5948, -2, 0, 0],
+      [5949, -2, -1, 0],
+      [5950, -1, -1, 0],
+      [5951, -1, -2, 0],
+      [5953, -2, -2, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.FountainDeed"
+    }
+  },
+  {
+    "type": "Server.Items.HaunterMirrorAddon",
+    "addonComponents": [
+      [{"itemId": 10875, "type": "Server.Items.HaunterMirrorComponent"}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.HaunterMirrorDeed"
+    }
+  },
+  {
+    "type": "Server.Items.GuillotineDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1024656,
+      "deedAddon": "Server.Items.GuillotineAddon"
+    }
+  },
+  {
+    "type": "Server.Items.IronMaidenDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1076288,
+      "deedAddon": "Server.Items.IronMaidenAddon"
+    }
+  },
+  {
+    "type": "Server.Items.FountainDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1076283,
+      "deedAddon": "Server.Items.FountainAddon"
+    }
+  },
+  {
+    "type": "Server.Items.BedOfNailsDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074801,
+      "deedAddon": "Server.Items.BedOfNailsAddon"
+    }
+  },
+  {
+    "type": "Server.Items.BoneCouchDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074477,
+      "deedAddon": "Server.Items.BoneCouchAddon"
+    }
+  },
+  {
+    "type": "Server.Items.HaunterMirrorDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074800,
+      "deedAddon": "Server.Items.HaunterMirrorAddon"
+    }
+  },
+  {
+    "type": "Server.Items.CurtainsAddon",
+    "props": {
+      "addonDeed": "Server.Items.CurtainsDeed"
+    }
+  },
+  {
+    "type": "Server.Items.HouseLadderAddon",
+    "props": {
+      "addonDeed": "Server.Items.HouseLadderDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BedOfNailsAddon",
+    "props": {
+      "addonDeed": "Server.Items.BedOfNailsDeed"
+    }
+  },
+  {
+    "type": "Server.Items.BoneCouchAddon",
+    "props": {
+      "addonDeed": "Server.Items.BoneCouchDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AppleTreeAddon",
+    "addonComponents": [
+      [{"itemId": 3480, "label": 1076269}, 0, 0, 0],
+      [{"itemId": 12580, "label": 1076269}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.AppleTreeDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AppleTreeDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1076269,
+      "deedAddon": "Server.Items.AppleTreeAddon"
+    }
+  },
+  {
+    "type": "Server.Items.PeachTreeAddon",
+    "addonComponents": [
+      [{"itemId": 3484, "label": 1076270}, 0, 0, 0],
+      [{"itemId": 12579, "label": 1076270}, 0, 0, 0]
+    ],
+    "props": {
+      "addonDeed": "Server.Items.PeachTreeDeed"
+    }
+  },
+  {
+    "type": "Server.Items.PeachTreeDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1076270,
+      "deedAddon": "Server.Items.PeachTreeAddon"
+    }
+  },
+  {
+    "type": "Server.Items.CreepyPortraitAddon",
+    "props": {
+      "addonDeed": "Server.Items.CreepyPortraitDeed"
+    }
+  },
+  {
+    "type": "Server.Items.CreepyPortraitDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074481,
+      "deedAddon": "Server.Items.CreepyPortraitAddon"
+    }
+  },
+  {
+    "type": "Server.Items.DisturbingPortraitAddon",
+    "props": {
+      "addonDeed": "Server.Items.DisturbingPortraitDeed"
+    }
+  },
+  {
+    "type": "Server.Items.DisturbingPortraitDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074479,
+      "deedAddon": "Server.Items.DisturbingPortraitAddon"
+    }
+  },
+  {
+    "type": "Server.Items.UnsettlingPortraitAddon",
+    "props": {
+      "addonDeed": "Server.Items.UnsettlingPortraitDeed"
+    }
+  },
+  {
+    "type": "Server.Items.UnsettlingPortraitDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074480,
+      "deedAddon": "Server.Items.UnsettlingPortraitAddon"
+    }
+  },
+  {
+    "type": "Server.Items.AwesomeDisturbingPortraitAddon",
+    "props": {
+      "addonDeed": "Server.Items.AwesomeDisturbingPortraitDeed"
+    }
+  },
+  {
+    "type": "Server.Items.AwesomeDisturbingPortraitDeed",
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074479,
+      "deedAddon": "Server.Items.AwesomeDisturbingPortraitAddon"
+    }
   }
 ]

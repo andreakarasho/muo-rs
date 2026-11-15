@@ -236,6 +236,18 @@ pub static BASE_ADDON_CLASS: AddonClass = AddonClass {
     on_chop: None,
 };
 
+/// `RetainDeedHue`: the class's `addonRetainDeedHue` prop, else its table.
+pub fn retain_deed_hue(w: &World, id: ItemId) -> bool {
+    crate::templates::props::as_bool(crate::templates::props::item(w, id, "addonRetainDeedHue"))
+        .unwrap_or_else(|| addon_class(w, id).retain_deed_hue)
+}
+
+/// `ShareHue`: the class's `addonShareHue` prop, else its table.
+pub fn share_hue(w: &World, id: ItemId) -> bool {
+    crate::templates::props::as_bool(crate::templates::props::item(w, id, "addonShareHue"))
+        .unwrap_or_else(|| addon_class(w, id).share_hue)
+}
+
 pub fn addon_class(w: &World, id: ItemId) -> &'static AddonClass {
     w.item(id)
         .and_then(|i| i.ty.family::<AddonClass>())
@@ -362,7 +374,7 @@ pub fn new_localized_component(
 fn component_set_hue(w: &mut World, id: ItemId, value: i32) {
     base::set_hue_base(w, id, value);
     if let Some(a) = component_addon(w, id)
-        && addon_class(w, a).share_hue
+        && share_hue(w, a)
         && let Some(ty) = w.item(a).map(|i| i.ty)
     {
         (ty.set_hue)(w, a, value);
@@ -546,7 +558,7 @@ fn addon_set_hue(w: &mut World, id: ItemId, value: i32) {
         return;
     }
     base::set_hue_base(w, id, value);
-    if !ops::is_deleted(w, id) && addon_class(w, id).share_hue {
+    if !ops::is_deleted(w, id) && share_hue(w, id) {
         for c in components(w, id) {
             if let Some(ty) = w.item(c).map(|i| i.ty) {
                 (ty.set_hue)(w, c, value);
@@ -741,8 +753,9 @@ pub fn addon_on_chop(w: &mut World, id: ItemId, from: MobileId) {
     deps::send_localized_message(w, from, 500461); // You destroy the item.
 
     let class = addon_class(w, id);
+    let retain = retain_deed_hue(w, id);
     let mut hue = 0;
-    if class.retain_deed_hue {
+    if retain {
         for c in components(w, id) {
             if hue != 0 {
                 break;
@@ -754,19 +767,18 @@ pub fn addon_on_chop(w: &mut World, id: ItemId, from: MobileId) {
         }
     }
 
+    // the deed before Delete: a `deed_of` may read the addon's class props, gone after Delete
+    let deed = class
+        .deed_of
+        .map(|f| f(w, id))
+        .or_else(|| class.deed.map(|f| f(w)));
     if let Some(ty) = w.item(id).map(|i| i.ty) {
         (ty.delete)(w, id);
     }
     house_addons_remove(w, house, id);
 
-    if let Some(deed) = class
-        .deed_of
-        .map(|f| f(w, id))
-        .or_else(|| class.deed.map(|f| f(w)))
-    {
-        if class.retain_deed_hue
-            && let Some(ty) = w.item(deed).map(|i| i.ty)
-        {
+    if let Some(deed) = deed {
+        if retain && let Some(ty) = w.item(deed).map(|i| i.ty) {
             (ty.set_hue)(w, deed, hue);
         }
         deps::add_to_backpack(w, from, deed);
@@ -1026,7 +1038,7 @@ pub static BASE_ADDON_DEED: ItemType = ItemType {
 // ---- direction deeds (IDirectionAddonDeed, SelectAddonDirectionGump) --------------------------------------------
 
 /// Whether the deed is a `BaseAddonContainerDeed` (its state is `ContainerDeedData`).
-fn is_container_deed(w: &World, id: ItemId) -> bool {
+pub fn is_container_deed(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| {
         i.ext
             .get::<super::addon_container::ContainerDeedData>()
@@ -1124,17 +1136,25 @@ pub fn choose_direction_of(w: &mut World, deed: ItemId, east: bool, from: Mobile
     }
 }
 
+/// `IDirectionAddonDeed`'s `SelectionNumber` (the direction gump's text): the class's `deedSelectionNumber` prop,
+/// else its table; `None` for a deed without a direction.
+pub fn deed_selection_number(w: &World, id: ItemId) -> Option<i32> {
+    crate::templates::props::as_i32(crate::templates::props::item(w, id, "deedSelectionNumber"))
+        .or_else(|| {
+            deed_class(w, id)
+                .select_direction
+                .filter(|_| !is_container_deed(w, id))
+                .or_else(|| super::addon_container::deed_select_direction(w, id))
+        })
+}
+
 /// The `OnDoubleClick` of a direction deed: the gump in the pack, else message 1062334.
 pub fn direction_deed_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
     if !in_pack(w, id, from) {
         deps::send_localized_message(w, from, 1062334); // This item must be in your backpack to be used.
         return;
     }
-    let Some(selection_number) = deed_class(w, id)
-        .select_direction
-        .filter(|_| !is_container_deed(w, id))
-        .or_else(|| super::addon_container::deed_select_direction(w, id))
-    else {
+    let Some(selection_number) = deed_selection_number(w, id) else {
         return;
     };
     let Some(k) = DIRECTION_GUMPS.iter().position(|g| g.1 == selection_number) else {

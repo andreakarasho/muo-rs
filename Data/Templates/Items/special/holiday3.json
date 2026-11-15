@@ -36,5 +36,17 @@
       "defaultWeight": 1.0,
       "labelNumber": 1041116
     }
+  },
+  {
+    "type": "Server.Items.HolidayTree+Ornament",
+    "props": {
+      "labelNumber": 1041118
+    }
+  },
+  {
+    "type": "Server.Items.HolidayTree+TreeTrunk",
+    "props": {
+      "labelNumber": 1041117
+    }
   }
 ]
