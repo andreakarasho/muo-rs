@@ -83,8 +83,9 @@ fn every_npc_block_parses_and_every_sb_info_exists() {
     let sbs = super::vendors::sb::table(&mut w);
     let mut types = TypeRegistry::default();
     crate::register(&mut types);
-    let keys = Keys::of(&types);
-    // the strict load (the server's) knows every key at the top level
+    // only this crate's keys are registered here: the strict load of every file with every crate's keys is
+    // `crates/muo/tests/templates_load.rs`
+    let keys = Keys::lenient(&types);
     let dir = std::env::current_dir()
         .unwrap()
         .ancestors()
