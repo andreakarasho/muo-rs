@@ -143,6 +143,7 @@ fn item_attributes_parse_by_name() {
     let s = item_steps::parse(
         "attributes",
         &serde_json::json!({ "Luck": 200, "DefendChance": 15 }),
+        &keys::Keys::default(),
     )
     .unwrap();
     assert_eq!(
@@ -152,7 +153,12 @@ fn item_attributes_parse_by_name() {
             (AttrKind::Attributes, AosAttribute::DefendChance as u32, 15),
         ])
     );
-    let s = item_steps::parse("armorAttributes", &serde_json::json!({ "MageArmor": 1 })).unwrap();
+    let s = item_steps::parse(
+        "armorAttributes",
+        &serde_json::json!({ "MageArmor": 1 }),
+        &keys::Keys::default(),
+    )
+    .unwrap();
     assert_eq!(
         s,
         item_steps::Step::Attrs(vec![(
@@ -161,8 +167,69 @@ fn item_attributes_parse_by_name() {
             1
         )])
     );
-    let e = item_steps::parse("attributes", &serde_json::json!({ "Lucky": 1 })).unwrap_err();
+    let e = item_steps::parse(
+        "attributes",
+        &serde_json::json!({ "Lucky": 1 }),
+        &keys::Keys::default(),
+    )
+    .unwrap_err();
     assert!(e.contains("unknown attribute Lucky"), "{e}");
-    let e = item_steps::parse("skillBonuses", &serde_json::json!([["Swordz", 10]])).unwrap_err();
+    let e = item_steps::parse(
+        "skillBonuses",
+        &serde_json::json!([["Swordz", 10]]),
+        &keys::Keys::default(),
+    )
+    .unwrap_err();
     assert!(e.contains("unknown skill"), "{e}");
+}
+
+#[test]
+fn era_coin_and_registered_keys() {
+    let base = server_dir(
+        "flow",
+        r#"[{ "type": "Custom.Flow", "parent": "Server.Mobiles.BaseCreature",
+              "era": { "atLeast": "AOS", "then": { "title": "new" }, "else": { "title": "old" } },
+              "coin": { "then": { "body": 1 }, "else": { "body": 2 } },
+              "oneOf": [ { "fame": 10 }, { "fame": 20 }, { "fame": 30 } ],
+              "chance": { "p": 1.0, "then": { "karma": -5 } },
+              "testName": "keyed" }]"#,
+    );
+    let mut w = world(base);
+    keys::mobile_key(
+        &mut w.types,
+        "testName",
+        |v| v.as_str().map(|_| ()).ok_or_else(|| "a string".into()),
+        |w, id, v| crate::creature::init_ops::name(w, id, v.as_str().map(str::to_owned)),
+    );
+    reload(&mut w).unwrap();
+
+    for (era, title) in [
+        (muo_data::expansion::Expansion::AOS, "new"),
+        (muo_data::expansion::Expansion::LBR, "old"),
+    ] {
+        w.core.expansion = Some(era);
+        w.rng = muo_primitives::BuiltInRng::from_seed(3);
+        let id = crate::factory::make_mobile(&mut w, "Custom.Flow").unwrap();
+        // the same draws, in the same order, outside the template
+        let mut r = muo_primitives::BuiltInRng::from_seed(3);
+        let body = if muo_primitives::utility::random_bool(&mut r) {
+            1
+        } else {
+            2
+        };
+        let fame = [10, 20, 30][muo_primitives::utility::random(&mut r, 3) as usize];
+        let m = w.mobile(id).unwrap();
+        assert_eq!(m.title.as_deref(), Some(title));
+        assert_eq!(m.body.0, body);
+        assert_eq!(m.fame, fame);
+        assert_eq!(m.karma, -5);
+        assert_eq!(m.name.as_deref(), Some("keyed"));
+    }
+
+    let base = server_dir(
+        "badkey",
+        r#"[{ "type": "X", "era": { "atLeast": "AOZ" } }]"#,
+    );
+    let e = load_dir(&base.join("Data/Templates")).unwrap_err();
+    assert!(e.contains("unknown era AOZ"), "{e}");
 }

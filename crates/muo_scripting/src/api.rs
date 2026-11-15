@@ -108,6 +108,10 @@ pub(crate) fn engine() -> Engine {
     mobile_api(&mut e);
     item_api(&mut e);
     world_api(&mut e);
+    super::api_equipment::register(&mut e);
+    super::api_misc_items::register(&mut e);
+    super::api_mobiles::register(&mut e);
+    super::api_engines::register(&mut e);
     e
 }
 
@@ -425,11 +429,37 @@ fn item_api(e: &mut Engine) {
 }
 
 fn world_api(e: &mut Engine) {
+    // The draws of `Utility.RandomMinMax`, `Utility.Random(n)`, `RandomBool`, `RandomDouble` and `RandomList`, so a
+    // script reproduces a C#-ported constructor exactly.
     e.register_fn("random", |ctx: NativeCallContext, min: i64, max: i64| {
-        with_world(&ctx, |w| {
-            muo_primitives::utility::random_min_max_i64(&mut w.rng, min, max)
+        with_world(&ctx, |w| match (i32::try_from(min), i32::try_from(max)) {
+            (Ok(a), Ok(b)) => i64::from(muo_primitives::utility::random_min_max(&mut w.rng, a, b)),
+            _ => muo_primitives::utility::random_min_max_i64(&mut w.rng, min, max),
         })
     });
+    e.register_fn("random_below", |ctx: NativeCallContext, n: i64| {
+        with_world(&ctx, |w| {
+            i64::from(muo_primitives::utility::random(&mut w.rng, i32_of(n)))
+        })
+    });
+    e.register_fn("random_bool", |ctx: NativeCallContext| {
+        with_world(&ctx, |w| muo_primitives::utility::random_bool(&mut w.rng))
+    });
+    e.register_fn("random_double", |ctx: NativeCallContext| {
+        with_world(&ctx, |w| muo_primitives::utility::random_double(&mut w.rng))
+    });
+    e.register_fn(
+        "pick",
+        |ctx: NativeCallContext, list: rhai::Array| -> R<Dynamic> {
+            if list.is_empty() {
+                return Ok(Dynamic::UNIT);
+            }
+            with_world(&ctx, |w| {
+                let i = muo_primitives::utility::random(&mut w.rng, list.len() as i32) as usize;
+                list[i].clone()
+            })
+        },
+    );
     e.register_fn("log", |text: &str| tracing::info!("[script] {text}"));
     e.register_fn(
         "spawn_mobile",

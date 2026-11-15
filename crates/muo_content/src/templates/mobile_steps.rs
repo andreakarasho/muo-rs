@@ -10,7 +10,8 @@ use muo_server::mobile::ResistanceType;
 use muo_server::skills::SkillName;
 use muo_server::world::World;
 
-use super::parse_enum;
+use super::keys::{KeyDef, Keys};
+use super::{Flow, choose, parse_enum, parse_flow};
 use crate::creature::{init_ops as ops, packing, setters};
 use crate::hooks::rnd;
 
@@ -98,6 +99,9 @@ pub enum Step {
     Paragon(bool),
     RandomHair,
     Pack(Vec<PackEntry>),
+    Flow(Box<Flow<Step>>),
+    /// A key a content crate registered (`templates::keys`).
+    Ext(&'static str, KeyDef<MobileId>, Value),
 }
 
 fn int(v: &Value) -> Result<i32, String> {
@@ -227,7 +231,10 @@ fn pack_entry(v: &Value) -> Result<PackEntry, String> {
 }
 
 /// One `"key": value` of a mobile template.
-pub fn parse(key: &str, v: &Value) -> Result<Step, String> {
+pub fn parse(key: &str, v: &Value, keys: &Keys<'_>) -> Result<Step, String> {
+    if let Some(f) = parse_flow(key, v, &|k: &str, v: &Value| parse(k, v, keys)) {
+        return f.map(|f| Step::Flow(Box::new(f)));
+    }
     Ok(match key {
         "name" => Step::Name(string(v)?),
         "nameRandom" => Step::NameRandom(string(v)?),
@@ -287,7 +294,13 @@ pub fn parse(key: &str, v: &Value) -> Result<Step, String> {
                 .map(pack_entry)
                 .collect::<Result<_, _>>()?,
         ),
-        _ => return Err("unknown key".into()),
+        _ => match keys.mobiles.and_then(|k| k.0.get_key_value(key)) {
+            Some((name, def)) => {
+                (def.check)(v)?;
+                Step::Ext(name, *def, v.clone())
+            }
+            None => return Err("unknown key".into()),
+        },
     })
 }
 
@@ -432,5 +445,11 @@ pub fn apply(w: &mut World, id: MobileId, s: &Step) {
                 pack(w, id, e);
             }
         }
+        Step::Flow(f) => {
+            for s in choose(w, f) {
+                apply(w, id, s);
+            }
+        }
+        Step::Ext(_, def, v) => (def.apply)(w, id, v),
     }
 }

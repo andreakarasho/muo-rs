@@ -14,6 +14,10 @@
 //! logged with the file and function, and the default behavior runs.
 
 mod api;
+mod api_engines;
+mod api_equipment;
+mod api_misc_items;
+mod api_mobiles;
 #[cfg(test)]
 mod tests;
 

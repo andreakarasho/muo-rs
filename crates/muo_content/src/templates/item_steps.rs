@@ -8,8 +8,9 @@ use muo_server::layer::Layer;
 use muo_server::light_type::LightType;
 use muo_server::world::World;
 
+use super::keys::{KeyDef, Keys};
 use super::mobile_steps::skill;
-use super::parse_enum;
+use super::{Flow, choose, parse_enum, parse_flow};
 use crate::aos::{
     AosArmorAttribute, AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind, Attrs,
 };
@@ -35,6 +36,9 @@ pub enum Step {
     SkillBonuses(Vec<(SkillName, f64)>),
     /// Any `[set` property by its path (`"Attributes.Luck"`, `"Quality"`), as staff would type it.
     Set(Vec<(String, String)>),
+    Flow(Box<Flow<Step>>),
+    /// A key a content crate registered (`templates::keys`).
+    Ext(&'static str, KeyDef<ItemId>, Value),
 }
 
 fn attrs(kind: AttrKind, names: &[(&str, u32)], v: &Value) -> Result<Step, String> {
@@ -119,7 +123,10 @@ fn string(v: &Value) -> Result<&str, String> {
 }
 
 /// One `"key": value` of an item template.
-pub fn parse(key: &str, v: &Value) -> Result<Step, String> {
+pub fn parse(key: &str, v: &Value, keys: &Keys<'_>) -> Result<Step, String> {
+    if let Some(f) = parse_flow(key, v, &|k: &str, v: &Value| parse(k, v, keys)) {
+        return f.map(|f| Step::Flow(Box::new(f)));
+    }
     Ok(match key {
         "itemId" => Step::ItemId(int(v)?),
         "hue" => Step::Hue(int(v)?),
@@ -143,7 +150,13 @@ pub fn parse(key: &str, v: &Value) -> Result<Step, String> {
         "elementAttributes" => attrs(AttrKind::Element, AosElementAttribute::NAMES, v)?,
         "skillBonuses" => skill_bonuses(v)?,
         "set" => sets(v)?,
-        _ => return Err("unknown key".into()),
+        _ => match keys.items.and_then(|k| k.0.get_key_value(key)) {
+            Some((name, def)) => {
+                (def.check)(v)?;
+                Step::Ext(name, *def, v.clone())
+            }
+            None => return Err("unknown key".into()),
+        },
     })
 }
 
@@ -207,5 +220,11 @@ pub fn apply(w: &mut World, id: ItemId, s: &Step) {
                 set_property(w, id, path, text);
             }
         }
+        Step::Flow(f) => {
+            for s in choose(w, f) {
+                apply(w, id, s);
+            }
+        }
+        Step::Ext(_, def, v) => (def.apply)(w, id, v),
     }
 }

@@ -46,8 +46,13 @@ pub mod wands;
 pub mod weapons;
 pub mod wiring;
 
+mod template_keys_equipment;
+mod template_keys_misc;
+
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
+    template_keys_equipment::register(types);
+    template_keys_misc::register(types);
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,
         "muo_items.PropsGen.Configure",

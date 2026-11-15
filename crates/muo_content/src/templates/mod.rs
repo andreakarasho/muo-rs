@@ -15,6 +15,7 @@
 pub mod creature_props;
 pub mod item_props;
 pub mod item_steps;
+pub mod keys;
 pub mod mobile_steps;
 pub mod props;
 pub mod runtime_types;
@@ -135,11 +136,150 @@ pub(crate) fn parse_enum<T: std::fmt::Debug>(
     (0..256).filter_map(&from).find(|v| format!("{v:?}") == s)
 }
 
+/// The steps of a nested template block (`"then": { .. }`), parsed with the kind's own key parser.
+pub(crate) fn parse_block<S>(
+    v: Option<&Value>,
+    parse: &dyn Fn(&str, &Value) -> Result<S, String>,
+) -> Result<Vec<S>, String> {
+    let Some(v) = v else { return Ok(Vec::new()) };
+    let o = v
+        .as_object()
+        .ok_or_else(|| format!("expected an object of template keys, got {v}"))?;
+    o.iter()
+        .map(|(k, v)| parse(k, v).map_err(|e| format!("\"{k}\": {e}")))
+        .collect()
+}
+
+/// A control-flow statement shared by mobile and item templates; `S` is the kind's step.
+#[derive(Clone, Debug, PartialEq)]
+pub enum Flow<S> {
+    /// `if (Utility.RandomDouble() < p) { then } else { else }`.
+    Chance {
+        p: f64,
+        then: Vec<S>,
+        otherwise: Vec<S>,
+    },
+    /// `if (Core.Expansion >= era) { then } else { else }` (`Core.AOS`, `Core.ML`, ...).
+    Era {
+        at_least: muo_data::expansion::Expansion,
+        then: Vec<S>,
+        otherwise: Vec<S>,
+    },
+    /// `switch (Utility.Random(n))`: one of the blocks.
+    OneOf(Vec<Vec<S>>),
+    /// `if (Utility.RandomBool()) { then } else { else }`.
+    Coin { then: Vec<S>, otherwise: Vec<S> },
+}
+
+fn flow_obj<'a>(v: &'a Value, allowed: &[&str]) -> Result<&'a Map<String, Value>, String> {
+    let o = v
+        .as_object()
+        .ok_or_else(|| format!("expected an object, got {v}"))?;
+    match o.keys().find(|k| !allowed.contains(&k.as_str())) {
+        Some(k) => Err(format!(
+            "unknown key \"{k}\" (expected {})",
+            allowed.join(", ")
+        )),
+        None => Ok(o),
+    }
+}
+
+/// Parses `chance` / `era` / `oneOf` / `coin`; `None` for any other key.
+pub(crate) fn parse_flow<S>(
+    key: &str,
+    v: &Value,
+    parse: &dyn Fn(&str, &Value) -> Result<S, String>,
+) -> Option<Result<Flow<S>, String>> {
+    let r = match key {
+        "chance" => flow_obj(v, &["p", "then", "else"]).and_then(|o| {
+            let p = o
+                .get("p")
+                .and_then(Value::as_f64)
+                .ok_or("\"p\": expected a number")?;
+            Ok(Flow::Chance {
+                p,
+                then: parse_block(o.get("then"), parse)?,
+                otherwise: parse_block(o.get("else"), parse)?,
+            })
+        }),
+        "era" => flow_obj(v, &["atLeast", "then", "else"]).and_then(|o| {
+            let name = o
+                .get("atLeast")
+                .and_then(Value::as_str)
+                .ok_or("\"atLeast\": expected an era name")?;
+            let at_least = (0..64)
+                .filter_map(muo_data::expansion::Expansion::from_index)
+                .find(|e| format!("{e:?}") == name)
+                .ok_or_else(|| format!("unknown era {name}"))?;
+            Ok(Flow::Era {
+                at_least,
+                then: parse_block(o.get("then"), parse)?,
+                otherwise: parse_block(o.get("else"), parse)?,
+            })
+        }),
+        "coin" => flow_obj(v, &["then", "else"]).and_then(|o| {
+            Ok(Flow::Coin {
+                then: parse_block(o.get("then"), parse)?,
+                otherwise: parse_block(o.get("else"), parse)?,
+            })
+        }),
+        "oneOf" => match v.as_array() {
+            None => Err("expected an array of blocks".to_owned()),
+            Some(a) if a.is_empty() => Err("an empty oneOf".to_owned()),
+            Some(a) => a
+                .iter()
+                .map(|b| parse_block(Some(b), parse))
+                .collect::<Result<_, _>>()
+                .map(Flow::OneOf),
+        },
+        _ => return None,
+    };
+    Some(r)
+}
+
+/// Picks the block of a flow statement to run now, drawing the RNG exactly as the C# statement did.
+pub(crate) fn choose<'a, S>(w: &mut World, f: &'a Flow<S>) -> &'a [S] {
+    use crate::hooks::rnd;
+    match f {
+        Flow::Chance { p, then, otherwise } => {
+            if rnd::double(w) < *p {
+                then
+            } else {
+                otherwise
+            }
+        }
+        Flow::Era {
+            at_least,
+            then,
+            otherwise,
+        } => {
+            if w.expansion() >= *at_least {
+                then
+            } else {
+                otherwise
+            }
+        }
+        Flow::OneOf(blocks) => &blocks[rnd::below(w, blocks.len() as i32) as usize],
+        Flow::Coin { then, otherwise } => {
+            if rnd::bool(w) {
+                then
+            } else {
+                otherwise
+            }
+        }
+    }
+}
+
 fn field_err(file: &Path, ty: &str, key: &str, msg: impl std::fmt::Display) -> String {
     format!("{}: {ty}: \"{key}\": {msg}", file.display())
 }
 
-fn parse_template(file: &Path, kind: Kind, obj: &Map<String, Value>) -> Result<Template, String> {
+fn parse_template(
+    file: &Path,
+    kind: Kind,
+    obj: &Map<String, Value>,
+    keys: &keys::Keys<'_>,
+) -> Result<Template, String> {
     let ty = obj
         .get("type")
         .and_then(Value::as_str)
@@ -197,10 +337,10 @@ fn parse_template(file: &Path, kind: Kind, obj: &Map<String, Value>) -> Result<T
             _ => match kind {
                 Kind::Mobile => t
                     .mobile_steps
-                    .push(mobile_steps::parse(key, v).map_err(|m| e(&m))?),
+                    .push(mobile_steps::parse(key, v, keys).map_err(|m| e(&m))?),
                 Kind::Item => t
                     .item_steps
-                    .push(item_steps::parse(key, v).map_err(|m| e(&m))?),
+                    .push(item_steps::parse(key, v, keys).map_err(|m| e(&m))?),
             },
         }
     }
@@ -229,11 +369,20 @@ fn json_files(dir: &Path, out: &mut Vec<PathBuf>) -> Result<(), String> {
 /// Reads `<root>/Mobiles/**/*.json` and `<root>/Items/**/*.json`. Any malformed file, duplicate type, unknown
 /// `inherits` or `inherits` cycle is an error naming the file and type.
 pub fn load_dir(root: &Path) -> Result<TemplateTable, String> {
-    load_dir_keeping(root, HashSet::new())
+    load_dir_keeping(root, HashSet::new(), &keys::Keys::default())
+}
+
+/// [`load_dir`] knowing the template keys the registered crates added.
+pub fn load_dir_with(root: &Path, keys: &keys::Keys<'_>) -> Result<TemplateTable, String> {
+    load_dir_keeping(root, HashSet::new(), keys)
 }
 
 /// [`load_dir`] reusing the interned strings of an earlier table, so a reload leaks only new texts.
-fn load_dir_keeping(root: &Path, interned: HashSet<&'static str>) -> Result<TemplateTable, String> {
+fn load_dir_keeping(
+    root: &Path,
+    interned: HashSet<&'static str>,
+    keys: &keys::Keys<'_>,
+) -> Result<TemplateTable, String> {
     let mut table = TemplateTable {
         interned,
         ..TemplateTable::default()
@@ -253,7 +402,7 @@ fn load_dir_keeping(root: &Path, interned: HashSet<&'static str>) -> Result<Temp
                 let o = o
                     .as_object()
                     .ok_or_else(|| format!("{}: expected a template object", file.display()))?;
-                let t = parse_template(&file, kind, o)?;
+                let t = parse_template(&file, kind, o, keys)?;
                 let map = match kind {
                     Kind::Mobile => &mut table.mobiles,
                     Kind::Item => &mut table.items,
@@ -322,7 +471,7 @@ pub fn table(w: &mut World) -> Rc<TemplateTable> {
     if let Some(t) = w.resources.get::<Rc<TemplateTable>>() {
         return t.clone();
     }
-    let t = match fallback_dir().map(|d| load_dir(&d)) {
+    let t = match fallback_dir().map(|d| load_dir_with(&d, &keys::Keys::of(&w.types))) {
         Some(Ok(t)) => t,
         Some(Err(e)) => {
             tracing::error!("Templates: {e}");
@@ -347,7 +496,7 @@ pub fn reload(w: &mut World) -> Result<(), String> {
         .get::<Rc<TemplateTable>>()
         .map(|t| t.interned.clone())
         .unwrap_or_default();
-    let mut t = load_dir_keeping(&templates_dir(w), old)?;
+    let mut t = load_dir_keeping(&templates_dir(w), old, &keys::Keys::of(&w.types))?;
     runtime_types::register_all(w, &mut t)?;
     w.resources.insert(Rc::new(t));
     Ok(())

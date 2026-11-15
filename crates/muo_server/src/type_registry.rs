@@ -82,6 +82,9 @@ pub struct TypeRegistry {
     prompts: Vec<PhaseFn>,
     configure: Vec<PhaseFn>,
     initialize: Vec<PhaseFn>,
+    /// Tables a content crate fills in at registration for another layer to read, keyed by type (e.g. the
+    /// JSON template keys of `muo_content::templates::keys`).
+    pub extensions: crate::resources::Resources,
 }
 
 fn push_unique(v: &mut Vec<EntityType>, t: EntityType) {
