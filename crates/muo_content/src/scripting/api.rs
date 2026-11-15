@@ -84,7 +84,7 @@ pub(crate) fn live_i(w: &World, i: Item) -> Option<&'static muo_server::item::It
 
 /// `new T()` by class name, with `amount` set when above 1.
 fn make_item(w: &mut World, class: &str, amount: i64) -> Option<ItemId> {
-    let it = muo_content::factory::make_item(w, class)?;
+    let it = crate::factory::make_item(w, class)?;
     if amount > 1 {
         muo_server::item::ops::set_amount(w, it, i32_of(amount));
     }
@@ -255,7 +255,7 @@ fn mobile_api(e: &mut Engine) {
             with_world(&ctx, |w| {
                 live_m(w, m)?;
                 let it = make_item(w, class, amount)?;
-                muo_content::creature::setters::pack_item(w, m.0, Some(it));
+                crate::creature::setters::pack_item(w, m.0, Some(it));
                 Some(it)
             })
             .map(|it| entity(it.map(EntityId::Item)))
@@ -355,7 +355,7 @@ fn item_api(e: &mut Engine) {
             };
             with_world(&ctx, |w| {
                 live_i(w, i).is_some_and(|_| {
-                    muo_content::items::set_attr(w, i.0, kind, bit, i32_of(v));
+                    crate::items::set_attr(w, i.0, kind, bit, i32_of(v));
                     true
                 })
             })
@@ -368,9 +368,7 @@ fn item_api(e: &mut Engine) {
                 return Ok(0);
             };
             with_world(&ctx, |w| {
-                live_i(w, i).map_or(0, |_| {
-                    i64::from(muo_content::items::attr(w, i.0, kind, bit))
-                })
+                live_i(w, i).map_or(0, |_| i64::from(crate::items::attr(w, i.0, kind, bit)))
             })
         },
     );
@@ -378,7 +376,7 @@ fn item_api(e: &mut Engine) {
     e.register_fn(
         "skill_bonus",
         |ctx: NativeCallContext, i: Item, index: i64, skill: &str, bonus: f64| -> R<bool> {
-            let Ok(skill) = muo_content::templates::mobile_steps::skill(skill) else {
+            let Ok(skill) = crate::templates::mobile_steps::skill(skill) else {
                 return Ok(false);
             };
             if !(0..5).contains(&index) {
@@ -386,11 +384,11 @@ fn item_api(e: &mut Engine) {
             }
             with_world(&ctx, |w| {
                 live_i(w, i).is_some_and(|_| {
-                    let v = muo_content::aos::Attrs::skill_bonus_value(skill, bonus);
-                    muo_content::items::set_attr(
+                    let v = crate::aos::Attrs::skill_bonus_value(skill, bonus);
+                    crate::items::set_attr(
                         w,
                         i.0,
-                        muo_content::aos::AttrKind::SkillBonuses,
+                        crate::aos::AttrKind::SkillBonuses,
                         1 << index,
                         v,
                     );
@@ -405,12 +403,7 @@ fn item_api(e: &mut Engine) {
         |ctx: NativeCallContext, i: Item, path: &str, value: Dynamic| -> R<()> {
             with_world(&ctx, |w| {
                 if live_i(w, i).is_some() {
-                    muo_content::templates::item_steps::set_property(
-                        w,
-                        i.0,
-                        path,
-                        &value.to_string(),
-                    );
+                    crate::templates::item_steps::set_property(w, i.0, path, &value.to_string());
                 }
             })
         },
@@ -468,7 +461,7 @@ fn world_api(e: &mut Engine) {
         |ctx: NativeCallContext, class: &str, x: i64, y: i64, z: i64, map: i64| {
             with_world(&ctx, |w| {
                 let map = MapId(u8::try_from(map).ok()?);
-                let m = muo_content::factory::make_mobile(w, class)?;
+                let m = crate::factory::make_mobile(w, class)?;
                 let p = Point3D::new(i32_of(x), i32_of(y), i32_of(z));
                 muo_server::mobile::base::move_to_world(w, m, p, map);
                 Some(m)
@@ -487,7 +480,7 @@ fn world_api(e: &mut Engine) {
             with_world(&ctx, |w| {
                 let delay = TimeSpan::from_millis(ms.max(0));
                 muo_server::timer::start(w, delay, TimeSpan::ZERO, 1, move |w| {
-                    crate::fire_timer(w, &script, &f, arg.clone());
+                    super::fire_timer(w, &script, &f, arg.clone());
                 });
             })
         },
@@ -495,8 +488,8 @@ fn world_api(e: &mut Engine) {
 }
 
 /// The bag and bit of a magic property by the names the JSON templates use.
-fn attr_bit(bag: &str, name: &str) -> Option<(muo_content::aos::AttrKind, u32)> {
-    use muo_content::aos::*;
+fn attr_bit(bag: &str, name: &str) -> Option<(crate::aos::AttrKind, u32)> {
+    use crate::aos::*;
     let (kind, names) = match bag {
         "Attributes" => (AttrKind::Attributes, AosAttribute::NAMES),
         "WeaponAttributes" => (AttrKind::Weapon, AosWeaponAttribute::NAMES),
@@ -516,8 +509,8 @@ fn attr_bit(bag: &str, name: &str) -> Option<(muo_content::aos::AttrKind, u32)> 
 /// order, so a statement whose map entries draw the RNG in sequence is written one entry per call, or with the
 /// one-entry functions `resist`, `skill`, `damage_type`, `skill_base`.
 pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::TypeRegistry) {
-    use muo_content::templates::keys::{ItemKeys, Keys, MobileKeys};
-    use muo_content::templates::{item_steps, mobile_steps};
+    use crate::templates::keys::{ItemKeys, Keys, MobileKeys};
+    use crate::templates::{item_steps, mobile_steps};
     fn json(key: &str, v: &Dynamic) -> R<serde_json::Value> {
         to_json(v).map_err(|e| format!("{key}: {e}").into())
     }
@@ -577,10 +570,9 @@ pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::
             if live_m(w, m).is_none() {
                 return Ok(());
             }
-            let step =
-                muo_content::templates::mobile_steps::parse(key, &o.into(), &Keys::of(&w.types))
-                    .map_err(|e| format!("{key}: {e}"))?;
-            muo_content::templates::mobile_steps::apply(w, m.0, &step);
+            let step = crate::templates::mobile_steps::parse(key, &o.into(), &Keys::of(&w.types))
+                .map_err(|e| format!("{key}: {e}"))?;
+            crate::templates::mobile_steps::apply(w, m.0, &step);
             Ok::<(), Box<EvalAltResult>>(())
         })?
     }

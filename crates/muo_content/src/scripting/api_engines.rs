@@ -57,7 +57,7 @@ pub(crate) fn register(e: &mut Engine) {
         |ctx: NativeCallContext, m: Mobile, hue: i64| {
             with_world(&ctx, |w| {
                 if live_m(w, m).is_some() {
-                    muo_content::vendor::assign_random_hair(w, m.0, i32_of(hue));
+                    crate::vendor::assign_random_hair(w, m.0, i32_of(hue));
                 }
             })
         },
@@ -68,7 +68,7 @@ pub(crate) fn register(e: &mut Engine) {
         |ctx: NativeCallContext, m: Mobile, hue: i64| {
             with_world(&ctx, |w| {
                 if live_m(w, m).is_some() {
-                    muo_content::vendor::assign_random_facial_hair(w, m.0, i32_of(hue));
+                    crate::vendor::assign_random_facial_hair(w, m.0, i32_of(hue));
                 }
             })
         },
@@ -89,12 +89,12 @@ pub(crate) fn register(e: &mut Engine) {
     e.register_fn(
         "mlq_skill_range",
         |ctx: NativeCallContext, m: Mobile, skill: &str, min: f64, max: f64| -> R<bool> {
-            let Ok(skill) = muo_content::templates::mobile_steps::skill(skill) else {
+            let Ok(skill) = crate::templates::mobile_steps::skill(skill) else {
                 return Ok(false);
             };
             with_world(&ctx, |w| {
                 live_m(w, m).is_some_and(|_| {
-                    muo_content::creature::setters::set_skill_range(w, m.0, skill, min, max);
+                    crate::creature::setters::set_skill_range(w, m.0, skill, min, max);
                     true
                 })
             })

@@ -40,7 +40,7 @@ fn world() -> World {
     // the Configure phase, as startup: the `[set` properties scripts set, the templates, the scripts
     muo_server::type_registry::invoke_phase(&mut w, muo_server::type_registry::Phase::Configure);
     templates::reload(&mut w).unwrap();
-    assert!(muo_scripting::reload_scripts(&mut w).is_empty());
+    assert!(muo_content::scripting::reload_scripts(&mut w).is_empty());
     w
 }
 

@@ -41,13 +41,13 @@ fn write(base: &std::path::Path, file: &str, text: &str) {
 fn world(base: PathBuf) -> (World, Vec<String>) {
     let mut w = World::new();
     w.core.base_directory = base; // `Server.Mobile` and `Server.Item` are registered by `World::new`
-    crate::register(&mut w.types);
+    crate::scripting::register(&mut w.types);
     let errors = reload_scripts(&mut w);
     (w, errors)
 }
 
 fn spawn(w: &mut World) -> MobileId {
-    let id = muo_content::factory::make_mobile(w, "Test.Scripted").unwrap();
+    let id = crate::factory::make_mobile(w, "Test.Scripted").unwrap();
     let ty = w.mobile(id).unwrap().ty;
     (ty.set_str)(w, id, 100);
     muo_server::mobile::part1::props_b::set_hits(w, id, 60);
@@ -89,7 +89,7 @@ fn hooks_fire_and_suppress_the_default_and_reload_applies() {
     damage(&mut w, id, 10);
     assert_eq!((hits(&w, id), name(&w, id).as_str()), (60, "took 10"));
 
-    let it = muo_content::factory::make_item(&mut w, "Test.ScriptedItem").unwrap();
+    let it = crate::factory::make_item(&mut w, "Test.ScriptedItem").unwrap();
     assert!(script_hooks::item(
         &mut w,
         it,
@@ -271,11 +271,11 @@ fn class_server(name: &str, json: &str, rhai: &str) -> PathBuf {
 }
 
 fn creature_world(base: PathBuf) -> World {
-    use muo_content::creature::speeds::{NpcSpeeds, SpeedClassEntry};
+    use crate::creature::speeds::{NpcSpeeds, SpeedClassEntry};
     let mut w = World::new();
     w.core.base_directory = base;
     w.types
-        .register_mobile(&muo_content::creature::vtable::BASE_CREATURE, &[]);
+        .register_mobile(&crate::creature::vtable::BASE_CREATURE, &[]);
     w.resources
         .get_mut::<NpcSpeeds>()
         .register(SpeedClassEntry {
@@ -286,7 +286,7 @@ fn creature_world(base: PathBuf) -> World {
             passive_move: 0.0,
             types: vec![],
         });
-    crate::register(&mut w.types);
+    crate::scripting::register(&mut w.types);
     let errors = reload_scripts(&mut w);
     assert!(errors.is_empty(), "{errors:?}");
     w
@@ -294,13 +294,13 @@ fn creature_world(base: PathBuf) -> World {
 
 fn record(w: &mut World, seed: u64) -> (Vec<u8>, Option<Option<&'static str>>) {
     w.rng = muo_primitives::BuiltInRng::from_seed(seed);
-    let id = muo_content::factory::make_mobile(w, "Custom.Beast").unwrap();
+    let id = crate::factory::make_mobile(w, "Custom.Beast").unwrap();
     let ty = w.mobile(id).unwrap().ty;
     let mut out = muo_io::SaveWriter::new(true);
     (ty.serialize)(w, id, &mut out);
-    let corpse = muo_content::templates::props::as_static_str(
+    let corpse = crate::templates::props::as_static_str(
         w,
-        muo_content::templates::props::mobile(w, id, "corpseName"),
+        crate::templates::props::mobile(w, id, "corpseName"),
     );
     (out.into_vec(), corpse)
 }
@@ -350,11 +350,11 @@ fn a_script_class_takes_constructor_arguments_and_rejects_unknown_parents() {
     };
     let plain = (ty.construct.unwrap())(&mut w);
     assert_eq!(w.mobile(plain).unwrap().fame, 1000);
-    let id = muo_content::creature::setters::new_creature(
+    let id = crate::creature::setters::new_creature(
         &mut w,
         ty,
-        muo_content::creature::enums::AIType::AiMelee,
-        muo_content::creature::enums::FightMode::Closest,
+        crate::creature::enums::AIType::AiMelee,
+        crate::creature::enums::FightMode::Closest,
         16,
         1,
     );
@@ -364,7 +364,7 @@ fn a_script_class_takes_constructor_arguments_and_rejects_unknown_parents() {
     let base = class_server("noparent", "[]", r#"class("Custom.Nothing", |m| {});"#);
     let mut w = World::new();
     w.core.base_directory = base;
-    crate::register(&mut w.types);
+    crate::scripting::register(&mut w.types);
     let errors = reload_scripts(&mut w);
     assert!(
         errors.iter().any(|e| e.contains("Custom.Nothing")),

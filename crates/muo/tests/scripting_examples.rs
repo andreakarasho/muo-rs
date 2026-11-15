@@ -11,7 +11,7 @@ fn examples_load_bind_and_run() {
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     muo_content::templates::reload(&mut w).unwrap();
-    let errors = muo_scripting::reload_scripts(&mut w);
+    let errors = muo_content::scripting::reload_scripts(&mut w);
     assert!(errors.is_empty(), "{errors:?}");
     assert!(
         w.resources
@@ -44,7 +44,7 @@ fn a_script_rolls_magic_properties_on_a_json_class() {
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     muo_content::templates::reload(&mut w).unwrap();
-    assert!(muo_scripting::reload_scripts(&mut w).is_empty());
+    assert!(muo_content::scripting::reload_scripts(&mut w).is_empty());
 
     let blade = muo_content::factory::make_item(&mut w, "Examples.RandomBlade").unwrap();
     let attr = |w: &World, kind, bit| muo_content::items::attr(w, blade, kind, bit);

@@ -27,6 +27,7 @@ pub mod props;
 pub mod props_ctx;
 mod props_gen;
 pub mod props_hosts;
+pub mod scripting;
 pub mod skills_props;
 mod systems;
 pub mod template_keys;

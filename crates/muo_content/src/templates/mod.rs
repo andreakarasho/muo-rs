@@ -601,32 +601,9 @@ pub fn data_root(w: &World) -> Option<PathBuf> {
     cwd.ancestors().map(|a| a.join("Data")).find(|p| p.is_dir())
 }
 
-/// A source of templates besides the JSON files (the scripting crate's `class` declarations), registered at
-/// type registration. `lenient` is the test-world load: unknown keys are skipped and errors only logged.
-pub type SourceFn = fn(&mut World, bool, &mut TemplateTable) -> Result<(), String>;
-
-#[derive(Default)]
-pub struct Sources(pub Vec<SourceFn>);
-
-/// Adds a template source; registering the same one twice is a no-op.
-pub fn register_source(types: &mut muo_server::type_registry::TypeRegistry, f: SourceFn) {
-    let s = types.extensions.get_mut::<Sources>();
-    if !s.0.iter().any(|g| std::ptr::fn_addr_eq(*g, f)) {
-        s.0.push(f);
-    }
-}
-
+/// The class templates declared in scripts (`Data/Scripts`), after the JSON ones. `lenient` is the test-world load.
 fn run_sources(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Result<(), String> {
-    let sources = w
-        .types
-        .extensions
-        .get::<Sources>()
-        .map(|s| s.0.clone())
-        .unwrap_or_default();
-    for f in sources {
-        f(w, lenient, t)?;
-    }
-    Ok(())
+    crate::scripting::source(w, lenient, t)
 }
 
 /// Runs a script-declared constructor body ([`Template::ctor`]) on a new entity, with the constructor's arguments.

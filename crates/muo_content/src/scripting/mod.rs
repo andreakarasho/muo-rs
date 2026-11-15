@@ -30,7 +30,7 @@ use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 
-use muo_content::templates::{self, Kind, TemplateTable};
+use crate::templates::{self, Kind, TemplateTable};
 use muo_primitives::dotnet::IgnoreCase;
 use muo_server::commands::{CommandEventArgs, CommandEventHandler, CommandSystem};
 use muo_server::ids::EntityId;
@@ -453,7 +453,7 @@ pub fn reload_scripts(w: &mut World) -> Vec<String> {
 
 /// The template source: compiles `Data/Scripts`, turns its `class` declarations into templates, and makes the new
 /// host current. A strict (server) load fails on any script error, so a broken file never leaves classes blank.
-fn source(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Result<(), String> {
+pub(crate) fn source(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Result<(), String> {
     let Some(dir) = templates::data_root(w).map(|d| d.join("Scripts")) else {
         return Ok(());
     };
@@ -550,10 +550,9 @@ fn configure(w: &mut World) {
 
 /// Registers the scripting Configure phase; call last, after every content crate.
 pub fn register(types: &mut TypeRegistry) {
-    templates::register_source(types, source);
     types.register_phase(
         Phase::Configure,
-        "muo_scripting.Scripts.Configure",
+        "muo_content.Scripts.Configure",
         1000,
         configure,
     );

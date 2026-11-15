@@ -10,7 +10,7 @@ fn world() -> World {
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     muo_content::templates::reload(&mut w).unwrap();
-    assert!(muo_scripting::reload_scripts(&mut w).is_empty());
+    assert!(muo_content::scripting::reload_scripts(&mut w).is_empty());
     w
 }
 

@@ -15,8 +15,8 @@ use std::rc::Rc;
 
 use rhai::{Dynamic, Engine, FnPtr, Map};
 
-use muo_content::templates::keys::Keys;
-use muo_content::templates::{self, Kind, TemplateTable};
+use crate::templates::keys::Keys;
+use crate::templates::{self, Kind, TemplateTable};
 use muo_server::type_registry::EntityType;
 use muo_server::world::World;
 
@@ -141,7 +141,7 @@ pub(crate) fn build(
         let kind = kind_of(w, &decls, &d.name, 0)
             .ok_or_else(|| err("not a registered class, and no \"parent\" names one".to_owned()))?;
         let serde_json::Value::Object(mut obj) =
-            crate::api::to_json(&Dynamic::from_map(d.meta.clone())).map_err(err)?
+            super::api::to_json(&Dynamic::from_map(d.meta.clone())).map_err(err)?
         else {
             return Err(err("the class map is not a map".to_owned()));
         };

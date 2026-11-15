@@ -2,11 +2,11 @@
 //! `BaseCreature` setters a constructor with arguments calls (`Golem(summoned, scalar)`, `BaseEnraged(summoner)`).
 //! An unknown resistance or skill name does nothing.
 
-use muo_content::creature::{control, init_ops, setters};
-use muo_content::templates::mobile_steps::{resistance, skill};
+use crate::creature::{control, init_ops, setters};
+use crate::templates::mobile_steps::{resistance, skill};
 use rhai::{Dynamic, Engine, NativeCallContext};
 
-use crate::api::{Mobile, R, i32_of, live_m, with_world};
+use super::api::{Mobile, R, i32_of, live_m, with_world};
 
 /// Runs `f` on a live mobile of the script call.
 fn on(ctx: &NativeCallContext, m: Mobile, f: impl FnOnce(&mut muo_server::world::World)) -> R<()> {

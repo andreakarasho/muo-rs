@@ -1115,7 +1115,6 @@ dependencies = [
  "muo_multis",
  "muo_net",
  "muo_primitives",
- "muo_scripting",
  "muo_server",
  "muo_spells",
  "tracing",
@@ -1156,6 +1155,7 @@ dependencies = [
  "muo_primitives",
  "muo_server",
  "pbkdf2",
+ "rhai",
  "roxmltree",
  "rustls",
  "rustls-rustcrypto",
@@ -1315,20 +1315,6 @@ dependencies = [
  "serde",
  "serde_json",
  "twox-hash",
-]
-
-[[package]]
-name = "muo_scripting"
-version = "0.1.0"
-dependencies = [
- "muo_content",
- "muo_data",
- "muo_io",
- "muo_primitives",
- "muo_server",
- "rhai",
- "serde_json",
- "tracing",
 ]
 
 [[package]]

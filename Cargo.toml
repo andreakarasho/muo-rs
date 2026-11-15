@@ -21,7 +21,6 @@ muo_multis = { path = "crates/muo_multis" }
 muo_engines = { path = "crates/muo_engines" }
 muo_gumps = { path = "crates/muo_gumps" }
 muo_commands = { path = "crates/muo_commands" }
-muo_scripting = { path = "crates/muo_scripting" }
 bitflags = "2"
 indexmap = "2"
 serde = { version = "1", features = ["derive"] }

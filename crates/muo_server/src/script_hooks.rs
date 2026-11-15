@@ -1,4 +1,4 @@
-//! Interception points a scripting layer fills in (`muo_scripting`).
+//! Interception points a scripting layer fills in (`muo_content::scripting`).
 //!
 //! A dispatch site asks [`mobile`] / [`item`] before running a class's default behavior; `true` means a script
 //! handled it and the default is skipped. Without a `ScriptHooks` resource, or for a class whose script does not

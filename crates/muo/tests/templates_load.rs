@@ -9,7 +9,7 @@ fn shipped_templates_and_scripts_load_strictly() {
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     muo_content::templates::reload(&mut w).unwrap();
-    let errors = muo_scripting::reload_scripts(&mut w);
+    let errors = muo_content::scripting::reload_scripts(&mut w);
     assert!(errors.is_empty(), "{errors:?}");
     let t = muo_content::templates::table(&mut w);
     assert!(
