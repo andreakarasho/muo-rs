@@ -233,3 +233,17 @@ fn era_coin_and_registered_keys() {
     let e = load_dir(&base.join("Data/Templates")).unwrap_err();
     assert!(e.contains("unknown era AOZ"), "{e}");
 }
+
+#[test]
+fn a_lenient_load_skips_unregistered_keys_and_a_strict_one_rejects_them() {
+    let base = server_dir(
+        "lenient",
+        r#"[{ "type": "A", "hits": 5, "someCrateKey": 1 }]"#,
+    );
+    let root = base.join("Data/Templates");
+    let w = World::new();
+    let t = load_dir_with(&root, &keys::Keys::lenient(&w.types)).unwrap();
+    assert_eq!(t.mobiles["A"].mobile_steps.len(), 2);
+    let e = load_dir_with(&root, &keys::Keys::of(&w.types)).unwrap_err();
+    assert!(e.contains("\"someCrateKey\": unknown key"), "{e}");
+}
