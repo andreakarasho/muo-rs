@@ -19,7 +19,7 @@ pub(crate) struct Ctx {
     pub script: ImmutableString,
 }
 
-type R<T> = Result<T, Box<EvalAltResult>>;
+pub(crate) type R<T> = Result<T, Box<EvalAltResult>>;
 
 /// Runs `f` with the world of the script call in progress.
 ///
@@ -30,7 +30,7 @@ type R<T> = Result<T, Box<EvalAltResult>>;
 /// borrows overlap. A nested script call (an action here raises a hook that runs a script) gets its own `Ctx`
 /// made from the `&mut` reborrowed inside `f`, and the outer pointer is not used until `f` returns. The tag is
 /// never handed to scripts and is dropped with the call, so the pointer cannot outlive the borrow it came from.
-fn with_world<T>(ctx: &NativeCallContext, f: impl FnOnce(&mut World) -> T) -> R<T> {
+pub(crate) fn with_world<T>(ctx: &NativeCallContext, f: impl FnOnce(&mut World) -> T) -> R<T> {
     let ptr = ctx
         .tag()
         .and_then(|t| t.read_lock::<Ctx>())
@@ -69,16 +69,16 @@ pub(crate) fn arg(a: ScriptArg) -> Dynamic {
     }
 }
 
-fn i32_of(v: i64) -> i32 {
+pub(crate) fn i32_of(v: i64) -> i32 {
     v.clamp(i64::from(i32::MIN), i64::from(i32::MAX)) as i32
 }
 
 /// A live mobile's class and id (`None` when deleted).
-fn live_m(w: &World, m: Mobile) -> Option<&'static muo_server::mobile::MobileType> {
+pub(crate) fn live_m(w: &World, m: Mobile) -> Option<&'static muo_server::mobile::MobileType> {
     w.mobile(m.0).filter(|x| !x.deleted).map(|x| x.ty)
 }
 
-fn live_i(w: &World, i: Item) -> Option<&'static muo_server::item::ItemType> {
+pub(crate) fn live_i(w: &World, i: Item) -> Option<&'static muo_server::item::ItemType> {
     w.item(i.0).filter(|x| !x.deleted()).map(|x| x.ty)
 }
 
