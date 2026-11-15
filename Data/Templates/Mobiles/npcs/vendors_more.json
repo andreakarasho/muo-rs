@@ -20,7 +20,19 @@
         }
       ],
       "npcGuild": "BlacksmithsGuild",
-      "npcShoeType": "None"
+      "npcShoeType": "None",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "coin": {
+          "then": {
+            "npcEquipOrDelete": {"item": "Server.Items.FullApron"}
+          },
+          "else": {
+            "npcEquipOrDelete": {"item": "Server.Items.RingmailChest"}
+          }
+        },
+        "npcAddItem": ["Server.Items.Bascinet", "Server.Items.SmithHammer"]
+      }
     }
   },
   {
@@ -88,7 +100,27 @@
     },
     "props": {
       "npcSbInfos": ["SBAxeWeapon", "SBKnifeWeapon", "SBMaceWeapon", "SBSmithTools", "SBPoleArmWeapon", "SBSpearForkWeapon", "SBSwordWeapon", "SBMetalShields", "SBHelmetArmor", "SBPlateArmor", "SBChainmailArmor", "SBRingmailArmor", "SBStuddedArmor", "SBLeatherArmor"],
-      "npcShoeType": "None"
+      "npcShoeType": "None",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "coin": {
+          "else": {
+            "npcEquipOrDelete": {
+              "item": "Server.Items.RingmailChest",
+              "else": {
+                "npcAddItem": [
+                  {"item": "Server.Items.FullApron", "hue": "randomBright"}
+                ]
+              }
+            }
+          }
+        },
+        "npcAddItem": ["Server.Items.Bascinet", "Server.Items.SmithHammer"],
+        "npcRehueLayers": {
+          "layers": ["Pants", "OuterLegs", "InnerLegs", "OuterTorso", "InnerTorso", "Shirt"],
+          "hue": "randomBright"
+        }
+      }
     }
   },
   {
@@ -98,7 +130,46 @@
       "ItemID": [60.0, 83.0]
     },
     "props": {
-      "npcSbInfos": ["SBTinker", "SBVagabond"]
+      "npcSbInfos": ["SBTinker", "SBVagabond"],
+      "npcOutfit": {
+        "npcAddItem": [
+          {"item": "Server.Items.FancyShirt", "hue": "randomBright"},
+          {"item": "Server.Items.Shoes", "hue": "vendorShoe"},
+          {"item": "Server.Items.LongPants", "hue": "vendorRandom"}
+        ],
+        "coin": {
+          "then": {
+            "npcAddItem": [
+              {"item": "Server.Items.Cloak", "hue": "randomBright"}
+            ]
+          }
+        },
+        "npcSeq": [
+          {
+            "coin": {
+              "then": {
+                "npcAddItem": [
+                  {"item": "Server.Items.SkullCap", "hue": "randomNeutral"}
+                ]
+              },
+              "else": {
+                "npcAddItem": [
+                  {"item": "Server.Items.Bandana", "hue": "randomNeutral"}
+                ]
+              }
+            }
+          },
+          {
+            "randomHair": true,
+            "npcFacialHair": "hairHue",
+            "pack": [
+              {
+                "gold": [100, 200]
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   {
@@ -175,7 +246,39 @@
     "type": "Server.Mobiles.GypsyMaiden",
     "title": "the gypsy maiden",
     "props": {
-      "npcSbInfos": ["SBProvisioner"]
+      "npcSbInfos": ["SBProvisioner"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "oneOf": [
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.JesterHat", "hue": "randomBright"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.Bandana", "hue": "randomBright"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.SkullCap", "hue": "randomBright"}
+            ]
+          },
+          {}
+        ],
+        "coin": {
+          "then": {
+            "npcAddItem": [
+              {"item": "Server.Items.HalfApron", "hue": "randomBright"}
+            ]
+          }
+        },
+        "npcRehueLayers": {
+          "layers": ["Pants", "OuterLegs", "InnerLegs"],
+          "hue": "randomBright"
+        }
+      }
     }
   },
   {
@@ -190,7 +293,41 @@
       "Wrestling": [36.0, 68.0]
     },
     "props": {
-      "npcSbInfos": ["SBHolyMage"]
+      "npcSbInfos": ["SBHolyMage"],
+      "npcOutfit": {
+        "npcAddItem": [
+          {"item": "Server.Items.Robe", "hue": 1150},
+          {"item": "Server.Items.ThighBoots", "hue": 1150},
+          {"item": "Server.Items.BlackStaff", "hue": 1150}
+        ],
+        "npcByGender": {
+          "female": {
+            "npcAddItem": [
+              {"item": "Server.Items.LeatherGloves", "hue": 1150},
+              {"item": "Server.Items.GoldNecklace", "hue": 1150}
+            ],
+            "oneOf": [
+              {"npcHairItemId": 8252},
+              {"npcHairItemId": 8253}
+            ]
+          },
+          "male": {
+            "npcAddItem": [
+              {"item": "Server.Items.PlateGloves", "hue": 1150},
+              {"item": "Server.Items.PlateGorget", "hue": 1150}
+            ],
+            "oneOf": [
+              {"npcHairItemId": 8252}
+            ]
+          }
+        },
+        "npcHairHue": 1150,
+        "pack": [
+          {
+            "gold": [100, 200]
+          }
+        ]
+      }
     }
   },
   {
@@ -201,6 +338,40 @@
       "Inscribe": [90.0, 100.0]
     },
     "props": {
+      "npcSbInfos": [
+        "SBScribe",
+        {
+          "era": "SE",
+          "then": [
+            {
+              "if": "tokunoVendor",
+              "then": ["SBSamurai", "SBNinja"],
+              "else": [
+                {
+                  "era": "TOL",
+                  "then": [
+                    {
+                      "if": "terMurVendor",
+                      "then": ["SBSamurai", "SBNinja"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "else": [
+            {
+              "era": "TOL",
+              "then": [
+                {
+                  "if": "terMurVendor",
+                  "then": ["SBSamurai", "SBNinja"]
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "npcGuild": "MagesGuild",
       "npcShoeType": ["Shoes", "Sandals"],
       "npcOutfit": {
@@ -223,7 +394,34 @@
   {
     "type": "Server.Mobiles.GypsyBanker",
     "title": "the gypsy banker",
-    "props": {"npcGuild": "None"}
+    "props": {
+      "npcGuild": "None",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "oneOf": [
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.JesterHat", "hue": "randomBright"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.Bandana", "hue": "randomBright"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.SkullCap", "hue": "randomBright"}
+            ]
+          },
+          {}
+        ],
+        "npcRehueLayers": {
+          "layers": ["Pants", "Shoes", "OuterLegs", "InnerLegs", "OuterTorso", "InnerTorso", "Shirt"],
+          "hue": "randomBright"
+        }
+      }
+    }
   },
   {
     "type": "Server.Mobiles.AnimalTrainer",
@@ -256,6 +454,23 @@
     "coin": {
       "then": {"title": "the gypsy animal trainer"},
       "else": {"title": "the gypsy animal herder"}
+    },
+    "props": {
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "coin": {
+          "then": {
+            "npcAddItem": ["Server.Items.QuarterStaff"]
+          },
+          "else": {
+            "npcAddItem": ["Server.Items.ShepherdsCrook"]
+          }
+        },
+        "npcRehueLayers": {
+          "layers": ["Pants", "OuterLegs", "InnerLegs", "OuterTorso", "InnerTorso", "Shirt"],
+          "hue": "randomBright"
+        }
+      }
     }
   },
   {

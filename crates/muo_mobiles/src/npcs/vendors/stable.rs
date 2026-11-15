@@ -15,7 +15,6 @@ use muo_primitives::{MessageType, Point3D, TimeSpan};
 use muo_server::World;
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::layer::Layer;
 use muo_server::mobile::part1::props_b;
 use muo_server::mobile::part2::{items, messages};
 use muo_server::mobile::{MobileType, part2};
@@ -24,7 +23,6 @@ use muo_server::skills::SkillName;
 use muo_server::target::{self, TargetFlags, Targeted};
 use muo_server::type_registry::TypeRegistry;
 
-use super::hand::rehue_layer_bright;
 use crate::common::OrderType;
 
 // ---- AnimalTrainer ----
@@ -495,22 +493,7 @@ pub static ANIMAL_TRAINER: MobileType = MobileType {
     ..BASE_VENDOR
 };
 
-static GYPSY_ANIMAL_TRAINER_V: VendorClass = VendorClass {
-    init_outfit: |w, id| {
-        crate::template_keys_npcs::init_outfit(w, id);
-        for layer in [
-            Layer::Pants,
-            Layer::OuterLegs,
-            Layer::InnerLegs,
-            Layer::OuterTorso,
-            Layer::InnerTorso,
-            Layer::Shirt,
-        ] {
-            rehue_layer_bright(w, id, layer);
-        }
-    },
-    ..ANIMAL_TRAINER_V
-};
+static GYPSY_ANIMAL_TRAINER_V: VendorClass = VendorClass { ..ANIMAL_TRAINER_V };
 
 pub static GYPSY_ANIMAL_TRAINER_C: muo_content::creature::CreatureType =
     muo_content::creature::CreatureType {

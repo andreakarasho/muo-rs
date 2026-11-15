@@ -1,23 +1,18 @@
 //! `BaseShieldGuard`, `ChaosGuard` and `OrderGuard`: the guards that give a guild member the
 //! faction shield. All three are `[SerializationGenerator(0, false)]` (parent part + version int 0).
 
-use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C, speeds};
+use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::hooks::rnd;
 use muo_content::{factory, mx};
 use muo_io::{GenericReader, GenericWriter};
-use muo_primitives::utility;
 use muo_server::World;
 use muo_server::guild::GuildType;
 use muo_server::ids::MobileId;
-use muo_server::item::ops;
 use muo_server::layer::Layer;
 use muo_server::mobile::MobileType;
 use muo_server::mobile::part1::{props_a, props_b};
 use muo_server::mobile::part2::{items, messages};
-use muo_server::skills;
 use muo_server::type_registry::TypeRegistry;
-
-use crate::common::*;
 
 /// The abstract members of `BaseShieldGuard`.
 struct ShieldGuard {
@@ -49,116 +44,12 @@ fn guard_of(w: &World, id: MobileId) -> &'static ShieldGuard {
     }
 }
 
-fn nondyed(w: &mut World) -> i32 {
-    utility::random_nondyed_hue(&mut w.rng)
-}
-
-/// `BaseShieldGuard()`.
-fn shield_guard_init(w: &mut World, id: MobileId) {
-    muo_server::mobile::part2::stats::init_stats(w, id, 1000, 1000, 1000);
-    title(w, id, "the guard");
-    speeds::set_speed(w, id, 0.5, 2.0, true);
-    let h = utility::random_dyed_hue(&mut w.rng);
-    speech_hue(w, id, h);
-    let skin = muo_content::vendor::human_random_skin_hue(w);
-    hue(w, id, skin);
-    let female = rnd::bool(w);
-    props_b::set_female(w, id, female);
-    if female {
-        body(w, id, 0x191);
-        name_random(w, id, "female");
-        add_new(w, id, "Server.Items.FemalePlateChest");
-        add_new(w, id, "Server.Items.PlateArms");
-        add_new(w, id, "Server.Items.PlateLegs");
-        let pick = rnd::below(w, 2);
-        let h = nondyed(w);
-        add_new_hue(
-            w,
-            id,
-            if pick == 0 {
-                "Server.Items.Doublet"
-            } else {
-                "Server.Items.BodySash"
-            },
-            h,
-        );
-        let (name, h) = {
-            let pick = rnd::below(w, 2);
-            let h = nondyed(w);
-            (
-                if pick == 0 {
-                    "Server.Items.Skirt"
-                } else {
-                    "Server.Items.Kilt"
-                },
-                h,
-            )
-        };
-        add_new_hue(w, id, name, h);
-    } else {
-        body(w, id, 0x190);
-        name_random(w, id, "male");
-        add_new(w, id, "Server.Items.PlateChest");
-        add_new(w, id, "Server.Items.PlateArms");
-        add_new(w, id, "Server.Items.PlateLegs");
-        let pick = rnd::below(w, 3);
-        let h = nondyed(w);
-        let name = match pick {
-            0 => "Server.Items.Doublet",
-            1 => "Server.Items.Tunic",
-            _ => "Server.Items.BodySash",
-        };
-        add_new_hue(w, id, name, h);
-    }
-    assign_random_hair(w, id);
-    if rnd::bool(w) {
-        let hair_hue = w.mobile(id).map_or(0, |m| m.hair_hue);
-        muo_content::vendor::assign_random_facial_hair(w, id, hair_hue);
-    }
-    if let Some(weapon) = factory::make_item(w, "Server.Items.VikingSword") {
-        ops::set_movable(w, weapon, false);
-        items::add_item(w, id, weapon);
-    }
-    if let Some(shield) = factory::make_item(w, guard_of(w, id).shield) {
-        ops::set_movable(w, shield, false);
-        items::add_item(w, id, shield);
-    }
-    pack_gold_range(w, id, 250, 500);
-    for s in [
-        skills::SkillName::Anatomy,
-        skills::SkillName::Tactics,
-        skills::SkillName::Swords,
-        skills::SkillName::MagicResist,
-    ] {
-        skills::set_base(w, id, s, 120.0);
-    }
-    skills::set_base(w, id, skills::SkillName::DetectHidden, 100.0);
-}
-
 fn chaos_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CHAOS_GUARD,
-        AIType::AiMelee,
-        FightMode::Aggressor,
-        14,
-        1,
-    );
-    shield_guard_init(w, id);
-    id
+    muo_content::templates::new_creature(w, &CHAOS_GUARD)
 }
 
 fn order_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ORDER_GUARD,
-        AIType::AiMelee,
-        FightMode::Aggressor,
-        14,
-        1,
-    );
-    shield_guard_init(w, id);
-    id
+    muo_content::templates::new_creature(w, &ORDER_GUARD)
 }
 
 fn handles_on_speech(w: &World, id: MobileId, from: MobileId) -> bool {

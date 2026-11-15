@@ -4,7 +4,6 @@ pub use muo_content::creature::setters::pack_item;
 use muo_server::world::World;
 
 pub use muo_content::creature::enums::*;
-pub use muo_content::creature::packing::*;
 pub use muo_content::creature::setters::*;
 pub use muo_content::hooks::rnd;
 pub use muo_content::loot_pack;

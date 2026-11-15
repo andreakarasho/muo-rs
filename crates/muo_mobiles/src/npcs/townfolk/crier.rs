@@ -12,15 +12,13 @@ use muo_primitives::{DateTime, MessageType, TimeSpan, utility};
 use muo_server::World;
 use muo_server::commands::{CommandEventArgs, CommandSystem};
 use muo_server::ids::MobileId;
-use muo_server::mobile::part1::{props_a, props_b};
+use muo_server::mobile::part1::props_b;
 use muo_server::mobile::part2::messages;
 use muo_server::mobile::{AccessLevel, MOBILE_BASE, MobileType};
 use muo_server::net_state::NetStateId;
 use muo_server::prompt::{Prompt, add_prompt};
 use muo_server::timer::{self, TimerHandle};
 use muo_server::type_registry::{DEFAULT_CALL_PRIORITY, Phase, TypeRegistry};
-
-use crate::common::{add_new, add_new_hue, assign_random_hair, hue, name_random};
 
 /// `TownCrierEntry`.
 #[derive(Clone, Debug)]
@@ -293,45 +291,7 @@ fn crier_new(w: &mut World) -> MobileId {
         m.ext.insert(CrierData::default());
     }
     st(w).instances.push(id);
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-    props_a::set_title(w, id, Some("the town crier".to_owned()));
-    let skin = muo_content::vendor::human_random_skin_hue(w);
-    hue(w, id, skin);
-    if !w.core_aos()
-        && let Some(m) = w.mobile_mut(id)
-    {
-        m.name_hue = 0x35;
-    }
-    let female = rnd::bool(w);
-    props_b::set_female(w, id, female);
-    if female {
-        props_b::set_body(w, id, muo_primitives::Body(0x191));
-        name_random(w, id, "female");
-    } else {
-        props_b::set_body(w, id, muo_primitives::Body(0x190));
-        name_random(w, id, "male");
-    }
-    let h = utility::random_blue_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.FancyShirt", h);
-    let skirt = if rnd::below(w, 2) == 0 {
-        "Server.Items.Skirt"
-    } else {
-        "Server.Items.Kilt"
-    };
-    if let Some(s) = muo_content::factory::make_item(w, skirt) {
-        let h = utility::random_green_hue(&mut w.rng);
-        muo_server::item::base::set_hue(w, s, h);
-        muo_server::mobile::part2::items::add_item(w, id, s);
-    }
-    let h = utility::random_green_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.FeatheredHat", h);
-    let boots = if rnd::below(w, 2) == 0 {
-        "Server.Items.Boots"
-    } else {
-        "Server.Items.ThighBoots"
-    };
-    add_new(w, id, boots);
-    assign_random_hair(w, id);
+    muo_content::templates::apply_mobile(w, id);
     id
 }
 

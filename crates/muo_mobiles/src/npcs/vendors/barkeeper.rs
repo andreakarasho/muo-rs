@@ -12,15 +12,14 @@ use muo_content::gumps::GumpButtonType;
 use muo_content::gumps::base::{RelayInfo, StaticGumpLogic, StaticGumpObj};
 use muo_content::gumps::builder::{GumpStrings, StaticGumpBuilder};
 use muo_content::gumps::system::close_gump;
-use muo_content::hooks::rnd;
 use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, ShoeType, VendorClass, data, init_body,
-    init_outfit, load_sb_info, new_vendor,
+    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass, data, init_body, load_sb_info,
+    new_vendor,
 };
 use muo_content::{factory, mx};
 use muo_io::{GenericReader, GenericWriter};
 use muo_multis::house;
-use muo_primitives::{MessageType, utility};
+use muo_primitives::MessageType;
 use muo_server::World;
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::events::SpeechEventArgs;
@@ -124,10 +123,6 @@ fn ctor(w: &mut World, v: &[muo_content::props::Value]) -> EntityId {
     EntityId::Mobile(make(w, owner, house))
 }
 
-fn add_hued(w: &mut World, id: MobileId, name: &str, hue: i32) {
-    muo_content::vendor::add_hued(w, id, name, hue);
-}
-
 fn delete_item(w: &mut World, i: ItemId) {
     if let Some(t) = w.item(i).map(|i| i.ty) {
         (t.delete)(w, i);
@@ -157,19 +152,8 @@ pub static PLAYER_BARKEEPER_V: VendorClass = VendorClass {
     is_active_buyer: |_, _| false,
     is_active_seller: |w, id| data(w, id).is_some_and(|d| !d.sell_info.is_empty()),
     get_gender: |_, _| false,
-    shoe_type: |w, _| {
-        if rnd::bool(w) {
-            ShoeType::ThighBoots
-        } else {
-            ShoeType::Boots
-        }
-    },
-    init_outfit: |w, id| {
-        init_outfit(w, id);
-        let h = utility::random_bright_hue(&mut w.rng);
-        add_hued(w, id, "Server.Items.HalfApron", h);
-        delete_backpack(w, id);
-    },
+    shoe_type: crate::template_keys_npcs::shoe_type,
+    init_outfit: crate::template_keys_npcs::init_outfit,
     init_body: |w, id| {
         init_body(w, id);
         let body = w.mobile(id).map_or(0, |m| m.cur_body().0);

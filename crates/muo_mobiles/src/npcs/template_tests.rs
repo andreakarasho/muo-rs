@@ -42,6 +42,10 @@ fn blocks<'a>(v: &'a Value, out: &mut Vec<&'a Value>) {
             ("npcIfLayerEmpty", Value::Object(f)) => {
                 f.get("then").into_iter().for_each(|b| blocks(b, out))
             }
+            ("npcByGender", Value::Object(f)) => f.values().for_each(|b| blocks(b, out)),
+            ("npcEquipOrDelete", Value::Object(f)) => {
+                f.get("else").into_iter().for_each(|b| blocks(b, out))
+            }
             _ => {}
         }
     }

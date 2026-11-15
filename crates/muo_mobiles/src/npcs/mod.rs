@@ -93,4 +93,6 @@ mod golden_tests;
 #[cfg(test)]
 mod template_tests;
 #[cfg(test)]
+mod template_tests_more;
+#[cfg(test)]
 mod tests;

@@ -3,20 +3,17 @@
 use muo_content::items::gold::n0;
 use muo_content::mx;
 use muo_content::vendor::banker::{get_balance, withdraw};
-use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, VendorClass, init_outfit};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, VendorClass};
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::events::SpeechEventArgs;
 use muo_server::iaccount;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{container, ops};
-use muo_server::layer::Layer;
 use muo_server::mobile::MobileType;
 use muo_server::mobile::part2::messages;
 use muo_server::packets::message::AffixType;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
-
-use super::vendors::hand::{add_gypsy_hat, rehue_layer_bright};
 
 fn say(w: &mut World, id: MobileId, n: i32) {
     messages::say_number(w, id, n, "");
@@ -250,21 +247,6 @@ pub static MINTER: MobileType = MobileType {
 
 static GYPSY_BANKER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| false,
-    init_outfit: |w, id| {
-        init_outfit(w, id);
-        add_gypsy_hat(w, id);
-        for layer in [
-            Layer::Pants,
-            Layer::Shoes,
-            Layer::OuterLegs,
-            Layer::InnerLegs,
-            Layer::OuterTorso,
-            Layer::InnerTorso,
-            Layer::Shirt,
-        ] {
-            rehue_layer_bright(w, id, layer);
-        }
-    },
     ..BANKER_V
 };
 static GYPSY_BANKER_C: muo_content::creature::CreatureType = muo_content::creature::CreatureType {

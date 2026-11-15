@@ -2,12 +2,9 @@
 //! guild) and its twelve classes.
 
 use muo_content::creature::{BASE_CREATURE_C, CreatureType};
-use muo_content::hooks::rnd;
 use muo_content::mx;
 use muo_content::player_mobile::{self, NpcGuild};
-use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass, init_outfit,
-};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass};
 use muo_primitives::TimeSpan;
 use muo_primitives::dotnet::InvariantCase;
 use muo_server::context_menu_entry::ContextMenuEntry;
@@ -20,7 +17,6 @@ use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
-use super::vendors::add_item_hued;
 use crate::template_keys_npcs as keys;
 
 /// The virtuals `BaseGuildmaster` adds.
@@ -273,17 +269,6 @@ guildmaster!(BARD_GUILDMASTER, bard_guildmaster_new = "Server.Mobiles.BardGuildm
 guildmaster!(BLACKSMITH_GUILDMASTER, blacksmith_guildmaster_new = "Server.Mobiles.BlacksmithGuildmaster";
     v {
         is_active_vendor: |_, _| true,
-        init_outfit: |w, id| {
-            init_outfit(w, id);
-            let name = if rnd::bool(w) { "Server.Items.FullApron" } else { "Server.Items.RingmailChest" };
-            if let Some(item) = muo_content::factory::make_item(w, name)
-                && !muo_server::mobile::base::equip_item(w, id, item)
-                    && let Some(t) = w.item(item).map(|i| i.ty) {
-                        (t.delete)(w, item);
-                    }
-            add_item_hued(w, id, "Server.Items.Bascinet", None);
-            add_item_hued(w, id, "Server.Items.SmithHammer", None);
-        },
     }
     g {} c {} m { click_title: |_, _| true, });
 

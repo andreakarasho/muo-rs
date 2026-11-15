@@ -23,6 +23,8 @@ use crate::npcs::familiars::{
 
 fn world() -> World {
     let mut w = test_support::world();
+    // the familiars' templates use the NPC keys (`npcSpeed`)
+    crate::template_keys_npcs::register(&mut w.types);
     ai::configure_for_tests(&mut w);
     w
 }

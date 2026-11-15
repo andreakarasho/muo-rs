@@ -306,7 +306,7 @@ fn run(w: &mut World, list: &[Stmt], sb: &mut SbInstance) {
                     Amount::Fixed(n) => n,
                     Amount::From(a, c) => rnd::from(w, a, c),
                 };
-                let hue = b.hue.roll(w);
+                let hue = b.hue.roll(w, None);
                 let name = b.name.as_deref();
                 let mut info = match b.kind {
                     BuyKind::Generic => {
@@ -357,7 +357,7 @@ pub fn named(w: &mut World, _vendor: MobileId, name: &str) -> SbInstance {
 }
 
 /// `InitSBInfo()` of a vendor class whose list is its `"npcSbInfos"` prop: SBInfo names, and
-/// `{"oneOf": [[..], ..]}` (`switch (Utility.Random(n))`), `{"if": "tokunoVendor", "then": [..], "else": [..]}`,
+/// `{"oneOf": [[..], ..]}` (`switch (Utility.Random(n))`), `{"if": "tokunoVendor" or "terMurVendor", "then": [..], "else": [..]}`,
 /// `{"era": "AOS", "then": [..], "else": [..]}`.
 pub fn from_props(w: &mut World, vendor: MobileId) -> Vec<SbInstance> {
     let list = templates::props::mobile(w, vendor, "npcSbInfos").cloned();
@@ -383,6 +383,7 @@ fn sb_list(w: &mut World, vendor: MobileId, list: &[Value], out: &mut Vec<SbInst
             Value::Object(o) => {
                 let yes = match (o.get("if").and_then(Value::as_str), o.get("era")) {
                     (Some("tokunoVendor"), _) => muo_content::vendor::is_tokuno_vendor(w, vendor),
+                    (Some("terMurVendor"), _) => muo_content::vendor::is_ter_mur_vendor(w, vendor),
                     (_, Some(Value::String(e))) => (0..64)
                         .filter_map(Expansion::from_index)
                         .find(|x| format!("{x:?}") == *e)
