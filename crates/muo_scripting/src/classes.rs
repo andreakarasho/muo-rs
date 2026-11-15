@@ -62,16 +62,58 @@ pub(crate) fn register(e: &mut Engine, c: &Rc<RefCell<Collector>>) {
     });
 }
 
-/// The kind of class `name`: a registered class's, else (a new class) its `parent`'s, following parents declared
-/// in scripts.
+/// The kind of class `name`: a registered class's, else an abstract Rust ancestor's (from its registered
+/// descendants), else (a new class) its `parent`'s, following parents declared in scripts.
 fn kind_of(w: &World, decls: &[Decl], name: &str, depth: u32) -> Option<Kind> {
     match w.types.find_type_by_full_name(name, false) {
         Some(EntityType::Mobile(_)) => return Some(Kind::Mobile),
         Some(EntityType::Item(_)) => return Some(Kind::Item),
         None => {}
     }
+    // an abstract Rust class (never registered) whose props its subclasses inherit: the kind of a registered
+    // class that has it as an ancestor
+    let has_ancestor = |mut p: Option<&'static muo_server::item::ItemType>| {
+        while let Some(t) = p {
+            if t.full_name == name {
+                return true;
+            }
+            p = t.parent;
+        }
+        false
+    };
+    if w.types.item_types().iter().any(|t| has_ancestor(t.parent)) {
+        return Some(Kind::Item);
+    }
+    let has_mobile_ancestor = |mut p: Option<&'static muo_server::mobile::MobileType>| {
+        while let Some(t) = p {
+            if t.full_name == name {
+                return true;
+            }
+            p = t.parent;
+        }
+        false
+    };
+    if w.types
+        .mobile_types()
+        .iter()
+        .any(|t| has_mobile_ancestor(t.parent))
+    {
+        return Some(Kind::Mobile);
+    }
     if depth > 32 {
         return None;
+    }
+    // a template only other templates `inherits` from: their kind
+    let inheritor = decls.iter().find(|d| {
+        d.meta
+            .get("inherits")
+            .and_then(|v| v.clone().into_string().ok())
+            .is_some_and(|i| i == name)
+    });
+    if let Some(d) = inheritor
+        && let Some(k) = kind_of(w, decls, &d.name, depth + 1)
+    {
+        return Some(k);
     }
     let d = decls.iter().find(|d| d.name == name)?;
     let parent = d.meta.get("parent")?.clone().into_string().ok()?;
