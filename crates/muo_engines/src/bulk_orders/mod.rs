@@ -942,7 +942,9 @@ pub static BASE_BOD: ItemType = ItemType {
     full_name: "Server.Engines.BulkOrders.BaseBOD",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
     ..ITEM_BASE
 };
 
@@ -950,7 +952,9 @@ pub static BASE_BOD: ItemType = ItemType {
 pub static SMALL_BOD: ItemType = ItemType {
     full_name: "Server.Engines.BulkOrders.SmallBOD",
     parent: Some(&BASE_BOD),
-    label_number: |_, _| 1045151, // a bulk order deed
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", BASE_BOD.label_number)
+    },
     get_properties: small_get_properties,
     on_double_click,
     on_double_click_not_accessible: on_double_click,
@@ -964,7 +968,9 @@ pub static SMALL_BOD: ItemType = ItemType {
 pub static LARGE_BOD: ItemType = ItemType {
     full_name: "Server.Engines.BulkOrders.LargeBOD",
     parent: Some(&BASE_BOD),
-    label_number: |_, _| 1045151, // a bulk order deed
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", BASE_BOD.label_number)
+    },
     get_properties: large_get_properties,
     on_double_click,
     on_double_click_not_accessible: on_double_click,

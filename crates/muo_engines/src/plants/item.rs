@@ -1327,7 +1327,9 @@ pub static PLANT_ITEM: ItemType = ItemType {
     full_name: "Server.Engines.Plants.PlantItem",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| plant_new(w, false)),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
     force_show_properties: |_, _| true,
     get_properties,
     send_opl_packet_to,

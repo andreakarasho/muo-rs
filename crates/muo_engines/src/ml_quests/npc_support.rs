@@ -155,11 +155,6 @@ pub fn assign_random_hair(w: &mut World, id: MobileId) {
     props_b::set_hair_hue(w, id, hue);
 }
 
-/// `Utility.AssignRandomHair(m, hue)`.
-pub fn assign_random_hair_hue(w: &mut World, id: MobileId, hue: i32) {
-    muo_content::vendor::assign_random_hair(w, id, hue);
-}
-
 /// `Utility.AssignRandomFacialHair(m)`.
 #[allow(dead_code)]
 pub fn assign_random_facial_hair(w: &mut World, id: MobileId) {

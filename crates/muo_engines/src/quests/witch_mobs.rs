@@ -15,10 +15,7 @@ use super::hooks::quest_hooks;
 use super::quester::{
     BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps, get_new_container,
 };
-use super::util::{
-    add_item_hued, add_item_named, in_backpack, public_overhead, random_min_max, say_to_number,
-    set_body,
-};
+use super::util::{in_backpack, public_overhead, random_min_max, say_to_number, set_body};
 use super::witch::*;
 use crate::quest_item;
 use crate::quester;
@@ -107,28 +104,11 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops BLACKHEART_OPS, encoded false, title Some("the Drunken Pirate"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            muo_server::mobile::base::set_hue(w, id, 0x83EF);
-            muo_server::mobile::part1::props_b::set_female(w, id, false);
-            set_body(w, id, 0x190);
-        },
-        init_outfit: |w, id| {
-            add_item_named(w, id, "Server.Items.FancyShirt");
-            add_item_hued(w, id, "Server.Items.LongPants", 0x66D);
-            add_item_named(w, id, "Server.Items.ThighBoots");
-            add_item_hued(w, id, "Server.Items.TricorneHat", 0x1);
-            add_item_hued(w, id, "Server.Items.BodySash", 0x66D);
-            add_item_hued(w, id, "Server.Items.LeatherGloves", 0x66D);
-            muo_server::mobile::part1::props_b::set_facial_hair_item_id(w, id, 0x203E); // Long Beard
-            muo_server::mobile::part1::props_b::set_facial_hair_hue(w, id, 0x455);
-            if let Some(sword) = add_item_named(w, id, "Server.Items.Cutlass") {
-                ops::set_movable(w, sword, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Hag.Blackheart"),
+        init_outfit: |_, _| {},
     }
     c {
-        default_name: |_, _| Some("Captain Blackheart"),
+        default_name: muo_content::templates::creature_props::default_name,
         on_think: |w, id| {
             let next = w.mobile(id).and_then(|m| m.ext.get::<Heave>()).map_or(0, |h| h.0);
             if w.tick_count.wrapping_sub(next) < 0 {
@@ -326,24 +306,10 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops GRIZELDA_OPS, encoded false, title Some("the Hag"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            muo_server::mobile::base::set_hue(w, id, 0x83EA);
-            muo_server::mobile::part1::props_b::set_female(w, id, true);
-            set_body(w, id, 0x191);
-        },
-        init_outfit: |w, id| {
-            add_item_hued(w, id, "Server.Items.Robe", 0x1);
-            add_item_named(w, id, "Server.Items.Sandals");
-            add_item_hued(w, id, "Server.Items.WizardsHat", 0x1);
-            add_item_named(w, id, "Server.Items.GoldBracelet");
-            muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203C);
-            if let Some(staff) = add_item_named(w, id, "Server.Items.GnarledStaff") {
-                ops::set_movable(w, staff, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Hag.Grizelda"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Grizelda"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { click_title: |_, _| true, }
 }
 
@@ -359,8 +325,10 @@ quester! {
     ZEEFZORPUL, ZEEFZORPUL_C, ZEEFZORPUL_V = "Server.Engines.Quests.Hag.Zeefzorpul"
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops ZEEFZORPUL_OPS, encoded false, title None, extra |_, _| {}, makeonly;
-    v { init_body: |w, id| set_body(w, id, 0x4A), }
-    c { default_name: |_, _| Some("Zeefzorpul"), }
+    v {
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Hag.Zeefzorpul"),
+    }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { skip_serialization: |_, _| true, }
 }
 
@@ -519,15 +487,19 @@ pub static HANGOVER_CURE: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Hag.HangoverCure",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &HANGOVER_CURE, 0xE2B);
-        muo_server::item::base::set_hue(w, id, 0x2D);
+        let id = ops::new_item_with_id(w, &HANGOVER_CURE, 0);
+        muo_content::templates::apply_item_as(w, id, HANGOVER_CURE.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(20_i32);
         }
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1055060, // Grizelda's Extra Strength Hangover Cure
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     on_double_click: |w, id, from| {
         if !in_backpack(w, id, from) {
             muo_server::item::messages::send_localized_message_to(w, id, from, 1042038, ""); // You must have the object in your backpack to use it.

@@ -356,8 +356,12 @@ pub static BASE_PIGMENTS_OF_TOKUNO: ItemType = ItemType {
     full_name: "Server.Items.BasePigmentsOfTokuno",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1070933, // Pigments of Tokuno
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     get_properties: base_get_properties,
     on_double_click,
     serialize: base_serialize,
@@ -396,7 +400,9 @@ pub static PIGMENTS_OF_TOKUNO: ItemType = ItemType {
     full_name: "Server.Items.PigmentsOfTokuno",
     parent: Some(&BASE_PIGMENTS_OF_TOKUNO),
     construct: Some(|w| pigments_new(w, 0, None)),
-    label_number: |_, _| 1070933, // Pigments of Tokuno
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", BASE_PIGMENTS_OF_TOKUNO.label_number)
+    },
     serialize: |w, id, out| type_serialize(&BASE_PIGMENTS_OF_TOKUNO, w, id, out),
     deserialize: |w, id, r| type_deserialize(&BASE_PIGMENTS_OF_TOKUNO, w, id, r),
     ..BASE_PIGMENTS_OF_TOKUNO

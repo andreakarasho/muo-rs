@@ -26,7 +26,7 @@ pub static DD_BOARD: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.DDBoard",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_board(w, &DD_BOARD)),
-    default_name: |_, _| Some("scoreboard".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: board_double_click,
     serialize: |w, id, out| board_serialize(w, id, out),
     deserialize: |w, id, r| board_deserialize(w, id, r),
@@ -261,7 +261,7 @@ pub static DD_CONTROLLER: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.DDController",
     parent: Some(&EVENT_CONTROLLER),
     construct: Some(new_controller_dd),
-    default_name: |_, _| Some("DD Controller".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, EVENT_CONTROLLER.default_name),
     serialize: |w, id, out| {
         (EVENT_CONTROLLER.serialize)(w, id, out);
         out.write_i32(0);

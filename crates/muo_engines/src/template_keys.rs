@@ -29,16 +29,30 @@ const RANDOM_HUES: &[(&str, HueDraw)] = &[
     ("randomAnimalHue", utility::random_animal_hue),
     ("randomNondyedHue", utility::random_nondyed_hue),
     ("randomBrightHue", utility::random_bright_hue),
+    ("randomDyedHue", utility::random_dyed_hue),
 ];
+
+/// `vendor.GetRandomHue()`: only for keys that know the mobile.
+const VENDOR_RANDOM_HUE: &str = "vendorRandomHue";
 
 fn check_hue(v: &Value) -> Result<(), String> {
     match v {
-        Value::String(s) if RANDOM_HUES.iter().any(|(n, _)| n == s) => Ok(()),
+        Value::String(s) if s == VENDOR_RANDOM_HUE || RANDOM_HUES.iter().any(|(n, _)| n == s) => {
+            Ok(())
+        }
         Value::Object(o) if o.len() == 1 => match o.get("coin").and_then(Value::as_array) {
             Some(a) if a.len() == 2 => a.iter().try_for_each(check_int),
             _ => Err(format!("expected {{\"coin\": [a, b]}}, got {v}")),
         },
         _ => check_int(v).map_err(|_| format!("expected a hue or a random hue name, got {v}")),
+    }
+}
+
+/// [`hue`] for the mobile `owner`, which also knows `"vendorRandomHue"`.
+fn hue_of(w: &mut World, owner: MobileId, v: &Value) -> i32 {
+    match v.as_str() {
+        Some(VENDOR_RANDOM_HUE) => muo_content::vendor::get_random_hue(w, owner),
+        _ => hue(w, v),
     }
 }
 
@@ -129,6 +143,42 @@ fn equip_entry(w: &mut World, id: MobileId, v: &Value) {
     npc::add_item_id(w, id, item);
 }
 
+/// One `questEquip` entry: `{"item": "Server.Items.Robe", "hue": <hue>, "movable": false}`: the hue is drawn,
+/// then `AddItem(new T { Hue = hue, Movable = movable })` (the class by its full name).
+fn check_quest_equip(v: &Value) -> Result<(), String> {
+    let o = v
+        .as_object()
+        .ok_or_else(|| format!("expected an equip entry, got {v}"))?;
+    for (k, val) in o {
+        match k.as_str() {
+            "item" => check_str(val)?,
+            "hue" => check_hue(val)?,
+            "movable" => check_bool(val)?,
+            _ => return Err(format!("unknown equip key \"{k}\"")),
+        }
+    }
+    if o.contains_key("item") {
+        Ok(())
+    } else {
+        Err(format!("an equip entry needs \"item\": {v}"))
+    }
+}
+
+fn quest_equip(w: &mut World, id: MobileId, v: &Value) {
+    let h = v.get("hue").map(|h| hue_of(w, id, h));
+    let name = v.get("item").and_then(Value::as_str).unwrap_or("");
+    let Some(it) = muo_content::factory::make_item(w, name) else {
+        return;
+    };
+    if let Some(h) = h {
+        crate::quests::quester::set_hue(w, it, h);
+    }
+    if let Some(m) = v.get("movable").and_then(Value::as_bool) {
+        muo_server::item::ops::set_movable(w, it, m);
+    }
+    muo_server::mobile::part2::items::add_item(w, id, it);
+}
+
 fn check_list(v: &Value, f: fn(&Value) -> Result<(), String>) -> Result<(), String> {
     v.as_array()
         .ok_or_else(|| format!("expected an array, got {v}"))?
@@ -216,6 +266,35 @@ pub(crate) fn register(types: &mut TypeRegistry) {
             }
         },
     );
+    // The quest NPCs and creatures of `quests/` (`quests/util.rs` and the files' constructor helpers).
+    mobile_key(types, "questSkinHue", check_true, |w, id, _| {
+        let h = muo_content::vendor::human_random_skin_hue(w);
+        muo_server::mobile::base::set_hue(w, id, h);
+    });
+    mobile_key(types, "questHairItem", check_true, |w, id, _| {
+        crate::quests::util::assign_hair_item(w, id)
+    });
+    mobile_key(types, "questFacialHairItem", check_true, |w, id, _| {
+        crate::quests::util::assign_facial_item(w, id)
+    });
+    mobile_key(types, "questRandomFacialHair", check_true, |w, id, _| {
+        crate::quests::util::assign_facial_random_hue(w, id)
+    });
+    // `Utility.AssignRandomFacialHair(m, m.HairHue)`.
+    mobile_key(types, "questFacialHairOfHairHue", check_true, |w, id, _| {
+        let h = w.mobile(id).map_or(0, |m| m.hair_hue);
+        muo_content::vendor::assign_random_facial_hair(w, id, h);
+    });
+    mobile_key(
+        types,
+        "questEquip",
+        |v| check_list(v, check_quest_equip),
+        |w, id, v| {
+            for e in v.as_array().into_iter().flatten() {
+                quest_equip(w, id, e);
+            }
+        },
+    );
     item_key(types, "questItemHue", check_hue, |w, id, v| {
         let h = hue(w, v);
         crate::ml_quests::item_support::hue(w, id, h);
@@ -255,27 +334,7 @@ pub fn item_label(w: &World, id: ItemId, parent: fn(&World, ItemId) -> i32) -> i
     item_int(w, id, "labelNumber", parent)
 }
 
-/// An int member of an item class (`defaultGumpId`, ..).
-pub fn item_int(w: &World, id: ItemId, key: &str, parent: fn(&World, ItemId) -> i32) -> i32 {
-    props::as_i32(props::item(w, id, key)).unwrap_or_else(|| parent(w, id))
-}
-
-/// `DefaultName`: the `defaultName` prop (`null` for none).
-pub fn item_name(
-    w: &World,
-    id: ItemId,
-    parent: fn(&World, ItemId) -> Option<String>,
-) -> Option<String> {
-    match props::as_static_str(w, props::item(w, id, "defaultName")) {
-        Some(s) => s.map(str::to_owned),
-        None => parent(w, id),
-    }
-}
-
-/// A bool member of an item class (`nontransferable`, ..).
-pub fn item_bool(w: &World, id: ItemId, key: &str, parent: fn(&World, ItemId) -> bool) -> bool {
-    props::as_bool(props::item(w, id, key)).unwrap_or_else(|| parent(w, id))
-}
+pub use muo_content::template_keys::{item_bool, item_float, item_int, item_name};
 
 /// A bool member of a creature class (`isInvulnerable`, `canShout`, `canTeach`).
 pub fn mobile_bool(

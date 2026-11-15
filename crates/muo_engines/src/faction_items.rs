@@ -1,20 +1,17 @@
 //! The faction `Silver` currency item. The other faction items (stones, sigils, monoliths, traps) live in
 //! `factions`.
 
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 /// `Server.Factions.Silver`.
 pub static SILVER: ItemType = ItemType {
     full_name: "Server.Factions.Silver",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &SILVER, 0xEF0);
-        ops::set_stackable(w, id, true);
-        ops::set_amount(w, id, 1);
-        id
-    }),
-    default_weight: |_, _| 0.02,
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &SILVER)),
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
     get_drop_sound: |w, id| match w.item(id).map_or(0, |i| i.amount) {
         ..=1 => 0x2E4,
         2..=5 => 0x2E5,

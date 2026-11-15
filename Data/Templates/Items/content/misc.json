@@ -1,0 +1,52 @@
+[
+  {
+    "type": "Server.Items.BaseBagBall",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BankCheck",
+    "props": {
+      "labelNumber": 1041361,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Key",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.KeyRing",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.FruitBasket",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.ResGate",
+    "itemId": 3948,
+    "movable": false,
+    "hue": 721,
+    "light": "Circle300",
+    "props": {
+      "defaultName": "a resurrection gate"
+    }
+  },
+  {
+    "type": "Server.Items.GamblingStone",
+    "itemId": 3796,
+    "movable": false,
+    "hue": 86,
+    "props": {
+      "defaultName": "a gambling stone"
+    }
+  }
+]

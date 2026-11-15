@@ -1,0 +1,26 @@
+[
+  {
+    "type": "Server.Multis.LockableBarrel",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Multis.MovingCrate",
+    "props": {
+      "labelNumber": 1061690
+    }
+  },
+  {
+    "type": "Server.Multis.PackingBox",
+    "props": {
+      "labelNumber": 1061690
+    }
+  },
+  {
+    "type": "Server.Multis.BaseHouse.TransferItem",
+    "props": {
+      "defaultName": "a house transfer contract"
+    }
+  }
+]

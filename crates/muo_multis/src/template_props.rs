@@ -21,12 +21,4 @@ pub fn deed_props(w: &World, id: ItemId) -> (i32, Point3D) {
     (multi_id, Point3D::new(n(0), n(1), n(2)))
 }
 
-/// An int member of an item class (`labelNumber`, ..): the prop, else the parent's member.
-pub fn item_int(w: &World, id: ItemId, key: &str, parent: fn(&World, ItemId) -> i32) -> i32 {
-    props::as_i32(props::item(w, id, key)).unwrap_or_else(|| parent(w, id))
-}
-
-/// A number member of an item class (`defaultWeight`).
-pub fn item_float(w: &World, id: ItemId, key: &str, parent: fn(&World, ItemId) -> f64) -> f64 {
-    props::as_f64(props::item(w, id, key)).unwrap_or_else(|| parent(w, id))
-}
+pub use muo_content::template_keys::{item_float, item_int, item_name};

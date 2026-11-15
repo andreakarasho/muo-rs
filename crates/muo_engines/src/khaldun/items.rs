@@ -78,7 +78,9 @@ pub static KHALDUN_PIT_TELEPORTER: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| pit_new(w, Point3D::new(5451, 1374, 0), Some(MapId::FELUCCA))),
     // the floor of the cavern seems to have collapsed here - a faint light is visible at the bottom of the pit
-    label_number: |_, _| 1016511,
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     on_double_click: pit_use,
     on_double_click_dead: pit_use,
     serialize: |w, id, out| {

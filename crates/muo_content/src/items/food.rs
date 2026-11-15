@@ -296,7 +296,9 @@ pub static FRUIT_BASKET: ItemType = ItemType {
         id
     }),
     family: Some(&FRUIT_BASKET_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", FOOD.default_weight)
+    },
     serialize: |w, id, out| {
         (FOOD.serialize)(w, id, out);
         out.write_i32(0);

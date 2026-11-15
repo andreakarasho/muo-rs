@@ -1735,7 +1735,9 @@ pub static CHAMPION_SPAWN: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_spawn(w, &CHAMPION_SPAWN)),
     decay_time: |_, _| TimeSpan::from_secs(180),
-    label_number: |_, _| 1041030, // Evil in a Can:  Don't delete me!
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     add_name_property,
     get_properties,
     on_single_click,
@@ -1819,7 +1821,7 @@ pub static IDOL_OF_THE_CHAMPION: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     // No parameterless constructor: `IdolOfTheChampion(ChampionSpawn spawn)`.
     construct: None,
-    default_name: |_, _| Some("Idol of the Champion".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_after_delete: |w, id| {
         (ITEM_BASE.on_after_delete)(w, id);
         if let Some(s) = idol_spawn(w, id) {

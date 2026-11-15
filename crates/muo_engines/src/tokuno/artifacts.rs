@@ -367,8 +367,12 @@ pub static ANCIENT_URN: ItemType = ItemType {
     full_name: "Server.Items.AncientUrn",
     parent: Some(&ITEM_BASE),
     construct: Some(ancient_urn_new_random),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1071014, // Ancient Urn
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     add_name_property: |w, id, list| list.add_str(1070935, &name_of(w, id)), // Ancient Urn of ~1_name~
     on_single_click: |w, id, from| ops::label_to_number(w, id, from, 1070935, &name_of(w, id)),
     serialize: |w, id, out| {
@@ -388,8 +392,12 @@ pub static HONORABLE_SWORDS: ItemType = ItemType {
     full_name: "Server.Items.HonorableSwords",
     parent: Some(&ITEM_BASE),
     construct: Some(honorable_swords_new_random),
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1071015, // Honorable Swords
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     add_name_property: |w, id, list| list.add_str(1070936, &name_of(w, id)), // Honorable Swords of ~1_name~
     on_single_click: |w, id, from| ops::label_to_number(w, id, from, 1070936, &name_of(w, id)),
     serialize: |w, id, out| {
@@ -486,7 +494,14 @@ pub static CHEST_OF_HEIRLOOMS: ItemType = ItemType {
     full_name: "Server.Items.ChestOfHeirlooms",
     parent: Some(&muo_content::items::cont::LOCKABLE_CONTAINER),
     construct: Some(|w| chest_of_heirlooms_new(w, &CHEST_OF_HEIRLOOMS)),
-    label_number: |_, _| 1070937, // Chest of heirlooms
+    label_number: |w, id| {
+        crate::template_keys::item_int(
+            w,
+            id,
+            "labelNumber",
+            muo_content::items::cont::LOCKABLE_CONTAINER.label_number,
+        )
+    },
     serialize: |w, id, out| {
         (muo_content::items::cont::LOCKABLE_CONTAINER.serialize)(w, id, out);
         out.write_i32(0);

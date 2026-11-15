@@ -1325,7 +1325,9 @@ pub static BASE_BAG_BALL: ItemType = ItemType {
         let _version = r.read_i32()?;
         Ok(())
     },
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight)
+    },
     ..BASE_CONTAINER
 };
 container_leaf! {

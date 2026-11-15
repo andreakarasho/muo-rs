@@ -182,7 +182,9 @@ pub static MOVING_CRATE: ItemType = ItemType {
     full_name: "Server.Multis.MovingCrate",
     parent: Some(&CONTAINER),
     construct: None,
-    label_number: |_, _| 1061690, // Packing Crate
+    label_number: |w, id| {
+        crate::template_props::item_int(w, id, "labelNumber", CONTAINER.label_number)
+    },
     default_max_items: |_, _| 0,
     default_max_weight: |_, _| 0,
     is_deco_container: |_, _| false,
@@ -275,7 +277,9 @@ pub static PACKING_BOX: ItemType = ItemType {
     full_name: "Server.Multis.PackingBox",
     parent: Some(&BASE_CONTAINER),
     construct: None,
-    label_number: |_, _| 1061690, // Packing Crate
+    label_number: |w, id| {
+        crate::template_props::item_int(w, id, "labelNumber", BASE_CONTAINER.label_number)
+    },
     default_gump_id: |_, _| 0x4B,
     default_drop_sound: |_, _| 0x42,
     bounds: |_, _| PACKING_BOX_BOUNDS,

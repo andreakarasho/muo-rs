@@ -7,7 +7,6 @@ use muo_primitives::MessageType;
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{self, ITEM_BASE, ItemType, base, container, ops};
-use muo_server::light_type::LightType;
 use muo_server::mobile::part2::{effects, items as mitems, messages as mm};
 use muo_server::property_list::PropertyList;
 
@@ -38,13 +37,11 @@ pub static RES_GATE: ItemType = ItemType {
     full_name: "Server.Items.ResGate",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &RES_GATE, 0xF6C);
-        ops::set_movable(w, id, false);
-        base::set_hue(w, id, 0x2D1);
-        ops::set_light(w, id, LightType::Circle300);
+        let id = ops::new_item_with_id(w, &RES_GATE, 0);
+        crate::templates::apply_item_as(w, id, RES_GATE.full_name);
         id
     }),
-    default_name: |_, _| Some("a resurrection gate".to_string()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_move_over: |w, _, m| {
         let (alive, map, loc) = w.mobile(m).map_or((true, None, Default::default()), |x| {
             ((x.ty.alive)(w, m), x.map, x.location)
@@ -238,15 +235,14 @@ pub static GAMBLING_STONE: ItemType = ItemType {
     full_name: "Server.Items.GamblingStone",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &GAMBLING_STONE, 0xED4);
+        let id = ops::new_item_with_id(w, &GAMBLING_STONE, 0);
+        crate::templates::apply_item_as(w, id, GAMBLING_STONE.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext = muo_server::Ext::new(GamblingStoneData { gamble_pot: 2500 });
         }
-        ops::set_movable(w, id, false);
-        base::set_hue(w, id, 0x56);
         id
     }),
-    default_name: |_, _| Some("a gambling stone".to_string()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     get_properties: |w, id, list: &mut PropertyList| {
         base::get_properties_base(w, id, list);
         list.add_text(&format!("Jackpot: {}gp", gamble_pot(w, id)));

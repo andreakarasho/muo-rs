@@ -776,7 +776,9 @@ pub static LOCKABLE_BARREL: ItemType = ItemType {
     full_name: "Server.Multis.LockableBarrel",
     parent: Some(&LOCKABLE_CONTAINER),
     construct: Some(|w| cont::new_lockable(w, &LOCKABLE_BARREL, 0xE77)),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_props::item_float(w, id, "defaultWeight", LOCKABLE_CONTAINER.default_weight)
+    },
     serialize: |w, id, out| {
         (LOCKABLE_CONTAINER.serialize)(w, id, out);
         out.write_i32(0);

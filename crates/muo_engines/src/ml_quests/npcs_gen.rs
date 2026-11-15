@@ -4,7 +4,6 @@ use super::npc_support::*;
 use super::quester::{self, Quester};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::hooks::rnd;
-use muo_primitives::{Body, utility};
 use muo_server::ids::MobileId;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
@@ -61,31 +60,9 @@ creature_leaf! {
     }
 }
 
-fn jamal_new(w: &mut World) -> MobileId {
-    let id = new_creature(w, &JAMAL, AIType::AiVendor, FightMode::None, 2, 1);
-    set_title(w, id, Some("the Fisherman".to_string()));
-    set_body(w, id, Body(400));
-    let v1 = race_skin_hue(w, id);
-    set_hue(w, id, v1);
-    init_stats(w, id, 100, 100, 25);
-    assign_random_hair(w, id);
-    let hh = hair_hue(w, id);
-    assign_random_facial_hair_hue(w, id, hh);
-    add_item_hue(w, id, "Shirt", Some(0x1BB));
-    let v2 = utility::random_neutral_hue(&mut w.rng);
-    add_item_hue(w, id, "ShortPants", Some(v2));
-    let v3 = utility::random_animal_hue(&mut w.rng);
-    add_item_hue(w, id, "ThighBoots", Some(v3));
-    add_item_hue(w, id, "Backpack", None);
-    id
-}
 creature_leaf! {
     /// `Server.Engines.MLQuests.Definitions.Jamal`.
-    JAMAL, JAMAL_C = "Server.Engines.MLQuests.Definitions.Jamal" : BASE_CREATURE / BASE_CREATURE_C, ctor jamal_new, encoded false;
-    c {
-        is_invulnerable: |_w, _id| true,
-        default_name: |_w, _id| Some("Jamal"),
-    }
+    JAMAL, JAMAL_C = "Server.Engines.MLQuests.Definitions.Jamal" : BASE_CREATURE / BASE_CREATURE_C, template, encoded false;
     m {
     }
 }
@@ -651,40 +628,9 @@ creature_leaf! {
     }
 }
 
-fn grandpa_charley_new(w: &mut World) -> MobileId {
-    let id = new_creature(w, &GRANDPA_CHARLEY, AIType::AiVendor, FightMode::None, 2, 1);
-    set_title(w, id, Some("the farmer".to_string()));
-    set_body(w, id, Body(400));
-    let v1 = race_skin_hue(w, id);
-    set_hue(w, id, v1);
-    set_speed(w, id, 0.5, 2.0, true);
-    init_stats(w, id, 100, 100, 25);
-    let v2 = rnd::below(w, 2);
-    let v3 = 0x3B2 + v2;
-    assign_random_hair_hue(w, id, v3);
-    set_facial_hair_item_id(w, id, 0x203E);
-    set_facial_hair_hue(w, id, v3);
-    set_skill_range(w, id, SkillName::ItemID, 80.0, 90.0);
-    let v4 = utility::random_nondyed_hue(&mut w.rng);
-    add_item_hue(w, id, "WideBrimHat", Some(v4));
-    let v5 = utility::random_nondyed_hue(&mut w.rng);
-    add_item_hue(w, id, "FancyShirt", Some(v5));
-    let v6 = utility::random_nondyed_hue(&mut w.rng);
-    add_item_hue(w, id, "LongPants", Some(v6));
-    let v7 = utility::random_neutral_hue(&mut w.rng);
-    add_item_hue(w, id, "Sandals", Some(v7));
-    add_item_hue(w, id, "ShepherdsCrook", None);
-    add_item_hue(w, id, "Backpack", None);
-    id
-}
 creature_leaf! {
     /// `Server.Engines.MLQuests.Definitions.GrandpaCharley`.
-    GRANDPA_CHARLEY, GRANDPA_CHARLEY_C = "Server.Engines.MLQuests.Definitions.GrandpaCharley" : BASE_CREATURE / BASE_CREATURE_C, ctor grandpa_charley_new, encoded false;
-    c {
-        is_invulnerable: |_w, _id| true,
-        default_name: |_w, _id| Some("Grandpa Charley"),
-        can_teach: |_w, _id| true,
-    }
+    GRANDPA_CHARLEY, GRANDPA_CHARLEY_C = "Server.Engines.MLQuests.Definitions.GrandpaCharley" : BASE_CREATURE / BASE_CREATURE_C, template, encoded false;
     m {
     }
 }

@@ -66,28 +66,20 @@ macro_rules! v0_item {
     };
 }
 
-/// `base(itemID); Stackable = true; Hue = hue; Amount = amount`.
-fn stack_new(w: &mut World, ty: &'static ItemType, item_id: i32, hue: i32, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, item_id);
-    ops::set_stackable(w, id, true);
-    if hue != 0 {
-        crate::util::hue(w, id, hue);
-    }
+/// `new T(amount)` of a stackable class whose constructor is its template: the template, then `Amount`.
+fn stack_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
+    let id = crate::ml_quests::item_support::template_new(w, ty);
     ops::set_amount(w, id, amount);
     id
 }
 
 // ---- FertileDirt ----
 
-pub fn fertile_dirt_new(w: &mut World, amount: i32) -> ItemId {
-    stack_new(w, &FERTILE_DIRT, 0xF81, 0, amount)
-}
-
 v0_item! {
     /// `Server.Items.FertileDirt`.
     FERTILE_DIRT = "Server.Items.FertileDirt";
-    construct: Some(|w| fertile_dirt_new(w, 1)),
-    default_weight: |_, _| 1.0,
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &FERTILE_DIRT)),
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight),
 }
 
 // ---- PlantBowl ----
@@ -179,9 +171,9 @@ fn plant_bowl_on_target(w: &mut World, bowl: ItemId, from: MobileId, targeted: T
 v0_item! {
     /// `Server.Engines.Plants.PlantBowl`.
     PLANT_BOWL = "Server.Engines.Plants.PlantBowl";
-    construct: Some(|w| ops::new_item_with_id(w, &PLANT_BOWL, 0x15FD)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1060834, // a plant bowl
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &PLANT_BOWL)),
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight),
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number),
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             muo_content::mx::msg(w, from, 1042664);
@@ -224,9 +216,9 @@ pub fn orange_petals_remove_effect(w: &mut World, m: MobileId) {
 v0_item! {
     /// `Server.Items.OrangePetals`.
     ORANGE_PETALS = "Server.Items.OrangePetals";
-    construct: Some(|w| stack_new(w, &ORANGE_PETALS, 0x1021, 0x2B, 1)),
-    label_number: |_, _| 1053122, // orange petals
-    default_weight: |_, _| 0.1,
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &ORANGE_PETALS)),
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number),
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight),
     check_item_use: |w, id, from, item| {
         if item != id {
             return base::check_item_use_base(w, id, from, item);
@@ -261,9 +253,9 @@ v0_item! {
 v0_item! {
     /// `Server.Items.RedLeaves`.
     RED_LEAVES = "Server.Items.RedLeaves";
-    construct: Some(|w| stack_new(w, &RED_LEAVES, 0x1E85, 0x21, 1)),
-    label_number: |_, _| 1053123, // red leaves
-    default_weight: |_, _| 0.1,
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &RED_LEAVES)),
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number),
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight),
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             muo_content::mx::msg(w, from, 1042664);
@@ -312,9 +304,9 @@ const GREEN_THORNS_KEY: &str = "Server.Items.GreenThorns";
 v0_item! {
     /// `Server.Items.GreenThorns`.
     GREEN_THORNS = "Server.Items.GreenThorns";
-    construct: Some(|w| stack_new(w, &GREEN_THORNS, 0xF42, 0x42, 1)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1060837, // green thorns
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &GREEN_THORNS)),
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight),
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number),
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             muo_content::mx::msg(w, from, 1042664);
@@ -752,7 +744,7 @@ v0_item! {
     /// `Server.Items.GreenThornsSHTeleporter` (never saved).
     GREEN_THORNS_SH_TELEPORTER = "Server.Items.GreenThornsSHTeleporter";
     construct: None,
-    default_name: |_, _| Some("a hole".to_string()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     skip_serialization: |_, _| true,
     on_double_click: |w, id, from| {
         if muo_content::mx::in_range_point(w, from, ops::get_world_location(w, id), 3) {
@@ -846,21 +838,21 @@ static BOOL_PARAMS: [Param; 1] = [Param {
 }];
 
 macro_rules! amount_ctor {
-    ($name:ident, $ty:expr, $item_id:expr, $hue:expr) => {
+    ($name:ident, $ty:expr) => {
         static $name: std::sync::LazyLock<[Ctor; 1]> = std::sync::LazyLock::new(|| {
             [Ctor {
                 access: None,
                 params: &*AMOUNT_PARAMS,
-                make: |w, v| EntityId::Item(stack_new(w, &$ty, $item_id, $hue, v[0].i32())),
+                make: |w, v| EntityId::Item(stack_new(w, &$ty, v[0].i32())),
             }]
         });
     };
 }
 
-amount_ctor!(FERTILE_DIRT_CTORS, FERTILE_DIRT, 0xF81, 0);
-amount_ctor!(ORANGE_PETALS_CTORS, ORANGE_PETALS, 0x1021, 0x2B);
-amount_ctor!(RED_LEAVES_CTORS, RED_LEAVES, 0x1E85, 0x21);
-amount_ctor!(GREEN_THORNS_CTORS, GREEN_THORNS, 0xF42, 0x42);
+amount_ctor!(FERTILE_DIRT_CTORS, FERTILE_DIRT);
+amount_ctor!(ORANGE_PETALS_CTORS, ORANGE_PETALS);
+amount_ctor!(RED_LEAVES_CTORS, RED_LEAVES);
+amount_ctor!(GREEN_THORNS_CTORS, GREEN_THORNS);
 
 static PLANT_ITEM_CTORS: [Ctor; 1] = [Ctor {
     access: None,

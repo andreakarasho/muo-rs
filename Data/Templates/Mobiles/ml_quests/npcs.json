@@ -5981,5 +5981,51 @@
         "hue": 2301
       }
     ]
+  },
+  {
+    "type": "Server.Engines.MLQuests.Definitions.Jamal",
+    "ai": "AiVendor",
+    "fightMode": "None",
+    "rangePerception": 2,
+    "rangeFight": 1,
+    "props": {
+      "isInvulnerable": true,
+      "defaultName": "Jamal"
+    },
+    "script": "content/engines/jamal.rhai",
+    "title": "the Fisherman",
+    "body": 400,
+    "mlqSkinHue": true,
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ],
+    "mlqRandomHair": true
+  },
+  {
+    "type": "Server.Engines.MLQuests.Definitions.GrandpaCharley",
+    "ai": "AiVendor",
+    "fightMode": "None",
+    "rangePerception": 2,
+    "rangeFight": 1,
+    "props": {
+      "isInvulnerable": true,
+      "defaultName": "Grandpa Charley",
+      "canTeach": true
+    },
+    "script": "content/engines/grandpa_charley.rhai",
+    "title": "the farmer",
+    "body": 400,
+    "mlqSkinHue": true,
+    "mlqSpeed": [
+      0.5,
+      2.0
+    ],
+    "mlqInitStats": [
+      100,
+      100,
+      25
+    ]
   }
 ]

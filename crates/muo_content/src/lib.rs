@@ -29,6 +29,7 @@ mod props_gen;
 pub mod props_hosts;
 pub mod skills_props;
 mod systems;
+pub mod template_keys;
 pub mod templates;
 pub mod vendor;
 pub mod wiring;

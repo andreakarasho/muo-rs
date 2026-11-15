@@ -19,12 +19,11 @@ pub static ARENAS_MOONGATE: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.ArenasMoongate",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &ARENAS_MOONGATE, 0x1FD4);
-        ops::set_movable(w, id, false);
-        ops::set_light(w, id, muo_server::light_type::LightType::Circle300);
+        let id = ops::new_item_with_id(w, &ARENAS_MOONGATE, 0);
+        muo_content::templates::apply_item_as(w, id, ARENAS_MOONGATE.full_name);
         id
     }),
-    default_name: |_, _| Some("arena moongate".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: |w, id, from| {
         let loc = ops::get_world_location(w, id);
         if muo_content::mx::in_range_point(w, from, loc, 1) {
