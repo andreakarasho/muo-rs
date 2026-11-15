@@ -778,9 +778,7 @@ pub fn addon_on_chop(w: &mut World, id: ItemId, from: MobileId) {
     house_addons_remove(w, house, id);
 
     if let Some(deed) = deed {
-        if retain
-            && let Some(ty) = w.item(deed).map(|i| i.ty)
-        {
+        if retain && let Some(ty) = w.item(deed).map(|i| i.ty) {
             (ty.set_hue)(w, deed, hue);
         }
         deps::add_to_backpack(w, from, deed);

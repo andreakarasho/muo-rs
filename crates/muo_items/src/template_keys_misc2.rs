@@ -23,7 +23,9 @@ fn check_component_row(v: &Value) -> Result<(), String> {
             }
             match o.get("type") {
                 Some(t) if !t.is_string() => Err(format!("expected a class name, got {t}")),
-                Some(_) if o.contains_key("label") => Err("a component has a label or a type".into()),
+                Some(_) if o.contains_key("label") => {
+                    Err("a component has a label or a type".into())
+                }
                 _ => Ok(()),
             }
         }
@@ -72,5 +74,10 @@ pub(crate) fn add_component_rows(w: &mut World, id: ItemId, v: &Value) {
 
 pub(crate) fn register(types: &mut TypeRegistry) {
     // `BaseAddon()` / `BaseAddonContainer()` constructor bodies: their `AddComponent` rows.
-    item_key(types, "addonComponents", check_component_rows, add_component_rows);
+    item_key(
+        types,
+        "addonComponents",
+        check_component_rows,
+        add_component_rows,
+    );
 }

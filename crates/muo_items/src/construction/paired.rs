@@ -25,8 +25,7 @@ struct Pair {
     other: Option<ItemId>,
 }
 
-
-fn other(w: &World, id: ItemId) -> Option<ItemId> {
+pub(crate) fn other(w: &World, id: ItemId) -> Option<ItemId> {
     w.item(id)?.ext.get::<Pair>()?.other
 }
 
@@ -40,7 +39,11 @@ fn set_other(w: &mut World, id: ItemId, o: Option<ItemId>) {
 /// class's `pairOffset` prop `[dx, dy]`.
 fn pair_offset(w: &World, id: ItemId) -> Option<(i32, i32)> {
     let v = muo_content::templates::props::item(w, id, "pairOffset")?.as_array()?;
-    let at = |i: usize| v.get(i).and_then(|x| x.as_i64()).and_then(|x| i32::try_from(x).ok());
+    let at = |i: usize| {
+        v.get(i)
+            .and_then(|x| x.as_i64())
+            .and_then(|x| i32::try_from(x).ok())
+    };
     Some((at(0)?, at(1)?))
 }
 

@@ -548,9 +548,7 @@ pub fn on_chop(w: &mut World, id: ItemId, from: MobileId) {
 
     if let Some(deed) = deed {
         set_deed_resource(w, deed, res);
-        if retain
-            && let Some(ty) = w.item(deed).map(|i| i.ty)
-        {
+        if retain && let Some(ty) = w.item(deed).map(|i| i.ty) {
             (ty.set_hue)(w, deed, hue);
         }
         deps::add_to_backpack(w, from, deed);

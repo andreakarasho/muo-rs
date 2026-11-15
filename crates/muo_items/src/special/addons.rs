@@ -1,12 +1,8 @@
 //! The special addon families (Heritage, Evil Home Decor, Broken Furniture, Holiday): the addons, components and
 //! deeds that are plain tables. Those with logic are hand-written next to this file.
 
-use muo_content::items::addon::{
-    self, ADDON_COMPONENT, BASE_ADDON, BASE_ADDON_DEED,
-};
-use muo_content::items::addon_container::{
-    self, BASE_ADDON_CONTAINER, BASE_ADDON_CONTAINER_DEED,
-};
+use muo_content::items::addon::{self, ADDON_COMPONENT, BASE_ADDON, BASE_ADDON_DEED};
+use muo_content::items::addon_container::{self, BASE_ADDON_CONTAINER, BASE_ADDON_CONTAINER_DEED};
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ItemType, LootType, ops};

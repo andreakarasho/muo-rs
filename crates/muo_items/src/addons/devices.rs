@@ -625,7 +625,6 @@ fn rejuvination_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
     });
 }
 
-
 leaf! {
     /// `Server.Items.RejuvinationAddonComponent`.
     REJUVINATION_ADDON_COMPONENT = "Server.Items.RejuvinationAddonComponent" : ADDON_COMPONENT, v0;
@@ -814,7 +813,11 @@ leaf! {
     family: Some(&crate::addons::TMPL_ADDON_CLASS),
 }
 deed!(DART_BOARD_EAST_DEED, "Server.Items.DartBoardEastDeed", enc);
-deed!(DART_BOARD_SOUTH_DEED, "Server.Items.DartBoardSouthDeed", enc);
+deed!(
+    DART_BOARD_SOUTH_DEED,
+    "Server.Items.DartBoardSouthDeed",
+    enc
+);
 
 // ---- PickpocketDip and TrainingDummy (the same shape: a swinging component with a skill window) ----------------
 

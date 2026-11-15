@@ -124,3 +124,6 @@ mod template_tests;
 
 #[cfg(test)]
 mod template_tests_misc;
+
+#[cfg(test)]
+mod addon_template_tests;

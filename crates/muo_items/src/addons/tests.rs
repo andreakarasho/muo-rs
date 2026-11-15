@@ -40,6 +40,15 @@ fn serial(w: &World, id: ItemId) -> Serial {
     w.item(id).unwrap().serial
 }
 
+/// A test world that also knows the addon classes by name (a deed makes its `deedAddon` class by name).
+fn typed_world() -> World {
+    let mut w = crate::test_world();
+    muo_content::items::addon::register(&mut w.types);
+    super::register(&mut w.types);
+    crate::special::register(&mut w.types);
+    w
+}
+
 fn make(w: &mut World, t: &'static ItemType) -> ItemId {
     (t.construct.or(t.make).unwrap())(w)
 }
@@ -103,14 +112,17 @@ fn every_deed_and_its_addon_point_at_each_other() {
         if !is_deed || t.construct.is_none() {
             continue;
         }
-        let mut w = crate::test_world();
+        let mut w = typed_world();
         let deed = make(&mut w, t);
         if t.is(&BASE_ADDON_DEED) {
             let a = (addon::deed_class(&w, deed).addon)(&mut w, deed);
             assert!(addon::is_addon(&w, a), "{}", t.full_name);
-            let back = addon::addon_class(&w, a)
-                .deed
-                .expect("an addon with a deed")(&mut w);
+            let class = addon::addon_class(&w, a);
+            let back = match (class.deed_of, class.deed) {
+                (Some(f), _) => f(&mut w, a),
+                (None, Some(f)) => f(&mut w),
+                _ => panic!("{}: an addon with a deed", t.full_name),
+            };
             assert_eq!(w.item(back).unwrap().ty.full_name, t.full_name);
         }
     }
@@ -335,7 +347,7 @@ fn jack_o_lantern_builds_its_four_components() {
 
 #[test]
 fn wall_torch_toggles_its_graphic() {
-    let mut w = crate::test_world();
+    let mut w = typed_world();
     let a = sp::wall_torch_addon_new(&mut w);
     let c = addon::components(&w, a)[0];
     assert_eq!(w.item(c).unwrap().item_id, 0x3D98);
@@ -607,7 +619,7 @@ fn bed_of_nails_flips_between_south_and_east_and_stays_when_blocked() {
 #[test]
 fn forge_and_anvil_addons_are_made_of_the_marked_component_classes() {
     // DefBlacksmithy.CheckAnvilAndForge looks for `[Anvil]` / `[Forge]` classes by name (muo_engines::craft::defs).
-    let mut w = crate::test_world();
+    let mut w = typed_world();
     let names = |w: &mut World, t: &'static ItemType| -> Vec<&'static str> {
         let a = make(w, t);
         addon::components(w, a)

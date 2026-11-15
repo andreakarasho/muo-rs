@@ -12,7 +12,6 @@ use muo_server::type_registry::TypeRegistry;
 
 use crate::simple::leaf;
 
-
 /// `WallTorchComponent.OnDoubleClick`.
 fn wall_torch_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
     let Some(it) = w.item(id) else { return };
