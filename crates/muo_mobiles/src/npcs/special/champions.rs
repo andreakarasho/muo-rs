@@ -223,16 +223,6 @@ pub fn info(ty: &'static MobileType) -> Option<&'static ChampionInfo> {
     None
 }
 
-/// `BaseChampion(aiType, mode)`: `base(aiType, mode, 18)`.
-pub(crate) fn champion_make(
-    w: &mut World,
-    ty: &'static MobileType,
-    ai: AIType,
-    mode: FightMode,
-) -> MobileId {
-    new_creature(w, ty, ai, mode, 18, 1)
-}
-
 /// `GetArtifact()`.
 pub fn get_artifact(w: &mut World, id: MobileId) -> Option<ItemId> {
     let info = info(w.mobile(id)?.ty)?;
@@ -490,40 +480,7 @@ pub static BASE_CHAMPION: MobileType = MobileType {
 // ---- Barracoon ----
 
 fn barracoon_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &BARRACOON, AIType::AiMelee, FightMode::Closest);
-    title(w, id, "the piper");
-    body(w, id, 0x190);
-    hue(w, id, 0x83EC);
-    set_str_range(w, id, 305, 425);
-    set_dex_range(w, id, 72, 150);
-    set_int_range(w, id, 505, 750);
-    set_hits(w, id, 4200);
-    set_stam_range(w, id, 102, 300);
-    set_damage(w, id, 25, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill(w, id, SkillName::MagicResist, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 70);
-    let h = muo_primitives::utility::random_green_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.FancyShirt", h);
-    let h = muo_primitives::utility::random_yellow_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.LongPants", h);
-    let h = muo_primitives::utility::random_pink_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.JesterHat", h);
-    let h = muo_primitives::utility::random_pink_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.Cloak", h);
-    add_new(w, id, "Server.Items.Sandals");
-    props_b::set_hair_item_id(w, id, 0x203B); // Short Hair
-    props_b::set_hair_hue(w, id, 0x94);
-    id
+    muo_content::templates::new_creature(w, &BARRACOON)
 }
 
 /// `Polymorph(m)`.
@@ -638,29 +595,7 @@ creature_leaf! {
 // ---- Mephitis ----
 
 fn mephitis_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &MEPHITIS, AIType::AiMelee, FightMode::Closest);
-    body(w, id, 173);
-    base_sound_id(w, id, 0x183);
-    set_str_range(w, id, 505, 1000);
-    set_dex_range(w, id, 102, 300);
-    set_int_range(w, id, 402, 600);
-    set_hits(w, id, 3000);
-    set_stam_range(w, id, 105, 600);
-    set_damage(w, id, 21, 33);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 75, 80);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 70);
-    set_skill_range(w, id, SkillName::MagicResist, 70.7, 140.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 80);
-    id
+    muo_content::templates::new_creature(w, &MEPHITIS)
 }
 
 creature_leaf! {
@@ -679,29 +614,7 @@ creature_leaf! {
 // ---- Rikktor ----
 
 fn rikktor_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &RIKKTOR, AIType::AiMelee, FightMode::Closest);
-    body(w, id, 172);
-    set_str_range(w, id, 701, 900);
-    set_dex_range(w, id, 201, 350);
-    set_int_range(w, id, 51, 100);
-    set_hits(w, id, 3000);
-    set_stam_range(w, id, 203, 650);
-    set_damage(w, id, 28, 55);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Fire, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Energy, 80, 90);
-    set_skill(w, id, SkillName::Anatomy, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 140.2, 160.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 130);
-    id
+    muo_content::templates::new_creature(w, &RIKKTOR)
 }
 
 /// The victims of an area attack around `center`: `m != this`, harmable (or a living player), and a creature that
@@ -780,32 +693,7 @@ creature_leaf! {
 // ---- Semidar ----
 
 fn semidar_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &SEMIDAR, AIType::AiMage, FightMode::Closest);
-    body(w, id, 174);
-    base_sound_id(w, id, 0x4B0);
-    set_str_range(w, id, 502, 600);
-    set_dex_range(w, id, 102, 200);
-    set_int_range(w, id, 601, 750);
-    set_hits(w, id, 1500);
-    set_stam_range(w, id, 103, 250);
-    set_damage(w, id, 29, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::EvalInt, 95.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::Meditation, 95.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 120.2, 140.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 105.0);
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-    virtual_armor(w, id, 20);
-    id
+    muo_content::templates::new_creature(w, &SEMIDAR)
 }
 
 fn caster_is_male(w: &World, caster: MobileId) -> bool {
@@ -851,30 +739,7 @@ creature_leaf! {
 // ---- Serado ----
 
 fn serado_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &SERADO, AIType::AiMelee, FightMode::Closest);
-    title(w, id, "the awakened");
-    body(w, id, 249);
-    hue(w, id, 0x96C);
-    set_str(w, id, 1000);
-    set_dex(w, id, 150);
-    set_int(w, id, 300);
-    set_hits(w, id, 9000);
-    set_mana(w, id, 300);
-    set_damage(w, id, 29, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 70);
-    set_damage_type(w, id, ResistanceType::Poison, 20);
-    set_damage_type(w, id, ResistanceType::Energy, 10);
-    set_resistance(w, id, ResistanceType::Physical, 30);
-    set_resistance(w, id, ResistanceType::Fire, 60);
-    set_resistance(w, id, ResistanceType::Cold, 60);
-    set_resistance(w, id, ResistanceType::Poison, 90);
-    set_resistance(w, id, ResistanceType::Energy, 50);
-    set_skill(w, id, SkillName::MagicResist, 120.0);
-    set_skill(w, id, SkillName::Tactics, 120.0);
-    set_skill(w, id, SkillName::Wrestling, 70.0);
-    set_skill(w, id, SkillName::Poisoning, 150.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
+    let id = muo_content::templates::new_creature(w, &SERADO);
     let seed = crate::hand::seed::random_bonsai_seed(w);
     pack_item(w, id, seed);
     id
@@ -997,32 +862,7 @@ fn set_neira_boost(w: &mut World, id: MobileId, v: bool) {
 }
 
 fn neira_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &NEIRA, AIType::AiMage, FightMode::Closest);
-    title(w, id, "the necromancer");
-    body(w, id, 401);
-    hue(w, id, 0x83EC);
-    set_str_range(w, id, 305, 425);
-    set_dex_range(w, id, 72, 150);
-    set_int_range(w, id, 505, 750);
-    set_hits(w, id, 4800);
-    set_stam_range(w, id, 102, 300);
-    set_damage(w, id, 25, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill(w, id, SkillName::EvalInt, 120.0);
-    set_skill(w, id, SkillName::Magery, 120.0);
-    set_skill(w, id, SkillName::Meditation, 120.0);
-    set_skill(w, id, SkillName::MagicResist, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 30);
-    female(w, id, true);
+    let id = muo_content::templates::new_creature(w, &NEIRA);
     if let Some(shroud) = factory::make_item(w, "Server.Items.HoodedShroudOfShadows") {
         ops::set_movable(w, shroud, false);
         items::add_item(w, id, shroud);
@@ -1197,34 +1037,19 @@ fn oaks_mut(w: &mut World, id: MobileId) -> Option<&mut OaksData> {
 }
 
 fn lord_oaks_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &LORD_OAKS, AIType::AiMage, FightMode::Evil);
+    let args = muo_content::templates::table(w).roll_args(w, LORD_OAKS.full_name);
+    let id = new_creature(
+        w,
+        &LORD_OAKS,
+        args.ai,
+        args.fight_mode,
+        args.range_perception,
+        args.range_fight,
+    );
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(OaksData::default());
     }
-    body(w, id, 175);
-    set_str_range(w, id, 403, 850);
-    set_dex_range(w, id, 101, 150);
-    set_int_range(w, id, 503, 800);
-    set_hits(w, id, 3000);
-    set_stam_range(w, id, 202, 400);
-    set_damage(w, id, 21, 33);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 85, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Energy, 80, 90);
-    set_skill_range(w, id, SkillName::Anatomy, 75.1, 100.0);
-    set_skill_range(w, id, SkillName::EvalInt, 120.1, 130.0);
-    set_skill(w, id, SkillName::Magery, 120.0);
-    set_skill_range(w, id, SkillName::Meditation, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.5, 150.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, 22500);
-    virtual_armor(w, id, 100);
+    muo_content::templates::apply_mobile(w, id);
     id
 }
 

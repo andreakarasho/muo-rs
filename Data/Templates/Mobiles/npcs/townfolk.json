@@ -1,0 +1,568 @@
+[
+  {
+    "type": "Server.Mobiles.BaseEscortable",
+    "ai": "AiMelee",
+    "fightMode": "Aggressor",
+    "rangePerception": 22,
+    "rangeFight": 1,
+    "str": [90, 100],
+    "dex": [90, 100],
+    "int": [15, 25],
+    "npcHue": "humanSkin",
+    "coin": {
+      "then": {"female": true, "body": 401, "nameRandom": "female"},
+      "else": {"female": false, "body": 400, "nameRandom": "male"}
+    },
+    "npcEscortOutfit": true,
+    "fame": 200,
+    "karma": 4000,
+    "npcSpeed": [0.2, 1.0],
+    "props": {
+      "npcOutfit": {
+        "npcAddItem": [
+          {"item": "Server.Items.FancyShirt", "hue": "randomNeutral"},
+          {"item": "Server.Items.ShortPants", "hue": "randomNeutral"},
+          {"item": "Server.Items.Boots", "hue": "randomNeutral"}
+        ],
+        "randomHair": true,
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.BrideGroom",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "npcTitleByGender": {"female": "the bride", "male": "the groom"},
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcByGender": {
+          "female": {
+            "npcSeq": [
+              {
+                "npcAddItem": ["Server.Items.FancyDress"],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.LongPants", "hue": "$low"},
+                  {"item": "Server.Items.Shoes", "hue": "$low"}
+                ]
+              }
+            ]
+          },
+          "male": {
+            "npcSeq": [
+              {
+                "npcAddItem": ["Server.Items.FancyShirt"],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.LongPants", "hue": "$low"},
+                  {"item": "Server.Items.Boots", "hue": "$low"}
+                ]
+              }
+            ]
+          }
+        },
+        "coin": {
+          "then": {"npcHairItemId": 8251},
+          "else": {"npcHairItemId": 8252}
+        },
+        "npcHairHue": "humanHair",
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.EscortableMage",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "title": "the mage",
+    "skills": {
+      "EvalInt": [80.0, 100.0],
+      "Inscribe": [80.0, 100.0],
+      "Magery": [80.0, 100.0],
+      "Meditation": [80.0, 100.0],
+      "MagicResist": [80.0, 100.0]
+    },
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcAddItem": [
+          {
+            "item": "Server.Items.Robe",
+            "hue": {
+              "oneOf": ["randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+            }
+          }
+        ],
+        "npcHueVars": {
+          "low": {
+            "oneOf": ["randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+          }
+        },
+        "npcByGender": {
+          "female": {
+            "npcAddItem": [
+              {"item": "Server.Items.ShortPants", "hue": "$low"},
+              {"item": "Server.Items.ThighBoots", "hue": "$low"}
+            ]
+          },
+          "male": {
+            "npcAddItem": [
+              {"item": "Server.Items.ShortPants", "hue": "$low"},
+              {"item": "Server.Items.Boots", "hue": "$low"}
+            ]
+          }
+        },
+        "randomHair": true,
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Merchant",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "title": "the merchant",
+    "skills": {
+      "ItemID": [55.0, 78.0],
+      "ArmsLore": [55.0, 78.0]
+    },
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcHueVars": {
+          "low": {
+            "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+          }
+        },
+        "npcByGender": {
+          "female": {
+            "npcAddItem": [
+              "Server.Items.ThighBoots",
+              {"item": "Server.Items.FancyDress", "hue": "$low"},
+              {"item": "Server.Items.LongPants", "hue": "$low"}
+            ]
+          },
+          "male": {
+            "npcAddItem": [
+              "Server.Items.ThighBoots",
+              {"item": "Server.Items.FancyShirt", "hue": "$low"},
+              {"item": "Server.Items.LongPants", "hue": "$low"},
+              {"item": "Server.Items.BodySash", "hue": "$low"}
+            ]
+          }
+        },
+        "randomHair": true,
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Messenger",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "title": "the messenger",
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcByGender": {
+          "female": {
+            "npcSeq": [
+              {
+                "npcAddItem": ["Server.Items.PlainDress"],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.Boots", "hue": "$low"}
+                ]
+              }
+            ]
+          },
+          "male": {
+            "npcSeq": [
+              {
+                "npcAddItem": [
+                  {
+                    "item": "Server.Items.Shirt",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  }
+                ],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.Shoes", "hue": "$low"}
+                ]
+              }
+            ]
+          }
+        },
+        "oneOf": [
+          {"npcHairItemId": 8264},
+          {"npcHairItemId": 8265},
+          {"npcHairItemId": 8266},
+          {"npcHairItemId": 8267}
+        ],
+        "npcHairHue": "humanHair",
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Noble",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "title": "the noble",
+    "skills": {
+      "Parry": [80.0, 100.0],
+      "Swords": [80.0, 100.0],
+      "Tactics": [80.0, 100.0]
+    },
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcByGender": {
+          "female": {
+            "npcSeq": [
+              {
+                "npcAddItem": ["Server.Items.FancyDress"],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.ThighBoots", "hue": "$low"},
+                  {
+                    "item": "Server.Items.Cloak",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "male": {
+            "npcSeq": [
+              {
+                "npcAddItem": [
+                  {
+                    "item": "Server.Items.FancyShirt",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  }
+                ],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.Boots", "hue": "$low"},
+                  {"item": "Server.Items.BodySash", "hue": "$low"},
+                  {
+                    "item": "Server.Items.Cloak",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  },
+                  "Server.Items.Longsword"
+                ]
+              }
+            ]
+          }
+        },
+        "randomHair": true,
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Peasant",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "title": "the peasant",
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcByGender": {
+          "female": {
+            "npcSeq": [
+              {
+                "npcAddItem": ["Server.Items.PlainDress"],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.Boots", "hue": "$low"}
+                ]
+              }
+            ]
+          },
+          "male": {
+            "npcSeq": [
+              {
+                "npcAddItem": [
+                  {
+                    "item": "Server.Items.Shirt",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  }
+                ],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.Shoes", "hue": "$low"}
+                ]
+              }
+            ]
+          }
+        },
+        "randomHair": true,
+        "pack": [
+          {
+            "gold": [200, 250]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Townfolk.Prisoner",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "npcTitleByGender": {"female": "the noblewoman", "male": "the nobleman"},
+    "cantWalk": true,
+    "npcPrisoner": true,
+    "props": {
+      "npcClickTitle": false,
+      "npcCanTeach": true,
+      "npcOutfit": {
+        "npcByGender": {
+          "female": {
+            "npcAddItem": [
+              {"item": "Server.Items.FancyDress", "hue": "randomNondyed"}
+            ]
+          },
+          "male": {
+            "npcAddItem": [
+              {"item": "Server.Items.FancyShirt", "hue": "randomNondyed"},
+              {"item": "Server.Items.LongPants", "hue": "randomNondyed"}
+            ]
+          }
+        },
+        "coin": {
+          "then": {
+            "npcAddItem": ["Server.Items.Boots"]
+          },
+          "else": {
+            "npcAddItem": ["Server.Items.ThighBoots"]
+          }
+        },
+        "randomHair": true,
+        "npcFacialHair": "hairHue"
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.SeekerOfAdventure",
+    "inherits": "Server.Mobiles.BaseEscortable",
+    "title": "the seeker of adventure",
+    "props": {
+      "npcClickTitle": false,
+      "npcOutfit": {
+        "npcByGender": {
+          "female": {
+            "npcSeq": [
+              {
+                "npcAddItem": [
+                  {
+                    "item": "Server.Items.FancyDress",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  }
+                ],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.ThighBoots", "hue": "$low"},
+                  {
+                    "item": "Server.Items.Cloak",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  },
+                  "Server.Items.Longsword"
+                ]
+              }
+            ]
+          },
+          "male": {
+            "npcSeq": [
+              {
+                "npcAddItem": [
+                  {
+                    "item": "Server.Items.FancyShirt",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  }
+                ],
+                "npcHueVars": {
+                  "low": {
+                    "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                  }
+                }
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.ShortPants", "hue": "$low"},
+                  {"item": "Server.Items.Boots", "hue": "$low"},
+                  {"item": "Server.Items.BodySash", "hue": "$low"},
+                  {
+                    "item": "Server.Items.Cloak",
+                    "hue": {
+                      "oneOf": [0, "randomBlue", "randomGreen", "randomRed", "randomYellow", "randomNeutral"]
+                    }
+                  },
+                  "Server.Items.Longsword"
+                ]
+              }
+            ]
+          }
+        },
+        "randomHair": true,
+        "pack": [
+          {
+            "gold": [100, 150]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.TownCrier",
+    "npcInitStats": [100, 100, 25],
+    "title": "the town crier",
+    "npcHue": "humanSkin",
+    "era": {
+      "atLeast": "AOS",
+      "else": {"npcNameHue": 53}
+    },
+    "coin": {
+      "then": {"female": true, "body": 401, "nameRandom": "female"},
+      "else": {"female": false, "body": 400, "nameRandom": "male"}
+    },
+    "npcSeq": [
+      {
+        "npcAddItem": [
+          {"item": "Server.Items.FancyShirt", "hue": "randomBlue"}
+        ]
+      },
+      {
+        "oneOf": [
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.Skirt", "hue": "randomGreen"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.Kilt", "hue": "randomGreen"}
+            ]
+          }
+        ]
+      },
+      {
+        "npcAddItem": [
+          {"item": "Server.Items.FeatheredHat", "hue": "randomGreen"}
+        ],
+        "oneOf": [
+          {
+            "npcAddItem": ["Server.Items.Boots"]
+          },
+          {
+            "npcAddItem": ["Server.Items.ThighBoots"]
+          }
+        ]
+      },
+      {"randomHair": true}
+    ]
+  }
+]

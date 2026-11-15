@@ -19,31 +19,7 @@ const LETHAL: PoisonId = PoisonId(4);
 // ---- Silvani ----
 
 fn silvani_new(w: &mut World) -> MobileId {
-    let id = new_creature(w, &SILVANI, AIType::AiMage, FightMode::Evil, 18, 1);
-    body(w, id, 176);
-    base_sound_id(w, id, 0x467);
-    set_str_range(w, id, 253, 400);
-    set_dex_range(w, id, 157, 850);
-    set_int_range(w, id, 503, 800);
-    set_hits(w, id, 600);
-    set_damage(w, id, 27, 38);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Cold, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill(w, id, SkillName::EvalInt, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 97.6, 107.5);
-    set_skill(w, id, SkillName::Meditation, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.5, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 20000);
-    karma(w, id, 20000);
-    virtual_armor(w, id, 50);
-    id
+    muo_content::templates::new_creature(w, &SILVANI)
 }
 
 static SILVANI_ABILITIES: [&muo_content::abilities::MonsterAbility; 1] =
@@ -73,16 +49,7 @@ creature_leaf! {
 // ---- ServantOfSemidar ----
 
 fn servant_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SERVANT_OF_SEMIDAR,
-        AIType::AiMelee,
-        FightMode::None,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    body(w, id, 0x26);
-    id
+    muo_content::templates::new_creature(w, &SERVANT_OF_SEMIDAR)
 }
 
 creature_leaf! {
@@ -134,40 +101,7 @@ creature_leaf! {
 // ---- DarkGuardian ----
 
 fn dark_guardian_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DARK_GUARDIAN,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    body(w, id, 78);
-    base_sound_id(w, id, 0x3E9);
-    set_str_range(w, id, 125, 150);
-    set_dex_range(w, id, 100, 120);
-    set_int_range(w, id, 200, 235);
-    set_hits_range(w, id, 150, 180);
-    set_damage(w, id, 43, 48);
-    set_damage_type(w, id, ResistanceType::Physical, 10);
-    set_damage_type(w, id, ResistanceType::Cold, 40);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 45);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 40.1, 50.0);
-    set_skill_range(w, id, SkillName::Magery, 50.1, 60.0);
-    set_skill_range(w, id, SkillName::Meditation, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 50);
-    pack_necro_reg_range(w, id, 15, 25);
-    pack_new_amount(w, id, "Server.Items.DaemonBone", 30);
-    id
+    muo_content::templates::new_creature(w, &DARK_GUARDIAN)
 }
 
 creature_leaf! {

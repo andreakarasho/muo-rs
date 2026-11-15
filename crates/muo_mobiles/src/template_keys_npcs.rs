@@ -2,11 +2,14 @@
 //!
 //! A hue value (`npcHue`, `npcSpeechHue`, an item's `"hue"`) is a number or a random hue: `"randomDyed"`,
 //! `"randomNeutral"`, `"randomBlue"`, `"randomGreen"`, `"randomRed"`, `"randomYellow"`, `"randomPink"`,
-//! `"randomBright"`, `"randomNondyed"`, `"humanSkin"` (`Race.Human.RandomSkinHue()`), `"humanHair"`.
+//! `"randomBright"`, `"randomNondyed"`, `"humanSkin"` (`Race.Human.RandomSkinHue()`), `"humanHair"`; one read from
+//! the mobile being built: `"hairHue"` (`HairHue`), `"vendorRandom"` / `"vendorShoe"` (its vendor class's
+//! `GetRandomHue()` / `GetShoeHue()`); `{"oneOf": [hues]}` (`Utility.Random(n) switch`), or `"$name"`, the hue an
+//! earlier `npcHueVars` drew.
 //!
 //! An item value (`npcEquip`, `npcAddItem`, `npcReplaceEquipment` take an array of them) is a class name or
-//! `{"item": "<class>", "hue": <hue>, "hueAfter": <hue>}`: `hue` is drawn before the item is made (`new T(hue)`),
-//! `hueAfter` after (`new T { Hue = .. }`).
+//! `{"item": "<class>", "hue": <hue>, "hueAfter": <hue>, "layer": "InnerTorso", "movable": false}`: `hue` is drawn
+//! before the item is made (`new T(hue)`), `hueAfter` after (`new T { Hue = .. }`).
 //!
 //! Keys:
 //! - `npcSpeechHue`, `npcHue`: `SpeechHue = ..`, `Hue = ..`.
@@ -22,6 +25,17 @@
 //! - `npcTitleByGender: {"female": "..", "male": ".."}`: `Title = Female ? .. : ..`.
 //! - `npcSeq: [{..}, {..}]`: blocks of template keys run in order (a block can repeat a key of an earlier one).
 //! - `npcIfLayerEmpty: {"layer": "TwoHanded", "then": {..}}`: the block when nothing is on that layer.
+//! - `npcHueVars: {"low": <hue>}`: draws hues now, read later as `"$low"` (`int lowHue = GetRandomHue();`).
+//! - `npcByGender: {"female": {..}, "male": {..}}`: the block of the mobile's `Female`.
+//! - `npcEquipOrDelete: {"item": <item>, "else": {..}}`: `if (!EquipItem(item)) { item.Delete(); else-block }`.
+//! - `npcRehueLayers: {"layers": [..], "hue": <hue>}`: each worn item on those layers gets a hue drawn for it.
+//! - `npcFacialHair: <hue>` (`AssignRandomFacialHair(this, hue)`), `npcHairItemId: n`, `npcHairHue: <hue>`.
+//! - `npcDeleteBackpack: true`, `npcReplaceBackpack: {"weight": n}` (a new unmovable backpack of that weight).
+//! - `npcUnmovablePack: [{"gold": [min, max]}, {"item": "<class>", "amount": n, "newbied": true}]`: the contents
+//!   made in order, then an unmovable backpack holding them (the guards).
+//! - `npcGuardWeapon: <item>`: unmovable, crafted by the mobile, exceptional.
+//! - `npcMount: "<class>"` (`new T().Rider = this`), `npcCombatDelay: ms` (`NextCombatTime = Core.TickCount + ms`).
+//! - `npcEscortOutfit: true` (`BaseEscortable.InitOutfit()`: the class's `npcOutfit` prop), `npcPrisoner: true`.
 //!
 //! Nested blocks are parsed when they run, so a mistake in one is logged then (`npcs::template_tests` parses every
 //! shipped class).
@@ -38,14 +52,38 @@ use muo_server::layer::Layer;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
-/// A hue: fixed, or drawn when applied.
-#[derive(Copy, Clone, Debug)]
+/// A hue: fixed, drawn when applied, read from the mobile being built, one of a list (`Utility.Random(n)` picks),
+/// or a hue an earlier `npcHueVars` drew.
+#[derive(Clone, Debug)]
 pub enum Hue {
     Fixed(i32),
     Random(HueFn),
+    Of(MobileHueFn),
+    OneOf(Vec<Hue>),
+    Var(String),
 }
 
 type HueFn = fn(&mut World) -> i32;
+type MobileHueFn = fn(&mut World, MobileId) -> i32;
+
+fn vendor_class(w: &World, id: MobileId) -> &'static muo_content::vendor::VendorClass {
+    muo_content::vendor::class(w, id).unwrap_or(&muo_content::vendor::BASE_VENDOR_CLASS)
+}
+
+/// `HairHue`, and the vendor class's `GetRandomHue()` / `GetShoeHue()`.
+const MOBILE_HUES: [(&str, MobileHueFn); 3] = [
+    ("hairHue", |w, id| w.mobile(id).map_or(0, |m| m.hair_hue)),
+    ("vendorRandom", |w, id| {
+        (vendor_class(w, id).get_random_hue)(w, id)
+    }),
+    ("vendorShoe", |w, id| {
+        (vendor_class(w, id).get_shoe_hue)(w, id)
+    }),
+];
+
+/// The hues `npcHueVars` drew, by name (read while the same mobile is being built).
+#[derive(Default)]
+struct HueVars(std::collections::HashMap<String, i32>);
 
 const RANDOM_HUES: [(&str, HueFn); 11] = [
     ("randomDyed", |w| utility::random_dyed_hue(&mut w.rng)),
@@ -68,9 +106,25 @@ impl Hue {
         if let Some(n) = v.as_i64().and_then(|n| i32::try_from(n).ok()) {
             return Ok(Hue::Fixed(n));
         }
+        if let Some(a) = v.get("oneOf").and_then(Value::as_array) {
+            if a.is_empty() || v.as_object().is_some_and(|o| o.len() != 1) {
+                return Err(format!("expected {{\"oneOf\": [hues]}}, got {v}"));
+            }
+            return a
+                .iter()
+                .map(Hue::parse)
+                .collect::<Result<_, _>>()
+                .map(Hue::OneOf);
+        }
         let s = v
             .as_str()
             .ok_or_else(|| format!("expected a hue, got {v}"))?;
+        if let Some(n) = s.strip_prefix('$') {
+            return Ok(Hue::Var(n.to_owned()));
+        }
+        if let Some((_, f)) = MOBILE_HUES.iter().find(|(n, _)| *n == s) {
+            return Ok(Hue::Of(*f));
+        }
         RANDOM_HUES
             .iter()
             .find(|(n, _)| *n == s)
@@ -78,16 +132,27 @@ impl Hue {
             .ok_or_else(|| format!("unknown hue {s}"))
     }
 
-    pub fn roll(self, w: &mut World) -> i32 {
+    /// The hue now; `id` is the mobile being built (a hue read from it is 0 without one).
+    pub fn roll(&self, w: &mut World, id: Option<MobileId>) -> i32 {
         match self {
-            Hue::Fixed(n) => n,
+            Hue::Fixed(n) => *n,
             Hue::Random(f) => f(w),
+            Hue::Of(f) => id.map_or(0, |id| f(w, id)),
+            Hue::OneOf(l) => {
+                let i = rnd::below(w, l.len() as i32) as usize;
+                l[i].roll(w, id)
+            }
+            Hue::Var(n) => w
+                .resources
+                .get::<HueVars>()
+                .and_then(|v| v.0.get(n).copied())
+                .unwrap_or(0),
         }
     }
 }
 
-fn hue_of(v: &Value) -> Hue {
-    Hue::parse(v).unwrap_or(Hue::Fixed(0))
+fn hue_of(w: &mut World, id: MobileId, v: &Value) -> i32 {
+    Hue::parse(v).unwrap_or(Hue::Fixed(0)).roll(w, Some(id))
 }
 
 fn check_hue(v: &Value) -> Result<(), String> {
@@ -132,7 +197,7 @@ fn check_items(v: &Value) -> Result<(), String> {
         if let Some(o) = x.as_object() {
             if let Some(k) = o
                 .keys()
-                .find(|k| !["item", "hue", "hueAfter"].contains(&k.as_str()))
+                .find(|k| !["item", "hue", "hueAfter", "movable", "layer"].contains(&k.as_str()))
             {
                 return Err(format!("unknown item key \"{k}\""));
             }
@@ -140,6 +205,13 @@ fn check_items(v: &Value) -> Result<(), String> {
                 if let Some(h) = o.get(k) {
                     check_hue(h)?;
                 }
+            }
+            if let Some(m) = o.get("movable") {
+                check_bool(m)?;
+            }
+            if let Some(l) = o.get("layer") {
+                let l = l.as_str().unwrap_or_default();
+                layer(l).ok_or_else(|| format!("unknown layer {l}"))?;
             }
         }
         item_of(x).ok_or_else(|| format!("expected an item, got {x}"))?;
@@ -152,24 +224,32 @@ type Put = fn(&mut World, MobileId, ItemId);
 /// Makes each item of an item array (its `hue` drawn first) and hands it to `put`, then sets its `hueAfter`.
 fn items(w: &mut World, id: MobileId, v: &Value, put: Put) {
     for x in v.as_array().map(Vec::as_slice).unwrap_or_default() {
-        let Some((name, hue, after)) = item_of(x) else {
-            continue;
-        };
-        let hue = hue.map(|h| h.roll(w));
-        let Some(it) = muo_content::factory::make_item(w, name) else {
-            continue;
-        };
-        if let Some(h) = hue {
+        item(w, id, x, put);
+    }
+}
+
+/// One item value: made (its `hue` drawn first, then `layer`, `movable`), handed to `put`, then its `hueAfter`.
+fn item(w: &mut World, id: MobileId, x: &Value, put: Put) -> Option<ItemId> {
+    let (name, hue, after) = item_of(x)?;
+    let hue = hue.map(|h| h.roll(w, Some(id)));
+    let it = muo_content::factory::make_item(w, name)?;
+    if let Some(h) = hue {
+        muo_server::item::base::set_hue(w, it, h);
+    }
+    if let Some(l) = x.get("layer").and_then(Value::as_str).and_then(layer) {
+        muo_server::item::base::set_layer(w, it, l);
+    }
+    if let Some(m) = x.get("movable").and_then(Value::as_bool) {
+        muo_server::item::ops::set_movable(w, it, m);
+    }
+    put(w, id, it);
+    if let Some(h) = after {
+        let h = h.roll(w, Some(id));
+        if w.item(it).is_some() {
             muo_server::item::base::set_hue(w, it, h);
         }
-        put(w, id, it);
-        if let Some(h) = after {
-            let h = h.roll(w);
-            if w.item(it).is_some() {
-                muo_server::item::base::set_hue(w, it, h);
-            }
-        }
     }
+    Some(it)
 }
 
 /// `EquipItem(item)`: a refused item stays unreferenced.
@@ -179,6 +259,15 @@ fn equip(w: &mut World, id: MobileId, it: ItemId) {
 
 fn add_item(w: &mut World, id: MobileId, it: ItemId) {
     muo_server::mobile::part2::items::add_item(w, id, it);
+}
+
+/// `if (!EquipItem(item)) item.Delete();` (the refusal is read back by `npcEquipOrDelete`'s `else`).
+fn equip_or_delete(w: &mut World, id: MobileId, it: ItemId) {
+    if !muo_server::mobile::base::equip_item(w, id, it)
+        && let Some(t) = w.item(it).map(|i| i.ty)
+    {
+        (t.delete)(w, it);
+    }
 }
 
 fn check_block(v: &Value) -> Result<(), String> {
@@ -208,11 +297,11 @@ fn layer(s: &str) -> Option<Layer> {
 
 pub(crate) fn register(types: &mut TypeRegistry) {
     mobile_key(types, "npcSpeechHue", check_hue, |w, id, v| {
-        let h = hue_of(v).roll(w);
+        let h = hue_of(w, id, v);
         muo_content::creature::init_ops::speech_hue(w, id, h);
     });
     mobile_key(types, "npcHue", check_hue, |w, id, v| {
-        let h = hue_of(v).roll(w);
+        let h = hue_of(w, id, v);
         muo_content::creature::init_ops::hue(w, id, h);
     });
     mobile_key(types, "npcRollHair", check_bool, |w, id, _| {
@@ -236,7 +325,7 @@ pub(crate) fn register(types: &mut TypeRegistry) {
             }
         },
         |w, id, v| {
-            let h = hue_of(&v["hue"]).roll(w);
+            let h = hue_of(w, id, &v["hue"]);
             muo_content::vendor::assign_random_hair(w, id, h);
             let skip = v
                 .get("facialSkipOneIn")
@@ -354,6 +443,256 @@ pub(crate) fn register(types: &mut TypeRegistry) {
             }
         },
     );
+    mobile_key(
+        types,
+        "npcHueVars",
+        |v| {
+            v.as_object()
+                .ok_or("expected {\"name\": hue, ..}")?
+                .values()
+                .try_for_each(check_hue)
+        },
+        |w, id, v| {
+            for (n, h) in v.as_object().into_iter().flatten() {
+                let h = hue_of(w, id, h);
+                w.resources.get_mut::<HueVars>().0.insert(n.clone(), h);
+            }
+        },
+    );
+    mobile_key(
+        types,
+        "npcByGender",
+        |v| {
+            let o = v.as_object().ok_or("expected {\"female\", \"male\"}")?;
+            if let Some(k) = o.keys().find(|k| !["female", "male"].contains(&k.as_str())) {
+                return Err(format!("unknown key \"{k}\""));
+            }
+            o.values().try_for_each(check_block)
+        },
+        |w, id, v| {
+            let female = w.mobile(id).is_some_and(|m| m.female);
+            if let Some(b) = v.get(if female { "female" } else { "male" }) {
+                run_block(w, id, b);
+            }
+        },
+    );
+    mobile_key(
+        types,
+        "npcEquipOrDelete",
+        |v| {
+            let o = v.as_object().ok_or("expected {\"item\", \"else\"}")?;
+            if let Some(k) = o.keys().find(|k| !["item", "else"].contains(&k.as_str())) {
+                return Err(format!("unknown key \"{k}\""));
+            }
+            check_items(&Value::Array(vec![
+                o.get("item").ok_or("\"item\" is missing")?.clone(),
+            ]))?;
+            o.get("else").map_or(Ok(()), check_block)
+        },
+        |w, id, v| {
+            let Some(it) = item(w, id, &v["item"], equip_or_delete) else {
+                return;
+            };
+            if w.item(it).is_none_or(|i| i.deleted())
+                && let Some(b) = v.get("else")
+            {
+                run_block(w, id, b);
+            }
+        },
+    );
+    mobile_key(
+        types,
+        "npcRehueLayers",
+        |v| {
+            let o = v.as_object().ok_or("expected {\"layers\", \"hue\"}")?;
+            for l in o
+                .get("layers")
+                .and_then(Value::as_array)
+                .ok_or("\"layers\": expected an array")?
+            {
+                let l = l.as_str().unwrap_or_default();
+                layer(l).ok_or_else(|| format!("unknown layer {l}"))?;
+            }
+            check_hue(o.get("hue").ok_or("\"hue\" is missing")?)
+        },
+        |w, id, v| {
+            let layers = v["layers"]
+                .as_array()
+                .map(Vec::as_slice)
+                .unwrap_or_default();
+            for l in layers.iter().filter_map(|l| l.as_str().and_then(layer)) {
+                if let Some(it) = muo_server::mobile::part2::items::find_item_on_layer(w, id, l) {
+                    let h = hue_of(w, id, &v["hue"]);
+                    muo_server::item::base::set_hue(w, it, h);
+                }
+            }
+        },
+    );
+    mobile_key(types, "npcFacialHair", check_hue, |w, id, v| {
+        let h = hue_of(w, id, v);
+        muo_content::vendor::assign_random_facial_hair(w, id, h);
+    });
+    mobile_key(
+        types,
+        "npcHairItemId",
+        muo_content::templates::keys::check_int,
+        |w, id, v| {
+            let n = muo_content::templates::keys::int(v);
+            muo_server::mobile::part1::props_b::set_hair_item_id(w, id, n);
+        },
+    );
+    mobile_key(types, "npcHairHue", check_hue, |w, id, v| {
+        let h = hue_of(w, id, v);
+        muo_server::mobile::part1::props_b::set_hair_hue(w, id, h);
+    });
+    mobile_key(
+        types,
+        "npcReplaceBackpack",
+        |v| {
+            v.get("weight")
+                .and_then(Value::as_f64)
+                .map(|_| ())
+                .ok_or_else(|| format!("expected {{\"weight\": n}}, got {v}"))
+        },
+        |w, id, v| {
+            // Backpack?.Delete(); AddItem(new Backpack { Movable = false, Weight = n });
+            if let Some(old) = w.mobile(id).and_then(|m| m.backpack)
+                && let Some(t) = w.item(old).map(|i| i.ty)
+            {
+                (t.delete)(w, old);
+            }
+            if let Some(pack) = muo_content::factory::make_item(w, "Server.Items.Backpack") {
+                muo_server::item::ops::set_movable(w, pack, false);
+                muo_server::item::ops::set_weight(w, pack, v["weight"].as_f64().unwrap_or(0.0));
+                add_item(w, id, pack);
+            }
+        },
+    );
+    mobile_key(types, "npcDeleteBackpack", check_bool, |w, id, _| {
+        if let Some(p) = muo_server::mobile::part1::props_b::backpack(w, id)
+            && let Some(t) = w.item(p).map(|i| i.ty)
+        {
+            (t.delete)(w, p);
+        }
+    });
+    mobile_key(types, "npcEscortOutfit", check_bool, |w, id, _| {
+        crate::npcs::townfolk::init_outfit(w, id);
+    });
+    mobile_key(types, "npcPrisoner", check_bool, |w, id, v| {
+        if let Some(d) = muo_content::creature::data::cd_mut(w, id) {
+            d.is_prisoner = v.as_bool() == Some(true);
+        }
+    });
+    mobile_key(
+        types,
+        "npcGuardWeapon",
+        |v| check_items(&Value::Array(vec![v.clone()])),
+        |w, id, v| {
+            item(w, id, v, add_guard_weapon);
+        },
+    );
+    mobile_key(types, "npcUnmovablePack", check_pack, |w, id, v| {
+        let mut contents = Vec::new();
+        for c in v.as_array().map(Vec::as_slice).unwrap_or_default() {
+            contents.extend(pack_content(w, c));
+        }
+        let Some(pack) = muo_content::factory::make_item(w, "Server.Items.Backpack") else {
+            return;
+        };
+        muo_server::item::ops::set_movable(w, pack, false);
+        for c in contents {
+            muo_server::item::container::drop_item_default(w, pack, c);
+        }
+        add_item(w, id, pack);
+    });
+    mobile_key(
+        types,
+        "npcMount",
+        |v| match v.as_str() {
+            Some(_) => Ok(()),
+            None => Err(format!("expected a mount class, got {v}")),
+        },
+        |w, id, v| {
+            let m = v
+                .as_str()
+                .and_then(|n| muo_content::factory::make_mobile(w, n));
+            if let Some(m) = m {
+                muo_content::creature::mount::set_rider(w, m, Some(id));
+            }
+        },
+    );
+    mobile_key(
+        types,
+        "npcCombatDelay",
+        muo_content::templates::keys::check_int,
+        |w, id, v| {
+            let t = w.tick_count + i64::from(muo_content::templates::keys::int(v));
+            if let Some(m) = w.mobile_mut(id) {
+                m.next_combat_time = t;
+            }
+        },
+    );
+}
+
+/// `weapon.Movable = false; weapon.Crafter = Name; weapon.Quality = Exceptional; AddItem(weapon)`.
+fn add_guard_weapon(w: &mut World, id: MobileId, wp: ItemId) {
+    use muo_content::items::weapon::{self, WeaponQuality};
+    muo_server::item::ops::set_movable(w, wp, false);
+    let name = w.mobile(id).and_then(|m| (m.ty.name)(w, id));
+    if let Some(d) = weapon::data_mut(w, wp) {
+        d.crafter = name;
+    }
+    weapon::set_quality(w, wp, WeaponQuality::Exceptional);
+    add_item(w, id, wp);
+}
+
+fn check_pack(v: &Value) -> Result<(), String> {
+    for c in v.as_array().ok_or("expected an array of pack contents")? {
+        let o = c.as_object().ok_or("expected a pack content object")?;
+        if let Some(g) = o.get("gold") {
+            check_ints::<2>(g)?;
+        } else {
+            o.get("item")
+                .and_then(Value::as_str)
+                .ok_or("\"item\": expected a class name")?;
+            if let Some(a) = o.get("amount") {
+                muo_content::templates::keys::check_int(a)?;
+            }
+        }
+        if let Some(k) = o
+            .keys()
+            .find(|k| !["gold", "item", "amount", "newbied"].contains(&k.as_str()))
+        {
+            return Err(format!("unknown pack content key \"{k}\""));
+        }
+    }
+    Ok(())
+}
+
+/// `new Gold(Utility.RandomMinMax(min, max))`, or `new T { Amount = n, LootType = Newbied }`.
+fn pack_content(w: &mut World, c: &Value) -> Option<ItemId> {
+    use muo_server::item::ops;
+    if let Some([a, b]) = c.get("gold").and_then(ints::<2>) {
+        let amount = rnd::min_max(w, a, b);
+        let g = muo_content::factory::make_item(w, "Server.Items.Gold")?;
+        ops::set_amount(w, g, amount);
+        return Some(g);
+    }
+    let it = muo_content::factory::make_item(w, c.get("item")?.as_str()?)?;
+    if let Some(a) = c.get("amount") {
+        ops::set_amount(w, it, muo_content::templates::keys::int(a));
+    }
+    if c.get("newbied").and_then(Value::as_bool) == Some(true) {
+        ops::set_loot_type(w, it, muo_server::item::LootType::Newbied);
+    }
+    Some(it)
+}
+
+/// `InitOutfit()` of a class whose outfit is its `"npcOutfit"` prop (none: nothing).
+pub fn outfit_prop(w: &mut World, id: MobileId) {
+    if let Some(v) = props::mobile(w, id, "npcOutfit").cloned() {
+        run_block(w, id, &v);
+    }
 }
 
 // ---- class members read from props ----

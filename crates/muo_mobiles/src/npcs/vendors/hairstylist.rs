@@ -7,13 +7,9 @@ use muo_content::gumps::GumpButtonType;
 use muo_content::gumps::base::{DynamicGumpLogic, DynamicGumpObj, RelayInfo};
 use muo_content::gumps::builder::DynamicGumpBuilder;
 use muo_content::gumps::system::close_gump;
-use muo_content::hooks::rnd;
 use muo_content::player_mobile::{self, RACE_ELF};
 use muo_content::vendor::banker;
-use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, ShoeType, VendorClass, add_hued, init_outfit,
-    new_vendor,
-};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass};
 use muo_primitives::{MessageType, utility};
 use muo_server::World;
 use muo_server::ids::MobileId;
@@ -113,31 +109,21 @@ fn private(w: &mut World, vendor: MobileId, to: MobileId, number: i32) {
 // ---- the vendor ----
 
 fn custom_hairstylist_new(w: &mut World) -> MobileId {
-    new_vendor(w, &CUSTOM_HAIRSTYLIST, Some("the hairstylist"))
+    super::npc::new_template_vendor(w, &CUSTOM_HAIRSTYLIST)
 }
 
 static CUSTOM_HAIRSTYLIST_V: VendorClass = VendorClass {
     init_sb_info: |_, _| Vec::new(),
     is_active_buyer: |_, _| false,
     is_active_seller: |_, _| true,
-    shoe_type: |w, _| {
-        if rnd::bool(w) {
-            ShoeType::Shoes
-        } else {
-            ShoeType::Sandals
-        }
-    },
+    shoe_type: crate::template_keys_npcs::shoe_type,
     get_hair_hue: |w, _| utility::random_bright_hue(&mut w.rng),
     on_buy_items: |_, _, _, _| false,
     vendor_buy: |w, id, from| {
         let g = buy_gump(w, from, id);
         send_singleton(w, from, g);
     },
-    init_outfit: |w, id| {
-        init_outfit(w, id);
-        let h = utility::random_pink_hue(&mut w.rng);
-        add_hued(w, id, "Server.Items.Robe", h);
-    },
+    init_outfit: crate::template_keys_npcs::init_outfit,
     ..BASE_VENDOR_CLASS
 };
 

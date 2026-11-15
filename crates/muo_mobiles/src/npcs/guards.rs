@@ -4,17 +4,17 @@
 
 use muo_content::hooks::rnd;
 use muo_content::mx;
-use muo_primitives::{Direction, Point3D, Serial, TimeSpan, utility};
+use muo_primitives::{Direction, Point3D, Serial, TimeSpan};
 use muo_server::effects::send_location_particles;
 use muo_server::ids::{EntityId, ItemId, MobileId};
+use muo_server::item::base as item_base;
 use muo_server::item::effect_item::{self, DEFAULT_DURATION};
-use muo_server::item::{base as item_base, container, ops as item_ops};
 use muo_server::layer::Layer;
 use muo_server::map::MapId;
-use muo_server::mobile::part1::{lifecycle, props_a, props_b};
+use muo_server::mobile::part1::{lifecycle, props_b};
 use muo_server::mobile::part2::{items, messages};
 use muo_server::mobile::{MOBILE_BASE, MobileType};
-use muo_server::skills::{self, SkillName};
+use muo_server::skills::SkillName;
 use muo_server::timer::{self, TimerHandle};
 use muo_server::type_registry::{DEFAULT_CALL_PRIORITY, Phase, TypeRegistry};
 use muo_server::world::World;
@@ -390,12 +390,13 @@ pub fn initialize(w: &mut World) {
 
 // ---- BaseGuard ----
 
-/// `BaseGuard(target)`: the title, the location of the target and the first focus.
-fn base_guard_init(w: &mut World, id: MobileId, target: Option<MobileId>) {
+/// `new T(target)`: `BaseGuard(target)` (the location of the target and the first focus), then the class's template
+/// (the title, body, outfit and skills).
+fn new_guard(w: &mut World, ty: &'static MobileType, target: Option<MobileId>) -> MobileId {
+    let id = w.new_mobile(ty);
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(GuardData::default());
     }
-    props_a::set_title(w, id, Some("the guard".to_owned()));
     if let Some(t) = target {
         let (loc, map) = w
             .mobile(t)
@@ -405,6 +406,8 @@ fn base_guard_init(w: &mut World, id: MobileId, target: Option<MobileId>) {
         particles(w, loc, map, 5023);
         set_focus(w, id, Some(t));
     }
+    muo_content::templates::apply_mobile(w, id);
+    id
 }
 
 fn on_before_death(w: &mut World, id: MobileId) -> bool {
@@ -532,84 +535,6 @@ fn guard_deserialize(
 
 // ---- construction shared by both classes ----
 
-fn init_human(w: &mut World, id: MobileId) -> bool {
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 125, 25);
-    let hue = utility::random_dyed_hue(&mut w.rng);
-    if let Some(m) = w.mobile_mut(id) {
-        m.speech_hue = hue;
-    }
-    let skin = muo_content::vendor::human_random_skin_hue(w);
-    muo_server::mobile::base::set_hue(w, id, skin);
-    let female = rnd::bool(w);
-    props_b::set_female(w, id, female);
-    female
-}
-
-fn set_body_name(w: &mut World, id: MobileId, female: bool) {
-    let (body, kind) = if female {
-        (0x191, "female")
-    } else {
-        (0x190, "male")
-    };
-    props_b::set_body(w, id, muo_primitives::Body(body));
-    let n = muo_content::misc::small::random_name(w, kind);
-    if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-        f(w, id, Some(n));
-    }
-}
-
-fn add(w: &mut World, id: MobileId, full: &str) -> Option<ItemId> {
-    let it = muo_content::factory::make_item(w, full)?;
-    items::add_item(w, id, it);
-    Some(it)
-}
-
-fn add_hued(w: &mut World, id: MobileId, full: &str, hue: i32) {
-    muo_content::vendor::add_hued(w, id, full, hue);
-}
-
-/// `weapon.Movable = false; weapon.Crafter = Name; weapon.Quality = Exceptional; AddItem(weapon)`.
-fn add_guard_weapon(w: &mut World, id: MobileId, full: &str) {
-    use muo_content::items::weapon::{self, WeaponQuality};
-    let Some(wp) = muo_content::factory::make_item(w, full) else {
-        return;
-    };
-    item_ops::set_movable(w, wp, false);
-    let name = w.mobile(id).and_then(|m| (m.ty.name)(w, id));
-    if let Some(d) = weapon::data_mut(w, wp) {
-        d.crafter = name;
-    }
-    weapon::set_quality(w, wp, WeaponQuality::Exceptional);
-    items::add_item(w, id, wp);
-}
-
-/// `new Backpack { Movable = false }` holding `contents`, equipped.
-fn add_guard_pack(w: &mut World, id: MobileId, contents: Vec<ItemId>) {
-    let Some(pack) = muo_content::factory::make_item(w, "Server.Items.Backpack") else {
-        return;
-    };
-    item_ops::set_movable(w, pack, false);
-    for c in contents {
-        container::drop_item_default(w, pack, c);
-    }
-    items::add_item(w, id, pack);
-}
-
-fn gold_range(w: &mut World, min: i32, max: i32) -> Option<ItemId> {
-    let amount = rnd::min_max(w, min, max);
-    let g = muo_content::factory::make_item(w, "Server.Items.Gold")?;
-    item_ops::set_amount(w, g, amount);
-    Some(g)
-}
-
-fn guard_skills(w: &mut World, id: MobileId, main: SkillName) {
-    skills::set_base(w, id, SkillName::Anatomy, 120.0);
-    skills::set_base(w, id, SkillName::Tactics, 120.0);
-    skills::set_base(w, id, main, 120.0);
-    skills::set_base(w, id, SkillName::MagicResist, 120.0);
-    skills::set_base(w, id, SkillName::DetectHidden, 100.0);
-}
-
 // ---- WarriorGuard ----
 
 fn warrior_guard_new(w: &mut World) -> MobileId {
@@ -618,55 +543,7 @@ fn warrior_guard_new(w: &mut World) -> MobileId {
 
 /// `new WarriorGuard(target)`.
 pub fn warrior_guard_with(w: &mut World, target: Option<MobileId>) -> MobileId {
-    let id = w.new_mobile(&WARRIOR_GUARD);
-    base_guard_init(w, id, target);
-
-    let female = init_human(w, id);
-    set_body_name(w, id, female);
-    if female {
-        let n = if rnd::bool(w) {
-            "Server.Items.LeatherSkirt"
-        } else {
-            "Server.Items.LeatherShorts"
-        };
-        add(w, id, n);
-        let n = match rnd::below(w, 5) {
-            0 => "Server.Items.FemaleLeatherChest",
-            1 => "Server.Items.FemaleStuddedChest",
-            2 => "Server.Items.LeatherBustierArms",
-            3 => "Server.Items.StuddedBustierArms",
-            _ => "Server.Items.FemalePlateChest",
-        };
-        add(w, id, n);
-    } else {
-        add(w, id, "Server.Items.PlateChest");
-        add(w, id, "Server.Items.PlateArms");
-        add(w, id, "Server.Items.PlateLegs");
-        let n = match rnd::below(w, 3) {
-            0 => "Server.Items.Doublet",
-            1 => "Server.Items.Tunic",
-            _ => "Server.Items.BodySash",
-        };
-        let h = utility::random_nondyed_hue(&mut w.rng);
-        add_hued(w, id, n, h);
-    }
-
-    muo_content::vendor::assign_random_hair_random_hue(w, id);
-    if rnd::bool(w) {
-        let hh = w.mobile(id).map_or(0, |m| m.hair_hue);
-        muo_content::vendor::assign_random_facial_hair(w, id, hh);
-    }
-
-    add_guard_weapon(w, id, "Server.Items.Halberd");
-    let gold = gold_range(w, 10, 25);
-    add_guard_pack(w, id, gold.into_iter().collect());
-
-    guard_skills(w, id, SkillName::Swords);
-    let t = w.tick_count + 500;
-    if let Some(m) = w.mobile_mut(id) {
-        m.next_combat_time = t;
-    }
-    id
+    new_guard(w, &WARRIOR_GUARD, target)
 }
 
 fn warrior_non_lethal_attack(w: &mut World, id: MobileId, target: MobileId) {
@@ -718,46 +595,7 @@ fn archer_guard_new(w: &mut World) -> MobileId {
 
 /// `new ArcherGuard(target)`.
 pub fn archer_guard_with(w: &mut World, target: Option<MobileId>) -> MobileId {
-    let id = w.new_mobile(&ARCHER_GUARD);
-    base_guard_init(w, id, target);
-
-    let female = init_human(w, id);
-    set_body_name(w, id, female);
-
-    // new Horse().Rider = this;
-    if let Some(horse) = muo_content::factory::make_mobile(w, "Server.Mobiles.Horse") {
-        muo_content::creature::mount::set_rider(w, horse, Some(id));
-    }
-
-    for n in [
-        "StuddedChest",
-        "StuddedArms",
-        "StuddedGloves",
-        "StuddedGorget",
-        "StuddedLegs",
-        "Boots",
-        "SkullCap",
-    ] {
-        add(w, id, &format!("Server.Items.{n}"));
-    }
-    add_guard_weapon(w, id, "Server.Items.Bow");
-
-    let mut contents = Vec::new();
-    if let Some(arrows) = muo_content::factory::make_item(w, "Server.Items.Arrow") {
-        item_ops::set_amount(w, arrows, 250);
-        item_ops::set_loot_type(w, arrows, muo_server::item::LootType::Newbied);
-        contents.push(arrows);
-    }
-    contents.extend(gold_range(w, 10, 25));
-    add_guard_pack(w, id, contents);
-
-    guard_skills(w, id, SkillName::Archery);
-    let t = w.tick_count + 500;
-    if let Some(m) = w.mobile_mut(id) {
-        m.next_combat_time = t;
-    }
-    set_focus(w, id, target);
-    id
+    new_guard(w, &ARCHER_GUARD, target)
 }
 
 fn weapon_max_range(w: &mut World, id: MobileId) -> i32 {

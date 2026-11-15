@@ -24,7 +24,19 @@
     "props": {
       "npcGuild": "BlacksmithsGuild",
       "npcSbInfos": ["SBBlacksmith"],
-      "npcShoeType": "ThighBoots"
+      "npcShoeType": "ThighBoots",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "coin": {
+          "then": {
+            "npcEquipOrDelete": {"item": "Server.Items.FullApron"}
+          },
+          "else": {
+            "npcEquipOrDelete": {"item": "Server.Items.RingmailChest"}
+          }
+        },
+        "npcAddItem": ["Server.Items.Bascinet", "Server.Items.SmithHammer"]
+      }
     }
   },
   {

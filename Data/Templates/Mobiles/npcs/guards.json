@@ -1,0 +1,116 @@
+[
+  {
+    "type": "Server.Mobiles.WarriorGuard",
+    "title": "the guard",
+    "npcInitStats": [100, 125, 25],
+    "npcSpeechHue": "randomDyed",
+    "npcHue": "humanSkin",
+    "coin": {
+      "then": {
+        "female": true,
+        "body": 401,
+        "nameRandom": "female",
+        "coin": {
+          "then": {
+            "npcAddItem": ["Server.Items.LeatherSkirt"]
+          },
+          "else": {
+            "npcAddItem": ["Server.Items.LeatherShorts"]
+          }
+        },
+        "oneOf": [
+          {
+            "npcAddItem": ["Server.Items.FemaleLeatherChest"]
+          },
+          {
+            "npcAddItem": ["Server.Items.FemaleStuddedChest"]
+          },
+          {
+            "npcAddItem": ["Server.Items.LeatherBustierArms"]
+          },
+          {
+            "npcAddItem": ["Server.Items.StuddedBustierArms"]
+          },
+          {
+            "npcAddItem": ["Server.Items.FemalePlateChest"]
+          }
+        ]
+      },
+      "else": {
+        "female": false,
+        "body": 400,
+        "nameRandom": "male",
+        "npcAddItem": ["Server.Items.PlateChest", "Server.Items.PlateArms", "Server.Items.PlateLegs"],
+        "oneOf": [
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.Doublet", "hue": "randomNondyed"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.Tunic", "hue": "randomNondyed"}
+            ]
+          },
+          {
+            "npcAddItem": [
+              {"item": "Server.Items.BodySash", "hue": "randomNondyed"}
+            ]
+          }
+        ]
+      }
+    },
+    "npcSeq": [
+      {
+        "randomHair": true,
+        "coin": {
+          "then": {"npcFacialHair": "hairHue"}
+        }
+      },
+      {
+        "npcGuardWeapon": "Server.Items.Halberd",
+        "npcUnmovablePack": [
+          {
+            "gold": [10, 25]
+          }
+        ],
+        "skillBase": {
+          "Anatomy": 120.0,
+          "Tactics": 120.0,
+          "Swords": 120.0,
+          "MagicResist": 120.0,
+          "DetectHidden": 100.0
+        },
+        "npcCombatDelay": 500
+      }
+    ]
+  },
+  {
+    "type": "Server.Mobiles.ArcherGuard",
+    "title": "the guard",
+    "npcInitStats": [100, 125, 25],
+    "npcSpeechHue": "randomDyed",
+    "npcHue": "humanSkin",
+    "coin": {
+      "then": {"female": true, "body": 401, "nameRandom": "female"},
+      "else": {"female": false, "body": 400, "nameRandom": "male"}
+    },
+    "npcMount": "Server.Mobiles.Horse",
+    "npcAddItem": ["Server.Items.StuddedChest", "Server.Items.StuddedArms", "Server.Items.StuddedGloves", "Server.Items.StuddedGorget", "Server.Items.StuddedLegs", "Server.Items.Boots", "Server.Items.SkullCap"],
+    "npcGuardWeapon": "Server.Items.Bow",
+    "npcUnmovablePack": [
+      {"item": "Server.Items.Arrow", "amount": 250, "newbied": true},
+      {
+        "gold": [10, 25]
+      }
+    ],
+    "skillBase": {
+      "Anatomy": 120.0,
+      "Tactics": 120.0,
+      "Archery": 120.0,
+      "MagicResist": 120.0,
+      "DetectHidden": 100.0
+    },
+    "npcCombatDelay": 500
+  }
+]

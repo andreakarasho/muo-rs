@@ -3,50 +3,16 @@
 
 use muo_content::hooks::rnd;
 use muo_content::player_mobile::{self};
-use muo_content::vendor::{
-    BASE_VENDOR_CLASS, VendorClass, add_hued, init_outfit as base_init_outfit, is_tokuno_vendor,
-};
-use muo_primitives::{TimeSpan, utility};
+use muo_content::vendor::VendorClass;
+use muo_primitives::TimeSpan;
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::layer::Layer;
-use muo_server::mobile::part2::items;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
-use super::add_item_hued;
 use super::npc::{TEMPLATE_VENDOR_V, new_template_vendor};
 use crate::common::*;
 
 // ---- shared pieces ----
-
-/// `item = FindItemOnLayer(layer); if (item != null) item.Hue = Utility.RandomBrightHue();`
-pub fn rehue_layer_bright(w: &mut World, id: MobileId, layer: Layer) {
-    if let Some(item) = items::find_item_on_layer(w, id, layer) {
-        let h = utility::random_bright_hue(&mut w.rng);
-        muo_server::item::base::set_hue(w, item, h);
-    }
-}
-
-/// `AddItem(Utility.Random(4) switch { 0 => new JesterHat(bright), 1 => new Bandana(bright), 2 => new SkullCap(bright), _ => null })`.
-pub fn add_gypsy_hat(w: &mut World, id: MobileId) {
-    let name = match rnd::below(w, 4) {
-        0 => "Server.Items.JesterHat",
-        1 => "Server.Items.Bandana",
-        2 => "Server.Items.SkullCap",
-        _ => return,
-    };
-    let h = utility::random_bright_hue(&mut w.rng);
-    add_hued(w, id, name, h);
-}
-
-/// `if (!EquipItem(item)) item.Delete();`
-fn equip_or_delete(w: &mut World, id: MobileId, item: ItemId) {
-    if !muo_server::mobile::base::equip_item(w, id, item)
-        && let Some(t) = w.item(item).map(|i| i.ty)
-    {
-        (t.delete)(w, item);
-    }
-}
 
 /// `from.Skills.X.Base`.
 pub fn skill_base_ref(w: &World, id: MobileId, skill: SkillName) -> f64 {
@@ -151,20 +117,6 @@ bod_fns!(smith_bod, SMITH);
 bod_fns!(tailor_bod, TAILOR);
 
 pub static BLACKSMITH_V: VendorClass = VendorClass {
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        // Item item = Utility.RandomBool() ? new FullApron() : new RingmailChest();
-        let name = if rnd::bool(w) {
-            "Server.Items.FullApron"
-        } else {
-            "Server.Items.RingmailChest"
-        };
-        if let Some(item) = muo_content::factory::make_item(w, name) {
-            equip_or_delete(w, id, item);
-        }
-        add_item_hued(w, id, "Server.Items.Bascinet", None);
-        add_item_hued(w, id, "Server.Items.SmithHammer", None);
-    },
     supports_bulk_orders: |w, _v, from| {
         is_player(w, from) && skill_base_ref(w, from, SkillName::Blacksmith) > 0.0
     },
@@ -232,39 +184,9 @@ vendor_leaf!(
     ctor | w | new_template_vendor(w, &WEAVER)
 );
 
-// ---- outfits that edit the worn items ----
+// ---- outfits that edit the worn items (their `npcOutfit` props) ----
 
 static IRON_WORKER_V: VendorClass = VendorClass {
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        // Item item = Utility.RandomBool() ? null : new RingmailChest();
-        let item = if rnd::bool(w) {
-            None
-        } else {
-            muo_content::factory::make_item(w, "Server.Items.RingmailChest")
-        };
-        if let Some(item) = item
-            && !muo_server::mobile::base::equip_item(w, id, item)
-        {
-            if let Some(t) = w.item(item).map(|i| i.ty) {
-                (t.delete)(w, item);
-            }
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.FullApron", h);
-        }
-        add_item_hued(w, id, "Server.Items.Bascinet", None);
-        add_item_hued(w, id, "Server.Items.SmithHammer", None);
-        for layer in [
-            Layer::Pants,
-            Layer::OuterLegs,
-            Layer::InnerLegs,
-            Layer::OuterTorso,
-            Layer::InnerTorso,
-            Layer::Shirt,
-        ] {
-            rehue_layer_bright(w, id, layer);
-        }
-    },
     ..TEMPLATE_VENDOR_V
 };
 vendor_leaf!(
@@ -275,36 +197,6 @@ vendor_leaf!(
 );
 
 static VAGABOND_V: VendorClass = VendorClass {
-    // The outfit does not call the base InitOutfit.
-    init_outfit: |w, id| {
-        let h = utility::random_bright_hue(&mut w.rng);
-        add_hued(w, id, "Server.Items.FancyShirt", h);
-        let c = muo_content::vendor::class(w, id).unwrap_or(&BASE_VENDOR_CLASS);
-        let sh = (c.get_shoe_hue)(w, id);
-        add_hued(w, id, "Server.Items.Shoes", sh);
-        let rh = (c.get_random_hue)(w, id);
-        add_hued(w, id, "Server.Items.LongPants", rh);
-
-        if rnd::bool(w) {
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.Cloak", h);
-        }
-
-        let hat = if rnd::bool(w) {
-            "Server.Items.SkullCap"
-        } else {
-            "Server.Items.Bandana"
-        };
-        let h = utility::random_neutral_hue(&mut w.rng);
-        add_hued(w, id, hat, h);
-
-        // Utility.AssignRandomHair(this): the item, then a random hue; Utility.AssignRandomFacialHair(this, HairHue).
-        muo_content::vendor::assign_random_hair_random_hue(w, id);
-        let hair_hue = w.mobile(id).map_or(0, |m| m.hair_hue);
-        muo_content::vendor::assign_random_facial_hair(w, id, hair_hue);
-
-        pack_gold_range(w, id, 100, 200);
-    },
     ..TEMPLATE_VENDOR_V
 };
 vendor_leaf!(
@@ -326,17 +218,6 @@ vendor_leaf!(
 
 static GYPSY_MAIDEN_V: VendorClass = VendorClass {
     get_gender: |_, _| true,
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        add_gypsy_hat(w, id);
-        if rnd::bool(w) {
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.HalfApron", h);
-        }
-        for layer in [Layer::Pants, Layer::OuterLegs, Layer::InnerLegs] {
-            rehue_layer_bright(w, id, layer);
-        }
-    },
     ..TEMPLATE_VENDOR_V
 };
 vendor_leaf!(
@@ -347,28 +228,6 @@ vendor_leaf!(
 );
 
 static HOLY_MAGE_V: VendorClass = VendorClass {
-    // The outfit does not call the base InitOutfit.
-    init_outfit: |w, id| {
-        for n in ["Robe", "ThighBoots", "BlackStaff"] {
-            add_hued(w, id, &format!("Server.Items.{n}"), 0x47E);
-        }
-        let female = w.mobile(id).is_some_and(|m| m.female);
-        if female {
-            add_hued(w, id, "Server.Items.LeatherGloves", 0x47E);
-            add_hued(w, id, "Server.Items.GoldNecklace", 0x47E);
-        } else {
-            add_hued(w, id, "Server.Items.PlateGloves", 0x47E);
-            add_hued(w, id, "Server.Items.PlateGorget", 0x47E);
-        }
-        // HairItemID = Utility.Random(Female ? 2 : 1) switch { 0 => 0x203C, 1 => 0x203D, _ => HairItemID };
-        match rnd::below(w, if female { 2 } else { 1 }) {
-            0 => muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203C),
-            1 => muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203D),
-            _ => {}
-        }
-        muo_server::mobile::part1::props_b::set_hair_hue(w, id, 0x47E);
-        pack_gold_range(w, id, 100, 200);
-    },
     ..TEMPLATE_VENDOR_V
 };
 vendor_leaf!(
@@ -412,16 +271,6 @@ fn scribe_on_speech(w: &mut World, id: MobileId, e: &mut muo_server::events::Spe
 }
 
 static SCRIBE_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| {
-        let mut v = vec![super::sb::named(w, id, "SBScribe")];
-        if (w.core_se() && is_tokuno_vendor(w, id))
-            || (w.core_tol() && muo_content::vendor::is_ter_mur_vendor(w, id))
-        {
-            v.push(super::sb::named(w, id, "SBSamurai"));
-            v.push(super::sb::named(w, id, "SBNinja"));
-        }
-        v
-    },
     ..TEMPLATE_VENDOR_V
 };
 vendor_leaf!(SCRIBE, SCRIBE_C, SCRIBE_V = "Server.Mobiles.Scribe", ctor |w| new_template_vendor(w, &SCRIBE);

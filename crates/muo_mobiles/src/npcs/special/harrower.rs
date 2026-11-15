@@ -100,37 +100,21 @@ fn stop_own_timer(w: &mut World, id: MobileId) {
     t.cancel(w);
 }
 
-fn harrower_make(w: &mut World) -> MobileId {
-    let id = new_creature(w, &HARROWER, AIType::AiMage, FightMode::Closest, 18, 1);
+fn harrower_new(w: &mut World) -> MobileId {
+    let args = muo_content::templates::table(w).roll_args(w, HARROWER.full_name);
+    let id = new_creature(
+        w,
+        &HARROWER,
+        args.ai,
+        args.fight_mode,
+        args.range_perception,
+        args.range_fight,
+    );
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(HarrowerData::default());
     }
     w.resources.get_mut::<HarrowerStatics>().instances.push(id);
-    id
-}
-
-fn harrower_new(w: &mut World) -> MobileId {
-    let id = harrower_make(w);
-    body(w, id, 146);
-    set_str_range(w, id, 900, 1000);
-    set_dex_range(w, id, 125, 135);
-    set_int_range(w, id, 1000, 1200);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 60);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 80);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.2, 110.0);
-    set_skill_range(w, id, SkillName::MagicResist, 120.2, 160.0);
-    set_skill(w, id, SkillName::Magery, 120.0);
-    set_skill(w, id, SkillName::EvalInt, 120.0);
-    set_skill(w, id, SkillName::Meditation, 120.0);
+    muo_content::templates::apply_mobile(w, id);
     start_teleport_timer(w, id);
     id
 }
@@ -552,13 +536,14 @@ fn stop_drain_timer(w: &mut World, id: MobileId) {
 
 /// `new HarrowerTentacles(harrower)`.
 pub fn tentacles_new(w: &mut World, harrower: Option<MobileId>) -> MobileId {
+    let args = muo_content::templates::table(w).roll_args(w, HARROWER_TENTACLES.full_name);
     let id = new_creature(
         w,
         &HARROWER_TENTACLES,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
+        args.ai,
+        args.fight_mode,
+        args.range_perception,
+        args.range_fight,
     );
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(TentaclesData {
@@ -566,37 +551,8 @@ pub fn tentacles_new(w: &mut World, harrower: Option<MobileId>) -> MobileId {
             ..TentaclesData::default()
         });
     }
-    body(w, id, 129);
-    set_str_range(w, id, 901, 1000);
-    set_dex_range(w, id, 126, 140);
-    set_int_range(w, id, 1001, 1200);
-    set_hits_range(w, id, 541, 600);
-    set_damage(w, id, 13, 20);
-    for t in [
-        ResistanceType::Physical,
-        ResistanceType::Fire,
-        ResistanceType::Cold,
-        ResistanceType::Poison,
-        ResistanceType::Energy,
-    ] {
-        set_damage_type(w, id, t, 20);
-    }
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Poison, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill(w, id, SkillName::Meditation, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 120.1, 140.0);
-    set_skill_range(w, id, SkillName::Swords, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 60);
+    muo_content::templates::apply_mobile(w, id);
     start_drain_timer(w, id);
-    pack_reg(w, id, 50);
-    pack_necro_reg_range(w, id, 15, 75);
     id
 }
 
