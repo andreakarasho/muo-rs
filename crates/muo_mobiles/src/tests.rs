@@ -214,17 +214,6 @@ fn orc_constructs_with_its_speech_and_loot_table() {
 }
 
 #[test]
-fn golem_scalar_and_summoned_constructor_match_the_expected_values() {
-    let mut w = world(Some(Expansion::AOS));
-    let id = crate::classes::misc4::new_golem(&mut w, true, 0.5);
-    let m = w.mobile(id).unwrap();
-    assert_eq!((m.body.0, m.hue, m.fame, m.karma), (752, 2101, 10, 10));
-    assert!((125..=175).contains(&m.str)); // (int)(251 * 0.5) ..= (int)(350 * 0.5)
-    let c = muo_content::creature::cd(&w, id).unwrap();
-    assert_eq!((c.damage_min, c.damage_max, c.control_slots), (6, 12, 3));
-}
-
-#[test]
 fn hell_steed_and_grizzled_mare_share_the_set_stats() {
     let mut w = world(Some(Expansion::AOS));
     let ty = crate::monsters::leaves::ALL

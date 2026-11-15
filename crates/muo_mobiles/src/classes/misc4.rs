@@ -13,7 +13,6 @@ use muo_primitives::{DateTime, TimeSpan};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::mobile::part1::props_b;
-use muo_server::poison::PoisonId;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::common::*;
@@ -21,109 +20,18 @@ use crate::hand::si;
 use crate::leaf::creature_leaf;
 use crate::npcs::special::champions::{BASE_CHAMPION, BASE_CHAMPION_C};
 
-const LETHAL: PoisonId = PoisonId(4);
-
-fn to_f(scalar: f64, v: i32) -> i32 {
-    (f64::from(v) * scalar) as i32
-}
-
 // ---- Golem ----
 
-static GOLEM_ABILITIES: [&MonsterAbility; 1] = [&abilities::COLOSSAL_BLOW];
-
-/// `new Golem(summoned, scalar)`.
+/// `new Golem(summoned, scalar)`: its template, then `golem.rhai` with the arguments (the scalar as its exact
+/// decimal text).
 pub fn new_golem(w: &mut World, summoned: bool, scalar: f64) -> MobileId {
-    let id = new_creature(
+    use muo_server::script_hooks::ScriptArg;
+    let scalar = scalar.to_string();
+    crate::cprops::new_creature_with(
         w,
         &GOLEM,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    body(w, id, 752);
-    if summoned {
-        hue(w, id, 2101);
-    }
-    set_str_range(w, id, to_f(scalar, 251), to_f(scalar, 350));
-    set_dex_range(w, id, to_f(scalar, 76), to_f(scalar, 100));
-    set_int_range(w, id, to_f(scalar, 101), to_f(scalar, 150));
-    set_hits_range(w, id, to_f(scalar, 151), to_f(scalar, 210));
-    set_damage(w, id, to_f(scalar, 13), to_f(scalar, 24));
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(
-        w,
-        id,
-        ResistanceType::Physical,
-        to_f(scalar, 35),
-        to_f(scalar, 55),
-    );
-    if summoned {
-        set_resistance_range(
-            w,
-            id,
-            ResistanceType::Fire,
-            to_f(scalar, 50),
-            to_f(scalar, 60),
-        );
-    } else {
-        set_resistance(w, id, ResistanceType::Fire, to_f(scalar, 100));
-    }
-    set_resistance_range(
-        w,
-        id,
-        ResistanceType::Cold,
-        to_f(scalar, 10),
-        to_f(scalar, 30),
-    );
-    set_resistance_range(
-        w,
-        id,
-        ResistanceType::Poison,
-        to_f(scalar, 10),
-        to_f(scalar, 25),
-    );
-    set_resistance_range(
-        w,
-        id,
-        ResistanceType::Energy,
-        to_f(scalar, 30),
-        to_f(scalar, 40),
-    );
-    set_skill_range(
-        w,
-        id,
-        SkillName::MagicResist,
-        150.1 * scalar,
-        190.0 * scalar,
-    );
-    set_skill_range(w, id, SkillName::Tactics, 60.1 * scalar, 100.0 * scalar);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1 * scalar, 100.0 * scalar);
-    if summoned {
-        fame(w, id, 10);
-        karma(w, id, 10);
-    } else {
-        fame(w, id, 3500);
-        karma(w, id, -3500);
-    }
-    if !summoned {
-        let n = rnd::min_max(w, 13, 21);
-        pack_new_amount(w, id, &si("IronIngot"), n);
-        if rnd::double(w) < 0.1 {
-            pack_new(w, id, &si("PowerCrystal"));
-        }
-        if rnd::double(w) < 0.15 {
-            pack_new(w, id, &si("ClockworkAssembly"));
-        }
-        if rnd::double(w) < 0.2 {
-            pack_new(w, id, &si("ArcaneGem"));
-        }
-        if rnd::double(w) < 0.25 {
-            pack_new(w, id, &si("Gears"));
-        }
-    }
-    control_slots(w, id, 3);
-    id
+        &[ScriptArg::Int(i64::from(summoned)), ScriptArg::Str(&scalar)],
+    )
 }
 
 fn controlled(w: &World, id: MobileId) -> bool {
@@ -163,21 +71,21 @@ creature_leaf! {
         is_scared_of_scary_things: crate::cprops::is_scared_of_scary_things,
         is_scary_to_pets: crate::cprops::is_scary_to_pets,
         is_bondable: crate::cprops::is_bondable,
-        favorite_food: |_w, _id| FoodType::empty(),
+        favorite_food: crate::cprops::favorite_food,
         default_name: muo_content::templates::creature_props::default_name,
         delete_on_release: crate::cprops::delete_on_release,
         auto_dispel: |w, id| !controlled(w, id),
         bleed_immune: muo_content::templates::creature_props::bleed_immune,
         bard_immune: |w, id| !w.core_aos() || controlled(w, id),
-        poison_immune: |_w, _id| Some(LETHAL),
-        get_monster_abilities: |_, _| &GOLEM_ABILITIES,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
     }
     m {
         on_death: crate::hand::dawns_gear_on_death,
-        get_anger_sound: |_w, _id| 541,
+        get_anger_sound: crate::cprops::get_anger_sound,
         get_idle_sound: |w, id| if !controlled(w, id) { 542 } else { (BASE_CREATURE.get_idle_sound)(w, id) },
         get_death_sound: |w, id| if !controlled(w, id) { 545 } else { (BASE_CREATURE.get_death_sound)(w, id) },
-        get_attack_sound: |_w, _id| 562,
+        get_attack_sound: crate::cprops::get_attack_sound,
         get_hurt_sound: |w, id| if controlled(w, id) { 320 } else { (BASE_CREATURE.get_hurt_sound)(w, id) },
         on_damage: golem_on_damage,
     }
@@ -192,62 +100,13 @@ pub struct PlagueSpawnState {
     pub expire: DateTime,
 }
 
-/// `new PlagueSpawn(owner)`.
+/// `new PlagueSpawn(owner)`: the template, and the owner it follows for a minute.
 pub fn new_plague_spawn(w: &mut World, owner: Option<MobileId>) -> MobileId {
-    let id = new_creature(
-        w,
-        &PLAGUE_SPAWN,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
+    let id = crate::cprops::new_creature(w, &PLAGUE_SPAWN);
     let expire = w.now + TimeSpan::from_mins(1);
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(PlagueSpawnState { owner, expire });
     }
-    let h = rnd::from(w, 0x11, 15);
-    hue(w, id, h);
-    match rnd::below(w, 12) {
-        0 => {
-            body(w, id, 14);
-            base_sound_id(w, id, 268);
-        }
-        1 => {
-            body(w, id, 31);
-            base_sound_id(w, id, 0x39D);
-        }
-        2 => body_list(w, id, &[400, 401]),
-        3 => {
-            body(w, id, 0x1D);
-            base_sound_id(w, id, 0x9E);
-        }
-        4 => {
-            body(w, id, 0x15);
-            base_sound_id(w, id, 0xDB);
-        }
-        _ => {
-            body(w, id, 51);
-            base_sound_id(w, id, 456);
-        }
-    }
-    set_str_range(w, id, 201, 300);
-    set_dex(w, id, 80);
-    set_int_range(w, id, 16, 20);
-    set_hits_range(w, id, 121, 180);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    set_skill(w, id, SkillName::MagicResist, 25.0);
-    set_skill(w, id, SkillName::Tactics, 25.0);
-    set_skill(w, id, SkillName::Wrestling, 50.0);
-    fame(w, id, 1000);
-    karma(w, id, -1000);
-    virtual_armor(w, id, 20);
     id
 }
 
@@ -324,54 +183,10 @@ pub const LEVIATHAN_ARTIFACTS: [&str; 22] = [
     "Server.Items.VioletCourage",
 ];
 
-/// `new Leviathan(fisher)`.
+/// `new Leviathan(fisher)`: the template, and the fisher who may win an artifact.
 pub fn new_leviathan(w: &mut World, fisher: Option<MobileId>) -> MobileId {
-    let id = new_creature(
-        w,
-        &LEVIATHAN,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
+    let id = crate::cprops::new_creature(w, &LEVIATHAN);
     set_fisher(w, id, fisher);
-    body(w, id, 77);
-    base_sound_id(w, id, 353);
-    hue(w, id, 0x481);
-    set_str(w, id, 1000);
-    set_dex_range(w, id, 501, 520);
-    set_int_range(w, id, 501, 515);
-    set_hits(w, id, 1500);
-    set_damage(w, id, 25, 33);
-    set_damage_type(w, id, ResistanceType::Physical, 70);
-    set_damage_type(w, id, ResistanceType::Cold, 30);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Cold, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Poison, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    for s in [
-        SkillName::EvalInt,
-        SkillName::Magery,
-        SkillName::MagicResist,
-        SkillName::Meditation,
-        SkillName::Tactics,
-        SkillName::Wrestling,
-    ] {
-        set_skill_range(w, id, s, 97.6, 107.5);
-    }
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-    virtual_armor(w, id, 50);
-    can_swim(w, id, true);
-    cant_walk(w, id, true);
-    for item_id in [0x14F8, 0x14FA] {
-        let rope = factory::make_item(w, &si("Rope"));
-        if let Some(r) = rope {
-            muo_server::item::base::set_item_id(w, r, item_id);
-        }
-        pack_item(w, id, rope);
-    }
     id
 }
 
@@ -440,13 +255,12 @@ fn leviathan_on_death(w: &mut World, id: MobileId, c: Option<ItemId>) {
 }
 
 /// `LeviathanBreath : FireBreath` (physical 70, cold 30, hue 0x1ED, damage scalar 0.05, 5-7.5 second cooldown).
-static LEVIATHAN_BREATH: MonsterAbility = MonsterAbility {
+pub(crate) static LEVIATHAN_BREATH: MonsterAbility = MonsterAbility {
     name: "LeviathanBreath",
     min_cooldown: TimeSpan::from_secs(5),
     max_cooldown: TimeSpan::from_millis(7500),
     ..abilities::FIRE_BREATH
 };
-static LEVIATHAN_ABILITIES: [&MonsterAbility; 1] = [&LEVIATHAN_BREATH];
 
 creature_leaf! {
     /// `Server.Mobiles.Leviathan`.
@@ -456,7 +270,7 @@ creature_leaf! {
         default_name: muo_content::templates::creature_props::default_name,
         treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
         treasure_map_chance: crate::cprops::treasure_map_chance,
-        get_monster_abilities: |_, _| &LEVIATHAN_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         on_killed_by: leviathan_on_killed_by,
         generate_loot: muo_content::templates::creature_props::generate_loot,
     }
@@ -467,8 +281,6 @@ creature_leaf! {
 }
 
 // ---- Twaulo (a BaseChampion; the lists are in npcs/special/champions.rs) ----
-
-static TWAULO_ABILITIES: [&MonsterAbility; 1] = [&abilities::SUMMON_PIXIES_COUNTER];
 
 fn twaulo_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &TWAULO)
@@ -502,7 +314,7 @@ creature_leaf! {
         meat: muo_content::templates::creature_props::meat,
         hides: muo_content::templates::creature_props::hides,
         hide_type: crate::cprops::hide_type,
-        get_monster_abilities: |_, _| &TWAULO_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: muo_content::templates::creature_props::generate_loot,
         on_gave_melee_attack: twaulo_on_gave_melee_attack,
     }

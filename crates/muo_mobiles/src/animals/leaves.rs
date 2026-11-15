@@ -2,14 +2,12 @@
 //! folder.
 
 use crate::common::*;
-use muo_content::abilities::{self, MonsterAbility};
 use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::templates::creature_props as tp;
 use muo_server::World;
 use muo_server::ids::MobileId;
 use muo_server::mobile::MobileType;
-use muo_server::poison::PoisonId;
 use muo_server::type_registry::TypeRegistry;
 
 fn skeletal_mount_new(w: &mut World) -> MobileId {
@@ -229,11 +227,11 @@ creature_leaf! {
         feathers: tp::feathers,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4D9,
-        get_idle_sound: |_w, _id| 0x4D8,
-        get_attack_sound: |_w, _id| 0x4D7,
-        get_hurt_sound: |_w, _id| 0x4DA,
-        get_death_sound: |_w, _id| 0x4D6,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -348,7 +346,6 @@ creature_leaf! {
 fn hell_cat_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &HELL_CAT)
 }
-static HELL_CAT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.HellCat`.
     HELL_CAT, HELL_CAT_C = "Server.Mobiles.HellCat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(hell_cat_new), encoded false;
@@ -359,7 +356,7 @@ creature_leaf! {
         hide_type: crate::cprops::hide_type,
         favorite_food: crate::cprops::favorite_food,
         pack_instinct: crate::cprops::pack_instinct,
-        get_monster_abilities: |_, _| &HELL_CAT_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -387,7 +384,6 @@ creature_leaf! {
 fn predator_hell_cat_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &PREDATOR_HELL_CAT)
 }
-static PREDATOR_HELL_CAT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.PredatorHellCat`.
     PREDATOR_HELL_CAT, PREDATOR_HELL_CAT_C = "Server.Mobiles.PredatorHellCat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(predator_hell_cat_new), encoded false;
@@ -398,7 +394,7 @@ creature_leaf! {
         hide_type: crate::cprops::hide_type,
         favorite_food: crate::cprops::favorite_food,
         pack_instinct: crate::cprops::pack_instinct,
-        get_monster_abilities: |_, _| &PREDATOR_HELL_CAT_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -488,11 +484,11 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4F8,
-        get_idle_sound: |_w, _id| 0x4F7,
-        get_attack_sound: |_w, _id| 0x4F6,
-        get_hurt_sound: |_w, _id| 0x4F9,
-        get_death_sound: |_w, _id| 0x4F5,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_death: crate::hand::gaman_on_death,
     }
 }
@@ -563,9 +559,9 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
     }
     m {
-        get_attack_sound: |_w, _id| 0x82,
-        get_hurt_sound: |_w, _id| 0x83,
-        get_death_sound: |_w, _id| 0x84,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -583,9 +579,9 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
     }
     m {
-        get_attack_sound: |_w, _id| 0x82,
-        get_hurt_sound: |_w, _id| 0x83,
-        get_death_sound: |_w, _id| 0x84,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -740,11 +736,11 @@ creature_leaf! {
         on_harmful_spell: crate::hand::beetle_on_harmful_spell,
     }
     m {
-        get_anger_sound: |_w, _id| 0x21D,
-        get_idle_sound: |_w, _id| 0x21D,
-        get_attack_sound: |_w, _id| 0x162,
-        get_hurt_sound: |_w, _id| 0x163,
-        get_death_sound: |_w, _id| 0x21D,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_combatant_change: crate::hand::beetle_on_combatant_change,
         on_before_death: crate::hand::beetle_on_before_death,
         get_inventory_move_result_for: crate::hand::beetle_get_inventory_move_result_for,
@@ -776,7 +772,6 @@ creature_leaf! {
 fn fire_steed_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &FIRE_STEED)
 }
-static FIRE_STEED_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.FireSteed`.
     FIRE_STEED, FIRE_STEED_C = "Server.Mobiles.FireSteed" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(fire_steed_new), encoded false;
@@ -785,10 +780,8 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         favorite_food: crate::cprops::favorite_food,
         pack_instinct: crate::cprops::pack_instinct,
-        get_monster_abilities: |_, _| &FIRE_STEED_ABILITIES,
-        generate_loot: |_w, _id| {
-
-        },
+        get_monster_abilities: crate::cprops::get_monster_abilities,
+        generate_loot: crate::cprops::generate_loot,
     }
     m {
     }
@@ -832,7 +825,6 @@ creature_leaf! {
 fn hell_steed_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &HELL_STEED)
 }
-static HELL_STEED_ABILITIES: [&MonsterAbility; 1] = [&abilities::CHAOS_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.HellSteed`.
     HELL_STEED, HELL_STEED_C = "Server.Mobiles.HellSteed" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(hell_steed_new), encoded false;
@@ -841,7 +833,7 @@ creature_leaf! {
         steps_max: tp::steps_max,
         corpse_name: tp::corpse_name,
         poison_immune: tp::poison_immune,
-        get_monster_abilities: |_, _| &HELL_STEED_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
     }
     m {
     }
@@ -864,7 +856,6 @@ creature_leaf! {
 fn hiryu_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &HIRYU)
 }
-static HIRYU_ABILITIES: [&MonsterAbility; 1] = [&abilities::GRASPING_CLAW];
 creature_leaf! {
     /// `Server.Mobiles.Hiryu`.
     HIRYU, HIRYU_C = "Server.Mobiles.Hiryu" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(hiryu_new), encoded false;
@@ -880,15 +871,15 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
         can_anger_on_tame: crate::cprops::can_anger_on_tame,
         get_weapon_ability: crate::cprops::get_weapon_ability,
-        get_monster_abilities: |_, _| &HIRYU_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4FE,
-        get_idle_sound: |_w, _id| 0x4FD,
-        get_attack_sound: |_w, _id| 0x4FC,
-        get_hurt_sound: |_w, _id| 0x4FF,
-        get_death_sound: |_w, _id| 0x4FB,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -945,7 +936,6 @@ creature_leaf! {
 fn lesser_hiryu_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &LESSER_HIRYU)
 }
-static LESSER_HIRYU_ABILITIES: [&MonsterAbility; 1] = [&abilities::GRASPING_CLAW];
 creature_leaf! {
     /// `Server.Mobiles.LesserHiryu`.
     LESSER_HIRYU, LESSER_HIRYU_C = "Server.Mobiles.LesserHiryu" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(lesser_hiryu_new), encoded false;
@@ -963,22 +953,21 @@ creature_leaf! {
         get_weapon_ability: crate::cprops::get_weapon_ability,
         override_bonding_reqs: crate::hand::lesser_hiryu_override_bonding_reqs,
         get_control_chance: crate::hand::lesser_hiryu_get_control_chance,
-        get_monster_abilities: |_, _| &LESSER_HIRYU_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4FE,
-        get_idle_sound: |_w, _id| 0x4FD,
-        get_attack_sound: |_w, _id| 0x4FC,
-        get_hurt_sound: |_w, _id| 0x4FF,
-        get_death_sound: |_w, _id| 0x4FB,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
 fn nightmare_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &NIGHTMARE)
 }
-static NIGHTMARE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Nightmare`.
     NIGHTMARE, NIGHTMARE_C = "Server.Mobiles.Nightmare" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(nightmare_new), encoded false;
@@ -991,7 +980,7 @@ creature_leaf! {
         hide_type: crate::cprops::hide_type,
         favorite_food: crate::cprops::favorite_food,
         can_anger_on_tame: crate::cprops::can_anger_on_tame,
-        get_monster_abilities: |_, _| &NIGHTMARE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1212,7 +1201,7 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         poison_immune: tp::poison_immune,
-        hit_poison: |w, _id| if rnd::double(w) < 0.8 { Some(PoisonId(2)) } else { Some(PoisonId(3)) },
+        hit_poison: crate::cprops::hit_poison,
         death_adder_charmable: crate::cprops::death_adder_charmable,
         meat: tp::meat,
         hides: tp::hides,
@@ -1262,7 +1251,6 @@ creature_leaf! {
 fn lava_lizard_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &LAVA_LIZARD)
 }
-static LAVA_LIZARD_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.LavaLizard`.
     LAVA_LIZARD, LAVA_LIZARD_C = "Server.Mobiles.LavaLizard" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lava_lizard_new), encoded false;
@@ -1272,7 +1260,7 @@ creature_leaf! {
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
         favorite_food: crate::cprops::favorite_food,
-        get_monster_abilities: |_, _| &LAVA_LIZARD_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1282,7 +1270,6 @@ creature_leaf! {
 fn lava_serpent_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &LAVA_SERPENT)
 }
-static LAVA_SERPENT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.LavaSerpent`.
     LAVA_SERPENT, LAVA_SERPENT_C = "Server.Mobiles.LavaSerpent" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lava_serpent_new), encoded false;
@@ -1293,7 +1280,7 @@ creature_leaf! {
         meat: tp::meat,
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
-        get_monster_abilities: |_, _| &LAVA_SERPENT_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1303,7 +1290,6 @@ creature_leaf! {
 fn lava_snake_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &LAVA_SNAKE)
 }
-static LAVA_SNAKE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.LavaSnake`.
     LAVA_SNAKE, LAVA_SNAKE_C = "Server.Mobiles.LavaSnake" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lava_snake_new), encoded false;
@@ -1312,7 +1298,7 @@ creature_leaf! {
         default_name: tp::default_name,
         death_adder_charmable: crate::cprops::death_adder_charmable,
         meat: tp::meat,
-        get_monster_abilities: |_, _| &LAVA_SNAKE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1370,9 +1356,9 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
     }
     m {
-        get_attack_sound: |_w, _id| 0xC9,
-        get_hurt_sound: |_w, _id| 0xCA,
-        get_death_sound: |_w, _id| 0xCB,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -1390,9 +1376,9 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
     }
     m {
-        get_attack_sound: |_w, _id| 0xC9,
-        get_hurt_sound: |_w, _id| 0xCA,
-        get_death_sound: |_w, _id| 0xCB,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -1424,11 +1410,11 @@ creature_leaf! {
         default_name: tp::default_name,
     }
     m {
-        get_anger_sound: |_w, _id| 0x1C8,
-        get_idle_sound: |_w, _id| 0x1C9,
-        get_attack_sound: |_w, _id| 0x1CA,
-        get_hurt_sound: |_w, _id| 0x1CB,
-        get_death_sound: |_w, _id| 0x1CC,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -1443,11 +1429,11 @@ creature_leaf! {
         default_name: tp::default_name,
     }
     m {
-        get_anger_sound: |_w, _id| 0x1B,
-        get_idle_sound: |_w, _id| 0x1C,
-        get_attack_sound: |_w, _id| 0x1D,
-        get_hurt_sound: |_w, _id| 0x1E,
-        get_death_sound: |_w, _id| 0x1F,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 

@@ -435,7 +435,12 @@
       "corpseName": "a bird corpse",
       "defaultName": "a crane",
       "meat": 1,
-      "feathers": 25
+      "feathers": 25,
+      "angerSound": 1241,
+      "idleSound": 1240,
+      "attackSound": 1239,
+      "hurtSound": 1242,
+      "deathSound": 1238
     }
   },
   {
@@ -683,7 +688,8 @@
       "loot": [["Average", 1]],
       "hideType": "Spined",
       "favoriteFood": ["Meat"],
-      "packInstinct": ["Feline"]
+      "packInstinct": ["Feline"],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -839,7 +845,12 @@
       "defaultName": "a gaman",
       "meat": 10,
       "hides": 15,
-      "favoriteFood": ["GrainsAndHay"]
+      "favoriteFood": ["GrainsAndHay"],
+      "angerSound": 1272,
+      "idleSound": 1271,
+      "attackSound": 1270,
+      "hurtSound": 1273,
+      "deathSound": 1269
     }
   },
   {
@@ -990,7 +1001,10 @@
       "defaultName": "a great hart",
       "meat": 6,
       "hides": 15,
-      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "attackSound": 130,
+      "hurtSound": 131,
+      "deathSound": 132
     }
   },
   {
@@ -1027,7 +1041,10 @@
       "defaultName": "a hind",
       "meat": 5,
       "hides": 8,
-      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"]
+      "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
+      "attackSound": 130,
+      "hurtSound": 131,
+      "deathSound": 132
     }
   },
   {
@@ -1261,7 +1278,8 @@
       "hides": 15,
       "loot": [["Average", 1]],
       "deathAdderCharmable": true,
-      "hideType": "Spined"
+      "hideType": "Spined",
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -1336,7 +1354,10 @@
       "defaultName": "a jack rabbit",
       "meat": 1,
       "hides": 1,
-      "favoriteFood": ["FruitsAndVeggies"]
+      "favoriteFood": ["FruitsAndVeggies"],
+      "attackSound": 201,
+      "hurtSound": 202,
+      "deathSound": 203
     }
   },
   {
@@ -1629,7 +1650,8 @@
       "hideType": "Spined",
       "favoriteFood": ["Meat"],
       "packInstinct": ["Feline"],
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -1832,7 +1854,12 @@
       "corpseName": "a giant beetle corpse",
       "subdueBeforeTame": true,
       "reduceSpeedWithDamage": false,
-      "favoriteFood": ["Meat"]
+      "favoriteFood": ["Meat"],
+      "angerSound": 541,
+      "idleSound": 541,
+      "attackSound": 354,
+      "hurtSound": 355,
+      "deathSound": 541
     }
   },
   {
@@ -1903,8 +1930,14 @@
     "controlSlots": 2,
     "minTameSkill": 106.0,
     "pack": [
-      {"item": "Server.Items.SulfurousAsh", "amount": [151, 300]},
-      {"item": "Server.Items.Ruby", "amount": [16, 30]}
+      {
+        "item": "Server.Items.SulfurousAsh",
+        "amount": [151, 300]
+      },
+      {
+        "item": "Server.Items.Ruby",
+        "amount": [16, 30]
+      }
     ],
     "props": {
       "mountBody": 190,
@@ -1912,7 +1945,9 @@
       "defaultName": "a fire steed",
       "corpseName": "a fire steed corpse",
       "favoriteFood": ["Meat"],
-      "packInstinct": ["Daemon", "Equine"]
+      "packInstinct": ["Daemon", "Equine"],
+      "monsterAbilities": ["FireBreath"],
+      "loot": []
     }
   },
   {
@@ -2031,7 +2066,8 @@
       "defaultName": "a hellsteed",
       "stepsMax": 5120,
       "corpseName": "a hellsteed corpse",
-      "poisonImmune": 4
+      "poisonImmune": 4,
+      "monsterAbilities": ["ChaosBreath"]
     }
   },
   {
@@ -2135,7 +2171,13 @@
       "favoriteFood": ["Meat"],
       "canAngerOnTame": true,
       "weaponAbility": "Dismount",
-      "loot": [["FilthyRich", 3], ["Gems", 4]]
+      "loot": [["FilthyRich", 3], ["Gems", 4]],
+      "monsterAbilities": ["GraspingClaw"],
+      "angerSound": 1278,
+      "idleSound": 1277,
+      "attackSound": 1276,
+      "hurtSound": 1279,
+      "deathSound": 1275
     }
   },
   {
@@ -2301,7 +2343,13 @@
       "favoriteFood": ["Meat"],
       "canAngerOnTame": true,
       "weaponAbility": "Dismount",
-      "loot": [["FilthyRich", 2], ["Gems", 4]]
+      "loot": [["FilthyRich", 2], ["Gems", 4]],
+      "monsterAbilities": ["GraspingClaw"],
+      "angerSound": 1278,
+      "idleSound": 1277,
+      "attackSound": 1276,
+      "hurtSound": 1279,
+      "deathSound": 1275
     }
   },
   {
@@ -2387,7 +2435,8 @@
       "hideType": "Barbed",
       "favoriteFood": ["Meat"],
       "canAngerOnTame": true,
-      "loot": [["Rich", 1], ["Average", 1], ["LowScrolls", 1], ["Potions", 1]]
+      "loot": [["Rich", 1], ["Average", 1], ["LowScrolls", 1], ["Potions", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -2757,7 +2806,8 @@
       "meat": 4,
       "hides": 15,
       "hideType": "Spined",
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "hitPoison": {"chance": 0.8, "then": 2, "else": 3}
     }
   },
   {
@@ -2865,7 +2915,8 @@
       "hides": 12,
       "hideType": "Spined",
       "favoriteFood": ["Metal", "Gold"],
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -2906,7 +2957,8 @@
       "defaultName": "a lava snake",
       "deathAdderCharmable": true,
       "meat": 1,
-      "loot": [["Poor", 1]]
+      "loot": [["Poor", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -2993,7 +3045,10 @@
       "defaultName": "a rabbit",
       "meat": 1,
       "hides": 1,
-      "favoriteFood": ["FruitsAndVeggies"]
+      "favoriteFood": ["FruitsAndVeggies"],
+      "attackSound": 201,
+      "hurtSound": 202,
+      "deathSound": 203
     }
   },
   {
@@ -3037,7 +3092,12 @@
     },
     "props": {
       "corpseName": "a jwilson corpse",
-      "defaultName": "a jwilson"
+      "defaultName": "a jwilson",
+      "angerSound": 456,
+      "idleSound": 457,
+      "attackSound": 458,
+      "hurtSound": 459,
+      "deathSound": 460
     }
   },
   {
@@ -3073,7 +3133,12 @@
     "minTameSkill": 0.0,
     "props": {
       "corpseName": "a parrot corpse",
-      "defaultName": "a parrot"
+      "defaultName": "a parrot",
+      "angerSound": 27,
+      "idleSound": 28,
+      "attackSound": 29,
+      "hurtSound": 30,
+      "deathSound": 31
     }
   },
   {

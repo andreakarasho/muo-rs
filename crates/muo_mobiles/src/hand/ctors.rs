@@ -9,15 +9,8 @@ use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::base as ibase;
 use muo_server::mobile::part2::items;
 
-use crate::common::pack_new;
-
 pub(crate) fn si(name: &str) -> String {
     format!("Server.Items.{name}")
-}
-
-/// `PackItem(new T())`.
-pub(crate) fn pack(w: &mut World, id: MobileId, name: &str) {
-    pack_new(w, id, &si(name));
 }
 
 /// `AddItem(new T { Hue = hue })` / `new T(hue)`.

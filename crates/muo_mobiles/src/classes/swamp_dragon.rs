@@ -136,10 +136,10 @@ creature_leaf! {
         get_control_chance: |_w, _id, _m, _b| 1.0,
     }
     m {
-        get_idle_sound: |_w, _id| 0x2CE,
-        get_death_sound: |_w, _id| 0x2CC,
-        get_hurt_sound: |_w, _id| 0x2D1,
-        get_attack_sound: |_w, _id| 0x2C8,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
         get_properties: get_properties,
     }
 }

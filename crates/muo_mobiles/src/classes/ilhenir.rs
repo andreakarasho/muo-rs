@@ -343,11 +343,11 @@ creature_leaf! {
         on_gave_melee_attack: ilhenir_on_gave_melee_attack,
     }
     m {
-        get_anger_sound: |_w, _id| 0x581,
-        get_idle_sound: |_w, _id| 0x582,
-        get_attack_sound: |_w, _id| 0x580,
-        get_hurt_sound: |_w, _id| 0x583,
-        get_death_sound: |_w, _id| 0x584,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_death: ilhenir_on_death,
         on_damage: ilhenir_on_damage,
     }
@@ -537,11 +537,11 @@ creature_leaf! {
         on_gave_melee_attack: meraktus_on_gave_melee_attack,
     }
     m {
-        get_anger_sound: |_w, _id| 0x597,
-        get_idle_sound: |_w, _id| 0x596,
-        get_attack_sound: |_w, _id| 0x599,
-        get_hurt_sound: |_w, _id| 0x59a,
-        get_death_sound: |_w, _id| 0x59c,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_death: meraktus_on_death,
         on_map_change: meraktus_on_map_change,
         on_after_delete: meraktus_on_after_delete,

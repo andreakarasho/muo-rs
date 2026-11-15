@@ -36,7 +36,12 @@
       "defaultName": "an abysmal horror",
       "poisonImmune": 4,
       "treasureMapLevel": 1,
-      "loot": [["UltraRich", 2]]
+      "loot": [["UltraRich", 2]],
+      "ignoreYoungProtection": {"atLeast": "ML", "then": true, "else": false},
+      "bardImmune": {"atLeast": "SE", "then": false, "else": true},
+      "unprovokable": {"atLeast": "SE", "then": true, "else": false},
+      "areaPeaceImmune": {"atLeast": "SE", "then": true, "else": false},
+      "weaponAbility": {"coin": ["MortalStrike", "WhirlwindAttack"]}
     }
   },
   {
@@ -77,7 +82,10 @@
       "defaultName": "a bone demon",
       "poisonImmune": 4,
       "treasureMapLevel": 1,
-      "loot": [["FilthyRich", 8]]
+      "loot": [["FilthyRich", 8]],
+      "bardImmune": {"atLeast": "SE", "then": false, "else": true},
+      "unprovokable": {"atLeast": "SE", "then": true, "else": false},
+      "areaPeaceImmune": {"atLeast": "SE", "then": true, "else": false}
     }
   },
   {
@@ -165,7 +173,11 @@
       "poisonImmune": 4,
       "treasureMapLevel": 1,
       "loot": [["UltraRich", 2]],
-      "hitPoison": 4
+      "hitPoison": 4,
+      "ignoreYoungProtection": {"atLeast": "ML", "then": true, "else": false},
+      "bardImmune": {"atLeast": "SE", "then": false, "else": true},
+      "unprovokable": {"atLeast": "SE", "then": true, "else": false},
+      "areaPeaceImmune": {"atLeast": "SE", "then": true, "else": false}
     }
   },
   {
@@ -283,7 +295,17 @@
       "poisonImmune": 4,
       "treasureMapLevel": 1,
       "loot": [["UltraRich", 2]],
-      "autoDispel": true
+      "autoDispel": true,
+      "ignoreYoungProtection": {"atLeast": "ML", "then": true, "else": false},
+      "bardImmune": {"atLeast": "SE", "then": false, "else": true},
+      "unprovokable": {"atLeast": "SE", "then": true, "else": false},
+      "areaPeaceImmune": {"atLeast": "SE", "then": true, "else": false},
+      "weaponAbility": {"coin": ["Dismount", "ParalyzingBlow"]},
+      "attackSound": 844,
+      "hurtSound": 852,
+      "angerSound": 844,
+      "idleSound": 844,
+      "deathSound": 852
     }
   },
   {
@@ -355,7 +377,8 @@
       "corpseName": "a gore fiend corpse",
       "defaultName": "a gore fiend",
       "bleedImmune": true,
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "deathSound": 1218
     }
   },
   {
@@ -394,7 +417,13 @@
       "poisonImmune": 4,
       "treasureMapLevel": 1,
       "loot": [["UltraRich", 2]],
-      "autoDispel": true
+      "autoDispel": true,
+      "ignoreYoungProtection": {"atLeast": "ML", "then": true, "else": false},
+      "bardImmune": {"atLeast": "SE", "then": false, "else": true},
+      "unprovokable": {"atLeast": "SE", "then": true, "else": false},
+      "areaPeaceImmune": {"atLeast": "SE", "then": true, "else": false},
+      "hitPoison": {"chance": 0.8, "then": 2, "else": 3},
+      "weaponAbility": {"coin": ["MortalStrike", "BleedAttack"]}
     }
   },
   {
@@ -497,7 +526,8 @@
     "props": {
       "corpseName": "a ravager corpse",
       "defaultName": "a ravager",
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "weaponAbility": {"coin": ["Dismount", "CrushingBlow"]}
     }
   },
   {
@@ -540,7 +570,16 @@
       "poisonImmune": 4,
       "treasureMapLevel": 1,
       "loot": [["UltraRich", 2]],
-      "oppositionGroup": "FeyAndUndead"
+      "oppositionGroup": "FeyAndUndead",
+      "ignoreYoungProtection": {"atLeast": "ML", "then": true, "else": false},
+      "bardImmune": {"atLeast": "SE", "then": false, "else": true},
+      "unprovokable": {"atLeast": "SE", "then": true, "else": false},
+      "areaPeaceImmune": {"atLeast": "SE", "then": true, "else": false},
+      "weaponAbility": {"coin": ["ConcussionBlow", "CrushingBlow"]},
+      "idleSound": 718,
+      "deathSound": 705,
+      "hurtSound": 721,
+      "attackSound": 712
     }
   },
   {
@@ -614,7 +653,10 @@
       "bleedImmune": true,
       "loot": [["Average", 1]],
       "oppositionGroup": "FeyAndUndead",
-      "weaponAbility": "Dismount"
+      "weaponAbility": "Dismount",
+      "idleSound": 443,
+      "deathSound": 31,
+      "attackSound": 672
     }
   },
   {
@@ -990,7 +1032,8 @@
       "bleedImmune": true,
       "loot": [["Rich", 1], ["Average", 1]],
       "hitPoison": 4,
-      "hitPoisonChance": 0.6
+      "hitPoisonChance": 0.6,
+      "treasureMapLevel": {"atLeast": "AOS", "then": 2, "else": 3}
     }
   },
   {
@@ -1107,7 +1150,41 @@
     "virtualArmor": 56,
     "props": {
       "corpseName": "an efreet corpse",
-      "defaultName": "an efreet"
+      "defaultName": "an efreet",
+      "treasureMapLevel": {
+        "atLeast": "AOS",
+        "then": 4,
+        "else": 5
+      },
+      "loot": [
+        ["Rich", 1],
+        ["Average", 1],
+        ["Gems", 1],
+        {
+          "chance": 0.02,
+          "loot": [
+            {
+              "oneOf": [
+                {
+                  "item": "Server.Items.DaemonArms"
+                },
+                {
+                  "item": "Server.Items.DaemonChest"
+                },
+                {
+                  "item": "Server.Items.DaemonGloves"
+                },
+                {
+                  "item": "Server.Items.DaemonLegs"
+                },
+                {
+                  "item": "Server.Items.DaemonHelm"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   {
@@ -1319,7 +1396,8 @@
       "corpseName": "a snow elemental corpse",
       "defaultName": "a snow elemental",
       "bleedImmune": true,
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "treasureMapLevel": {"oneOf": [2, 3]}
     }
   },
   {
@@ -1369,7 +1447,13 @@
       "treasureMapLevel": 5,
       "loot": [["FilthyRich", 3], ["MedScrolls", 2]],
       "oppositionGroup": "FeyAndUndead",
-      "unprovokable": true
+      "unprovokable": true,
+      "monsterAbilities": ["SummonLesserUndeadCounter"],
+      "idleSound": 413,
+      "angerSound": 373,
+      "deathSound": 264,
+      "attackSound": 226,
+      "hurtSound": 651
     }
   },
   {
@@ -1581,7 +1665,8 @@
     "props": {
       "corpseName": "an elder gazer corpse",
       "defaultName": "an elder gazer",
-      "loot": [["FilthyRich", 1]]
+      "loot": [["FilthyRich", 1]],
+      "treasureMapLevel": {"atLeast": "AOS", "then": 4, "else": 0}
     }
   },
   {
@@ -1622,7 +1707,8 @@
       "treasureMapLevel": 1,
       "meat": 1,
       "canFly": true,
-      "loot": [["Rich", 1], ["Gems", 1]]
+      "loot": [["Rich", 1], ["Gems", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -1713,7 +1799,9 @@
       "defaultName": "a gargoyle destroyer",
       "meat": 1,
       "canFly": true,
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["MedScrolls", 1], ["Gems", 2]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["MedScrolls", 1], ["Gems", 2]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "monsterAbilities": ["ThrowHatchetCounter"]
     }
   },
   {
@@ -1977,7 +2065,8 @@
       "poisonImmune": 4,
       "treasureMapLevel": 4,
       "loot": [["FilthyRich", 1], ["MedScrolls", 2]],
-      "oppositionGroup": "FeyAndUndead"
+      "oppositionGroup": "FeyAndUndead",
+      "monsterAbilities": ["SummonSkeletonsCounter"]
     }
   },
   {
@@ -2021,7 +2110,8 @@
       "treasureMapLevel": 1,
       "meat": 1,
       "loot": [["Average", 1], ["LowScrolls", 1]],
-      "oppositionGroup": "SavagesAndOrcs"
+      "oppositionGroup": "SavagesAndOrcs",
+      "speechType": "Orc"
     }
   },
   {
@@ -2065,7 +2155,8 @@
       "meat": 1,
       "hides": 8,
       "loot": [["Rich", 1], ["LowScrolls", 1]],
-      "hideType": "Spined"
+      "hideType": "Spined",
+      "speechType": "Ratman"
     }
   },
   {
@@ -2275,7 +2366,8 @@
       "defaultName": "a succubus",
       "meat": 1,
       "treasureMapLevel": 5,
-      "loot": [["FilthyRich", 2], ["MedScrolls", 2]]
+      "loot": [["FilthyRich", 2], ["MedScrolls", 2]],
+      "monsterAbilities": ["DrainLifeAreaAttack"]
     }
   },
   {
@@ -2681,7 +2773,12 @@
       "poisonImmune": 4,
       "meat": 1,
       "treasureMapLevel": 5,
-      "loot": [["Rich", 1], ["Gems", 1]]
+      "loot": [["Rich", 1], ["Gems", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "monsterAbilities": ["ColossalBlow"],
+      "deathSound": 1059,
+      "attackSound": 571,
+      "hurtSound": 320
     }
   },
   {
@@ -2874,7 +2971,8 @@
       "defaultName": "an orc bomber",
       "canRummageCorpses": true,
       "loot": [["Average", 1], ["Meager", 1]],
-      "oppositionGroup": "SavagesAndOrcs"
+      "oppositionGroup": "SavagesAndOrcs",
+      "speechType": "Orc"
     }
   },
   {
@@ -2919,7 +3017,8 @@
       "canRummageCorpses": true,
       "loot": [["FilthyRich", 1], ["Rich", 1]],
       "oppositionGroup": "SavagesAndOrcs",
-      "autoDispel": true
+      "autoDispel": true,
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true}
     }
   },
   {
@@ -2955,7 +3054,8 @@
       "canRummageCorpses": true,
       "hides": 8,
       "loot": [["Meager", 1]],
-      "hideType": "Spined"
+      "hideType": "Spined",
+      "speechType": "Ratman"
     }
   },
   {
@@ -2998,7 +3098,8 @@
       "canRummageCorpses": true,
       "hides": 8,
       "loot": [["Rich", 1]],
-      "hideType": "Spined"
+      "hideType": "Spined",
+      "speechType": "Ratman"
     }
   },
   {
@@ -3034,7 +3135,10 @@
       "defaultName": "a restless soul",
       "bleedImmune": true,
       "loot": [["Poor", 1]],
-      "alwaysAttackable": true
+      "alwaysAttackable": true,
+      "idleSound": 263,
+      "angerSound": 447,
+      "deathSound": 253
     }
   },
   {
@@ -3229,7 +3333,11 @@
       "alwaysMurderer": true,
       "canRummageCorpses": true,
       "meat": 1,
-      "loot": [["Average", 1], ["Meager", 1], ["Gems", 1]]
+      "loot": [["Average", 1], ["Meager", 1], ["Gems", 1]],
+      "idleSound": 428,
+      "angerSound": 461,
+      "hurtSound": 464,
+      "deathSound": 653
     }
   },
   {
@@ -3264,7 +3372,10 @@
       "defaultName": "a meer warrior",
       "canRummageCorpses": true,
       "loot": [["Meager", 1]],
-      "initialInnocent": true
+      "initialInnocent": true,
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "hurtSound": 342,
+      "deathSound": 348
     }
   },
   {
@@ -3376,7 +3487,8 @@
       "hides": 40,
       "meat": 19,
       "treasureMapLevel": 5,
-      "loot": [["UltraRich", 3]]
+      "loot": [["UltraRich", 3]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -3495,7 +3607,12 @@
       "feathers": 50,
       "canFly": true,
       "loot": [["Meager", 2]],
-      "meatType": "Bird"
+      "meatType": "Bird",
+      "attackSound": 916,
+      "angerSound": 916,
+      "deathSound": 917,
+      "hurtSound": 919,
+      "idleSound": 918
     }
   },
   {
@@ -3600,7 +3717,12 @@
       "defaultName": "a fetid essence",
       "poisonImmune": 3,
       "loot": [["FilthyRich", 1]],
-      "hitPoison": 3
+      "hitPoison": 3,
+      "angerSound": 1389,
+      "idleSound": 1387,
+      "attackSound": 1388,
+      "hurtSound": 1388,
+      "deathSound": 1390
     }
   },
   {
@@ -3639,7 +3761,12 @@
     "props": {
       "corpseName": "an interred grizzle corpse",
       "defaultName": "a interred grizzle",
-      "loot": [["FilthyRich", 1]]
+      "loot": [["FilthyRich", 1]],
+      "angerSound": 1409,
+      "idleSound": 1410,
+      "attackSound": 1408,
+      "hurtSound": 1411,
+      "deathSound": 1412
     }
   },
   {
@@ -3677,7 +3804,10 @@
       "bleedImmune": true,
       "loot": [["Average", 1]],
       "oppositionGroup": "FeyAndUndead",
-      "weaponAbility": "Dismount"
+      "weaponAbility": "Dismount",
+      "idleSound": 443,
+      "deathSound": 31,
+      "attackSound": 672
     }
   },
   {
@@ -3715,7 +3845,12 @@
       "corpseName": "a minotaur corpse",
       "defaultName": "a minotaur",
       "loot": [["Rich", 1]],
-      "weaponAbility": "ParalyzingBlow"
+      "weaponAbility": "ParalyzingBlow",
+      "angerSound": 1431,
+      "idleSound": 1430,
+      "attackSound": 1433,
+      "hurtSound": 1434,
+      "deathSound": 1436
     }
   },
   {
@@ -3753,7 +3888,12 @@
       "corpseName": "a minotaur corpse",
       "defaultName": "a minotaur captain",
       "loot": [["Rich", 1]],
-      "weaponAbility": "ParalyzingBlow"
+      "weaponAbility": "ParalyzingBlow",
+      "angerSound": 1431,
+      "idleSound": 1430,
+      "attackSound": 1433,
+      "hurtSound": 1434,
+      "deathSound": 1436
     }
   },
   {
@@ -3787,7 +3927,12 @@
       "corpseName": "a minotaur corpse",
       "defaultName": "a minotaur scout",
       "loot": [["Rich", 1]],
-      "weaponAbility": "ParalyzingBlow"
+      "weaponAbility": "ParalyzingBlow",
+      "angerSound": 1431,
+      "idleSound": 1430,
+      "attackSound": 1433,
+      "hurtSound": 1434,
+      "deathSound": 1436
     }
   },
   {
@@ -3863,7 +4008,12 @@
       "poisonImmune": 3,
       "treasureMapLevel": 3,
       "loot": [["FilthyRich", 10]],
-      "weaponAbility": "Dismount"
+      "weaponAbility": "Dismount",
+      "deathSound": 1430,
+      "attackSound": 1431,
+      "idleSound": 1432,
+      "angerSound": 1433,
+      "hurtSound": 1434
     }
   },
   {
@@ -3949,7 +4099,8 @@
       "poisonImmune": 2,
       "loot": [["Meager", 1]],
       "favoriteFood": ["Meat"],
-      "packInstinct": ["Arachnid"]
+      "packInstinct": ["Arachnid"],
+      "hitPoison": {"chance": 0.8, "then": 2, "else": 3}
     }
   },
   {
@@ -4046,7 +4197,8 @@
       "hideType": "Barbed",
       "favoriteFood": ["Meat"],
       "canAngerOnTame": true,
-      "weaponAbility": "BleedAttack"
+      "weaponAbility": "BleedAttack",
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -4171,7 +4323,8 @@
       "auraInterval": 20.0,
       "auraRange": 10,
       "auraFireDamage": 0,
-      "auraColdDamage": 100
+      "auraColdDamage": 100,
+      "auraBaseDamage": {"min": 25, "max": 35}
     }
   },
   {
@@ -4255,7 +4408,12 @@
       "defaultName": "Crystal Lattice Seeker",
       "feathers": 100,
       "treasureMapLevel": 5,
-      "loot": [["FilthyRich", 4], ["Gems", 1]]
+      "loot": [["FilthyRich", 4], ["Gems", 1]],
+      "attackSound": 758,
+      "deathSound": 759,
+      "angerSound": 760,
+      "hurtSound": 761,
+      "idleSound": 762
     }
   },
   {
@@ -4294,7 +4452,9 @@
     "props": {
       "corpseName": "a crystal vortex corpse",
       "defaultName": "a crystal vortex",
-      "loot": [["FilthyRich", 2]]
+      "loot": [["FilthyRich", 2]],
+      "angerSound": 21,
+      "attackSound": 40
     }
   },
   {
@@ -4743,7 +4903,8 @@
       "meat": 1,
       "loot": [["Average", 1], ["Meager", 1]],
       "favoriteFood": ["Meat"],
-      "packInstinct": ["Canine"]
+      "packInstinct": ["Canine"],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -4786,7 +4947,8 @@
       "defaultName": "a wisp",
       "loot": [["Rich", 1], ["Average", 1]],
       "reacquireDelay": 1.0,
-      "oppositionGroup": "FeyAndUndead"
+      "oppositionGroup": "FeyAndUndead",
+      "speechType": "Wisp"
     }
   },
   {
@@ -4827,7 +4989,12 @@
       "feathers": 100,
       "loot": [["Rich", 3], ["Gems", 1]],
       "initialInnocent": true,
-      "oppositionGroup": "FeyAndUndead"
+      "oppositionGroup": "FeyAndUndead",
+      "treasureMapLevel": {"atLeast": "AOS", "then": 5, "else": 0},
+      "angerSound": 760,
+      "idleSound": 760,
+      "hurtSound": 761,
+      "deathSound": 759
     }
   },
   {
@@ -4989,7 +5156,11 @@
     "props": {
       "corpseName": "a plague beast lord corpse",
       "poisonImmune": 4,
-      "defaultName": "a plague beast lord"
+      "defaultName": "a plague beast lord",
+      "idleSound": 447,
+      "attackSound": 448,
+      "hurtSound": 449,
+      "deathSound": 450
     }
   },
   {
@@ -5105,7 +5276,8 @@
       "bleedImmune": true,
       "treasureMapLevel": 1,
       "loot": [["Average", 1], ["Gems", 2]],
-      "autoDispel": true
+      "autoDispel": true,
+      "monsterAbilities": ["PoisonGasCounter"]
     }
   },
   {
@@ -5183,7 +5355,8 @@
       "bleedImmune": true,
       "treasureMapLevel": 1,
       "loot": [["Average", 1], ["Gems", 2]],
-      "autoDispel": true
+      "autoDispel": true,
+      "monsterAbilities": ["DeathExplosion"]
     }
   },
   {
@@ -5305,7 +5478,8 @@
       "bleedImmune": true,
       "treasureMapLevel": 1,
       "loot": [["FilthyRich", 1], ["Gems", 4]],
-      "autoDispel": true
+      "autoDispel": true,
+      "monsterAbilities": ["PoisonGasCounter", "DestroyEquipment"]
     }
   },
   {
@@ -5345,7 +5519,8 @@
       "bleedImmune": true,
       "treasureMapLevel": 1,
       "loot": [["Rich", 1], ["Gems", 2]],
-      "autoDispel": true
+      "autoDispel": true,
+      "monsterAbilities": ["DestroyEquipment"]
     }
   },
   {
@@ -5466,7 +5641,8 @@
       "poisonImmune": 4,
       "loot": [["Average", 1]],
       "hitPoison": 4,
-      "hitPoisonChance": 0.1
+      "hitPoisonChance": 0.1,
+      "angerSound": 353
     }
   },
   {
@@ -5546,7 +5722,8 @@
     "props": {
       "corpseName": "a whipping vine corpse",
       "defaultName": "a whipping vine",
-      "poisonImmune": 4
+      "poisonImmune": 4,
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true}
     }
   },
   {
@@ -5593,7 +5770,11 @@
       "loot": [["FilthyRich", 3], ["Gems", 5]],
       "reacquireOnMovement": true,
       "autoDispel": true,
-      "hideType": "Barbed"
+      "hideType": "Barbed",
+      "hitPoison": {"coin": [0, 1]},
+      "monsterAbilities": ["FireBreath"],
+      "idleSound": 723,
+      "hurtSound": 721
     }
   },
   {
@@ -5640,7 +5821,8 @@
       "loot": [["FilthyRich", 2], ["Gems", 8]],
       "hideType": "Barbed",
       "favoriteFood": ["Meat"],
-      "canAngerOnTame": true
+      "canAngerOnTame": true,
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -5729,7 +5911,10 @@
       "autoDispel": true,
       "hitPoison": 3,
       "scaleType": "Black",
-      "hideType": "Barbed"
+      "hideType": "Barbed",
+      "monsterAbilities": ["FireBreath"],
+      "idleSound": 725,
+      "hurtSound": 721
     }
   },
   {
@@ -5775,7 +5960,9 @@
       "loot": [["FilthyRich", 4], ["Gems", 5]],
       "reacquireOnMovement": true,
       "autoDispel": true,
-      "hideType": "Barbed"
+      "hideType": "Barbed",
+      "bonusPetDamageScalar": {"atLeast": "SE", "then": 3.0, "else": 1.0},
+      "monsterAbilities": ["ColdBreath"]
     }
   },
   {
@@ -5823,7 +6010,8 @@
       "loot": [["Rich", 1], ["MedScrolls", 2]],
       "reacquireOnMovement": true,
       "hideType": "Horned",
-      "favoriteFood": ["Meat", "Fish"]
+      "favoriteFood": ["Meat", "Fish"],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -5859,7 +6047,8 @@
       "meat": 1,
       "hides": 12,
       "loot": [["Meager", 1]],
-      "hideType": "Spined"
+      "hideType": "Spined",
+      "speechType": "Lizardman"
     }
   },
   {
@@ -5897,7 +6086,12 @@
       "meat": 1,
       "feathers": 50,
       "canFly": true,
-      "loot": [["Average", 2], ["Gems", 2]]
+      "loot": [["Average", 2], ["Gems", 2]],
+      "attackSound": 916,
+      "angerSound": 916,
+      "deathSound": 917,
+      "hurtSound": 919,
+      "idleSound": 918
     }
   },
   {
@@ -5943,7 +6137,12 @@
       "loot": [["Average", 1], ["Meager", 1], ["MedScrolls", 1]],
       "reacquireOnMovement": true,
       "hitPoison": 3,
-      "hideType": "Horned"
+      "hideType": "Horned",
+      "attackSound": 713,
+      "angerSound": 718,
+      "deathSound": 716,
+      "hurtSound": 721,
+      "idleSound": 725
     }
   },
   {
@@ -5983,7 +6182,11 @@
       "loot": [["Rich", 2]],
       "hideType": "Horned",
       "packInstinct": ["Ostard"],
-      "weaponAbility": "BleedAttack"
+      "weaponAbility": "BleedAttack",
+      "idleSound": 1573,
+      "angerSound": 1570,
+      "hurtSound": 1572,
+      "deathSound": 1571
     }
   },
   {
@@ -6017,7 +6220,8 @@
       "treasureMapLevel": 2,
       "meat": 6,
       "hides": 10,
-      "loot": [["Average", 2]]
+      "loot": [["Average", 2]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -6056,7 +6260,8 @@
       "hides": 12,
       "loot": [["Average", 2]],
       "hideType": "Spined",
-      "weaponAbility": "BleedAttack"
+      "weaponAbility": "BleedAttack",
+      "monsterAbilities": ["GraspingClaw", "TailSwipe"]
     }
   },
   {
@@ -6091,7 +6296,8 @@
       "meat": 6,
       "hides": 11,
       "loot": [["Average", 2]],
-      "hideType": "Horned"
+      "hideType": "Horned",
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -6202,7 +6408,8 @@
     "props": {
       "corpseName": "a vampire bat corpse",
       "defaultName": "a vampire bat",
-      "loot": [["Poor", 1]]
+      "loot": [["Poor", 1]],
+      "idleSound": 667
     }
   },
   {
@@ -6254,7 +6461,8 @@
       "defaultName": "a wanderer of the void",
       "bleedImmune": true,
       "poisonImmune": 4,
-      "loot": [["FilthyRich", 1]]
+      "loot": [["FilthyRich", 1]],
+      "treasureMapLevel": {"atLeast": "AOS", "then": 4, "else": 1}
     }
   },
   {
@@ -6319,7 +6527,12 @@
     "props": {
       "corpseName": "an ant lion corpse",
       "defaultName": "an ant lion",
-      "loot": [["Average", 2]]
+      "loot": [["Average", 2]],
+      "angerSound": 90,
+      "idleSound": 90,
+      "attackSound": 356,
+      "hurtSound": 391,
+      "deathSound": 442
     }
   },
   {
@@ -6384,7 +6597,12 @@
     "props": {
       "corpseName": "a solen infiltrator corpse",
       "defaultName": "a black solen infiltrator",
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "angerSound": 601,
+      "idleSound": 601,
+      "attackSound": 405,
+      "hurtSound": 592,
+      "deathSound": 603
     }
   },
   {
@@ -6455,7 +6673,12 @@
           "Gems",
           {"min": 1, "max": 4}
         ]
-      ]
+      ],
+      "angerSound": 181,
+      "idleSound": 181,
+      "attackSound": 649,
+      "hurtSound": 188,
+      "deathSound": 228
     }
   },
   {
@@ -6524,7 +6747,12 @@
     "props": {
       "corpseName": "a solen queen corpse",
       "defaultName": "a black solen queen",
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "angerSound": 601,
+      "idleSound": 601,
+      "attackSound": 405,
+      "hurtSound": 592,
+      "deathSound": 603
     }
   },
   {
@@ -6599,7 +6827,12 @@
           "Gems",
           {"min": 1, "max": 4}
         ]
-      ]
+      ],
+      "angerSound": 181,
+      "idleSound": 181,
+      "attackSound": 649,
+      "hurtSound": 188,
+      "deathSound": 228
     }
   },
   {
@@ -6662,7 +6895,12 @@
           "Gems",
           {"min": 1, "max": 2}
         ]
-      ]
+      ],
+      "angerSound": 617,
+      "idleSound": 617,
+      "attackSound": 390,
+      "hurtSound": 446,
+      "deathSound": 142
     }
   },
   {
@@ -6726,7 +6964,12 @@
     "props": {
       "corpseName": "a solen infiltrator corpse",
       "defaultName": "a red solen infiltrator",
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "angerSound": 601,
+      "idleSound": 601,
+      "attackSound": 405,
+      "hurtSound": 592,
+      "deathSound": 603
     }
   },
   {
@@ -6796,7 +7039,12 @@
           "Gems",
           {"min": 1, "max": 4}
         ]
-      ]
+      ],
+      "angerSound": 181,
+      "idleSound": 181,
+      "attackSound": 649,
+      "hurtSound": 188,
+      "deathSound": 228
     }
   },
   {
@@ -6864,7 +7112,12 @@
     "props": {
       "corpseName": "a solen queen corpse",
       "defaultName": "a red solen queen",
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "angerSound": 601,
+      "idleSound": 601,
+      "attackSound": 405,
+      "hurtSound": 592,
+      "deathSound": 603
     }
   },
   {
@@ -6938,7 +7191,12 @@
           "Gems",
           {"min": 1, "max": 4}
         ]
-      ]
+      ],
+      "angerSound": 181,
+      "idleSound": 181,
+      "attackSound": 649,
+      "hurtSound": 188,
+      "deathSound": 228
     }
   },
   {
@@ -7000,7 +7258,12 @@
           "Gems",
           {"min": 1, "max": 2}
         ]
-      ]
+      ],
+      "angerSound": 617,
+      "idleSound": 617,
+      "attackSound": 390,
+      "hurtSound": 446,
+      "deathSound": 142
     }
   },
   {
@@ -7144,7 +7407,11 @@
       "poisonImmune": 4,
       "meat": 1,
       "treasureMapLevel": 5,
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 1]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "deathSound": 1059,
+      "attackSound": 571,
+      "hurtSound": 320
     }
   },
   {
@@ -7239,7 +7506,8 @@
       "canRummageCorpses": true,
       "alwaysMurderer": true,
       "meat": 1,
-      "loot": [["Average", 1], ["MedScrolls", 1]]
+      "loot": [["Average", 1], ["MedScrolls", 1]],
+      "treasureMapLevel": {"atLeast": "AOS", "then": 1, "else": 0}
     }
   },
   {
@@ -7304,7 +7572,8 @@
       "canRummageCorpses": true,
       "alwaysMurderer": true,
       "meat": 1,
-      "loot": [["Average", 1], ["Meager", 1], ["MedScrolls", 2]]
+      "loot": [["Average", 1], ["Meager", 1], ["MedScrolls", 2]],
+      "treasureMapLevel": {"atLeast": "AOS", "then": 2, "else": 0}
     }
   },
   {
@@ -7364,7 +7633,9 @@
     "props": {
       "corpseName": "a golem controller corpse",
       "alwaysMurderer": true,
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "clickTitle": false,
+      "showFameTitle": false
     }
   },
   {
@@ -7419,7 +7690,8 @@
       "meat": 1,
       "alwaysMurderer": true,
       "oppositionGroup": "SavagesAndOrcs",
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "showFameTitle": false
     }
   },
   {
@@ -7672,7 +7944,8 @@
     },
     "props": {
       "alwaysMurderer": true,
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "clickTitle": false
     }
   },
   {
@@ -7729,7 +8002,10 @@
     "props": {
       "corpseName": "an inhuman corpse",
       "alwaysMurderer": true,
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "clickTitle": false,
+      "showFameTitle": false,
+      "attackSound": -1
     }
   },
   {
@@ -7824,7 +8100,8 @@
     "randomHair": true,
     "props": {
       "alwaysMurderer": true,
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "clickTitle": false
     }
   },
   {
@@ -8177,7 +8454,12 @@
     ],
     "props": {
       "corpseName": "a horde minion corpse",
-      "defaultName": "a horde minion"
+      "defaultName": "a horde minion",
+      "idleSound": 338,
+      "angerSound": 338,
+      "deathSound": 338,
+      "attackSound": 406,
+      "hurtSound": 194
     }
   },
   {
@@ -8223,7 +8505,13 @@
     "props": {
       "defaultName": "Zealot of Khaldun",
       "alwaysMurderer": true,
-      "unprovokable": true
+      "unprovokable": true,
+      "clickTitle": false,
+      "showFameTitle": false,
+      "idleSound": 388,
+      "angerSound": 646,
+      "deathSound": 648,
+      "hurtSound": 415
     }
   },
   {
@@ -8271,7 +8559,13 @@
       "defaultName": "Zealot of Khaldun",
       "alwaysMurderer": true,
       "unprovokable": true,
-      "poisonImmune": 3
+      "poisonImmune": 3,
+      "clickTitle": false,
+      "showFameTitle": false,
+      "idleSound": 388,
+      "angerSound": 646,
+      "deathSound": 648,
+      "hurtSound": 415
     }
   },
   {
@@ -8403,7 +8697,8 @@
       "treasureMapLevel": 1,
       "meat": 1,
       "oppositionGroup": "SavagesAndOrcs",
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "speechType": "Orc"
     }
   },
   {
@@ -8490,7 +8785,8 @@
       "canRummageCorpses": true,
       "meat": 1,
       "oppositionGroup": "SavagesAndOrcs",
-      "loot": [["Meager", 2]]
+      "loot": [["Meager", 2]],
+      "speechType": "Orc"
     }
   },
   {
@@ -8557,7 +8853,8 @@
       "treasureMapLevel": 1,
       "meat": 1,
       "oppositionGroup": "SavagesAndOrcs",
-      "loot": [["Meager", 1], ["Average", 1]]
+      "loot": [["Meager", 1], ["Average", 1]],
+      "speechType": "Orc"
     }
   },
   {
@@ -8620,7 +8917,8 @@
       "meat": 1,
       "alwaysMurderer": true,
       "oppositionGroup": "SavagesAndOrcs",
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "showFameTitle": false
     }
   },
   {
@@ -8693,7 +8991,8 @@
       "meat": 1,
       "alwaysMurderer": true,
       "oppositionGroup": "SavagesAndOrcs",
-      "loot": [["Average", 1]]
+      "loot": [["Average", 1]],
+      "showFameTitle": false
     }
   },
   {
@@ -8703,7 +9002,12 @@
     "props": {
       "deleteCorpseOnDeath": true,
       "defaultName": "a shadow fiend",
-      "canRummageCorpses": true
+      "canRummageCorpses": true,
+      "idleSound": 890,
+      "angerSound": 889,
+      "deathSound": 897,
+      "attackSound": 895,
+      "hurtSound": 896
     }
   },
   {
@@ -8852,7 +9156,9 @@
     "props": {
       "deleteCorpseOnDeath": true,
       "defaultName": "a spectral armour",
-      "poisonImmune": 1
+      "poisonImmune": 1,
+      "idleSound": 512,
+      "angerSound": 86
     }
   },
   {
@@ -8941,7 +9247,13 @@
       "defaultName": "an exodus minion",
       "autoDispel": true,
       "poisonImmune": 4,
-      "loot": [["Average", 1], ["Rich", 1]]
+      "loot": [["Average", 1], ["Rich", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "idleSound": 536,
+      "angerSound": 620,
+      "deathSound": 529,
+      "attackSound": 562,
+      "hurtSound": 320
     }
   },
   {
@@ -8990,7 +9302,13 @@
       "defaultName": "an exodus overseer",
       "autoDispel": true,
       "poisonImmune": 4,
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "idleSound": 253,
+      "angerSound": 620,
+      "deathSound": 529,
+      "attackSound": 571,
+      "hurtSound": 320
     }
   },
   {
@@ -9180,7 +9498,14 @@
       "autoDispel": true,
       "canRummageCorpses": true,
       "alwaysMurderer": true,
-      "loot": [["Rich", 1]]
+      "loot": [["Rich", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "monsterAbilities": ["FireBreath"],
+      "showFameTitle": false,
+      "idleSound": 718,
+      "deathSound": 716,
+      "hurtSound": 721,
+      "attackSound": 712
     }
   },
   {
@@ -9741,7 +10066,14 @@
       "autoDispel": true,
       "canRummageCorpses": true,
       "alwaysMurderer": true,
-      "loot": [["Rich", 1], ["Gems", 1]]
+      "loot": [["Rich", 1], ["Gems", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "monsterAbilities": ["FireBreath"],
+      "showFameTitle": false,
+      "idleSound": 718,
+      "deathSound": 716,
+      "hurtSound": 721,
+      "attackSound": 712
     }
   },
   {
@@ -9817,7 +10149,12 @@
       "alwaysMurderer": true,
       "canRummageCorpses": true,
       "meat": 1,
-      "loot": [["Rich", 1], ["Average", 1]]
+      "loot": [["Rich", 1], ["Average", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "idleSound": 610,
+      "angerSound": 611,
+      "hurtSound": 464,
+      "deathSound": 653
     }
   },
   {
@@ -9858,7 +10195,11 @@
       "alwaysMurderer": true,
       "canRummageCorpses": true,
       "meat": 1,
-      "loot": [["Average", 2], ["MedScrolls", 2]]
+      "loot": [["Average", 2], ["MedScrolls", 2]],
+      "idleSound": 428,
+      "angerSound": 461,
+      "hurtSound": 464,
+      "deathSound": 653
     }
   },
   {
@@ -9937,7 +10278,11 @@
       "defaultName": "a meer captain",
       "canRummageCorpses": true,
       "initialInnocent": true,
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "hurtSound": 333,
+      "deathSound": 788,
+      "attackSound": 117
     }
   },
   {
@@ -9979,7 +10324,12 @@
       "canRummageCorpses": true,
       "poisonImmune": 4,
       "initialInnocent": true,
-      "loot": [["FilthyRich", 2], ["MedScrolls", 2], ["HighScrolls", 2]]
+      "loot": [["FilthyRich", 2], ["MedScrolls", 2], ["HighScrolls", 2]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "treasureMapLevel": {"atLeast": "AOS", "then": 5, "else": 4},
+      "hurtSound": 359,
+      "deathSound": 188,
+      "attackSound": 651
     }
   },
   {
@@ -10022,7 +10372,10 @@
       "canRummageCorpses": true,
       "treasureMapLevel": 3,
       "initialInnocent": true,
-      "loot": [["FilthyRich", 1], ["MedScrolls", 2]]
+      "loot": [["FilthyRich", 1], ["MedScrolls", 2]],
+      "hurtSound": 333,
+      "deathSound": 788,
+      "attackSound": 117
     }
   },
   {
@@ -10060,7 +10413,12 @@
       "hides": 10,
       "meat": 3,
       "weaponAbility": "BleedAttack",
-      "loot": [["AosFilthyRich", 5]]
+      "loot": [["AosFilthyRich", 5]],
+      "idleSound": 1399,
+      "attackSound": 1398,
+      "angerSound": 1400,
+      "hurtSound": 1398,
+      "deathSound": 1401
     }
   },
   {
@@ -10391,7 +10749,8 @@
       "givesMlMinorArtifact": true,
       "alwaysMurderer": true,
       "weaponAbility": "WhirlwindAttack",
-      "loot": [["UltraRich", 3]]
+      "loot": [["UltraRich", 3]],
+      "monsterAbilities": ["ChaosBreath"]
     }
   },
   {
@@ -10620,7 +10979,8 @@
       "corpseName": "a plant corpse",
       "defaultName": "a bog thing",
       "poisonImmune": 4,
-      "loot": [["Average", 2]]
+      "loot": [["Average", 2]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true}
     }
   },
   {
@@ -10688,7 +11048,8 @@
       "defaultName": "a corrupted soul",
       "alwaysAttackable": true,
       "bleedImmune": true,
-      "alwaysMurderer": true
+      "alwaysMurderer": true,
+      "attackSound": 563
     }
   },
   {
@@ -10774,7 +11135,8 @@
       "favoriteFood": ["Meat"],
       "canFly": true,
       "weaponAbility": "ParalyzingBlow",
-      "loot": [["AosUltraRich", 3]]
+      "loot": [["AosUltraRich", 3]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -10953,7 +11315,8 @@
       "hideType": "Horned",
       "scales": 8,
       "scaleType": "Blue",
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -11036,7 +11399,8 @@
       "reacquireDelay": 1.0,
       "defaultName": "a wisp",
       "oppositionGroup": "FeyAndUndead",
-      "loot": [["Rich", 1], ["Average", 1]]
+      "loot": [["Rich", 1], ["Average", 1]],
+      "speechType": "Wisp"
     }
   },
   {
@@ -11113,7 +11477,9 @@
       "corpseName": "a human corpse",
       "defaultName": "a Protector",
       "alwaysMurderer": true,
-      "loot": [["FilthyRich", 1]]
+      "loot": [["FilthyRich", 1]],
+      "propertyTitle": false,
+      "showFameTitle": false
     }
   },
   {
@@ -11164,7 +11530,13 @@
     "props": {
       "corpseName": "a changeling corpse",
       "defaultName": "a changeling",
-      "loot": [["AosRich", 3]]
+      "loot": [["AosRich", 3]],
+      "showFameTitle": false,
+      "angerSound": 1134,
+      "idleSound": 1136,
+      "attackSound": 1133,
+      "hurtSound": 1137,
+      "deathSound": 1135
     }
   },
   {
@@ -11204,7 +11576,8 @@
       "defaultName": "Guile",
       "defaultHue": 63,
       "givesMlMinorArtifact": true,
-      "loot": [["UltraRich", 2]]
+      "loot": [["UltraRich", 2]],
+      "monsterAbilities": ["DrainLifeAttack"]
     }
   },
   {
@@ -11379,7 +11752,11 @@
       "defaultName": "a vorpal bunny",
       "meat": 1,
       "hides": 1,
-      "loot": [["FilthyRich", 1], ["Rich", 2]]
+      "loot": [["FilthyRich", 1], ["Rich", 2]],
+      "bardImmune": {"atLeast": "AOS", "then": false, "else": true},
+      "attackSound": 201,
+      "hurtSound": 202,
+      "deathSound": 203
     }
   },
   {
@@ -11493,7 +11870,11 @@
       "dispelDifficulty": 0.0,
       "dispelFocus": 20.0,
       "bleedImmune": true,
-      "poisonImmune": 4
+      "poisonImmune": 4,
+      "deleteCorpseOnDeath": {"atLeast": "AOS", "then": true, "else": false},
+      "angerSound": 570,
+      "attackSound": 952,
+      "hurtSound": 570
     }
   },
   {
@@ -11574,7 +11955,9 @@
       "dispelFocus": 20.0,
       "defaultName": "an energy vortex",
       "bleedImmune": true,
-      "poisonImmune": 4
+      "poisonImmune": 4,
+      "angerSound": 21,
+      "attackSound": 40
     }
   },
   {
@@ -11634,7 +12017,11 @@
           "Gems",
           {"from": 1, "count": 3}
         ]
-      ]
+      ],
+      "idleSound": 447,
+      "attackSound": 448,
+      "hurtSound": 449,
+      "deathSound": 450
     }
   },
   {
@@ -11782,7 +12169,8 @@
       "meat": 1,
       "scales": 8,
       "scaleType": "Blue",
-      "loot": [["Meager", 1]]
+      "loot": [["Meager", 1]],
+      "monsterAbilities": ["FireBreath"]
     }
   },
   {
@@ -11933,7 +12321,15 @@
       "meat": 19,
       "scales": 6,
       "treasureMapLevel": 4,
-      "loot": [["FilthyRich", 2], ["Gems", 2]]
+      "loot": [["FilthyRich", 2], ["Gems", 2]],
+      "bonusPetDamageScalar": {"atLeast": "SE", "then": 3.0, "else": 1.0},
+      "scaleType": {"coin": ["Black", "White"]},
+      "monsterAbilities": ["FireBreath"],
+      "idleSound": 708,
+      "attackSound": 704,
+      "deathSound": 705,
+      "angerSound": 708,
+      "hurtSound": 707
     }
   },
   {
@@ -12183,7 +12579,16 @@
       "hides": 10,
       "hideType": "Barbed",
       "favoriteFood": ["Fish"],
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["MedScrolls", 2]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["MedScrolls", 2]],
+      "monsterAbilities": ["BloodBathAttack"],
+      "showFameTitle": false,
+      "clickTitle": false,
+      "propertyTitle": false,
+      "angerSound": 1246,
+      "idleSound": 1245,
+      "attackSound": 1244,
+      "hurtSound": 1247,
+      "deathSound": 1243
     }
   },
   {
@@ -12251,7 +12656,12 @@
       "defaultName": "a deathwatch beetle",
       "hides": 8,
       "weaponAbility": "CrushingBlow",
-      "loot": [["LowScrolls", 1], ["Potions", 1]]
+      "loot": [["LowScrolls", 1], ["Potions", 1]],
+      "angerSound": 1267,
+      "idleSound": 1266,
+      "attackSound": 1265,
+      "hurtSound": 1268,
+      "deathSound": 1264
     }
   },
   {
@@ -12315,7 +12725,12 @@
       "corpseName": "a deathwatchbeetle hatchling corpse",
       "defaultName": "a deathwatch beetle hatchling",
       "hides": 8,
-      "loot": [["LowScrolls", 1], ["Potions", 1]]
+      "loot": [["LowScrolls", 1], ["Potions", 1]],
+      "angerSound": 1267,
+      "idleSound": 1266,
+      "attackSound": 1265,
+      "hurtSound": 1268,
+      "deathSound": 1264
     }
   },
   {
@@ -12445,7 +12860,8 @@
       "defaultName": "an elite ninja",
       "bardImmune": true,
       "alwaysMurderer": true,
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 2]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 2]],
+      "clickTitle": false
     }
   },
   {
@@ -12494,7 +12910,8 @@
       "corpseName": "a fan dancer corpse",
       "defaultName": "a fan dancer",
       "uncalmable": true,
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 2]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 2]],
+      "monsterAbilities": ["ReflectPhysicalDamage", "FanningFire", "FanThrowCounter"]
     }
   },
   {
@@ -12541,7 +12958,12 @@
       "reduceSpeedWithDamage": false,
       "meat": 16,
       "favoriteFood": ["Meat"],
-      "overrideBondingReqs": true
+      "overrideBondingReqs": true,
+      "angerSound": 541,
+      "idleSound": 541,
+      "attackSound": 354,
+      "hurtSound": 355,
+      "deathSound": 541
     }
   },
   {
@@ -12595,7 +13017,13 @@
     "props": {
       "corpseName": "a kappa corpse",
       "defaultName": "a kappa",
-      "loot": [["Meager", 1], ["Average", 1]]
+      "loot": [["Meager", 1], ["Average", 1]],
+      "monsterAbilities": ["DrainLifeAttack"],
+      "angerSound": 1291,
+      "idleSound": 1290,
+      "attackSound": 1289,
+      "hurtSound": 1292,
+      "deathSound": 1288
     }
   },
   {
@@ -12647,7 +13075,8 @@
       "bleedImmune": true,
       "canRummageCorpses": true,
       "treasureMapLevel": 4,
-      "loot": [["FilthyRich", 1], ["Rich", 1]]
+      "loot": [["FilthyRich", 1], ["Rich", 1]],
+      "deathSound": 880
     }
   },
   {
@@ -12694,7 +13123,12 @@
       "defaultName": "an oni",
       "canRummageCorpses": true,
       "treasureMapLevel": 4,
-      "loot": [["FilthyRich", 3]]
+      "loot": [["FilthyRich", 3]],
+      "angerSound": 1251,
+      "idleSound": 1250,
+      "attackSound": 1249,
+      "hurtSound": 1252,
+      "deathSound": 1248
     }
   },
   {
@@ -12753,7 +13187,12 @@
       "poisonImmune": 2,
       "hitPoison": 2,
       "weaponAbility": "BleedAttack",
-      "loot": [["Rich", 2], ["MedScrolls", 2]]
+      "loot": [["Rich", 2], ["MedScrolls", 2]],
+      "angerSound": 1304,
+      "idleSound": 1303,
+      "attackSound": 1302,
+      "hurtSound": 1305,
+      "deathSound": 1301
     }
   },
   {
@@ -12923,7 +13362,8 @@
       "alwaysMurderer": true,
       "bardImmune": true,
       "canRummageCorpses": true,
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 2]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 2]],
+      "clickTitle": false
     }
   },
   {
@@ -12990,7 +13430,13 @@
       "favoriteFood": ["FruitsAndVeggies", "GrainsAndHay"],
       "canAngerOnTame": true,
       "weaponAbility": "BleedAttack",
-      "loot": [["FilthyRich", 2], ["MedScrolls", 1]]
+      "loot": [["FilthyRich", 2], ["MedScrolls", 1]],
+      "monsterAbilities": ["RuneCorruption"],
+      "angerSound": 1256,
+      "idleSound": 1255,
+      "attackSound": 1254,
+      "hurtSound": 1257,
+      "deathSound": 1253
     }
   },
   {
@@ -13066,7 +13512,13 @@
       "meat": 4,
       "hides": 25,
       "favoriteFood": ["Meat"],
-      "loot": [["Average", 1], ["Rich", 1]]
+      "loot": [["Average", 1], ["Rich", 1]],
+      "monsterAbilities": ["BloodBathAttack"],
+      "angerSound": 1325,
+      "idleSound": 1324,
+      "attackSound": 1323,
+      "hurtSound": 1326,
+      "deathSound": 1322
     }
   },
   {
@@ -13117,7 +13569,13 @@
       "treasureMapLevel": 5,
       "hides": 20,
       "weaponAbility": "DoubleStrike",
-      "loot": [["UltraRich", 1], ["FilthyRich", 2], ["Gems", 6]]
+      "loot": [["UltraRich", 1], ["FilthyRich", 2], ["Gems", 6]],
+      "hitPoison": {"coin": [3, 4]},
+      "attackSound": 1260,
+      "angerSound": 1262,
+      "deathSound": 1259,
+      "hurtSound": 1263,
+      "idleSound": 1261
     }
   },
   {
@@ -13180,7 +13638,11 @@
       "canRummageCorpses": true,
       "treasureMapLevel": 5,
       "weaponAbility": "DoubleStrike",
-      "loot": [["FilthyRich", 3], ["Gems", 2]]
+      "loot": [["FilthyRich", 3], ["Gems", 2]],
+      "idleSound": 1066,
+      "attackSound": 1077,
+      "hurtSound": 1078,
+      "deathSound": 1082
     }
   },
   {
@@ -13245,7 +13707,11 @@
       "meat": 1,
       "canRummageCorpses": true,
       "weaponAbility": "DoubleStrike",
-      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 4]]
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["Gems", 4]],
+      "idleSound": 1066,
+      "attackSound": 1077,
+      "hurtSound": 1078,
+      "deathSound": 1082
     }
   },
   {
@@ -13311,7 +13777,11 @@
       "canRummageCorpses": true,
       "treasureMapLevel": 3,
       "weaponAbility": "DoubleStrike",
-      "loot": [["Rich", 2], ["Gems", 2]]
+      "loot": [["Rich", 2], ["Gems", 2]],
+      "idleSound": 1066,
+      "attackSound": 1077,
+      "hurtSound": 1078,
+      "deathSound": 1082
     }
   },
   {

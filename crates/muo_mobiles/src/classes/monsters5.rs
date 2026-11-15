@@ -308,9 +308,9 @@ creature_leaf! {
     m {
         skip_serialization: |_w, _id| true,
         display_paperdoll_to: |_w, _id, _to| {},
-        get_idle_sound: |_w, _id| 0x1BF,
-        get_anger_sound: |_w, _id| 0x107,
-        get_death_sound: |_w, _id| 0xFD,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_before_death: khaldun_on_before_death,
         on_delete: khaldun_on_delete,
     }
