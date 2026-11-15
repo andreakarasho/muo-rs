@@ -1,9 +1,21 @@
 [
   {
     "type": "Server.Items.HolySword",
+    "hue": 1154,
+    "lootType": "Blessed",
+    "slayer": "Silver",
+    "attributes": {
+      "WeaponDamage": 40
+    },
+    "weaponAttributes": {
+      "SelfRepair": 10,
+      "LowerStatReq": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1062921
     }
   },
   {
@@ -28,9 +40,20 @@
   },
   {
     "type": "Server.Items.ShaminoCrossbow",
+    "hue": 1284,
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 15,
+      "WeaponDamage": 40
+    },
+    "weaponAttributes": {
+      "SelfRepair": 10,
+      "LowerStatReq": 100
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1062915
     }
   },
   {
@@ -62,6 +85,14 @@
   },
   {
     "type": "Server.Items.WaterloggedBoots",
+    "coin": {
+      "then": {
+        "itemId": 5905
+      },
+      "else": {
+        "itemId": 5899
+      }
+    },
     "props": {
       "labelNumber": 1074364
     }

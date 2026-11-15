@@ -88,9 +88,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.SilverEtchedMace`.
     SILVER_ETCHED_MACE, SILVER_ETCHED_MACE_CLASS, silver_etched_mace_new = "Server.Items.SilverEtchedMace" : DIAMOND_MACE / DIAMOND_MACE_CLASS, via diamond_mace_new, enc;
-    @init |w, id| {
-        ctor::set_slayer(w, id, SlayerName::Exorcism);
-    };
+    @json;
 }
 
 weapon_leaf! {

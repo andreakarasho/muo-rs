@@ -1,9 +1,20 @@
 [
   {
     "type": "Server.Items.BraveKnightOfTheBritannia",
+    "hue": 1150,
+    "attributes": {
+      "WeaponSpeed": 30,
+      "WeaponDamage": 35
+    },
+    "weaponAttributes": {
+      "HitLeechStam": 48,
+      "HitHarm": 26,
+      "HitLeechHits": 22
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094909
     }
   },
   {
@@ -27,30 +38,73 @@
   },
   {
     "type": "Server.Items.OblivionsNeedle",
+    "attributes": {
+      "BonusStam": 20,
+      "AttackChance": 20,
+      "DefendChance": -20,
+      "WeaponDamage": 40
+    },
+    "weaponAttributes": {
+      "HitLeechStam": 50
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094916
     }
   },
   {
     "type": "Server.Items.RoyalGuardSurvivalKnife",
+    "attributes": {
+      "SpellChanneling": 1,
+      "Luck": 140,
+      "EnhancePotions": 25
+    },
+    "weaponAttributes": {
+      "UseBestSkill": 1,
+      "LowerStatReq": 50
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094918
     }
   },
   {
     "type": "Server.Items.Calm",
+    "hue": 715,
+    "attributes": {
+      "SpellChanneling": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094915
     }
   },
   {
     "type": "Server.Items.FangOfRactus",
+    "hue": 279,
+    "attributes": {
+      "SpellChanneling": 1,
+      "AttackChance": 5,
+      "DefendChance": 5,
+      "WeaponDamage": 35
+    },
+    "weaponAttributes": {
+      "HitPoisonArea": 20,
+      "ResistPoisonBonus": 15
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094892
     }
   },
   {
@@ -76,23 +130,59 @@
   },
   {
     "type": "Server.Items.Pacify",
+    "hue": 2101,
+    "attributes": {
+      "SpellChanneling": 1,
+      "AttackChance": 10,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094929
     }
   },
   {
     "type": "Server.Items.Quell",
+    "hue": 549,
+    "attributes": {
+      "SpellChanneling": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50,
+      "AttackChance": 10
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094928
     }
   },
   {
     "type": "Server.Items.Subdue",
+    "hue": 715,
+    "attributes": {
+      "SpellChanneling": 1,
+      "WeaponSpeed": 20,
+      "WeaponDamage": 50,
+      "AttackChance": 10
+    },
+    "weaponAttributes": {
+      "HitLeechMana": 100,
+      "UseBestSkill": 1
+    },
     "props": {
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094930
     }
   },
   {

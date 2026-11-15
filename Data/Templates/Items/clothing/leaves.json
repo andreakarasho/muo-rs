@@ -5,6 +5,7 @@
   },
   {
     "type": "Server.Items.MonkRobe",
+    "strRequirement": 0,
     "props": {
       "labelNumber": 1076584
     }

@@ -109,6 +109,8 @@
   },
   {
     "type": "Server.Items.Pickaxe",
+    "usesRemaining": 50,
+    "weaponShowUsesRemaining": true,
     "props": {
       "aosStrReq": 50,
       "aosMinDamage": 13,

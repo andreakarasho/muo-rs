@@ -33,45 +33,21 @@ jewel_leaf! {
 weapon_art! {
     /// `Server.Items.ArcticDeathDealer`.
     ARCTIC_DEATH_DEALER, ARCTIC_DEATH_DEALER_CLASS, arctic_death_dealer_new = "Server.Items.ArcticDeathDealer" : WAR_MACE / WAR_MACE_CLASS, via war_mace_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x480);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 33);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerAttack as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistColdBonus as u32, 10);
-    };
-    label_number: 1063481,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 0, cold: 50, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
     /// `Server.Items.BlazeOfDeath`.
     BLAZE_OF_DEATH, BLAZE_OF_DEATH_CLASS, blaze_of_death_new = "Server.Items.BlazeOfDeath" : HALBERD / HALBERD_CLASS, via halberd_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x501);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitFireArea as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitFireball as u32, 50);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-    };
-    label_number: 1063486,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 50, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
     /// `Server.Items.BowOfTheJukaKing`.
     BOW_OF_THE_JUKA_KING, BOW_OF_THE_JUKA_KING_CLASS, bow_of_the_juka_king_new = "Server.Items.BowOfTheJukaKing" : BOW / BOW_CLASS, via bow_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x460);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitMagicArrow as u32, 25);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::ReptilianDeath);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-    };
-    label_number: 1070636,
+    @json;
 }
 
 /// `CandelabraOfSouls()`.
@@ -88,59 +64,26 @@ leaf! {
 weapon_art! {
     /// `Server.Items.CaptainQuacklebushsCutlass`.
     CAPTAIN_QUACKLEBUSHS_CUTLASS, CAPTAIN_QUACKLEBUSHS_CUTLASS_CLASS, captain_quacklebushs_cutlass_new = "Server.Items.CaptainQuacklebushsCutlass" : CUTLASS / CUTLASS_CLASS, via cutlass_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x66C);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1063474,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.CavortingClub`.
     CAVORTING_CLUB, CAVORTING_CLUB_CLASS, cavorting_club_new = "Server.Items.CavortingClub" : CLUB / CLUB_CLASS, via club_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x593);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 8);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistColdBonus as u32, 8);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 8);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistEnergyBonus as u32, 8);
-    };
-    label_number: 1063472,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.ColdBlood`.
     COLD_BLOOD, COLD_BLOOD_CLASS, cold_blood_new = "Server.Items.ColdBlood" : CLEAVER / CLEAVER_CLASS, via cleaver_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x4F2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 6);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 6);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusMana as u32, 6);
-    };
-    label_number: 1070818,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
     /// `Server.Items.EnchantedTitanLegBone`.
     ENCHANTED_TITAN_LEG_BONE, ENCHANTED_TITAN_LEG_BONE_CLASS, enchanted_titan_leg_bone_new = "Server.Items.EnchantedTitanLegBone" : SHORT_SPEAR / SHORT_SPEAR_CLASS, via short_spear_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x8A5);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 20);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPhysicalBonus as u32, 10);
-    };
-    label_number: 1063482,
+    @json;
 }
 
 /// `GhostShipAnchor()`.
@@ -182,55 +125,25 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.LunaLance`.
     LUNA_LANCE, LUNA_LANCE_CLASS, luna_lance_new = "Server.Items.LunaLance" : LANCE / LANCE_CLASS, via lance_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x47E);
-        skill_bonus(w, id, 0, SkillName::Chivalry, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1063469,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.BladeDance`.
     BLADE_DANCE, BLADE_DANCE_CLASS, blade_dance_new = "Server.Items.BladeDance" : RUNE_BLADE / RUNE_BLADE_CLASS, via rune_blade_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x66C);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusMana as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 30);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 20);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1075033,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.Bonesmasher`.
     BONESMASHER, BONESMASHER_CLASS, bonesmasher_new = "Server.Items.Bonesmasher" : DIAMOND_MACE / DIAMOND_MACE_CLASS, via diamond_mace_new, enc;
-    @init |w, id| {
-        item_id(w, id, 0x2D30);
-        hue(w, id, 0x482);
-        skill_bonus(w, id, 0, SkillName::Macing, 10.0);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 2);
-    };
-    label_number: 1075030,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.Boomstick`.
     BOOMSTICK, BOOMSTICK_CLASS, boomstick_new = "Server.Items.Boomstick" : WILD_STAFF / WILD_STAFF_CLASS, via wild_staff_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 20);
-    };
-    label_number: 1075032,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 0, chaos: 100, direct: 0 },
 }
 
@@ -243,15 +156,7 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.FleshRipper`.
     FLESH_RIPPER, FLESH_RIPPER_CLASS, flesh_ripper_new = "Server.Items.FleshRipper" : ASSASSIN_SPIKE / ASSASSIN_SPIKE_CLASS, via assassin_spike_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x341);
-        skill_bonus(w, id, 0, SkillName::Anatomy, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1075045,
+    @json;
 }
 
 armor_leaf! {
@@ -263,101 +168,44 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.MelisandesCorrodedHatchet`.
     MELISANDES_CORRODED_HATCHET, MELISANDES_CORRODED_HATCHET_CLASS, melisandes_corroded_hatchet_new = "Server.Items.MelisandesCorrodedHatchet" : HATCHET / HATCHET_CLASS, via hatchet_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x494);
-        skill_bonus(w, id, 0, SkillName::Lumberjacking, 5.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, -50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 4);
-    };
-    label_number: 1072115,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.RaedsGlory`.
     RAEDS_GLORY, RAEDS_GLORY_CLASS, raeds_glory_new = "Server.Items.RaedsGlory" : WAR_CLEAVER / WAR_CLEAVER_CLASS, via war_cleaver_new, enc;
-    @init |w, id| {
-        item_id(w, id, 0x2D23);
-        hue(w, id, 0x1E6);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusMana as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 40);
-    };
-    label_number: 1075036,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.RighteousAnger`.
     RIGHTEOUS_ANGER, RIGHTEOUS_ANGER_CLASS, righteous_anger_new = "Server.Items.RighteousAnger" : ELVEN_MACHETE / ELVEN_MACHETE_CLASS, via elven_machete_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x284);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 35);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-    };
-    label_number: 1075049,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.SoulSeeker`.
     SOUL_SEEKER, SOUL_SEEKER_CLASS, soul_seeker_new = "Server.Items.SoulSeeker" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x38C);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 60);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::Repond);
-    };
-    label_number: 1075046,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
     /// `Server.Items.TalonBite`.
     TALON_BITE, TALON_BITE_CLASS, talon_bite_new = "Server.Items.TalonBite" : ORNATE_AXE / ORNATE_AXE_CLASS, via ornate_axe_new, enc;
-    @init |w, id| {
-        item_id(w, id, 0x2D34);
-        hue(w, id, 0x47E);
-        skill_bonus(w, id, 0, SkillName::Tactics, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 33);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1075029,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.NightsKiss`.
     NIGHTS_KISS, NIGHTS_KISS_CLASS, nights_kiss_new = "Server.Items.NightsKiss" : DAGGER / DAGGER_CLASS, via dagger_new, v0;
-    @init |w, id| {
-        item_id(w, id, 0xF51);
-        hue(w, id, 0x455);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 40);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::Repond);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-    };
-    label_number: 1063475,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.NoxRangersHeavyCrossbow`.
     NOX_RANGERS_HEAVY_CROSSBOW, NOX_RANGERS_HEAVY_CROSSBOW_CLASS, nox_rangers_heavy_crossbow_new = "Server.Items.NoxRangersHeavyCrossbow" : HEAVY_CROSSBOW / HEAVY_CROSSBOW_CLASS, via heavy_crossbow_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x58C);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 20);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 10);
-    };
-    label_number: 1063485,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 0, cold: 0, pois: 50, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -370,16 +218,7 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.PixieSwatter`.
     PIXIE_SWATTER, PIXIE_SWATTER_CLASS, pixie_swatter_new = "Server.Items.PixieSwatter" : SCEPTER / SCEPTER_CLASS, via scepter_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x8A);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitPoisonArea as u32, 75);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 12);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistEnergyBonus as u32, 12);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::Fey);
-    };
-    label_number: 1070854,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -408,15 +247,7 @@ leaf! {
 weapon_art! {
     /// `Server.Items.StaffOfPower`.
     STAFF_OF_POWER, STAFF_OF_POWER_CLASS, staff_of_power_new = "Server.Items.StaffOfPower" : BLACK_STAFF / BLACK_STAFF_CLASS, via black_staff_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x4F2);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::MageWeapon as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastRecovery as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 5);
-    };
-    label_number: 1070692,
+    @json;
 }
 
 armor_leaf! {

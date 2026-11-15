@@ -65,9 +65,18 @@
   },
   {
     "type": "Server.Items.TheDragonsTail",
+    "lootType": "Blessed",
+    "weaponAttributes": {
+      "HitLeechStam": 16
+    },
+    "attributes": {
+      "WeaponSpeed": 10,
+      "WeaponDamage": 25
+    },
     "props": {
       "initMinHits": 80,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "labelNumber": 1078015
     }
   },
   {
@@ -165,6 +174,88 @@
     },
     "props": {
       "labelNumber": 1077627
+    }
+  },
+  {
+    "type": "Server.Items.ChurchillsWarMace",
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 5,
+      "WeaponSpeed": 10,
+      "WeaponDamage": 25
+    },
+    "weaponAttributes": {
+      "LowerStatReq": 70
+    },
+    "props": {
+      "labelNumber": 1078062
+    }
+  },
+  {
+    "type": "Server.Items.EmberStaff",
+    "lootType": "Blessed",
+    "weaponAttributes": {
+      "HitFireball": 15,
+      "MageWeapon": 10,
+      "LowerStatReq": 50
+    },
+    "attributes": {
+      "SpellChanneling": 1,
+      "CastSpeed": -1
+    },
+    "props": {
+      "labelNumber": 1077582
+    }
+  },
+  {
+    "type": "Server.Items.Heartseeker",
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 5,
+      "WeaponSpeed": 10,
+      "WeaponDamage": 25
+    },
+    "weaponAttributes": {
+      "LowerStatReq": 70
+    },
+    "props": {
+      "labelNumber": 1078210
+    }
+  },
+  {
+    "type": "Server.Items.JocklesQuicksword",
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 5,
+      "WeaponSpeed": 10,
+      "WeaponDamage": 25
+    },
+    "props": {
+      "labelNumber": 1077666
+    }
+  },
+  {
+    "type": "Server.Items.RecarosRiposte",
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 5,
+      "WeaponSpeed": 10,
+      "WeaponDamage": 25
+    },
+    "props": {
+      "labelNumber": 1078195
+    }
+  },
+  {
+    "type": "Server.Items.SilverSerpentBlade",
+    "lootType": "Blessed",
+    "attributes": {
+      "AttackChance": 5,
+      "WeaponSpeed": 10,
+      "WeaponDamage": 25
+    },
+    "props": {
+      "labelNumber": 1078163
     }
   }
 ]

@@ -265,11 +265,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.WaterloggedBoots`.
     WATERLOGGED_BOOTS, WATERLOGGED_BOOTS_CLASS, waterlogged_boots_new = "Server.Items.WaterloggedBoots" : BASE_SHOES / BASE_SHOES_CLASS, |w, ty, hue| new_clothing(w, ty, 0x1711, hue), hue 0, encoded false;
-    @init |w, id| {
-        // thigh boots or boots
-        let thigh = utility::random_bool(&mut w.rng);
-        super::item_id_of(w, id, if thigh { 0x1711 } else { 0x170B });
-    };
+    @template;
     @ty {
         default_weight: |w, id| if w.item(id).is_some_and(|i| i.item_id == 0x1711) { 4.0 } else { 3.0 },
         add_name_properties: |w, id, list| {

@@ -1,6 +1,7 @@
 [
   {
     "type": "Server.Items.CompositeBow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": [
@@ -21,6 +22,8 @@
   },
   {
     "type": "Server.Items.Crossbow",
+    "layer": "TwoHanded",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": 18,
@@ -41,6 +44,8 @@
   },
   {
     "type": "Server.Items.HeavyCrossbow",
+    "layer": "TwoHanded",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 80,
       "aosMinDamage": [
@@ -64,6 +69,7 @@
   },
   {
     "type": "Server.Items.JukaBow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 80,
       "aosDexReq": 80,
@@ -73,6 +79,7 @@
   },
   {
     "type": "Server.Items.RepeatingCrossbow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 30,
       "aosMinDamage": [
@@ -122,6 +129,7 @@
   },
   {
     "type": "Server.Items.LightweightShortbow",
+    "balanced": true,
     "props": {
       "labelNumber": 1073510
     }
@@ -158,6 +166,7 @@
     "type": "Server.Items.SlayerLongbow",
     "props": {
       "labelNumber": 1073506
-    }
+    },
+    "script": "content/equipment/slayer_longbow.rhai"
   }
 ]

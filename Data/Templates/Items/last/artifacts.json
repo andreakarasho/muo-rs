@@ -46,16 +46,37 @@
   },
   {
     "type": "Server.Items.WildfireBow",
+    "hue": 1161,
+    "skillBonuses": [
+      [
+        "Archery",
+        10.0
+      ]
+    ],
+    "weaponAttributes": {
+      "ResistFireBonus": 25
+    },
+    "velocity": 15,
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1075044
     }
   },
   {
     "type": "Server.Items.Windsong",
+    "hue": 247,
+    "attributes": {
+      "WeaponDamage": 35
+    },
+    "weaponAttributes": {
+      "SelfRepair": 3
+    },
+    "velocity": 25,
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1075031
     }
   },
   {
@@ -82,13 +103,40 @@
   },
   {
     "type": "Server.Items.WrathOfTheDryad",
+    "hue": 668,
+    "weaponAttributes": {
+      "HitLeechMana": 50,
+      "HitLightning": 33
+    },
+    "attributes": {
+      "AttackChance": 15,
+      "WeaponDamage": 40
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1070853
     }
   },
   {
     "type": "Server.Items.OrcChieftainHelm",
+    "hue": 675,
+    "attributes": {
+      "Luck": 100,
+      "RegenHits": 3
+    },
+    "coin": {
+      "then": {
+        "attributes": {
+          "BonusHits": 30
+        }
+      },
+      "else": {
+        "attributes": {
+          "AttackChance": 30
+        }
+      }
+    },
     "props": {
       "basePhysicalResistance": 23,
       "baseFireResistance": 1,
@@ -146,18 +194,31 @@
   },
   {
     "type": "Server.Items.TheRobeOfBritanniaAri",
+    "hue": 1163,
+    "strRequirement": 0,
     "props": {
       "labelNumber": 1094931
     }
   },
   {
     "type": "Server.Items.TheMostKnowledgePerson",
+    "hue": 279,
+    "strRequirement": 0,
     "props": {
       "labelNumber": 1094893
-    }
+    },
+    "script": "content/equipment/the_most_knowledge_person.rhai"
   },
   {
     "type": "Server.Items.EmbroideredOakLeafCloak",
+    "hue": 1155,
+    "strRequirement": 0,
+    "skillBonuses": [
+      [
+        "Stealth",
+        5.0
+      ]
+    ],
     "props": {
       "labelNumber": 1094901
     }
@@ -206,14 +267,106 @@
   },
   {
     "type": "Server.Items.DreadPirateHat",
+    "hue": 1175,
+    "oneOf": [
+      {
+        "skillBonuses": [
+          [
+            "Tactics",
+            10.0
+          ]
+        ]
+      },
+      {
+        "skillBonuses": [
+          [
+            "Archery",
+            10.0
+          ]
+        ]
+      },
+      {
+        "skillBonuses": [
+          [
+            "Swords",
+            10.0
+          ]
+        ]
+      },
+      {
+        "skillBonuses": [
+          [
+            "Macing",
+            10.0
+          ]
+        ]
+      },
+      {
+        "skillBonuses": [
+          [
+            "Fencing",
+            10.0
+          ]
+        ]
+      }
+    ],
+    "attributes": {
+      "BonusDex": 8,
+      "AttackChance": 10,
+      "NightSight": 1
+    },
     "props": {
       "labelNumber": 1063467
     }
   },
   {
     "type": "Server.Items.BurglarsBandana",
+    "coin": {
+      "then": {
+        "hue": 1420
+      },
+      "else": {
+        "hue": 16
+      }
+    },
+    "skillBonuses": [
+      [
+        "Stealing",
+        10.0
+      ],
+      [
+        "Stealth",
+        10.0
+      ],
+      [
+        "Snooping",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "BonusDex": 5
+    },
     "props": {
       "labelNumber": 1063473
     }
+  },
+  {
+    "type": "Server.Items.JacobsPickaxe",
+    "usesRemaining": 20,
+    "lootType": "Blessed",
+    "skillBonuses": [
+      [
+        "Mining",
+        10.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1077758
+    }
+  },
+  {
+    "type": "Server.Items.DetectiveBoots",
+    "hue": 1109,
+    "script": "content/equipment/detective_boots.rhai"
   }
 ]

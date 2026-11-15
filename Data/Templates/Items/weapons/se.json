@@ -208,6 +208,8 @@
   },
   {
     "type": "Server.Items.Yumi",
+    "layer": "TwoHanded",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": [

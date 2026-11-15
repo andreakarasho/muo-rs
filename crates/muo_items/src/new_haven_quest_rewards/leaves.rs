@@ -44,14 +44,7 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.ChurchillsWarMace`.
     CHURCHILLS_WAR_MACE, CHURCHILLS_WAR_MACE_CLASS, churchills_war_mace_new = "Server.Items.ChurchillsWarMace" : WAR_MACE / WAR_MACE_CLASS, via war_mace_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 70);
-    };
-    label_number: 1078062,
+    @json;
 }
 
 jewel_leaf! {
@@ -63,15 +56,7 @@ jewel_leaf! {
 weapon_art! {
     /// `Server.Items.EmberStaff`.
     EMBER_STAFF, EMBER_STAFF_CLASS, ember_staff_new = "Server.Items.EmberStaff" : QUARTER_STAFF / QUARTER_STAFF_CLASS, via quarter_staff_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitFireball as u32, 15);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::MageWeapon as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, -1);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 50);
-    };
-    label_number: 1077582,
+    @json;
 }
 
 armor_leaf! {
@@ -89,26 +74,13 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.Heartseeker`.
     HEARTSEEKER, HEARTSEEKER_CLASS, heartseeker_new = "Server.Items.Heartseeker" : COMPOSITE_BOW / COMPOSITE_BOW_CLASS, via composite_bow_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 70);
-    };
-    label_number: 1078210,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.JocklesQuicksword`.
     JOCKLES_QUICKSWORD, JOCKLES_QUICKSWORD_CLASS, jockles_quicksword_new = "Server.Items.JocklesQuicksword" : LONGSWORD / LONGSWORD_CLASS, via longsword_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-    };
-    label_number: 1077666,
+    @json;
 }
 
 clothing_leaf! {
@@ -125,13 +97,7 @@ clothing_leaf! {
 weapon_art! {
     /// `Server.Items.RecarosRiposte`.
     RECAROS_RIPOSTE, RECAROS_RIPOSTE_CLASS, recaros_riposte_new = "Server.Items.RecarosRiposte" : WAR_FORK / WAR_FORK_CLASS, via war_fork_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-    };
-    label_number: 1078195,
+    @json;
 }
 
 jewel_leaf! {
@@ -143,25 +109,13 @@ jewel_leaf! {
 weapon_art! {
     /// `Server.Items.SilverSerpentBlade`.
     SILVER_SERPENT_BLADE, SILVER_SERPENT_BLADE_CLASS, silver_serpent_blade_new = "Server.Items.SilverSerpentBlade" : KRYSS / KRYSS_CLASS, via kryss_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-    };
-    label_number: 1078163,
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.TheDragonsTail`.
     THE_DRAGONS_TAIL, THE_DRAGONS_TAIL_CLASS, the_dragons_tail_new = "Server.Items.TheDragonsTail" : NO_DACHI / NO_DACHI_CLASS, via no_dachi_new, enc;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 16);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 25);
-    };
-    label_number: 1078015,
+    @json;
 }
 
 armor_leaf! {

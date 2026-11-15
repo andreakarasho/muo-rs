@@ -86,13 +86,7 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.LeggingsOfBane`.
     LEGGINGS_OF_BANE, LEGGINGS_OF_BANE_CLASS, leggings_of_bane_new = "Server.Items.LeggingsOfBane" : CHAIN_LEGS / CHAIN_LEGS_CLASS, chain_legs_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4F5);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::DurabilityBonus as u32, 100);
-        max_and_hit_points(w, id, 255);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 20);
-    };
+    @template;
 }
 
 armor_leaf! {

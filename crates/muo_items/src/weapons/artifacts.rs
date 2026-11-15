@@ -17,14 +17,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.BladeOfTheRighteous`.
     BLADE_OF_THE_RIGHTEOUS, BLADE_OF_THE_RIGHTEOUS_CLASS, blade_of_the_righteous_new = "Server.Items.BladeOfTheRighteous" : LONGSWORD / LONGSWORD_CLASS, via longsword_new, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x47E);
-        ctor::set_slayer(w, id, SlayerName::Exorcism);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-    };
+    @json;
 }
 
 weapon_leaf! {
@@ -75,29 +68,14 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.TheDragonSlayer`.
     THE_DRAGON_SLAYER, THE_DRAGON_SLAYER_CLASS, the_dragon_slayer_new = "Server.Items.TheDragonSlayer" : LANCE / LANCE_CLASS, via lance_new, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x530);
-        ctor::set_slayer(w, id, SlayerName::DragonSlaying);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 110);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 20);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 100, chaos: 0, direct: 0 },
 }
 
 weapon_leaf! {
     /// `Server.Items.TheDryadBow`.
     THE_DRYAD_BOW, THE_DRYAD_BOW_CLASS, the_dryad_bow_new = "Server.Items.TheDryadBow" : BOW / BOW_CLASS, via bow_new, v0;
-    @init |w, id| {
-        ctor::set_item_id(w, id, 0x13B1);
-        ctor::set_hue(w, id, 0x48F);
-        const POSSIBLE: [SkillName; 6] = [SkillName::Archery, SkillName::Healing, SkillName::MagicResist, SkillName::Peacemaking, SkillName::Chivalry, SkillName::Ninjitsu]; let skill = *random_element(&mut w.rng, &POSSIBLE).unwrap(); let bonus = if random(&mut w.rng, 4) == 0 { 10.0 } else { 5.0 }; ctor::skill_bonus(w, id, 0, skill, bonus);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 50);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 15);
-    };
+    @json;
 }
 
 weapon_leaf! {
@@ -116,13 +94,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.ZyronicClaw`.
     ZYRONIC_CLAW, ZYRONIC_CLAW_CLASS, zyronic_claw_new = "Server.Items.ZyronicClaw" : EXECUTIONERS_AXE / EXECUTIONERS_AXE_CLASS, via executioners_axe_new, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x485);
-        ctor::set_slayer(w, id, SlayerName::ElementalBan);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 50);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 20, fire: 20, cold: 20, pois: 20, nrgy: 20, chaos: 0, direct: 0 },
 }
 
@@ -135,70 +107,35 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.ColdForgedBlade`.
     COLD_FORGED_BLADE, COLD_FORGED_BLADE_CLASS, cold_forged_blade_new = "Server.Items.ColdForgedBlade" : ELVEN_SPELLBLADE / ELVEN_SPELLBLADE_CLASS, via elven_spellblade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        let h = elemental_damage_hue(w, id); ctor::set_hue(w, id, h);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_leaf! {
     /// `Server.Items.FaerieFire`.
     FAERIE_FIRE, FAERIE_FIRE_CLASS, faerie_fire_new = "Server.Items.FaerieFire" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x489);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitFireball as u32, 25);
-        ctor::set_balanced(w, id, true);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 60);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_leaf! {
     /// `Server.Items.LuminousRuneBlade`.
     LUMINOUS_RUNE_BLADE, LUMINOUS_RUNE_BLADE_CLASS, luminous_rune_blade_new = "Server.Items.LuminousRuneBlade" : RUNE_BLADE / RUNE_BLADE_CLASS, via rune_blade_new, enc;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 55);
-        let h = elemental_damage_hue(w, id); ctor::set_hue(w, id, h);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 100, chaos: 0, direct: 0 },
 }
 
 weapon_leaf! {
     /// `Server.Items.MischiefMaker`.
     MISCHIEF_MAKER, MISCHIEF_MAKER_CLASS, mischief_maker_new = "Server.Items.MischiefMaker" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x8AB);
-        ctor::set_slayer(w, id, SlayerName::Silver);
-        ctor::set_balanced(w, id, true);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 35);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 45);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_leaf! {
     /// `Server.Items.OverseerSunderedBlade`.
     OVERSEER_SUNDERED_BLADE, OVERSEER_SUNDERED_BLADE_CLASS, overseer_sundered_blade_new = "Server.Items.OverseerSunderedBlade" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
-    @init |w, id| {
-        ctor::set_item_id(w, id, 0x2D27);
-        ctor::set_hue(w, id, 0x485);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenStam as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 35);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 45);
-        let h = elemental_damage_hue(w, id); ctor::set_hue(w, id, h);
-    };
+    @json;
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -231,14 +168,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.TheNightReaper`.
     THE_NIGHT_REAPER, THE_NIGHT_REAPER_CLASS, the_night_reaper_new = "Server.Items.TheNightReaper" : REPEATING_CROSSBOW / REPEATING_CROSSBOW_CLASS, via repeating_crossbow_new, v0;
-    @init |w, id| {
-        ctor::set_item_id(w, id, 0x26CD);
-        ctor::set_hue(w, id, 0x41C);
-        ctor::set_slayer(w, id, SlayerName::Exorcism);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 55);
-    };
+    @json;
 }
 
 pub fn register(types: &mut TypeRegistry) {

@@ -17,6 +17,7 @@
   },
   {
     "type": "Server.Items.GlassStaff",
+    "resource": "None",
     "props": {
       "aosStrReq": 20,
       "aosMinDamage": 11,
@@ -28,6 +29,7 @@
   },
   {
     "type": "Server.Items.GnarledStaff",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 20,
       "aosMinDamage": 15,
@@ -44,6 +46,7 @@
   },
   {
     "type": "Server.Items.QuarterStaff",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 30,
       "aosMinDamage": 11,
@@ -60,6 +63,7 @@
   },
   {
     "type": "Server.Items.SerpentstoneStaff",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 35,
       "aosMinDamage": 16,
@@ -71,6 +75,7 @@
   },
   {
     "type": "Server.Items.ShepherdsCrook",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 20,
       "aosMinDamage": 13,
@@ -94,8 +99,10 @@
   },
   {
     "type": "Server.Items.GlacialStaff",
+    "hue": 1152,
     "props": {
       "labelNumber": 1017413
-    }
+    },
+    "script": "content/equipment/glacial_staff.rhai"
   }
 ]

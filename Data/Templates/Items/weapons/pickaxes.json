@@ -18,6 +18,9 @@
   },
   {
     "type": "Server.Items.SturdyPickaxe",
+    "hue": 2419,
+    "usesRemaining": 180,
+    "weaponShowUsesRemaining": true,
     "props": {
       "aosStrReq": 50,
       "aosMinDamage": 13,

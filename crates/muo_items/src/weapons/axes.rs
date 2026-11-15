@@ -83,10 +83,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Pickaxe`.
     PICKAXE, PICKAXE_CLASS, pickaxe_new = "Server.Items.Pickaxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0xE86, v0;
-    @init |w, id| {
-        ctor::set_uses_remaining(w, id, 50);
-        ctor::set_show_uses_remaining(w, id, true);
-    };
+    @json;
     flippable: Some((0xE86, 0xE85)),
     default_weight: Some(11.0),
     harvest_system: Some("Mining"),

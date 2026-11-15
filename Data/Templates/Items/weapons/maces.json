@@ -169,6 +169,7 @@
   },
   {
     "type": "Server.Items.SilverEtchedMace",
+    "slayer": "Exorcism",
     "props": {
       "labelNumber": 1073532
     }

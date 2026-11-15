@@ -127,10 +127,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.Yumi`.
     YUMI, YUMI_CLASS, yumi_new = "Server.Items.Yumi" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x27A5, v0;
-    @init |w, id| {
-        ctor::set_layer(w, id, Layer::TwoHanded);
-        set_resource(w, id, CraftResource::RegularWood);
-    };
+    @json;
     flippable: Some((0x27A5, 0x27F0)),
     default_weight: Some(9.0),
     effect_id: 0xF42,

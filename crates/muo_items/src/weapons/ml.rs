@@ -32,9 +32,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.ElvenCompositeLongbow`.
     ELVEN_COMPOSITE_LONGBOW, ELVEN_COMPOSITE_LONGBOW_CLASS, elven_composite_longbow_new = "Server.Items.ElvenCompositeLongbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x2D1E, enc;
-    @init |w, id| {
-        set_resource(w, id, CraftResource::RegularWood);
-    };
+    @json;
     flippable: Some((0x2D1E, 0x2D2A)),
     default_weight: Some(8.0),
     effect_id: 0xF42,
@@ -76,9 +74,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.MagicalShortbow`.
     MAGICAL_SHORTBOW, MAGICAL_SHORTBOW_CLASS, magical_shortbow_new = "Server.Items.MagicalShortbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x2D2B, enc;
-    @init |w, id| {
-        set_resource(w, id, CraftResource::RegularWood);
-    };
+    @json;
     flippable: Some((0x2D2B, 0x2D1F)),
     default_weight: Some(6.0),
     effect_id: 0xF42,
@@ -131,9 +127,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.WildStaff`.
     WILD_STAFF, WILD_STAFF_CLASS, wild_staff_new = "Server.Items.WildStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0x2D25, enc;
-    @init |w, id| {
-        set_resource(w, id, CraftResource::RegularWood);
-    };
+    @json;
     flippable: Some((0x2D25, 0x2D31)),
     default_weight: Some(8.0),
     primary_ability: Some(Ability::Block),

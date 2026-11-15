@@ -203,6 +203,15 @@
   },
   {
     "type": "Server.Items.LeggingsOfBane",
+    "hue": 1269,
+    "armorAttributes": {
+      "DurabilityBonus": 100
+    },
+    "hitPoints": 255,
+    "attributes": {
+      "BonusStam": 8,
+      "AttackChance": 20
+    },
     "props": {
       "basePoisonResistance": 36,
       "initMinHits": 255,

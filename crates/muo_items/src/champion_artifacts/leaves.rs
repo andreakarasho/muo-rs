@@ -159,15 +159,7 @@ clothing_leaf! {
 weapon_art! {
     /// `Server.Items.BraveKnightOfTheBritannia`.
     BRAVE_KNIGHT_OF_THE_BRITANNIA, BRAVE_KNIGHT_OF_THE_BRITANNIA_CLASS, brave_knight_of_the_britannia_new = "Server.Items.BraveKnightOfTheBritannia" : KATANA / KATANA_CLASS, via katana_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x47e);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 48);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 26);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 22);
-    };
-    label_number: 1094909,
+    @json;
     can_fortify: false,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 40, cold: 30, pois: 10, nrgy: 20, chaos: 0, direct: 0 },
 }
@@ -199,28 +191,14 @@ clothing_leaf! {
 weapon_art! {
     /// `Server.Items.OblivionsNeedle`.
     OBLIVIONS_NEEDLE, OBLIVIONS_NEEDLE_CLASS, oblivions_needle_new = "Server.Items.OblivionsNeedle" : DAGGER / DAGGER_CLASS, via dagger_new, v0;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, -20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 50);
-    };
-    label_number: 1094916,
+    @json;
     can_fortify: false,
 }
 
 weapon_art! {
     /// `Server.Items.RoyalGuardSurvivalKnife`.
     ROYAL_GUARD_SURVIVAL_KNIFE, ROYAL_GUARD_SURVIVAL_KNIFE_CLASS, royal_guard_survival_knife_new = "Server.Items.RoyalGuardSurvivalKnife" : SKINNING_KNIFE / SKINNING_KNIFE_CLASS, via skinning_knife_new, v0;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 140);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::EnhancePotions as u32, 25);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 50);
-    };
-    label_number: 1094918,
+    @json;
     can_fortify: false,
 }
 
@@ -247,15 +225,7 @@ clothing_leaf! {
 weapon_art! {
     /// `Server.Items.Calm`.
     CALM, CALM_CLASS, calm_new = "Server.Items.Calm" : HALBERD / HALBERD_CLASS, via halberd_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x2cb);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1094915,
+    @json;
     can_fortify: false,
 }
 
@@ -276,16 +246,7 @@ clothing_leaf! {
 weapon_art! {
     /// `Server.Items.FangOfRactus`.
     FANG_OF_RACTUS, FANG_OF_RACTUS_CLASS, fang_of_ractus_new = "Server.Items.FangOfRactus" : KRYSS / KRYSS_CLASS, via kryss_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x117);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitPoisonArea as u32, 20);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 15);
-    };
-    label_number: 1094892,
+    @json;
     can_fortify: false,
 }
 
@@ -299,48 +260,21 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.Pacify`.
     PACIFY, PACIFY_CLASS, pacify_new = "Server.Items.Pacify" : PIKE / PIKE_CLASS, via pike_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x835);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1094929,
+    @json;
     can_fortify: false,
 }
 
 weapon_art! {
     /// `Server.Items.Quell`.
     QUELL, QUELL_CLASS, quell_new = "Server.Items.Quell" : BARDICHE / BARDICHE_CLASS, via bardiche_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x225);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1094928,
+    @json;
     can_fortify: false,
 }
 
 weapon_art! {
     /// `Server.Items.Subdue`.
     SUBDUE, SUBDUE_CLASS, subdue_new = "Server.Items.Subdue" : SCYTHE / SCYTHE_CLASS, via scythe_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x2cb);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1094930,
+    @json;
     can_fortify: false,
 }
 

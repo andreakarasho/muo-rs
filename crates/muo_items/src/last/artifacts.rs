@@ -27,14 +27,7 @@ use muo_server::type_registry::TypeRegistry;
 clothing_leaf! {
     /// `Server.Items.BurglarsBandana`.
     BURGLARS_BANDANA, BURGLARS_BANDANA_CLASS, burglars_bandana_new = "Server.Items.BurglarsBandana" : BANDANA / BANDANA_CLASS, bandana_new, hue 0, encoded false;
-    @init |w, id| {
-        let h = if random_bool(w) { 0x58C } else { 0x10 };
-        hue(w, id, h);
-        skill_bonus(w, id, 0, SkillName::Stealing, 10.0);
-        skill_bonus(w, id, 1, SkillName::Stealth, 10.0);
-        skill_bonus(w, id, 2, SkillName::Snooping, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-    };
+    @template;
     base_physical_resistance: 10,
     base_fire_resistance: 5,
     base_cold_resistance: 7,
@@ -56,14 +49,7 @@ const COMBAT_SKILLS: [SkillName; 5] = [
 clothing_leaf! {
     /// `Server.Items.DreadPirateHat`.
     DREAD_PIRATE_HAT, DREAD_PIRATE_HAT_CLASS, dread_pirate_hat_new = "Server.Items.DreadPirateHat" : TRICORNE_HAT / TRICORNE_HAT_CLASS, tricorne_hat_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x497);
-        let i = random(w, COMBAT_SKILLS.len() as i32) as usize;
-        skill_bonus(w, id, 0, COMBAT_SKILLS[i], 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-    };
+    @template;
     base_cold_resistance: 14,
     base_poison_resistance: 10,
     init_min_hits: same(255),
@@ -112,26 +98,14 @@ clothing_leaf! {
 weapon_art! {
     /// `Server.Items.WildfireBow`.
     WILDFIRE_BOW, WILDFIRE_BOW_CLASS, wildfire_bow_new = "Server.Items.WildfireBow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x489);
-        skill_bonus(w, id, 0, SkillName::Archery, 10.0);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 25);
-        crate::weapons::ctor::set_velocity(w, id, 15);
-    };
-    label_number: 1075044,
+    @json;
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
     /// `Server.Items.Windsong`.
     WINDSONG, WINDSONG_CLASS, windsong_new = "Server.Items.Windsong" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0xF7);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 3);
-        crate::weapons::ctor::set_velocity(w, id, 25);
-    };
-    label_number: 1075031,
+    @json;
 }
 
 // ---- Minor Artifacts ----
@@ -149,16 +123,9 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.WrathOfTheDryad`.
     WRATH_OF_THE_DRYAD, WRATH_OF_THE_DRYAD_CLASS, wrath_of_the_dryad_new = "Server.Items.WrathOfTheDryad" : GNARLED_STAFF / GNARLED_STAFF_CLASS, via gnarled_staff_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x29C);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 33);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-    };
+    @json;
     primary_ability: Some(muo_content::items::weapon::Ability::ConcussionBlow),
     secondary_ability: Some(muo_content::items::weapon::Ability::ParalyzingBlow),
-    label_number: 1070853,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 100, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -187,11 +154,7 @@ fn detective_level(w: &World, id: ItemId) -> i32 {
 clothing_leaf! {
     /// `Server.Items.DetectiveBoots`.
     DETECTIVE_BOOTS, DETECTIVE_BOOTS_CLASS, detective_boots_new = "Server.Items.DetectiveBoots" : BOOTS / BOOTS_CLASS, boots_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        let level = crate::simple::random_min_max(w, 0, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 2 + level);
-    };
+    @template;
     @ty {
         label_number: |w, id| 1094894 + detective_level(w, id),
     };
@@ -203,11 +166,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.EmbroideredOakLeafCloak`.
     EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x483);
-        muo_content::items::clothing::set_str_requirement(w, id, 0);
-        skill_bonus(w, id, 0, SkillName::Stealth, 5.0);
-    };
+    @template;
     init_min_hits: same(150),
     init_max_hits: same(150),
     can_fortify: false,
@@ -216,12 +175,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.TheMostKnowledgePerson`.
     THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x117);
-        muo_content::items::clothing::set_str_requirement(w, id, 0);
-        let bonus = 3 + crate::simple::random_min_max(w, 0, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, bonus);
-    };
+    @template;
     init_min_hits: same(150),
     init_max_hits: same(150),
     can_fortify: false,
@@ -231,10 +185,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.TheRobeOfBritanniaAri`.
     THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x48b);
-        muo_content::items::clothing::set_str_requirement(w, id, 0);
-    };
+    @template;
     base_physical_resistance: 10,
     init_min_hits: same(150),
     init_max_hits: same(150),
@@ -244,16 +195,7 @@ clothing_leaf! {
 armor_leaf! {
     /// `Server.Items.OrcChieftainHelm`.
     ORC_CHIEFTAIN_HELM, ORC_CHIEFTAIN_HELM_CLASS, orc_chieftain_helm_new = "Server.Items.OrcChieftainHelm" : ORC_HELM / ORC_HELM_CLASS, orc_helm_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x2a3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 100);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 3);
-        if random_bool(w) {
-            set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 30);
-        } else {
-            set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 30);
-        }
-    };
+    @template;
     can_fortify: false,
 }
 
@@ -275,12 +217,7 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.JacobsPickaxe`.
     JACOBS_PICKAXE, JACOBS_PICKAXE_CLASS, jacobs_pickaxe_new = "Server.Items.JacobsPickaxe" : PICKAXE / PICKAXE_CLASS, via pickaxe_new, enc;
-    @init |w, id| {
-        crate::weapons::ctor::set_uses_remaining(w, id, 20);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        skill_bonus(w, id, 0, SkillName::Mining, 10.0);
-    };
-    label_number: 1077758,
+    @json;
 }
 
 // ---- hand-written: statuettes, instruments, talismans, quivers, tools, spellbook ----

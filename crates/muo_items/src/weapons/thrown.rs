@@ -5,26 +5,13 @@ use super::*;
 weapon_leaf! {
     /// `Server.Items.AbyssReaver`.
     ABYSS_REAVER, ABYSS_REAVER_CLASS, abyss_reaver_new = "Server.Items.AbyssReaver" : CYCLONE / CYCLONE_CLASS, via cyclone_new, enc;
-    @init |w, id| {
-        let b = f64::from(random_min_max(w, 5, 10)); ctor::skill_bonus(w, id, 0, SkillName::Throwing, b);
-        let v = random_min_max(w, 25, 35); set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, v);
-        ctor::set_slayer(w, id, SlayerName::Exorcism);
-    };
+    
 }
 
 weapon_leaf! {
     /// `Server.Items.BansheesCall`.
     BANSHEES_CALL, BANSHEES_CALL_CLASS, banshees_call_new = "Server.Items.BansheesCall" : CYCLONE / CYCLONE_CLASS, via cyclone_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 1266);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 45);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        ctor::set_velocity(w, id, 35);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, 100);
-    };
+    @json;
 }
 
 weapon_leaf! {
@@ -56,14 +43,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.RaptorClaw`.
     RAPTOR_CLAW, RAPTOR_CLAW_CLASS, raptor_claw_new = "Server.Items.RaptorClaw" : BOOMERANG / BOOMERANG_CLASS, via boomerang_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 53);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 12);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        ctor::set_slayer(w, id, SlayerName::Silver);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 40);
-    };
+    @json;
 }
 
 weapon_leaf! {
@@ -82,14 +62,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.StoneSlithClaw`.
     STONE_SLITH_CLAW, STONE_SLITH_CLAW_CLASS, stone_slith_claw_new = "Server.Items.StoneSlithClaw" : CYCLONE / CYCLONE_CLASS, via cyclone_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 1150);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 25);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 45);
-        ctor::set_slayer(w, id, SlayerName::DaemonDismissal);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitHarm as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 40);
-    };
+    @json;
 }
 
 weapon_leaf! {
@@ -101,29 +74,13 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.ValkyriesGlaive`.
     VALKYRIES_GLAIVE, VALKYRIES_GLAIVE_CLASS, valkyries_glaive_new = "Server.Items.ValkyriesGlaive" : SOUL_GLAIVE / SOUL_GLAIVE_CLASS, via soul_glaive_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 1651);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 20);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 20);
-        ctor::set_slayer(w, id, SlayerName::Silver);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitFireball as u32, 40);
-    };
+    @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.WindOfCorruption`.
     WIND_OF_CORRUPTION, WIND_OF_CORRUPTION_CLASS, wind_of_corruption_new = "Server.Items.WindOfCorruption" : CYCLONE / CYCLONE_CLASS, via cyclone_new, enc;
-    @init |w, id| {
-        ctor::set_hue(w, id, 1171);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 40);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponSpeed as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 50);
-        ctor::set_slayer(w, id, SlayerName::Fey);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Chaos as u32, 100);
-    };
+    @json;
 }
 
 pub fn register(types: &mut TypeRegistry) {

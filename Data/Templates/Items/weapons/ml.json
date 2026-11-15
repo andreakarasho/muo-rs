@@ -34,6 +34,7 @@
   },
   {
     "type": "Server.Items.ElvenCompositeLongbow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": 12,
@@ -104,6 +105,7 @@
   },
   {
     "type": "Server.Items.MagicalShortbow",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 45,
       "aosMinDamage": 9,
@@ -194,6 +196,7 @@
   },
   {
     "type": "Server.Items.WildStaff",
+    "resource": "RegularWood",
     "props": {
       "aosStrReq": 15,
       "aosMinDamage": 10,

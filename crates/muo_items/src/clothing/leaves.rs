@@ -425,9 +425,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.MonkRobe`.
     MONK_ROBE, MONK_ROBE_CLASS, monk_robe_new = "Server.Items.MonkRobe" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2687, hue), hue 0x21E, encoded false;
-    @init |w, id| {
-        clothing::set_str_requirement(w, id, 0);
-    };
+    @template;
     dye: dye_refused,
     default_weight: Some(1.0),
     can_be_blessed: false,

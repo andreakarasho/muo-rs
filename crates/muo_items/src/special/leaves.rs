@@ -33,16 +33,7 @@ use muo_server::type_registry::TypeRegistry;
 weapon_art! {
     /// `Server.Items.HolySword`.
     HOLY_SWORD, HOLY_SWORD_CLASS, holy_sword_new = "Server.Items.HolySword" : LONGSWORD / LONGSWORD_CLASS, via longsword_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x482);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::Silver);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1062921,
+    @json;
 }
 
 armor_leaf! {
@@ -54,15 +45,7 @@ armor_leaf! {
 weapon_art! {
     /// `Server.Items.ShaminoCrossbow`.
     SHAMINO_CROSSBOW, SHAMINO_CROSSBOW_CLASS, shamino_crossbow_new = "Server.Items.ShaminoCrossbow" : REPEATING_CROSSBOW / REPEATING_CROSSBOW_CLASS, via repeating_crossbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x504);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-    };
-    label_number: 1062915,
+    @json;
 }
 
 /// `MinotaurHedge()`.
