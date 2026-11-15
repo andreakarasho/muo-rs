@@ -150,7 +150,9 @@ fn dupe_copies_header_and_pages() {
 
 #[test]
 fn content_match() {
-    let c = &defined::DRAKOVS_JOURNAL_CONTENT;
+    let mut w = crate::test_world();
+    let id = (defined::DRAKOVS_JOURNAL.construct.unwrap())(&mut w);
+    let c = default_content(&w, id).unwrap();
     assert!(c.is_match(&c.copy()));
     let mut changed = c.copy();
     changed.pop();

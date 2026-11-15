@@ -607,10 +607,27 @@ fn organ_is_cuttable(w: &World, id: ItemId) -> bool {
 fn organ_initialize(w: &mut World, id: ItemId) {
     if is(w, id, &PLAGUE_BEAST_RUBBLE_ORGAN) {
         rubble_initialize(w, id);
-    } else if is(w, id, &PLAGUE_BEAST_BACKUP_ORGAN) {
-        backup_initialize(w, id);
-    } else if is(w, id, &PLAGUE_BEAST_MAIN_ORGAN) {
-        main_initialize(w, id);
+    } else {
+        add_prop_components(w, id);
+    }
+}
+
+/// `Initialize()` of an organ with a fixed layout: its `"organComponents"` prop, `[[itemID, hue, x, y], ..]` in
+/// `AddComponent` order.
+fn add_prop_components(w: &mut World, id: ItemId) {
+    use muo_content::templates::props;
+    let Some(list) = props::item(w, id, "organComponents").and_then(|v| v.as_array()) else {
+        return;
+    };
+    let rows: Vec<[i32; 4]> = list
+        .iter()
+        .filter_map(|r| {
+            let n = |i| props::as_i32(r.get(i));
+            Some([n(0)?, n(1)?, n(2)?, n(3)?])
+        })
+        .collect();
+    for [g, h, x, y] in rows {
+        add_comp(w, id, g, h, x, y);
     }
 }
 
@@ -942,16 +959,6 @@ fn rubble_on_vein_cut(w: &mut World, id: ItemId, from: MobileId, vein: ItemId) {
 
 // Backup
 
-fn backup_initialize(w: &mut World, id: ItemId) {
-    add_comp(w, id, 0x1B1B, 0x42, 16, 39);
-    add_comp(w, id, 0x1B1B, 0x42, 39, 49);
-    add_comp(w, id, 0x1B1B, 0x42, 39, 48);
-    add_comp(w, id, 0x1B1B, 0x42, 44, 42);
-    add_comp(w, id, 0x1CF2, 0x42, 20, 34);
-    add_comp(w, id, 0x135F, 0x42, 47, 58);
-    add_comp(w, id, 0x1360, 0x42, 70, 68);
-}
-
 fn backup_finish_healing(w: &mut World, id: ItemId) {
     let comps = pb(w, id).components;
     for c in comps.iter().take(7).flatten() {
@@ -971,26 +978,6 @@ fn backup_open_organ(w: &mut World, id: ItemId) {
 }
 
 // Main
-
-fn main_initialize(w: &mut World, id: ItemId) {
-    // receptacles
-    add_comp(w, id, 0x1B1B, 0x42, -36, -2);
-    add_comp(w, id, 0x1FB3, 0x42, -42, 0);
-    add_comp(w, id, 0x9DF, 0x42, -53, -7);
-    add_comp(w, id, 0x1B1C, 0x54, 29, 9);
-    add_comp(w, id, 0x1D06, 0x54, 18, -2);
-    add_comp(w, id, 0x9DF, 0x54, 36, -1);
-    add_comp(w, id, 0x1D10, 0x2B, -36, 47);
-    add_comp(w, id, 0x1B1C, 0x2B, -24, 62);
-    add_comp(w, id, 0x9DF, 0x2B, -41, 74);
-    add_comp(w, id, 0x1B1B, 0x60, 39, 56);
-    add_comp(w, id, 0x1FB4, 0x60, 34, 52);
-    add_comp(w, id, 0x9DF, 0x60, 45, 71);
-    // main part
-    add_comp(w, id, 0x1351, 0x15, 23, 0);
-    add_comp(w, id, 0x134F, 0x15, -22, 0);
-    add_comp(w, id, 0x1350, 0x15, 0, 0);
-}
 
 fn main_finish_opening(w: &mut World, id: ItemId) {
     add_comp(w, id, 0x1363, 0x1, 0, 22);

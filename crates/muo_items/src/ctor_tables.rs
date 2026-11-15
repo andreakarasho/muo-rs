@@ -186,7 +186,7 @@ static C_SERVER_ITEMS_BARKFRAGMENT: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.BarkFragment");
-            EntityId::Item(crate::resources::leaves::bark_fragment_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -288,7 +288,7 @@ static C_SERVER_ITEMS_BLUEDIAMOND: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.BlueDiamond");
-            EntityId::Item(crate::resources::leaves::blue_diamond_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -385,7 +385,7 @@ static C_SERVER_ITEMS_BRILLIANTAMBER: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.BrilliantAmber");
-            EntityId::Item(crate::resources::leaves::brilliant_amber_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -635,7 +635,7 @@ static C_SERVER_ITEMS_CORRUPTION: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.Corruption");
-            EntityId::Item(crate::resources::leaves::corruption_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -710,7 +710,7 @@ static C_SERVER_ITEMS_DARKSAPPHIRE: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.DarkSapphire");
-            EntityId::Item(crate::resources::leaves::dark_sapphire_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -785,7 +785,7 @@ static C_SERVER_ITEMS_DISEASEDBARK: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.DiseasedBark");
-            EntityId::Item(crate::resources::leaves::diseased_bark_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -854,7 +854,7 @@ static C_SERVER_ITEMS_DREADHORNMANE: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.DreadHornMane");
-            EntityId::Item(crate::resources::leaves::dread_horn_mane_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -927,7 +927,7 @@ static C_SERVER_ITEMS_ECRUCITRINE: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.EcruCitrine");
-            EntityId::Item(crate::resources::leaves::ecru_citrine_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -1085,7 +1085,7 @@ static C_SERVER_ITEMS_EYEOFTHETRAVESTY: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.EyeOfTheTravesty");
-            EntityId::Item(crate::resources::leaves::eye_of_the_travesty_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -1171,7 +1171,7 @@ static C_SERVER_ITEMS_FIRERUBY: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.FireRuby");
-            EntityId::Item(crate::resources::leaves::fire_ruby_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -1483,7 +1483,7 @@ static C_SERVER_ITEMS_GRIZZLEDBONES: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.GrizzledBones");
-            EntityId::Item(crate::resources::leaves::grizzled_bones_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -1823,7 +1823,7 @@ static C_SERVER_ITEMS_LARDOFPAROXYSMUS: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.LardOfParoxysmus");
-            EntityId::Item(crate::resources::leaves::lard_of_paroxysmus_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -2215,7 +2215,7 @@ static C_SERVER_ITEMS_MUCULENT: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.Muculent");
-            EntityId::Item(crate::resources::leaves::muculent_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -2357,7 +2357,7 @@ static C_SERVER_ITEMS_PARASITICPLANT: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.ParasiticPlant");
-            EntityId::Item(crate::resources::leaves::parasitic_plant_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -2376,7 +2376,7 @@ static C_SERVER_ITEMS_PERFECTEMERALD: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.PerfectEmerald");
-            EntityId::Item(crate::resources::leaves::perfect_emerald_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -2504,7 +2504,7 @@ static C_SERVER_ITEMS_PUTREFICATION: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.Putrefication");
-            EntityId::Item(crate::resources::leaves::putrefication_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -2808,7 +2808,7 @@ static C_SERVER_ITEMS_SCOURGE: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.Scourge");
-            EntityId::Item(crate::resources::leaves::scourge_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -3308,7 +3308,7 @@ static C_SERVER_ITEMS_SWITCHITEM: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.SwitchItem");
-            EntityId::Item(crate::resources::leaves::switch_item_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -3335,7 +3335,7 @@ static C_SERVER_ITEMS_TAINT: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.Taint");
-            EntityId::Item(crate::resources::leaves::taint_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {
@@ -3551,7 +3551,7 @@ static C_SERVER_ITEMS_TURQUOISE: [Ctor; 2] = [
         params: &[Param { name: "amountFrom", kind: INT, default: None, ty: "" }, Param { name: "amountTo", kind: INT, default: None, ty: "" }],
         make: |w, v| {
             let ty = item_ty(w, "Server.Items.Turquoise");
-            EntityId::Item(crate::resources::leaves::turquoise_new_1(w, ty, v[0].i32(), v[1].i32()))
+            EntityId::Item(crate::resources::leaves::amount_range_new(w, ty, v[0].i32(), v[1].i32()))
         },
     },
     Ctor {

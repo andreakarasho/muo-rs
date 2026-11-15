@@ -32,11 +32,6 @@ pub struct BoardData {
     pub level: i32,
 }
 
-/// `CreatePieces()`, the abstract member of `BaseBoard`.
-pub struct BoardClass {
-    pub create_pieces: fn(&mut World, ItemId),
-}
-
 pub fn board_level(w: &World, id: ItemId) -> i32 {
     w.item(id)
         .and_then(|i| i.ext.get::<BoardData>())
@@ -54,9 +49,40 @@ pub fn board_new(w: &mut World, ty: &'static ItemType, name: &str) -> ItemId {
     id
 }
 
+/// `CreatePieces()`: the board class's `"boardPieces"` prop, `[["<piece class>", x, y], ..]` in creation order.
 fn create_pieces(w: &mut World, id: ItemId) {
-    if let Some(c) = w.item(id).and_then(|i| i.ty.family::<BoardClass>()) {
-        (c.create_pieces)(w, id);
+    use muo_content::templates::props;
+    let Some(list) = props::item(w, id, "boardPieces").and_then(|v| v.as_array()) else {
+        return;
+    };
+    let pieces: Vec<(&str, i32, i32)> = list
+        .iter()
+        .filter_map(|e| {
+            let name = e.get(0)?.as_str()?;
+            Some((name, props::as_i32(e.get(1))?, props::as_i32(e.get(2))?))
+        })
+        .collect();
+    let mut made = Vec::with_capacity(pieces.len());
+    for (name, x, y) in pieces {
+        // this crate's pieces first: a test world registers no classes
+        let ty = PIECES
+            .iter()
+            .copied()
+            .find(|t| t.full_name == name)
+            .or_else(|| match w.types.find_type_by_full_name(name, false) {
+                Some(muo_server::type_registry::EntityType::Item(t)) if t.is(&BASE_PIECE) => {
+                    Some(t)
+                }
+                _ => None,
+            });
+        match ty {
+            Some(t) => made.push((t, x, y)),
+            None => tracing::warn!("boardPieces: {name} is not a piece class"),
+        }
+    }
+    for (t, x, y) in made {
+        let p = piece_new(w, t, id);
+        create_piece(w, id, p, x, y);
     }
 }
 
@@ -193,16 +219,11 @@ fn deserialize_board(w: &mut World, id: ItemId, r: &mut dyn GenericReader) -> mu
     Ok(())
 }
 
-pub static BASE_BOARD_CLASS: BoardClass = BoardClass {
-    create_pieces: |_, _| {},
-};
-
 /// `Server.Items.BaseBoard` (abstract: `construct` is `None`).
 pub static BASE_BOARD: ItemType = ItemType {
     full_name: "Server.Items.BaseBoard",
     parent: Some(&CONTAINER),
     construct: None,
-    family: Some(&BASE_BOARD_CLASS),
     contents_decay: |_, _| false, // pieces are part of the board
     default_weight: crate::class_props::default_weight,
     displays_content: |_, _| false, // Do not display (x items, y stones)
@@ -217,19 +238,12 @@ pub static BASE_BOARD: ItemType = ItemType {
 };
 
 macro_rules! board_leaf {
-    (
-        $(#[$m:meta])*
-        $name:ident, $class:ident = $full:literal;
-        pieces |$w:ident, $id:ident| $pieces:block
-    ) => {
-        pub static $class: BoardClass = BoardClass { create_pieces: |$w, $id| $pieces };
-
+    ($(#[$m:meta])* $name:ident = $full:literal;) => {
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_BOARD),
             construct: Some(|w| board_new(w, &$name, $full)),
-            family: Some(&$class),
             label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 serialize_board(w, id, out);
@@ -245,78 +259,19 @@ macro_rules! board_leaf {
     };
 }
 
-/// `new PieceX(this)` placed at `(x, y)`.
-fn put(w: &mut World, board: ItemId, piece: &'static ItemType, x: i32, y: i32) {
-    let p = piece_new(w, piece, board);
-    create_piece(w, board, p, x, y);
-}
-
 board_leaf! {
     /// `Server.Items.Backgammon`; `[Flippable(0xE1C, 0xFAD)]`.
-    BACKGAMMON, BACKGAMMON_CLASS = "Server.Items.Backgammon";
-    pieces |w, id| {
-        for i in 0..5 {
-            put(w, id, &PIECE_WHITE_CHECKER, 42, 17 * i + 6);
-            put(w, id, &PIECE_BLACK_CHECKER, 42, 17 * i + 119);
-            put(w, id, &PIECE_BLACK_CHECKER, 142, 17 * i + 6);
-            put(w, id, &PIECE_WHITE_CHECKER, 142, 17 * i + 119);
-        }
-        for i in 0..3 {
-            put(w, id, &PIECE_BLACK_CHECKER, 108, 17 * i + 6);
-            put(w, id, &PIECE_WHITE_CHECKER, 108, 17 * i + 153);
-        }
-        for i in 0..2 {
-            put(w, id, &PIECE_WHITE_CHECKER, 223, 17 * i + 6);
-            put(w, id, &PIECE_BLACK_CHECKER, 223, 17 * i + 170);
-        }
-    }
+    BACKGAMMON = "Server.Items.Backgammon";
 }
 
 board_leaf! {
     /// `Server.Items.CheckerBoard`.
-    CHECKER_BOARD, CHECKER_BOARD_CLASS = "Server.Items.CheckerBoard";
-    pieces |w, id| {
-        for i in 0..4 {
-            put(w, id, &PIECE_WHITE_CHECKER, 50 * i + 45, 25);
-            put(w, id, &PIECE_WHITE_CHECKER, 50 * i + 70, 50);
-            put(w, id, &PIECE_WHITE_CHECKER, 50 * i + 45, 75);
-            put(w, id, &PIECE_BLACK_CHECKER, 50 * i + 70, 150);
-            put(w, id, &PIECE_BLACK_CHECKER, 50 * i + 45, 175);
-            put(w, id, &PIECE_BLACK_CHECKER, 50 * i + 70, 200);
-        }
-    }
+    CHECKER_BOARD = "Server.Items.CheckerBoard";
 }
 
 board_leaf! {
     /// `Server.Items.Chessboard`.
-    CHESSBOARD, CHESSBOARD_CLASS = "Server.Items.Chessboard";
-    pieces |w, id| {
-        for i in 0..8 {
-            put(w, id, &PIECE_BLACK_PAWN, 67, 25 * i + 17);
-            put(w, id, &PIECE_WHITE_PAWN, 192, 25 * i + 17);
-        }
-        // Rook
-        put(w, id, &PIECE_BLACK_ROOK, 42, 5);
-        put(w, id, &PIECE_BLACK_ROOK, 42, 180);
-        put(w, id, &PIECE_WHITE_ROOK, 216, 5);
-        put(w, id, &PIECE_WHITE_ROOK, 216, 180);
-        // Knight
-        put(w, id, &PIECE_BLACK_KNIGHT, 42, 30);
-        put(w, id, &PIECE_BLACK_KNIGHT, 42, 155);
-        put(w, id, &PIECE_WHITE_KNIGHT, 216, 30);
-        put(w, id, &PIECE_WHITE_KNIGHT, 216, 155);
-        // Bishop
-        put(w, id, &PIECE_BLACK_BISHOP, 42, 55);
-        put(w, id, &PIECE_BLACK_BISHOP, 42, 130);
-        put(w, id, &PIECE_WHITE_BISHOP, 216, 55);
-        put(w, id, &PIECE_WHITE_BISHOP, 216, 130);
-        // Queen
-        put(w, id, &PIECE_BLACK_QUEEN, 42, 105);
-        put(w, id, &PIECE_WHITE_QUEEN, 216, 105);
-        // King
-        put(w, id, &PIECE_BLACK_KING, 42, 80);
-        put(w, id, &PIECE_WHITE_KING, 216, 80);
-    }
+    CHESSBOARD = "Server.Items.Chessboard";
 }
 
 // ---- BasePiece ----

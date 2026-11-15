@@ -222,9 +222,9 @@ fn plant_seed_round_trips() {
 #[test]
 fn khaldun_books_have_their_pages() {
     use crate::khaldun::books;
-    assert_eq!(books::GRIMMOCH_JOURNAL1_CONTENT.pages.len(), 5);
     let mut w = World::new();
-    let id = books::grimmoch_journal1_new(&mut w);
+    let id = books::khaldun_book_new(&mut w, &books::GRIMMOCH_JOURNAL1);
+    assert_eq!(muo_items::books::data(&w, id).unwrap().pages.len(), 5);
     let g = w.item(id).unwrap().item_id;
     assert!(g == 0xFF1 || g == 0xFF2);
     let bytes = save(&w, id);

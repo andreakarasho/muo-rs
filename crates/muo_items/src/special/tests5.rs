@@ -139,3 +139,67 @@ fn track_tables() {
     }
     let _ = Point3D::default();
 }
+
+#[test]
+fn fixed_organs_lay_out_their_components() {
+    use super::mutation;
+    type Make = fn(&mut muo_server::World) -> muo_server::ids::ItemId;
+    type Layout = &'static [(i32, i32, i32, i32)];
+    let backup: Layout = &[
+        (0x1B1B, 0x42, 16, 39),
+        (0x1B1B, 0x42, 39, 49),
+        (0x1B1B, 0x42, 39, 48),
+        (0x1B1B, 0x42, 44, 42),
+        (0x1CF2, 0x42, 20, 34),
+        (0x135F, 0x42, 47, 58),
+        (0x1360, 0x42, 70, 68),
+    ];
+    let main: Layout = &[
+        (0x1B1B, 0x42, -36, -2),
+        (0x1FB3, 0x42, -42, 0),
+        (0x9DF, 0x42, -53, -7),
+        (0x1B1C, 0x54, 29, 9),
+        (0x1D06, 0x54, 18, -2),
+        (0x9DF, 0x54, 36, -1),
+        (0x1D10, 0x2B, -36, 47),
+        (0x1B1C, 0x2B, -24, 62),
+        (0x9DF, 0x2B, -41, 74),
+        (0x1B1B, 0x60, 39, 56),
+        (0x1FB4, 0x60, 34, 52),
+        (0x9DF, 0x60, 45, 71),
+        (0x1351, 0x15, 23, 0),
+        (0x134F, 0x15, -22, 0),
+        (0x1350, 0x15, 0, 0),
+    ];
+    let cases: [(Make, Layout); 2] = [
+        (mutation::plague_beast_backup_organ_new, backup),
+        (mutation::plague_beast_main_organ_new, main),
+    ];
+    for (make, want) in cases {
+        let mut w = crate::test_world();
+        let o = make(&mut w);
+        let at = muo_primitives::Point3D::new(1000, 1000, 5);
+        muo_server::item::ops::set_location(&mut w, o, at);
+        // `Initialize()` runs on the next tick
+        for _ in 0..4 {
+            w.tick_count += muo_server::timer::TICK_RATE;
+            muo_server::timer::slice(&mut w);
+        }
+        let comps = w
+            .item(o)
+            .unwrap()
+            .ext
+            .get::<mutation::Pb>()
+            .unwrap()
+            .components
+            .clone();
+        let got: Vec<_> = comps
+            .iter()
+            .map(|c| {
+                let i = w.item(c.unwrap()).unwrap();
+                (i.item_id, i.hue, i.location.x - at.x, i.location.y - at.y)
+            })
+            .collect();
+        assert_eq!(got, want);
+    }
+}

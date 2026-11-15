@@ -21,41 +21,43 @@ pub mod defined;
 #[cfg(test)]
 mod tests;
 
-/// `BookContent`: the fixed text of a defined book.
-pub struct BookContent {
-    pub title: &'static str,
-    pub author: &'static str,
-    pub pages: &'static [&'static [&'static str]],
+/// `BookContent`: the fixed text of a defined book, the `"bookContent"` prop of its class template
+/// (`{"title": .., "author": .., "pages": [[line, ..], ..]}`).
+#[derive(Clone, Copy)]
+pub struct BookContent<'a> {
+    pub title: &'a str,
+    pub author: &'a str,
+    pub pages: &'a [serde_json::Value],
 }
 
-impl BookContent {
+/// The lines of one page of a `"bookContent"` prop.
+fn page_lines(page: &serde_json::Value) -> &[serde_json::Value] {
+    page.as_array().map_or(&[], Vec::as_slice)
+}
+
+impl BookContent<'_> {
     /// `Copy()`.
     pub fn copy(&self) -> Vec<Vec<String>> {
         self.pages
             .iter()
-            .map(|p| p.iter().map(|l| (*l).to_string()).collect())
+            .map(|p| {
+                page_lines(p)
+                    .iter()
+                    .map(|l| l.as_str().unwrap_or_default().to_string())
+                    .collect()
+            })
             .collect()
     }
 
     /// `IsMatch(cmp)`.
     pub fn is_match(&self, cmp: &[Vec<String>]) -> bool {
         cmp.len() == self.pages.len()
-            && self
-                .pages
-                .iter()
-                .zip(cmp)
-                .all(|(a, b)| a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x == y))
+            && self.pages.iter().zip(cmp).all(|(a, b)| {
+                let a = page_lines(a);
+                a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x.as_str() == Some(y))
+            })
     }
 }
-
-/// `BaseBook.DefaultContent`, the one virtual of the family.
-pub struct BookClass {
-    pub default_content: Option<&'static BookContent>,
-}
-
-pub static BASE_BOOK_CLASS: BookClass = BookClass {
-    default_content: None,
-};
 
 /// What `BaseBook` adds to an `Item`: `[SerializableField]` 0..4.
 #[derive(Clone, Debug, Default)]
@@ -82,9 +84,14 @@ pub fn is_book(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.ty.is(&BASE_BOOK))
 }
 
-/// `DefaultContent` of the item's class.
-pub fn default_content(w: &World, id: ItemId) -> Option<&'static BookContent> {
-    w.item(id)?.ty.family::<BookClass>()?.default_content
+/// `DefaultContent` of the item's class: its `"bookContent"` prop.
+pub fn default_content(w: &World, id: ItemId) -> Option<BookContent<'_>> {
+    let v = muo_content::templates::props::item(w, id, "bookContent")?;
+    Some(BookContent {
+        title: v.get("title")?.as_str()?,
+        author: v.get("author")?.as_str()?,
+        pages: v.get("pages")?.as_array()?,
+    })
 }
 
 /// `BaseBook(itemID, title, author, pageCount, writable)` of class `ty`; `BaseBook(itemID, pageCount = 20,
@@ -99,7 +106,8 @@ pub fn new_book(
     writable: bool,
 ) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
-    let content = ty.family::<BookClass>().and_then(|c| c.default_content);
+    muo_content::templates::table(w); // a test world loads the templates lazily: the content is a prop
+    let content = default_content(w, id);
     let pages = match content {
         None => vec![Vec::new(); page_count.max(0) as usize],
         Some(c) => c.copy(),
@@ -257,7 +265,7 @@ fn deserialize_book(w: &mut World, id: ItemId, r: &mut dyn GenericReader) -> Res
         d.pages = if flags & 0x08 != 0 {
             read_pages(r)?
         } else {
-            content.map(BookContent::copy).unwrap_or_default()
+            content.map(|c| c.copy()).unwrap_or_default()
         };
     } else {
         let flags = r.read_enum(4)? as i32;
@@ -276,7 +284,7 @@ fn deserialize_book(w: &mut World, id: ItemId, r: &mut dyn GenericReader) -> Res
         d.pages = if flags & save_flag::PAGES != 0 {
             read_pages(r)?
         } else {
-            content.map(BookContent::copy).unwrap_or_default()
+            content.map(|c| c.copy()).unwrap_or_default()
         };
     }
     if let Some(i) = w.item_mut(id) {
@@ -476,7 +484,6 @@ pub static BASE_BOOK: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     // shortcut: every `[Constructible]` BaseBook constructor takes an item id, so [add has none to call.
     construct: None,
-    family: Some(&BASE_BOOK_CLASS),
     add_name_property: name_or_base,
     get_context_menu_entries: |w, id, from, list| {
         base::get_context_menu_entries_base(w, id, from, list);
@@ -563,23 +570,54 @@ macro_rules! book_leaf {
             ..$parent
         };
     };
+}
+
+/// `new <Book>()` of a book with a fixed text: `base(0, false)` of its parent then the class template.
+pub fn defined_book_new(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let id = new_book(w, ty, 0, None, None, 0, false);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
+    id
+}
+
+/// The `"nameText"` prop of a defined book: the name it shows instead of its title.
+fn name_text(w: &World, id: ItemId) -> Option<&'static str> {
+    use muo_content::templates::props;
+    props::as_static_str(w, props::item(w, id, "nameText")).flatten()
+}
+
+/// `AddNameProperty` of a defined book: its `"nameText"`, else `BaseBook`'s.
+pub fn defined_add_name_property(
+    w: &World,
+    id: ItemId,
+    list: &mut muo_server::property_list::PropertyList,
+) {
+    match name_text(w, id) {
+        Some(t) => list.add_text(t),
+        None => (BASE_BOOK.add_name_property)(w, id, list),
+    }
+}
+
+/// `OnSingleClick` of a defined book: its `"nameText"`, else `BaseBook`'s.
+pub fn defined_on_single_click(w: &mut World, id: ItemId, from: MobileId) {
+    match name_text(w, id) {
+        Some(t) => ops::label_to(w, id, from, t),
+        None => (BASE_BOOK.on_single_click)(w, id, from),
+    }
+}
+
+/// A book of `defined.rs`: `NAME = "Server.Items.Foo" : PARENT;` (encoded version 0).
+macro_rules! defined_book {
     (
         $(#[$m:meta])*
-        $name:ident = $full:literal : $parent:ident, |$w:ident| $ctor:expr, content $content:ident $(, label $label:literal)?;
+        $name:ident = $full:literal : $parent:ident;
     ) => {
         $(#[$m])*
-        pub static $name: ItemType = ItemType {
+        pub static $name: muo_server::item::ItemType = muo_server::item::ItemType {
             full_name: $full,
             parent: Some(&$parent),
-            construct: Some(|$w| $ctor),
-            family: Some({
-                static CLASS: BookClass = BookClass { default_content: Some(&$content) };
-                &CLASS
-            }),
-            $(
-                add_name_property: |_, _, list| list.add_text($label),
-                on_single_click: |w, id, from| ops::label_to(w, id, from, $label),
-            )?
+            construct: Some(|w| $crate::books::defined_book_new(w, &$name)),
+            add_name_property: $crate::books::defined_add_name_property,
+            on_single_click: $crate::books::defined_on_single_click,
             serialize: |w, id, out| {
                 ($parent.serialize)(w, id, out);
                 $crate::misc::write_version(out, true);
@@ -593,7 +631,7 @@ macro_rules! book_leaf {
         };
     };
 }
-pub(crate) use book_leaf;
+pub(crate) use defined_book;
 
 /// `RedBook()`: `base(0xFF1)`; the other colors differ in the graphic and `BlueBook`'s 40 pages.
 macro_rules! colored_book {
