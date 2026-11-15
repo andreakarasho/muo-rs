@@ -135,16 +135,12 @@ fn winter_props(w: &World, id: ItemId, list: &mut PropertyList) {
 }
 
 macro_rules! winter {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, v0;
-            construct: Some(|w| {
-                let id = new_item(w, &$name, $gid);
-                blessed(w, id);
-                id
-            }),
-            default_weight: |_, _| 1.0,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
             on_single_click: winter_single_click,
             get_properties: winter_props,
         }
@@ -153,11 +149,11 @@ macro_rules! winter {
 
 winter! {
     /// `Server.Items.DecorativeTopiary`.
-    DECORATIVE_TOPIARY = "Server.Items.DecorativeTopiary", 0x2378;
+    DECORATIVE_TOPIARY = "Server.Items.DecorativeTopiary";
     /// `Server.Items.FestiveCactus`.
-    FESTIVE_CACTUS = "Server.Items.FestiveCactus", 0x2376;
+    FESTIVE_CACTUS = "Server.Items.FestiveCactus";
     /// `Server.Items.SnowyTree`.
-    SNOWY_TREE = "Server.Items.SnowyTree", 0x2377;
+    SNOWY_TREE = "Server.Items.SnowyTree";
 }
 
 /// `LightOfTheWinterSolstice(dipper)`.
@@ -318,27 +314,27 @@ leaf! {
 }
 
 macro_rules! plain {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr, $weight:expr;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, v0;
-            construct: Some(|w| new_item(w, &$name, $gid)),
-            default_weight: |_, _| $weight,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
         }
     )+};
 }
 
 plain! {
     /// `Server.Items.GrimWarning`.
-    GRIM_WARNING = "Server.Items.GrimWarning", 0x42BD, 1.0;
+    GRIM_WARNING = "Server.Items.GrimWarning";
     /// `Server.Items.SkullsOnPike`.
-    SKULLS_ON_PIKE = "Server.Items.SkullsOnPike", 0x42B5, 1.0;
+    SKULLS_ON_PIKE = "Server.Items.SkullsOnPike";
     /// `Server.Items.ChairInAGhostCostume`.
-    CHAIR_IN_A_GHOST_COSTUME = "Server.Items.ChairInAGhostCostume", 0x3F26, 5.0;
+    CHAIR_IN_A_GHOST_COSTUME = "Server.Items.ChairInAGhostCostume";
     /// `Server.Items.ExcellentIronMaiden`.
-    EXCELLENT_IRON_MAIDEN = "Server.Items.ExcellentIronMaiden", 0x3f15, 5.0;
+    EXCELLENT_IRON_MAIDEN = "Server.Items.ExcellentIronMaiden";
     /// `Server.Items.HalloweenGuillotine`.
-    HALLOWEEN_GUILLOTINE = "Server.Items.HalloweenGuillotine", 0x3F27, 5.0;
+    HALLOWEEN_GUILLOTINE = "Server.Items.HalloweenGuillotine";
 }
 
 leaf! {

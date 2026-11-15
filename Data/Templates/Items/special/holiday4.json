@@ -113,5 +113,64 @@
   {
     "type": "Server.Items.HeartShapedBox",
     "itemId": 18890
+  },
+  {
+    "type": "Server.Items.DecorativeTopiary",
+    "itemId": 9080,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.FestiveCactus",
+    "itemId": 9078,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SnowyTree",
+    "itemId": 9079,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.GrimWarning",
+    "itemId": 17085,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SkullsOnPike",
+    "itemId": 17077,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ChairInAGhostCostume",
+    "itemId": 16166,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.ExcellentIronMaiden",
+    "itemId": 16149,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.HalloweenGuillotine",
+    "itemId": 16167,
+    "props": {
+      "defaultWeight": 5.0
+    }
   }
 ]
