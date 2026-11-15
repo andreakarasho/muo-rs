@@ -10,7 +10,7 @@ use super::{hue, random_element, random_from, random_list, random_min_max};
 
 /// `new GlobOfMonstreousInterredGrizzle()` of class `ty`.
 pub fn glob_of_monstreous_interred_grizzle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2F3)
+    crate::simple::from_template(w, ty, "Server.Items.GlobOfMonstreousInterredGrizzle")
 }
 
 item_leaf! {
@@ -21,7 +21,7 @@ item_leaf! {
 
 /// `new GrizzledSkullCollection()` of class `ty`.
 pub fn grizzled_skull_collection_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x21FC)
+    crate::simple::from_template(w, ty, "Server.Items.GrizzledSkullCollection")
 }
 
 item_leaf! {
@@ -32,7 +32,7 @@ item_leaf! {
 
 /// `new MonsterousInterredGrizzleMaggots()` of class `ty`.
 pub fn monsterous_interred_grizzle_maggots_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2633)
+    crate::simple::from_template(w, ty, "Server.Items.MonsterousInterredGrizzleMaggots")
 }
 
 item_leaf! {
@@ -43,7 +43,7 @@ item_leaf! {
 
 /// `new ResolvesBridle()` of class `ty`.
 pub fn resolves_bridle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1374)
+    crate::simple::from_template(w, ty, "Server.Items.ResolvesBridle")
 }
 
 item_leaf! {
@@ -80,10 +80,7 @@ item_leaf! {
 
 /// `new AbscessTail()` of class `ty`.
 pub fn abscess_tail_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1A9D);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x51D);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.AbscessTail")
 }
 
 item_leaf! {
@@ -94,10 +91,7 @@ item_leaf! {
 
 /// `new CoilsFang()` of class `ty`.
 pub fn coils_fang_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x10E8);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x487);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.CoilsFang")
 }
 
 item_leaf! {
@@ -122,10 +116,7 @@ item_leaf! {
 
 /// `new HydraScale()` of class `ty`.
 pub fn hydra_scale_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x26B4);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0xC2);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.HydraScale")
 }
 
 item_leaf! {
@@ -136,10 +127,7 @@ item_leaf! {
 
 /// `new SalivasFeather()` of class `ty`.
 pub fn salivas_feather_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1020);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x5C);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SalivasFeather")
 }
 
 item_leaf! {
@@ -150,9 +138,7 @@ item_leaf! {
 
 /// `new SamplesOfCorruptedWater()` of class `ty`.
 pub fn samples_of_corrupted_water_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xEFE);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SamplesOfCorruptedWater")
 }
 
 item_leaf! {
@@ -163,10 +149,7 @@ item_leaf! {
 
 /// `new TaintedSeeds()` of class `ty`.
 pub fn tainted_seeds_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xDFA);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x48);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.TaintedSeeds")
 }
 
 item_leaf! {
@@ -177,10 +160,7 @@ item_leaf! {
 
 /// `new ThorvaldsMedallion()` of class `ty`.
 pub fn thorvalds_medallion_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2AAA);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x47F);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ThorvaldsMedallion")
 }
 
 item_leaf! {
@@ -191,10 +171,7 @@ item_leaf! {
 
 /// `new ThrashersTail()` of class `ty`.
 pub fn thrashers_tail_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1A9D);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x455);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ThrashersTail")
 }
 
 item_leaf! {
@@ -220,7 +197,7 @@ item_leaf! {
 
 /// `new ExecutionersCap()` of class `ty`.
 pub fn executioners_cap_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xF83)
+    crate::simple::from_template(w, ty, "Server.Items.ExecutionersCap")
 }
 
 item_leaf! {
@@ -231,7 +208,7 @@ item_leaf! {
 
 /// `new SmallFlask()` of class `ty`.
 pub fn small_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182E)
+    crate::simple::from_template(w, ty, "Server.Items.SmallFlask")
 }
 
 item_leaf! {
@@ -242,7 +219,7 @@ item_leaf! {
 
 /// `new MediumFlask()` of class `ty`.
 pub fn medium_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182A)
+    crate::simple::from_template(w, ty, "Server.Items.MediumFlask")
 }
 
 item_leaf! {
@@ -253,7 +230,7 @@ item_leaf! {
 
 /// `new LargeFlask()` of class `ty`.
 pub fn large_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x183B)
+    crate::simple::from_template(w, ty, "Server.Items.LargeFlask")
 }
 
 item_leaf! {
@@ -264,7 +241,7 @@ item_leaf! {
 
 /// `new CurvedFlask()` of class `ty`.
 pub fn curved_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1832)
+    crate::simple::from_template(w, ty, "Server.Items.CurvedFlask")
 }
 
 item_leaf! {
@@ -275,7 +252,7 @@ item_leaf! {
 
 /// `new LongFlask()` of class `ty`.
 pub fn long_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1838)
+    crate::simple::from_template(w, ty, "Server.Items.LongFlask")
 }
 
 item_leaf! {
@@ -286,7 +263,7 @@ item_leaf! {
 
 /// `new SpinningHourglass()` of class `ty`.
 pub fn spinning_hourglass_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1810)
+    crate::simple::from_template(w, ty, "Server.Items.SpinningHourglass")
 }
 
 item_leaf! {
@@ -297,7 +274,7 @@ item_leaf! {
 
 /// `new GreenBottle()` of class `ty`.
 pub fn green_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0EFB)
+    crate::simple::from_template(w, ty, "Server.Items.GreenBottle")
 }
 
 item_leaf! {
@@ -308,7 +285,7 @@ item_leaf! {
 
 /// `new RedBottle()` of class `ty`.
 pub fn red_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0EFC)
+    crate::simple::from_template(w, ty, "Server.Items.RedBottle")
 }
 
 item_leaf! {
@@ -319,7 +296,7 @@ item_leaf! {
 
 /// `new SmallBrownBottle()` of class `ty`.
 pub fn small_brown_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0EFD)
+    crate::simple::from_template(w, ty, "Server.Items.SmallBrownBottle")
 }
 
 item_leaf! {
@@ -330,7 +307,7 @@ item_leaf! {
 
 /// `new SmallGreenBottle()` of class `ty`.
 pub fn small_green_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0F01)
+    crate::simple::from_template(w, ty, "Server.Items.SmallGreenBottle")
 }
 
 item_leaf! {
@@ -341,7 +318,7 @@ item_leaf! {
 
 /// `new SmallVioletBottle()` of class `ty`.
 pub fn small_violet_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0F02)
+    crate::simple::from_template(w, ty, "Server.Items.SmallVioletBottle")
 }
 
 item_leaf! {
@@ -352,7 +329,7 @@ item_leaf! {
 
 /// `new TinyYellowBottle()` of class `ty`.
 pub fn tiny_yellow_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0F03)
+    crate::simple::from_template(w, ty, "Server.Items.TinyYellowBottle")
 }
 
 item_leaf! {
@@ -363,7 +340,7 @@ item_leaf! {
 
 /// `new SmallBlueFlask()` of class `ty`.
 pub fn small_blue_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182A)
+    crate::simple::from_template(w, ty, "Server.Items.SmallBlueFlask")
 }
 
 item_leaf! {
@@ -374,7 +351,7 @@ item_leaf! {
 
 /// `new SmallYellowFlask()` of class `ty`.
 pub fn small_yellow_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182B)
+    crate::simple::from_template(w, ty, "Server.Items.SmallYellowFlask")
 }
 
 item_leaf! {
@@ -385,7 +362,7 @@ item_leaf! {
 
 /// `new SmallRedFlask()` of class `ty`.
 pub fn small_red_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182C)
+    crate::simple::from_template(w, ty, "Server.Items.SmallRedFlask")
 }
 
 item_leaf! {
@@ -396,7 +373,7 @@ item_leaf! {
 
 /// `new SmallEmptyFlask()` of class `ty`.
 pub fn small_empty_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182D)
+    crate::simple::from_template(w, ty, "Server.Items.SmallEmptyFlask")
 }
 
 item_leaf! {
@@ -407,7 +384,7 @@ item_leaf! {
 
 /// `new YellowBeaker()` of class `ty`.
 pub fn yellow_beaker_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182E)
+    crate::simple::from_template(w, ty, "Server.Items.YellowBeaker")
 }
 
 item_leaf! {
@@ -418,7 +395,7 @@ item_leaf! {
 
 /// `new RedBeaker()` of class `ty`.
 pub fn red_beaker_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x182F)
+    crate::simple::from_template(w, ty, "Server.Items.RedBeaker")
 }
 
 item_leaf! {
@@ -429,7 +406,7 @@ item_leaf! {
 
 /// `new BlueBeaker()` of class `ty`.
 pub fn blue_beaker_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1830)
+    crate::simple::from_template(w, ty, "Server.Items.BlueBeaker")
 }
 
 item_leaf! {
@@ -440,7 +417,7 @@ item_leaf! {
 
 /// `new GreenBeaker()` of class `ty`.
 pub fn green_beaker_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1831)
+    crate::simple::from_template(w, ty, "Server.Items.GreenBeaker")
 }
 
 item_leaf! {
@@ -451,7 +428,7 @@ item_leaf! {
 
 /// `new EmptyCurvedFlaskW()` of class `ty`.
 pub fn empty_curved_flask_w_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1832)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyCurvedFlaskW")
 }
 
 item_leaf! {
@@ -462,7 +439,7 @@ item_leaf! {
 
 /// `new RedCurvedFlask()` of class `ty`.
 pub fn red_curved_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1833)
+    crate::simple::from_template(w, ty, "Server.Items.RedCurvedFlask")
 }
 
 item_leaf! {
@@ -473,7 +450,7 @@ item_leaf! {
 
 /// `new LtBlueCurvedFlask()` of class `ty`.
 pub fn lt_blue_curved_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1834)
+    crate::simple::from_template(w, ty, "Server.Items.LtBlueCurvedFlask")
 }
 
 item_leaf! {
@@ -484,7 +461,7 @@ item_leaf! {
 
 /// `new EmptyCurvedFlaskE()` of class `ty`.
 pub fn empty_curved_flask_e_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1835)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyCurvedFlaskE")
 }
 
 item_leaf! {
@@ -495,7 +472,7 @@ item_leaf! {
 
 /// `new BlueCurvedFlask()` of class `ty`.
 pub fn blue_curved_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1836)
+    crate::simple::from_template(w, ty, "Server.Items.BlueCurvedFlask")
 }
 
 item_leaf! {
@@ -506,7 +483,7 @@ item_leaf! {
 
 /// `new GreenCurvedFlask()` of class `ty`.
 pub fn green_curved_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1837)
+    crate::simple::from_template(w, ty, "Server.Items.GreenCurvedFlask")
 }
 
 item_leaf! {
@@ -517,7 +494,7 @@ item_leaf! {
 
 /// `new RedRibbedFlask()` of class `ty`.
 pub fn red_ribbed_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1838)
+    crate::simple::from_template(w, ty, "Server.Items.RedRibbedFlask")
 }
 
 item_leaf! {
@@ -528,7 +505,7 @@ item_leaf! {
 
 /// `new VioletRibbedFlask()` of class `ty`.
 pub fn violet_ribbed_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1839)
+    crate::simple::from_template(w, ty, "Server.Items.VioletRibbedFlask")
 }
 
 item_leaf! {
@@ -539,7 +516,7 @@ item_leaf! {
 
 /// `new EmptyRibbedFlask()` of class `ty`.
 pub fn empty_ribbed_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x183A)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyRibbedFlask")
 }
 
 item_leaf! {
@@ -550,7 +527,7 @@ item_leaf! {
 
 /// `new LargeYellowFlask()` of class `ty`.
 pub fn large_yellow_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x183B)
+    crate::simple::from_template(w, ty, "Server.Items.LargeYellowFlask")
 }
 
 item_leaf! {
@@ -561,7 +538,7 @@ item_leaf! {
 
 /// `new LargeVioletFlask()` of class `ty`.
 pub fn large_violet_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x183C)
+    crate::simple::from_template(w, ty, "Server.Items.LargeVioletFlask")
 }
 
 item_leaf! {
@@ -572,7 +549,7 @@ item_leaf! {
 
 /// `new LargeEmptyFlask()` of class `ty`.
 pub fn large_empty_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x183D)
+    crate::simple::from_template(w, ty, "Server.Items.LargeEmptyFlask")
 }
 
 item_leaf! {
@@ -583,7 +560,7 @@ item_leaf! {
 
 /// `new AniRedRibbedFlask()` of class `ty`.
 pub fn ani_red_ribbed_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x183E)
+    crate::simple::from_template(w, ty, "Server.Items.AniRedRibbedFlask")
 }
 
 item_leaf! {
@@ -594,7 +571,7 @@ item_leaf! {
 
 /// `new AniLargeVioletFlask()` of class `ty`.
 pub fn ani_large_violet_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1841)
+    crate::simple::from_template(w, ty, "Server.Items.AniLargeVioletFlask")
 }
 
 item_leaf! {
@@ -605,7 +582,7 @@ item_leaf! {
 
 /// `new AniSmallBlueFlask()` of class `ty`.
 pub fn ani_small_blue_flask_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1844)
+    crate::simple::from_template(w, ty, "Server.Items.AniSmallBlueFlask")
 }
 
 item_leaf! {
@@ -616,7 +593,7 @@ item_leaf! {
 
 /// `new SmallBlueBottle()` of class `ty`.
 pub fn small_blue_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1847)
+    crate::simple::from_template(w, ty, "Server.Items.SmallBlueBottle")
 }
 
 item_leaf! {
@@ -627,7 +604,7 @@ item_leaf! {
 
 /// `new SmallGreenBottle2()` of class `ty`.
 pub fn small_green_bottle2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1848)
+    crate::simple::from_template(w, ty, "Server.Items.SmallGreenBottle2")
 }
 
 item_leaf! {
@@ -638,7 +615,7 @@ item_leaf! {
 
 /// `new EmptyVialsWRack()` of class `ty`.
 pub fn empty_vials_w_rack_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x185B)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyVialsWRack")
 }
 
 item_leaf! {
@@ -649,7 +626,7 @@ item_leaf! {
 
 /// `new FullVialsWRack()` of class `ty`.
 pub fn full_vials_w_rack_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x185D)
+    crate::simple::from_template(w, ty, "Server.Items.FullVialsWRack")
 }
 
 item_leaf! {
@@ -660,7 +637,7 @@ item_leaf! {
 
 /// `new EmptyVial()` of class `ty`.
 pub fn empty_vial_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0E24)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyVial")
 }
 
 item_leaf! {
@@ -671,7 +648,7 @@ item_leaf! {
 
 /// `new HourglassAni()` of class `ty`.
 pub fn hourglass_ani_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1811)
+    crate::simple::from_template(w, ty, "Server.Items.HourglassAni")
 }
 
 item_leaf! {
@@ -682,7 +659,7 @@ item_leaf! {
 
 /// `new Hourglass()` of class `ty`.
 pub fn hourglass_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1810)
+    crate::simple::from_template(w, ty, "Server.Items.Hourglass")
 }
 
 item_leaf! {
@@ -693,7 +670,7 @@ item_leaf! {
 
 /// `new TinyRedBottle()` of class `ty`.
 pub fn tiny_red_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x0F04)
+    crate::simple::from_template(w, ty, "Server.Items.TinyRedBottle")
 }
 
 item_leaf! {
@@ -704,7 +681,7 @@ item_leaf! {
 
 /// `new HoveringWisp()` of class `ty`.
 pub fn hovering_wisp_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2100)
+    crate::simple::from_template(w, ty, "Server.Items.HoveringWisp")
 }
 
 item_leaf! {
@@ -731,9 +708,7 @@ item_leaf! {
 
 /// `new OrigamiButterfly()` of class `ty`.
 pub fn origami_butterfly_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2838);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrigamiButterfly")
 }
 
 item_leaf! {
@@ -744,9 +719,7 @@ item_leaf! {
 
 /// `new OrigamiSwan()` of class `ty`.
 pub fn origami_swan_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2839);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrigamiSwan")
 }
 
 item_leaf! {
@@ -757,9 +730,7 @@ item_leaf! {
 
 /// `new OrigamiFrog()` of class `ty`.
 pub fn origami_frog_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x283A);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrigamiFrog")
 }
 
 item_leaf! {
@@ -770,9 +741,7 @@ item_leaf! {
 
 /// `new OrigamiShape()` of class `ty`.
 pub fn origami_shape_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x283B);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrigamiShape")
 }
 
 item_leaf! {
@@ -783,9 +752,7 @@ item_leaf! {
 
 /// `new OrigamiSongbird()` of class `ty`.
 pub fn origami_songbird_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x283C);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrigamiSongbird")
 }
 
 item_leaf! {
@@ -796,9 +763,7 @@ item_leaf! {
 
 /// `new OrigamiFish()` of class `ty`.
 pub fn origami_fish_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x283D);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrigamiFish")
 }
 
 item_leaf! {
@@ -809,10 +774,7 @@ item_leaf! {
 
 /// `new GrobusFur()` of class `ty`.
 pub fn grobus_fur_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x11F4);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x455);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.GrobusFur")
 }
 
 item_leaf! {
@@ -823,10 +785,7 @@ item_leaf! {
 
 /// `new PrimitiveFetish()` of class `ty`.
 pub fn primitive_fetish_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x23F);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x244);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.PrimitiveFetish")
 }
 
 item_leaf! {
@@ -837,9 +796,7 @@ item_leaf! {
 
 /// `new AcidProofRope()` of class `ty`.
 pub fn acid_proof_rope_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x20D);
-    hue(w, id, 0x3D1);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.AcidProofRope")
 }
 
 item_leaf! {
@@ -850,7 +807,7 @@ item_leaf! {
 
 /// `new ParoxysmusCorrodedStein()` of class `ty`.
 pub fn paroxysmus_corroded_stein_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9D6)
+    crate::simple::from_template(w, ty, "Server.Items.ParoxysmusCorrodedStein")
 }
 
 item_leaf! {
@@ -861,7 +818,7 @@ item_leaf! {
 
 /// `new ParoxysmusDinner()` of class `ty`.
 pub fn paroxysmus_dinner_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E95)
+    crate::simple::from_template(w, ty, "Server.Items.ParoxysmusDinner")
 }
 
 item_leaf! {
@@ -872,7 +829,7 @@ item_leaf! {
 
 /// `new StringOfPartsOfParoxysmusVictims()` of class `ty`.
 pub fn string_of_parts_of_paroxysmus_victims_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xFD2)
+    crate::simple::from_template(w, ty, "Server.Items.StringOfPartsOfParoxysmusVictims")
 }
 
 item_leaf! {
@@ -883,7 +840,7 @@ item_leaf! {
 
 /// `new SweatOfParoxysmus()` of class `ty`.
 pub fn sweat_of_paroxysmus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xF01)
+    crate::simple::from_template(w, ty, "Server.Items.SweatOfParoxysmus")
 }
 
 item_leaf! {
@@ -894,10 +851,7 @@ item_leaf! {
 
 /// `new CrystallineFragments()` of class `ty`.
 pub fn crystalline_fragments_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x223B);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 0x47E);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.CrystallineFragments")
 }
 
 item_leaf! {
@@ -908,7 +862,7 @@ item_leaf! {
 
 /// `new IcyHeart()` of class `ty`.
 pub fn icy_heart_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x24B)
+    crate::simple::from_template(w, ty, "Server.Items.IcyHeart")
 }
 
 item_leaf! {
@@ -919,9 +873,7 @@ item_leaf! {
 
 /// `new LuckyDagger()` of class `ty`.
 pub fn lucky_dagger_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xF52);
-    hue(w, id, 0x8A5);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.LuckyDagger")
 }
 
 item_leaf! {
@@ -932,7 +884,7 @@ item_leaf! {
 
 /// `new ProtectorsEssence()` of class `ty`.
 pub fn protectors_essence_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x23F)
+    crate::simple::from_template(w, ty, "Server.Items.ProtectorsEssence")
 }
 
 item_leaf! {
@@ -1088,7 +1040,7 @@ item_leaf! {
 
 /// `new HorseShoes()` of class `ty`.
 pub fn horse_shoes_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xFB6)
+    crate::simple::from_template(w, ty, "Server.Items.HorseShoes")
 }
 
 item_leaf! {
@@ -1099,7 +1051,7 @@ item_leaf! {
 
 /// `new ForgedMetal()` of class `ty`.
 pub fn forged_metal_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xFB8)
+    crate::simple::from_template(w, ty, "Server.Items.ForgedMetal")
 }
 
 item_leaf! {
@@ -1110,7 +1062,7 @@ item_leaf! {
 
 /// `new Whip()` of class `ty`.
 pub fn whip_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x166E)
+    crate::simple::from_template(w, ty, "Server.Items.Whip")
 }
 
 item_leaf! {
@@ -1121,7 +1073,7 @@ item_leaf! {
 
 /// `new PaintsAndBrush()` of class `ty`.
 pub fn paints_and_brush_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xFC1)
+    crate::simple::from_template(w, ty, "Server.Items.PaintsAndBrush")
 }
 
 item_leaf! {
@@ -1132,7 +1084,7 @@ item_leaf! {
 
 /// `new PenAndInk()` of class `ty`.
 pub fn pen_and_ink_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xFBF)
+    crate::simple::from_template(w, ty, "Server.Items.PenAndInk")
 }
 
 item_leaf! {
@@ -1143,7 +1095,7 @@ item_leaf! {
 
 /// `new ChiselsNorth()` of class `ty`.
 pub fn chisels_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1026)
+    crate::simple::from_template(w, ty, "Server.Items.ChiselsNorth")
 }
 
 item_leaf! {
@@ -1154,7 +1106,7 @@ item_leaf! {
 
 /// `new ChiselsWest()` of class `ty`.
 pub fn chisels_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1027)
+    crate::simple::from_template(w, ty, "Server.Items.ChiselsWest")
 }
 
 item_leaf! {
@@ -1165,7 +1117,7 @@ item_leaf! {
 
 /// `new DirtyPan()` of class `ty`.
 pub fn dirty_pan_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9E8)
+    crate::simple::from_template(w, ty, "Server.Items.DirtyPan")
 }
 
 item_leaf! {
@@ -1176,7 +1128,7 @@ item_leaf! {
 
 /// `new DirtySmallRoundPot()` of class `ty`.
 pub fn dirty_small_round_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9E7)
+    crate::simple::from_template(w, ty, "Server.Items.DirtySmallRoundPot")
 }
 
 item_leaf! {
@@ -1187,7 +1139,7 @@ item_leaf! {
 
 /// `new DirtyPot()` of class `ty`.
 pub fn dirty_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9E6)
+    crate::simple::from_template(w, ty, "Server.Items.DirtyPot")
 }
 
 item_leaf! {
@@ -1198,7 +1150,7 @@ item_leaf! {
 
 /// `new DirtyRoundPot()` of class `ty`.
 pub fn dirty_round_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9DF)
+    crate::simple::from_template(w, ty, "Server.Items.DirtyRoundPot")
 }
 
 item_leaf! {
@@ -1209,7 +1161,7 @@ item_leaf! {
 
 /// `new DirtyFrypan()` of class `ty`.
 pub fn dirty_frypan_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9DE)
+    crate::simple::from_template(w, ty, "Server.Items.DirtyFrypan")
 }
 
 item_leaf! {
@@ -1220,7 +1172,7 @@ item_leaf! {
 
 /// `new DirtySmallPot()` of class `ty`.
 pub fn dirty_small_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9DD)
+    crate::simple::from_template(w, ty, "Server.Items.DirtySmallPot")
 }
 
 item_leaf! {
@@ -1231,7 +1183,7 @@ item_leaf! {
 
 /// `new DirtyKettle()` of class `ty`.
 pub fn dirty_kettle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9DC)
+    crate::simple::from_template(w, ty, "Server.Items.DirtyKettle")
 }
 
 item_leaf! {
@@ -1242,10 +1194,7 @@ item_leaf! {
 
 /// `new SwarmOfFlies()` of class `ty`.
 pub fn swarm_of_flies_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x91B);
-    hue(w, id, 1);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SwarmOfFlies")
 }
 
 item_leaf! {
@@ -1256,9 +1205,7 @@ item_leaf! {
 
 /// `new DragonFlameSectBadge()` of class `ty`.
 pub fn dragon_flame_sect_badge_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x23E);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DragonFlameSectBadge")
 }
 
 item_leaf! {
@@ -1269,9 +1216,7 @@ item_leaf! {
 
 /// `new OrdersFromMinax()` of class `ty`.
 pub fn orders_from_minax_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2279);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OrdersFromMinax")
 }
 
 item_leaf! {
@@ -1282,9 +1227,7 @@ item_leaf! {
 
 /// `new SerpentFangSectBadge()` of class `ty`.
 pub fn serpent_fang_sect_badge_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x23C);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SerpentFangSectBadge")
 }
 
 item_leaf! {
@@ -1295,9 +1238,7 @@ item_leaf! {
 
 /// `new TigerClawSectBadge()` of class `ty`.
 pub fn tiger_claw_sect_badge_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x23D);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.TigerClawSectBadge")
 }
 
 item_leaf! {
@@ -1308,7 +1249,7 @@ item_leaf! {
 
 /// `new TravestysCollectionOfShells()` of class `ty`.
 pub fn travestys_collection_of_shells_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xFD3)
+    crate::simple::from_template(w, ty, "Server.Items.TravestysCollectionOfShells")
 }
 
 item_leaf! {
@@ -1359,7 +1300,7 @@ item_leaf! {
 
 /// `new HornOfTheDreadhorn()` of class `ty`.
 pub fn horn_of_the_dreadhorn_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x315C)
+    crate::simple::from_template(w, ty, "Server.Items.HornOfTheDreadhorn")
 }
 
 item_leaf! {
@@ -1370,7 +1311,7 @@ item_leaf! {
 
 /// `new MangledHeadOfDreadhorn()` of class `ty`.
 pub fn mangled_head_of_dreadhorn_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x3156)
+    crate::simple::from_template(w, ty, "Server.Items.MangledHeadOfDreadhorn")
 }
 
 item_leaf! {

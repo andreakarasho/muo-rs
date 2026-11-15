@@ -1,0 +1,48 @@
+[
+  {
+    "type": "Server.Items.LeatherGlovesOfMining",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.StuddedGlovesOfMining",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.RingmailGlovesOfMining",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 1,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 20,
+      "oldDexBonus": -1,
+      "armorBase": 22
+    }
+  }
+]

@@ -33,18 +33,6 @@ weapon_leaf! {
     ammo_type: Some("Server.Items.Arrow"),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::MovingShot),
-    aos_str_req: 45,
-    aos_min_damage: ml(15, 13),
-    aos_max_damage: same(17),
-    aos_speed: 25,
-    ml_speed: 4.00,
-    old_str_req: 45,
-    old_min_damage: 15,
-    old_max_damage: 17,
-    old_speed: 25,
-    def_max_range: 10,
-    init_min_hits: 31,
-    init_max_hits: 70,
     def_animation: WeaponAnimation::ShootBow,
 }
 
@@ -61,18 +49,6 @@ weapon_leaf! {
     ammo_type: Some("Server.Items.Bolt"),
     primary_ability: Some(Ability::ConcussionBlow),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 35,
-    aos_min_damage: same(18),
-    aos_max_damage: ml(20, 22),
-    aos_speed: 24,
-    ml_speed: 4.50,
-    old_str_req: 30,
-    old_min_damage: 8,
-    old_max_damage: 43,
-    old_speed: 18,
-    def_max_range: 8,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -98,18 +74,6 @@ weapon_leaf! {
     ammo_type: Some("Server.Items.Bolt"),
     primary_ability: Some(Ability::MovingShot),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 80,
-    aos_min_damage: ml(19, 20),
-    aos_max_damage: ml(20, 24),
-    aos_speed: 22,
-    ml_speed: 5.00,
-    old_str_req: 40,
-    old_min_damage: 11,
-    old_max_damage: 56,
-    old_speed: 10,
-    def_max_range: 8,
-    init_min_hits: 31,
-    init_max_hits: 100,
 }
 
 weapon_leaf! {
@@ -122,10 +86,6 @@ weapon_leaf! {
         on_double_click: juka_bow_on_double_click,
     }
     flippable: Some((0x13B2, 0x13B1)),
-    aos_str_req: 80,
-    aos_dex_req: 80,
-    old_str_req: 80,
-    old_dex_req: 80,
 }
 
 weapon_leaf! {
@@ -177,18 +137,6 @@ weapon_leaf! {
     ammo_type: Some("Server.Items.Bolt"),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::MovingShot),
-    aos_str_req: 30,
-    aos_min_damage: ml(10, 8),
-    aos_max_damage: same(12),
-    aos_speed: 41,
-    ml_speed: 2.75,
-    old_str_req: 30,
-    old_min_damage: 10,
-    old_max_damage: 12,
-    old_speed: 41,
-    def_max_range: 7,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {

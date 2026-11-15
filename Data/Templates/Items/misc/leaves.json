@@ -1,0 +1,421 @@
+[
+  {
+    "type": "Server.Items.GlobOfMonstreousInterredGrizzle",
+    "itemId": 755
+  },
+  {
+    "type": "Server.Items.GrizzledSkullCollection",
+    "itemId": 8700
+  },
+  {
+    "type": "Server.Items.MonsterousInterredGrizzleMaggots",
+    "itemId": 9779
+  },
+  {
+    "type": "Server.Items.ResolvesBridle",
+    "itemId": 4980
+  },
+  {
+    "type": "Server.Items.AbscessTail",
+    "itemId": 6813,
+    "lootType": "Blessed",
+    "hue": 1309
+  },
+  {
+    "type": "Server.Items.CoilsFang",
+    "itemId": 4328,
+    "lootType": "Blessed",
+    "hue": 1159
+  },
+  {
+    "type": "Server.Items.HydraScale",
+    "itemId": 9908,
+    "lootType": "Blessed",
+    "hue": 194
+  },
+  {
+    "type": "Server.Items.SalivasFeather",
+    "itemId": 4128,
+    "lootType": "Blessed",
+    "hue": 92
+  },
+  {
+    "type": "Server.Items.SamplesOfCorruptedWater",
+    "itemId": 3838,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.TaintedSeeds",
+    "itemId": 3578,
+    "lootType": "Blessed",
+    "hue": 72
+  },
+  {
+    "type": "Server.Items.ThorvaldsMedallion",
+    "itemId": 10922,
+    "lootType": "Blessed",
+    "hue": 1151
+  },
+  {
+    "type": "Server.Items.ThrashersTail",
+    "itemId": 6813,
+    "lootType": "Blessed",
+    "hue": 1109
+  },
+  {
+    "type": "Server.Items.ExecutionersCap",
+    "itemId": 3971
+  },
+  {
+    "type": "Server.Items.SmallFlask",
+    "itemId": 6190
+  },
+  {
+    "type": "Server.Items.MediumFlask",
+    "itemId": 6186
+  },
+  {
+    "type": "Server.Items.LargeFlask",
+    "itemId": 6203
+  },
+  {
+    "type": "Server.Items.CurvedFlask",
+    "itemId": 6194
+  },
+  {
+    "type": "Server.Items.LongFlask",
+    "itemId": 6200
+  },
+  {
+    "type": "Server.Items.SpinningHourglass",
+    "itemId": 6160
+  },
+  {
+    "type": "Server.Items.GreenBottle",
+    "itemId": 3835
+  },
+  {
+    "type": "Server.Items.RedBottle",
+    "itemId": 3836
+  },
+  {
+    "type": "Server.Items.SmallBrownBottle",
+    "itemId": 3837
+  },
+  {
+    "type": "Server.Items.SmallGreenBottle",
+    "itemId": 3841
+  },
+  {
+    "type": "Server.Items.SmallVioletBottle",
+    "itemId": 3842
+  },
+  {
+    "type": "Server.Items.TinyYellowBottle",
+    "itemId": 3843
+  },
+  {
+    "type": "Server.Items.SmallBlueFlask",
+    "itemId": 6186
+  },
+  {
+    "type": "Server.Items.SmallYellowFlask",
+    "itemId": 6187
+  },
+  {
+    "type": "Server.Items.SmallRedFlask",
+    "itemId": 6188
+  },
+  {
+    "type": "Server.Items.SmallEmptyFlask",
+    "itemId": 6189
+  },
+  {
+    "type": "Server.Items.YellowBeaker",
+    "itemId": 6190
+  },
+  {
+    "type": "Server.Items.RedBeaker",
+    "itemId": 6191
+  },
+  {
+    "type": "Server.Items.BlueBeaker",
+    "itemId": 6192
+  },
+  {
+    "type": "Server.Items.GreenBeaker",
+    "itemId": 6193
+  },
+  {
+    "type": "Server.Items.EmptyCurvedFlaskW",
+    "itemId": 6194
+  },
+  {
+    "type": "Server.Items.RedCurvedFlask",
+    "itemId": 6195
+  },
+  {
+    "type": "Server.Items.LtBlueCurvedFlask",
+    "itemId": 6196
+  },
+  {
+    "type": "Server.Items.EmptyCurvedFlaskE",
+    "itemId": 6197
+  },
+  {
+    "type": "Server.Items.BlueCurvedFlask",
+    "itemId": 6198
+  },
+  {
+    "type": "Server.Items.GreenCurvedFlask",
+    "itemId": 6199
+  },
+  {
+    "type": "Server.Items.RedRibbedFlask",
+    "itemId": 6200
+  },
+  {
+    "type": "Server.Items.VioletRibbedFlask",
+    "itemId": 6201
+  },
+  {
+    "type": "Server.Items.EmptyRibbedFlask",
+    "itemId": 6202
+  },
+  {
+    "type": "Server.Items.LargeYellowFlask",
+    "itemId": 6203
+  },
+  {
+    "type": "Server.Items.LargeVioletFlask",
+    "itemId": 6204
+  },
+  {
+    "type": "Server.Items.LargeEmptyFlask",
+    "itemId": 6205
+  },
+  {
+    "type": "Server.Items.AniRedRibbedFlask",
+    "itemId": 6206
+  },
+  {
+    "type": "Server.Items.AniLargeVioletFlask",
+    "itemId": 6209
+  },
+  {
+    "type": "Server.Items.AniSmallBlueFlask",
+    "itemId": 6212
+  },
+  {
+    "type": "Server.Items.SmallBlueBottle",
+    "itemId": 6215
+  },
+  {
+    "type": "Server.Items.SmallGreenBottle2",
+    "itemId": 6216
+  },
+  {
+    "type": "Server.Items.EmptyVialsWRack",
+    "itemId": 6235
+  },
+  {
+    "type": "Server.Items.FullVialsWRack",
+    "itemId": 6237
+  },
+  {
+    "type": "Server.Items.EmptyVial",
+    "itemId": 3620
+  },
+  {
+    "type": "Server.Items.HourglassAni",
+    "itemId": 6161
+  },
+  {
+    "type": "Server.Items.Hourglass",
+    "itemId": 6160
+  },
+  {
+    "type": "Server.Items.TinyRedBottle",
+    "itemId": 3844
+  },
+  {
+    "type": "Server.Items.HoveringWisp",
+    "itemId": 8448
+  },
+  {
+    "type": "Server.Items.OrigamiButterfly",
+    "itemId": 10296,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.OrigamiSwan",
+    "itemId": 10297,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.OrigamiFrog",
+    "itemId": 10298,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.OrigamiShape",
+    "itemId": 10299,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.OrigamiSongbird",
+    "itemId": 10300,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.OrigamiFish",
+    "itemId": 10301,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.GrobusFur",
+    "itemId": 4596,
+    "lootType": "Blessed",
+    "hue": 1109
+  },
+  {
+    "type": "Server.Items.PrimitiveFetish",
+    "itemId": 575,
+    "lootType": "Blessed",
+    "hue": 580
+  },
+  {
+    "type": "Server.Items.AcidProofRope",
+    "itemId": 525,
+    "hue": 977
+  },
+  {
+    "type": "Server.Items.ParoxysmusCorrodedStein",
+    "itemId": 2518
+  },
+  {
+    "type": "Server.Items.ParoxysmusDinner",
+    "itemId": 7829
+  },
+  {
+    "type": "Server.Items.StringOfPartsOfParoxysmusVictims",
+    "itemId": 4050
+  },
+  {
+    "type": "Server.Items.SweatOfParoxysmus",
+    "itemId": 3841
+  },
+  {
+    "type": "Server.Items.CrystallineFragments",
+    "itemId": 8763,
+    "lootType": "Blessed",
+    "hue": 1150
+  },
+  {
+    "type": "Server.Items.IcyHeart",
+    "itemId": 587
+  },
+  {
+    "type": "Server.Items.LuckyDagger",
+    "itemId": 3922,
+    "hue": 2213
+  },
+  {
+    "type": "Server.Items.ProtectorsEssence",
+    "itemId": 575
+  },
+  {
+    "type": "Server.Items.HorseShoes",
+    "itemId": 4022
+  },
+  {
+    "type": "Server.Items.ForgedMetal",
+    "itemId": 4024
+  },
+  {
+    "type": "Server.Items.Whip",
+    "itemId": 5742
+  },
+  {
+    "type": "Server.Items.PaintsAndBrush",
+    "itemId": 4033
+  },
+  {
+    "type": "Server.Items.PenAndInk",
+    "itemId": 4031
+  },
+  {
+    "type": "Server.Items.ChiselsNorth",
+    "itemId": 4134
+  },
+  {
+    "type": "Server.Items.ChiselsWest",
+    "itemId": 4135
+  },
+  {
+    "type": "Server.Items.DirtyPan",
+    "itemId": 2536
+  },
+  {
+    "type": "Server.Items.DirtySmallRoundPot",
+    "itemId": 2535
+  },
+  {
+    "type": "Server.Items.DirtyPot",
+    "itemId": 2534
+  },
+  {
+    "type": "Server.Items.DirtyRoundPot",
+    "itemId": 2527
+  },
+  {
+    "type": "Server.Items.DirtyFrypan",
+    "itemId": 2526
+  },
+  {
+    "type": "Server.Items.DirtySmallPot",
+    "itemId": 2525
+  },
+  {
+    "type": "Server.Items.DirtyKettle",
+    "itemId": 2524
+  },
+  {
+    "type": "Server.Items.SwarmOfFlies",
+    "itemId": 2331,
+    "hue": 1,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DragonFlameSectBadge",
+    "itemId": 574,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.OrdersFromMinax",
+    "itemId": 8825,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.SerpentFangSectBadge",
+    "itemId": 572,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.TigerClawSectBadge",
+    "itemId": 573,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.TravestysCollectionOfShells",
+    "itemId": 4051
+  },
+  {
+    "type": "Server.Items.HornOfTheDreadhorn",
+    "itemId": 12636
+  },
+  {
+    "type": "Server.Items.MangledHeadOfDreadhorn",
+    "itemId": 12630
+  }
+]

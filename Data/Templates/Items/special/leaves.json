@@ -1,0 +1,45 @@
+[
+  {
+    "type": "Server.Items.HolySword",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.LeggingsOfEmbers",
+    "props": {
+      "basePhysicalResistance": 15,
+      "baseFireResistance": 25,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 15,
+      "baseEnergyResistance": 15,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ShaminoCrossbow",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.SamuraiHelm",
+    "props": {
+      "basePhysicalResistance": 15,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 15,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.PlagueBeastGland",
+    "itemId": 7407,
+    "hue": 6
+  }
+]

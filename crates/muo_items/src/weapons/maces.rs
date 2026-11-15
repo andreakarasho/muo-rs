@@ -9,17 +9,6 @@ weapon_leaf! {
     default_weight: Some(9.0),
     primary_ability: Some(Ability::ShadowStrike),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 40,
-    aos_min_damage: same(11),
-    aos_max_damage: same(13),
-    aos_speed: 44,
-    ml_speed: 2.50,
-    old_str_req: 10,
-    old_min_damage: 8,
-    old_max_damage: 24,
-    old_speed: 40,
-    init_min_hits: 31,
-    init_max_hits: 40,
 }
 
 weapon_leaf! {
@@ -31,12 +20,6 @@ weapon_leaf! {
     flippable: Some((0x903, 0x406E)),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 45,
-    aos_min_damage: same(11),
-    aos_max_damage: same(15),
-    ml_speed: 2.75,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -58,17 +41,6 @@ weapon_leaf! {
     default_weight: Some(9.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 45,
-    aos_min_damage: same(15),
-    aos_max_damage: same(17),
-    aos_speed: 28,
-    ml_speed: 3.75,
-    old_str_req: 35,
-    old_min_damage: 6,
-    old_max_damage: 33,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -78,17 +50,6 @@ weapon_leaf! {
     default_weight: Some(14.0),
     primary_ability: Some(Ability::ConcussionBlow),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 45,
-    aos_min_damage: same(12),
-    aos_max_damage: same(14),
-    aos_speed: 40,
-    ml_speed: 2.75,
-    old_str_req: 20,
-    old_min_damage: 8,
-    old_max_damage: 32,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -97,17 +58,6 @@ weapon_leaf! {
     default_weight: Some(1.0),
     primary_ability: Some(Ability::Dismount),
     secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 5,
-    aos_min_damage: same(9),
-    aos_max_damage: same(11),
-    aos_speed: 40,
-    ml_speed: 2.75,
-    old_str_req: 0,
-    old_min_damage: 2,
-    old_max_damage: 6,
-    old_speed: 35,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -117,17 +67,6 @@ weapon_leaf! {
     default_weight: Some(10.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 45,
-    aos_min_damage: same(14),
-    aos_max_damage: same(16),
-    aos_speed: 32,
-    ml_speed: 3.50,
-    old_str_req: 20,
-    old_min_damage: 10,
-    old_max_damage: 30,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -155,17 +94,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 40,
-    aos_min_damage: same(14),
-    aos_max_damage: same(17),
-    aos_speed: 30,
-    ml_speed: 3.50,
-    old_str_req: 40,
-    old_min_damage: 14,
-    old_max_damage: 17,
-    old_speed: 30,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -187,17 +115,6 @@ weapon_leaf! {
     default_weight: Some(10.0),
     primary_ability: Some(Ability::WhirlwindAttack),
     secondary_ability: Some(Ability::CrushingBlow),
-    aos_str_req: 95,
-    aos_min_damage: same(17),
-    aos_max_damage: same(18),
-    aos_speed: 28,
-    ml_speed: 3.75,
-    old_str_req: 40,
-    old_min_damage: 8,
-    old_max_damage: 36,
-    old_speed: 31,
-    init_min_hits: 31,
-    init_max_hits: 110,
     def_animation: WeaponAnimation::Bash2H,
 }
 
@@ -208,17 +125,6 @@ weapon_leaf! {
     default_weight: Some(17.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 80,
-    aos_min_damage: same(16),
-    aos_max_damage: same(17),
-    aos_speed: 26,
-    ml_speed: 4.00,
-    old_str_req: 30,
-    old_min_damage: 10,
-    old_max_damage: 30,
-    old_speed: 32,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 pub fn register(types: &mut TypeRegistry) {

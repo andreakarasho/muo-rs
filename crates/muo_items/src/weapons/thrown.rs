@@ -27,8 +27,6 @@ weapon_leaf! {
         set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, 100);
     };
     label_number: 1113529,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -44,12 +42,6 @@ weapon_leaf! {
     min_throw_range: 4,
     primary_ability: Some(Ability::MysticArc),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 25,
-    aos_min_damage: same(11),
-    aos_max_damage: same(15),
-    ml_speed: 2.75,
-    init_min_hits: 31,
-    init_max_hits: 60,
 }
 
 weapon_leaf! {
@@ -65,12 +57,6 @@ weapon_leaf! {
     min_throw_range: 6,
     primary_ability: Some(Ability::MovingShot),
     secondary_ability: Some(Ability::InfusedThrow),
-    aos_str_req: 40,
-    aos_min_damage: same(13),
-    aos_max_damage: same(17),
-    ml_speed: 3.25,
-    init_min_hits: 31,
-    init_max_hits: 60,
 }
 
 weapon_leaf! {
@@ -85,8 +71,6 @@ weapon_leaf! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechStam as u32, 40);
     };
     label_number: 1112394,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -102,12 +86,6 @@ weapon_leaf! {
     min_throw_range: 8,
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 60,
-    aos_min_damage: same(16),
-    aos_max_damage: same(20),
-    ml_speed: 4.00,
-    init_min_hits: 31,
-    init_max_hits: 65,
 }
 
 weapon_leaf! {
@@ -122,8 +100,6 @@ weapon_leaf! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLowerDefend as u32, 40);
     };
     label_number: 1112393,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -143,8 +119,6 @@ weapon_leaf! {
         set_attr(w, id, AttrKind::Element, AosElementAttribute::Energy as u32, 20);
     };
     label_number: 1113530,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -161,8 +135,6 @@ weapon_leaf! {
     };
     label_number: 1113531,
     artifact_rarity: 5,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -178,8 +150,6 @@ weapon_leaf! {
         set_attr(w, id, AttrKind::Element, AosElementAttribute::Chaos as u32, 100);
     };
     label_number: 1150358,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 pub fn register(types: &mut TypeRegistry) {

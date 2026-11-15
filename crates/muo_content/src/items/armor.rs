@@ -38,6 +38,7 @@ use crate::core;
 use crate::craft::{self, CraftResource};
 use crate::hooks::rnd;
 use crate::misc::aos_helpers;
+use crate::templates::{self, item_props as ip};
 
 int_enum! {
     /// `ArmorQuality`.
@@ -80,7 +81,8 @@ int_enum! {
 // shortcut: the scalars were once settable; nothing sets them, so it is a constant until a config needs it.
 pub const ARMOR_SCALARS: [f64; 6] = [0.07, 0.07, 0.14, 0.15, 0.22, 0.35];
 
-/// The `override`s of an armor class: its constants, and the virtuals that are code. A subclass is
+/// The `override`s of an armor class: its constants, and the virtuals that are code. The stat fields (resistances,
+/// hits, requirements, bonuses, armor base) are fallbacks for the class's template `props`. A subclass is
 /// `ArmorClass { .. , ..PARENT }`.
 #[derive(Copy, Clone)]
 pub struct ArmorClass {
@@ -277,7 +279,12 @@ pub fn is_shield(w: &World, id: ItemId) -> bool {
 pub fn new_armor(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
     let c = ty.family::<ArmorClass>().unwrap_or(&BASE_ARMOR_CLASS);
-    let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+    templates::table(w); // the stat props below and in combat read the loaded table
+    let (min, max) = (
+        ip::int(w, id, "initMinHits", c.init_min_hits),
+        ip::int(w, id, "initMaxHits", c.init_max_hits),
+    );
+    let hits = random_min_max(w, min, max);
     let mut d = ArmorData::for_load(c.default_resource);
     d.hit_points = hits;
     d.max_hit_points = hits;
@@ -309,7 +316,7 @@ fn aos_or_old(w: &World, set: i32, aos: i32, old: i32) -> i32 {
 pub fn base_armor_rating(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.armor_base);
     if set == -1 {
-        class(w, id).armor_base
+        ip::int(w, id, "armorBase", class(w, id).armor_base)
     } else {
         set
     }
@@ -321,8 +328,8 @@ pub fn str_bonus(w: &World, id: ItemId) -> i32 {
     aos_or_old(
         w,
         data(w, id).map_or(-1, |d| d.str_bonus),
-        c.aos_str_bonus,
-        c.old_str_bonus,
+        ip::int(w, id, "aosStrBonus", c.aos_str_bonus),
+        ip::int(w, id, "oldStrBonus", c.old_str_bonus),
     )
 }
 
@@ -332,8 +339,8 @@ pub fn dex_bonus(w: &World, id: ItemId) -> i32 {
     aos_or_old(
         w,
         data(w, id).map_or(-1, |d| d.dex_bonus),
-        c.aos_dex_bonus,
-        c.old_dex_bonus,
+        ip::int(w, id, "aosDexBonus", c.aos_dex_bonus),
+        ip::int(w, id, "oldDexBonus", c.old_dex_bonus),
     )
 }
 
@@ -343,8 +350,8 @@ pub fn int_bonus(w: &World, id: ItemId) -> i32 {
     aos_or_old(
         w,
         data(w, id).map_or(-1, |d| d.int_bonus),
-        c.aos_int_bonus,
-        c.old_int_bonus,
+        ip::int(w, id, "aosIntBonus", c.aos_int_bonus),
+        ip::int(w, id, "oldIntBonus", c.old_int_bonus),
     )
 }
 
@@ -354,8 +361,8 @@ pub fn str_requirement(w: &World, id: ItemId) -> i32 {
     aos_or_old(
         w,
         data(w, id).map_or(-1, |d| d.str_req),
-        c.aos_str_req,
-        c.old_str_req,
+        ip::int(w, id, "aosStrReq", c.aos_str_req),
+        ip::int(w, id, "oldStrReq", c.old_str_req),
     )
 }
 
@@ -365,8 +372,8 @@ pub fn dex_requirement(w: &World, id: ItemId) -> i32 {
     aos_or_old(
         w,
         data(w, id).map_or(-1, |d| d.dex_req),
-        c.aos_dex_req,
-        c.old_dex_req,
+        ip::int(w, id, "aosDexReq", c.aos_dex_req),
+        ip::int(w, id, "oldDexReq", c.old_dex_req),
     )
 }
 
@@ -376,8 +383,8 @@ pub fn int_requirement(w: &World, id: ItemId) -> i32 {
     aos_or_old(
         w,
         data(w, id).map_or(-1, |d| d.int_req),
-        c.aos_int_req,
-        c.old_int_req,
+        ip::int(w, id, "aosIntReq", c.aos_int_req),
+        ip::int(w, id, "oldIntReq", c.old_int_req),
     )
 }
 
@@ -492,11 +499,12 @@ pub fn resource_attrs(w: &World, id: ItemId) -> craft::CraftAttr {
 fn resistance(
     w: &World,
     id: ItemId,
+    key: &str,
     base: fn(&ArmorClass) -> i32,
     res: fn(&craft::CraftAttr) -> i32,
     bonus: fn(&ArmorData) -> i32,
 ) -> i32 {
-    base(class(w, id))
+    ip::int(w, id, key, base(class(w, id)))
         + prot_offset(w, id)
         + res(&resource_attrs(w, id))
         + data(w, id).map_or(0, bonus)
@@ -1531,6 +1539,7 @@ const PRE_CODEGEN: Layout = Layout {
 };
 
 fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Result<()> {
+    templates::table(w); // as in `new_armor`
     (ITEM_BASE.deserialize)(w, id, reader)?;
     let version = reader.read_i32()?;
     let layout = match version {
@@ -1707,6 +1716,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
         resistance(
             w,
             id,
+            "basePhysicalResistance",
             |c| c.base_physical_resistance,
             |a| a.armor_physical_resist,
             |d| d.physical_bonus,
@@ -1716,6 +1726,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
         resistance(
             w,
             id,
+            "baseFireResistance",
             |c| c.base_fire_resistance,
             |a| a.armor_fire_resist,
             |d| d.fire_bonus,
@@ -1725,6 +1736,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
         resistance(
             w,
             id,
+            "baseColdResistance",
             |c| c.base_cold_resistance,
             |a| a.armor_cold_resist,
             |d| d.cold_bonus,
@@ -1734,6 +1746,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
         resistance(
             w,
             id,
+            "basePoisonResistance",
             |c| c.base_poison_resistance,
             |a| a.armor_poison_resist,
             |d| d.poison_bonus,
@@ -1743,6 +1756,7 @@ pub static BASE_ARMOR: ItemType = ItemType {
         resistance(
             w,
             id,
+            "baseEnergyResistance",
             |c| c.base_energy_resistance,
             |a| a.armor_energy_resist,
             |d| d.energy_bonus,

@@ -9,7 +9,7 @@ use muo_server::type_registry::TypeRegistry;
 
 /// `EmptyBentoBox()`.
 pub fn empty_bento_box_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x2834)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyBentoBox")
 }
 
 leaf! {
@@ -21,7 +21,7 @@ leaf! {
 
 /// `GreenTeaBasket()`.
 pub fn green_tea_basket_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x284B)
+    crate::simple::from_template(w, ty, "Server.Items.GreenTeaBasket")
 }
 
 leaf! {
@@ -33,7 +33,7 @@ leaf! {
 
 /// `Glass()`.
 pub fn glass_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1f81)
+    crate::simple::from_template(w, ty, "Server.Items.Glass")
 }
 
 leaf! {
@@ -45,7 +45,7 @@ leaf! {
 
 /// `GlassBottle()`.
 pub fn glass_bottle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xe2b)
+    crate::simple::from_template(w, ty, "Server.Items.GlassBottle")
 }
 
 leaf! {
@@ -57,7 +57,7 @@ leaf! {
 
 /// `EmptyPewterBowl()`.
 pub fn empty_pewter_bowl_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x15FD)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyPewterBowl")
 }
 
 leaf! {
@@ -69,7 +69,7 @@ leaf! {
 
 /// `EmptyPewterTub()`.
 pub fn empty_pewter_tub_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1603)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyPewterTub")
 }
 
 leaf! {
@@ -81,7 +81,7 @@ leaf! {
 
 /// `EmptyWoodenBowl()`.
 pub fn empty_wooden_bowl_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x15F8)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyWoodenBowl")
 }
 
 leaf! {
@@ -93,7 +93,7 @@ leaf! {
 
 /// `EmptyWoodenTub()`.
 pub fn empty_wooden_tub_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1605)
+    crate::simple::from_template(w, ty, "Server.Items.EmptyWoodenTub")
 }
 
 leaf! {
@@ -105,9 +105,7 @@ leaf! {
 
 /// `CocoaButter()`.
 pub fn cocoa_butter_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1044);
-    hue(w, id, 0x457);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.CocoaButter")
 }
 
 leaf! {
@@ -120,9 +118,7 @@ leaf! {
 
 /// `CocoaLiquor()`.
 pub fn cocoa_liquor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x103F);
-    hue(w, id, 0x46A);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.CocoaLiquor")
 }
 
 leaf! {
@@ -186,7 +182,7 @@ leaf! {
 
 /// `Eggshells()`.
 pub fn eggshells_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x9b4)
+    crate::simple::from_template(w, ty, "Server.Items.Eggshells")
 }
 
 leaf! {
@@ -198,7 +194,7 @@ leaf! {
 
 /// `WoodenBowl()`.
 pub fn wooden_bowl_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x15f8)
+    crate::simple::from_template(w, ty, "Server.Items.WoodenBowl")
 }
 
 leaf! {
@@ -210,7 +206,7 @@ leaf! {
 
 /// `SheafOfHay()`.
 pub fn sheaf_of_hay_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xF36)
+    crate::simple::from_template(w, ty, "Server.Items.SheafOfHay")
 }
 
 leaf! {

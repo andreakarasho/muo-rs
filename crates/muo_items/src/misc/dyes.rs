@@ -341,9 +341,7 @@ item_leaf! {
 
 /// `SpecialBeardDye()`.
 pub fn special_beard_dye_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xE26);
-    ops::set_loot_type(w, id, LootType::Newbied);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SpecialBeardDye")
 }
 
 item_leaf! {

@@ -19,7 +19,7 @@ use muo_content::items::weapon::{
     set_resource,
 };
 use muo_content::items::weapon_combat::{DamageTypes, elemental_damage_hue};
-use muo_content::items::{ml, same, set_attr};
+use muo_content::items::{same, set_attr};
 use muo_primitives::utility::{random, random_element};
 use muo_server::World;
 use muo_server::ids::ItemId;

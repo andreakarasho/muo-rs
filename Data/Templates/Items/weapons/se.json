@@ -1,0 +1,220 @@
+[
+  {
+    "type": "Server.Items.Bokuto",
+    "props": {
+      "aosStrReq": 20,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 53,
+      "mlSpeed": 2.0,
+      "oldStrReq": 20,
+      "oldMinDamage": 9,
+      "oldMaxDamage": 11,
+      "oldSpeed": 53,
+      "defHitSound": 1334,
+      "defMissSound": 570,
+      "initMinHits": 25,
+      "initMaxHits": 50
+    }
+  },
+  {
+    "type": "Server.Items.Daisho",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 40,
+      "mlSpeed": 2.75,
+      "oldStrReq": 40,
+      "oldMinDamage": 13,
+      "oldMaxDamage": 15,
+      "oldSpeed": 40,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 45,
+      "initMaxHits": 65
+    }
+  },
+  {
+    "type": "Server.Items.Kama",
+    "props": {
+      "aosStrReq": 15,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 55,
+      "mlSpeed": 2.0,
+      "oldStrReq": 15,
+      "oldMinDamage": 9,
+      "oldMaxDamage": 11,
+      "oldSpeed": 55,
+      "defHitSound": 562,
+      "defMissSound": 568,
+      "initMinHits": 35,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.Lajatang",
+    "props": {
+      "aosStrReq": 65,
+      "aosMinDamage": 16,
+      "aosMaxDamage": 18,
+      "aosSpeed": 32,
+      "mlSpeed": 3.5,
+      "oldStrReq": 65,
+      "oldMinDamage": 16,
+      "oldMaxDamage": 18,
+      "oldSpeed": 55,
+      "defHitSound": 562,
+      "defMissSound": 568,
+      "initMinHits": 90,
+      "initMaxHits": 95
+    }
+  },
+  {
+    "type": "Server.Items.NoDachi",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 16,
+      "aosMaxDamage": 18,
+      "aosSpeed": 35,
+      "mlSpeed": 3.5,
+      "oldStrReq": 40,
+      "oldMinDamage": 16,
+      "oldMaxDamage": 18,
+      "oldSpeed": 35,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.Nunchaku",
+    "props": {
+      "aosStrReq": 15,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 13,
+      "aosSpeed": 47,
+      "mlSpeed": 2.5,
+      "oldStrReq": 15,
+      "oldMinDamage": 11,
+      "oldMaxDamage": 13,
+      "oldSpeed": 47,
+      "defHitSound": 1333,
+      "defMissSound": 569,
+      "initMinHits": 40,
+      "initMaxHits": 55
+    }
+  },
+  {
+    "type": "Server.Items.Sai",
+    "props": {
+      "aosStrReq": 15,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 55,
+      "mlSpeed": 2.0,
+      "oldStrReq": 15,
+      "oldMinDamage": 9,
+      "oldMaxDamage": 11,
+      "oldSpeed": 55,
+      "defHitSound": 572,
+      "defMissSound": 562,
+      "initMinHits": 55,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.Tekagi",
+    "props": {
+      "aosStrReq": 10,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 12,
+      "aosSpeed": 53,
+      "mlSpeed": 2.0,
+      "oldStrReq": 10,
+      "oldMinDamage": 10,
+      "oldMaxDamage": 12,
+      "oldSpeed": 53,
+      "defHitSound": 568,
+      "defMissSound": 562,
+      "initMinHits": 35,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.Tessen",
+    "props": {
+      "aosStrReq": 10,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 12,
+      "aosSpeed": 50,
+      "mlSpeed": 2.0,
+      "oldStrReq": 10,
+      "oldMinDamage": 10,
+      "oldMaxDamage": 12,
+      "oldSpeed": 50,
+      "defHitSound": 562,
+      "defMissSound": 568,
+      "initMinHits": 55,
+      "initMaxHits": 60
+    }
+  },
+  {
+    "type": "Server.Items.Tetsubo",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 12,
+      "aosMaxDamage": 14,
+      "aosSpeed": 45,
+      "mlSpeed": 2.5,
+      "oldStrReq": 35,
+      "oldMinDamage": 12,
+      "oldMaxDamage": 14,
+      "oldSpeed": 45,
+      "defHitSound": 563,
+      "defMissSound": 568,
+      "initMinHits": 60,
+      "initMaxHits": 65
+    }
+  },
+  {
+    "type": "Server.Items.Wakizashi",
+    "props": {
+      "aosStrReq": 20,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 13,
+      "aosSpeed": 44,
+      "mlSpeed": 2.5,
+      "oldStrReq": 20,
+      "oldMinDamage": 11,
+      "oldMaxDamage": 13,
+      "oldSpeed": 44,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 45,
+      "initMaxHits": 50
+    }
+  },
+  {
+    "type": "Server.Items.Yumi",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": [
+        18,
+        16
+      ],
+      "aosMaxDamage": 20,
+      "aosSpeed": 25,
+      "mlSpeed": 4.5,
+      "oldStrReq": 35,
+      "oldMinDamage": 18,
+      "oldMaxDamage": 20,
+      "oldSpeed": 25,
+      "defMaxRange": 10,
+      "initMinHits": 55,
+      "initMaxHits": 60
+    }
+  }
+]

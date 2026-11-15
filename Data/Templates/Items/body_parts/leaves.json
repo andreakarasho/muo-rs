@@ -1,0 +1,22 @@
+[
+  {
+    "type": "Server.Items.LeftArm",
+    "itemId": 7585
+  },
+  {
+    "type": "Server.Items.LeftLeg",
+    "itemId": 7587
+  },
+  {
+    "type": "Server.Items.RightArm",
+    "itemId": 7586
+  },
+  {
+    "type": "Server.Items.RightLeg",
+    "itemId": 7588
+  },
+  {
+    "type": "Server.Items.Torso",
+    "itemId": 7583
+  }
+]

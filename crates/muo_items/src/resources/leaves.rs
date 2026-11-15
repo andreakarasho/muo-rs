@@ -456,7 +456,7 @@ leaf! {
 
 /// `PristineDreadHorn()`.
 pub fn pristine_dread_horn_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x315A)
+    crate::simple::from_template(w, ty, "Server.Items.PristineDreadHorn")
 }
 
 leaf! {

@@ -20,14 +20,6 @@ weapon_leaf! {
     flippable: Some((0x8FE, 0x4072)),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 10,
-    aos_min_damage: same(10),
-    aos_max_damage: same(12),
-    ml_speed: 2.00,
-    def_hit_sound: 0x23C,
-    def_miss_sound: 0x238,
-    init_min_hits: 31,
-    init_max_hits: 90,
     def_skill: SkillName::Fencing,
     def_type: WeaponType::Piercing,
     def_animation: WeaponAnimation::Pierce1H,
@@ -40,19 +32,6 @@ weapon_leaf! {
     default_weight: Some(3.0),
     primary_ability: Some(Ability::ParalyzingBlow),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 25,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 36,
-    ml_speed: 3.00,
-    old_str_req: 25,
-    old_min_damage: 13,
-    old_max_damage: 15,
-    old_speed: 36,
-    def_hit_sound: 0x23B,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -70,8 +49,6 @@ weapon_leaf! {
     }
     primary_ability: None,
     secondary_ability: None,
-    init_min_hits: 5,
-    init_max_hits: 5,
 }
 
 weapon_leaf! {
@@ -81,19 +58,6 @@ weapon_leaf! {
     default_weight: Some(6.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::ArmorIgnore),
-    aos_str_req: 30,
-    aos_min_damage: same(14),
-    aos_max_damage: same(15),
-    aos_speed: 33,
-    ml_speed: 3.25,
-    old_str_req: 25,
-    old_min_damage: 5,
-    old_max_damage: 29,
-    old_speed: 45,
-    def_hit_sound: 0x237,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 100,
 }
 
 weapon_leaf! {
@@ -122,19 +86,6 @@ weapon_leaf! {
     default_weight: Some(1.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 55,
-    aos_min_damage: same(11),
-    aos_max_damage: same(14),
-    aos_speed: 47,
-    ml_speed: 2.50,
-    old_str_req: 55,
-    old_min_damage: 11,
-    old_max_damage: 14,
-    old_speed: 47,
-    def_hit_sound: 0x23B,
-    def_miss_sound: 0x23A,
-    init_min_hits: 51,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -144,19 +95,6 @@ weapon_leaf! {
     default_weight: Some(8.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::ShadowStrike),
-    aos_str_req: 25,
-    aos_min_damage: same(11),
-    aos_max_damage: same(13),
-    aos_speed: 44,
-    ml_speed: 2.50,
-    old_str_req: 10,
-    old_min_damage: 6,
-    old_max_damage: 28,
-    old_speed: 45,
-    def_hit_sound: 0x23B,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 70,
 }
 
 weapon_leaf! {
@@ -186,14 +124,6 @@ weapon_leaf! {
     flippable: Some((0x90B, 0x4074)),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 35,
-    aos_min_damage: same(14),
-    aos_max_damage: same(18),
-    ml_speed: 3.50,
-    def_hit_sound: 0x237,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -214,14 +144,6 @@ weapon_leaf! {
     flippable: Some((0x908, 0x4075)),
     primary_ability: Some(Ability::WhirlwindAttack),
     secondary_ability: Some(Ability::Dismount),
-    aos_str_req: 40,
-    aos_min_damage: same(16),
-    aos_max_damage: same(19),
-    ml_speed: 3.50,
-    def_hit_sound: 0x237,
-    def_miss_sound: 0x238,
-    init_min_hits: 31,
-    init_max_hits: 80,
 }
 
 weapon_leaf! {
@@ -234,14 +156,6 @@ weapon_leaf! {
     default_weight: Some(6.0),
     primary_ability: Some(Ability::BleedAttack),
     secondary_ability: Some(Ability::MortalStrike),
-    aos_str_req: 20,
-    aos_min_damage: same(11),
-    aos_max_damage: same(15),
-    ml_speed: 2.75,
-    def_hit_sound: 0x23B,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 90,
 }
 
 weapon_leaf! {
@@ -278,19 +192,6 @@ weapon_leaf! {
     default_weight: Some(2.0),
     primary_ability: Some(Ability::ArmorIgnore),
     secondary_ability: Some(Ability::InfectiousStrike),
-    aos_str_req: 10,
-    aos_min_damage: same(10),
-    aos_max_damage: same(12),
-    aos_speed: 53,
-    ml_speed: 2.00,
-    old_str_req: 10,
-    old_min_damage: 3,
-    old_max_damage: 28,
-    old_speed: 53,
-    def_hit_sound: 0x23C,
-    def_miss_sound: 0x238,
-    init_min_hits: 31,
-    init_max_hits: 90,
     def_skill: SkillName::Fencing,
     def_type: WeaponType::Piercing,
     def_animation: WeaponAnimation::Pierce1H,
@@ -303,19 +204,6 @@ weapon_leaf! {
     default_weight: Some(12.0),
     primary_ability: Some(Ability::Dismount),
     secondary_ability: Some(Ability::ConcussionBlow),
-    aos_str_req: 95,
-    aos_min_damage: same(17),
-    aos_max_damage: same(18),
-    aos_speed: 24,
-    ml_speed: 4.50,
-    old_str_req: 95,
-    old_min_damage: 17,
-    old_max_damage: 18,
-    old_speed: 24,
-    def_hit_sound: 0x23C,
-    def_miss_sound: 0x238,
-    init_min_hits: 31,
-    init_max_hits: 110,
     def_skill: SkillName::Fencing,
     def_type: WeaponType::Piercing,
     def_animation: WeaponAnimation::Pierce1H,
@@ -411,19 +299,6 @@ weapon_leaf! {
     default_weight: Some(5.0),
     primary_ability: Some(Ability::DoubleStrike),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 25,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 37,
-    ml_speed: 3.00,
-    old_str_req: 10,
-    old_min_damage: 4,
-    old_max_damage: 30,
-    old_speed: 43,
-    def_hit_sound: 0x23B,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 90,
 }
 
 weapon_leaf! {
@@ -449,19 +324,6 @@ weapon_leaf! {
     THIN_LONGSWORD, THIN_LONGSWORD_CLASS, thin_longsword_new = "Server.Items.ThinLongsword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B8, v0;
     flippable: Some((0x13B8, 0x13B7)),
     default_weight: Some(1.0),
-    aos_str_req: 35,
-    aos_min_damage: same(15),
-    aos_max_damage: same(16),
-    aos_speed: 30,
-    ml_speed: 3.50,
-    old_str_req: 25,
-    old_min_damage: 5,
-    old_max_damage: 33,
-    old_speed: 35,
-    def_hit_sound: 0x237,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 110,
 }
 
 weapon_leaf! {
@@ -528,19 +390,6 @@ weapon_leaf! {
     default_weight: Some(6.0),
     primary_ability: Some(Ability::CrushingBlow),
     secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 40,
-    aos_min_damage: same(15),
-    aos_max_damage: same(17),
-    aos_speed: 28,
-    ml_speed: 3.75,
-    old_str_req: 40,
-    old_min_damage: 6,
-    old_max_damage: 34,
-    old_speed: 30,
-    def_hit_sound: 0x237,
-    def_miss_sound: 0x23A,
-    init_min_hits: 31,
-    init_max_hits: 100,
 }
 
 weapon_leaf! {

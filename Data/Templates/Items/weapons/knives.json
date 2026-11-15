@@ -1,0 +1,66 @@
+[
+  {
+    "type": "Server.Items.ButcherKnife",
+    "props": {
+      "aosStrReq": 5,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 49,
+      "mlSpeed": 2.25,
+      "oldStrReq": 5,
+      "oldMinDamage": 2,
+      "oldMaxDamage": 14,
+      "oldSpeed": 40,
+      "initMinHits": 31,
+      "initMaxHits": 40
+    }
+  },
+  {
+    "type": "Server.Items.Cleaver",
+    "props": {
+      "aosStrReq": 10,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 13,
+      "aosSpeed": 46,
+      "mlSpeed": 2.5,
+      "oldStrReq": 10,
+      "oldMinDamage": 2,
+      "oldMaxDamage": 13,
+      "oldSpeed": 40,
+      "initMinHits": 31,
+      "initMaxHits": 50
+    }
+  },
+  {
+    "type": "Server.Items.Dagger",
+    "props": {
+      "aosStrReq": 10,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 11,
+      "aosSpeed": 56,
+      "mlSpeed": 2.0,
+      "oldStrReq": 1,
+      "oldMinDamage": 3,
+      "oldMaxDamage": 15,
+      "oldSpeed": 55,
+      "initMinHits": 31,
+      "initMaxHits": 40
+    }
+  },
+  {
+    "type": "Server.Items.SkinningKnife",
+    "props": {
+      "aosStrReq": 5,
+      "aosMinDamage": 9,
+      "aosMaxDamage": 11,
+      "aosSpeed": 49,
+      "mlSpeed": 2.25,
+      "oldStrReq": 5,
+      "oldMinDamage": 1,
+      "oldMaxDamage": 10,
+      "oldSpeed": 40,
+      "initMinHits": 31,
+      "initMaxHits": 40
+    }
+  }
+]

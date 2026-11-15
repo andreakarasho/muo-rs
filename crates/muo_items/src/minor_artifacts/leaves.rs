@@ -9,7 +9,7 @@ use muo_content::aos::{
 use muo_content::items::{same, set_attr};
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
@@ -51,8 +51,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistColdBonus as u32, 10);
     };
     label_number: 1063481,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 0, cold: 50, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -69,8 +67,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
     };
     label_number: 1063486,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 50, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -85,13 +81,11 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
     };
     label_number: 1070636,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 /// `CandelabraOfSouls()`.
 pub fn candelabra_of_souls_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0xB26)
+    crate::simple::from_template(w, ty, "Server.Items.CandelabraOfSouls")
 }
 
 leaf! {
@@ -112,8 +106,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1063474,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -130,8 +122,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistEnergyBonus as u32, 8);
     };
     label_number: 1063472,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -145,8 +135,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusMana as u32, 6);
     };
     label_number: 1070818,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -162,15 +150,11 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPhysicalBonus as u32, 10);
     };
     label_number: 1063482,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 /// `GhostShipAnchor()`.
 pub fn ghost_ship_anchor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F7);
-    hue(w, id, 0x47E);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.GhostShipAnchor")
 }
 
 leaf! {
@@ -190,14 +174,11 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 15);
     };
     label_number: 1070690,
-    base_physical_resistance: 18,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 /// `GoldBricks()`.
 pub fn gold_bricks_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1BEB)
+    crate::simple::from_template(w, ty, "Server.Items.GoldBricks")
 }
 
 leaf! {
@@ -218,13 +199,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
     };
     label_number: 1070817,
-    base_physical_resistance: 15,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -239,8 +213,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1063469,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -255,8 +227,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1075033,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -270,8 +240,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 2);
     };
     label_number: 1075030,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -285,8 +253,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 20);
     };
     label_number: 1075032,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 0, chaos: 100, direct: 0 },
 }
 
@@ -300,13 +266,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 3);
     };
     label_number: 1075039,
-    base_physical_resistance: 9,
-    base_fire_resistance: 29,
-    base_cold_resistance: 7,
-    base_poison_resistance: 8,
-    base_energy_resistance: 7,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -321,8 +280,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1075045,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -336,13 +293,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
     };
     label_number: 1075037,
-    base_physical_resistance: 6,
-    base_fire_resistance: 5,
-    base_cold_resistance: 6,
-    base_poison_resistance: 6,
-    base_energy_resistance: 8,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -371,8 +321,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechHits as u32, 40);
     };
     label_number: 1075036,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -386,8 +334,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
     };
     label_number: 1075049,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -402,8 +348,6 @@ weapon_art! {
         crate::weapons::ctor::set_slayer(w, id, SlayerName::Repond);
     };
     label_number: 1075046,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -421,8 +365,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
     };
     label_number: 1075029,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -437,8 +379,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
     };
     label_number: 1063475,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -453,8 +393,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistPoisonBonus as u32, 10);
     };
     label_number: 1063485,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 0, cold: 0, pois: 50, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -468,13 +406,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 5);
     };
     label_number: 1070691,
-    base_physical_resistance: 8,
-    base_fire_resistance: 5,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 5,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -490,8 +421,6 @@ weapon_art! {
         crate::weapons::ctor::set_slayer(w, id, SlayerName::Fey);
     };
     label_number: 1070854,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -513,9 +442,7 @@ clothing_leaf! {
 
 /// `ShipModelOfTheHMSCape()`.
 pub fn ship_model_of_the_hms_cape_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F3);
-    hue(w, id, 0x37B);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ShipModelOfTheHMSCape")
 }
 
 leaf! {
@@ -537,8 +464,6 @@ weapon_art! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerManaCost as u32, 5);
     };
     label_number: 1070692,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 armor_leaf! {
@@ -552,13 +477,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
     };
     label_number: 1063471,
-    base_physical_resistance: 14,
-    base_fire_resistance: 12,
-    base_cold_resistance: 12,
-    base_poison_resistance: 8,
-    base_energy_resistance: 9,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

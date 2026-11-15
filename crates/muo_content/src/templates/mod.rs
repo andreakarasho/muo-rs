@@ -13,6 +13,7 @@
 //! to mutate. Edits apply to entities made after a (re)load; saved entities keep their saved values.
 
 pub mod creature_props;
+pub mod item_props;
 pub mod item_steps;
 pub mod mobile_steps;
 pub mod props;

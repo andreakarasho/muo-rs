@@ -1,0 +1,12 @@
+[
+  {
+    "type": "Server.Items.OilCloth",
+    "itemId": 5981,
+    "hue": 2001
+  },
+  {
+    "type": "Server.Items.ClockworkAssembly",
+    "itemId": 7848,
+    "hue": 1102
+  }
+]

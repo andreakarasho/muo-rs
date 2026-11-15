@@ -14,8 +14,6 @@ weapon_leaf! {
     };
     label_number: 1061106,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -30,8 +28,6 @@ weapon_leaf! {
     };
     label_number: 1061088,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -47,8 +43,6 @@ weapon_leaf! {
     };
     label_number: 1061107,
     artifact_rarity: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -63,8 +57,6 @@ weapon_leaf! {
     };
     label_number: 1061596,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -79,8 +71,6 @@ weapon_leaf! {
     };
     label_number: 1061109,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -94,8 +84,6 @@ weapon_leaf! {
     };
     label_number: 1061111,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -111,8 +99,6 @@ weapon_leaf! {
     };
     label_number: 1060860,
     artifact_rarity: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -128,8 +114,6 @@ weapon_leaf! {
     };
     label_number: 1061601,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| DamageTypes { phys: 25, fire: 0, cold: 0, pois: 75, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -145,8 +129,6 @@ weapon_leaf! {
     };
     label_number: 1061600,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 100, chaos: 0, direct: 0 },
 }
 
@@ -160,8 +142,6 @@ weapon_leaf! {
     };
     label_number: 1061108,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -177,8 +157,6 @@ weapon_leaf! {
     };
     label_number: 1061248,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 100, chaos: 0, direct: 0 },
 }
 
@@ -196,8 +174,6 @@ weapon_leaf! {
     };
     label_number: 1061090,
     artifact_rarity: 11,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -212,8 +188,6 @@ weapon_leaf! {
     };
     label_number: 1061110,
     artifact_rarity: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| DamageTypes { phys: 0, fire: 0, cold: 0, pois: 100, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -229,8 +203,6 @@ weapon_leaf! {
     };
     label_number: 1060024,
     artifact_rarity: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_leaf! {
@@ -245,8 +217,6 @@ weapon_leaf! {
     };
     label_number: 1061593,
     artifact_rarity: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| DamageTypes { phys: 20, fire: 20, cold: 20, pois: 20, nrgy: 20, chaos: 0, direct: 0 },
 }
 

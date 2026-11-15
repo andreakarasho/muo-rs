@@ -36,6 +36,7 @@ use super::{MlInt, random_min_max, read_enum, same};
 use crate::aos::{AosWeaponAttribute, AttrKind, Attrs};
 use crate::core;
 use crate::craft::{self, CraftResource};
+use crate::templates::{self, item_props as ip};
 
 int_enum! {
     /// `WeaponQuality`.
@@ -115,7 +116,8 @@ pub enum Ability {
 }
 
 /// The `override`s of a weapon class that are constants: one `static` per class, a subclass is
-/// `WeaponClass { .. , ..PARENT_CLASS }`.
+/// `WeaponClass { .. , ..PARENT_CLASS }`. The stat fields (requirements, damage, speed, hits, sounds, range) are
+/// fallbacks: a class's template `props` (`Data/Templates/Items`, the field in camelCase) override them.
 #[derive(Copy, Clone, Debug)]
 pub struct WeaponClass {
     /// `DefaultWeight` when the class overrides it; else the tiledata weight.
@@ -384,7 +386,12 @@ pub fn new_weapon(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId 
     let quality = ops::item_data(w, id).quality;
     (ty.set_layer)(w, id, Layer::from_raw(quality));
     let c = ty.family::<WeaponClass>().unwrap_or(&BASE_WEAPON_CLASS);
-    let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+    templates::table(w); // the stat props below and in combat read the loaded table
+    let (min, max) = (
+        ip::int(w, id, "initMinHits", c.init_min_hits),
+        ip::int(w, id, "initMaxHits", c.init_max_hits),
+    );
+    let hits = random_min_max(w, min, max);
     let mut d = WeaponData::for_load();
     d.quality = WeaponQuality::Regular;
     d.hit_points = hits;
@@ -402,40 +409,59 @@ pub fn new_weapon(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId 
 
 // ---- stat getters (the virtual Aos/Old properties and their overrides by an instance value) ----
 
+/// The instance value, else the class's `Aos*` prop/field (`Core.ML` picks an `MlInt`'s side) or its `Old*` one.
 fn aos_or_old(
     w: &World,
     id: ItemId,
     set: i32,
-    aos: fn(&WeaponClass, bool) -> i32,
-    old: fn(&WeaponClass) -> i32,
+    (aos_key, aos): (&str, fn(&WeaponClass) -> MlInt),
+    (old_key, old): (&str, fn(&WeaponClass) -> i32),
 ) -> i32 {
     if set != -1 {
         return set;
     }
     let c = class(w, id);
     if core::aos(w) {
-        aos(c, core::ml(w))
+        ip::ml_int(w, id, aos_key, aos(c)).get(core::ml(w))
     } else {
-        old(c)
+        ip::int(w, id, old_key, old(c))
     }
 }
 
 /// `StrRequirement`.
 pub fn str_requirement(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.str_requirement);
-    aos_or_old(w, id, set, |c, _| c.aos_str_req, |c| c.old_str_req)
+    aos_or_old(
+        w,
+        id,
+        set,
+        ("aosStrReq", |c| same(c.aos_str_req)),
+        ("oldStrReq", |c| c.old_str_req),
+    )
 }
 
 /// `DexRequirement`.
 pub fn dex_requirement(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.dex_requirement);
-    aos_or_old(w, id, set, |c, _| c.aos_dex_req, |c| c.old_dex_req)
+    aos_or_old(
+        w,
+        id,
+        set,
+        ("aosDexReq", |c| same(c.aos_dex_req)),
+        ("oldDexReq", |c| c.old_dex_req),
+    )
 }
 
 /// `IntRequirement`.
 pub fn int_requirement(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.int_requirement);
-    aos_or_old(w, id, set, |c, _| c.aos_int_req, |c| c.old_int_req)
+    aos_or_old(
+        w,
+        id,
+        set,
+        ("aosIntReq", |c| same(c.aos_int_req)),
+        ("oldIntReq", |c| c.old_int_req),
+    )
 }
 
 /// `MinDamage`.
@@ -445,8 +471,8 @@ pub fn min_damage(w: &World, id: ItemId) -> i32 {
         w,
         id,
         set,
-        |c, ml| c.aos_min_damage.get(ml),
-        |c| c.old_min_damage,
+        ("aosMinDamage", |c| c.aos_min_damage),
+        ("oldMinDamage", |c| c.old_min_damage),
     )
 }
 
@@ -457,8 +483,8 @@ pub fn max_damage(w: &World, id: ItemId) -> i32 {
         w,
         id,
         set,
-        |c, ml| c.aos_max_damage.get(ml),
-        |c| c.old_max_damage,
+        ("aosMaxDamage", |c| c.aos_max_damage),
+        ("oldMaxDamage", |c| c.old_max_damage),
     )
 }
 
@@ -466,7 +492,7 @@ pub fn max_damage(w: &World, id: ItemId) -> i32 {
 pub fn hit_sound(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.hit_sound);
     if set == -1 {
-        class(w, id).def_hit_sound
+        ip::int(w, id, "defHitSound", class(w, id).def_hit_sound)
     } else {
         set
     }
@@ -476,7 +502,7 @@ pub fn hit_sound(w: &World, id: ItemId) -> i32 {
 pub fn miss_sound(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.miss_sound);
     if set == -1 {
-        class(w, id).def_miss_sound
+        ip::int(w, id, "defMissSound", class(w, id).def_miss_sound)
     } else {
         set
     }
@@ -490,11 +516,11 @@ pub fn speed(w: &World, id: ItemId) -> f32 {
     }
     let c = class(w, id);
     if core::ml(w) {
-        c.ml_speed
+        ip::float(w, id, "mlSpeed", f64::from(c.ml_speed)) as f32
     } else if core::aos(w) {
-        c.aos_speed as f32
+        ip::int(w, id, "aosSpeed", c.aos_speed) as f32
     } else {
-        c.old_speed as f32
+        ip::int(w, id, "oldSpeed", c.old_speed) as f32
     }
 }
 
@@ -510,14 +536,15 @@ pub fn max_range(w: &World, id: ItemId) -> i32 {
         let Some(attacker) = super::parent_mobile(w, id) else {
             return max;
         };
-        let divisor = (140 - c.aos_str_req) / 3;
+        let str_req = ip::int(w, id, "aosStrReq", c.aos_str_req);
+        let divisor = (140 - str_req) / 3;
         if divisor <= 0 {
             return max;
         }
-        let scaled = min + (muo_server::mobile::base::str(w, attacker) - c.aos_str_req) / divisor;
+        let scaled = min + (muo_server::mobile::base::str(w, attacker) - str_req) / divisor;
         return scaled.clamp(min, max);
     }
-    c.def_max_range
+    ip::int(w, id, "defMaxRange", c.def_max_range)
 }
 
 /// BaseRanged `EffectID` (BaseThrown: the item's own graphic).
@@ -1001,6 +1028,7 @@ fn serialize(w: &World, id: ItemId, writer: &mut dyn GenericWriter) {
 }
 
 fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Result<()> {
+    templates::table(w); // as in `new_weapon`
     (ITEM_BASE.deserialize)(w, id, reader)?;
     let version = reader.read_i32()?;
     if version == 10 {
@@ -1187,7 +1215,11 @@ fn after_deserialization(w: &mut World, id: ItemId) {
     let (hp, max) = data(w, id).map_or((1, 1), |d| (d.hit_points, d.max_hit_points));
     if hp <= 0 && max <= 0 {
         let c = class(w, id);
-        let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+        let (min, max) = (
+            ip::int(w, id, "initMinHits", c.init_min_hits),
+            ip::int(w, id, "initMaxHits", c.init_max_hits),
+        );
+        let hits = random_min_max(w, min, max);
         if let Some(d) = data_mut(w, id) {
             d.hit_points = hits;
             d.max_hit_points = hits;

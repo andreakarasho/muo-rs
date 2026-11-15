@@ -1,0 +1,16 @@
+[
+  {
+    "type": "Server.Items.DupresShield",
+    "props": {
+      "basePhysicalResistance": 1,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 1,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 50,
+      "armorBase": 15
+    }
+  }
+]

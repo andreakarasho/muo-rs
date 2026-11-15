@@ -1,0 +1,223 @@
+[
+  {
+    "type": "Server.Items.BloodBlade",
+    "props": {
+      "aosStrReq": 10,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 12,
+      "mlSpeed": 2.0,
+      "defHitSound": 572,
+      "defMissSound": 568,
+      "initMinHits": 31,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.BoneHarvester",
+    "props": {
+      "aosStrReq": 25,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 36,
+      "mlSpeed": 3.0,
+      "oldStrReq": 25,
+      "oldMinDamage": 13,
+      "oldMaxDamage": 15,
+      "oldSpeed": 36,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 70
+    }
+  },
+  {
+    "type": "Server.Items.BoneMachete",
+    "props": {
+      "initMinHits": 5,
+      "initMaxHits": 5
+    }
+  },
+  {
+    "type": "Server.Items.Broadsword",
+    "props": {
+      "aosStrReq": 30,
+      "aosMinDamage": 14,
+      "aosMaxDamage": 15,
+      "aosSpeed": 33,
+      "mlSpeed": 3.25,
+      "oldStrReq": 25,
+      "oldMinDamage": 5,
+      "oldMaxDamage": 29,
+      "oldSpeed": 45,
+      "defHitSound": 567,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 100
+    }
+  },
+  {
+    "type": "Server.Items.CrescentBlade",
+    "props": {
+      "aosStrReq": 55,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 14,
+      "aosSpeed": 47,
+      "mlSpeed": 2.5,
+      "oldStrReq": 55,
+      "oldMinDamage": 11,
+      "oldMaxDamage": 14,
+      "oldSpeed": 47,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 51,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.Cutlass",
+    "props": {
+      "aosStrReq": 25,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 13,
+      "aosSpeed": 44,
+      "mlSpeed": 2.5,
+      "oldStrReq": 10,
+      "oldMinDamage": 6,
+      "oldMaxDamage": 28,
+      "oldSpeed": 45,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 70
+    }
+  },
+  {
+    "type": "Server.Items.DreadSword",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 14,
+      "aosMaxDamage": 18,
+      "mlSpeed": 3.5,
+      "defHitSound": 567,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 110
+    }
+  },
+  {
+    "type": "Server.Items.GargishTalwar",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 16,
+      "aosMaxDamage": 19,
+      "mlSpeed": 3.5,
+      "defHitSound": 567,
+      "defMissSound": 568,
+      "initMinHits": 31,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.GlassSword",
+    "props": {
+      "aosStrReq": 20,
+      "aosMinDamage": 11,
+      "aosMaxDamage": 15,
+      "mlSpeed": 2.75,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.Kryss",
+    "props": {
+      "aosStrReq": 10,
+      "aosMinDamage": 10,
+      "aosMaxDamage": 12,
+      "aosSpeed": 53,
+      "mlSpeed": 2.0,
+      "oldStrReq": 10,
+      "oldMinDamage": 3,
+      "oldMaxDamage": 28,
+      "oldSpeed": 53,
+      "defHitSound": 572,
+      "defMissSound": 568,
+      "initMinHits": 31,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.Lance",
+    "props": {
+      "aosStrReq": 95,
+      "aosMinDamage": 17,
+      "aosMaxDamage": 18,
+      "aosSpeed": 24,
+      "mlSpeed": 4.5,
+      "oldStrReq": 95,
+      "oldMinDamage": 17,
+      "oldMaxDamage": 18,
+      "oldSpeed": 24,
+      "defHitSound": 572,
+      "defMissSound": 568,
+      "initMinHits": 31,
+      "initMaxHits": 110
+    }
+  },
+  {
+    "type": "Server.Items.Scimitar",
+    "props": {
+      "aosStrReq": 25,
+      "aosMinDamage": 13,
+      "aosMaxDamage": 15,
+      "aosSpeed": 37,
+      "mlSpeed": 3.0,
+      "oldStrReq": 10,
+      "oldMinDamage": 4,
+      "oldMaxDamage": 30,
+      "oldSpeed": 43,
+      "defHitSound": 571,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 90
+    }
+  },
+  {
+    "type": "Server.Items.ThinLongsword",
+    "props": {
+      "aosStrReq": 35,
+      "aosMinDamage": 15,
+      "aosMaxDamage": 16,
+      "aosSpeed": 30,
+      "mlSpeed": 3.5,
+      "oldStrReq": 25,
+      "oldMinDamage": 5,
+      "oldMaxDamage": 33,
+      "oldSpeed": 35,
+      "defHitSound": 567,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 110
+    }
+  },
+  {
+    "type": "Server.Items.VikingSword",
+    "props": {
+      "aosStrReq": 40,
+      "aosMinDamage": 15,
+      "aosMaxDamage": 17,
+      "aosSpeed": 28,
+      "mlSpeed": 3.75,
+      "oldStrReq": 40,
+      "oldMinDamage": 6,
+      "oldMaxDamage": 34,
+      "oldSpeed": 30,
+      "defHitSound": 567,
+      "defMissSound": 570,
+      "initMinHits": 31,
+      "initMaxHits": 100
+    }
+  }
+]

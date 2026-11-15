@@ -1,0 +1,54 @@
+[
+  {
+    "type": "Server.Items.LargeEmptyPot",
+    "itemId": 4551
+  },
+  {
+    "type": "Server.Items.SmallEmptyPot",
+    "itemId": 4550
+  },
+  {
+    "type": "Server.Items.PottedCactus",
+    "itemId": 7695
+  },
+  {
+    "type": "Server.Items.PottedCactus1",
+    "itemId": 7696
+  },
+  {
+    "type": "Server.Items.PottedCactus2",
+    "itemId": 7697
+  },
+  {
+    "type": "Server.Items.PottedCactus3",
+    "itemId": 7698
+  },
+  {
+    "type": "Server.Items.PottedCactus4",
+    "itemId": 7699
+  },
+  {
+    "type": "Server.Items.PottedCactus5",
+    "itemId": 7700
+  },
+  {
+    "type": "Server.Items.PottedPlant",
+    "itemId": 4554
+  },
+  {
+    "type": "Server.Items.PottedPlant1",
+    "itemId": 4555
+  },
+  {
+    "type": "Server.Items.PottedPlant2",
+    "itemId": 4556
+  },
+  {
+    "type": "Server.Items.PottedTree",
+    "itemId": 4552
+  },
+  {
+    "type": "Server.Items.PottedTree1",
+    "itemId": 4553
+  }
+]

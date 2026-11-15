@@ -1,0 +1,123 @@
+[
+  {
+    "type": "Server.Items.BraveKnightOfTheBritannia",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.GuantletsOfAnger",
+    "props": {
+      "basePhysicalResistance": 4,
+      "baseFireResistance": 4,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 5,
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.OblivionsNeedle",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.RoyalGuardSurvivalKnife",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.Calm",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.FangOfRactus",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.GladiatorsCollar",
+    "props": {
+      "basePhysicalResistance": 18,
+      "baseFireResistance": 18,
+      "baseColdResistance": 17,
+      "basePoisonResistance": 18,
+      "baseEnergyResistance": 16,
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.Pacify",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.Quell",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.Subdue",
+    "props": {
+      "initMinHits": 150,
+      "initMaxHits": 150
+    }
+  },
+  {
+    "type": "Server.Items.ArtifactLargeVase",
+    "itemId": 2887
+  },
+  {
+    "type": "Server.Items.ArtifactVase",
+    "itemId": 2888
+  },
+  {
+    "type": "Server.Items.DirtPatch",
+    "itemId": 2323
+  },
+  {
+    "type": "Server.Items.EvilIdolSkull",
+    "itemId": 7960
+  },
+  {
+    "type": "Server.Items.LavaTile",
+    "itemId": 4846
+  },
+  {
+    "type": "Server.Items.SkullPole",
+    "itemId": 8708
+  },
+  {
+    "type": "Server.Items.SwampTile",
+    "itemId": 12813
+  },
+  {
+    "type": "Server.Items.TatteredAncientMummyWrapping",
+    "itemId": 3617,
+    "hue": 2313
+  },
+  {
+    "type": "Server.Items.WaterTile",
+    "itemId": 13422
+  },
+  {
+    "type": "Server.Items.WindSpirit",
+    "itemId": 7967
+  }
+]

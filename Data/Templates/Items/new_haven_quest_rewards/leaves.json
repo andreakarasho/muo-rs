@@ -1,0 +1,79 @@
+[
+  {
+    "type": "Server.Items.ArmsOfArmstrong",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5
+    }
+  },
+  {
+    "type": "Server.Items.BulwarkLeggings",
+    "props": {
+      "basePhysicalResistance": 9,
+      "baseFireResistance": 5,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3
+    }
+  },
+  {
+    "type": "Server.Items.GlovesOfSafeguarding",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5
+    }
+  },
+  {
+    "type": "Server.Items.HealersTouch",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5
+    }
+  },
+  {
+    "type": "Server.Items.TheDragonsTail",
+    "props": {
+      "initMinHits": 80,
+      "initMaxHits": 80
+    }
+  },
+  {
+    "type": "Server.Items.TunicOfGuarding",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5
+    }
+  },
+  {
+    "type": "Server.Items.TwilightJacket",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 12,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3
+    }
+  },
+  {
+    "type": "Server.Items.WalkersLeggings",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 6,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3
+    }
+  }
+]

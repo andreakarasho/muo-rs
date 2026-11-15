@@ -83,15 +83,8 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 2);
     };
     label_number: 1075047,
-    base_physical_resistance: 10,
-    base_fire_resistance: 9,
-    base_cold_resistance: 7,
-    base_poison_resistance: 7,
-    base_energy_resistance: 15,
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::Iron,
-    init_min_hits: 255,
-    init_max_hits: 255,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
 
@@ -104,13 +97,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
     };
     label_number: 1075041,
-    base_physical_resistance: 12,
-    base_fire_resistance: 8,
-    base_cold_resistance: 7,
-    base_poison_resistance: 4,
-    base_energy_resistance: 19,
-    init_min_hits: 255,
-    init_max_hits: 255,
     required_races: Some(ALLOW_ELVES_ONLY),
 }
 
@@ -152,8 +138,6 @@ weapon_art! {
         crate::weapons::ctor::set_velocity(w, id, 15);
     };
     label_number: 1075044,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -167,8 +151,6 @@ weapon_art! {
         crate::weapons::ctor::set_velocity(w, id, 25);
     };
     label_number: 1075031,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 // ---- Minor Artifacts ----
@@ -188,13 +170,6 @@ armor_leaf! {
         on_single_click: muo_content::items::armor::BASE_SHIELD.on_single_click,
     };
     label_number: 1070693,
-    base_physical_resistance: 8,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 0,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
@@ -210,8 +185,6 @@ weapon_art! {
     primary_ability: Some(muo_content::items::weapon::Ability::ConcussionBlow),
     secondary_ability: Some(muo_content::items::weapon::Ability::ParalyzingBlow),
     label_number: 1070853,
-    init_min_hits: 255,
-    init_max_hits: 255,
     get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 100, nrgy: 0, chaos: 0, direct: 0 },
 }
 
@@ -318,13 +291,6 @@ armor_leaf! {
         }
     };
     label_number: 1094924,
-    base_physical_resistance: 23,
-    base_fire_resistance: 1,
-    base_cold_resistance: 23,
-    base_poison_resistance: 3,
-    base_energy_resistance: 5,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -338,13 +304,6 @@ armor_leaf! {
         skill_bonus(w, id, 0, SkillName::MagicResist, 10.0);
     };
     label_number: 1094914,
-    base_physical_resistance: 11,
-    base_fire_resistance: 6,
-    base_cold_resistance: 18,
-    base_poison_resistance: 15,
-    base_energy_resistance: 13,
-    init_min_hits: 150,
-    init_max_hits: 150,
     can_fortify: false,
 }
 
@@ -361,9 +320,6 @@ armor_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
     };
     label_number: 1077694,
-    base_physical_resistance: 5,
-    base_energy_resistance: 1,
-    aos_str_req: 14,
 }
 
 weapon_art! {

@@ -411,9 +411,7 @@ item_leaf! {
 
 /// `OilCloth()`.
 pub fn oil_cloth_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x175D);
-    hue(w, id, 2001);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OilCloth")
 }
 
 /// `OilCloth.Dye(from, sender)` (`IDyable`).
@@ -824,9 +822,7 @@ item_leaf! {
 
 /// `ClockworkAssembly()`.
 pub fn clockwork_assembly_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1EA8);
-    hue(w, id, 1102);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ClockworkAssembly")
 }
 
 /// Builds `class` with the constructor of `args.len()` parameters its table lists (`Activator.CreateInstance`).

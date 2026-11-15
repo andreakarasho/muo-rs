@@ -1,0 +1,2497 @@
+[
+  {
+    "type": "Server.Items.ArmorOfFortune",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BrambleCoat",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 8,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 7
+    }
+  },
+  {
+    "type": "Server.Items.IronwoodCrown",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 7,
+      "baseEnergyResistance": 10
+    }
+  },
+  {
+    "type": "Server.Items.SongWovenMantle",
+    "props": {
+      "basePhysicalResistance": 14,
+      "baseColdResistance": 14,
+      "baseEnergyResistance": 16
+    }
+  },
+  {
+    "type": "Server.Items.SpellWovenBritches",
+    "props": {
+      "baseFireResistance": 15,
+      "basePoisonResistance": 16
+    }
+  },
+  {
+    "type": "Server.Items.StitchersMittens",
+    "props": {
+      "basePhysicalResistance": 20,
+      "baseColdResistance": 20
+    }
+  },
+  {
+    "type": "Server.Items.GauntletsOfNobility",
+    "props": {
+      "basePhysicalResistance": 18,
+      "basePoisonResistance": 20,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.HelmOfInsight",
+    "props": {
+      "baseEnergyResistance": 17,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.HolyKnightsBreastplate",
+    "props": {
+      "basePhysicalResistance": 35,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.InquisitorsResolution",
+    "props": {
+      "baseColdResistance": 22,
+      "baseEnergyResistance": 17,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.JackalsCollar",
+    "props": {
+      "baseFireResistance": 23,
+      "baseColdResistance": 17,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.LeggingsOfBane",
+    "props": {
+      "basePoisonResistance": 36,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.MidnightBracers",
+    "props": {
+      "basePhysicalResistance": 23,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.OrnateCrownOfTheHarrower",
+    "props": {
+      "basePoisonResistance": 17,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ShadowDancerLeggings",
+    "props": {
+      "basePhysicalResistance": 17,
+      "basePoisonResistance": 18,
+      "baseEnergyResistance": 18,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TunicOfFire",
+    "props": {
+      "basePhysicalResistance": 24,
+      "baseFireResistance": 34,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.VoiceOfTheFallenKing",
+    "props": {
+      "baseColdResistance": 18,
+      "baseEnergyResistance": 18,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BoneArms",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 4,
+      "initMinHits": 25,
+      "initMaxHits": 30,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "oldDexBonus": -2,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.BoneChest",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 4,
+      "initMinHits": 25,
+      "initMaxHits": 30,
+      "aosStrReq": 60,
+      "oldStrReq": 40,
+      "oldDexBonus": -6,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.BoneGloves",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 4,
+      "initMinHits": 25,
+      "initMaxHits": 30,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "oldDexBonus": -1,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.BoneLegs",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 4,
+      "initMinHits": 25,
+      "initMaxHits": 30,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "oldDexBonus": -4,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.ChainHatsuburi",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 4,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 50,
+      "oldStrReq": 50,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.ChainLegs",
+    "props": {
+      "basePhysicalResistance": 4,
+      "baseFireResistance": 4,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 1,
+      "baseEnergyResistance": 2,
+      "initMinHits": 45,
+      "initMaxHits": 60,
+      "aosStrReq": 60,
+      "oldStrReq": 20,
+      "oldDexBonus": -3,
+      "armorBase": 28
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothArmsType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothArmsType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothChestType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 25
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothChestType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 25
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothKiltType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothKiltType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothLegsType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.GargishClothLegsType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 7,
+      "baseColdResistance": 6,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.DaemonArms",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 7,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "oldDexBonus": -2,
+      "armorBase": 46
+    }
+  },
+  {
+    "type": "Server.Items.DaemonChest",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 7,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 60,
+      "oldStrReq": 40,
+      "oldDexBonus": -6,
+      "armorBase": 46
+    }
+  },
+  {
+    "type": "Server.Items.DaemonGloves",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 7,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "oldDexBonus": -1,
+      "armorBase": 46
+    }
+  },
+  {
+    "type": "Server.Items.DaemonLegs",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 7,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "oldDexBonus": -4,
+      "armorBase": 46
+    }
+  },
+  {
+    "type": "Server.Items.DragonArms",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 75,
+      "oldStrReq": 20,
+      "oldDexBonus": -2,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.DragonChest",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 75,
+      "oldStrReq": 60,
+      "oldDexBonus": -8,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.DragonGloves",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 75,
+      "oldStrReq": 30,
+      "oldDexBonus": -2,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.DragonHelm",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 75,
+      "oldStrReq": 40,
+      "oldDexBonus": -1,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.DragonLegs",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 75,
+      "oldStrReq": 60,
+      "oldDexBonus": -6,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.AnthropomorphistGlasses",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 5,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 20,
+      "baseEnergyResistance": 20,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ArtsGlasses",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 8,
+      "baseColdResistance": 8,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.FoldedSteelGlasses",
+    "props": {
+      "basePhysicalResistance": 20,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.LightOfWayGlasses",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.LyricalGlasses",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.MaceShieldGlasses",
+    "props": {
+      "basePhysicalResistance": 25,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.MaritimeGlasses",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 4,
+      "baseColdResistance": 30,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.NecromanticGlasses",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 0,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.PoisonedGlasses",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 30,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TradeGlasses",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.TreasureTrinketGlasses",
+    "props": {
+      "basePhysicalResistance": 10,
+      "baseFireResistance": 10,
+      "baseColdResistance": 10,
+      "basePoisonResistance": 10,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.WizardsGlasses",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 5,
+      "baseColdResistance": 5,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 5,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.Bascinet",
+    "props": {
+      "basePhysicalResistance": 7,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 2,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 10,
+      "armorBase": 18
+    }
+  },
+  {
+    "type": "Server.Items.BoneHelm",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 4,
+      "initMinHits": 25,
+      "initMaxHits": 30,
+      "aosStrReq": 20,
+      "oldStrReq": 40,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.ChainCoif",
+    "props": {
+      "basePhysicalResistance": 4,
+      "baseFireResistance": 4,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 1,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 60,
+      "aosStrReq": 60,
+      "oldStrReq": 20,
+      "armorBase": 28
+    }
+  },
+  {
+    "type": "Server.Items.Circlet",
+    "props": {
+      "basePhysicalResistance": 1,
+      "baseFireResistance": 5,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 5,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.CloseHelm",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 45,
+      "initMaxHits": 60,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.DaemonHelm",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 7,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 20,
+      "oldStrReq": 40,
+      "armorBase": 46
+    }
+  },
+  {
+    "type": "Server.Items.GemmedCirclet",
+    "props": {
+      "basePhysicalResistance": 1,
+      "baseFireResistance": 5,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 5,
+      "initMinHits": 20,
+      "initMaxHits": 35,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.Helmet",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 45,
+      "initMaxHits": 60,
+      "aosStrReq": 45,
+      "oldStrReq": 40,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.LeatherCap",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 15,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.NorseHelm",
+    "props": {
+      "basePhysicalResistance": 4,
+      "baseFireResistance": 1,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 2,
+      "initMinHits": 45,
+      "initMaxHits": 60,
+      "aosStrReq": 55,
+      "oldStrReq": 40,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.OrcHelm",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 1,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 5,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 30,
+      "oldStrReq": 10,
+      "armorBase": 20
+    }
+  },
+  {
+    "type": "Server.Items.PlateHelm",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 80,
+      "oldStrReq": 40,
+      "oldDexBonus": -1,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.RavenHelm",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 1,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 5,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.RoyalCirclet",
+    "props": {
+      "basePhysicalResistance": 1,
+      "baseFireResistance": 5,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 5,
+      "initMinHits": 20,
+      "initMaxHits": 35,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.VultureHelm",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 1,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 5,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.WingedHelm",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 1,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 5,
+      "initMinHits": 45,
+      "initMaxHits": 55,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.FemaleLeafChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 4,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 20,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.FemaleLeatherChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 25,
+      "oldStrReq": 15,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherArmsType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherArmsType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherChestType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherChestType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherKiltType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherKiltType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherLegsType1",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherLegsType2",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 6,
+      "baseColdResistance": 7,
+      "basePoisonResistance": 6,
+      "baseEnergyResistance": 6,
+      "initMinHits": 30,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.GargishLeatherWingArmor",
+    "props": {
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 0
+    }
+  },
+  {
+    "type": "Server.Items.LeafArms",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 4,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 15,
+      "oldStrReq": 15,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeafChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 4,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 20,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeafGorget",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 4,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeafLegs",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 4,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 20,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeafTonlet",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 4,
+      "baseEnergyResistance": 4,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherArms",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 15,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherBustierArms",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 15,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherDo",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherGorget",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherHaidate",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 20,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherHiroSode",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherJingasa",
+    "props": {
+      "basePhysicalResistance": 4,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 3,
+      "initMinHits": 20,
+      "initMaxHits": 30,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherLegs",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherMempo",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 35,
+      "initMaxHits": 40,
+      "aosStrReq": 30,
+      "oldStrReq": 30,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherNinjaHood",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 3,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 25,
+      "initMaxHits": 45,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherNinjaJacket",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 65,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherNinjaMitts",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 25,
+      "initMaxHits": 25,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherNinjaPants",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 10,
+      "oldStrReq": 10,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.LeatherShorts",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherSkirt",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 10,
+      "armorBase": 13
+    }
+  },
+  {
+    "type": "Server.Items.LeatherSuneate",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 25,
+      "initMaxHits": 40,
+      "aosStrReq": 20,
+      "oldStrReq": 20,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.DecorativePlateKabuto",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 70,
+      "oldStrReq": 70,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.FemalePlateChest",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 95,
+      "oldStrReq": 45,
+      "oldDexBonus": -5,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.FemaleElvenPlateChest",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 95,
+      "oldStrReq": 95,
+      "armorBase": 30
+    }
+  },
+  {
+    "type": "Server.Items.HeavyPlateJingasa",
+    "props": {
+      "basePhysicalResistance": 7,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 70,
+      "aosStrReq": 55,
+      "oldStrReq": 55,
+      "armorBase": 4
+    }
+  },
+  {
+    "type": "Server.Items.LightPlateJingasa",
+    "props": {
+      "basePhysicalResistance": 7,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 2,
+      "initMinHits": 55,
+      "initMaxHits": 60,
+      "aosStrReq": 55,
+      "oldStrReq": 55,
+      "armorBase": 4
+    }
+  },
+  {
+    "type": "Server.Items.PlateArms",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 80,
+      "oldStrReq": 40,
+      "oldDexBonus": -2,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.PlateBattleKabuto",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 3,
+      "initMinHits": 60,
+      "initMaxHits": 65,
+      "aosStrReq": 70,
+      "oldStrReq": 70,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.PlateDo",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 60,
+      "initMaxHits": 70,
+      "aosStrReq": 85,
+      "oldStrReq": 85,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.PlateGloves",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 70,
+      "oldStrReq": 30,
+      "oldDexBonus": -2,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.PlateGorget",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 45,
+      "oldStrReq": 30,
+      "oldDexBonus": -1,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.PlateHaidate",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 55,
+      "initMaxHits": 65,
+      "aosStrReq": 80,
+      "oldStrReq": 80,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.PlateHatsuburi",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 3,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 65,
+      "oldStrReq": 65,
+      "armorBase": 4
+    }
+  },
+  {
+    "type": "Server.Items.PlateHiroSode",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 55,
+      "initMaxHits": 75,
+      "aosStrReq": 75,
+      "oldStrReq": 75,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.PlateLegs",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 90,
+      "oldStrReq": 60,
+      "oldDexBonus": -6,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.PlateMempo",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 60,
+      "initMaxHits": 70,
+      "aosStrReq": 50,
+      "oldStrReq": 50,
+      "armorBase": 4
+    }
+  },
+  {
+    "type": "Server.Items.PlateSuneate",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 55,
+      "initMaxHits": 65,
+      "aosStrReq": 80,
+      "oldStrReq": 80,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.SmallPlateJingasa",
+    "props": {
+      "basePhysicalResistance": 7,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 2,
+      "initMinHits": 55,
+      "initMaxHits": 60,
+      "aosStrReq": 55,
+      "oldStrReq": 55,
+      "armorBase": 4
+    }
+  },
+  {
+    "type": "Server.Items.StandardPlateKabuto",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 2,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 2,
+      "baseEnergyResistance": 3,
+      "initMinHits": 60,
+      "initMaxHits": 65,
+      "aosStrReq": 70,
+      "oldStrReq": 70,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.WoodlandArms",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 80,
+      "oldStrReq": 80,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.WoodlandChest",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 95,
+      "oldStrReq": 95,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.WoodlandGloves",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 70,
+      "oldStrReq": 70,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.WoodlandGorget",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 45,
+      "oldStrReq": 45,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.WoodlandLegs",
+    "props": {
+      "basePhysicalResistance": 5,
+      "baseFireResistance": 3,
+      "baseColdResistance": 2,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 90,
+      "oldStrReq": 90,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.RangerArms",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.RangerChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 35,
+      "oldStrReq": 35,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.RangerGloves",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.RangerGorget",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.RangerLegs",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 30,
+      "oldStrReq": 35,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.RingmailArms",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 1,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 20,
+      "oldDexBonus": -1,
+      "armorBase": 22
+    }
+  },
+  {
+    "type": "Server.Items.RingmailChest",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 1,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 20,
+      "oldDexBonus": -2,
+      "armorBase": 22
+    }
+  },
+  {
+    "type": "Server.Items.RingmailGloves",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 1,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 20,
+      "oldDexBonus": -1,
+      "armorBase": 22
+    }
+  },
+  {
+    "type": "Server.Items.RingmailLegs",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 1,
+      "basePoisonResistance": 5,
+      "baseEnergyResistance": 3,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 20,
+      "oldDexBonus": -1,
+      "armorBase": 22
+    }
+  },
+  {
+    "type": "Server.Items.SpiritualityHelm",
+    "props": {
+      "basePhysicalResistance": 13,
+      "baseFireResistance": 13,
+      "baseColdResistance": 12,
+      "basePoisonResistance": 14,
+      "baseEnergyResistance": 13,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 25
+    }
+  },
+  {
+    "type": "Server.Items.ValorGauntlets",
+    "props": {
+      "basePhysicalResistance": 11,
+      "baseFireResistance": 11,
+      "baseColdResistance": 13,
+      "basePoisonResistance": 14,
+      "baseEnergyResistance": 10,
+      "initMinHits": 255,
+      "initMaxHits": 255,
+      "aosStrReq": 50
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneArmsType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneArmsType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneChestType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneChestType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneKiltType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneKiltType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneLegsType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStoneLegsType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 40
+    }
+  },
+  {
+    "type": "Server.Items.FemaleStuddedChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 35,
+      "oldStrReq": 35,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedArmsType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedArmsType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedChestType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedChestType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedKiltType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedKiltType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedLegsType1",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.GargishStuddedLegsType2",
+    "props": {
+      "basePhysicalResistance": 6,
+      "baseFireResistance": 6,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 8,
+      "baseEnergyResistance": 6,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 40,
+      "oldStrReq": 40,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.HideChest",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 15
+    }
+  },
+  {
+    "type": "Server.Items.HideFemaleChest",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 35,
+      "oldStrReq": 35,
+      "armorBase": 15
+    }
+  },
+  {
+    "type": "Server.Items.HideGloves",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 15,
+      "oldStrReq": 15,
+      "armorBase": 15
+    }
+  },
+  {
+    "type": "Server.Items.HideGorget",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 15,
+      "oldStrReq": 15,
+      "armorBase": 15
+    }
+  },
+  {
+    "type": "Server.Items.HidePants",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 15
+    }
+  },
+  {
+    "type": "Server.Items.HidePauldrons",
+    "props": {
+      "basePhysicalResistance": 3,
+      "baseFireResistance": 3,
+      "baseColdResistance": 4,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 2,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 20,
+      "oldStrReq": 20,
+      "armorBase": 15
+    }
+  },
+  {
+    "type": "Server.Items.StuddedArms",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.StuddedBustierArms",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 35,
+      "oldStrReq": 35,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.StuddedChest",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 35,
+      "oldStrReq": 35,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.StuddedDo",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 55,
+      "oldStrReq": 55,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.StuddedGloves",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.StuddedGorget",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 25,
+      "oldStrReq": 25,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.StuddedHaidate",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 30,
+      "oldStrReq": 30,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.StuddedHiroSode",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 45,
+      "initMaxHits": 55,
+      "aosStrReq": 30,
+      "oldStrReq": 30,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.StuddedLegs",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 45,
+      "aosStrReq": 30,
+      "oldStrReq": 35,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.StuddedMempo",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 3,
+      "initMinHits": 30,
+      "initMaxHits": 40,
+      "aosStrReq": 30,
+      "oldStrReq": 30,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.StuddedSuneate",
+    "props": {
+      "basePhysicalResistance": 2,
+      "baseFireResistance": 4,
+      "baseColdResistance": 3,
+      "basePoisonResistance": 3,
+      "baseEnergyResistance": 4,
+      "initMinHits": 35,
+      "initMaxHits": 50,
+      "aosStrReq": 30,
+      "oldStrReq": 30,
+      "armorBase": 3
+    }
+  },
+  {
+    "type": "Server.Items.Aegis",
+    "props": {
+      "basePhysicalResistance": 15,
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneShield",
+    "props": {
+      "initMinHits": 255,
+      "initMaxHits": 255
+    }
+  },
+  {
+    "type": "Server.Items.BronzeShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 1,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 0,
+      "initMinHits": 25,
+      "initMaxHits": 30,
+      "aosStrReq": 35,
+      "armorBase": 10
+    }
+  },
+  {
+    "type": "Server.Items.Buckler",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 1,
+      "baseEnergyResistance": 0,
+      "initMinHits": 40,
+      "initMaxHits": 50,
+      "aosStrReq": 20,
+      "armorBase": 7
+    }
+  },
+  {
+    "type": "Server.Items.GargishWoodenShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 1,
+      "initMinHits": 20,
+      "initMaxHits": 25,
+      "aosStrReq": 20
+    }
+  },
+  {
+    "type": "Server.Items.HeaterShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 1,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 0,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 90,
+      "armorBase": 23
+    }
+  },
+  {
+    "type": "Server.Items.MetalKiteShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 1,
+      "initMinHits": 45,
+      "initMaxHits": 60,
+      "aosStrReq": 45,
+      "armorBase": 16
+    }
+  },
+  {
+    "type": "Server.Items.MetalShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 1,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 0,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 45,
+      "armorBase": 11
+    }
+  },
+  {
+    "type": "Server.Items.WoodenKiteShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 1,
+      "initMinHits": 50,
+      "initMaxHits": 65,
+      "aosStrReq": 20,
+      "armorBase": 12
+    }
+  },
+  {
+    "type": "Server.Items.WoodenShield",
+    "props": {
+      "basePhysicalResistance": 0,
+      "baseFireResistance": 0,
+      "baseColdResistance": 0,
+      "basePoisonResistance": 0,
+      "baseEnergyResistance": 1,
+      "initMinHits": 20,
+      "initMaxHits": 25,
+      "aosStrReq": 20,
+      "armorBase": 8
+    }
+  }
+]

@@ -77,6 +77,14 @@ pub fn layer(w: &mut World, id: ItemId, value: Layer) {
     }
 }
 
+/// `new T()` of a class whose constructor is its template `name` (its graphic is the template's `itemId`), for
+/// class `ty` (a derived class passes its own).
+pub fn from_template(w: &mut World, ty: &'static muo_server::item::ItemType, name: &str) -> ItemId {
+    let id = muo_server::item::ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, name);
+    id
+}
+
 /// Every generated class of the folders with its `[TypeAlias]` names, for the tests and the registry.
 pub fn all() -> Vec<(&'static muo_server::item::ItemType, &'static [&'static str])> {
     let mut v = Vec::new();
