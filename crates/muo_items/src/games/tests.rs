@@ -34,7 +34,7 @@ fn names_are_unique() {
     for t in [&BASE_BOARD, &BASE_PIECE]
         .into_iter()
         .chain(CONSTRUCTIBLE.iter().copied())
-        .chain(PIECES.iter().map(|(t, ..)| *t))
+        .chain(PIECES.iter().copied())
     {
         assert!(seen.insert(t.full_name), "{} twice", t.full_name);
     }
