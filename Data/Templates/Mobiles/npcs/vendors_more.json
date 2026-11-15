@@ -211,5 +211,41 @@
     "props": {
       "npcGuild": "None"
     }
+  },
+  {
+    "type": "Server.Mobiles.AnimalTrainer",
+    "title": "the animal trainer",
+    "skills": {
+      "AnimalLore": [64.0, 100.0],
+      "AnimalTaming": [90.0, 100.0],
+      "Veterinary": [65.0, 88.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBAnimalTrainer"],
+      "npcShoeType": {"female": "ThighBoots", "male": "Boots"},
+      "npcShoeHue": 0,
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "coin": {
+          "then": {"npcAddItem": ["Server.Items.QuarterStaff"]},
+          "else": {"npcAddItem": ["Server.Items.ShepherdsCrook"]}
+        }
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.GypsyAnimalTrainer",
+    "inherits": "Server.Mobiles.AnimalTrainer",
+    "coin": {
+      "then": {"title": "the gypsy animal trainer"},
+      "else": {"title": "the gypsy animal herder"}
+    }
+  },
+  {
+    "type": "Server.Mobiles.RealEstateBroker",
+    "title": "the real estate broker",
+    "props": {
+      "npcSbInfos": ["SBRealEstateBroker"]
+    }
   }
 ]
