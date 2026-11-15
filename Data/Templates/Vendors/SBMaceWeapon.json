@@ -1,0 +1,19 @@
+[
+  {
+    "name": "SBMaceWeapon",
+    "build": [
+      {"sell": "Server.Items.Club", "price": 8},
+      {"sell": "Server.Items.HammerPick", "price": 13},
+      {"sell": "Server.Items.Mace", "price": 14},
+      {"sell": "Server.Items.Maul", "price": 10},
+      {"sell": "Server.Items.WarHammer", "price": 12},
+      {"sell": "Server.Items.WarMace", "price": 15},
+      {"buy": "Server.Items.HammerPick", "price": 26, "amount": 20, "itemId": 5181, "hue": 0},
+      {"buy": "Server.Items.Club", "price": 16, "amount": 20, "itemId": 5044, "hue": 0},
+      {"buy": "Server.Items.Mace", "price": 28, "amount": 20, "itemId": 3932, "hue": 0},
+      {"buy": "Server.Items.Maul", "price": 21, "amount": 20, "itemId": 5179, "hue": 0},
+      {"buy": "Server.Items.WarHammer", "price": 25, "amount": 20, "itemId": 5177, "hue": 0},
+      {"buy": "Server.Items.WarMace", "price": 31, "amount": 20, "itemId": 5127, "hue": 0}
+    ]
+  }
+]

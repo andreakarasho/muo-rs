@@ -1,0 +1,15 @@
+[
+  {
+    "name": "SBCobbler",
+    "build": [
+      {"sell": "Server.Items.Shoes", "price": 4},
+      {"sell": "Server.Items.Boots", "price": 5},
+      {"sell": "Server.Items.ThighBoots", "price": 7},
+      {"sell": "Server.Items.Sandals", "price": 2},
+      {"buy": "Server.Items.ThighBoots", "price": 15, "amount": 20, "itemId": 5905, "hue": "randomNeutral"},
+      {"buy": "Server.Items.Shoes", "price": 8, "amount": 20, "itemId": 5903, "hue": "randomNeutral"},
+      {"buy": "Server.Items.Boots", "price": 10, "amount": 20, "itemId": 5899, "hue": "randomNeutral"},
+      {"buy": "Server.Items.Sandals", "price": 5, "amount": 20, "itemId": 5901, "hue": "randomNeutral"}
+    ]
+  }
+]

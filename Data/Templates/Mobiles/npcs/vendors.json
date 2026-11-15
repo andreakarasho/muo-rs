@@ -1,0 +1,604 @@
+[
+  {
+    "type": "Server.Mobiles.Alchemist",
+    "title": "the alchemist",
+    "skills": {
+      "Alchemy": [85.0, 100.0],
+      "TasteID": [65.0, 88.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBAlchemist"],
+      "npcGuild": "MagesGuild",
+      "npcShoeType": ["Shoes", "Sandals"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": [
+          {"item": "Server.Items.Robe", "hue": "randomPink"}
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Architect",
+    "title": "the architect",
+    "props": {
+      "npcSbInfos": [
+        {
+          "era": "AOS",
+          "else": ["SBHouseDeed"]
+        },
+        "SBArchitect"
+      ],
+      "npcGuild": "TinkersGuild"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Armorer",
+    "title": "the armorer",
+    "skills": {
+      "ArmsLore": [64.0, 100.0],
+      "Blacksmith": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        {
+          "oneOf": [
+            ["SBLeatherArmor", "SBStuddedArmor", "SBMetalShields", "SBPlateArmor", "SBHelmetArmor", "SBChainmailArmor", "SBRingmailArmor"],
+            ["SBStuddedArmor", "SBLeatherArmor", "SBMetalShields", "SBHelmetArmor"],
+            ["SBMetalShields", "SBPlateArmor", "SBHelmetArmor", "SBChainmailArmor", "SBRingmailArmor"],
+            ["SBMetalShields", "SBHelmetArmor"]
+          ]
+        },
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSELeatherArmor", "SBSEArmor"]
+        }
+      ],
+      "npcShoeType": "Boots",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": [
+          {"item": "Server.Items.HalfApron", "hue": "randomYellow"},
+          "Server.Items.Bascinet"
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Baker",
+    "title": "the baker",
+    "skills": {
+      "Cooking": [75.0, 98.0],
+      "TasteID": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBBaker"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Bard",
+    "title": "the bard",
+    "skills": {
+      "Discordance": [64.0, 100.0],
+      "Musicianship": [64.0, 100.0],
+      "Peacemaking": [65.0, 88.0],
+      "Provocation": [60.0, 83.0],
+      "Archery": [36.0, 68.0],
+      "Swords": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBBard"],
+      "npcGuild": "BardsGuild"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Barkeeper",
+    "title": "the barkeeper",
+    "props": {
+      "npcSbInfos": ["SBBarkeeper"],
+      "npcShoeType": ["ThighBoots", "Boots"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": [
+          {"item": "Server.Items.HalfApron", "hue": "randomBright"}
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Beekeeper",
+    "title": "the beekeeper",
+    "props": {
+      "npcSbInfos": ["SBBeekeeper"],
+      "npcShoeType": "Boots"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Bowyer",
+    "title": "the bowyer",
+    "skills": {
+      "Fletching": [80.0, 100.0],
+      "Archery": [80.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        "SBBowyer",
+        "SBRangedWeapon",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSEBowyer"]
+        }
+      ],
+      "npcShoeType": {"female": "ThighBoots", "male": "Boots"},
+      "npcShoeHue": 0,
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.Bow", "Server.Items.LeatherGorget"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Butcher",
+    "title": "the butcher",
+    "skills": {
+      "Anatomy": [45.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBButcher"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.HalfApron", "Server.Items.Cleaver"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Carpenter",
+    "title": "the carpenter",
+    "skills": {
+      "Carpentry": [85.0, 100.0],
+      "Lumberjacking": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        "SBStavesWeapon",
+        "SBCarpenter",
+        "SBWoodenShields",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSECarpenter"]
+        }
+      ],
+      "npcGuild": "TinkersGuild",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.HalfApron"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Cobbler",
+    "title": "the cobbler",
+    "skills": {
+      "Tailoring": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBCobbler"],
+      "npcShoeType": ["Sandals", "Shoes"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Cook",
+    "title": "the cook",
+    "skills": {
+      "Cooking": [90.0, 100.0],
+      "TasteID": [75.0, 98.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        "SBCook",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSECook"]
+        }
+      ],
+      "npcShoeType": ["Sandals", "Shoes"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.HalfApron"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Farmer",
+    "title": "the farmer",
+    "skills": {
+      "Lumberjacking": [36.0, 68.0],
+      "TasteID": [36.0, 68.0],
+      "Cooking": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBFarmer"],
+      "npcShoeType": "ThighBoots",
+      "npcShoeHue": 0,
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": [
+          {"item": "Server.Items.WideBrimHat", "hue": "randomNeutral"}
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Fisherman",
+    "title": "the fisher",
+    "skills": {
+      "Fishing": [75.0, 98.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBFisherman"],
+      "npcGuild": "FishermensGuild",
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.FishingPole"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Furtrader",
+    "title": "the furtrader",
+    "skills": {
+      "Camping": [55.0, 78.0],
+      "AnimalLore": [85.0, 100.0],
+      "Cooking": [45.0, 68.0],
+      "Tracking": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBFurtrader"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Glassblower",
+    "title": "the alchemist",
+    "skills": {
+      "Alchemy": [85.0, 100.0],
+      "TasteID": [85.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBGlassblower", "SBAlchemist"],
+      "npcGuild": "MagesGuild"
+    }
+  },
+  {
+    "type": "Server.Mobiles.GolemCrafter",
+    "title": "the golem crafter",
+    "skills": {
+      "Lockpicking": [60.0, 83.0],
+      "RemoveTrap": [75.0, 98.0],
+      "Tinkering": [64.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBTinker", "SBVagabond"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.HairStylist",
+    "title": "the hair stylist",
+    "skills": {
+      "Alchemy": [80.0, 100.0],
+      "Magery": [90.0, 110.0],
+      "TasteID": [85.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBHairStylist"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Herbalist",
+    "title": "the herbalist",
+    "skills": {
+      "Alchemy": [80.0, 100.0],
+      "Cooking": [80.0, 100.0],
+      "TasteID": [80.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBHerbalist"],
+      "npcGuild": "MagesGuild",
+      "npcShoeType": ["Shoes", "Sandals"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.InnKeeper",
+    "title": "the innkeeper",
+    "props": {
+      "npcSbInfos": [
+        "SBInnKeeper",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSEFood"]
+        }
+      ],
+      "npcShoeType": ["Sandals", "Shoes"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Jeweler",
+    "title": "the jeweler",
+    "skills": {
+      "ItemID": [64.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBJewel"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LeatherWorker",
+    "title": "the leather worker",
+    "props": {
+      "npcSbInfos": ["SBLeatherArmor", "SBStuddedArmor", "SBLeatherWorker"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Mage",
+    "title": "the mage",
+    "skills": {
+      "EvalInt": [65.0, 88.0],
+      "Inscribe": [60.0, 83.0],
+      "Magery": [64.0, 100.0],
+      "Meditation": [60.0, 83.0],
+      "MagicResist": [65.0, 88.0],
+      "Wrestling": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBMage"],
+      "npcGuild": "MagesGuild",
+      "npcShoeType": ["Shoes", "Sandals"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": [
+          {"item": "Server.Items.Robe", "hue": "randomBlue"}
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Mapmaker",
+    "title": "the mapmaker",
+    "skills": {
+      "Cartography": [90.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBMapmaker"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Miller",
+    "title": "the miller",
+    "props": {
+      "npcSbInfos": ["SBMiller"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Miner",
+    "title": "the miner",
+    "skills": {
+      "Mining": [65.0, 88.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBMiner"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcReplaceEquipment": [
+          {"item": "Server.Items.FancyShirt", "hue": 996},
+          {"item": "Server.Items.LongPants", "hue": 402}
+        ],
+        "npcAddItem": ["Server.Items.Pickaxe"],
+        "npcSeq": [
+          {
+            "npcReplaceEquipment": [
+              {"item": "Server.Items.ThighBoots", "hue": 643}
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Monk",
+    "title": "the Monk",
+    "skills": {
+      "EvalInt": 100.0,
+      "Tactics": [70.0, 90.0],
+      "Wrestling": [70.0, 90.0],
+      "MagicResist": [70.0, 90.0],
+      "Macing": [70.0, 90.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBMonk"],
+      "npcOutfit": {
+        "npcAddItem": ["Server.Items.Sandals", "Server.Items.MonkRobe"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Provisioner",
+    "title": "the provisioner",
+    "skills": {
+      "Camping": [45.0, 68.0],
+      "Tactics": [45.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        "SBProvisioner",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSEHats"]
+        }
+      ]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Rancher",
+    "title": "the rancher",
+    "skills": {
+      "AnimalLore": [55.0, 78.0],
+      "AnimalTaming": [55.0, 78.0],
+      "Herding": [64.0, 100.0],
+      "Veterinary": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBRancher"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Ranger",
+    "title": "the ranger",
+    "skills": {
+      "Camping": [55.0, 78.0],
+      "DetectHidden": [65.0, 88.0],
+      "Hiding": [45.0, 68.0],
+      "Archery": [65.0, 88.0],
+      "Tracking": [65.0, 88.0],
+      "Veterinary": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBRanger"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcReplaceEquipment": [
+          {"item": "Server.Items.Shirt", "hue": "randomNeutral"},
+          {"item": "Server.Items.LongPants", "hue": "randomNeutral"}
+        ],
+        "npcAddItem": ["Server.Items.Bow"],
+        "npcSeq": [
+          {
+            "npcReplaceEquipment": [
+              {"item": "Server.Items.ThighBoots", "hue": "randomNeutral"}
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Shipwright",
+    "title": "the shipwright",
+    "skills": {
+      "Carpentry": [60.0, 83.0],
+      "Macing": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBShipwright"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.SmithHammer"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.StoneCrafter",
+    "title": "the stone crafter",
+    "skills": {
+      "Carpentry": [85.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBStoneCrafter", "SBStavesWeapon", "SBCarpenter", "SBWoodenShields"],
+      "npcGuild": "TinkersGuild"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Tanner",
+    "title": "the tanner",
+    "skills": {
+      "Tailoring": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBTanner"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.TavernKeeper",
+    "title": "the tavern keeper",
+    "props": {
+      "npcSbInfos": ["SBTavernKeeper"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.HalfApron"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Thief",
+    "title": "the thief",
+    "skills": {
+      "Camping": [55.0, 78.0],
+      "DetectHidden": [65.0, 88.0],
+      "Hiding": [45.0, 68.0],
+      "Archery": [65.0, 88.0],
+      "Tracking": [65.0, 88.0],
+      "Veterinary": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBThief"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcReplaceEquipment": [
+          {"item": "Server.Items.Shirt", "hue": "randomNeutral"},
+          {"item": "Server.Items.LongPants", "hue": "randomNeutral"}
+        ],
+        "npcAddItem": ["Server.Items.Dagger"],
+        "npcSeq": [
+          {
+            "npcReplaceEquipment": [
+              {"item": "Server.Items.ThighBoots", "hue": "randomNeutral"}
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Tinker",
+    "title": "the tinker",
+    "skills": {
+      "Lockpicking": [60.0, 83.0],
+      "RemoveTrap": [75.0, 98.0],
+      "Tinkering": [64.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBTinker"],
+      "npcGuild": "TinkersGuild"
+    }
+  },
+  {
+    "type": "Server.Mobiles.VarietyDealer",
+    "title": "the variety dealer",
+    "props": {
+      "npcSbInfos": ["SBVarietyDealer"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Veterinarian",
+    "title": "the vet",
+    "skills": {
+      "AnimalLore": [85.0, 100.0],
+      "Veterinary": [90.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBVeterinarian"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Waiter",
+    "title": "the waiter",
+    "skills": {
+      "Discordance": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBWaiter"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.HalfApron"]
+      }
+    }
+  }
+]

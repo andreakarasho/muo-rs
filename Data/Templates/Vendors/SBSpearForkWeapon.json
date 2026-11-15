@@ -1,0 +1,13 @@
+[
+  {
+    "name": "SBSpearForkWeapon",
+    "build": [
+      {"sell": "Server.Items.Spear", "price": 15},
+      {"sell": "Server.Items.Pitchfork", "price": 9},
+      {"sell": "Server.Items.ShortSpear", "price": 11},
+      {"buy": "Server.Items.Pitchfork", "price": 19, "amount": 20, "itemId": 3719, "hue": 0},
+      {"buy": "Server.Items.ShortSpear", "price": 23, "amount": 20, "itemId": 5123, "hue": 0},
+      {"buy": "Server.Items.Spear", "price": 31, "amount": 20, "itemId": 3938, "hue": 0}
+    ]
+  }
+]

@@ -8,12 +8,8 @@ use muo_content::creature::{cd, control};
 use muo_content::gumps::base::{DynamicGumpLogic, DynamicGumpObj, RelayInfo};
 use muo_content::gumps::builder::DynamicGumpBuilder;
 use muo_content::gumps::system::send_gump_to_mobile;
-use muo_content::hooks::rnd;
 use muo_content::player_mobile::{self, add_stabled, remove_stabled};
-use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, ShoeType, VendorClass, banker,
-    init_outfit as base_init_outfit, new_vendor,
-};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, VendorClass, banker};
 use muo_content::{factory, mx};
 use muo_primitives::{MessageType, Point3D, TimeSpan};
 use muo_server::World;
@@ -29,8 +25,7 @@ use muo_server::target::{self, TargetFlags, Targeted};
 use muo_server::type_registry::TypeRegistry;
 
 use super::hand::rehue_layer_bright;
-use super::sb::*;
-use crate::common::{OrderType, add_new};
+use crate::common::OrderType;
 
 // ---- AnimalTrainer ----
 
@@ -470,40 +465,8 @@ impl DynamicGumpLogic for ClaimListGump {
 
 // ---- classes ----
 
-fn animal_trainer_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &ANIMAL_TRAINER, Some("the animal trainer"));
-    crate::common::set_skill_range(w, id, SkillName::AnimalLore, 64.0, 100.0);
-    crate::common::set_skill_range(w, id, SkillName::AnimalTaming, 90.0, 100.0);
-    crate::common::set_skill_range(w, id, SkillName::Veterinary, 65.0, 88.0);
-    id
-}
-
-fn female(w: &World, id: MobileId) -> bool {
-    w.mobile(id).is_some_and(|m| m.female)
-}
-
-fn animal_trainer_outfit(w: &mut World, id: MobileId) {
-    base_init_outfit(w, id);
-    let name = if rnd::bool(w) {
-        "Server.Items.QuarterStaff"
-    } else {
-        "Server.Items.ShepherdsCrook"
-    };
-    add_new(w, id, name);
-}
-
 static ANIMAL_TRAINER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBANIMAL_TRAINER.new_for(w, id)],
-    shoe_type: |w, id| {
-        if female(w, id) {
-            ShoeType::ThighBoots
-        } else {
-            ShoeType::Boots
-        }
-    },
-    get_shoe_hue: |_, _| 0,
-    init_outfit: animal_trainer_outfit,
-    ..BASE_VENDOR_CLASS
+    ..super::npc::TEMPLATE_VENDOR_V
 };
 
 pub static ANIMAL_TRAINER_C: muo_content::creature::CreatureType =
@@ -516,7 +479,7 @@ pub static ANIMAL_TRAINER_C: muo_content::creature::CreatureType =
 pub static ANIMAL_TRAINER: MobileType = MobileType {
     full_name: "Server.Mobiles.AnimalTrainer",
     parent: Some(&BASE_VENDOR),
-    construct: Some(animal_trainer_new),
+    construct: Some(|w| super::npc::new_template_vendor(w, &ANIMAL_TRAINER)),
     family: Some(&ANIMAL_TRAINER_C),
     serialize: |w, id, out| {
         (BASE_VENDOR.serialize)(w, id, out);
@@ -532,29 +495,9 @@ pub static ANIMAL_TRAINER: MobileType = MobileType {
     ..BASE_VENDOR
 };
 
-fn gypsy_new(w: &mut World) -> MobileId {
-    let id = animal_trainer_new_as(w, &GYPSY_ANIMAL_TRAINER);
-    let t = if rnd::bool(w) {
-        "the gypsy animal trainer"
-    } else {
-        "the gypsy animal herder"
-    };
-    crate::common::title(w, id, t);
-    id
-}
-
-/// `AnimalTrainer()` for a subclass.
-fn animal_trainer_new_as(w: &mut World, ty: &'static MobileType) -> MobileId {
-    let id = new_vendor(w, ty, Some("the animal trainer"));
-    crate::common::set_skill_range(w, id, SkillName::AnimalLore, 64.0, 100.0);
-    crate::common::set_skill_range(w, id, SkillName::AnimalTaming, 90.0, 100.0);
-    crate::common::set_skill_range(w, id, SkillName::Veterinary, 65.0, 88.0);
-    id
-}
-
 static GYPSY_ANIMAL_TRAINER_V: VendorClass = VendorClass {
     init_outfit: |w, id| {
-        animal_trainer_outfit(w, id);
+        crate::template_keys_npcs::init_outfit(w, id);
         for layer in [
             Layer::Pants,
             Layer::OuterLegs,
@@ -578,7 +521,7 @@ pub static GYPSY_ANIMAL_TRAINER_C: muo_content::creature::CreatureType =
 pub static GYPSY_ANIMAL_TRAINER: MobileType = MobileType {
     full_name: "Server.Mobiles.GypsyAnimalTrainer",
     parent: Some(&ANIMAL_TRAINER),
-    construct: Some(gypsy_new),
+    construct: Some(|w| super::npc::new_template_vendor(w, &GYPSY_ANIMAL_TRAINER)),
     family: Some(&GYPSY_ANIMAL_TRAINER_C),
     serialize: |w, id, out| {
         (ANIMAL_TRAINER.serialize)(w, id, out);
@@ -596,10 +539,6 @@ pub static GYPSY_ANIMAL_TRAINER: MobileType = MobileType {
 
 /// `m_NextCheckPack`.
 struct NextCheckPack(muo_primitives::DateTime);
-
-fn broker_new(w: &mut World) -> MobileId {
-    new_vendor(w, &REAL_ESTATE_BROKER, Some("the real estate broker"))
-}
 
 fn broker_handles_on_speech(w: &World, id: MobileId, from: MobileId) -> bool {
     (mx::alive(w, from) && mx::in_range(w, id, from, 3))
@@ -790,8 +729,7 @@ fn broker_on_drag_drop(w: &mut World, id: MobileId, from: MobileId, dropped: Ite
 }
 
 static REAL_ESTATE_BROKER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBREAL_ESTATE_BROKER.new_for(w, id)],
-    ..BASE_VENDOR_CLASS
+    ..super::npc::TEMPLATE_VENDOR_V
 };
 
 pub static REAL_ESTATE_BROKER_C: muo_content::creature::CreatureType =
@@ -803,7 +741,7 @@ pub static REAL_ESTATE_BROKER_C: muo_content::creature::CreatureType =
 pub static REAL_ESTATE_BROKER: MobileType = MobileType {
     full_name: "Server.Mobiles.RealEstateBroker",
     parent: Some(&BASE_VENDOR),
-    construct: Some(broker_new),
+    construct: Some(|w| super::npc::new_template_vendor(w, &REAL_ESTATE_BROKER)),
     family: Some(&REAL_ESTATE_BROKER_C),
     serialize: |w, id, out| {
         (BASE_VENDOR.serialize)(w, id, out);

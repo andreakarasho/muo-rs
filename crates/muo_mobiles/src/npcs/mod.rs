@@ -91,4 +91,6 @@ pub(crate) fn all() -> Vec<&'static muo_server::mobile::MobileType> {
 #[cfg(test)]
 mod golden_tests;
 #[cfg(test)]
+mod template_tests;
+#[cfg(test)]
 mod tests;

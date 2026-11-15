@@ -1,0 +1,11 @@
+[
+  {
+    "name": "SBBeekeeper",
+    "build": [
+      {"sell": "Server.Items.JarHoney", "price": 1},
+      {"sell": "Server.Items.Beeswax", "price": 1},
+      {"buy": "Server.Items.JarHoney", "price": 3, "amount": 20, "itemId": 2540, "hue": 0},
+      {"buy": "Server.Items.Beeswax", "price": 2, "amount": 20, "itemId": 5154, "hue": 0}
+    ]
+  }
+]

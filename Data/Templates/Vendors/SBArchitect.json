@@ -1,0 +1,21 @@
+[
+  {
+    "name": "SBArchitect",
+    "build": [
+      {"sell": "Server.Items.InteriorDecorator", "price": 5000},
+      {
+        "era": "AOS",
+        "then": [
+          {"sell": "Server.Items.HousePlacementTool", "price": 301}
+        ]
+      },
+      {"buy": "Server.Items.InteriorDecorator", "name": "1041280", "price": 10001, "amount": 20, "itemId": 4033, "hue": 0},
+      {
+        "era": "AOS",
+        "then": [
+          {"buy": "Server.Items.HousePlacementTool", "name": "1060651", "price": 627, "amount": 20, "itemId": 5366, "hue": 0}
+        ]
+      }
+    ]
+  }
+]

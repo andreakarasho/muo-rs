@@ -1,0 +1,11 @@
+[
+  {
+    "name": "SBSmithTools",
+    "build": [
+      {"sell": "Server.Items.Tongs", "price": 7},
+      {"sell": "Server.Items.IronIngot", "price": 4},
+      {"buy": "Server.Items.IronIngot", "price": 5, "amount": 16, "itemId": 7154, "hue": 0},
+      {"buy": "Server.Items.Tongs", "price": 13, "amount": 14, "itemId": 4027, "hue": 0}
+    ]
+  }
+]

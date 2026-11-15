@@ -1,0 +1,31 @@
+[
+  {
+    "name": "SBSELeatherArmor",
+    "build": [
+      {"sell": "Server.Items.LeatherJingasa", "price": 5},
+      {"sell": "Server.Items.LeatherDo", "price": 42},
+      {"sell": "Server.Items.LeatherHiroSode", "price": 23},
+      {"sell": "Server.Items.LeatherSuneate", "price": 26},
+      {"sell": "Server.Items.LeatherHaidate", "price": 28},
+      {"sell": "Server.Items.LeatherNinjaPants", "price": 25},
+      {"sell": "Server.Items.LeatherNinjaJacket", "price": 26},
+      {"sell": "Server.Items.StuddedMempo", "price": 28},
+      {"sell": "Server.Items.StuddedDo", "price": 66},
+      {"sell": "Server.Items.StuddedHiroSode", "price": 32},
+      {"sell": "Server.Items.StuddedSuneate", "price": 40},
+      {"sell": "Server.Items.StuddedHaidate", "price": 37},
+      {"buy": "Server.Items.LeatherJingasa", "price": 11, "amount": 20, "itemId": 10102, "hue": 0},
+      {"buy": "Server.Items.LeatherDo", "price": 87, "amount": 20, "itemId": 10107, "hue": 0},
+      {"buy": "Server.Items.LeatherHiroSode", "price": 49, "amount": 20, "itemId": 10110, "hue": 0},
+      {"buy": "Server.Items.LeatherSuneate", "price": 55, "amount": 20, "itemId": 10118, "hue": 0},
+      {"buy": "Server.Items.LeatherHaidate", "price": 54, "amount": 20, "itemId": 10122, "hue": 0},
+      {"buy": "Server.Items.LeatherNinjaPants", "price": 49, "amount": 20, "itemId": 10129, "hue": 0},
+      {"buy": "Server.Items.LeatherNinjaJacket", "price": 51, "amount": 20, "itemId": 10131, "hue": 0},
+      {"buy": "Server.Items.StuddedMempo", "price": 61, "amount": 20, "itemId": 10141, "hue": 0},
+      {"buy": "Server.Items.StuddedDo", "price": 130, "amount": 20, "itemId": 10108, "hue": 0},
+      {"buy": "Server.Items.StuddedHiroSode", "price": 73, "amount": 20, "itemId": 10111, "hue": 0},
+      {"buy": "Server.Items.StuddedSuneate", "price": 78, "amount": 20, "itemId": 10119, "hue": 0},
+      {"buy": "Server.Items.StuddedHaidate", "price": 76, "amount": 20, "itemId": 10123, "hue": 0}
+    ]
+  }
+]

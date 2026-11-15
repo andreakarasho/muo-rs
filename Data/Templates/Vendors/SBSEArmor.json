@@ -1,0 +1,23 @@
+[
+  {
+    "name": "SBSEArmor",
+    "build": [
+      {"sell": "Server.Items.PlateHatsuburi", "price": 38},
+      {"sell": "Server.Items.HeavyPlateJingasa", "price": 38},
+      {"sell": "Server.Items.DecorativePlateKabuto", "price": 47},
+      {"sell": "Server.Items.PlateDo", "price": 155},
+      {"sell": "Server.Items.PlateHiroSode", "price": 111},
+      {"sell": "Server.Items.PlateSuneate", "price": 112},
+      {"sell": "Server.Items.PlateHaidate", "price": 117},
+      {"sell": "Server.Items.ChainHatsuburi", "price": 38},
+      {"buy": "Server.Items.PlateHatsuburi", "price": 76, "amount": 20, "itemId": 10101, "hue": 0},
+      {"buy": "Server.Items.HeavyPlateJingasa", "price": 76, "amount": 20, "itemId": 10103, "hue": 0},
+      {"buy": "Server.Items.DecorativePlateKabuto", "price": 95, "amount": 20, "itemId": 10104, "hue": 0},
+      {"buy": "Server.Items.PlateDo", "price": 310, "amount": 20, "itemId": 10109, "hue": 0},
+      {"buy": "Server.Items.PlateHiroSode", "price": 222, "amount": 20, "itemId": 10112, "hue": 0},
+      {"buy": "Server.Items.PlateSuneate", "price": 224, "amount": 20, "itemId": 10120, "hue": 0},
+      {"buy": "Server.Items.PlateHaidate", "price": 235, "amount": 20, "itemId": 10125, "hue": 0},
+      {"buy": "Server.Items.ChainHatsuburi", "price": 76, "amount": 20, "itemId": 10100, "hue": 0}
+    ]
+  }
+]

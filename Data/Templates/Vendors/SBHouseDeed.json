@@ -1,0 +1,26 @@
+[
+  {
+    "name": "SBHouseDeed",
+    "build": [
+      {"buy": "Server.Multis.Deeds.StonePlasterHouseDeed", "name": "deed to a stone-and-plaster house", "price": 43800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.FieldStoneHouseDeed", "name": "deed to a field stone house", "price": 43800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.SmallBrickHouseDeed", "name": "deed to a small brick house", "price": 43800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.WoodHouseDeed", "name": "deed to a wooden house", "price": 43800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.WoodPlasterHouseDeed", "name": "deed to a wood-and-plaster house", "price": 43800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.ThatchedRoofCottageDeed", "name": "deed to a thatched-roof cottage", "price": 43800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.BrickHouseDeed", "name": "deed to a brick house", "price": 144500, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.TwoStoryWoodPlasterHouseDeed", "name": "deed to a two-story wood-and-plaster house", "price": 192400, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.TowerDeed", "name": "deed to a tower", "price": 433200, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.KeepDeed", "name": "deed to a small stone keep", "price": 665200, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.CastleDeed", "name": "deed to a castle", "price": 1022800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.LargePatioDeed", "name": "deed to a large house with patio", "price": 152800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.LargeMarbleDeed", "name": "deed to a marble house with patio", "price": 192000, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.SmallTowerDeed", "name": "deed to a small stone tower", "price": 88500, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.LogCabinDeed", "name": "deed to a two story log cabin", "price": 97800, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.SandstonePatioDeed", "name": "deed to a sandstone house with patio", "price": 90900, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.VillaDeed", "name": "deed to a two story villa", "price": 136500, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.StoneWorkshopDeed", "name": "deed to a small stone workshop", "price": 60600, "amount": 20, "itemId": 5360, "hue": 0},
+      {"buy": "Server.Multis.Deeds.MarbleWorkshopDeed", "name": "deed to a small marble workshop", "price": 63000, "amount": 20, "itemId": 5360, "hue": 0}
+    ]
+  }
+]

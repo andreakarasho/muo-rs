@@ -34,7 +34,6 @@ use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::timer::{self, TimerHandle};
 use muo_server::type_registry::TypeRegistry;
 
-use super::sb::SBPLAYER_BARKEEPER;
 use crate::npcs::townfolk::crier::{Owner, get_random_entry};
 
 /// `PlayerBarkeeper.RumorCount`.
@@ -150,7 +149,7 @@ pub static PLAYER_BARKEEPER_V: VendorClass = VendorClass {
             )
         });
         if ok {
-            vec![SBPLAYER_BARKEEPER.new_for(w, id)]
+            vec![super::sb::named(w, id, "SBPlayerBarkeeper")]
         } else {
             Vec::new()
         }

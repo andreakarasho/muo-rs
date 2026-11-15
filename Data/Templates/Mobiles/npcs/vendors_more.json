@@ -1,0 +1,268 @@
+[
+  {
+    "type": "Server.Mobiles.Blacksmith",
+    "title": "the blacksmith",
+    "skills": {
+      "ArmsLore": [36.0, 68.0],
+      "Blacksmith": [65.0, 88.0],
+      "Fencing": [60.0, 83.0],
+      "Macing": [61.0, 93.0],
+      "Swords": [60.0, 83.0],
+      "Tactics": [60.0, 83.0],
+      "Parry": [61.0, 93.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        "SBBlacksmith",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSEArmor", "SBSEWeapons"]
+        }
+      ],
+      "npcGuild": "BlacksmithsGuild",
+      "npcShoeType": "None"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Weaponsmith",
+    "title": "the weaponsmith",
+    "skills": {
+      "ArmsLore": [64.0, 100.0],
+      "Blacksmith": [65.0, 88.0],
+      "Fencing": [45.0, 68.0],
+      "Macing": [45.0, 68.0],
+      "Swords": [45.0, 68.0],
+      "Tactics": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": [
+        "SBWeaponSmith",
+        {
+          "if": "tokunoVendor",
+          "then": ["SBSEWeapons"]
+        }
+      ],
+      "npcShoeType": ["Boots", "ThighBoots"],
+      "npcShoeHue": 0,
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": ["Server.Items.HalfApron"]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Tailor",
+    "title": "the tailor",
+    "skills": {
+      "Tailoring": [64.0, 100.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBTailor"],
+      "npcGuild": "TailorsGuild",
+      "npcShoeType": ["Sandals", "Shoes"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Weaver",
+    "title": "the weaver",
+    "skills": {
+      "Tailoring": [65.0, 88.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBWeaver"],
+      "npcGuild": "TailorsGuild",
+      "npcShoeType": "Sandals"
+    }
+  },
+  {
+    "type": "Server.Mobiles.IronWorker",
+    "title": "the iron worker",
+    "skills": {
+      "ArmsLore": [36.0, 68.0],
+      "Blacksmith": [65.0, 88.0],
+      "Fencing": [60.0, 83.0],
+      "Macing": [61.0, 93.0],
+      "Swords": [60.0, 83.0],
+      "Tactics": [60.0, 83.0],
+      "Parry": [61.0, 93.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBAxeWeapon", "SBKnifeWeapon", "SBMaceWeapon", "SBSmithTools", "SBPoleArmWeapon", "SBSpearForkWeapon", "SBSwordWeapon", "SBMetalShields", "SBHelmetArmor", "SBPlateArmor", "SBChainmailArmor", "SBRingmailArmor", "SBStuddedArmor", "SBLeatherArmor"],
+      "npcShoeType": "None"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Vagabond",
+    "title": "the vagabond",
+    "skills": {
+      "ItemID": [60.0, 83.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBTinker", "SBVagabond"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.KeeperOfChivalry",
+    "title": "the Keeper of Chivalry",
+    "skills": {
+      "Fencing": [75.0, 85.0],
+      "Macing": [75.0, 85.0],
+      "Swords": [75.0, 85.0],
+      "Chivalry": 100.0
+    },
+    "props": {
+      "npcSbInfos": ["SBKeeperOfChivalry"],
+      "npcOutfit": {
+        "npcAddItem": ["Server.Items.PlateArms", "Server.Items.PlateChest", "Server.Items.PlateGloves", "Server.Items.StuddedGorget", "Server.Items.PlateLegs"],
+        "oneOf": [
+          {
+            "npcAddItem": ["Server.Items.PlateHelm"]
+          },
+          {
+            "npcAddItem": ["Server.Items.NorseHelm"]
+          },
+          {
+            "npcAddItem": ["Server.Items.CloseHelm"]
+          },
+          {
+            "npcAddItem": ["Server.Items.Helmet"]
+          }
+        ],
+        "npcSeq": [
+          {
+            "oneOf": [
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.BodySash", "hue": 1154}
+                ]
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.Doublet", "hue": 1154}
+                ]
+              },
+              {
+                "npcAddItem": [
+                  {"item": "Server.Items.Tunic", "hue": 1154}
+                ]
+              }
+            ]
+          },
+          {
+            "npcAddItem": [
+              "Server.Items.Broadsword",
+              {"item": "Server.Items.MetalKiteShield", "hueAfter": "randomNondyed"}
+            ],
+            "coin": {
+              "then": {
+                "npcAddItem": ["Server.Items.Boots"]
+              },
+              "else": {
+                "npcAddItem": ["Server.Items.ThighBoots"]
+              }
+            },
+            "pack": [
+              {
+                "gold": [100, 200]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.GypsyMaiden",
+    "title": "the gypsy maiden",
+    "props": {
+      "npcSbInfos": ["SBProvisioner"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.HolyMage",
+    "title": "the Holy Mage",
+    "skills": {
+      "EvalInt": [65.0, 88.0],
+      "Inscribe": [60.0, 83.0],
+      "Magery": [64.0, 100.0],
+      "Meditation": [60.0, 83.0],
+      "MagicResist": [65.0, 88.0],
+      "Wrestling": [36.0, 68.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBHolyMage"]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Scribe",
+    "title": "the scribe",
+    "skills": {
+      "EvalInt": [60.0, 83.0],
+      "Inscribe": [90.0, 100.0]
+    },
+    "props": {
+      "npcGuild": "MagesGuild",
+      "npcShoeType": ["Shoes", "Sandals"],
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "npcAddItem": [
+          {"item": "Server.Items.Robe", "hue": "randomNeutral"}
+        ]
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.Banker",
+    "title": "the banker",
+    "props": {
+      "npcSbInfos": ["SBBanker"],
+      "npcGuild": "MerchantsGuild"
+    }
+  },
+  {"type": "Server.Mobiles.Minter", "title": "the minter"},
+  {
+    "type": "Server.Mobiles.GypsyBanker",
+    "title": "the gypsy banker",
+    "props": {"npcGuild": "None"}
+  },
+  {
+    "type": "Server.Mobiles.AnimalTrainer",
+    "title": "the animal trainer",
+    "skills": {
+      "AnimalLore": [64.0, 100.0],
+      "AnimalTaming": [90.0, 100.0],
+      "Veterinary": [65.0, 88.0]
+    },
+    "props": {
+      "npcSbInfos": ["SBAnimalTrainer"],
+      "npcShoeType": {"female": "ThighBoots", "male": "Boots"},
+      "npcShoeHue": 0,
+      "npcOutfit": {
+        "npcVendorOutfit": true,
+        "coin": {
+          "then": {
+            "npcAddItem": ["Server.Items.QuarterStaff"]
+          },
+          "else": {
+            "npcAddItem": ["Server.Items.ShepherdsCrook"]
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "Server.Mobiles.GypsyAnimalTrainer",
+    "inherits": "Server.Mobiles.AnimalTrainer",
+    "coin": {
+      "then": {"title": "the gypsy animal trainer"},
+      "else": {"title": "the gypsy animal herder"}
+    }
+  },
+  {
+    "type": "Server.Mobiles.RealEstateBroker",
+    "title": "the real estate broker",
+    "props": {
+      "npcSbInfos": ["SBRealEstateBroker"]
+    }
+  }
+]

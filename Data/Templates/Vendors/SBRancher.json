@@ -1,0 +1,8 @@
+[
+  {
+    "name": "SBRancher",
+    "build": [
+      {"buy": "Server.Mobiles.PackHorse", "name": "a pack horse", "controlSlots": 1, "price": 631, "amount": 10, "itemId": 291, "hue": 0}
+    ]
+  }
+]

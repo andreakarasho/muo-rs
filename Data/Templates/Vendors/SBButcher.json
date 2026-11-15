@@ -1,0 +1,27 @@
+[
+  {
+    "name": "SBButcher",
+    "build": [
+      {"sell": "Server.Items.RawRibs", "price": 8},
+      {"sell": "Server.Items.RawLambLeg", "price": 4},
+      {"sell": "Server.Items.RawChickenLeg", "price": 3},
+      {"sell": "Server.Items.RawBird", "price": 4},
+      {"sell": "Server.Items.Bacon", "price": 3},
+      {"sell": "Server.Items.Sausage", "price": 9},
+      {"sell": "Server.Items.Ham", "price": 13},
+      {"sell": "Server.Items.ButcherKnife", "price": 7},
+      {"sell": "Server.Items.Cleaver", "price": 7},
+      {"sell": "Server.Items.SkinningKnife", "price": 7},
+      {"buy": "Server.Items.Bacon", "price": 7, "amount": 20, "itemId": 2425, "hue": 0},
+      {"buy": "Server.Items.Ham", "price": 26, "amount": 20, "itemId": 2505, "hue": 0},
+      {"buy": "Server.Items.Sausage", "price": 18, "amount": 20, "itemId": 2496, "hue": 0},
+      {"buy": "Server.Items.RawChickenLeg", "price": 6, "amount": 20, "itemId": 5639, "hue": 0},
+      {"buy": "Server.Items.RawBird", "price": 9, "amount": 20, "itemId": 2489, "hue": 0},
+      {"buy": "Server.Items.RawLambLeg", "price": 9, "amount": 20, "itemId": 5641, "hue": 0},
+      {"buy": "Server.Items.RawRibs", "price": 16, "amount": 20, "itemId": 2545, "hue": 0},
+      {"buy": "Server.Items.ButcherKnife", "price": 13, "amount": 20, "itemId": 5110, "hue": 0},
+      {"buy": "Server.Items.Cleaver", "price": 13, "amount": 20, "itemId": 3779, "hue": 0},
+      {"buy": "Server.Items.SkinningKnife", "price": 13, "amount": 20, "itemId": 3780, "hue": 0}
+    ]
+  }
+]

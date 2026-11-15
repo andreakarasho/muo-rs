@@ -1,0 +1,23 @@
+[
+  {
+    "name": "SBAxeWeapon",
+    "build": [
+      {"sell": "Server.Items.BattleAxe", "price": 13},
+      {"sell": "Server.Items.DoubleAxe", "price": 26},
+      {"sell": "Server.Items.ExecutionersAxe", "price": 15},
+      {"sell": "Server.Items.LargeBattleAxe", "price": 16},
+      {"sell": "Server.Items.Pickaxe", "price": 11},
+      {"sell": "Server.Items.TwoHandedAxe", "price": 16},
+      {"sell": "Server.Items.WarAxe", "price": 14},
+      {"sell": "Server.Items.Axe", "price": 20},
+      {"buy": "Server.Items.ExecutionersAxe", "price": 30, "amount": 20, "itemId": 3909, "hue": 0},
+      {"buy": "Server.Items.BattleAxe", "price": 26, "amount": 20, "itemId": 3911, "hue": 0},
+      {"buy": "Server.Items.TwoHandedAxe", "price": 32, "amount": 20, "itemId": 5187, "hue": 0},
+      {"buy": "Server.Items.Axe", "price": 40, "amount": 20, "itemId": 3913, "hue": 0},
+      {"buy": "Server.Items.DoubleAxe", "price": 52, "amount": 20, "itemId": 3915, "hue": 0},
+      {"buy": "Server.Items.Pickaxe", "price": 22, "amount": 20, "itemId": 3718, "hue": 0},
+      {"buy": "Server.Items.LargeBattleAxe", "price": 33, "amount": 20, "itemId": 5115, "hue": 0},
+      {"buy": "Server.Items.WarAxe", "price": 29, "amount": 20, "itemId": 5040, "hue": 0}
+    ]
+  }
+]
