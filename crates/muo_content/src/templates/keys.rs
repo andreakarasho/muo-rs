@@ -74,6 +74,10 @@ pub fn mobile_key(
 pub struct Keys<'a> {
     pub items: Option<&'a ItemKeys>,
     pub mobiles: Option<&'a MobileKeys>,
+    /// Skip a key nobody registered instead of rejecting the file: a world built from a partial registry (a lower
+    /// crate's test world) still gets every template, minus the keys of crates it does not have. The server loads
+    /// strictly.
+    pub lenient: bool,
 }
 
 impl<'a> Keys<'a> {
@@ -81,6 +85,23 @@ impl<'a> Keys<'a> {
         Self {
             items: types.extensions.get::<ItemKeys>(),
             mobiles: types.extensions.get::<MobileKeys>(),
+            lenient: false,
+        }
+    }
+
+    /// [`Keys::of`] that skips unknown keys.
+    pub fn lenient(types: &'a TypeRegistry) -> Self {
+        Self {
+            lenient: true,
+            ..Self::of(types)
+        }
+    }
+
+    /// The step of a key nobody registered, in a lenient load: does nothing.
+    pub(crate) fn skipped<Id>() -> KeyDef<Id> {
+        KeyDef {
+            check: |_| Ok(()),
+            apply: |_, _, _| {},
         }
     }
 }
