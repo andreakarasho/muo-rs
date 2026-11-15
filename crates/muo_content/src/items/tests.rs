@@ -118,7 +118,9 @@ fn bow_constructor_sets_layer_and_wood() {
         "resource",
         |_| Ok(()),
         |w, id, v| {
-            let r = v.as_str().and_then(|s| super::equip_props::RESOURCES.get(s));
+            let r = v
+                .as_str()
+                .and_then(|s| super::equip_props::RESOURCES.get(s));
             weapon::set_resource(w, id, r.unwrap_or_default());
         },
     );

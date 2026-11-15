@@ -519,7 +519,7 @@ pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::
     use muo_content::templates::keys::{ItemKeys, Keys, MobileKeys};
     use muo_content::templates::{item_steps, mobile_steps};
     fn json(key: &str, v: &Dynamic) -> R<serde_json::Value> {
-        rhai::serde::from_dynamic(v).map_err(|e| format!("{key}: {e}").into())
+        to_json(v).map_err(|e| format!("{key}: {e}").into())
     }
     let mut mobile_keys: Vec<&'static str> = mobile_steps::KEYS.to_vec();
     if let Some(k) = types.extensions.get::<MobileKeys>() {
@@ -620,6 +620,22 @@ pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::
         "skill_base",
         |ctx: NativeCallContext, m: Mobile, n: &str, v: f64| one(&ctx, m, "skillBase", n, v.into()),
     );
+    // an object whose entries keep their written order (a rhai map iterates sorted): `block([#{a: 1}, #{b: 2}])`
+    e.register_type_with_name::<Block>("Block");
+    e.register_fn("block", |entries: rhai::Array| -> R<Block> {
+        entries
+            .into_iter()
+            .map(|d| {
+                let m = d
+                    .try_cast::<rhai::Map>()
+                    .filter(|m| m.len() == 1)
+                    .ok_or("block: every entry is a one-key map")?;
+                let (k, v) = m.into_iter().next().ok_or("block: an empty entry")?;
+                Ok((k.to_string(), v))
+            })
+            .collect::<R<Vec<_>>>()
+            .map(Block)
+    });
     // `Core.AOS`-style checks for constructors: `if era_at_least("AOS") { .. }`
     e.register_fn(
         "era_at_least",
@@ -633,4 +649,53 @@ pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::
             with_world(&ctx, |w| w.expansion() >= at)
         },
     );
+}
+
+/// [`register_steps`]' `block(..)`: an object in written order.
+#[derive(Clone, Debug)]
+pub(crate) struct Block(pub Vec<(String, Dynamic)>);
+
+/// A script value as the JSON a template key takes: maps become objects (sorted), `block(..)` objects in written
+/// order, arrays, numbers (int stays int), strings, bools, `()` null.
+pub(crate) fn to_json(v: &Dynamic) -> Result<serde_json::Value, String> {
+    use serde_json::Value;
+    if v.is_unit() {
+        return Ok(Value::Null);
+    }
+    if let Some(b) = v.read_lock::<Block>() {
+        let mut o = serde_json::Map::new();
+        for (k, v) in &b.0 {
+            o.insert(k.clone(), to_json(v)?);
+        }
+        return Ok(Value::Object(o));
+    }
+    if let Some(m) = v.read_lock::<rhai::Map>() {
+        let mut o = serde_json::Map::new();
+        for (k, v) in m.iter() {
+            o.insert(k.to_string(), to_json(v)?);
+        }
+        return Ok(Value::Object(o));
+    }
+    if let Some(a) = v.read_lock::<rhai::Array>() {
+        return a
+            .iter()
+            .map(to_json)
+            .collect::<Result<_, _>>()
+            .map(Value::Array);
+    }
+    if let Ok(i) = v.as_int() {
+        return Ok(i.into());
+    }
+    if let Ok(f) = v.as_float() {
+        return serde_json::Number::from_f64(f)
+            .map(Value::Number)
+            .ok_or_else(|| format!("{f} is not a JSON number"));
+    }
+    if let Ok(b) = v.as_bool() {
+        return Ok(b.into());
+    }
+    if let Some(s) = v.read_lock::<rhai::ImmutableString>() {
+        return Ok(Value::String(s.to_string()));
+    }
+    Err(format!("{} is not a template value", v.type_name()))
 }

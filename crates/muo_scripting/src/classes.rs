@@ -98,9 +98,11 @@ pub(crate) fn build(
         let err = |m: String| format!("{origin}: class {}: {m}", d.name);
         let kind = kind_of(w, &decls, &d.name, 0)
             .ok_or_else(|| err("not a registered class, and no \"parent\" names one".to_owned()))?;
-        let mut obj: serde_json::Map<String, serde_json::Value> =
-            rhai::serde::from_dynamic(&Dynamic::from_map(d.meta.clone()))
-                .map_err(|e| err(format!("{e}")))?;
+        let serde_json::Value::Object(mut obj) =
+            crate::api::to_json(&Dynamic::from_map(d.meta.clone())).map_err(err)?
+        else {
+            return Err(err("the class map is not a map".to_owned()));
+        };
         obj.insert("type".to_owned(), d.name.clone().into());
         let mut tmpl = templates::parse_template(Path::new(&origin), kind, &obj, &keys)?;
         if let Some(f) = &d.ctor {

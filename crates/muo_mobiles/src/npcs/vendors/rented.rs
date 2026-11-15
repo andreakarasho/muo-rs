@@ -364,10 +364,7 @@ fn deserialize(w: &mut World, id: MobileId, r: &mut dyn GenericReader) -> muo_io
     Ok(())
 }
 
-static RENTED_PV_CLASS: PvClass = PvClass {
-    is_owner,
-    destroy,
-};
+static RENTED_PV_CLASS: PvClass = PvClass { is_owner, destroy };
 
 pub static RENTED_VENDOR: MobileType = MobileType {
     full_name: "Server.Mobiles.RentedVendor",
