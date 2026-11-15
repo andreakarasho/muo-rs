@@ -16,13 +16,13 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.CompositeBow`.
-    COMPOSITE_BOW, COMPOSITE_BOW_CLASS, composite_bow_new = "Server.Items.CompositeBow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x26C2, v0;
+    COMPOSITE_BOW, COMPOSITE_BOW_CLASS, composite_bow_new = "Server.Items.CompositeBow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.Crossbow`.
-    CROSSBOW, CROSSBOW_CLASS, crossbow_new = "Server.Items.Crossbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0xF50, v0;
+    CROSSBOW, CROSSBOW_CLASS, crossbow_new = "Server.Items.Crossbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
     @json;
 }
 
@@ -34,7 +34,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.HeavyCrossbow`.
-    HEAVY_CROSSBOW, HEAVY_CROSSBOW_CLASS, heavy_crossbow_new = "Server.Items.HeavyCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x13FD, v0;
+    HEAVY_CROSSBOW, HEAVY_CROSSBOW_CLASS, heavy_crossbow_new = "Server.Items.HeavyCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
     @json;
 }
 
@@ -73,7 +73,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.RepeatingCrossbow`.
-    REPEATING_CROSSBOW, REPEATING_CROSSBOW_CLASS, repeating_crossbow_new = "Server.Items.RepeatingCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x26C3, v0;
+    REPEATING_CROSSBOW, REPEATING_CROSSBOW_CLASS, repeating_crossbow_new = "Server.Items.RepeatingCrossbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), v0;
     @json;
 }
 

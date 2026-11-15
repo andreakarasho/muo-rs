@@ -15,7 +15,8 @@
       "initMaxHits": 40,
       "defaultWeight": 9.0,
       "primaryAbility": "ShadowStrike",
-      "secondaryAbility": "Dismount"
+      "secondaryAbility": "Dismount",
+      "graphic": 5044
     }
   },
   {
@@ -29,7 +30,8 @@
       "initMaxHits": 110,
       "primaryAbility": "ArmorIgnore",
       "secondaryAbility": "Disarm",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2307
     }
   },
   {
@@ -49,7 +51,8 @@
       "initMaxHits": 70,
       "defaultWeight": 9.0,
       "primaryAbility": "ArmorIgnore",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 5181
     }
   },
   {
@@ -68,7 +71,8 @@
       "initMaxHits": 70,
       "defaultWeight": 14.0,
       "primaryAbility": "ConcussionBlow",
-      "secondaryAbility": "Disarm"
+      "secondaryAbility": "Disarm",
+      "graphic": 3932
     }
   },
   {
@@ -87,7 +91,8 @@
       "initMaxHits": 110,
       "defaultWeight": 1.0,
       "primaryAbility": "Dismount",
-      "secondaryAbility": "Disarm"
+      "secondaryAbility": "Disarm",
+      "graphic": 3570
     }
   },
   {
@@ -106,7 +111,8 @@
       "initMaxHits": 70,
       "defaultWeight": 10.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "ConcussionBlow"
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 5179
     }
   },
   {
@@ -125,7 +131,8 @@
       "initMaxHits": 110,
       "defaultWeight": 8.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 9916
     }
   },
   {
@@ -146,7 +153,8 @@
       "defaultWeight": 10.0,
       "primaryAbility": "WhirlwindAttack",
       "secondaryAbility": "CrushingBlow",
-      "defAnimation": "Bash2H"
+      "defAnimation": "Bash2H",
+      "graphic": 5177
     }
   },
   {
@@ -165,7 +173,8 @@
       "initMaxHits": 110,
       "defaultWeight": 17.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 5127
     }
   },
   {

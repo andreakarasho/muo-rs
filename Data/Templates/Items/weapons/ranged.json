@@ -23,7 +23,8 @@
       "ammoType": "Server.Items.Arrow",
       "primaryAbility": "ArmorIgnore",
       "secondaryAbility": "MovingShot",
-      "defAnimation": "ShootBow"
+      "defAnimation": "ShootBow",
+      "graphic": 9922
     }
   },
   {
@@ -50,7 +51,8 @@
       "effectId": 7166,
       "ammoType": "Server.Items.Bolt",
       "primaryAbility": "ConcussionBlow",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 3920
     }
   },
   {
@@ -80,7 +82,8 @@
       "effectId": 7166,
       "ammoType": "Server.Items.Bolt",
       "primaryAbility": "MovingShot",
-      "secondaryAbility": "Dismount"
+      "secondaryAbility": "Dismount",
+      "graphic": 5117
     }
   },
   {
@@ -116,7 +119,8 @@
       "effectId": 7166,
       "ammoType": "Server.Items.Bolt",
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "MovingShot"
+      "secondaryAbility": "MovingShot",
+      "graphic": 9923
     }
   },
   {

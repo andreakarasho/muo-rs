@@ -10,12 +10,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.BloodBlade`.
-    BLOOD_BLADE, BLOOD_BLADE_CLASS, blood_blade_new = "Server.Items.BloodBlade" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x8FE, enc;
+    BLOOD_BLADE, BLOOD_BLADE_CLASS, blood_blade_new = "Server.Items.BloodBlade" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.BoneHarvester`.
-    BONE_HARVESTER, BONE_HARVESTER_CLASS, bone_harvester_new = "Server.Items.BoneHarvester" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x26BB, v0;
+    BONE_HARVESTER, BONE_HARVESTER_CLASS, bone_harvester_new = "Server.Items.BoneHarvester" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -33,7 +33,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.Broadsword`.
-    BROADSWORD, BROADSWORD_CLASS, broadsword_new = "Server.Items.Broadsword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0xF5E, v0;
+    BROADSWORD, BROADSWORD_CLASS, broadsword_new = "Server.Items.Broadsword" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -50,12 +50,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.CrescentBlade`.
-    CRESCENT_BLADE, CRESCENT_BLADE_CLASS, crescent_blade_new = "Server.Items.CrescentBlade" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x26C1, v0;
+    CRESCENT_BLADE, CRESCENT_BLADE_CLASS, crescent_blade_new = "Server.Items.CrescentBlade" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.Cutlass`.
-    CUTLASS, CUTLASS_CLASS, cutlass_new = "Server.Items.Cutlass" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x1441, v0;
+    CUTLASS, CUTLASS_CLASS, cutlass_new = "Server.Items.Cutlass" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -72,7 +72,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.DreadSword`.
-    DREAD_SWORD, DREAD_SWORD_CLASS, dread_sword_new = "Server.Items.DreadSword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x90B, enc;
+    DREAD_SWORD, DREAD_SWORD_CLASS, dread_sword_new = "Server.Items.DreadSword" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
@@ -83,12 +83,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.GargishTalwar`.
-    GARGISH_TALWAR, GARGISH_TALWAR_CLASS, gargish_talwar_new = "Server.Items.GargishTalwar" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x908, enc;
+    GARGISH_TALWAR, GARGISH_TALWAR_CLASS, gargish_talwar_new = "Server.Items.GargishTalwar" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.GlassSword`.
-    GLASS_SWORD, GLASS_SWORD_CLASS, glass_sword_new = "Server.Items.GlassSword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x90C, enc;
+    GLASS_SWORD, GLASS_SWORD_CLASS, glass_sword_new = "Server.Items.GlassSword" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
@@ -111,12 +111,12 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.Kryss`.
-    KRYSS, KRYSS_CLASS, kryss_new = "Server.Items.Kryss" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x1401, v0;
+    KRYSS, KRYSS_CLASS, kryss_new = "Server.Items.Kryss" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.Lance`.
-    LANCE, LANCE_CLASS, lance_new = "Server.Items.Lance" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x26C0, v0;
+    LANCE, LANCE_CLASS, lance_new = "Server.Items.Lance" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -175,7 +175,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.Scimitar`.
-    SCIMITAR, SCIMITAR_CLASS, scimitar_new = "Server.Items.Scimitar" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B6, v0;
+    SCIMITAR, SCIMITAR_CLASS, scimitar_new = "Server.Items.Scimitar" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -192,7 +192,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.ThinLongsword`.
-    THIN_LONGSWORD, THIN_LONGSWORD_CLASS, thin_longsword_new = "Server.Items.ThinLongsword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B8, v0;
+    THIN_LONGSWORD, THIN_LONGSWORD_CLASS, thin_longsword_new = "Server.Items.ThinLongsword" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {
@@ -233,7 +233,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.VikingSword`.
-    VIKING_SWORD, VIKING_SWORD_CLASS, viking_sword_new = "Server.Items.VikingSword" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x13B9, v0;
+    VIKING_SWORD, VIKING_SWORD_CLASS, viking_sword_new = "Server.Items.VikingSword" : BASE_SWORD / BASE_SWORD_CLASS, json (), v0;
 }
 
 weapon_leaf! {

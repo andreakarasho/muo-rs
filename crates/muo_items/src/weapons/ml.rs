@@ -4,7 +4,7 @@ use super::*;
 
 weapon_leaf! {
     /// `Server.Items.AssassinSpike`.
-    ASSASSIN_SPIKE, ASSASSIN_SPIKE_CLASS, assassin_spike_new = "Server.Items.AssassinSpike" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x2D21, enc;
+    ASSASSIN_SPIKE, ASSASSIN_SPIKE_CLASS, assassin_spike_new = "Server.Items.AssassinSpike" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), enc;
 }
 
 weapon_leaf! {
@@ -17,62 +17,62 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.DiamondMace`.
-    DIAMOND_MACE, DIAMOND_MACE_CLASS, diamond_mace_new = "Server.Items.DiamondMace" : BASE_BASHING / BASE_BASHING_CLASS, graphic 0x2D24, enc;
+    DIAMOND_MACE, DIAMOND_MACE_CLASS, diamond_mace_new = "Server.Items.DiamondMace" : BASE_BASHING / BASE_BASHING_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.ElvenCompositeLongbow`.
-    ELVEN_COMPOSITE_LONGBOW, ELVEN_COMPOSITE_LONGBOW_CLASS, elven_composite_longbow_new = "Server.Items.ElvenCompositeLongbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x2D1E, enc;
+    ELVEN_COMPOSITE_LONGBOW, ELVEN_COMPOSITE_LONGBOW_CLASS, elven_composite_longbow_new = "Server.Items.ElvenCompositeLongbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), enc;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.ElvenMachete`.
-    ELVEN_MACHETE, ELVEN_MACHETE_CLASS, elven_machete_new = "Server.Items.ElvenMachete" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x2D35, enc;
+    ELVEN_MACHETE, ELVEN_MACHETE_CLASS, elven_machete_new = "Server.Items.ElvenMachete" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.ElvenSpellblade`.
-    ELVEN_SPELLBLADE, ELVEN_SPELLBLADE_CLASS, elven_spellblade_new = "Server.Items.ElvenSpellblade" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x2D20, enc;
+    ELVEN_SPELLBLADE, ELVEN_SPELLBLADE_CLASS, elven_spellblade_new = "Server.Items.ElvenSpellblade" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), enc;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.Leafblade`.
-    LEAFBLADE, LEAFBLADE_CLASS, leafblade_new = "Server.Items.Leafblade" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x2D22, enc;
+    LEAFBLADE, LEAFBLADE_CLASS, leafblade_new = "Server.Items.Leafblade" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.MagicalShortbow`.
-    MAGICAL_SHORTBOW, MAGICAL_SHORTBOW_CLASS, magical_shortbow_new = "Server.Items.MagicalShortbow" : BASE_RANGED / BASE_RANGED_CLASS, graphic 0x2D2B, enc;
+    MAGICAL_SHORTBOW, MAGICAL_SHORTBOW_CLASS, magical_shortbow_new = "Server.Items.MagicalShortbow" : BASE_RANGED / BASE_RANGED_CLASS, json (), enc;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.OrnateAxe`.
-    ORNATE_AXE, ORNATE_AXE_CLASS, ornate_axe_new = "Server.Items.OrnateAxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0x2D28, enc;
+    ORNATE_AXE, ORNATE_AXE_CLASS, ornate_axe_new = "Server.Items.OrnateAxe" : BASE_AXE / BASE_AXE_CLASS, json (), enc;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.RadiantScimitar`.
-    RADIANT_SCIMITAR, RADIANT_SCIMITAR_CLASS, radiant_scimitar_new = "Server.Items.RadiantScimitar" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x2D33, enc;
+    RADIANT_SCIMITAR, RADIANT_SCIMITAR_CLASS, radiant_scimitar_new = "Server.Items.RadiantScimitar" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.RuneBlade`.
-    RUNE_BLADE, RUNE_BLADE_CLASS, rune_blade_new = "Server.Items.RuneBlade" : BASE_SWORD / BASE_SWORD_CLASS, graphic 0x2D32, enc;
+    RUNE_BLADE, RUNE_BLADE_CLASS, rune_blade_new = "Server.Items.RuneBlade" : BASE_SWORD / BASE_SWORD_CLASS, json (), enc;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.WarCleaver`.
-    WAR_CLEAVER, WAR_CLEAVER_CLASS, war_cleaver_new = "Server.Items.WarCleaver" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x2D2F, enc;
+    WAR_CLEAVER, WAR_CLEAVER_CLASS, war_cleaver_new = "Server.Items.WarCleaver" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), enc;
 }
 
 weapon_leaf! {
     /// `Server.Items.WildStaff`.
-    WILD_STAFF, WILD_STAFF_CLASS, wild_staff_new = "Server.Items.WildStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0x2D25, enc;
+    WILD_STAFF, WILD_STAFF_CLASS, wild_staff_new = "Server.Items.WildStaff" : BASE_STAFF / BASE_STAFF_CLASS, json (), enc;
     @json;
 }
 

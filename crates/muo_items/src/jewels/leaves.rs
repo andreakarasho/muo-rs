@@ -6,7 +6,7 @@ use muo_server::type_registry::TypeRegistry;
 use super::special::*;
 use muo_content::items::jewel::{
     BASE_BRACELET, BASE_BRACELET_CLASS, BASE_EARRINGS, BASE_EARRINGS_CLASS, BASE_NECKLACE,
-    BASE_NECKLACE_CLASS, BASE_RING, BASE_RING_CLASS, new_jewel,
+    BASE_NECKLACE_CLASS, BASE_RING, BASE_RING_CLASS,
 };
 use muo_content::items::leaves::{GOLD_RING, GOLD_RING_CLASS};
 
@@ -57,52 +57,52 @@ jewel_leaf! {
 
 jewel_leaf! {
     /// `Server.Items.GoldBracelet`.
-    GOLD_BRACELET, GOLD_BRACELET_CLASS, gold_bracelet_new = "Server.Items.GoldBracelet" : BASE_BRACELET / BASE_BRACELET_CLASS, |w, ty| new_jewel(w, ty, 0x1086), encoded false;
+    GOLD_BRACELET, GOLD_BRACELET_CLASS, gold_bracelet_new = "Server.Items.GoldBracelet" : BASE_BRACELET / BASE_BRACELET_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.SilverBracelet`.
-    SILVER_BRACELET, SILVER_BRACELET_CLASS, silver_bracelet_new = "Server.Items.SilverBracelet" : BASE_BRACELET / BASE_BRACELET_CLASS, |w, ty| new_jewel(w, ty, 0x1F06), encoded false;
+    SILVER_BRACELET, SILVER_BRACELET_CLASS, silver_bracelet_new = "Server.Items.SilverBracelet" : BASE_BRACELET / BASE_BRACELET_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.GoldEarrings`.
-    GOLD_EARRINGS, GOLD_EARRINGS_CLASS, gold_earrings_new = "Server.Items.GoldEarrings" : BASE_EARRINGS / BASE_EARRINGS_CLASS, |w, ty| new_jewel(w, ty, 0x1087), encoded false;
+    GOLD_EARRINGS, GOLD_EARRINGS_CLASS, gold_earrings_new = "Server.Items.GoldEarrings" : BASE_EARRINGS / BASE_EARRINGS_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.SilverEarrings`.
-    SILVER_EARRINGS, SILVER_EARRINGS_CLASS, silver_earrings_new = "Server.Items.SilverEarrings" : BASE_EARRINGS / BASE_EARRINGS_CLASS, |w, ty| new_jewel(w, ty, 0x1F07), encoded false;
+    SILVER_EARRINGS, SILVER_EARRINGS_CLASS, silver_earrings_new = "Server.Items.SilverEarrings" : BASE_EARRINGS / BASE_EARRINGS_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.GoldNecklace`.
-    GOLD_NECKLACE, GOLD_NECKLACE_CLASS, gold_necklace_new = "Server.Items.GoldNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, |w, ty| new_jewel(w, ty, 0x1088), encoded false;
+    GOLD_NECKLACE, GOLD_NECKLACE_CLASS, gold_necklace_new = "Server.Items.GoldNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.GoldBeadNecklace`.
-    GOLD_BEAD_NECKLACE, GOLD_BEAD_NECKLACE_CLASS, gold_bead_necklace_new = "Server.Items.GoldBeadNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, |w, ty| new_jewel(w, ty, 0x1089), encoded false;
+    GOLD_BEAD_NECKLACE, GOLD_BEAD_NECKLACE_CLASS, gold_bead_necklace_new = "Server.Items.GoldBeadNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.SilverNecklace`.
-    SILVER_NECKLACE, SILVER_NECKLACE_CLASS, silver_necklace_new = "Server.Items.SilverNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, |w, ty| new_jewel(w, ty, 0x1F08), encoded false;
+    SILVER_NECKLACE, SILVER_NECKLACE_CLASS, silver_necklace_new = "Server.Items.SilverNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.SilverBeadNecklace`.
-    SILVER_BEAD_NECKLACE, SILVER_BEAD_NECKLACE_CLASS, silver_bead_necklace_new = "Server.Items.SilverBeadNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, |w, ty| new_jewel(w, ty, 0x1F05), encoded false;
+    SILVER_BEAD_NECKLACE, SILVER_BEAD_NECKLACE_CLASS, silver_bead_necklace_new = "Server.Items.SilverBeadNecklace" : BASE_NECKLACE / BASE_NECKLACE_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.SilverRing`.
-    SILVER_RING, SILVER_RING_CLASS, silver_ring_new = "Server.Items.SilverRing" : BASE_RING / BASE_RING_CLASS, |w, ty| new_jewel(w, ty, 0x1F09), encoded false;
+    SILVER_RING, SILVER_RING_CLASS, silver_ring_new = "Server.Items.SilverRing" : BASE_RING / BASE_RING_CLASS, crate::jewels::new_jewel_json, encoded false;
 }
 
 jewel_leaf! {
     /// `Server.Items.WeddingRing`.
-    WEDDING_RING, WEDDING_RING_CLASS, wedding_ring_new = "Server.Items.WeddingRing" : BASE_RING / BASE_RING_CLASS, |w, ty| new_jewel(w, ty, 0x108a), encoded false;
+    WEDDING_RING, WEDDING_RING_CLASS, wedding_ring_new = "Server.Items.WeddingRing" : BASE_RING / BASE_RING_CLASS, crate::jewels::new_jewel_json, encoded false;
     @ty {
         default_name: |_, _| Some("wedding ring".to_string()),
     };

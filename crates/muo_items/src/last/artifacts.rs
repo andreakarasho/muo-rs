@@ -11,7 +11,7 @@ use crate::simple::{random, random_bool, weapon_art};
 use crate::weapons::*;
 use muo_content::aos::{AosAttribute, AttrKind};
 use muo_content::items::armor::ArmorClass;
-use muo_content::items::clothing::{BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing};
+use muo_content::items::clothing::{BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS};
 use muo_content::items::slayer::SlayerName;
 use muo_content::items::{attr, set_attr};
 use muo_server::World;
@@ -55,13 +55,13 @@ clothing_leaf! {
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEclipse`.
-    ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F03, 0x486), hue 0, encoded true;
+    ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0x486), hue 0, encoded true;
     @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEquinox`.
-    ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F04, 0xD6), hue 0, encoded true;
+    ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0xD6), hue 0, encoded true;
     @template;
 }
 
@@ -120,19 +120,19 @@ clothing_leaf! {
 
 clothing_leaf! {
     /// `Server.Items.EmbroideredOakLeafCloak`.
-    EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
+    EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0), hue 0, encoded false;
     @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.TheMostKnowledgePerson`.
-    THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
+    THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0), hue 0, encoded false;
     @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.TheRobeOfBritanniaAri`.
-    THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
+    THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| crate::clothing::new_clothing_json(w, ty, 0), hue 0, encoded false;
     @template;
 }
 

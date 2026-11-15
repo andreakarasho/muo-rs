@@ -4,22 +4,22 @@ use super::*;
 
 weapon_leaf! {
     /// `Server.Items.ButcherKnife`.
-    BUTCHER_KNIFE, BUTCHER_KNIFE_CLASS, butcher_knife_new = "Server.Items.ButcherKnife" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0x13F6, v0;
+    BUTCHER_KNIFE, BUTCHER_KNIFE_CLASS, butcher_knife_new = "Server.Items.ButcherKnife" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.Cleaver`.
-    CLEAVER, CLEAVER_CLASS, cleaver_new = "Server.Items.Cleaver" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0xEC3, v0;
+    CLEAVER, CLEAVER_CLASS, cleaver_new = "Server.Items.Cleaver" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.Dagger`.
-    DAGGER, DAGGER_CLASS, dagger_new = "Server.Items.Dagger" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0xF52, v0;
+    DAGGER, DAGGER_CLASS, dagger_new = "Server.Items.Dagger" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), v0;
 }
 
 weapon_leaf! {
     /// `Server.Items.SkinningKnife`.
-    SKINNING_KNIFE, SKINNING_KNIFE_CLASS, skinning_knife_new = "Server.Items.SkinningKnife" : BASE_KNIFE / BASE_KNIFE_CLASS, graphic 0xEC4, v0;
+    SKINNING_KNIFE, SKINNING_KNIFE_CLASS, skinning_knife_new = "Server.Items.SkinningKnife" : BASE_KNIFE / BASE_KNIFE_CLASS, json (), v0;
 }
 
 pub fn register(types: &mut TypeRegistry) {

@@ -16,7 +16,8 @@
       "defaultWeight": 4.0,
       "primaryAbility": "ArmorIgnore",
       "secondaryAbility": "Dismount",
-      "defSkill": "Swords"
+      "defSkill": "Swords",
+      "graphic": 9917
     }
   },
   {
@@ -35,7 +36,8 @@
       "initMaxHits": 80,
       "defaultWeight": 2.0,
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "InfectiousStrike"
+      "secondaryAbility": "InfectiousStrike",
+      "graphic": 9919
     }
   },
   {
@@ -49,7 +51,8 @@
       "initMaxHits": 80,
       "primaryAbility": "DoubleStrike",
       "secondaryAbility": "Disarm",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2308
     }
   },
   {
@@ -68,7 +71,8 @@
       "initMaxHits": 110,
       "defaultWeight": 8.0,
       "primaryAbility": "ParalyzingBlow",
-      "secondaryAbility": "InfectiousStrike"
+      "secondaryAbility": "InfectiousStrike",
+      "graphic": 9918
     }
   },
   {
@@ -87,7 +91,8 @@
       "initMaxHits": 60,
       "defaultWeight": 11.0,
       "primaryAbility": "BleedAttack",
-      "secondaryAbility": "Dismount"
+      "secondaryAbility": "Dismount",
+      "graphic": 3719
     }
   },
   {
@@ -107,7 +112,8 @@
       "defaultWeight": 4.0,
       "primaryAbility": "ShadowStrike",
       "secondaryAbility": "MortalStrike",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 5123
     }
   },
   {
@@ -126,7 +132,8 @@
       "initMaxHits": 80,
       "defaultWeight": 7.0,
       "primaryAbility": "ArmorIgnore",
-      "secondaryAbility": "ParalyzingBlow"
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 3938
     }
   },
   {
@@ -147,7 +154,8 @@
       "defaultWeight": 7.0,
       "primaryAbility": "ArmorIgnore",
       "secondaryAbility": "ParalyzingBlow",
-      "virtualDamageBonus": 25
+      "virtualDamageBonus": 25,
+      "graphic": 3938
     }
   },
   {
@@ -169,7 +177,8 @@
       "defaultWeight": 9.0,
       "primaryAbility": "BleedAttack",
       "secondaryAbility": "Disarm",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 5125
     }
   }
 ]

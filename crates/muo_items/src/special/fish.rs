@@ -5,7 +5,7 @@
 //! FishBowl and the gump are `aquarium.rs`.
 
 use muo_content::items::clothing::{
-    BASE_HAT, BASE_HAT_CLASS, BASE_SHOES, BASE_SHOES_CLASS, new_clothing,
+    BASE_HAT, BASE_HAT_CLASS, BASE_SHOES, BASE_SHOES_CLASS,
 };
 use muo_primitives::{TimeSpan, utility};
 use muo_server::World;
@@ -246,7 +246,7 @@ pub static VACATION_WAFER: ItemType = ItemType {
 
 clothing_leaf! {
     /// `Server.Items.CraftysFishingHat`.
-    CRAFTYS_FISHING_HAT, CRAFTYS_FISHING_HAT_CLASS, craftys_fishing_hat_new = "Server.Items.CraftysFishingHat" : BASE_HAT / BASE_HAT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x1713, hue), hue 0, encoded false;
+    CRAFTYS_FISHING_HAT, CRAFTYS_FISHING_HAT_CLASS, craftys_fishing_hat_new = "Server.Items.CraftysFishingHat" : BASE_HAT / BASE_HAT_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @ty {
         add_name_properties: |w, id, list| {
             (BASE_HAT.add_name_properties)(w, id, list);
@@ -257,7 +257,7 @@ clothing_leaf! {
 
 clothing_leaf! {
     /// `Server.Items.WaterloggedBoots`.
-    WATERLOGGED_BOOTS, WATERLOGGED_BOOTS_CLASS, waterlogged_boots_new = "Server.Items.WaterloggedBoots" : BASE_SHOES / BASE_SHOES_CLASS, |w, ty, hue| new_clothing(w, ty, 0x1711, hue), hue 0, encoded false;
+    WATERLOGGED_BOOTS, WATERLOGGED_BOOTS_CLASS, waterlogged_boots_new = "Server.Items.WaterloggedBoots" : BASE_SHOES / BASE_SHOES_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @template;
     @ty {
         default_weight: |w, id| if w.item(id).is_some_and(|i| i.item_id == 0x1711) { 4.0 } else { 3.0 },

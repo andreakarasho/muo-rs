@@ -67,6 +67,15 @@ pub(crate) use jewel_leaf;
 pub mod leaves;
 pub mod special;
 
+/// `new BaseJewel(itemID)` with the class's `graphic` prop as the item id.
+pub(crate) fn new_jewel_json(
+    w: &mut muo_server::World,
+    ty: &'static muo_server::item::ItemType,
+) -> muo_server::ids::ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    muo_content::items::jewel::new_jewel(w, ty, g)
+}
+
 /// Registers every jewel class of this crate.
 pub fn register(types: &mut TypeRegistry) {
     leaves::register(types);

@@ -335,7 +335,8 @@
       "armorBase": 30,
       "defaultWeight": 2.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5198
     }
   },
   {
@@ -354,7 +355,8 @@
       "armorBase": 30,
       "defaultWeight": 6.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5199
     }
   },
   {
@@ -373,7 +375,8 @@
       "armorBase": 30,
       "defaultWeight": 2.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5200
     }
   },
   {
@@ -392,7 +395,8 @@
       "armorBase": 30,
       "defaultWeight": 3.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5202
     }
   },
   {
@@ -409,7 +413,8 @@
       "oldStrReq": 50,
       "armorBase": 3,
       "defaultWeight": 7.0,
-      "materialType": "Chainmail"
+      "materialType": "Chainmail",
+      "graphic": 10100
     }
   },
   {
@@ -427,7 +432,8 @@
       "oldDexBonus": -3,
       "armorBase": 28,
       "defaultWeight": 7.0,
-      "materialType": "Chainmail"
+      "materialType": "Chainmail",
+      "graphic": 5054
     }
   },
   {
@@ -445,7 +451,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1028
     }
   },
   {
@@ -463,7 +470,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1027
     }
   },
   {
@@ -481,7 +489,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1030
     }
   },
   {
@@ -499,7 +508,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1029
     }
   },
   {
@@ -517,7 +527,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1032
     }
   },
   {
@@ -535,7 +546,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1031
     }
   },
   {
@@ -553,7 +565,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1034
     }
   },
   {
@@ -571,7 +584,8 @@
       "materialType": "Cloth",
       "defaultResource": "None",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 1033
     }
   },
   {
@@ -595,7 +609,8 @@
       "labelNumber": 1041371,
       "defaultWeight": 2.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5198
     }
   },
   {
@@ -619,7 +634,8 @@
       "labelNumber": 1041372,
       "defaultWeight": 6.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5199
     }
   },
   {
@@ -643,7 +659,8 @@
       "labelNumber": 1041373,
       "defaultWeight": 2.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5200
     }
   },
   {
@@ -667,7 +684,8 @@
       "labelNumber": 1041375,
       "defaultWeight": 3.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5202
     }
   },
   {
@@ -686,7 +704,8 @@
       "armorBase": 40,
       "defaultWeight": 5.0,
       "materialType": "Dragon",
-      "defaultResource": "RedScales"
+      "defaultResource": "RedScales",
+      "graphic": 9815
     }
   },
   {
@@ -705,7 +724,8 @@
       "armorBase": 40,
       "defaultWeight": 10.0,
       "materialType": "Dragon",
-      "defaultResource": "RedScales"
+      "defaultResource": "RedScales",
+      "graphic": 9793
     }
   },
   {
@@ -724,7 +744,8 @@
       "armorBase": 40,
       "defaultWeight": 2.0,
       "materialType": "Dragon",
-      "defaultResource": "RedScales"
+      "defaultResource": "RedScales",
+      "graphic": 9795
     }
   },
   {
@@ -743,7 +764,8 @@
       "armorBase": 40,
       "defaultWeight": 5.0,
       "materialType": "Dragon",
-      "defaultResource": "RedScales"
+      "defaultResource": "RedScales",
+      "graphic": 9797
     }
   },
   {
@@ -762,7 +784,8 @@
       "armorBase": 40,
       "defaultWeight": 6.0,
       "materialType": "Dragon",
-      "defaultResource": "RedScales"
+      "defaultResource": "RedScales",
+      "graphic": 9799
     }
   },
   {
@@ -1007,7 +1030,8 @@
       "oldStrReq": 10,
       "armorBase": 18,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5132
     }
   },
   {
@@ -1024,7 +1048,8 @@
       "oldStrReq": 40,
       "armorBase": 30,
       "defaultWeight": 3.0,
-      "materialType": "Bone"
+      "materialType": "Bone",
+      "graphic": 5201
     }
   },
   {
@@ -1041,7 +1066,8 @@
       "oldStrReq": 20,
       "armorBase": 28,
       "defaultWeight": 1.0,
-      "materialType": "Chainmail"
+      "materialType": "Chainmail",
+      "graphic": 5051
     }
   },
   {
@@ -1060,7 +1086,8 @@
       "defaultWeight": 2.0,
       "materialType": "Plate",
       "defMedAllowance": "All",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11118
     }
   },
   {
@@ -1077,7 +1104,8 @@
       "oldStrReq": 40,
       "armorBase": 30,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5128
     }
   },
   {
@@ -1100,7 +1128,8 @@
       "labelNumber": 1041374,
       "defaultWeight": 3.0,
       "materialType": "Bone",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5201
     }
   },
   {
@@ -1119,7 +1148,8 @@
       "defaultWeight": 2.0,
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Plate",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 11120
     }
   },
   {
@@ -1136,7 +1166,8 @@
       "oldStrReq": 40,
       "armorBase": 30,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5130
     }
   },
   {
@@ -1155,7 +1186,8 @@
       "defaultWeight": 2.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 7609
     }
   },
   {
@@ -1172,7 +1204,8 @@
       "oldStrReq": 40,
       "armorBase": 30,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5134
     }
   },
   {
@@ -1191,7 +1224,8 @@
       "defaultWeight": 5.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "None"
+      "defMedAllowance": "None",
+      "graphic": 7947
     }
   },
   {
@@ -1209,7 +1243,8 @@
       "oldDexBonus": -1,
       "armorBase": 40,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5138
     }
   },
   {
@@ -1227,7 +1262,8 @@
       "armorBase": 40,
       "defaultWeight": 5.0,
       "requiredRaces": "AllowElvesOnly",
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 11121
     }
   },
   {
@@ -1246,7 +1282,8 @@
       "defaultWeight": 2.0,
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Plate",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 11119
     }
   },
   {
@@ -1264,7 +1301,8 @@
       "armorBase": 40,
       "defaultWeight": 5.0,
       "requiredRaces": "AllowElvesOnly",
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 11122
     }
   },
   {
@@ -1282,7 +1320,8 @@
       "armorBase": 40,
       "defaultWeight": 5.0,
       "requiredRaces": "AllowElvesOnly",
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 11123
     }
   },
   {
@@ -1302,7 +1341,8 @@
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "All",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 12235
     }
   },
   {
@@ -1322,7 +1362,8 @@
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "All",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 7174
     }
   },
   {
@@ -1342,7 +1383,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 769
     }
   },
   {
@@ -1362,7 +1404,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 770
     }
   },
   {
@@ -1382,7 +1425,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 772
     }
   },
   {
@@ -1402,7 +1446,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 771
     }
   },
   {
@@ -1422,7 +1467,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 785
     }
   },
   {
@@ -1442,7 +1488,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 784
     }
   },
   {
@@ -1462,7 +1509,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 773
     }
   },
   {
@@ -1482,7 +1530,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 774
     }
   },
   {
@@ -1495,7 +1544,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 17790
     }
   },
   {
@@ -1515,7 +1565,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 12232
     }
   },
   {
@@ -1535,7 +1586,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 12229
     }
   },
   {
@@ -1555,7 +1607,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 12231
     }
   },
   {
@@ -1575,7 +1628,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 12233
     }
   },
   {
@@ -1595,7 +1649,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 12234
     }
   },
   {
@@ -1614,7 +1669,8 @@
       "defaultWeight": 2.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 5069
     }
   },
   {
@@ -1634,7 +1690,8 @@
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "All",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 7178
     }
   },
   {
@@ -1653,7 +1710,8 @@
       "defaultWeight": 6.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10182
     }
   },
   {
@@ -1672,7 +1730,8 @@
       "defaultWeight": 1.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 5063
     }
   },
   {
@@ -1691,7 +1750,8 @@
       "defaultWeight": 4.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10122
     }
   },
   {
@@ -1710,7 +1770,8 @@
       "defaultWeight": 1.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10110
     }
   },
   {
@@ -1729,7 +1790,8 @@
       "defaultWeight": 3.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10102
     }
   },
   {
@@ -1748,7 +1810,8 @@
       "defaultWeight": 4.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 5067
     }
   },
   {
@@ -1767,7 +1830,8 @@
       "defaultWeight": 2.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10106
     }
   },
   {
@@ -1786,7 +1850,8 @@
       "defaultWeight": 2.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10126
     }
   },
   {
@@ -1805,7 +1870,8 @@
       "defaultWeight": 5.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10131
     }
   },
   {
@@ -1824,7 +1890,8 @@
       "defaultWeight": 2.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10130
     }
   },
   {
@@ -1843,7 +1910,8 @@
       "defaultWeight": 3.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10129
     }
   },
   {
@@ -1863,7 +1931,8 @@
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "All",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 7168
     }
   },
   {
@@ -1883,7 +1952,8 @@
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "All",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 7176
     }
   },
   {
@@ -1902,7 +1972,8 @@
       "defaultWeight": 4.0,
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "All"
+      "defMedAllowance": "All",
+      "graphic": 10118
     }
   },
   {
@@ -1919,7 +1990,8 @@
       "oldStrReq": 70,
       "armorBase": 3,
       "defaultWeight": 6.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10104
     }
   },
   {
@@ -1938,7 +2010,8 @@
       "armorBase": 30,
       "defaultWeight": 4.0,
       "allowMaleWearer": false,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 7172
     }
   },
   {
@@ -1956,7 +2029,8 @@
       "armorBase": 30,
       "defaultWeight": 8.0,
       "allowMaleWearer": false,
-      "materialType": "Wood"
+      "materialType": "Wood",
+      "graphic": 11117
     }
   },
   {
@@ -1973,7 +2047,8 @@
       "oldStrReq": 55,
       "armorBase": 4,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10103
     }
   },
   {
@@ -1990,7 +2065,8 @@
       "oldStrReq": 55,
       "armorBase": 4,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10113
     }
   },
   {
@@ -2008,7 +2084,8 @@
       "oldDexBonus": -2,
       "armorBase": 40,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5136
     }
   },
   {
@@ -2025,7 +2102,8 @@
       "oldStrReq": 70,
       "armorBase": 3,
       "defaultWeight": 6.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10117
     }
   },
   {
@@ -2042,7 +2120,8 @@
       "oldStrReq": 85,
       "armorBase": 3,
       "defaultWeight": 10.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10109
     }
   },
   {
@@ -2060,7 +2139,8 @@
       "oldDexBonus": -2,
       "armorBase": 40,
       "defaultWeight": 2.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5140
     }
   },
   {
@@ -2078,7 +2158,8 @@
       "oldDexBonus": -1,
       "armorBase": 40,
       "defaultWeight": 2.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5139
     }
   },
   {
@@ -2095,7 +2176,8 @@
       "oldStrReq": 80,
       "armorBase": 3,
       "defaultWeight": 7.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10125
     }
   },
   {
@@ -2112,7 +2194,8 @@
       "oldStrReq": 65,
       "armorBase": 4,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10101
     }
   },
   {
@@ -2129,7 +2212,8 @@
       "oldStrReq": 75,
       "armorBase": 3,
       "defaultWeight": 3.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10112
     }
   },
   {
@@ -2147,7 +2231,8 @@
       "oldDexBonus": -6,
       "armorBase": 40,
       "defaultWeight": 7.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 5137
     }
   },
   {
@@ -2164,7 +2249,8 @@
       "oldStrReq": 50,
       "armorBase": 4,
       "defaultWeight": 3.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10105
     }
   },
   {
@@ -2181,7 +2267,8 @@
       "oldStrReq": 80,
       "armorBase": 3,
       "defaultWeight": 7.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10120
     }
   },
   {
@@ -2198,7 +2285,8 @@
       "oldStrReq": 55,
       "armorBase": 4,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10116
     }
   },
   {
@@ -2215,7 +2303,8 @@
       "oldStrReq": 70,
       "armorBase": 3,
       "defaultWeight": 6.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 10121
     }
   },
   {
@@ -2233,7 +2322,8 @@
       "armorBase": 40,
       "defaultWeight": 5.0,
       "materialType": "Wood",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11116
     }
   },
   {
@@ -2251,7 +2341,8 @@
       "armorBase": 40,
       "defaultWeight": 8.0,
       "materialType": "Wood",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11111
     }
   },
   {
@@ -2269,7 +2360,8 @@
       "armorBase": 40,
       "defaultWeight": 2.0,
       "materialType": "Wood",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11114
     }
   },
   {
@@ -2286,7 +2378,8 @@
       "oldStrReq": 45,
       "armorBase": 40,
       "materialType": "Wood",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11113
     }
   },
   {
@@ -2304,7 +2397,8 @@
       "armorBase": 40,
       "defaultWeight": 8.0,
       "materialType": "Wood",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11115
     }
   },
   {
@@ -2324,7 +2418,8 @@
       "labelNumber": 1041493,
       "defaultWeight": 4.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5084
     }
   },
   {
@@ -2344,7 +2439,8 @@
       "labelNumber": 1041497,
       "defaultWeight": 8.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5083
     }
   },
   {
@@ -2364,7 +2460,8 @@
       "labelNumber": 1041494,
       "defaultWeight": 1.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5077
     }
   },
   {
@@ -2384,7 +2481,8 @@
       "labelNumber": 1041495,
       "defaultWeight": 1.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5078
     }
   },
   {
@@ -2404,7 +2502,8 @@
       "labelNumber": 1041496,
       "defaultWeight": 3.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5082
     }
   },
   {
@@ -2422,7 +2521,8 @@
       "oldDexBonus": -1,
       "armorBase": 22,
       "defaultWeight": 15.0,
-      "materialType": "Ringmail"
+      "materialType": "Ringmail",
+      "graphic": 5102
     }
   },
   {
@@ -2440,7 +2540,8 @@
       "oldDexBonus": -2,
       "armorBase": 22,
       "defaultWeight": 15.0,
-      "materialType": "Ringmail"
+      "materialType": "Ringmail",
+      "graphic": 5100
     }
   },
   {
@@ -2458,7 +2559,8 @@
       "oldDexBonus": -1,
       "armorBase": 22,
       "defaultWeight": 2.0,
-      "materialType": "Ringmail"
+      "materialType": "Ringmail",
+      "graphic": 5099
     }
   },
   {
@@ -2476,7 +2578,8 @@
       "oldDexBonus": -1,
       "armorBase": 22,
       "defaultWeight": 15.0,
-      "materialType": "Ringmail"
+      "materialType": "Ringmail",
+      "graphic": 5104
     }
   },
   {
@@ -2497,7 +2600,8 @@
       "initMaxHits": 255,
       "aosStrReq": 25,
       "labelNumber": 1075237,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 11024
     }
   },
   {
@@ -2518,7 +2622,8 @@
       "initMaxHits": 255,
       "aosStrReq": 50,
       "labelNumber": 1075238,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 11020
     }
   },
   {
@@ -2536,7 +2641,8 @@
       "armorBase": 40,
       "defaultWeight": 10.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 644
     }
   },
   {
@@ -2554,7 +2660,8 @@
       "armorBase": 40,
       "defaultWeight": 10.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 643
     }
   },
   {
@@ -2572,7 +2679,8 @@
       "armorBase": 40,
       "defaultWeight": 15.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 646
     }
   },
   {
@@ -2590,7 +2698,8 @@
       "armorBase": 40,
       "defaultWeight": 15.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 645
     }
   },
   {
@@ -2608,7 +2717,8 @@
       "armorBase": 40,
       "defaultWeight": 10.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 648
     }
   },
   {
@@ -2626,7 +2736,8 @@
       "armorBase": 40,
       "defaultWeight": 10.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 647
     }
   },
   {
@@ -2644,7 +2755,8 @@
       "armorBase": 40,
       "defaultWeight": 15.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 650
     }
   },
   {
@@ -2662,7 +2774,8 @@
       "armorBase": 40,
       "defaultWeight": 15.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Stone"
+      "materialType": "Stone",
+      "graphic": 649
     }
   },
   {
@@ -2682,7 +2795,8 @@
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "Half",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 7170
     }
   },
   {
@@ -2701,7 +2815,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 644
     }
   },
   {
@@ -2721,7 +2836,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 643
     }
   },
   {
@@ -2741,7 +2857,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 646
     }
   },
   {
@@ -2761,7 +2878,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 645
     }
   },
   {
@@ -2781,7 +2899,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 648
     }
   },
   {
@@ -2801,7 +2920,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 647
     }
   },
   {
@@ -2821,7 +2941,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 650
     }
   },
   {
@@ -2841,7 +2962,8 @@
       "requiredRaces": "AllowGargoylesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 649
     }
   },
   {
@@ -2861,7 +2983,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 11124
     }
   },
   {
@@ -2882,7 +3005,8 @@
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "Half",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 11129
     }
   },
   {
@@ -2902,7 +3026,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 11125
     }
   },
   {
@@ -2922,7 +3047,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 11126
     }
   },
   {
@@ -2942,7 +3068,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 11128
     }
   },
   {
@@ -2962,7 +3089,8 @@
       "requiredRaces": "AllowElvesOnly",
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 11127
     }
   },
   {
@@ -2981,7 +3109,8 @@
       "defaultWeight": 4.0,
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 5084
     }
   },
   {
@@ -3001,7 +3130,8 @@
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "Half",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 7180
     }
   },
   {
@@ -3020,7 +3150,8 @@
       "defaultWeight": 8.0,
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 5083
     }
   },
   {
@@ -3038,7 +3169,8 @@
       "armorBase": 3,
       "defaultWeight": 8.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 10183
     }
   },
   {
@@ -3057,7 +3189,8 @@
       "defaultWeight": 1.0,
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 5077
     }
   },
   {
@@ -3076,7 +3209,8 @@
       "defaultWeight": 1.0,
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 5078
     }
   },
   {
@@ -3094,7 +3228,8 @@
       "armorBase": 3,
       "defaultWeight": 5.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 10123
     }
   },
   {
@@ -3112,7 +3247,8 @@
       "armorBase": 3,
       "defaultWeight": 1.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 10111
     }
   },
   {
@@ -3131,7 +3267,8 @@
       "defaultWeight": 5.0,
       "materialType": "Studded",
       "defaultResource": "RegularLeather",
-      "defMedAllowance": "Half"
+      "defMedAllowance": "Half",
+      "graphic": 5082
     }
   },
   {
@@ -3149,7 +3286,8 @@
       "armorBase": 3,
       "defaultWeight": 2.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 10141
     }
   },
   {
@@ -3167,7 +3305,8 @@
       "armorBase": 3,
       "defaultWeight": 5.0,
       "materialType": "Studded",
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 10194
     }
   },
   {
@@ -3218,7 +3357,8 @@
       "initMaxHits": 30,
       "aosStrReq": 35,
       "armorBase": 10,
-      "defaultWeight": 6.0
+      "defaultWeight": 6.0,
+      "graphic": 7026
     }
   },
   {
@@ -3233,7 +3373,8 @@
       "initMaxHits": 50,
       "aosStrReq": 20,
       "armorBase": 7,
-      "defaultWeight": 5.0
+      "defaultWeight": 5.0,
+      "graphic": 7027
     }
   },
   {
@@ -3249,7 +3390,8 @@
       "aosStrReq": 20,
       "defaultWeight": 5.0,
       "requiredRaces": "AllowGargoylesOnly",
-      "materialType": "Wood"
+      "materialType": "Wood",
+      "graphic": 16896
     }
   },
   {
@@ -3264,7 +3406,8 @@
       "initMaxHits": 65,
       "aosStrReq": 90,
       "armorBase": 23,
-      "defaultWeight": 8.0
+      "defaultWeight": 8.0,
+      "graphic": 7030
     }
   },
   {
@@ -3279,7 +3422,8 @@
       "initMaxHits": 60,
       "aosStrReq": 45,
       "armorBase": 16,
-      "defaultWeight": 7.0
+      "defaultWeight": 7.0,
+      "graphic": 7028
     }
   },
   {
@@ -3294,7 +3438,8 @@
       "initMaxHits": 65,
       "aosStrReq": 45,
       "armorBase": 11,
-      "defaultWeight": 6.0
+      "defaultWeight": 6.0,
+      "graphic": 7035
     }
   },
   {
@@ -3310,7 +3455,8 @@
       "aosStrReq": 20,
       "armorBase": 12,
       "defaultWeight": 5.0,
-      "materialType": "Wood"
+      "materialType": "Wood",
+      "graphic": 7033
     }
   },
   {
@@ -3326,7 +3472,8 @@
       "aosStrReq": 20,
       "armorBase": 8,
       "defaultWeight": 5.0,
-      "materialType": "Wood"
+      "materialType": "Wood",
+      "graphic": 7034
     }
   },
   {

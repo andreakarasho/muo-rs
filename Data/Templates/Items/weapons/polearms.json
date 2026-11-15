@@ -15,7 +15,8 @@
       "initMaxHits": 100,
       "defaultWeight": 7.0,
       "primaryAbility": "ParalyzingBlow",
-      "secondaryAbility": "Dismount"
+      "secondaryAbility": "Dismount",
+      "graphic": 3917
     }
   },
   {
@@ -34,7 +35,8 @@
       "initMaxHits": 80,
       "defaultWeight": 16.0,
       "primaryAbility": "WhirlwindAttack",
-      "secondaryAbility": "ConcussionBlow"
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 5182
     }
   },
   {
@@ -54,7 +56,8 @@
       "defaultWeight": 5.0,
       "primaryAbility": "BleedAttack",
       "secondaryAbility": "ParalyzingBlow",
-      "harvestSystem": null
+      "harvestSystem": null,
+      "graphic": 9914
     }
   }
 ]

@@ -108,61 +108,71 @@
   {
     "type": "Server.Items.GoldBracelet",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 4230
     }
   },
   {
     "type": "Server.Items.SilverBracelet",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 7942
     }
   },
   {
     "type": "Server.Items.GoldEarrings",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 4231
     }
   },
   {
     "type": "Server.Items.SilverEarrings",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 7943
     }
   },
   {
     "type": "Server.Items.GoldNecklace",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 4232
     }
   },
   {
     "type": "Server.Items.GoldBeadNecklace",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 4233
     }
   },
   {
     "type": "Server.Items.SilverNecklace",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 7944
     }
   },
   {
     "type": "Server.Items.SilverBeadNecklace",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 7941
     }
   },
   {
     "type": "Server.Items.SilverRing",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 7945
     }
   },
   {
     "type": "Server.Items.WeddingRing",
     "props": {
-      "defaultWeight": 0.1
+      "defaultWeight": 0.1,
+      "graphic": 4234
     }
   }
 ]

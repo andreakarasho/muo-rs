@@ -15,7 +15,8 @@
       "initMaxHits": 110,
       "defaultWeight": 4.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "Dismount"
+      "secondaryAbility": "Dismount",
+      "graphic": 3913
     }
   },
   {
@@ -35,7 +36,8 @@
       "initMaxHits": 70,
       "defaultWeight": 4.0,
       "primaryAbility": "BleedAttack",
-      "secondaryAbility": "ConcussionBlow"
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 3911
     }
   },
   {
@@ -54,7 +56,8 @@
       "initMaxHits": 110,
       "defaultWeight": 8.0,
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "WhirlwindAttack"
+      "secondaryAbility": "WhirlwindAttack",
+      "graphic": 3915
     }
   },
   {
@@ -68,7 +71,8 @@
       "initMaxHits": 110,
       "primaryAbility": "DoubleStrike",
       "secondaryAbility": "InfectiousStrike",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2301
     }
   },
   {
@@ -87,7 +91,8 @@
       "initMaxHits": 70,
       "defaultWeight": 8.0,
       "primaryAbility": "BleedAttack",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 3909
     }
   },
   {
@@ -106,7 +111,8 @@
       "initMaxHits": 80,
       "defaultWeight": 4.0,
       "primaryAbility": "ArmorIgnore",
-      "secondaryAbility": "Disarm"
+      "secondaryAbility": "Disarm",
+      "graphic": 3907
     }
   },
   {
@@ -125,7 +131,8 @@
       "initMaxHits": 70,
       "defaultWeight": 6.0,
       "primaryAbility": "WhirlwindAttack",
-      "secondaryAbility": "BleedAttack"
+      "secondaryAbility": "BleedAttack",
+      "graphic": 5115
     }
   },
   {
@@ -148,7 +155,8 @@
       "harvestSystem": "Mining",
       "primaryAbility": "DoubleStrike",
       "secondaryAbility": "Disarm",
-      "defAnimation": "Slash1H"
+      "defAnimation": "Slash1H",
+      "graphic": 3718
     }
   },
   {
@@ -167,7 +175,8 @@
       "initMaxHits": 90,
       "defaultWeight": 8.0,
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "ShadowStrike"
+      "secondaryAbility": "ShadowStrike",
+      "graphic": 5187
     }
   },
   {
@@ -192,7 +201,8 @@
       "defSkill": "Macing",
       "defType": "Bashing",
       "defAnimation": "Bash1H",
-      "harvestSystem": null
+      "harvestSystem": null,
+      "graphic": 5040
     }
   },
   {

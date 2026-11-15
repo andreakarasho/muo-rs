@@ -1,7 +1,7 @@
 //! The concrete armor and shield classes that are tables. Classes with logic of their own are in `special.rs`.
 
 use muo_content::items::armor::{
-    ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, BASE_SHIELD, BASE_SHIELD_CLASS, new_armor,
+    ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, BASE_SHIELD, BASE_SHIELD_CLASS,
 };
 use muo_server::World;
 use muo_server::ids::ItemId;
@@ -115,121 +115,121 @@ armor_leaf! {
 
 armor_leaf! {
     /// `Server.Items.BoneArms`.
-    BONE_ARMS, BONE_ARMS_CLASS, bone_arms_new = "Server.Items.BoneArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144E), encoded false;
+    BONE_ARMS, BONE_ARMS_CLASS, bone_arms_new = "Server.Items.BoneArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.BoneChest`.
-    BONE_CHEST, BONE_CHEST_CLASS, bone_chest_new = "Server.Items.BoneChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144F), encoded false;
+    BONE_CHEST, BONE_CHEST_CLASS, bone_chest_new = "Server.Items.BoneChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.BoneGloves`.
-    BONE_GLOVES, BONE_GLOVES_CLASS, bone_gloves_new = "Server.Items.BoneGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1450), encoded false;
+    BONE_GLOVES, BONE_GLOVES_CLASS, bone_gloves_new = "Server.Items.BoneGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.BoneLegs`.
-    BONE_LEGS, BONE_LEGS_CLASS, bone_legs_new = "Server.Items.BoneLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1452), encoded false;
+    BONE_LEGS, BONE_LEGS_CLASS, bone_legs_new = "Server.Items.BoneLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.ChainHatsuburi`.
-    CHAIN_HATSUBURI, CHAIN_HATSUBURI_CLASS, chain_hatsuburi_new = "Server.Items.ChainHatsuburi" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2774), encoded false;
+    CHAIN_HATSUBURI, CHAIN_HATSUBURI_CLASS, chain_hatsuburi_new = "Server.Items.ChainHatsuburi" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.ChainLegs`.
-    CHAIN_LEGS, CHAIN_LEGS_CLASS, chain_legs_new = "Server.Items.ChainLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13BE), encoded false;
+    CHAIN_LEGS, CHAIN_LEGS_CLASS, chain_legs_new = "Server.Items.ChainLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothArmsType1`.
-    GARGISH_CLOTH_ARMS_TYPE1, GARGISH_CLOTH_ARMS_TYPE1_CLASS, gargish_cloth_arms_type1_new = "Server.Items.GargishClothArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x404), encoded true;
+    GARGISH_CLOTH_ARMS_TYPE1, GARGISH_CLOTH_ARMS_TYPE1_CLASS, gargish_cloth_arms_type1_new = "Server.Items.GargishClothArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothArmsType2`.
-    GARGISH_CLOTH_ARMS_TYPE2, GARGISH_CLOTH_ARMS_TYPE2_CLASS, gargish_cloth_arms_type2_new = "Server.Items.GargishClothArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x403), encoded true;
+    GARGISH_CLOTH_ARMS_TYPE2, GARGISH_CLOTH_ARMS_TYPE2_CLASS, gargish_cloth_arms_type2_new = "Server.Items.GargishClothArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothChestType1`.
-    GARGISH_CLOTH_CHEST_TYPE1, GARGISH_CLOTH_CHEST_TYPE1_CLASS, gargish_cloth_chest_type1_new = "Server.Items.GargishClothChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x406), encoded true;
+    GARGISH_CLOTH_CHEST_TYPE1, GARGISH_CLOTH_CHEST_TYPE1_CLASS, gargish_cloth_chest_type1_new = "Server.Items.GargishClothChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothChestType2`.
-    GARGISH_CLOTH_CHEST_TYPE2, GARGISH_CLOTH_CHEST_TYPE2_CLASS, gargish_cloth_chest_type2_new = "Server.Items.GargishClothChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x405), encoded true;
+    GARGISH_CLOTH_CHEST_TYPE2, GARGISH_CLOTH_CHEST_TYPE2_CLASS, gargish_cloth_chest_type2_new = "Server.Items.GargishClothChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothKiltType1`.
-    GARGISH_CLOTH_KILT_TYPE1, GARGISH_CLOTH_KILT_TYPE1_CLASS, gargish_cloth_kilt_type1_new = "Server.Items.GargishClothKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x408), encoded true;
+    GARGISH_CLOTH_KILT_TYPE1, GARGISH_CLOTH_KILT_TYPE1_CLASS, gargish_cloth_kilt_type1_new = "Server.Items.GargishClothKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothKiltType2`.
-    GARGISH_CLOTH_KILT_TYPE2, GARGISH_CLOTH_KILT_TYPE2_CLASS, gargish_cloth_kilt_type2_new = "Server.Items.GargishClothKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x407), encoded true;
+    GARGISH_CLOTH_KILT_TYPE2, GARGISH_CLOTH_KILT_TYPE2_CLASS, gargish_cloth_kilt_type2_new = "Server.Items.GargishClothKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothLegsType1`.
-    GARGISH_CLOTH_LEGS_TYPE1, GARGISH_CLOTH_LEGS_TYPE1_CLASS, gargish_cloth_legs_type1_new = "Server.Items.GargishClothLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x40A), encoded true;
+    GARGISH_CLOTH_LEGS_TYPE1, GARGISH_CLOTH_LEGS_TYPE1_CLASS, gargish_cloth_legs_type1_new = "Server.Items.GargishClothLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishClothLegsType2`.
-    GARGISH_CLOTH_LEGS_TYPE2, GARGISH_CLOTH_LEGS_TYPE2_CLASS, gargish_cloth_legs_type2_new = "Server.Items.GargishClothLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x409), encoded true;
+    GARGISH_CLOTH_LEGS_TYPE2, GARGISH_CLOTH_LEGS_TYPE2_CLASS, gargish_cloth_legs_type2_new = "Server.Items.GargishClothLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonArms`.
-    DAEMON_ARMS, DAEMON_ARMS_CLASS, daemon_arms_new = "Server.Items.DaemonArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144E), encoded false;
+    DAEMON_ARMS, DAEMON_ARMS_CLASS, daemon_arms_new = "Server.Items.DaemonArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonChest`.
-    DAEMON_CHEST, DAEMON_CHEST_CLASS, daemon_chest_new = "Server.Items.DaemonChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x144F), encoded false;
+    DAEMON_CHEST, DAEMON_CHEST_CLASS, daemon_chest_new = "Server.Items.DaemonChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonGloves`.
-    DAEMON_GLOVES, DAEMON_GLOVES_CLASS, daemon_gloves_new = "Server.Items.DaemonGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1450), encoded false;
+    DAEMON_GLOVES, DAEMON_GLOVES_CLASS, daemon_gloves_new = "Server.Items.DaemonGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonLegs`.
-    DAEMON_LEGS, DAEMON_LEGS_CLASS, daemon_legs_new = "Server.Items.DaemonLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1452), encoded false;
+    DAEMON_LEGS, DAEMON_LEGS_CLASS, daemon_legs_new = "Server.Items.DaemonLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.DragonArms`.
-    DRAGON_ARMS, DRAGON_ARMS_CLASS, dragon_arms_new = "Server.Items.DragonArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2657), encoded false;
+    DRAGON_ARMS, DRAGON_ARMS_CLASS, dragon_arms_new = "Server.Items.DragonArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.DragonChest`.
-    DRAGON_CHEST, DRAGON_CHEST_CLASS, dragon_chest_new = "Server.Items.DragonChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2641), encoded false;
+    DRAGON_CHEST, DRAGON_CHEST_CLASS, dragon_chest_new = "Server.Items.DragonChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.DragonGloves`.
-    DRAGON_GLOVES, DRAGON_GLOVES_CLASS, dragon_gloves_new = "Server.Items.DragonGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2643), encoded false;
+    DRAGON_GLOVES, DRAGON_GLOVES_CLASS, dragon_gloves_new = "Server.Items.DragonGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.DragonHelm`.
-    DRAGON_HELM, DRAGON_HELM_CLASS, dragon_helm_new = "Server.Items.DragonHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2645), encoded false;
+    DRAGON_HELM, DRAGON_HELM_CLASS, dragon_helm_new = "Server.Items.DragonHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.DragonLegs`.
-    DRAGON_LEGS, DRAGON_LEGS_CLASS, dragon_legs_new = "Server.Items.DragonLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2647), encoded false;
+    DRAGON_LEGS, DRAGON_LEGS_CLASS, dragon_legs_new = "Server.Items.DragonLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
@@ -306,138 +306,138 @@ armor_leaf! {
 
 armor_leaf! {
     /// `Server.Items.Bascinet`.
-    BASCINET, BASCINET_CLASS, bascinet_new = "Server.Items.Bascinet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x140C), encoded false;
+    BASCINET, BASCINET_CLASS, bascinet_new = "Server.Items.Bascinet" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.BoneHelm`.
-    BONE_HELM, BONE_HELM_CLASS, bone_helm_new = "Server.Items.BoneHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1451), encoded false;
+    BONE_HELM, BONE_HELM_CLASS, bone_helm_new = "Server.Items.BoneHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.ChainCoif`.
-    CHAIN_COIF, CHAIN_COIF_CLASS, chain_coif_new = "Server.Items.ChainCoif" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13BB), encoded false;
+    CHAIN_COIF, CHAIN_COIF_CLASS, chain_coif_new = "Server.Items.ChainCoif" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.Circlet`.
-    CIRCLET, CIRCLET_CLASS, circlet_new = "Server.Items.Circlet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6E), encoded true;
+    CIRCLET, CIRCLET_CLASS, circlet_new = "Server.Items.Circlet" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.CloseHelm`.
-    CLOSE_HELM, CLOSE_HELM_CLASS, close_helm_new = "Server.Items.CloseHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1408), encoded false;
+    CLOSE_HELM, CLOSE_HELM_CLASS, close_helm_new = "Server.Items.CloseHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.DaemonHelm`.
-    DAEMON_HELM, DAEMON_HELM_CLASS, daemon_helm_new = "Server.Items.DaemonHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1451), encoded false;
+    DAEMON_HELM, DAEMON_HELM_CLASS, daemon_helm_new = "Server.Items.DaemonHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.GemmedCirclet`.
-    GEMMED_CIRCLET, GEMMED_CIRCLET_CLASS, gemmed_circlet_new = "Server.Items.GemmedCirclet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B70), encoded true;
+    GEMMED_CIRCLET, GEMMED_CIRCLET_CLASS, gemmed_circlet_new = "Server.Items.GemmedCirclet" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.Helmet`.
-    HELMET, HELMET_CLASS, helmet_new = "Server.Items.Helmet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x140A), encoded false;
+    HELMET, HELMET_CLASS, helmet_new = "Server.Items.Helmet" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherCap`.
-    LEATHER_CAP, LEATHER_CAP_CLASS, leather_cap_new = "Server.Items.LeatherCap" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1DB9), encoded false;
+    LEATHER_CAP, LEATHER_CAP_CLASS, leather_cap_new = "Server.Items.LeatherCap" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.NorseHelm`.
-    NORSE_HELM, NORSE_HELM_CLASS, norse_helm_new = "Server.Items.NorseHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x140E), encoded false;
+    NORSE_HELM, NORSE_HELM_CLASS, norse_helm_new = "Server.Items.NorseHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.OrcHelm`.
-    ORC_HELM, ORC_HELM_CLASS, orc_helm_new = "Server.Items.OrcHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1F0B), encoded false;
+    ORC_HELM, ORC_HELM_CLASS, orc_helm_new = "Server.Items.OrcHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateHelm`.
-    PLATE_HELM, PLATE_HELM_CLASS, plate_helm_new = "Server.Items.PlateHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1412), encoded false;
+    PLATE_HELM, PLATE_HELM_CLASS, plate_helm_new = "Server.Items.PlateHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.RavenHelm`.
-    RAVEN_HELM, RAVEN_HELM_CLASS, raven_helm_new = "Server.Items.RavenHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B71), encoded true;
+    RAVEN_HELM, RAVEN_HELM_CLASS, raven_helm_new = "Server.Items.RavenHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.RoyalCirclet`.
-    ROYAL_CIRCLET, ROYAL_CIRCLET_CLASS, royal_circlet_new = "Server.Items.RoyalCirclet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6F), encoded true;
+    ROYAL_CIRCLET, ROYAL_CIRCLET_CLASS, royal_circlet_new = "Server.Items.RoyalCirclet" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.VultureHelm`.
-    VULTURE_HELM, VULTURE_HELM_CLASS, vulture_helm_new = "Server.Items.VultureHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B72), encoded true;
+    VULTURE_HELM, VULTURE_HELM_CLASS, vulture_helm_new = "Server.Items.VultureHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.WingedHelm`.
-    WINGED_HELM, WINGED_HELM_CLASS, winged_helm_new = "Server.Items.WingedHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B73), encoded true;
+    WINGED_HELM, WINGED_HELM_CLASS, winged_helm_new = "Server.Items.WingedHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.FemaleLeafChest`.
-    FEMALE_LEAF_CHEST, FEMALE_LEAF_CHEST_CLASS, female_leaf_chest_new = "Server.Items.FemaleLeafChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FCB), encoded true;
+    FEMALE_LEAF_CHEST, FEMALE_LEAF_CHEST_CLASS, female_leaf_chest_new = "Server.Items.FemaleLeafChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.FemaleLeatherChest`.
-    FEMALE_LEATHER_CHEST, FEMALE_LEATHER_CHEST_CLASS, female_leather_chest_new = "Server.Items.FemaleLeatherChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C06), encoded false;
+    FEMALE_LEATHER_CHEST, FEMALE_LEATHER_CHEST_CLASS, female_leather_chest_new = "Server.Items.FemaleLeatherChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherArmsType1`.
-    GARGISH_LEATHER_ARMS_TYPE1, GARGISH_LEATHER_ARMS_TYPE1_CLASS, gargish_leather_arms_type1_new = "Server.Items.GargishLeatherArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x301), encoded false;
+    GARGISH_LEATHER_ARMS_TYPE1, GARGISH_LEATHER_ARMS_TYPE1_CLASS, gargish_leather_arms_type1_new = "Server.Items.GargishLeatherArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherArmsType2`.
-    GARGISH_LEATHER_ARMS_TYPE2, GARGISH_LEATHER_ARMS_TYPE2_CLASS, gargish_leather_arms_type2_new = "Server.Items.GargishLeatherArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x302), encoded false;
+    GARGISH_LEATHER_ARMS_TYPE2, GARGISH_LEATHER_ARMS_TYPE2_CLASS, gargish_leather_arms_type2_new = "Server.Items.GargishLeatherArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherChestType1`.
-    GARGISH_LEATHER_CHEST_TYPE1, GARGISH_LEATHER_CHEST_TYPE1_CLASS, gargish_leather_chest_type1_new = "Server.Items.GargishLeatherChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x0304), encoded false;
+    GARGISH_LEATHER_CHEST_TYPE1, GARGISH_LEATHER_CHEST_TYPE1_CLASS, gargish_leather_chest_type1_new = "Server.Items.GargishLeatherChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherChestType2`.
-    GARGISH_LEATHER_CHEST_TYPE2, GARGISH_LEATHER_CHEST_TYPE2_CLASS, gargish_leather_chest_type2_new = "Server.Items.GargishLeatherChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x303), encoded false;
+    GARGISH_LEATHER_CHEST_TYPE2, GARGISH_LEATHER_CHEST_TYPE2_CLASS, gargish_leather_chest_type2_new = "Server.Items.GargishLeatherChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherKiltType1`.
-    GARGISH_LEATHER_KILT_TYPE1, GARGISH_LEATHER_KILT_TYPE1_CLASS, gargish_leather_kilt_type1_new = "Server.Items.GargishLeatherKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x311), encoded false;
+    GARGISH_LEATHER_KILT_TYPE1, GARGISH_LEATHER_KILT_TYPE1_CLASS, gargish_leather_kilt_type1_new = "Server.Items.GargishLeatherKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherKiltType2`.
-    GARGISH_LEATHER_KILT_TYPE2, GARGISH_LEATHER_KILT_TYPE2_CLASS, gargish_leather_kilt_type2_new = "Server.Items.GargishLeatherKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x310), encoded false;
+    GARGISH_LEATHER_KILT_TYPE2, GARGISH_LEATHER_KILT_TYPE2_CLASS, gargish_leather_kilt_type2_new = "Server.Items.GargishLeatherKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherLegsType1`.
-    GARGISH_LEATHER_LEGS_TYPE1, GARGISH_LEATHER_LEGS_TYPE1_CLASS, gargish_leather_legs_type1_new = "Server.Items.GargishLeatherLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x305), encoded false;
+    GARGISH_LEATHER_LEGS_TYPE1, GARGISH_LEATHER_LEGS_TYPE1_CLASS, gargish_leather_legs_type1_new = "Server.Items.GargishLeatherLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherLegsType2`.
-    GARGISH_LEATHER_LEGS_TYPE2, GARGISH_LEATHER_LEGS_TYPE2_CLASS, gargish_leather_legs_type2_new = "Server.Items.GargishLeatherLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x306), encoded false;
+    GARGISH_LEATHER_LEGS_TYPE2, GARGISH_LEATHER_LEGS_TYPE2_CLASS, gargish_leather_legs_type2_new = "Server.Items.GargishLeatherLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishLeatherWingArmor`.
-    GARGISH_LEATHER_WING_ARMOR, GARGISH_LEATHER_WING_ARMOR_CLASS, gargish_leather_wing_armor_new = "Server.Items.GargishLeatherWingArmor" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x457E), encoded false;
+    GARGISH_LEATHER_WING_ARMOR, GARGISH_LEATHER_WING_ARMOR_CLASS, gargish_leather_wing_armor_new = "Server.Items.GargishLeatherWingArmor" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @ty {
         physical_resistance: |_, _| 0,
         fire_resistance: |_, _| 0,
@@ -449,454 +449,454 @@ armor_leaf! {
 
 armor_leaf! {
     /// `Server.Items.LeafArms`.
-    LEAF_ARMS, LEAF_ARMS_CLASS, leaf_arms_new = "Server.Items.LeafArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FC8), encoded true;
+    LEAF_ARMS, LEAF_ARMS_CLASS, leaf_arms_new = "Server.Items.LeafArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.LeafChest`.
-    LEAF_CHEST, LEAF_CHEST_CLASS, leaf_chest_new = "Server.Items.LeafChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FC5), encoded true;
+    LEAF_CHEST, LEAF_CHEST_CLASS, leaf_chest_new = "Server.Items.LeafChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.LeafGorget`.
-    LEAF_GORGET, LEAF_GORGET_CLASS, leaf_gorget_new = "Server.Items.LeafGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FC7), encoded true;
+    LEAF_GORGET, LEAF_GORGET_CLASS, leaf_gorget_new = "Server.Items.LeafGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.LeafLegs`.
-    LEAF_LEGS, LEAF_LEGS_CLASS, leaf_legs_new = "Server.Items.LeafLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FC9), encoded true;
+    LEAF_LEGS, LEAF_LEGS_CLASS, leaf_legs_new = "Server.Items.LeafLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.LeafTonlet`.
-    LEAF_TONLET, LEAF_TONLET_CLASS, leaf_tonlet_new = "Server.Items.LeafTonlet" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2FCA), encoded true;
+    LEAF_TONLET, LEAF_TONLET_CLASS, leaf_tonlet_new = "Server.Items.LeafTonlet" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherArms`.
-    LEATHER_ARMS, LEATHER_ARMS_CLASS, leather_arms_new = "Server.Items.LeatherArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13CD), encoded false;
+    LEATHER_ARMS, LEATHER_ARMS_CLASS, leather_arms_new = "Server.Items.LeatherArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherBustierArms`.
-    LEATHER_BUSTIER_ARMS, LEATHER_BUSTIER_ARMS_CLASS, leather_bustier_arms_new = "Server.Items.LeatherBustierArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C0A), encoded false;
+    LEATHER_BUSTIER_ARMS, LEATHER_BUSTIER_ARMS_CLASS, leather_bustier_arms_new = "Server.Items.LeatherBustierArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherDo`.
-    LEATHER_DO, LEATHER_DO_CLASS, leather_do_new = "Server.Items.LeatherDo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x27C6), encoded false;
+    LEATHER_DO, LEATHER_DO_CLASS, leather_do_new = "Server.Items.LeatherDo" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherGorget`.
-    LEATHER_GORGET, LEATHER_GORGET_CLASS, leather_gorget_new = "Server.Items.LeatherGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13C7), encoded false;
+    LEATHER_GORGET, LEATHER_GORGET_CLASS, leather_gorget_new = "Server.Items.LeatherGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherHaidate`.
-    LEATHER_HAIDATE, LEATHER_HAIDATE_CLASS, leather_haidate_new = "Server.Items.LeatherHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278A), encoded false;
+    LEATHER_HAIDATE, LEATHER_HAIDATE_CLASS, leather_haidate_new = "Server.Items.LeatherHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherHiroSode`.
-    LEATHER_HIRO_SODE, LEATHER_HIRO_SODE_CLASS, leather_hiro_sode_new = "Server.Items.LeatherHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277E), encoded false;
+    LEATHER_HIRO_SODE, LEATHER_HIRO_SODE_CLASS, leather_hiro_sode_new = "Server.Items.LeatherHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherJingasa`.
-    LEATHER_JINGASA, LEATHER_JINGASA_CLASS, leather_jingasa_new = "Server.Items.LeatherJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2776), encoded false;
+    LEATHER_JINGASA, LEATHER_JINGASA_CLASS, leather_jingasa_new = "Server.Items.LeatherJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherLegs`.
-    LEATHER_LEGS, LEATHER_LEGS_CLASS, leather_legs_new = "Server.Items.LeatherLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13CB), encoded false;
+    LEATHER_LEGS, LEATHER_LEGS_CLASS, leather_legs_new = "Server.Items.LeatherLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherMempo`.
-    LEATHER_MEMPO, LEATHER_MEMPO_CLASS, leather_mempo_new = "Server.Items.LeatherMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277A), encoded false;
+    LEATHER_MEMPO, LEATHER_MEMPO_CLASS, leather_mempo_new = "Server.Items.LeatherMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherNinjaHood`.
-    LEATHER_NINJA_HOOD, LEATHER_NINJA_HOOD_CLASS, leather_ninja_hood_new = "Server.Items.LeatherNinjaHood" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278E), encoded false;
+    LEATHER_NINJA_HOOD, LEATHER_NINJA_HOOD_CLASS, leather_ninja_hood_new = "Server.Items.LeatherNinjaHood" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherNinjaJacket`.
-    LEATHER_NINJA_JACKET, LEATHER_NINJA_JACKET_CLASS, leather_ninja_jacket_new = "Server.Items.LeatherNinjaJacket" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2793), encoded false;
+    LEATHER_NINJA_JACKET, LEATHER_NINJA_JACKET_CLASS, leather_ninja_jacket_new = "Server.Items.LeatherNinjaJacket" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherNinjaMitts`.
-    LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new = "Server.Items.LeatherNinjaMitts" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2792), encoded false;
+    LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new = "Server.Items.LeatherNinjaMitts" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherNinjaPants`.
-    LEATHER_NINJA_PANTS, LEATHER_NINJA_PANTS_CLASS, leather_ninja_pants_new = "Server.Items.LeatherNinjaPants" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2791), encoded false;
+    LEATHER_NINJA_PANTS, LEATHER_NINJA_PANTS_CLASS, leather_ninja_pants_new = "Server.Items.LeatherNinjaPants" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherShorts`.
-    LEATHER_SHORTS, LEATHER_SHORTS_CLASS, leather_shorts_new = "Server.Items.LeatherShorts" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C00), encoded false;
+    LEATHER_SHORTS, LEATHER_SHORTS_CLASS, leather_shorts_new = "Server.Items.LeatherShorts" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherSkirt`.
-    LEATHER_SKIRT, LEATHER_SKIRT_CLASS, leather_skirt_new = "Server.Items.LeatherSkirt" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C08), encoded false;
+    LEATHER_SKIRT, LEATHER_SKIRT_CLASS, leather_skirt_new = "Server.Items.LeatherSkirt" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherSuneate`.
-    LEATHER_SUNEATE, LEATHER_SUNEATE_CLASS, leather_suneate_new = "Server.Items.LeatherSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2786), encoded false;
+    LEATHER_SUNEATE, LEATHER_SUNEATE_CLASS, leather_suneate_new = "Server.Items.LeatherSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.DecorativePlateKabuto`.
-    DECORATIVE_PLATE_KABUTO, DECORATIVE_PLATE_KABUTO_CLASS, decorative_plate_kabuto_new = "Server.Items.DecorativePlateKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2778), encoded false;
+    DECORATIVE_PLATE_KABUTO, DECORATIVE_PLATE_KABUTO_CLASS, decorative_plate_kabuto_new = "Server.Items.DecorativePlateKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.FemalePlateChest`.
-    FEMALE_PLATE_CHEST, FEMALE_PLATE_CHEST_CLASS, female_plate_chest_new = "Server.Items.FemalePlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C04), encoded false;
+    FEMALE_PLATE_CHEST, FEMALE_PLATE_CHEST_CLASS, female_plate_chest_new = "Server.Items.FemalePlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.FemaleElvenPlateChest`.
-    FEMALE_ELVEN_PLATE_CHEST, FEMALE_ELVEN_PLATE_CHEST_CLASS, female_elven_plate_chest_new = "Server.Items.FemaleElvenPlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6D), encoded true;
+    FEMALE_ELVEN_PLATE_CHEST, FEMALE_ELVEN_PLATE_CHEST_CLASS, female_elven_plate_chest_new = "Server.Items.FemaleElvenPlateChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.HeavyPlateJingasa`.
-    HEAVY_PLATE_JINGASA, HEAVY_PLATE_JINGASA_CLASS, heavy_plate_jingasa_new = "Server.Items.HeavyPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2777), encoded false;
+    HEAVY_PLATE_JINGASA, HEAVY_PLATE_JINGASA_CLASS, heavy_plate_jingasa_new = "Server.Items.HeavyPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.LightPlateJingasa`.
-    LIGHT_PLATE_JINGASA, LIGHT_PLATE_JINGASA_CLASS, light_plate_jingasa_new = "Server.Items.LightPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2781), encoded false;
+    LIGHT_PLATE_JINGASA, LIGHT_PLATE_JINGASA_CLASS, light_plate_jingasa_new = "Server.Items.LightPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateArms`.
-    PLATE_ARMS, PLATE_ARMS_CLASS, plate_arms_new = "Server.Items.PlateArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1410), encoded false;
+    PLATE_ARMS, PLATE_ARMS_CLASS, plate_arms_new = "Server.Items.PlateArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateBattleKabuto`.
-    PLATE_BATTLE_KABUTO, PLATE_BATTLE_KABUTO_CLASS, plate_battle_kabuto_new = "Server.Items.PlateBattleKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2785), encoded false;
+    PLATE_BATTLE_KABUTO, PLATE_BATTLE_KABUTO_CLASS, plate_battle_kabuto_new = "Server.Items.PlateBattleKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateDo`.
-    PLATE_DO, PLATE_DO_CLASS, plate_do_new = "Server.Items.PlateDo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277D), encoded false;
+    PLATE_DO, PLATE_DO_CLASS, plate_do_new = "Server.Items.PlateDo" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateGloves`.
-    PLATE_GLOVES, PLATE_GLOVES_CLASS, plate_gloves_new = "Server.Items.PlateGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1414), encoded false;
+    PLATE_GLOVES, PLATE_GLOVES_CLASS, plate_gloves_new = "Server.Items.PlateGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateGorget`.
-    PLATE_GORGET, PLATE_GORGET_CLASS, plate_gorget_new = "Server.Items.PlateGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1413), encoded false;
+    PLATE_GORGET, PLATE_GORGET_CLASS, plate_gorget_new = "Server.Items.PlateGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateHaidate`.
-    PLATE_HAIDATE, PLATE_HAIDATE_CLASS, plate_haidate_new = "Server.Items.PlateHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278D), encoded false;
+    PLATE_HAIDATE, PLATE_HAIDATE_CLASS, plate_haidate_new = "Server.Items.PlateHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateHatsuburi`.
-    PLATE_HATSUBURI, PLATE_HATSUBURI_CLASS, plate_hatsuburi_new = "Server.Items.PlateHatsuburi" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2775), encoded false;
+    PLATE_HATSUBURI, PLATE_HATSUBURI_CLASS, plate_hatsuburi_new = "Server.Items.PlateHatsuburi" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateHiroSode`.
-    PLATE_HIRO_SODE, PLATE_HIRO_SODE_CLASS, plate_hiro_sode_new = "Server.Items.PlateHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2780), encoded false;
+    PLATE_HIRO_SODE, PLATE_HIRO_SODE_CLASS, plate_hiro_sode_new = "Server.Items.PlateHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateLegs`.
-    PLATE_LEGS, PLATE_LEGS_CLASS, plate_legs_new = "Server.Items.PlateLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1411), encoded false;
+    PLATE_LEGS, PLATE_LEGS_CLASS, plate_legs_new = "Server.Items.PlateLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateMempo`.
-    PLATE_MEMPO, PLATE_MEMPO_CLASS, plate_mempo_new = "Server.Items.PlateMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2779), encoded false;
+    PLATE_MEMPO, PLATE_MEMPO_CLASS, plate_mempo_new = "Server.Items.PlateMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.PlateSuneate`.
-    PLATE_SUNEATE, PLATE_SUNEATE_CLASS, plate_suneate_new = "Server.Items.PlateSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2788), encoded false;
+    PLATE_SUNEATE, PLATE_SUNEATE_CLASS, plate_suneate_new = "Server.Items.PlateSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.SmallPlateJingasa`.
-    SMALL_PLATE_JINGASA, SMALL_PLATE_JINGASA_CLASS, small_plate_jingasa_new = "Server.Items.SmallPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2784), encoded false;
+    SMALL_PLATE_JINGASA, SMALL_PLATE_JINGASA_CLASS, small_plate_jingasa_new = "Server.Items.SmallPlateJingasa" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StandardPlateKabuto`.
-    STANDARD_PLATE_KABUTO, STANDARD_PLATE_KABUTO_CLASS, standard_plate_kabuto_new = "Server.Items.StandardPlateKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2789), encoded false;
+    STANDARD_PLATE_KABUTO, STANDARD_PLATE_KABUTO_CLASS, standard_plate_kabuto_new = "Server.Items.StandardPlateKabuto" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodlandArms`.
-    WOODLAND_ARMS, WOODLAND_ARMS_CLASS, woodland_arms_new = "Server.Items.WoodlandArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6C), encoded true;
+    WOODLAND_ARMS, WOODLAND_ARMS_CLASS, woodland_arms_new = "Server.Items.WoodlandArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodlandChest`.
-    WOODLAND_CHEST, WOODLAND_CHEST_CLASS, woodland_chest_new = "Server.Items.WoodlandChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B67), encoded true;
+    WOODLAND_CHEST, WOODLAND_CHEST_CLASS, woodland_chest_new = "Server.Items.WoodlandChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodlandGloves`.
-    WOODLAND_GLOVES, WOODLAND_GLOVES_CLASS, woodland_gloves_new = "Server.Items.WoodlandGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6A), encoded true;
+    WOODLAND_GLOVES, WOODLAND_GLOVES_CLASS, woodland_gloves_new = "Server.Items.WoodlandGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodlandGorget`.
-    WOODLAND_GORGET, WOODLAND_GORGET_CLASS, woodland_gorget_new = "Server.Items.WoodlandGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B69), encoded true;
+    WOODLAND_GORGET, WOODLAND_GORGET_CLASS, woodland_gorget_new = "Server.Items.WoodlandGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodlandLegs`.
-    WOODLAND_LEGS, WOODLAND_LEGS_CLASS, woodland_legs_new = "Server.Items.WoodlandLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B6B), encoded true;
+    WOODLAND_LEGS, WOODLAND_LEGS_CLASS, woodland_legs_new = "Server.Items.WoodlandLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.RangerArms`.
-    RANGER_ARMS, RANGER_ARMS_CLASS, ranger_arms_new = "Server.Items.RangerArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DC), encoded false;
+    RANGER_ARMS, RANGER_ARMS_CLASS, ranger_arms_new = "Server.Items.RangerArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.RangerChest`.
-    RANGER_CHEST, RANGER_CHEST_CLASS, ranger_chest_new = "Server.Items.RangerChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DB), encoded false;
+    RANGER_CHEST, RANGER_CHEST_CLASS, ranger_chest_new = "Server.Items.RangerChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.RangerGloves`.
-    RANGER_GLOVES, RANGER_GLOVES_CLASS, ranger_gloves_new = "Server.Items.RangerGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D5), encoded false;
+    RANGER_GLOVES, RANGER_GLOVES_CLASS, ranger_gloves_new = "Server.Items.RangerGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.RangerGorget`.
-    RANGER_GORGET, RANGER_GORGET_CLASS, ranger_gorget_new = "Server.Items.RangerGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D6), encoded false;
+    RANGER_GORGET, RANGER_GORGET_CLASS, ranger_gorget_new = "Server.Items.RangerGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.RangerLegs`.
-    RANGER_LEGS, RANGER_LEGS_CLASS, ranger_legs_new = "Server.Items.RangerLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DA), encoded false;
+    RANGER_LEGS, RANGER_LEGS_CLASS, ranger_legs_new = "Server.Items.RangerLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.RingmailArms`.
-    RINGMAIL_ARMS, RINGMAIL_ARMS_CLASS, ringmail_arms_new = "Server.Items.RingmailArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13EE), encoded false;
+    RINGMAIL_ARMS, RINGMAIL_ARMS_CLASS, ringmail_arms_new = "Server.Items.RingmailArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.RingmailChest`.
-    RINGMAIL_CHEST, RINGMAIL_CHEST_CLASS, ringmail_chest_new = "Server.Items.RingmailChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13EC), encoded false;
+    RINGMAIL_CHEST, RINGMAIL_CHEST_CLASS, ringmail_chest_new = "Server.Items.RingmailChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.RingmailGloves`.
-    RINGMAIL_GLOVES, RINGMAIL_GLOVES_CLASS, ringmail_gloves_new = "Server.Items.RingmailGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13EB), encoded false;
+    RINGMAIL_GLOVES, RINGMAIL_GLOVES_CLASS, ringmail_gloves_new = "Server.Items.RingmailGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.RingmailLegs`.
-    RINGMAIL_LEGS, RINGMAIL_LEGS_CLASS, ringmail_legs_new = "Server.Items.RingmailLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13F0), encoded false;
+    RINGMAIL_LEGS, RINGMAIL_LEGS_CLASS, ringmail_legs_new = "Server.Items.RingmailLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.SpiritualityHelm`.
-    SPIRITUALITY_HELM, SPIRITUALITY_HELM_CLASS, spirituality_helm_new = "Server.Items.SpiritualityHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B10), encoded true;
+    SPIRITUALITY_HELM, SPIRITUALITY_HELM_CLASS, spirituality_helm_new = "Server.Items.SpiritualityHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.ValorGauntlets`.
-    VALOR_GAUNTLETS, VALOR_GAUNTLETS_CLASS, valor_gauntlets_new = "Server.Items.ValorGauntlets" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B0C), encoded true;
+    VALOR_GAUNTLETS, VALOR_GAUNTLETS_CLASS, valor_gauntlets_new = "Server.Items.ValorGauntlets" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
     @template;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneArmsType1`.
-    GARGISH_STONE_ARMS_TYPE1, GARGISH_STONE_ARMS_TYPE1_CLASS, gargish_stone_arms_type1_new = "Server.Items.GargishStoneArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x284), encoded false;
+    GARGISH_STONE_ARMS_TYPE1, GARGISH_STONE_ARMS_TYPE1_CLASS, gargish_stone_arms_type1_new = "Server.Items.GargishStoneArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneArmsType2`.
-    GARGISH_STONE_ARMS_TYPE2, GARGISH_STONE_ARMS_TYPE2_CLASS, gargish_stone_arms_type2_new = "Server.Items.GargishStoneArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x283), encoded false;
+    GARGISH_STONE_ARMS_TYPE2, GARGISH_STONE_ARMS_TYPE2_CLASS, gargish_stone_arms_type2_new = "Server.Items.GargishStoneArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneChestType1`.
-    GARGISH_STONE_CHEST_TYPE1, GARGISH_STONE_CHEST_TYPE1_CLASS, gargish_stone_chest_type1_new = "Server.Items.GargishStoneChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x286), encoded false;
+    GARGISH_STONE_CHEST_TYPE1, GARGISH_STONE_CHEST_TYPE1_CLASS, gargish_stone_chest_type1_new = "Server.Items.GargishStoneChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneChestType2`.
-    GARGISH_STONE_CHEST_TYPE2, GARGISH_STONE_CHEST_TYPE2_CLASS, gargish_stone_chest_type2_new = "Server.Items.GargishStoneChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x285), encoded false;
+    GARGISH_STONE_CHEST_TYPE2, GARGISH_STONE_CHEST_TYPE2_CLASS, gargish_stone_chest_type2_new = "Server.Items.GargishStoneChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneKiltType1`.
-    GARGISH_STONE_KILT_TYPE1, GARGISH_STONE_KILT_TYPE1_CLASS, gargish_stone_kilt_type1_new = "Server.Items.GargishStoneKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x288), encoded false;
+    GARGISH_STONE_KILT_TYPE1, GARGISH_STONE_KILT_TYPE1_CLASS, gargish_stone_kilt_type1_new = "Server.Items.GargishStoneKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneKiltType2`.
-    GARGISH_STONE_KILT_TYPE2, GARGISH_STONE_KILT_TYPE2_CLASS, gargish_stone_kilt_type2_new = "Server.Items.GargishStoneKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x287), encoded false;
+    GARGISH_STONE_KILT_TYPE2, GARGISH_STONE_KILT_TYPE2_CLASS, gargish_stone_kilt_type2_new = "Server.Items.GargishStoneKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneLegsType1`.
-    GARGISH_STONE_LEGS_TYPE1, GARGISH_STONE_LEGS_TYPE1_CLASS, gargish_stone_legs_type1_new = "Server.Items.GargishStoneLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x28A), encoded false;
+    GARGISH_STONE_LEGS_TYPE1, GARGISH_STONE_LEGS_TYPE1_CLASS, gargish_stone_legs_type1_new = "Server.Items.GargishStoneLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStoneLegsType2`.
-    GARGISH_STONE_LEGS_TYPE2, GARGISH_STONE_LEGS_TYPE2_CLASS, gargish_stone_legs_type2_new = "Server.Items.GargishStoneLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x289), encoded false;
+    GARGISH_STONE_LEGS_TYPE2, GARGISH_STONE_LEGS_TYPE2_CLASS, gargish_stone_legs_type2_new = "Server.Items.GargishStoneLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.FemaleStuddedChest`.
-    FEMALE_STUDDED_CHEST, FEMALE_STUDDED_CHEST_CLASS, female_studded_chest_new = "Server.Items.FemaleStuddedChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C02), encoded false;
+    FEMALE_STUDDED_CHEST, FEMALE_STUDDED_CHEST_CLASS, female_studded_chest_new = "Server.Items.FemaleStuddedChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedArmsType1`.
-    GARGISH_STUDDED_ARMS_TYPE1, GARGISH_STUDDED_ARMS_TYPE1_CLASS, gargish_studded_arms_type1_new = "Server.Items.GargishStuddedArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x284), encoded false;
+    GARGISH_STUDDED_ARMS_TYPE1, GARGISH_STUDDED_ARMS_TYPE1_CLASS, gargish_studded_arms_type1_new = "Server.Items.GargishStuddedArmsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedArmsType2`.
-    GARGISH_STUDDED_ARMS_TYPE2, GARGISH_STUDDED_ARMS_TYPE2_CLASS, gargish_studded_arms_type2_new = "Server.Items.GargishStuddedArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x283), encoded false;
+    GARGISH_STUDDED_ARMS_TYPE2, GARGISH_STUDDED_ARMS_TYPE2_CLASS, gargish_studded_arms_type2_new = "Server.Items.GargishStuddedArmsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedChestType1`.
-    GARGISH_STUDDED_CHEST_TYPE1, GARGISH_STUDDED_CHEST_TYPE1_CLASS, gargish_studded_chest_type1_new = "Server.Items.GargishStuddedChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x286), encoded false;
+    GARGISH_STUDDED_CHEST_TYPE1, GARGISH_STUDDED_CHEST_TYPE1_CLASS, gargish_studded_chest_type1_new = "Server.Items.GargishStuddedChestType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedChestType2`.
-    GARGISH_STUDDED_CHEST_TYPE2, GARGISH_STUDDED_CHEST_TYPE2_CLASS, gargish_studded_chest_type2_new = "Server.Items.GargishStuddedChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x285), encoded false;
+    GARGISH_STUDDED_CHEST_TYPE2, GARGISH_STUDDED_CHEST_TYPE2_CLASS, gargish_studded_chest_type2_new = "Server.Items.GargishStuddedChestType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedKiltType1`.
-    GARGISH_STUDDED_KILT_TYPE1, GARGISH_STUDDED_KILT_TYPE1_CLASS, gargish_studded_kilt_type1_new = "Server.Items.GargishStuddedKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x288), encoded false;
+    GARGISH_STUDDED_KILT_TYPE1, GARGISH_STUDDED_KILT_TYPE1_CLASS, gargish_studded_kilt_type1_new = "Server.Items.GargishStuddedKiltType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedKiltType2`.
-    GARGISH_STUDDED_KILT_TYPE2, GARGISH_STUDDED_KILT_TYPE2_CLASS, gargish_studded_kilt_type2_new = "Server.Items.GargishStuddedKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x287), encoded false;
+    GARGISH_STUDDED_KILT_TYPE2, GARGISH_STUDDED_KILT_TYPE2_CLASS, gargish_studded_kilt_type2_new = "Server.Items.GargishStuddedKiltType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedLegsType1`.
-    GARGISH_STUDDED_LEGS_TYPE1, GARGISH_STUDDED_LEGS_TYPE1_CLASS, gargish_studded_legs_type1_new = "Server.Items.GargishStuddedLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x28A), encoded false;
+    GARGISH_STUDDED_LEGS_TYPE1, GARGISH_STUDDED_LEGS_TYPE1_CLASS, gargish_studded_legs_type1_new = "Server.Items.GargishStuddedLegsType1" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishStuddedLegsType2`.
-    GARGISH_STUDDED_LEGS_TYPE2, GARGISH_STUDDED_LEGS_TYPE2_CLASS, gargish_studded_legs_type2_new = "Server.Items.GargishStuddedLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x289), encoded false;
+    GARGISH_STUDDED_LEGS_TYPE2, GARGISH_STUDDED_LEGS_TYPE2_CLASS, gargish_studded_legs_type2_new = "Server.Items.GargishStuddedLegsType2" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.HideChest`.
-    HIDE_CHEST, HIDE_CHEST_CLASS, hide_chest_new = "Server.Items.HideChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B74), encoded true;
+    HIDE_CHEST, HIDE_CHEST_CLASS, hide_chest_new = "Server.Items.HideChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.HideFemaleChest`.
-    HIDE_FEMALE_CHEST, HIDE_FEMALE_CHEST_CLASS, hide_female_chest_new = "Server.Items.HideFemaleChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B79), encoded true;
+    HIDE_FEMALE_CHEST, HIDE_FEMALE_CHEST_CLASS, hide_female_chest_new = "Server.Items.HideFemaleChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.HideGloves`.
-    HIDE_GLOVES, HIDE_GLOVES_CLASS, hide_gloves_new = "Server.Items.HideGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B75), encoded true;
+    HIDE_GLOVES, HIDE_GLOVES_CLASS, hide_gloves_new = "Server.Items.HideGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.HideGorget`.
-    HIDE_GORGET, HIDE_GORGET_CLASS, hide_gorget_new = "Server.Items.HideGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B76), encoded false;
+    HIDE_GORGET, HIDE_GORGET_CLASS, hide_gorget_new = "Server.Items.HideGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.HidePants`.
-    HIDE_PANTS, HIDE_PANTS_CLASS, hide_pants_new = "Server.Items.HidePants" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B78), encoded true;
+    HIDE_PANTS, HIDE_PANTS_CLASS, hide_pants_new = "Server.Items.HidePants" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.HidePauldrons`.
-    HIDE_PAULDRONS, HIDE_PAULDRONS_CLASS, hide_pauldrons_new = "Server.Items.HidePauldrons" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x2B77), encoded true;
+    HIDE_PAULDRONS, HIDE_PAULDRONS_CLASS, hide_pauldrons_new = "Server.Items.HidePauldrons" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedArms`.
-    STUDDED_ARMS, STUDDED_ARMS_CLASS, studded_arms_new = "Server.Items.StuddedArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DC), encoded false;
+    STUDDED_ARMS, STUDDED_ARMS_CLASS, studded_arms_new = "Server.Items.StuddedArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedBustierArms`.
-    STUDDED_BUSTIER_ARMS, STUDDED_BUSTIER_ARMS_CLASS, studded_bustier_arms_new = "Server.Items.StuddedBustierArms" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x1C0C), encoded false;
+    STUDDED_BUSTIER_ARMS, STUDDED_BUSTIER_ARMS_CLASS, studded_bustier_arms_new = "Server.Items.StuddedBustierArms" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedChest`.
-    STUDDED_CHEST, STUDDED_CHEST_CLASS, studded_chest_new = "Server.Items.StuddedChest" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DB), encoded false;
+    STUDDED_CHEST, STUDDED_CHEST_CLASS, studded_chest_new = "Server.Items.StuddedChest" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedDo`.
-    STUDDED_DO, STUDDED_DO_CLASS, studded_do_new = "Server.Items.StuddedDo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x27C7), encoded false;
+    STUDDED_DO, STUDDED_DO_CLASS, studded_do_new = "Server.Items.StuddedDo" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedGloves`.
-    STUDDED_GLOVES, STUDDED_GLOVES_CLASS, studded_gloves_new = "Server.Items.StuddedGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D5), encoded false;
+    STUDDED_GLOVES, STUDDED_GLOVES_CLASS, studded_gloves_new = "Server.Items.StuddedGloves" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedGorget`.
-    STUDDED_GORGET, STUDDED_GORGET_CLASS, studded_gorget_new = "Server.Items.StuddedGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13D6), encoded false;
+    STUDDED_GORGET, STUDDED_GORGET_CLASS, studded_gorget_new = "Server.Items.StuddedGorget" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedHaidate`.
-    STUDDED_HAIDATE, STUDDED_HAIDATE_CLASS, studded_haidate_new = "Server.Items.StuddedHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x278B), encoded false;
+    STUDDED_HAIDATE, STUDDED_HAIDATE_CLASS, studded_haidate_new = "Server.Items.StuddedHaidate" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedHiroSode`.
-    STUDDED_HIRO_SODE, STUDDED_HIRO_SODE_CLASS, studded_hiro_sode_new = "Server.Items.StuddedHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x277F), encoded false;
+    STUDDED_HIRO_SODE, STUDDED_HIRO_SODE_CLASS, studded_hiro_sode_new = "Server.Items.StuddedHiroSode" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedLegs`.
-    STUDDED_LEGS, STUDDED_LEGS_CLASS, studded_legs_new = "Server.Items.StuddedLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x13DA), encoded false;
+    STUDDED_LEGS, STUDDED_LEGS_CLASS, studded_legs_new = "Server.Items.StuddedLegs" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedMempo`.
-    STUDDED_MEMPO, STUDDED_MEMPO_CLASS, studded_mempo_new = "Server.Items.StuddedMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x279D), encoded false;
+    STUDDED_MEMPO, STUDDED_MEMPO_CLASS, studded_mempo_new = "Server.Items.StuddedMempo" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedSuneate`.
-    STUDDED_SUNEATE, STUDDED_SUNEATE_CLASS, studded_suneate_new = "Server.Items.StuddedSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x27D2), encoded false;
+    STUDDED_SUNEATE, STUDDED_SUNEATE_CLASS, studded_suneate_new = "Server.Items.StuddedSuneate" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
@@ -913,42 +913,42 @@ armor_leaf! {
 
 armor_leaf! {
     /// `Server.Items.BronzeShield`.
-    BRONZE_SHIELD, BRONZE_SHIELD_CLASS, bronze_shield_new = "Server.Items.BronzeShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B72), encoded false;
+    BRONZE_SHIELD, BRONZE_SHIELD_CLASS, bronze_shield_new = "Server.Items.BronzeShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.Buckler`.
-    BUCKLER, BUCKLER_CLASS, buckler_new = "Server.Items.Buckler" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B73), encoded false;
+    BUCKLER, BUCKLER_CLASS, buckler_new = "Server.Items.Buckler" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.GargishWoodenShield`.
-    GARGISH_WOODEN_SHIELD, GARGISH_WOODEN_SHIELD_CLASS, gargish_wooden_shield_new = "Server.Items.GargishWoodenShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x4200), encoded true;
+    GARGISH_WOODEN_SHIELD, GARGISH_WOODEN_SHIELD_CLASS, gargish_wooden_shield_new = "Server.Items.GargishWoodenShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded true;
 }
 
 armor_leaf! {
     /// `Server.Items.HeaterShield`.
-    HEATER_SHIELD, HEATER_SHIELD_CLASS, heater_shield_new = "Server.Items.HeaterShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B76), encoded false;
+    HEATER_SHIELD, HEATER_SHIELD_CLASS, heater_shield_new = "Server.Items.HeaterShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.MetalKiteShield`.
-    METAL_KITE_SHIELD, METAL_KITE_SHIELD_CLASS, metal_kite_shield_new = "Server.Items.MetalKiteShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B74), encoded false;
+    METAL_KITE_SHIELD, METAL_KITE_SHIELD_CLASS, metal_kite_shield_new = "Server.Items.MetalKiteShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.MetalShield`.
-    METAL_SHIELD, METAL_SHIELD_CLASS, metal_shield_new = "Server.Items.MetalShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B7B), encoded false;
+    METAL_SHIELD, METAL_SHIELD_CLASS, metal_shield_new = "Server.Items.MetalShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodenKiteShield`.
-    WOODEN_KITE_SHIELD, WOODEN_KITE_SHIELD_CLASS, wooden_kite_shield_new = "Server.Items.WoodenKiteShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B79), encoded false;
+    WOODEN_KITE_SHIELD, WOODEN_KITE_SHIELD_CLASS, wooden_kite_shield_new = "Server.Items.WoodenKiteShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 armor_leaf! {
     /// `Server.Items.WoodenShield`.
-    WOODEN_SHIELD, WOODEN_SHIELD_CLASS, wooden_shield_new = "Server.Items.WoodenShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x1B7A), encoded false;
+    WOODEN_SHIELD, WOODEN_SHIELD_CLASS, wooden_shield_new = "Server.Items.WoodenShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded false;
 }
 
 /// Every class of this file, for `register` and the tests.

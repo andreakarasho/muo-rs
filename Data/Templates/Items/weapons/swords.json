@@ -15,7 +15,8 @@
       "defSkill": "Fencing",
       "defType": "Piercing",
       "defAnimation": "Pierce1H",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2302
     }
   },
   {
@@ -36,7 +37,8 @@
       "initMaxHits": 70,
       "defaultWeight": 3.0,
       "primaryAbility": "ParalyzingBlow",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 9915
     }
   },
   {
@@ -67,7 +69,8 @@
       "initMaxHits": 100,
       "defaultWeight": 6.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "ArmorIgnore"
+      "secondaryAbility": "ArmorIgnore",
+      "graphic": 3934
     }
   },
   {
@@ -88,7 +91,8 @@
       "initMaxHits": 80,
       "defaultWeight": 1.0,
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "MortalStrike"
+      "secondaryAbility": "MortalStrike",
+      "graphic": 9921
     }
   },
   {
@@ -109,7 +113,8 @@
       "initMaxHits": 70,
       "defaultWeight": 8.0,
       "primaryAbility": "BleedAttack",
-      "secondaryAbility": "ShadowStrike"
+      "secondaryAbility": "ShadowStrike",
+      "graphic": 5185
     }
   },
   {
@@ -125,7 +130,8 @@
       "initMaxHits": 110,
       "primaryAbility": "CrushingBlow",
       "secondaryAbility": "ConcussionBlow",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2315
     }
   },
   {
@@ -141,7 +147,8 @@
       "initMaxHits": 80,
       "primaryAbility": "WhirlwindAttack",
       "secondaryAbility": "Dismount",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2312
     }
   },
   {
@@ -158,7 +165,8 @@
       "defaultWeight": 6.0,
       "primaryAbility": "BleedAttack",
       "secondaryAbility": "MortalStrike",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2316
     }
   },
   {
@@ -182,7 +190,8 @@
       "secondaryAbility": "InfectiousStrike",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 5121
     }
   },
   {
@@ -206,7 +215,8 @@
       "secondaryAbility": "ConcussionBlow",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 9920
     }
   },
   {
@@ -227,7 +237,8 @@
       "initMaxHits": 90,
       "defaultWeight": 5.0,
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "ParalyzingBlow"
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 5046
     }
   },
   {
@@ -246,7 +257,8 @@
       "defMissSound": 570,
       "initMinHits": 31,
       "initMaxHits": 110,
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 5048
     }
   },
   {
@@ -267,7 +279,8 @@
       "initMaxHits": 100,
       "defaultWeight": 6.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "ParalyzingBlow"
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 5049
     }
   },
   {

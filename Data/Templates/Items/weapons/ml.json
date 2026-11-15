@@ -17,7 +17,8 @@
       "defaultWeight": 4.0,
       "primaryAbility": "InfectiousStrike",
       "secondaryAbility": "ShadowStrike",
-      "defSkill": "Fencing"
+      "defSkill": "Fencing",
+      "graphic": 11553
     }
   },
   {
@@ -36,7 +37,8 @@
       "initMaxHits": 60,
       "defaultWeight": 10.0,
       "primaryAbility": "ConcussionBlow",
-      "secondaryAbility": "CrushingBlow"
+      "secondaryAbility": "CrushingBlow",
+      "graphic": 11556
     }
   },
   {
@@ -60,7 +62,8 @@
       "ammoType": "Server.Items.Arrow",
       "primaryAbility": "ForceArrow",
       "secondaryAbility": "SerpentArrow",
-      "defAnimation": "ShootBow"
+      "defAnimation": "ShootBow",
+      "graphic": 11550
     }
   },
   {
@@ -81,7 +84,8 @@
       "initMaxHits": 60,
       "defaultWeight": 6.0,
       "primaryAbility": "DefenseMastery",
-      "secondaryAbility": "Bladeweave"
+      "secondaryAbility": "Bladeweave",
+      "graphic": 11573
     }
   },
   {
@@ -102,7 +106,8 @@
       "initMaxHits": 60,
       "defaultWeight": 5.0,
       "primaryAbility": "PsychicAttack",
-      "secondaryAbility": "BleedAttack"
+      "secondaryAbility": "BleedAttack",
+      "graphic": 11552
     }
   },
   {
@@ -123,7 +128,8 @@
       "defaultWeight": 8.0,
       "primaryAbility": "Feint",
       "secondaryAbility": "ArmorIgnore",
-      "defSkill": "Fencing"
+      "defSkill": "Fencing",
+      "graphic": 11554
     }
   },
   {
@@ -146,7 +152,8 @@
       "effectId": 3906,
       "ammoType": "Server.Items.Arrow",
       "primaryAbility": "LightningArrow",
-      "secondaryAbility": "PsychicAttack"
+      "secondaryAbility": "PsychicAttack",
+      "graphic": 11563
     }
   },
   {
@@ -167,7 +174,8 @@
       "initMaxHits": 60,
       "defaultWeight": 12.0,
       "primaryAbility": "Disarm",
-      "secondaryAbility": "CrushingBlow"
+      "secondaryAbility": "CrushingBlow",
+      "graphic": 11560
     }
   },
   {
@@ -188,7 +196,8 @@
       "initMaxHits": 60,
       "defaultWeight": 9.0,
       "primaryAbility": "WhirlwindAttack",
-      "secondaryAbility": "Bladeweave"
+      "secondaryAbility": "Bladeweave",
+      "graphic": 11571
     }
   },
   {
@@ -210,7 +219,8 @@
       "initMaxHits": 60,
       "defaultWeight": 7.0,
       "primaryAbility": "Disarm",
-      "secondaryAbility": "Bladeweave"
+      "secondaryAbility": "Bladeweave",
+      "graphic": 11570
     }
   },
   {
@@ -234,7 +244,8 @@
       "secondaryAbility": "Bladeweave",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 11567
     }
   },
   {
@@ -254,7 +265,8 @@
       "initMaxHits": 60,
       "defaultWeight": 8.0,
       "primaryAbility": "Block",
-      "secondaryAbility": "ForceOfNature"
+      "secondaryAbility": "ForceOfNature",
+      "graphic": 11557
     }
   },
   {

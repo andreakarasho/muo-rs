@@ -12,9 +12,9 @@ use crate::jewels::jewel_leaf;
 use crate::simple::{leaf, random_from, weapon_art};
 use crate::weapons::*;
 use muo_content::aos::{AosElementAttribute, AttrKind};
-use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor};
+use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS};
 use muo_content::items::clothing::{
-    BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing,
+    BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS,
 };
 use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, JewelClass, new_jewel};
 use muo_content::items::set_attr;
@@ -88,14 +88,14 @@ leaf! {
 // ---- SamuraiHelm: [Flippable(0x236C, 0x236D)], BaseArmor ----
 armor_leaf! {
     /// `Server.Items.SamuraiHelm`.
-    SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x236C), encoded true;
+    SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
     @template;
 }
 
 // ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 ----
 jewel_leaf! {
     /// `Server.Items.LuckyNecklace`.
-    LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, |w, ty| new_jewel(w, ty, 0x1088), encoded false;
+    LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, crate::jewels::new_jewel_json, encoded false;
     @template;
     @ty { hue: |_, _| 1150, };
     layer: Layer::Neck,
@@ -104,14 +104,14 @@ jewel_leaf! {
 // ---- JesterHatofChuckles: BaseHat(0x171C, hue) ----
 clothing_leaf! {
     /// `Server.Items.JesterHatofChuckles`.
-    JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x171C, hue), hue 0, encoded false;
+    JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
     @template;
 }
 
 // ---- HoodedShroudOfShadows: [Flippable(0x2684, 0x2683)], BaseOuterTorso(0x2684, hue = 0x455) ----
 clothing_leaf! {
     /// `Server.Items.HoodedShroudOfShadows`.
-    HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2684, hue), hue 0x455, encoded false;
+    HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0x455, encoded false;
     @template;
     dye: crate::clothing::dye_refused,
 }

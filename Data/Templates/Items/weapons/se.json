@@ -17,7 +17,8 @@
       "initMaxHits": 50,
       "defaultWeight": 7.0,
       "primaryAbility": "Feint",
-      "secondaryAbility": "NerveStrike"
+      "secondaryAbility": "NerveStrike",
+      "graphic": 10152
     }
   },
   {
@@ -39,7 +40,8 @@
       "initMaxHits": 65,
       "defaultWeight": 8.0,
       "primaryAbility": "Feint",
-      "secondaryAbility": "DoubleStrike"
+      "secondaryAbility": "DoubleStrike",
+      "graphic": 10153
     }
   },
   {
@@ -64,7 +66,8 @@
       "secondaryAbility": "DefenseMastery",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 10157
     }
   },
   {
@@ -89,7 +92,8 @@
       "secondaryAbility": "FrenziedWhirlwind",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 10151
     }
   },
   {
@@ -111,7 +115,8 @@
       "initMaxHits": 90,
       "defaultWeight": 10.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "RidingSwipe"
+      "secondaryAbility": "RidingSwipe",
+      "graphic": 10146
     }
   },
   {
@@ -132,7 +137,8 @@
       "initMaxHits": 55,
       "defaultWeight": 5.0,
       "primaryAbility": "Block",
-      "secondaryAbility": "Feint"
+      "secondaryAbility": "Feint",
+      "graphic": 10158
     }
   },
   {
@@ -157,7 +163,8 @@
       "secondaryAbility": "ArmorPierce",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 10159
     }
   },
   {
@@ -182,7 +189,8 @@
       "secondaryAbility": "TalonStrike",
       "defSkill": "Fencing",
       "defType": "Piercing",
-      "defAnimation": "Pierce1H"
+      "defAnimation": "Pierce1H",
+      "graphic": 10155
     }
   },
   {
@@ -205,7 +213,8 @@
       "defaultWeight": 6.0,
       "primaryAbility": "Feint",
       "secondaryAbility": "Block",
-      "defAnimation": "Bash2H"
+      "defAnimation": "Bash2H",
+      "graphic": 10147
     }
   },
   {
@@ -228,7 +237,8 @@
       "defaultWeight": 8.0,
       "primaryAbility": "FrenziedWhirlwind",
       "secondaryAbility": "CrushingBlow",
-      "defAnimation": "Bash2H"
+      "defAnimation": "Bash2H",
+      "graphic": 10150
     }
   },
   {
@@ -250,7 +260,8 @@
       "initMaxHits": 50,
       "defaultWeight": 5.0,
       "primaryAbility": "FrenziedWhirlwind",
-      "secondaryAbility": "DoubleStrike"
+      "secondaryAbility": "DoubleStrike",
+      "graphic": 10148
     }
   },
   {
@@ -278,7 +289,8 @@
       "ammoType": "Server.Items.Arrow",
       "primaryAbility": "ArmorPierce",
       "secondaryAbility": "DoubleShot",
-      "defAnimation": "ShootBow"
+      "defAnimation": "ShootBow",
+      "graphic": 10149
     }
   }
 ]

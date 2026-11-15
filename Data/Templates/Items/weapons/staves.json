@@ -15,7 +15,8 @@
       "initMaxHits": 70,
       "defaultWeight": 6.0,
       "primaryAbility": "WhirlwindAttack",
-      "secondaryAbility": "ParalyzingBlow"
+      "secondaryAbility": "ParalyzingBlow",
+      "graphic": 3568
     }
   },
   {
@@ -31,7 +32,8 @@
       "defaultWeight": 4.0,
       "primaryAbility": "DoubleStrike",
       "secondaryAbility": "MortalStrike",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2309
     }
   },
   {
@@ -51,7 +53,8 @@
       "initMaxHits": 50,
       "defaultWeight": 3.0,
       "primaryAbility": "ConcussionBlow",
-      "secondaryAbility": "ForceOfNature"
+      "secondaryAbility": "ForceOfNature",
+      "graphic": 5112
     }
   },
   {
@@ -71,7 +74,8 @@
       "initMaxHits": 60,
       "defaultWeight": 4.0,
       "primaryAbility": "DoubleStrike",
-      "secondaryAbility": "ConcussionBlow"
+      "secondaryAbility": "ConcussionBlow",
+      "graphic": 3721
     }
   },
   {
@@ -86,7 +90,8 @@
       "initMaxHits": 50,
       "primaryAbility": "CrushingBlow",
       "secondaryAbility": "Dismount",
-      "requiredRaces": "AllowGargoylesOnly"
+      "requiredRaces": "AllowGargoylesOnly",
+      "graphic": 2310
     }
   },
   {
@@ -106,7 +111,8 @@
       "initMaxHits": 50,
       "defaultWeight": 4.0,
       "primaryAbility": "CrushingBlow",
-      "secondaryAbility": "Disarm"
+      "secondaryAbility": "Disarm",
+      "graphic": 3713
     }
   },
   {

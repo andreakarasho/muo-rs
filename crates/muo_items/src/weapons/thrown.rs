@@ -16,13 +16,13 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.Boomerang`.
-    BOOMERANG, BOOMERANG_CLASS, boomerang_new = "Server.Items.Boomerang" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x8FF, enc;
+    BOOMERANG, BOOMERANG_CLASS, boomerang_new = "Server.Items.Boomerang" : BASE_THROWN / BASE_THROWN_CLASS, json (), enc;
     @json;
 }
 
 weapon_leaf! {
     /// `Server.Items.Cyclone`.
-    CYCLONE, CYCLONE_CLASS, cyclone_new = "Server.Items.Cyclone" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x901, enc;
+    CYCLONE, CYCLONE_CLASS, cyclone_new = "Server.Items.Cyclone" : BASE_THROWN / BASE_THROWN_CLASS, json (), enc;
     @json;
 }
 
@@ -34,7 +34,7 @@ weapon_leaf! {
 
 weapon_leaf! {
     /// `Server.Items.SoulGlaive`.
-    SOUL_GLAIVE, SOUL_GLAIVE_CLASS, soul_glaive_new = "Server.Items.SoulGlaive" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x090A, enc;
+    SOUL_GLAIVE, SOUL_GLAIVE_CLASS, soul_glaive_new = "Server.Items.SoulGlaive" : BASE_THROWN / BASE_THROWN_CLASS, json (), enc;
     @json;
 }
 

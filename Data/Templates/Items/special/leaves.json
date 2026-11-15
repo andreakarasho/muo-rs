@@ -77,7 +77,8 @@
       "initMaxHits": 255,
       "labelNumber": 1062923,
       "defaultWeight": 5.0,
-      "materialType": "Plate"
+      "materialType": "Plate",
+      "graphic": 9068
     }
   },
   {
@@ -96,7 +97,8 @@
       }
     },
     "props": {
-      "labelNumber": 1074364
+      "labelNumber": 1074364,
+      "graphic": 5905
     }
   },
   {
@@ -109,14 +111,16 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5907
     }
   },
   {
     "type": "Server.Items.HoodedShroudOfShadows",
     "lootType": "Blessed",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 9860
     }
   },
   {
@@ -133,7 +137,8 @@
       "basePoisonResistance": 12,
       "baseEnergyResistance": 12,
       "initMinHits": 100,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "graphic": 5916
     }
   },
   {
@@ -143,7 +148,8 @@
     },
     "lootType": "Blessed",
     "props": {
-      "labelNumber": 1075239
+      "labelNumber": 1075239,
+      "graphic": 4232
     }
   }
 ]

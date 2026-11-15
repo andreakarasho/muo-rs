@@ -127,7 +127,24 @@ pub fn required_races(w: &World, id: ItemId, fallback: Option<i32>) -> Option<i3
     }
 }
 
-pub static SKILLS: Names<muo_server::skills::SkillName> = Names::new(skills);
+/// The `graphic` prop of class `ty` or the nearest class above it: the item id its constructor passes to
+/// `base(itemID)`. Loads the table (a constructor runs before anything else has).
+pub fn graphic(w: &mut World, ty: &'static muo_server::item::ItemType) -> i32 {
+    let t = crate::templates::table(w);
+    let g = std::iter::successors(Some(ty), |c| c.parent)
+        .find_map(|c| {
+            t.chain(crate::templates::Kind::Item, c.full_name)
+                .find_map(|tm| tm.props.get("graphic"))
+        })
+        .and_then(Value::as_i64)
+        .and_then(|n| i32::try_from(n).ok());
+    g.unwrap_or_else(|| {
+        tracing::warn!("Templates: {}: no \"graphic\" prop", ty.full_name);
+        0
+    })
+}
+
+pub static SKILLS:Names<muo_server::skills::SkillName> = Names::new(skills);
 pub static RESOURCES: Names<crate::craft::CraftResource> = Names::new(resources);
 
 fn skills() -> Vec<muo_server::skills::SkillName> {

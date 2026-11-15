@@ -3,7 +3,8 @@
     "type": "Server.Items.ClothNinjaJacket",
     "layer": "InnerTorso",
     "props": {
-      "defaultWeight": 5.0
+      "defaultWeight": 5.0,
+      "graphic": 10132
     }
   },
   {
@@ -11,7 +12,8 @@
     "strRequirement": 0,
     "props": {
       "labelNumber": 1076584,
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 9863
     }
   },
   {
@@ -28,7 +30,8 @@
       "initMaxHits": 30,
       "baseStrBonus": -5,
       "baseDexBonus": -5,
-      "baseIntBonus": 5
+      "baseIntBonus": 5,
+      "graphic": 5912
     }
   },
   {
@@ -121,7 +124,8 @@
   {
     "type": "Server.Items.FurCape",
     "props": {
-      "defaultWeight": 4.0
+      "defaultWeight": 4.0,
+      "graphic": 8970
     }
   },
   {
@@ -134,7 +138,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 10136
     }
   },
   {
@@ -147,7 +152,8 @@
       "basePoisonResistance": 9,
       "baseEnergyResistance": 9,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 10127
     }
   },
   {
@@ -160,7 +166,8 @@
       "basePoisonResistance": 9,
       "baseEnergyResistance": 9,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 8966
     }
   },
   {
@@ -173,7 +180,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5907
     }
   },
   {
@@ -186,7 +194,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5908
     }
   },
   {
@@ -205,7 +214,8 @@
       "initMaxHits": [
         12,
         28
-      ]
+      ],
+      "graphic": 5444
     }
   },
   {
@@ -218,7 +228,8 @@
       "basePoisonResistance": 8,
       "baseEnergyResistance": 8,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5440
     }
   },
   {
@@ -231,7 +242,8 @@
       "basePoisonResistance": 4,
       "baseEnergyResistance": 4,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5445
     }
   },
   {
@@ -244,7 +256,8 @@
       "basePoisonResistance": 1,
       "baseEnergyResistance": 7,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5447
     }
   },
   {
@@ -257,7 +270,8 @@
       "basePoisonResistance": 4,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5449
     }
   },
   {
@@ -270,7 +284,8 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5451
     }
   },
   {
@@ -283,7 +298,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5910
     }
   },
   {
@@ -296,7 +312,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5911
     }
   },
   {
@@ -309,7 +326,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5912
     }
   },
   {
@@ -322,7 +340,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5913
     }
   },
   {
@@ -335,7 +354,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5914
     }
   },
   {
@@ -348,7 +368,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5915
     }
   },
   {
@@ -361,127 +382,148 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 20,
-      "initMaxHits": 30
+      "initMaxHits": 30,
+      "graphic": 5916
     }
   },
   {
     "type": "Server.Items.BodySash",
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 5441
     }
   },
   {
     "type": "Server.Items.FullApron",
     "props": {
-      "defaultWeight": 4.0
+      "defaultWeight": 4.0,
+      "graphic": 5437
     }
   },
   {
     "type": "Server.Items.Doublet",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 8059
     }
   },
   {
     "type": "Server.Items.Surcoat",
     "props": {
-      "defaultWeight": 6.0
+      "defaultWeight": 6.0,
+      "graphic": 8189
     }
   },
   {
     "type": "Server.Items.Tunic",
     "props": {
-      "defaultWeight": 5.0
+      "defaultWeight": 5.0,
+      "graphic": 8097
     }
   },
   {
     "type": "Server.Items.FormalShirt",
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 8976
     }
   },
   {
     "type": "Server.Items.JesterSuit",
     "props": {
-      "defaultWeight": 4.0
+      "defaultWeight": 4.0,
+      "graphic": 8095
     }
   },
   {
     "type": "Server.Items.JinBaori",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 10145
     }
   },
   {
     "type": "Server.Items.FurSarong",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 8972
     }
   },
   {
     "type": "Server.Items.Skirt",
     "props": {
-      "defaultWeight": 4.0
+      "defaultWeight": 4.0,
+      "graphic": 5398
     }
   },
   {
     "type": "Server.Items.Kilt",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 5431
     }
   },
   {
     "type": "Server.Items.Hakama",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 10138
     }
   },
   {
     "type": "Server.Items.GildedDress",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 8974
     }
   },
   {
     "type": "Server.Items.FancyDress",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 7936
     }
   },
   {
     "type": "Server.Items.PlainDress",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 7937
     }
   },
   {
     "type": "Server.Items.Kamishimo",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 10137
     }
   },
   {
     "type": "Server.Items.HakamaShita",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 10140
     }
   },
   {
     "type": "Server.Items.MaleKimono",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 10114
     }
   },
   {
     "type": "Server.Items.FemaleKimono",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 10115
     }
   },
   {
     "type": "Server.Items.MaleElvenRobe",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 12217
     }
   },
   {
@@ -489,96 +531,111 @@
     "props": {
       "defaultWeight": 2.0,
       "requiredRaces": "AllowElvesOnly",
-      "allowMaleWearer": false
+      "allowMaleWearer": false,
+      "graphic": 12218
     }
   },
   {
     "type": "Server.Items.ShortPants",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 5422
     }
   },
   {
     "type": "Server.Items.LongPants",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 5433
     }
   },
   {
     "type": "Server.Items.TattsukeHakama",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 10139
     }
   },
   {
     "type": "Server.Items.ElvenPants",
     "props": {
       "defaultWeight": 2.0,
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 12227
     }
   },
   {
     "type": "Server.Items.Shirt",
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 5399
     }
   },
   {
     "type": "Server.Items.ElvenShirt",
     "props": {
       "defaultWeight": 2.0,
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 12661
     }
   },
   {
     "type": "Server.Items.ElvenDarkShirt",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 12662
     }
   },
   {
     "type": "Server.Items.FurBoots",
     "props": {
-      "defaultWeight": 3.0
+      "defaultWeight": 3.0,
+      "graphic": 8967
     }
   },
   {
     "type": "Server.Items.Boots",
     "props": {
       "defaultWeight": 3.0,
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5899
     }
   },
   {
     "type": "Server.Items.Shoes",
     "props": {
       "defaultWeight": 2.0,
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5903
     }
   },
   {
     "type": "Server.Items.Sandals",
     "props": {
       "defaultWeight": 1.0,
-      "defaultResource": "RegularLeather"
+      "defaultResource": "RegularLeather",
+      "graphic": 5901
     }
   },
   {
     "type": "Server.Items.NinjaTabi",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 10135
     }
   },
   {
     "type": "Server.Items.SamuraiTabi",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 10134
     }
   },
   {
     "type": "Server.Items.Waraji",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 10134
     }
   },
   {
@@ -586,26 +643,30 @@
     "props": {
       "defaultWeight": 2.0,
       "defaultResource": "RegularLeather",
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 12228
     }
   },
   {
     "type": "Server.Items.HalfApron",
     "props": {
-      "defaultWeight": 2.0
+      "defaultWeight": 2.0,
+      "graphic": 5435
     }
   },
   {
     "type": "Server.Items.Obi",
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 10144
     }
   },
   {
     "type": "Server.Items.WoodlandBelt",
     "props": {
       "defaultWeight": 4.0,
-      "requiredRaces": "AllowElvesOnly"
+      "requiredRaces": "AllowElvesOnly",
+      "graphic": 11112
     }
   }
 ]

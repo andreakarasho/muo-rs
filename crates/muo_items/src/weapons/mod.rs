@@ -34,6 +34,10 @@ macro_rules! ctor_call {
     (graphic, $w:ident, $ty:expr, $arg:expr) => {
         new_weapon($w, $ty, $arg)
     };
+    (json, $w:ident, $ty:expr, $arg:expr) => {{
+        let g = muo_content::items::equip_props::graphic($w, $ty);
+        new_weapon($w, $ty, g)
+    }};
     (via, $w:ident, $ty:expr, $arg:expr) => {
         $arg($w, $ty)
     };

@@ -23,7 +23,8 @@
       "aosStrReq": 50,
       "armorBase": 15,
       "labelNumber": 1075196,
-      "defaultWeight": 6.0
+      "defaultWeight": 6.0,
+      "graphic": 11009
     }
   }
 ]

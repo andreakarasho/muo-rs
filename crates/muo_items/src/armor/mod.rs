@@ -117,6 +117,12 @@ mod tests;
 // ---- constructor statements ----
 
 /// `Hue = value`.
+/// `new BaseArmor(itemID)` with the class's `graphic` prop as the item id.
+pub(crate) fn new_armor_json(w: &mut World, ty: &'static muo_server::item::ItemType) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    armor::new_armor(w, ty, g)
+}
+
 pub(crate) fn hue(w: &mut World, id: ItemId, value: i32) {
     if let Some(ty) = w.item(id).map(|i| i.ty) {
         (ty.set_hue)(w, id, value);

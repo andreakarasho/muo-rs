@@ -41,7 +41,8 @@
       "harvestSystem": "Mining",
       "primaryAbility": "DoubleStrike",
       "secondaryAbility": "Disarm",
-      "defAnimation": "Slash1H"
+      "defAnimation": "Slash1H",
+      "graphic": 3718
     }
   },
   {

@@ -35,7 +35,8 @@
       "primaryAbility": "MysticArc",
       "secondaryAbility": "ConcussionBlow",
       "requiredRaces": "AllowGargoylesOnly",
-      "defaultWeight": 4.0
+      "defaultWeight": 4.0,
+      "graphic": 2303
     }
   },
   {
@@ -52,7 +53,8 @@
       "primaryAbility": "MovingShot",
       "secondaryAbility": "InfusedThrow",
       "requiredRaces": "AllowGargoylesOnly",
-      "defaultWeight": 6.0
+      "defaultWeight": 6.0,
+      "graphic": 2305
     }
   },
   {
@@ -87,7 +89,8 @@
       "primaryAbility": "ArmorIgnore",
       "secondaryAbility": "MortalStrike",
       "requiredRaces": "AllowGargoylesOnly",
-      "defaultWeight": 8.0
+      "defaultWeight": 8.0,
+      "graphic": 2314
     }
   },
   {

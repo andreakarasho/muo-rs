@@ -40,7 +40,7 @@ pub fn gargoyles_pickaxe_with_uses(w: &mut World, uses: i32) -> ItemId {
 
 weapon_leaf! {
     /// `Server.Items.SturdyPickaxe`.
-    STURDY_PICKAXE, STURDY_PICKAXE_CLASS, sturdy_pickaxe_new = "Server.Items.SturdyPickaxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0xE86, v0;
+    STURDY_PICKAXE, STURDY_PICKAXE_CLASS, sturdy_pickaxe_new = "Server.Items.SturdyPickaxe" : BASE_AXE / BASE_AXE_CLASS, json (), v0;
     @json;
 }
 
