@@ -1,7 +1,5 @@
 //! The Emino's Undertaking quest's items and mobiles (namespace `Server.Engines.Quests.Ninja`).
 
-use muo_content::creature::enums::{AIType, FightMode};
-use muo_content::creature::setters::{new_creature, set_skill};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C, CreatureType};
 use muo_content::items::cont::{self, WOODEN_CHEST};
 use muo_primitives::Point3D;
@@ -11,7 +9,6 @@ use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::lr_reason::LRReason;
 use muo_server::map::MapId;
 use muo_server::mobile::{AccessLevel, MobileType};
-use muo_server::skills::SkillName;
 
 use super::core::{Conversation, Quest, load, with_quest};
 use super::emino::*;
@@ -620,8 +617,8 @@ quester! {
 // ---- Henchman ----
 
 static HENCHMAN_C: CreatureType = CreatureType {
-    default_name: |_, _| Some("a henchman"),
-    always_murderer: |_, _| true,
+    default_name: muo_content::templates::creature_props::default_name,
+    always_murderer: muo_content::templates::creature_props::always_murderer,
     ..BASE_CREATURE_C
 };
 
@@ -629,34 +626,7 @@ static HENCHMAN_C: CreatureType = CreatureType {
 pub static HENCHMAN: MobileType = MobileType {
     full_name: "Server.Engines.Quests.Ninja.Henchman",
     parent: Some(&BASE_CREATURE),
-    construct: Some(|w| {
-        let id = new_creature(
-            w,
-            &HENCHMAN,
-            AIType::AiMelee,
-            FightMode::Aggressor,
-            muo_content::creature::enums::DEFAULT_RANGE_PERCEPTION,
-            1,
-        );
-        muo_server::mobile::part2::stats::init_stats(w, id, 45, 30, 5);
-        let hue = muo_content::vendor::human_random_skin_hue(w);
-        muo_server::mobile::base::set_hue(w, id, hue);
-        set_body(w, id, 0x190);
-        muo_content::vendor::assign_random_hair_random_hue(w, id);
-        super::util::assign_facial_random_hue(w, id);
-        add_item_named(w, id, "Server.Items.LeatherNinjaJacket");
-        add_item_named(w, id, "Server.Items.LeatherNinjaPants");
-        add_item_named(w, id, "Server.Items.NinjaTabi");
-        let weapon = if muo_content::hooks::rnd::bool(w) {
-            "Server.Items.Kama"
-        } else {
-            "Server.Items.Tessen"
-        };
-        add_item_named(w, id, weapon);
-        set_skill(w, id, SkillName::Swords, 50.0);
-        set_skill(w, id, SkillName::Tactics, 50.0);
-        id
-    }),
+    construct: Some(|w| muo_content::templates::new_creature(w, &HENCHMAN)),
     family: Some(&HENCHMAN_C),
     serialize: |w, id, out| {
         (BASE_CREATURE.serialize)(w, id, out);

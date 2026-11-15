@@ -144,7 +144,8 @@ fn equip_entry(w: &mut World, id: MobileId, v: &Value) {
 }
 
 /// One `questEquip` entry: `{"item": "Server.Items.Robe", "hue": <hue>, "movable": false}`: the hue is drawn,
-/// then `AddItem(new T { Hue = hue, Movable = movable })` (the class by its full name).
+/// then `AddItem(new T { Hue = hue, Movable = movable })` (the class by its full name). `"oneOf": [names]` in place of
+/// `"item"` picks the class (`Utility.Random(n)`) first.
 fn check_quest_equip(v: &Value) -> Result<(), String> {
     let o = v
         .as_object()
@@ -152,22 +153,33 @@ fn check_quest_equip(v: &Value) -> Result<(), String> {
     for (k, val) in o {
         match k.as_str() {
             "item" => check_str(val)?,
+            "oneOf" => check_list(val, check_str)?,
             "hue" => check_hue(val)?,
             "movable" => check_bool(val)?,
             _ => return Err(format!("unknown equip key \"{k}\"")),
         }
     }
-    if o.contains_key("item") {
+    if o.contains_key("item") != o.contains_key("oneOf") {
         Ok(())
     } else {
-        Err(format!("an equip entry needs \"item\": {v}"))
+        Err(format!("an equip entry needs \"item\" or \"oneOf\": {v}"))
     }
 }
 
 fn quest_equip(w: &mut World, id: MobileId, v: &Value) {
+    let name = match v.get("oneOf").and_then(Value::as_array) {
+        Some(a) if !a.is_empty() => {
+            let i = muo_content::hooks::rnd::below(w, a.len() as i32) as usize;
+            a[i].as_str().unwrap_or("").to_owned()
+        }
+        _ => v
+            .get("item")
+            .and_then(Value::as_str)
+            .unwrap_or("")
+            .to_owned(),
+    };
     let h = v.get("hue").map(|h| hue_of(w, id, h));
-    let name = v.get("item").and_then(Value::as_str).unwrap_or("");
-    let Some(it) = muo_content::factory::make_item(w, name) else {
+    let Some(it) = muo_content::factory::make_item(w, &name) else {
         return;
     };
     if let Some(h) = h {

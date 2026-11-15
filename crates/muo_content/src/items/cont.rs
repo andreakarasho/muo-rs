@@ -1130,20 +1130,25 @@ pub static BASE_TREASURE_CHEST: ItemType = ItemType {
 // ---- leaf classes ----
 
 /// One concrete container class whose save is `parent part + version int 0`.
-/// `$ctor` builds it (`new_base_container` / `new_lockable` / `new_trappable`); `@init` is the constructor body.
+/// `$ctor` builds it (`new_base_container` / `new_lockable` / `new_trappable`), then the class's item template
+/// (`Data/Templates/Items`, its graphic and statements) runs; `@init` is what the template cannot hold.
 macro_rules! container_leaf {
     // `[SerializationGenerator(0)]`: the class's own version is an encoded int.
     (
         @enc
         $(#[$m:meta])*
-        $name:ident = $full:literal : $parent:ident, graphic $gid:expr, $ctor:ident;
+        $name:ident = $full:literal : $parent:ident, $ctor:ident;
         $($f:ident : $v:expr,)*
     ) => {
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&$parent),
-            construct: Some(|w| $ctor(w, &$name, $gid)),
+            construct: Some(|w| {
+                let id = $ctor(w, &$name, 0);
+                crate::templates::apply_item_as(w, id, $full);
+                id
+            }),
             serialize: |w, id, out| {
                 ($parent.serialize)(w, id, out);
                 out.write_encoded_int(0);
@@ -1161,7 +1166,7 @@ macro_rules! container_leaf {
     (
         @make
         $(#[$m:meta])*
-        $name:ident = $full:literal : $parent:ident, graphic $gid:expr, $ctor:ident;
+        $name:ident = $full:literal : $parent:ident, $ctor:ident;
         $(@init $init:expr;)?
         $($f:ident : $v:expr,)*
     ) => {
@@ -1171,7 +1176,11 @@ macro_rules! container_leaf {
             parent: Some(&$parent),
             construct: None,
             make: Some(|w| {
-                let id = $ctor(w, &$name, $gid);
+                let id = {
+                let id = $ctor(w, &$name, 0);
+                crate::templates::apply_item_as(w, id, $full);
+                id
+            };
                 $( let init: fn(&mut World, ItemId) = $init; init(w, id); )?
                 id
             }),
@@ -1190,7 +1199,7 @@ macro_rules! container_leaf {
     };
     (
         $(#[$m:meta])*
-        $name:ident = $full:literal : $parent:ident, graphic $gid:expr, $ctor:ident;
+        $name:ident = $full:literal : $parent:ident, $ctor:ident;
         $(@init $init:expr;)?
         $($f:ident : $v:expr,)*
     ) => {
@@ -1199,7 +1208,11 @@ macro_rules! container_leaf {
             full_name: $full,
             parent: Some(&$parent),
             construct: Some(|w| {
-                let id = $ctor(w, &$name, $gid);
+                let id = {
+                let id = $ctor(w, &$name, 0);
+                crate::templates::apply_item_as(w, id, $full);
+                id
+            };
                 $( let init: fn(&mut World, ItemId) = $init; init(w, id); )?
                 id
             }),
@@ -1233,9 +1246,8 @@ fn backpack_default_max_weight(w: &World, id: ItemId) -> i32 {
 
 container_leaf! {
     /// `Server.Items.Backpack`.
-    BACKPACK = "Server.Items.Backpack" : BASE_CONTAINER, graphic 0xE75, new_base_container;
-    @init |w, id| { (BACKPACK.set_layer)(w, id, Layer::Backpack); };
-    default_weight: |_, _| 3.0,
+    BACKPACK = "Server.Items.Backpack" : BASE_CONTAINER, new_base_container;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight),
     default_max_weight: backpack_default_max_weight,
 }
 
@@ -1245,9 +1257,8 @@ fn backpack_construct(w: &mut World, ty: &'static ItemType, id: i32) -> ItemId {
 
 container_leaf! {
     /// `Server.Items.StrongBackpack` (pack animals).
-    STRONG_BACKPACK = "Server.Items.StrongBackpack" : BACKPACK, graphic 0xE75, backpack_construct;
-    @init |w, id| { (STRONG_BACKPACK.set_layer)(w, id, Layer::Backpack); };
-    default_weight: |_, _| 13.0,
+    STRONG_BACKPACK = "Server.Items.StrongBackpack" : BACKPACK, backpack_construct;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BACKPACK.default_weight),
     default_max_weight: |_, _| 1600,
     check_hold: |w, id, m, item, _message, check_items, plus_items, plus_weight| {
         check_hold(w, id, m, item, false, check_items, plus_items, plus_weight)
@@ -1265,12 +1276,8 @@ container_leaf! {
 container_leaf! {
     @make
     /// `Server.Items.CreatureBackpack` (BaseCreature's pack). Its constructor takes the creature's name.
-    CREATURE_BACKPACK = "Server.Items.CreatureBackpack" : BACKPACK, graphic 0xE75, backpack_construct;
-    @init |w, id| {
-        (CREATURE_BACKPACK.set_layer)(w, id, Layer::Backpack);
-        (CREATURE_BACKPACK.set_hue)(w, id, 5);
-    };
-    default_weight: |_, _| 3.0,
+    CREATURE_BACKPACK = "Server.Items.CreatureBackpack" : BACKPACK, backpack_construct;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BACKPACK.default_weight),
     add_name_property: |w, id, list| {
         match w.item(id).and_then(|i| i.name.clone()) {
             Some(n) => list.add_str(1075257, &n), // Contents of ~1_PETNAME~'s pack.
@@ -1307,8 +1314,8 @@ pub fn new_creature_backpack(w: &mut World, name: &str) -> ItemId {
 
 container_leaf! {
     /// `Server.Items.Pouch`.
-    POUCH = "Server.Items.Pouch" : TRAPPABLE_CONTAINER, graphic 0xE79, new_trappable;
-    default_weight: |_, _| 1.0,
+    POUCH = "Server.Items.Pouch" : TRAPPABLE_CONTAINER, new_trappable;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", TRAPPABLE_CONTAINER.default_weight),
 }
 
 /// `Server.Items.BaseBagBall` (abstract, `[SerializationGenerator(0, false)]`: weight 1).
@@ -1332,91 +1339,91 @@ pub static BASE_BAG_BALL: ItemType = ItemType {
 };
 container_leaf! {
     /// `Server.Items.SmallBagBall`.
-    SMALL_BAG_BALL = "Server.Items.SmallBagBall" : BASE_BAG_BALL, graphic 0x2256, new_base_container;
+    SMALL_BAG_BALL = "Server.Items.SmallBagBall" : BASE_BAG_BALL, new_base_container;
 }
 container_leaf! {
     /// `Server.Items.LargeBagBall`.
-    LARGE_BAG_BALL = "Server.Items.LargeBagBall" : BASE_BAG_BALL, graphic 0x2257, new_base_container;
+    LARGE_BAG_BALL = "Server.Items.LargeBagBall" : BASE_BAG_BALL, new_base_container;
 }
 container_leaf! {
     /// `Server.Items.Bag`.
-    BAG = "Server.Items.Bag" : BASE_CONTAINER, graphic 0xE76, new_base_container;
-    default_weight: |_, _| 2.0,
+    BAG = "Server.Items.Bag" : BASE_CONTAINER, new_base_container;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight),
 }
 container_leaf! {
     /// `Server.Items.Barrel`.
-    BARREL = "Server.Items.Barrel" : BASE_CONTAINER, graphic 0xE77, new_base_container;
-    default_weight: |_, _| 25.0,
+    BARREL = "Server.Items.Barrel" : BASE_CONTAINER, new_base_container;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight),
 }
 container_leaf! {
     /// `Server.Items.Keg`.
-    KEG = "Server.Items.Keg" : BASE_CONTAINER, graphic 0xE7F, new_base_container;
-    default_weight: |_, _| 15.0,
+    KEG = "Server.Items.Keg" : BASE_CONTAINER, new_base_container;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight),
 }
 container_leaf! {
     /// `Server.Items.PicnicBasket`.
-    PICNIC_BASKET = "Server.Items.PicnicBasket" : BASE_CONTAINER, graphic 0xE7A, new_base_container;
-    default_weight: |_, _| 2.0,
+    PICNIC_BASKET = "Server.Items.PicnicBasket" : BASE_CONTAINER, new_base_container;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight),
 }
 container_leaf! {
     /// `Server.Items.Basket`.
-    BASKET = "Server.Items.Basket" : BASE_CONTAINER, graphic 0x990, new_base_container;
-    default_weight: |_, _| 1.0,
+    BASKET = "Server.Items.Basket" : BASE_CONTAINER, new_base_container;
+    default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", BASE_CONTAINER.default_weight),
 }
 
-/// The lockable chests and boxes: `NAME = "full" , graphic, weight (None keeps Item's)`.
+/// The lockable chests and boxes: `NAME = "full";`, the graphic and weight in their templates.
 /// `[Flippable]` is data for the flip command, which is not an `ItemType` member yet (see weapon.rs).
 macro_rules! lockable_leaves {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr $(, weight $weight:expr)?;)+) => {
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {
         $( container_leaf! {
             $(#[$m])*
-            $name = $full : LOCKABLE_CONTAINER, graphic $gid, new_lockable;
-            $( default_weight: |_, _| $weight, )?
+            $name = $full : LOCKABLE_CONTAINER, new_lockable;
+            default_weight: |w, id| crate::template_keys::item_float(w, id, "defaultWeight", LOCKABLE_CONTAINER.default_weight),
         } )+
     };
 }
 
 lockable_leaves! {
     /// `Server.Items.WoodenBox` `[Flippable(0x9AA, 0xE7D)]`.
-    WOODEN_BOX = "Server.Items.WoodenBox", 0x9AA, weight 4.0;
+    WOODEN_BOX = "Server.Items.WoodenBox";
     /// `Server.Items.SmallCrate` `[Flippable(0x9A9, 0xE7E)]`.
-    SMALL_CRATE = "Server.Items.SmallCrate", 0x9A9, weight 2.0;
+    SMALL_CRATE = "Server.Items.SmallCrate";
     /// `Server.Items.MediumCrate` `[Flippable(0xE3F, 0xE3E)]`.
-    MEDIUM_CRATE = "Server.Items.MediumCrate", 0xE3F, weight 2.0;
+    MEDIUM_CRATE = "Server.Items.MediumCrate";
     /// `Server.Items.LargeCrate` `[Flippable(0xE3D, 0xE3C)]`.
-    LARGE_CRATE = "Server.Items.LargeCrate", 0xE3D, weight 1.0;
+    LARGE_CRATE = "Server.Items.LargeCrate";
     /// `Server.Items.MetalBox` `[Flippable(0x9A8, 0xE80)]`.
-    METAL_BOX = "Server.Items.MetalBox", 0x9A8;
+    METAL_BOX = "Server.Items.MetalBox";
     /// `Server.Items.MetalChest` `[Flippable(0x9AB, 0xE7C)]`.
-    METAL_CHEST = "Server.Items.MetalChest", 0x9AB;
+    METAL_CHEST = "Server.Items.MetalChest";
     /// `Server.Items.MetalGoldenChest` `[Flippable(0xE41, 0xE40)]`.
-    METAL_GOLDEN_CHEST = "Server.Items.MetalGoldenChest", 0xE41;
+    METAL_GOLDEN_CHEST = "Server.Items.MetalGoldenChest";
     /// `Server.Items.WoodenChest` `[Flippable(0xE43, 0xE42)]`.
-    WOODEN_CHEST = "Server.Items.WoodenChest", 0xE43, weight 2.0;
+    WOODEN_CHEST = "Server.Items.WoodenChest";
     /// `Server.Items.PlainWoodenChest` `[Flippable(0x280B, 0x280C)]`.
-    PLAIN_WOODEN_CHEST = "Server.Items.PlainWoodenChest", 0x280B;
+    PLAIN_WOODEN_CHEST = "Server.Items.PlainWoodenChest";
     /// `Server.Items.OrnateWoodenChest` `[Flippable(0x280D, 0x280E)]`.
-    ORNATE_WOODEN_CHEST = "Server.Items.OrnateWoodenChest", 0x280D;
+    ORNATE_WOODEN_CHEST = "Server.Items.OrnateWoodenChest";
     /// `Server.Items.GildedWoodenChest` `[Flippable(0x280F, 0x2810)]`.
-    GILDED_WOODEN_CHEST = "Server.Items.GildedWoodenChest", 0x280F;
+    GILDED_WOODEN_CHEST = "Server.Items.GildedWoodenChest";
     /// `Server.Items.FinishedWoodenChest` `[Flippable(0x2813, 0x2814)]`.
-    FINISHED_WOODEN_CHEST = "Server.Items.FinishedWoodenChest", 0x2813;
+    FINISHED_WOODEN_CHEST = "Server.Items.FinishedWoodenChest";
 }
 
 container_leaf! {
     @enc
     /// `Server.Items.RarewoodChest` `[Flippable(0x2DF1, 0x2DF2)]` (`[SerializationGenerator(0)]`).
-    RAREWOOD_CHEST = "Server.Items.RarewoodChest" : LOCKABLE_CONTAINER, graphic 0x2DF1, new_lockable;
+    RAREWOOD_CHEST = "Server.Items.RarewoodChest" : LOCKABLE_CONTAINER, new_lockable;
 }
 container_leaf! {
     @enc
     /// `Server.Items.DecorativeBox` `[Flippable(0x2DF3, 0x2DF4)]`, constructed with graphic 0x2DF4.
-    DECORATIVE_BOX = "Server.Items.DecorativeBox" : LOCKABLE_CONTAINER, graphic 0x2DF4, new_lockable;
+    DECORATIVE_BOX = "Server.Items.DecorativeBox" : LOCKABLE_CONTAINER, new_lockable;
 }
 
 container_leaf! {
     /// `Server.Items.WoodenFootLocker` `[Flippable(0x2811, 0x2812)]`: `GumpID = 0x10B`.
-    WOODEN_FOOT_LOCKER = "Server.Items.WoodenFootLocker" : LOCKABLE_CONTAINER, graphic 0x2811, new_lockable;
+    WOODEN_FOOT_LOCKER = "Server.Items.WoodenFootLocker" : LOCKABLE_CONTAINER, new_lockable;
     @init |w, id| { container::set_gump_id(w, id, 0x10B); };
 }
 

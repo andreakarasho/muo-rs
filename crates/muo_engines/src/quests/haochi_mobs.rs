@@ -2,7 +2,6 @@
 //!
 //! `HonorCandle` is a `CandleLong` whose `Burn()` and `Douse()` put out the flame and rewind the duration.
 
-use muo_content::creature::setters::{set_hits_range, set_skill};
 use muo_content::items::cont;
 use muo_primitives::TimeSpan;
 use muo_server::World;
@@ -10,7 +9,6 @@ use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::lr_reason::LRReason;
 use muo_server::mobile::{AccessLevel, MobileType};
-use muo_server::skills::SkillName;
 
 use super::core::{Conversation, Quest, load, with_quest};
 use super::haochi::*;
@@ -391,18 +389,6 @@ quester! {
 
 // ---- The creatures ----
 
-fn body_hair_setup(w: &mut World, id: MobileId) {
-    let hue = muo_content::vendor::human_random_skin_hue(w);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    set_body(w, id, 0x190);
-    muo_content::vendor::assign_random_hair_random_hue(w, id);
-    super::util::assign_facial_random_hue(w, id);
-}
-
-fn pick(w: &mut World, names: &[&str]) -> usize {
-    muo_content::hooks::rnd::below(w, names.len() as i32) as usize
-}
-
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.CursedSoul`.
     CURSED_SOUL, CURSED_SOUL_C = "Server.Engines.Quests.Samurai.CursedSoul", template;
@@ -462,55 +448,13 @@ quest_creature! {
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.YoungNinja`.
-    YOUNG_NINJA, YOUNG_NINJA_C = "Server.Engines.Quests.Samurai.YoungNinja", ai AiMelee, init |w, id| {
-        muo_server::mobile::part2::stats::init_stats(w, id, 45, 30, 5);
-        set_hits_range(w, id, 20, 30);
-        body_hair_setup(w, id);
-        add_item_named(w, id, "Server.Items.NinjaTabi");
-        add_item_named(w, id, "Server.Items.LeatherNinjaPants");
-        add_item_named(w, id, "Server.Items.LeatherNinjaJacket");
-        add_item_named(w, id, "Server.Items.LeatherNinjaBelt");
-        let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-        add_item_hued(w, id, "Server.Items.Bandana", h);
-        let weapons = ["Server.Items.Tessen", "Server.Items.Kama", "Server.Items.Lajatang"];
-        let i = pick(w, &weapons);
-        add_item_named(w, id, weapons[i]);
-        set_skill(w, id, SkillName::Swords, 50.0);
-        set_skill(w, id, SkillName::Tactics, 50.0);
-    };
-    c {
-        corpse_name: |_, _| Some("a young ninja's corpse"),
-        default_name: |_, _| Some("a young ninja"),
-        always_murderer: |_, _| true,
-    }
+    YOUNG_NINJA, YOUNG_NINJA_C = "Server.Engines.Quests.Samurai.YoungNinja", template;
     m { }
 }
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.YoungRonin`.
-    YOUNG_RONIN, YOUNG_RONIN_C = "Server.Engines.Quests.Samurai.YoungRonin", ai AiMelee, init |w, id| {
-        muo_server::mobile::part2::stats::init_stats(w, id, 45, 30, 5);
-        set_hits_range(w, id, 10, 20);
-        body_hair_setup(w, id);
-        add_item_named(w, id, "Server.Items.LeatherDo");
-        add_item_named(w, id, "Server.Items.LeatherHiroSode");
-        add_item_named(w, id, "Server.Items.SamuraiTabi");
-        let legs = ["Server.Items.StuddedHaidate", "Server.Items.PlateSuneate", "Server.Items.LeatherSuneate"];
-        let i = pick(w, &legs);
-        add_item_named(w, id, legs[i]);
-        let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-        add_item_hued(w, id, "Server.Items.Bandana", h);
-        let weapons = ["Server.Items.NoDachi", "Server.Items.Lajatang", "Server.Items.Wakizashi"];
-        let i = pick(w, &weapons);
-        add_item_named(w, id, weapons[i]);
-        set_skill(w, id, SkillName::Swords, 50.0);
-        set_skill(w, id, SkillName::Tactics, 50.0);
-    };
-    c {
-        corpse_name: |_, _| Some("a young ronin's corpse"),
-        default_name: |_, _| Some("a young ronin"),
-        always_murderer: |_, _| true,
-    }
+    YOUNG_RONIN, YOUNG_RONIN_C = "Server.Engines.Quests.Samurai.YoungRonin", template;
     m { }
 }
 

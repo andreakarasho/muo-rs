@@ -1,7 +1,7 @@
 //! The thirteen standard house classes. Each is a [`HouseClass`] table over
 //! `BASE_HOUSE`, a constructor that builds its doors and sign, and the `[SerializationGenerator(0, false)]` int 0.
 
-use muo_primitives::{Direction, Point3D, Rectangle2D, TimeSpan};
+use muo_primitives::{Direction, Rectangle2D, TimeSpan};
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::ItemType;
@@ -90,15 +90,13 @@ macro_rules! house {
     (
         $name:ident, $cls:ident, $full:literal, $short:literal,
         area: $area:expr,
-        ban: ($bx:expr, $by:expr, $bz:expr),
-        price: $price:expr,
         convert: $convert:expr, offset: $offset:expr,
         deed: $deed:expr
     ) => {
         pub static $cls: HouseClass = HouseClass {
             area: $area,
-            base_ban_location: |_, _| Point3D::new($bx, $by, $bz),
-            default_price: |_, _| $price,
+            base_ban_location: crate::template_props::house_ban_location,
+            default_price: |w, id| crate::template_props::item_int(w, id, "defaultPrice", |_, _| 0),
             convert_entry: |_, _| $convert,
             convert_offset: $offset,
             get_deed: $deed,
@@ -130,7 +128,7 @@ macro_rules! house {
 }
 
 house!(SMALL_OLD_HOUSE, SMALL_OLD_HOUSE_CLASS, "Server.Multis.SmallOldHouse", "SmallOldHouse",
-area: |_, _| SMALL_OLD_HOUSE_AREA.to_vec(), ban: (2, 4, 0), price: 43800,
+area: |_, _| SMALL_OLD_HOUSE_AREA.to_vec(),
 convert: Some((Table::Two, 0)), offset: (0, 0, 0),
 deed: |w, id| {
     let name = match item_id(w, id) {
@@ -145,12 +143,12 @@ deed: |w, id| {
 });
 
 house!(GUILD_HOUSE, GUILD_HOUSE_CLASS, "Server.Multis.GuildHouse", "GuildHouse",
-    area: |_, _| GUILD_HOUSE_AREA.to_vec(), ban: (4, 8, 0), price: 144500,
+    area: |_, _| GUILD_HOUSE_AREA.to_vec(),
     convert: Some((Table::Three, 20)), offset: (-1, -1, 0),
     deed: |w, _| deed(w, "BrickHouseDeed"));
 
 house!(TWO_STORY_HOUSE, TWO_STORY_HOUSE_CLASS, "Server.Multis.TwoStoryHouse", "TwoStoryHouse",
-area: |_, _| TWO_STORY_HOUSE_AREA.to_vec(), ban: (2, 8, 0), price: 192400,
+area: |_, _| TWO_STORY_HOUSE_AREA.to_vec(),
 convert: None, offset: (0, 0, 0),
 deed: |w, id| {
     let name = if item_id(w, id) == 0x76 { "TwoStoryWoodPlasterHouseDeed" } else { "TwoStoryStonePlasterHouseDeed" };
@@ -158,53 +156,52 @@ deed: |w, id| {
 });
 
 house!(TOWER, TOWER_CLASS, "Server.Multis.Tower", "Tower",
-    area: |_, _| TOWER_AREA.to_vec(), ban: (5, 8, 0), price: 433200,
+    area: |_, _| TOWER_AREA.to_vec(),
     convert: Some((Table::Three, 37)), offset: (0, -1, 0),
     deed: |w, _| deed(w, "TowerDeed"));
 
 house!(KEEP, KEEP_CLASS, "Server.Multis.Keep", "Keep",
-    area: |_, _| KEEP_AREA.to_vec(), ban: (5, 13, 0), price: 665200,
+    area: |_, _| KEEP_AREA.to_vec(),
     convert: None, offset: (0, 0, 0),
     deed: |w, _| deed(w, "KeepDeed"));
 
 house!(CASTLE, CASTLE_CLASS, "Server.Multis.Castle", "Castle",
-    area: |_, _| CASTLE_AREA.to_vec(), ban: (5, 17, 0), price: 1022800,
+    area: |_, _| CASTLE_AREA.to_vec(),
     convert: None, offset: (0, 0, 0),
     deed: |w, _| deed(w, "CastleDeed"));
 
 house!(LARGE_PATIO_HOUSE, LARGE_PATIO_HOUSE_CLASS, "Server.Multis.LargePatioHouse", "LargePatioHouse",
-    area: |_, _| LARGE_PATIO_AREA.to_vec(), ban: (1, 8, 0), price: 152800,
+    area: |_, _| LARGE_PATIO_AREA.to_vec(),
     convert: Some((Table::Three, 29)), offset: (0, -1, 0),
     deed: |w, _| deed(w, "LargePatioDeed"));
 
 house!(LARGE_MARBLE_HOUSE, LARGE_MARBLE_HOUSE_CLASS, "Server.Multis.LargeMarbleHouse", "LargeMarbleHouse",
-    area: |_, _| LARGE_MARBLE_AREA.to_vec(), ban: (1, 8, 0), price: 192000,
+    area: |_, _| LARGE_MARBLE_AREA.to_vec(),
     convert: Some((Table::Three, 29)), offset: (0, -1, 0),
     deed: |w, _| deed(w, "LargeMarbleDeed"));
 
 house!(SMALL_TOWER, SMALL_TOWER_CLASS, "Server.Multis.SmallTower", "SmallTower",
-    area: |_, _| SMALL_TOWER_AREA.to_vec(), ban: (1, 4, 0), price: 88500,
+    area: |_, _| SMALL_TOWER_AREA.to_vec(),
     convert: Some((Table::Two, 6)), offset: (0, 0, 0),
     deed: |w, _| deed(w, "SmallTowerDeed"));
 
 house!(LOG_CABIN, LOG_CABIN_CLASS, "Server.Multis.LogCabin", "LogCabin",
-    area: |_, _| LOG_CABIN_AREA.to_vec(), ban: (5, 8, 0), price: 97800,
+    area: |_, _| LOG_CABIN_AREA.to_vec(),
     convert: Some((Table::Two, 12)), offset: (0, 0, 0),
     deed: |w, _| deed(w, "LogCabinDeed"));
 
 house!(SAND_STONE_PATIO, SAND_STONE_PATIO_CLASS, "Server.Multis.SandStonePatio", "SandStonePatio",
-    area: |_, _| SANDSTONE_PATIO_AREA.to_vec(), ban: (4, 6, 0), price: 90900,
+    area: |_, _| SANDSTONE_PATIO_AREA.to_vec(),
     convert: Some((Table::Two, 35)), offset: (0, -1, 0),
     deed: |w, _| deed(w, "SandstonePatioDeed"));
 
 house!(TWO_STORY_VILLA, TWO_STORY_VILLA_CLASS, "Server.Multis.TwoStoryVilla", "TwoStoryVilla",
-    area: |_, _| TWO_STORY_VILLA_AREA.to_vec(), ban: (3, 8, 0), price: 136500,
+    area: |_, _| TWO_STORY_VILLA_AREA.to_vec(),
     convert: Some((Table::Two, 31)), offset: (0, 0, 0),
     deed: |w, _| deed(w, "VillaDeed"));
 
 house!(SMALL_SHOP, SMALL_SHOP_CLASS, "Server.Multis.SmallShop", "SmallShop",
     area: |w, id| if item_id(w, id) == 0x40A2 { SMALL_SHOP_AREA_1.to_vec() } else { SMALL_SHOP_AREA_2.to_vec() },
-    ban: (3, 4, 0), price: 63000,
     convert: Some((Table::Two, 0)), offset: (0, 0, 0),
     deed: |w, id| deed(w, if item_id(w, id) == 0xA0 { "StoneWorkshopDeed" } else { "MarbleWorkshopDeed" }));
 

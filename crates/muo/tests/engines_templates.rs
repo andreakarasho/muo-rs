@@ -6,10 +6,18 @@ use muo_server::World;
 
 /// The converted template files, their kind and how many classes each holds.
 const FILES: &[(&str, Kind, usize)] = &[
-    ("Mobiles/ml_quests/npcs.json", Kind::Mobile, 117),
+    ("Mobiles/ml_quests/npcs.json", Kind::Mobile, 119),
+    ("Mobiles/quests/creatures.json", Kind::Mobile, 8),
+    ("Mobiles/quests/questers.json", Kind::Mobile, 20),
+    ("Mobiles/khaldun/mobiles.json", Kind::Mobile, 4),
+    ("Mobiles/ethics/mobiles.json", Kind::Mobile, 4),
     ("Items/ml_quests/items.json", Kind::Item, 36),
     ("Items/ml_quests/items2.json", Kind::Item, 27),
+    ("Items/engines/misc.json", Kind::Item, 67),
     ("Items/multis/deeds.json", Kind::Item, 29),
+    ("Items/multis/misc.json", Kind::Item, 4),
+    ("Items/multis/houses.json", Kind::Item, 13),
+    ("Items/content/misc.json", Kind::Item, 89),
     ("Items/samples/leaves.json", Kind::Item, 6),
 ];
 
@@ -25,6 +33,7 @@ fn world() -> World {
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     templates::reload(&mut w).unwrap();
+    assert!(muo_scripting::reload_scripts(&mut w).is_empty());
     w
 }
 
@@ -42,20 +51,16 @@ fn every_converted_class_has_its_template() {
         assert_eq!(in_file.len(), *n, "{file}");
         for tmpl in in_file {
             let name = tmpl.type_name.as_str();
-            let has_ctor =
-                match kind {
-                    Kind::Mobile => w
-                        .types
-                        .mobile_types()
-                        .iter()
-                        .any(|m| m.full_name == name && m.construct.is_some()),
-                    Kind::Item => w.types.item_types().iter().any(|i| {
-                        i.full_name == name && (i.construct.is_some() || i.make.is_some())
-                    }),
-                };
+            let registered = match kind {
+                Kind::Mobile => w.types.mobile_types().iter().any(|m| m.full_name == name),
+                Kind::Item => w.types.item_types().iter().any(|i| i.full_name == name),
+            };
+            // An abstract class (no `ItemType` registered) only holds props its subclasses read.
             assert!(
-                has_ctor || BASES.contains(&name),
-                "{name} is not a constructible class"
+                registered
+                    || BASES.contains(&name)
+                    || (tmpl.item_steps.is_empty() && tmpl.mobile_steps.is_empty()),
+                "{name} is not a registered class"
             );
             let empty = tmpl.props.is_empty()
                 && tmpl.item_steps.is_empty()
@@ -111,4 +116,15 @@ fn converted_classes_build_what_their_constructors_built() {
     assert_eq!(muo_multis::deeds::multi_id(&w, tower), 0x7A);
     let ty = w.item(tower).unwrap().ty;
     assert_eq!((ty.label_number)(&w, tower), 1041222);
+
+    let charley =
+        make_mobile(&mut w, "Server.Engines.MLQuests.Definitions.GrandpaCharley").unwrap();
+    let m = w.mobile(charley).unwrap();
+    assert_eq!(m.facial_hair_item_id, 0x203E, "the on_spawn script ran");
+
+    let ingot = make_item(&mut w, "Server.Items.VeriteIngot").unwrap();
+    assert_eq!(
+        muo_content::items::resource::resource(&w, ingot),
+        muo_content::craft::CraftResource::Verite
+    );
 }

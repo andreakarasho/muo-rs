@@ -330,5 +330,162 @@
         30.0
       ]
     }
+  },
+  {
+    "type": "Server.Engines.Quests.Samurai.YoungNinja",
+    "ai": "AiMelee",
+    "fightMode": "Aggressor",
+    "props": {
+      "corpseName": "a young ninja's corpse",
+      "defaultName": "a young ninja",
+      "alwaysMurderer": true
+    },
+    "mlqInitStats": [
+      45,
+      30,
+      5
+    ],
+    "hits": [
+      20,
+      30
+    ],
+    "questSkinHue": true,
+    "body": 400,
+    "randomHair": true,
+    "questRandomFacialHair": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.NinjaTabi"
+      },
+      {
+        "item": "Server.Items.LeatherNinjaPants"
+      },
+      {
+        "item": "Server.Items.LeatherNinjaJacket"
+      },
+      {
+        "item": "Server.Items.LeatherNinjaBelt"
+      },
+      {
+        "item": "Server.Items.Bandana",
+        "hue": "randomNondyedHue"
+      },
+      {
+        "oneOf": [
+          "Server.Items.Tessen",
+          "Server.Items.Kama",
+          "Server.Items.Lajatang"
+        ]
+      }
+    ],
+    "skills": {
+      "Swords": 50.0,
+      "Tactics": 50.0
+    }
+  },
+  {
+    "type": "Server.Engines.Quests.Samurai.YoungRonin",
+    "ai": "AiMelee",
+    "fightMode": "Aggressor",
+    "props": {
+      "corpseName": "a young ronin's corpse",
+      "defaultName": "a young ronin",
+      "alwaysMurderer": true
+    },
+    "mlqInitStats": [
+      45,
+      30,
+      5
+    ],
+    "hits": [
+      10,
+      20
+    ],
+    "questSkinHue": true,
+    "body": 400,
+    "randomHair": true,
+    "questRandomFacialHair": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.LeatherDo"
+      },
+      {
+        "item": "Server.Items.LeatherHiroSode"
+      },
+      {
+        "item": "Server.Items.SamuraiTabi"
+      },
+      {
+        "oneOf": [
+          "Server.Items.StuddedHaidate",
+          "Server.Items.PlateSuneate",
+          "Server.Items.LeatherSuneate"
+        ]
+      },
+      {
+        "item": "Server.Items.Bandana",
+        "hue": "randomNondyedHue"
+      },
+      {
+        "oneOf": [
+          "Server.Items.NoDachi",
+          "Server.Items.Lajatang",
+          "Server.Items.Wakizashi"
+        ]
+      }
+    ],
+    "skills": {
+      "Swords": 50.0,
+      "Tactics": 50.0
+    }
+  },
+  {
+    "type": "Server.Engines.Quests.Ninja.Henchman",
+    "ai": "AiMelee",
+    "fightMode": "Aggressor",
+    "props": {
+      "defaultName": "a henchman",
+      "alwaysMurderer": true
+    },
+    "mlqInitStats": [
+      45,
+      30,
+      5
+    ],
+    "questSkinHue": true,
+    "body": 400,
+    "randomHair": true,
+    "questRandomFacialHair": true,
+    "questEquip": [
+      {
+        "item": "Server.Items.LeatherNinjaJacket"
+      },
+      {
+        "item": "Server.Items.LeatherNinjaPants"
+      },
+      {
+        "item": "Server.Items.NinjaTabi"
+      }
+    ],
+    "coin": {
+      "then": {
+        "questEquip": [
+          {
+            "item": "Server.Items.Kama"
+          }
+        ]
+      },
+      "else": {
+        "questEquip": [
+          {
+            "item": "Server.Items.Tessen"
+          }
+        ]
+      }
+    },
+    "skills": {
+      "Swords": 50.0,
+      "Tactics": 50.0
+    }
   }
 ]

@@ -1,0 +1,145 @@
+[
+  {
+    "type": "Server.Multis.SmallOldHouse",
+    "props": {
+      "baseBanLocation": [
+        2,
+        4,
+        0
+      ],
+      "defaultPrice": 43800
+    }
+  },
+  {
+    "type": "Server.Multis.GuildHouse",
+    "props": {
+      "baseBanLocation": [
+        4,
+        8,
+        0
+      ],
+      "defaultPrice": 144500
+    }
+  },
+  {
+    "type": "Server.Multis.TwoStoryHouse",
+    "props": {
+      "baseBanLocation": [
+        2,
+        8,
+        0
+      ],
+      "defaultPrice": 192400
+    }
+  },
+  {
+    "type": "Server.Multis.Tower",
+    "props": {
+      "baseBanLocation": [
+        5,
+        8,
+        0
+      ],
+      "defaultPrice": 433200
+    }
+  },
+  {
+    "type": "Server.Multis.Keep",
+    "props": {
+      "baseBanLocation": [
+        5,
+        13,
+        0
+      ],
+      "defaultPrice": 665200
+    }
+  },
+  {
+    "type": "Server.Multis.Castle",
+    "props": {
+      "baseBanLocation": [
+        5,
+        17,
+        0
+      ],
+      "defaultPrice": 1022800
+    }
+  },
+  {
+    "type": "Server.Multis.LargePatioHouse",
+    "props": {
+      "baseBanLocation": [
+        1,
+        8,
+        0
+      ],
+      "defaultPrice": 152800
+    }
+  },
+  {
+    "type": "Server.Multis.LargeMarbleHouse",
+    "props": {
+      "baseBanLocation": [
+        1,
+        8,
+        0
+      ],
+      "defaultPrice": 192000
+    }
+  },
+  {
+    "type": "Server.Multis.SmallTower",
+    "props": {
+      "baseBanLocation": [
+        1,
+        4,
+        0
+      ],
+      "defaultPrice": 88500
+    }
+  },
+  {
+    "type": "Server.Multis.LogCabin",
+    "props": {
+      "baseBanLocation": [
+        5,
+        8,
+        0
+      ],
+      "defaultPrice": 97800
+    }
+  },
+  {
+    "type": "Server.Multis.SandStonePatio",
+    "props": {
+      "baseBanLocation": [
+        4,
+        6,
+        0
+      ],
+      "defaultPrice": 90900
+    }
+  },
+  {
+    "type": "Server.Multis.TwoStoryVilla",
+    "props": {
+      "baseBanLocation": [
+        3,
+        8,
+        0
+      ],
+      "defaultPrice": 136500
+    }
+  },
+  {
+    "type": "Server.Multis.SmallShop",
+    "props": {
+      "baseBanLocation": [
+        3,
+        4,
+        0
+      ],
+      "defaultPrice": 63000
+    }
+  }
+]

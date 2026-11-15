@@ -141,8 +141,7 @@ fn deposit_on_added(w: &mut World, id: ItemId, parent: EntityId, amount: i32) ->
 
 /// `new Gold(amount)`.
 pub fn new_gold(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &GOLD, 0xEED);
-    ops::set_stackable(w, id, true);
+    let id = crate::template_keys::template_new(w, &GOLD);
     ops::set_amount(w, id, amount);
     id
 }
