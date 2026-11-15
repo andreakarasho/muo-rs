@@ -58,6 +58,7 @@ pub(crate) fn test_world() -> muo_server::World {
     let mut w = muo_server::World::new();
     template_keys_equipment::register(&mut w.types);
     template_keys_misc::register(&mut w.types);
+    template_keys_misc2::register(&mut w.types);
     muo_content::templates::table(&mut w);
     w
 }
