@@ -1,0 +1,59 @@
+//! Constant per-class members of the non-equipment items, moved to their template's `"props"` (`"labelNumber"`,
+//! `"defaultWeight"`, `"gumpId"`, ..). A class that had `label_number: |_, _| 1041100` now has
+//! `label_number: class_props::label_number` and the value in `Data/Templates/Items`.
+//!
+//! Each member reads the prop of the item's class chain; without one (no table loaded, or a server owner removed
+//! it) it falls back to the nearest Rust ancestor whose member is not this reader, as `..PARENT` did.
+
+use muo_content::templates::props;
+use muo_server::World;
+use muo_server::ids::ItemId;
+
+macro_rules! member {
+    ($(#[$m:meta])* $name:ident, $field:ident, $key:literal, $ret:ty, |$v:ident| $conv:expr) => {
+        $(#[$m])*
+        pub fn $name(w: &World, id: ItemId) -> $ret {
+            if let Some(r) = props::item(w, id, $key).and_then(|$v| $conv) {
+                return r;
+            }
+            let me: fn(&World, ItemId) -> $ret = $name;
+            let mut t = w.item(id).map(|i| i.ty);
+            while let Some(ty) = t {
+                if !std::ptr::fn_addr_eq(ty.$field, me) {
+                    return (ty.$field)(w, id);
+                }
+                t = ty.parent;
+            }
+            Default::default()
+        }
+    };
+}
+
+member!(
+    /// `LabelNumber`: the `labelNumber` prop.
+    label_number, label_number, "labelNumber", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `DefaultWeight`: the `defaultWeight` prop.
+    default_weight, default_weight, "defaultWeight", f64, |v| props::as_f64(Some(v))
+);
+member!(
+    /// `DefaultName`: the `defaultName` prop.
+    default_name, default_name, "defaultName", Option<String>, |v| v.as_str().map(|s| Some(s.to_owned()))
+);
+member!(
+    /// `DefaultGumpID`: the `gumpId` prop.
+    default_gump_id, default_gump_id, "gumpId", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `DefaultDropSound`: the `dropSound` prop.
+    default_drop_sound, default_drop_sound, "dropSound", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `DefaultMaxItems`: the `maxItems` prop.
+    default_max_items, default_max_items, "maxItems", i32, |v| props::as_i32(Some(v))
+);
+member!(
+    /// `DefaultMaxWeight`: the `maxWeight` prop.
+    default_max_weight, default_max_weight, "maxWeight", i32, |v| props::as_i32(Some(v))
+);

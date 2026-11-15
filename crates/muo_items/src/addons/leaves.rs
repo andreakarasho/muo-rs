@@ -69,7 +69,7 @@ leaf! {
     ABBATOIR_DEED = "Server.Items.AbbatoirDeed" : BASE_ADDON_DEED, v0;
     construct: Some(abbatoir_deed_new),
     family: Some(&ABBATOIR_DEED_CLASS),
-    label_number: |_, _| 1044329,
+    label_number: crate::class_props::label_number,
 }
 
 /// `AlchemistTableEastAddon()`.
@@ -102,7 +102,7 @@ leaf! {
     ALCHEMIST_TABLE_EAST_DEED = "Server.Items.AlchemistTableEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(alchemist_table_east_deed_new),
     family: Some(&ALCHEMIST_TABLE_EAST_DEED_CLASS),
-    label_number: |_, _| 1073397,
+    label_number: crate::class_props::label_number,
 }
 
 /// `AlchemistTableSouthAddon()`.
@@ -135,7 +135,7 @@ leaf! {
     ALCHEMIST_TABLE_SOUTH_DEED = "Server.Items.AlchemistTableSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(alchemist_table_south_deed_new),
     family: Some(&ALCHEMIST_TABLE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1073396,
+    label_number: crate::class_props::label_number,
 }
 
 /// `AnvilEastAddon()`.
@@ -168,7 +168,7 @@ leaf! {
     ANVIL_EAST_DEED = "Server.Items.AnvilEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(anvil_east_deed_new),
     family: Some(&ANVIL_EAST_DEED_CLASS),
-    label_number: |_, _| 1044333,
+    label_number: crate::class_props::label_number,
 }
 
 /// `AnvilSouthAddon()`.
@@ -201,7 +201,7 @@ leaf! {
     ANVIL_SOUTH_DEED = "Server.Items.AnvilSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(anvil_south_deed_new),
     family: Some(&ANVIL_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044334,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ArcaneBookshelfEastAddon()`.
@@ -220,8 +220,8 @@ leaf! {
     ARCANE_BOOKSHELF_EAST_ADDON = "Server.Items.ArcaneBookshelfEastAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(arcane_bookshelf_east_addon_new),
     family: Some(&ARCANE_BOOKSHELF_EAST_ADDON_CLASS),
-    default_gump_id: |_, _| 0x107,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `ArcaneBookshelfEastDeed()`.
@@ -237,7 +237,7 @@ leaf! {
     ARCANE_BOOKSHELF_EAST_DEED = "Server.Items.ArcaneBookshelfEastDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(arcane_bookshelf_east_deed_new),
     family: Some(&ARCANE_BOOKSHELF_EAST_DEED_CLASS),
-    label_number: |_, _| 1073371,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ArcaneBookshelfSouthAddon()`.
@@ -256,9 +256,9 @@ leaf! {
     ARCANE_BOOKSHELF_SOUTH_ADDON = "Server.Items.ArcaneBookshelfSouthAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(arcane_bookshelf_south_addon_new),
     family: Some(&ARCANE_BOOKSHELF_SOUTH_ADDON_CLASS),
-    default_gump_id: |_, _| 0x107,
-    default_drop_sound: |_, _| 0x42,
-    label_number: |_, _| 1032420,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ArcaneBookshelfSouthDeed()`.
@@ -274,7 +274,7 @@ leaf! {
     ARCANE_BOOKSHELF_SOUTH_DEED = "Server.Items.ArcaneBookshelfSouthDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(arcane_bookshelf_south_deed_new),
     family: Some(&ARCANE_BOOKSHELF_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072871,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ArcaneCircleAddon()`.
@@ -321,7 +321,7 @@ leaf! {
     ARCANE_CIRCLE_DEED = "Server.Items.ArcaneCircleDeed" : BASE_ADDON_DEED, enc;
     construct: Some(arcane_circle_deed_new),
     family: Some(&ARCANE_CIRCLE_DEED_CLASS),
-    label_number: |_, _| 1072703,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ArcanistStatueEastAddon()`.
@@ -354,7 +354,7 @@ leaf! {
     ARCANIST_STATUE_EAST_DEED = "Server.Items.ArcanistStatueEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(arcanist_statue_east_deed_new),
     family: Some(&ARCANIST_STATUE_EAST_DEED_CLASS),
-    label_number: |_, _| 1072886,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ArcanistStatueSouthAddon()`.
@@ -387,7 +387,7 @@ leaf! {
     ARCANIST_STATUE_SOUTH_DEED = "Server.Items.ArcanistStatueSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(arcanist_statue_south_deed_new),
     family: Some(&ARCANIST_STATUE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072885,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrownBearRugEastAddon()`.
@@ -434,7 +434,7 @@ leaf! {
     BROWN_BEAR_RUG_EAST_DEED = "Server.Items.BrownBearRugEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(brown_bear_rug_east_deed_new),
     family: Some(&BROWN_BEAR_RUG_EAST_DEED_CLASS),
-    label_number: |_, _| 1049397,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrownBearRugSouthAddon()`.
@@ -481,7 +481,7 @@ leaf! {
     BROWN_BEAR_RUG_SOUTH_DEED = "Server.Items.BrownBearRugSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(brown_bear_rug_south_deed_new),
     family: Some(&BROWN_BEAR_RUG_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1049398,
+    label_number: crate::class_props::label_number,
 }
 
 /// `PolarBearRugEastAddon()`.
@@ -528,7 +528,7 @@ leaf! {
     POLAR_BEAR_RUG_EAST_DEED = "Server.Items.PolarBearRugEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(polar_bear_rug_east_deed_new),
     family: Some(&POLAR_BEAR_RUG_EAST_DEED_CLASS),
-    label_number: |_, _| 1049399,
+    label_number: crate::class_props::label_number,
 }
 
 /// `PolarBearRugSouthAddon()`.
@@ -575,7 +575,7 @@ leaf! {
     POLAR_BEAR_RUG_SOUTH_DEED = "Server.Items.PolarBearRugSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(polar_bear_rug_south_deed_new),
     family: Some(&POLAR_BEAR_RUG_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1049400,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BloodPentagram()`.
@@ -665,7 +665,7 @@ leaf! {
     ELVEN_BED_EAST_DEED = "Server.Items.ElvenBedEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_bed_east_deed_new),
     family: Some(&ELVEN_BED_EAST_DEED_CLASS),
-    label_number: |_, _| 1072861,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenBedSouthAddon()`.
@@ -705,7 +705,7 @@ leaf! {
     ELVEN_BED_SOUTH_DEED = "Server.Items.ElvenBedSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_bed_south_deed_new),
     family: Some(&ELVEN_BED_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072860,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenDresserEastAddon()`.
@@ -724,8 +724,8 @@ leaf! {
     ELVEN_DRESSER_EAST_ADDON = "Server.Items.ElvenDresserEastAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(elven_dresser_east_addon_new),
     family: Some(&ELVEN_DRESSER_EAST_ADDON_CLASS),
-    default_gump_id: |_, _| 0x51,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `ElvenDresserEastDeed()`.
@@ -741,7 +741,7 @@ leaf! {
     ELVEN_DRESSER_EAST_DEED = "Server.Items.ElvenDresserEastDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(elven_dresser_east_deed_new),
     family: Some(&ELVEN_DRESSER_EAST_DEED_CLASS),
-    label_number: |_, _| 1073388,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenDresserSouthAddon()`.
@@ -760,8 +760,8 @@ leaf! {
     ELVEN_DRESSER_SOUTH_ADDON = "Server.Items.ElvenDresserSouthAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(elven_dresser_south_addon_new),
     family: Some(&ELVEN_DRESSER_SOUTH_ADDON_CLASS),
-    default_gump_id: |_, _| 0x51,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `ElvenDresserSouthDeed()`.
@@ -777,7 +777,7 @@ leaf! {
     ELVEN_DRESSER_SOUTH_DEED = "Server.Items.ElvenDresserSouthDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(elven_dresser_south_deed_new),
     family: Some(&ELVEN_DRESSER_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072864,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenForgeAddon()`.
@@ -795,7 +795,7 @@ leaf! {
     ELVEN_FORGE_ADDON = "Server.Items.ElvenForgeAddon" : BASE_ADDON, enc;
     construct: Some(elven_forge_addon_new),
     family: Some(&ELVEN_FORGE_ADDON_CLASS),
-    label_number: |_, _| 1072875,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenForgeDeed()`.
@@ -811,7 +811,7 @@ leaf! {
     ELVEN_FORGE_DEED = "Server.Items.ElvenForgeDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_forge_deed_new),
     family: Some(&ELVEN_FORGE_DEED_CLASS),
-    label_number: |_, _| 1072875,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenLoveseatEastAddon()`.
@@ -851,7 +851,7 @@ leaf! {
     ELVEN_LOVESEAT_EAST_DEED = "Server.Items.ElvenLoveseatEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_loveseat_east_deed_new),
     family: Some(&ELVEN_LOVESEAT_EAST_DEED_CLASS),
-    label_number: |_, _| 1073372,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenLoveseatSouthAddon()`.
@@ -891,7 +891,7 @@ leaf! {
     ELVEN_LOVESEAT_SOUTH_DEED = "Server.Items.ElvenLoveseatSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_loveseat_south_deed_new),
     family: Some(&ELVEN_LOVESEAT_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072867,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenStoveEastAddon()`.
@@ -924,7 +924,7 @@ leaf! {
     ELVEN_STOVE_EAST_DEED = "Server.Items.ElvenStoveEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_stove_east_deed_new),
     family: Some(&ELVEN_STOVE_EAST_DEED_CLASS),
-    label_number: |_, _| 1073395,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenStoveSouthAddon()`.
@@ -957,7 +957,7 @@ leaf! {
     ELVEN_STOVE_SOUTH_DEED = "Server.Items.ElvenStoveSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(elven_stove_south_deed_new),
     family: Some(&ELVEN_STOVE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1073394,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenWashBasinEastAddon()`.
@@ -976,8 +976,8 @@ leaf! {
     ELVEN_WASH_BASIN_EAST_ADDON = "Server.Items.ElvenWashBasinEastAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(elven_wash_basin_east_addon_new),
     family: Some(&ELVEN_WASH_BASIN_EAST_ADDON_CLASS),
-    default_gump_id: |_, _| 0x0104,
-    default_drop_sound: |_, _| 0x0042,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `ElvenWashBasinEastDeed()`.
@@ -993,7 +993,7 @@ leaf! {
     ELVEN_WASH_BASIN_EAST_DEED = "Server.Items.ElvenWashBasinEastDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(elven_wash_basin_east_deed_new),
     family: Some(&ELVEN_WASH_BASIN_EAST_DEED_CLASS),
-    label_number: |_, _| 1073387,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ElvenWashBasinSouthAddon()`.
@@ -1012,8 +1012,8 @@ leaf! {
     ELVEN_WASH_BASIN_SOUTH_ADDON = "Server.Items.ElvenWashBasinSouthAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(elven_wash_basin_south_addon_new),
     family: Some(&ELVEN_WASH_BASIN_SOUTH_ADDON_CLASS),
-    default_gump_id: |_, _| 0x0104,
-    default_drop_sound: |_, _| 0x0042,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `ElvenWashBasinSouthDeed()`.
@@ -1029,7 +1029,7 @@ leaf! {
     ELVEN_WASH_BASIN_SOUTH_DEED = "Server.Items.ElvenWashBasinSouthDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(elven_wash_basin_south_deed_new),
     family: Some(&ELVEN_WASH_BASIN_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072865,
+    label_number: crate::class_props::label_number,
 }
 
 /// `FancyElvenTableEastAddon()`.
@@ -1070,7 +1070,7 @@ leaf! {
     FANCY_ELVEN_TABLE_EAST_DEED = "Server.Items.FancyElvenTableEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(fancy_elven_table_east_deed_new),
     family: Some(&FANCY_ELVEN_TABLE_EAST_DEED_CLASS),
-    label_number: |_, _| 1073386,
+    label_number: crate::class_props::label_number,
 }
 
 /// `FancyElvenTableSouthAddon()`.
@@ -1111,7 +1111,7 @@ leaf! {
     FANCY_ELVEN_TABLE_SOUTH_DEED = "Server.Items.FancyElvenTableSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(fancy_elven_table_south_deed_new),
     family: Some(&FANCY_ELVEN_TABLE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1073385,
+    label_number: crate::class_props::label_number,
 }
 
 /// `FireColumnAddon(bool bloody = false)`.
@@ -1193,7 +1193,7 @@ leaf! {
     LIGHT_FLOWER_TAPESTRY_EAST_DEED = "Server.Items.LightFlowerTapestryEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(light_flower_tapestry_east_deed_new),
     family: Some(&LIGHT_FLOWER_TAPESTRY_EAST_DEED_CLASS),
-    label_number: |_, _| 1049393,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LightFlowerTapestrySouthAddon()`.
@@ -1230,7 +1230,7 @@ leaf! {
     LIGHT_FLOWER_TAPESTRY_SOUTH_DEED = "Server.Items.LightFlowerTapestrySouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(light_flower_tapestry_south_deed_new),
     family: Some(&LIGHT_FLOWER_TAPESTRY_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1049394,
+    label_number: crate::class_props::label_number,
 }
 
 /// `DarkFlowerTapestryEastAddon()`.
@@ -1267,7 +1267,7 @@ leaf! {
     DARK_FLOWER_TAPESTRY_EAST_DEED = "Server.Items.DarkFlowerTapestryEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(dark_flower_tapestry_east_deed_new),
     family: Some(&DARK_FLOWER_TAPESTRY_EAST_DEED_CLASS),
-    label_number: |_, _| 1049395,
+    label_number: crate::class_props::label_number,
 }
 
 /// `DarkFlowerTapestrySouthAddon()`.
@@ -1304,7 +1304,7 @@ leaf! {
     DARK_FLOWER_TAPESTRY_SOUTH_DEED = "Server.Items.DarkFlowerTapestrySouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(dark_flower_tapestry_south_deed_new),
     family: Some(&DARK_FLOWER_TAPESTRY_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1049396,
+    label_number: crate::class_props::label_number,
 }
 
 /// `GiantWeb1()`.
@@ -1486,7 +1486,7 @@ leaf! {
     GOZA_MAT_EAST_DEED = "Server.Items.GozaMatEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(goza_mat_east_deed_new),
     family: Some(&GOZA_MAT_EAST_DEED_CLASS),
-    label_number: |_, _| 1030404,
+    label_number: crate::class_props::label_number,
 }
 
 /// `GozaMatSouthAddon(int hue = 0)`.
@@ -1528,7 +1528,7 @@ leaf! {
     GOZA_MAT_SOUTH_DEED = "Server.Items.GozaMatSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(goza_mat_south_deed_new),
     family: Some(&GOZA_MAT_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1030405,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SquareGozaMatEastAddon(int hue = 0)`.
@@ -1548,7 +1548,7 @@ leaf! {
     SQUARE_GOZA_MAT_EAST_ADDON = "Server.Items.SquareGozaMatEastAddon" : BASE_ADDON, v0;
     construct: Some(|w| square_goza_mat_east_addon_new(w, 0)),
     family: Some(&SQUARE_GOZA_MAT_EAST_ADDON_CLASS),
-    label_number: |_, _| 1030688,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SquareGozaMatEastDeed()`.
@@ -1564,7 +1564,7 @@ leaf! {
     SQUARE_GOZA_MAT_EAST_DEED = "Server.Items.SquareGozaMatEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(square_goza_mat_east_deed_new),
     family: Some(&SQUARE_GOZA_MAT_EAST_DEED_CLASS),
-    label_number: |_, _| 1030407,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SquareGozaMatSouthAddon(int hue = 0)`.
@@ -1599,7 +1599,7 @@ leaf! {
     SQUARE_GOZA_MAT_SOUTH_DEED = "Server.Items.SquareGozaMatSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(square_goza_mat_south_deed_new),
     family: Some(&SQUARE_GOZA_MAT_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1030406,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrocadeGozaMatEastAddon(int hue = 0)`.
@@ -1641,7 +1641,7 @@ leaf! {
     BROCADE_GOZA_MAT_EAST_DEED = "Server.Items.BrocadeGozaMatEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(brocade_goza_mat_east_deed_new),
     family: Some(&BROCADE_GOZA_MAT_EAST_DEED_CLASS),
-    label_number: |_, _| 1030408,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrocadeGozaMatSouthAddon(int hue = 0)`.
@@ -1683,7 +1683,7 @@ leaf! {
     BROCADE_GOZA_MAT_SOUTH_DEED = "Server.Items.BrocadeGozaMatSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(brocade_goza_mat_south_deed_new),
     family: Some(&BROCADE_GOZA_MAT_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1030409,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrocadeSquareGozaMatEastAddon(int hue = 0)`.
@@ -1718,7 +1718,7 @@ leaf! {
     BROCADE_SQUARE_GOZA_MAT_EAST_DEED = "Server.Items.BrocadeSquareGozaMatEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(brocade_square_goza_mat_east_deed_new),
     family: Some(&BROCADE_SQUARE_GOZA_MAT_EAST_DEED_CLASS),
-    label_number: |_, _| 1030411,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrocadeSquareGozaMatSouthAddon(int hue = 0)`.
@@ -1753,7 +1753,7 @@ leaf! {
     BROCADE_SQUARE_GOZA_MAT_SOUTH_DEED = "Server.Items.BrocadeSquareGozaMatSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(brocade_square_goza_mat_south_deed_new),
     family: Some(&BROCADE_SQUARE_GOZA_MAT_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1030410,
+    label_number: crate::class_props::label_number,
 }
 
 /// `GrayBrickFireplaceEastAddon()`.
@@ -1790,7 +1790,7 @@ leaf! {
     GRAY_BRICK_FIREPLACE_EAST_DEED = "Server.Items.GrayBrickFireplaceEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(gray_brick_fireplace_east_deed_new),
     family: Some(&GRAY_BRICK_FIREPLACE_EAST_DEED_CLASS),
-    label_number: |_, _| 1061846,
+    label_number: crate::class_props::label_number,
 }
 
 /// `GrayBrickFireplaceSouthAddon()`.
@@ -1827,7 +1827,7 @@ leaf! {
     GRAY_BRICK_FIREPLACE_SOUTH_DEED = "Server.Items.GrayBrickFireplaceSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(gray_brick_fireplace_south_deed_new),
     family: Some(&GRAY_BRICK_FIREPLACE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1061847,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeBedEastAddon()`.
@@ -1869,7 +1869,7 @@ leaf! {
     LARGE_BED_EAST_DEED = "Server.Items.LargeBedEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(large_bed_east_deed_new),
     family: Some(&LARGE_BED_EAST_DEED_CLASS),
-    label_number: |_, _| 1044324,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeBedSouthAddon()`.
@@ -1911,7 +1911,7 @@ leaf! {
     LARGE_BED_SOUTH_DEED = "Server.Items.LargeBedSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(large_bed_south_deed_new),
     family: Some(&LARGE_BED_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044323,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeForgeEastAddon()`.
@@ -1953,7 +1953,7 @@ leaf! {
     LARGE_FORGE_EAST_DEED = "Server.Items.LargeForgeEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(large_forge_east_deed_new),
     family: Some(&LARGE_FORGE_EAST_DEED_CLASS),
-    label_number: |_, _| 1044331,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeForgeSouthAddon()`.
@@ -1995,7 +1995,7 @@ leaf! {
     LARGE_FORGE_SOUTH_DEED = "Server.Items.LargeForgeSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(large_forge_south_deed_new),
     family: Some(&LARGE_FORGE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044332,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeStoneTableEastAddon(int hue = 0)`.
@@ -2038,7 +2038,7 @@ leaf! {
     LARGE_STONE_TABLE_EAST_DEED = "Server.Items.LargeStoneTableEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(large_stone_table_east_deed_new),
     family: Some(&LARGE_STONE_TABLE_EAST_DEED_CLASS),
-    label_number: |_, _| 1044511,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeStoneTableSouthAddon(int hue = 0)`.
@@ -2081,7 +2081,7 @@ leaf! {
     LARGE_STONE_TABLE_SOUTH_DEED = "Server.Items.LargeStoneTableSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(large_stone_table_south_deed_new),
     family: Some(&LARGE_STONE_TABLE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044512,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MediumStoneTableEastAddon(int hue = 0)`.
@@ -2120,7 +2120,7 @@ leaf! {
     MEDIUM_STONE_TABLE_EAST_DEED = "Server.Items.MediumStoneTableEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(medium_stone_table_east_deed_new),
     family: Some(&MEDIUM_STONE_TABLE_EAST_DEED_CLASS),
-    label_number: |_, _| 1044508,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MediumStoneTableSouthAddon(int hue = 0)`.
@@ -2159,7 +2159,7 @@ leaf! {
     MEDIUM_STONE_TABLE_SOUTH_DEED = "Server.Items.MediumStoneTableSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(medium_stone_table_south_deed_new),
     family: Some(&MEDIUM_STONE_TABLE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044509,
+    label_number: crate::class_props::label_number,
 }
 
 /// `OrnateElvenChestEastAddon()`.
@@ -2178,8 +2178,8 @@ leaf! {
     ORNATE_ELVEN_CHEST_EAST_ADDON = "Server.Items.OrnateElvenChestEastAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(ornate_elven_chest_east_addon_new),
     family: Some(&ORNATE_ELVEN_CHEST_EAST_ADDON_CLASS),
-    default_gump_id: |_, _| 0x10C,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `OrnateElvenChestEastDeed()`.
@@ -2195,7 +2195,7 @@ leaf! {
     ORNATE_ELVEN_CHEST_EAST_DEED = "Server.Items.OrnateElvenChestEastDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(ornate_elven_chest_east_deed_new),
     family: Some(&ORNATE_ELVEN_CHEST_EAST_DEED_CLASS),
-    label_number: |_, _| 1073383,
+    label_number: crate::class_props::label_number,
 }
 
 /// `OrnateElvenChestSouthAddon()`.
@@ -2214,8 +2214,8 @@ leaf! {
     ORNATE_ELVEN_CHEST_SOUTH_ADDON = "Server.Items.OrnateElvenChestSouthAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(ornate_elven_chest_south_addon_new),
     family: Some(&ORNATE_ELVEN_CHEST_SOUTH_ADDON_CLASS),
-    default_gump_id: |_, _| 0x10C,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `OrnateElvenChestSouthDeed()`.
@@ -2231,7 +2231,7 @@ leaf! {
     ORNATE_ELVEN_CHEST_SOUTH_DEED = "Server.Items.OrnateElvenChestSouthDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(ornate_elven_chest_south_deed_new),
     family: Some(&ORNATE_ELVEN_CHEST_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072862,
+    label_number: crate::class_props::label_number,
 }
 
 /// `OrnateElvenTableEastAddon()`.
@@ -2272,7 +2272,7 @@ leaf! {
     ORNATE_ELVEN_TABLE_EAST_DEED = "Server.Items.OrnateElvenTableEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(ornate_elven_table_east_deed_new),
     family: Some(&ORNATE_ELVEN_TABLE_EAST_DEED_CLASS),
-    label_number: |_, _| 1073384,
+    label_number: crate::class_props::label_number,
 }
 
 /// `OrnateElvenTableSouthAddon()`.
@@ -2313,7 +2313,7 @@ leaf! {
     ORNATE_ELVEN_TABLE_SOUTH_DEED = "Server.Items.OrnateElvenTableSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(ornate_elven_table_south_deed_new),
     family: Some(&ORNATE_ELVEN_TABLE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072869,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ParrotPerchAddon()`.
@@ -2346,7 +2346,7 @@ leaf! {
     PARROT_PERCH_DEED = "Server.Items.ParrotPerchDeed" : BASE_ADDON_DEED, enc;
     construct: Some(parrot_perch_deed_new),
     family: Some(&PARROT_PERCH_DEED_CLASS),
-    label_number: |_, _| 1072617,
+    label_number: crate::class_props::label_number,
 }
 
 /// `PentagramAddon()`.
@@ -2393,7 +2393,7 @@ leaf! {
     PENTAGRAM_DEED = "Server.Items.PentagramDeed" : BASE_ADDON_DEED, v0;
     construct: Some(pentagram_deed_new),
     family: Some(&PENTAGRAM_DEED_CLASS),
-    label_number: |_, _| 1044328,
+    label_number: crate::class_props::label_number,
 }
 
 /// `PyramidAddon()`.
@@ -2477,7 +2477,7 @@ leaf! {
     SANDSTONE_FIREPLACE_EAST_DEED = "Server.Items.SandstoneFireplaceEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(sandstone_fireplace_east_deed_new),
     family: Some(&SANDSTONE_FIREPLACE_EAST_DEED_CLASS),
-    label_number: |_, _| 1061844,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SandstoneFireplaceSouthAddon()`.
@@ -2514,7 +2514,7 @@ leaf! {
     SANDSTONE_FIREPLACE_SOUTH_DEED = "Server.Items.SandstoneFireplaceSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(sandstone_fireplace_south_deed_new),
     family: Some(&SANDSTONE_FIREPLACE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1061845,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SandstoneFountainAddon()`.
@@ -2617,7 +2617,7 @@ pub fn shrine_of_wisdom_component_new(w: &mut World, item_id: i32) -> ItemId {
 leaf! {
     /// `Server.Items.ShrineOfWisdomComponent`.
     SHRINE_OF_WISDOM_COMPONENT = "Server.Items.ShrineOfWisdomComponent" : ADDON_COMPONENT, v0;
-    label_number: |_, _| 1062046,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SkullPileAddon()`.
@@ -2681,7 +2681,7 @@ leaf! {
     SMALL_BED_EAST_DEED = "Server.Items.SmallBedEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(small_bed_east_deed_new),
     family: Some(&SMALL_BED_EAST_DEED_CLASS),
-    label_number: |_, _| 1044322,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SmallBedSouthAddon()`.
@@ -2718,7 +2718,7 @@ leaf! {
     SMALL_BED_SOUTH_DEED = "Server.Items.SmallBedSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(small_bed_south_deed_new),
     family: Some(&SMALL_BED_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044321,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SmallForgeAddon()`.
@@ -2751,7 +2751,7 @@ leaf! {
     SMALL_FORGE_DEED = "Server.Items.SmallForgeDeed" : BASE_ADDON_DEED, v0;
     construct: Some(small_forge_deed_new),
     family: Some(&SMALL_FORGE_DEED_CLASS),
-    label_number: |_, _| 1044330,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SquirrelStatueEastAddon()`.
@@ -2784,7 +2784,7 @@ leaf! {
     SQUIRREL_STATUE_EAST_DEED = "Server.Items.SquirrelStatueEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(squirrel_statue_east_deed_new),
     family: Some(&SQUIRREL_STATUE_EAST_DEED_CLASS),
-    label_number: |_, _| 1073398,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SquirrelStatueSouthAddon()`.
@@ -2817,7 +2817,7 @@ leaf! {
     SQUIRREL_STATUE_SOUTH_DEED = "Server.Items.SquirrelStatueSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(squirrel_statue_south_deed_new),
     family: Some(&SQUIRREL_STATUE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072884,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StoneFireplaceEastAddon()`.
@@ -2854,7 +2854,7 @@ leaf! {
     STONE_FIREPLACE_EAST_DEED = "Server.Items.StoneFireplaceEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(stone_fireplace_east_deed_new),
     family: Some(&STONE_FIREPLACE_EAST_DEED_CLASS),
-    label_number: |_, _| 1061848,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StoneFireplaceSouthAddon()`.
@@ -2891,7 +2891,7 @@ leaf! {
     STONE_FIREPLACE_SOUTH_DEED = "Server.Items.StoneFireplaceSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(stone_fireplace_south_deed_new),
     family: Some(&STONE_FIREPLACE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1061849,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StoneFountainAddon()`.
@@ -2963,7 +2963,7 @@ leaf! {
     STONE_OVEN_EAST_DEED = "Server.Items.StoneOvenEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(stone_oven_east_deed_new),
     family: Some(&STONE_OVEN_EAST_DEED_CLASS),
-    label_number: |_, _| 1044345,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StoneOvenSouthAddon()`.
@@ -3000,7 +3000,7 @@ leaf! {
     STONE_OVEN_SOUTH_DEED = "Server.Items.StoneOvenSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(stone_oven_south_deed_new),
     family: Some(&STONE_OVEN_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1044346,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SmallStretchedHideEastAddon()`.
@@ -3033,7 +3033,7 @@ leaf! {
     SMALL_STRETCHED_HIDE_EAST_DEED = "Server.Items.SmallStretchedHideEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(small_stretched_hide_east_deed_new),
     family: Some(&SMALL_STRETCHED_HIDE_EAST_DEED_CLASS),
-    label_number: |_, _| 1049401,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SmallStretchedHideSouthAddon()`.
@@ -3066,7 +3066,7 @@ leaf! {
     SMALL_STRETCHED_HIDE_SOUTH_DEED = "Server.Items.SmallStretchedHideSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(small_stretched_hide_south_deed_new),
     family: Some(&SMALL_STRETCHED_HIDE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1049402,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MediumStretchedHideEastAddon()`.
@@ -3099,7 +3099,7 @@ leaf! {
     MEDIUM_STRETCHED_HIDE_EAST_DEED = "Server.Items.MediumStretchedHideEastDeed" : BASE_ADDON_DEED, v0;
     construct: Some(medium_stretched_hide_east_deed_new),
     family: Some(&MEDIUM_STRETCHED_HIDE_EAST_DEED_CLASS),
-    label_number: |_, _| 1049403,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MediumStretchedHideSouthAddon()`.
@@ -3132,7 +3132,7 @@ leaf! {
     MEDIUM_STRETCHED_HIDE_SOUTH_DEED = "Server.Items.MediumStretchedHideSouthDeed" : BASE_ADDON_DEED, v0;
     construct: Some(medium_stretched_hide_south_deed_new),
     family: Some(&MEDIUM_STRETCHED_HIDE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1049404,
+    label_number: crate::class_props::label_number,
 }
 
 /// `TallElvenBedEastAddon()`.
@@ -3174,7 +3174,7 @@ leaf! {
     TALL_ELVEN_BED_EAST_DEED = "Server.Items.TallElvenBedEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(tall_elven_bed_east_deed_new),
     family: Some(&TALL_ELVEN_BED_EAST_DEED_CLASS),
-    label_number: |_, _| 1072859,
+    label_number: crate::class_props::label_number,
 }
 
 /// `TallElvenBedSouthAddon()`.
@@ -3216,7 +3216,7 @@ leaf! {
     TALL_ELVEN_BED_SOUTH_DEED = "Server.Items.TallElvenBedSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(tall_elven_bed_south_deed_new),
     family: Some(&TALL_ELVEN_BED_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072858,
+    label_number: crate::class_props::label_number,
 }
 
 /// `Telescope()`.
@@ -3333,7 +3333,7 @@ leaf! {
     WARRIOR_STATUE_EAST_DEED = "Server.Items.WarriorStatueEastDeed" : BASE_ADDON_DEED, enc;
     construct: Some(warrior_statue_east_deed_new),
     family: Some(&WARRIOR_STATUE_EAST_DEED_CLASS),
-    label_number: |_, _| 1072888,
+    label_number: crate::class_props::label_number,
 }
 
 /// `WarriorStatueSouthAddon()`.
@@ -3366,7 +3366,7 @@ leaf! {
     WARRIOR_STATUE_SOUTH_DEED = "Server.Items.WarriorStatueSouthDeed" : BASE_ADDON_DEED, enc;
     construct: Some(warrior_statue_south_deed_new),
     family: Some(&WARRIOR_STATUE_SOUTH_DEED_CLASS),
-    label_number: |_, _| 1072887,
+    label_number: crate::class_props::label_number,
 }
 
 /// `WaterVatEast()`.

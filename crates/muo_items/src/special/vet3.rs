@@ -113,7 +113,7 @@ leaf! {
     /// `Server.Items.AnkhOfSacrificeComponent`.
     ANKH_OF_SACRIFICE_COMPONENT = "Server.Items.AnkhOfSacrificeComponent" : ADDON_COMPONENT, v0;
     force_show_properties: |w, _| w.core.opl_enabled,
-    label_number: |_, _| 1027772, // Ankh of Sacrifice
+    label_number: crate::class_props::label_number, // Ankh of Sacrifice
     get_context_menu_entries: ankh_component_entries,
 }
 
@@ -201,7 +201,7 @@ rtype! {
     ANKH_OF_SACRIFICE_DEED = "Server.Items.AnkhOfSacrificeDeed" : BASE_ADDON_DEED;
     construct: Some(ankh_of_sacrifice_deed_new),
     family: Some(&ANKH_DEED_CLASS),
-    label_number: |_, _| 1080397, // Deed For An Ankh Of Sacrifice
+    label_number: crate::class_props::label_number, // Deed For An Ankh Of Sacrifice
     on_double_click: |w, id, from| {
         if reward_blocked(w, from, id) {
             return;
@@ -546,7 +546,7 @@ pub static MINING_CART_DEED: ItemType = ItemType {
     parent: Some(&BASE_ADDON_DEED),
     construct: Some(mining_cart_deed_new),
     family: Some(&CART_DEED_CLASS),
-    label_number: |_, _| 1080385, // deed for a mining cart decoration
+    label_number: crate::class_props::label_number, // deed for a mining cart decoration
     get_properties: |w, id, list| {
         (BASE_ADDON_DEED.get_properties)(w, id, list);
         if is_reward(w, id) {
@@ -666,9 +666,7 @@ pub fn shield_west_item_id(east: i32) -> i32 {
 
 /// `DecorativeShieldDeed()`.
 pub fn decorative_shield_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &DECORATIVE_SHIELD_DEED, 0x14F0);
-    ops::set_loot_type(w, id, muo_server::item::LootType::Blessed);
-    id
+    crate::simple::from_template(w, &DECORATIVE_SHIELD_DEED, "Server.Items.DecorativeShieldDeed")
 }
 
 const SHIELD_START: i32 = 0x156C;
@@ -830,8 +828,8 @@ rtype! {
     /// `Server.Items.DecorativeShieldDeed`.
     DECORATIVE_SHIELD_DEED = "Server.Items.DecorativeShieldDeed" : ITEM_BASE;
     construct: Some(decorative_shield_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049771, // deed for a decorative shield wall hanging
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // deed for a decorative shield wall hanging
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         if is_reward(w, id) {

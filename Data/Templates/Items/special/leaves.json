@@ -58,7 +58,11 @@
   {
     "type": "Server.Items.PlagueBeastGland",
     "itemId": 7407,
-    "hue": 6
+    "hue": 6,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1153759
+    }
   },
   {
     "type": "Server.Items.WaterloggedBoots",
@@ -93,6 +97,26 @@
     "lootType": "Blessed",
     "props": {
       "labelNumber": 1075239
+    }
+  },
+  {
+    "type": "Server.Items.MinotaurHedge",
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "minotaur hedge"
+    }
+  },
+  {
+    "type": "Server.Items.TormentedChains",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.RewardCake",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1049786
     }
   }
 ]

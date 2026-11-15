@@ -1,0 +1,97 @@
+[
+  {
+    "type": "Server.Items.LightOfTheWinterSolstice",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.PileOfGlacialSnow",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1070874
+    }
+  },
+  {
+    "type": "Server.Items.SnowPile",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1005578
+    }
+  },
+  {
+    "type": "Server.Items.PumpkinScarecrow",
+    "props": {
+      "labelNumber": 1096947
+    }
+  },
+  {
+    "type": "Server.Items.RuinedTapestry",
+    "props": {
+      "defaultName": "Ruined Tapestry "
+    }
+  },
+  {
+    "type": "Server.Items.ColoredSmallWebs",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.DragonEasterEgg",
+    "props": {
+      "labelNumber": 1097278
+    }
+  },
+  {
+    "type": "Server.Items.CreepyCake",
+    "props": {
+      "defaultName": "Creepy Cake"
+    }
+  },
+  {
+    "type": "Server.Items.MrPlainsCookies",
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "Mr Plain's Cookies"
+    }
+  },
+  {
+    "type": "Server.Items.PumpkinPizza",
+    "props": {
+      "defaultName": "Pumpkin Pizza"
+    }
+  },
+  {
+    "type": "Server.Items.HarvestWine",
+    "props": {
+      "defaultName": "Harvest Wine",
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.MurkyMilk",
+    "props": {
+      "defaultName": "Murky Milk",
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.TwilightLantern",
+    "props": {
+      "defaultName": "Twilight Lantern"
+    }
+  },
+  {
+    "type": "Server.Items.CupidStatue",
+    "props": {
+      "labelNumber": 1099220
+    }
+  },
+  {
+    "type": "Server.Items.CupidsArrow",
+    "props": {
+      "labelNumber": 1152270
+    }
+  }
+]

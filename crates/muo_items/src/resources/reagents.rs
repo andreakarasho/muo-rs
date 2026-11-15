@@ -19,7 +19,7 @@ pub static BASE_REAGENT: ItemType = ItemType {
     full_name: "Server.Items.BaseReagent",
     construct: None,
     parent: Some(&ITEM_BASE),
-    default_weight: |_, _| 0.1,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_i32(0);

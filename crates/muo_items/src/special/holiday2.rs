@@ -26,7 +26,7 @@ fn co_owner_at_item(w: &World, id: ItemId, m: MobileId) -> bool {
 
 /// `WreathAddon(hue)`.
 pub fn wreath_addon_new_with(w: &mut World, hue: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &WREATH_ADDON, 0x232C);
+    let id = crate::simple::from_template(w, &WREATH_ADDON, "Server.Items.WreathAddon");
     super::hue(w, id, hue);
     ops::set_movable(w, id, false);
     id
@@ -158,7 +158,7 @@ fn fix_moving_crate(w: &mut World, id: ItemId) {
 
 /// `WreathDeed(hue)`.
 pub fn wreath_deed_new_with(w: &mut World, hue: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &WREATH_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &WREATH_DEED, "Server.Items.WreathDeed");
     super::hue(w, id, hue);
     ops::set_loot_type(w, id, LootType::Blessed);
     id
@@ -268,8 +268,8 @@ leaf! {
         let hue = utility::random_dyed_hue(&mut w.rng);
         wreath_deed_new_with(w, hue)
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1062837, // holiday wreath deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // holiday wreath deed
     on_double_click: |w, id, from| {
         if super::util::in_pack(w, id, from) {
             let house = muo_multis::house::access::find_house_at_mobile(w, from);

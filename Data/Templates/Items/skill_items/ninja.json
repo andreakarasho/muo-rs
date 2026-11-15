@@ -1,0 +1,27 @@
+[
+  {
+    "type": "Server.Items.Fukiya",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.LeatherNinjaBelt",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SmokeBomb",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.EggBomb",
+    "itemId": 10248,
+    "props": {
+      "labelNumber": 1030249
+    }
+  }
+]

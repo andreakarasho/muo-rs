@@ -2,7 +2,10 @@
   {
     "type": "Server.Items.AcademicBooksArtifact",
     "itemId": 7717,
-    "hue": 2413
+    "hue": 2413,
+    "props": {
+      "labelNumber": 1071202
+    }
   },
   {
     "type": "Server.Items.BloodyWaterArtifact",

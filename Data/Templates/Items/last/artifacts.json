@@ -215,5 +215,35 @@
     "props": {
       "labelNumber": 1063473
     }
+  },
+  {
+    "type": "Server.Items.BloodwoodSpirit",
+    "props": {
+      "labelNumber": 1075034
+    }
+  },
+  {
+    "type": "Server.Items.TotemOfVoid",
+    "props": {
+      "labelNumber": 1075035
+    }
+  },
+  {
+    "type": "Server.Items.AmeliasToolbox",
+    "props": {
+      "labelNumber": 1077749
+    }
+  },
+  {
+    "type": "Server.Items.HammerOfHephaestus",
+    "props": {
+      "labelNumber": 1077740
+    }
+  },
+  {
+    "type": "Server.Items.HallowedSpellbook",
+    "props": {
+      "labelNumber": 1077620
+    }
   }
 ]

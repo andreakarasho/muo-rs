@@ -1,11 +1,17 @@
 [
   {
     "type": "Server.Items.WoodenBench",
-    "itemId": 2861
+    "itemId": 2861,
+    "props": {
+      "defaultWeight": 6.0
+    }
   },
   {
     "type": "Server.Items.BambooChair",
-    "itemId": 2907
+    "itemId": 2907,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.BigElvenChair",
@@ -17,39 +23,66 @@
   },
   {
     "type": "Server.Items.FancyWoodenChairCushion",
-    "itemId": 2895
+    "itemId": 2895,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.OrnateElvenChair",
-    "itemId": 11747
+    "itemId": 11747,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.StoneChair",
-    "itemId": 4632
+    "itemId": 4632,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.WoodenChair",
-    "itemId": 2903
+    "itemId": 2903,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.WoodenChairCushion",
-    "itemId": 2899
+    "itemId": 2899,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.FootStool",
-    "itemId": 2910
+    "itemId": 2910,
+    "props": {
+      "defaultWeight": 6.0
+    }
   },
   {
     "type": "Server.Items.Stool",
-    "itemId": 2602
+    "itemId": 2602,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.Throne",
-    "itemId": 2867
+    "itemId": 2867,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.WoodenThrone",
-    "itemId": 2862
+    "itemId": 2862,
+    "props": {
+      "defaultWeight": 15.0
+    }
   },
   {
     "type": "Server.Items.DecorativeShield1",
@@ -108,11 +141,19 @@
   },
   {
     "type": "Server.Items.GiantReplicaAcorn",
-    "itemId": 11594
+    "itemId": 11594,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1072889
+    }
   },
   {
     "type": "Server.Items.MountedDreadHorn",
-    "itemId": 12632
+    "itemId": 12632,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1074464
+    }
   },
   {
     "type": "Server.Items.LadyPortrait1",
@@ -151,110 +192,189 @@
   },
   {
     "type": "Server.Items.BarrelHoops",
-    "itemId": 7607
+    "itemId": 7607,
+    "props": {
+      "defaultWeight": 5.0,
+      "labelNumber": 1011228
+    }
   },
   {
     "type": "Server.Items.BarrelLid",
-    "itemId": 7608
+    "itemId": 7608,
+    "props": {
+      "defaultWeight": 2.0
+    }
   },
   {
     "type": "Server.Items.BarrelStaves",
-    "itemId": 7857
+    "itemId": 7857,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.BarrelTap",
-    "itemId": 4100
+    "itemId": 4100,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.Easel",
-    "itemId": 3941
+    "itemId": 3941,
+    "props": {
+      "defaultWeight": 25.0
+    }
   },
   {
     "type": "Server.Items.MeltedWax",
     "itemId": 4650,
     "movable": false,
-    "hue": 2101
+    "hue": 2101,
+    "props": {
+      "labelNumber": 1016492
+    }
   },
   {
     "type": "Server.Items.ShortMusicStand",
-    "itemId": 3766
+    "itemId": 3766,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.TallMusicStand",
-    "itemId": 3771
+    "itemId": 3771,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.Obelisk",
     "itemId": 4484,
-    "movable": false
+    "movable": false,
+    "props": {
+      "labelNumber": 1016474
+    }
   },
   {
     "type": "Server.Items.BambooScreen",
-    "itemId": 9424
+    "itemId": 9424,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.ShojiScreen",
-    "itemId": 9419
+    "itemId": 9419,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.BustEast",
-    "itemId": 4810
+    "itemId": 4810,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.BustSouth",
-    "itemId": 4811
+    "itemId": 4811,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.SmallTowerSculpture",
-    "itemId": 9242
+    "itemId": 9242,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.StatueEast",
-    "itemId": 5020
+    "itemId": 5020,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatueEast2",
-    "itemId": 4644
+    "itemId": 4644,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatueNorth",
-    "itemId": 5019
+    "itemId": 5019,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatuePegasus",
-    "itemId": 5021
+    "itemId": 5021,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatuePegasus2",
-    "itemId": 4648
+    "itemId": 4648,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatueSouth",
-    "itemId": 5018
+    "itemId": 5018,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatueSouth2",
-    "itemId": 4647
+    "itemId": 4647,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatueSouthEast",
-    "itemId": 4645
+    "itemId": 4645,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.StatueWest",
-    "itemId": 4646
+    "itemId": 4646,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.LargeVase",
-    "itemId": 2885
+    "itemId": 2885,
+    "props": {
+      "defaultWeight": 15.0
+    }
   },
   {
     "type": "Server.Items.SmallUrn",
-    "itemId": 9244
+    "itemId": 9244,
+    "props": {
+      "defaultWeight": 20.0
+    }
   },
   {
     "type": "Server.Items.Vase",
-    "itemId": 2886
+    "itemId": 2886,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.CoveredChair",
@@ -313,30 +433,51 @@
   },
   {
     "type": "Server.Items.ElvenPodium",
-    "itemId": 11741
+    "itemId": 11741,
+    "props": {
+      "defaultWeight": 2.0
+    }
   },
   {
     "type": "Server.Items.ElegantLowTable",
-    "itemId": 10265
+    "itemId": 10265,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LargeTable",
-    "itemId": 2960
+    "itemId": 2960,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.Nightstand",
-    "itemId": 2869
+    "itemId": 2869,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.PlainLowTable",
-    "itemId": 10266
+    "itemId": 10266,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.YewWoodTable",
-    "itemId": 2959
+    "itemId": 2959,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.WritingTable",
-    "itemId": 2890
+    "itemId": 2890,
+    "props": {
+      "defaultWeight": 1.0
+    }
   }
 ]

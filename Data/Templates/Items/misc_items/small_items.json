@@ -1,0 +1,8 @@
+[
+  {
+    "type": "Server.Items.Vines",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

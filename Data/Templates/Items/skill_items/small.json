@@ -1,0 +1,19 @@
+[
+  {
+    "type": "Server.Items.Clock",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.Spyglass",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.Lockpick",
+    "itemId": 5372,
+    "stackable": true
+  }
+]

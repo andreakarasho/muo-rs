@@ -1,0 +1,66 @@
+[
+  {
+    "type": "Server.Items.CurtainsComponent",
+    "props": {
+      "labelNumber": 1076280
+    }
+  },
+  {
+    "type": "Server.Items.CurtainsDeed",
+    "props": {
+      "labelNumber": 1076280
+    }
+  },
+  {
+    "type": "Server.Items.HouseLadderDeed",
+    "props": {
+      "labelNumber": 1076287
+    }
+  },
+  {
+    "type": "Server.Items.BedOfNailsComponent",
+    "props": {
+      "labelNumber": 1074801
+    }
+  },
+  {
+    "type": "Server.Items.HaunterMirrorComponent",
+    "props": {
+      "labelNumber": 1074800
+    }
+  },
+  {
+    "type": "Server.Items.CreepyPortraitComponent",
+    "props": {
+      "labelNumber": 1074481
+    }
+  },
+  {
+    "type": "Server.Items.AwesomeDisturbingPortraitComponent",
+    "props": {
+      "labelNumber": 1074479
+    }
+  },
+  {
+    "type": "Server.Items.SacrificialAltarAddon",
+    "props": {
+      "labelNumber": 1074818,
+      "maxWeight": 0,
+      "gumpId": 263,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.SacrificialAltarDeed",
+    "props": {
+      "labelNumber": 1074818
+    }
+  },
+  {
+    "type": "Server.Items.GingerBreadHouseDeed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1077394
+    }
+  }
+]

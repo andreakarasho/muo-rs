@@ -38,7 +38,7 @@ pub static TRASH_CHEST: ItemType = ItemType {
         ops::set_movable(w, id, false);
         id
     }),
-    default_max_weight: |_, _| 0, // A value of 0 signals unlimited weight
+    default_max_weight: crate::class_props::default_max_weight, // A value of 0 signals unlimited weight
     is_deco_container: |_, _| false,
     on_drag_drop: |w, id, from, dropped| {
         if (CONTAINER.on_drag_drop)(w, id, from, dropped) {
@@ -160,8 +160,8 @@ pub static TRASH_BARREL: ItemType = ItemType {
         ops::set_movable(w, id, false);
         id
     }),
-    label_number: |_, _| 1041064, // a trash barrel
-    default_max_weight: |_, _| 0, // A value of 0 signals unlimited weight
+    label_number: crate::class_props::label_number, // a trash barrel
+    default_max_weight: crate::class_props::default_max_weight, // A value of 0 signals unlimited weight
     is_deco_container: |_, _| false,
     on_drag_drop: |w, id, from, dropped| {
         if (CONTAINER.on_drag_drop)(w, id, from, dropped) {
@@ -220,9 +220,7 @@ pub fn acid_new(
     min: i32,
     max: i32,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x122A);
-    hue(w, id, 0x3F);
-    ops::set_movable(w, id, false);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Acid");
     let timer = timer::start(w, TimeSpan::ZERO, tick_rate, 0, move |w| acid_tick(w, id));
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(AcidData {
@@ -289,7 +287,7 @@ pub static ACID: ItemType = ItemType {
             5,
         )
     }),
-    default_name: |_, _| Some("a pool of acid".to_string()),
+    default_name: crate::class_props::default_name,
     skip_serialization: |_, _| true,
     on_delete: |w, id| {
         if let Some(mut a) = acid(w, id) {
@@ -321,7 +319,7 @@ pub static ORIGAMI_PAPER: ItemType = ItemType {
     full_name: "Server.Items.OrigamiPaper",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &ORIGAMI_PAPER, 0x2830)),
-    label_number: |_, _| 1030288, // origami paper
+    label_number: crate::class_props::label_number, // origami paper
     on_double_click: |w, id, from| {
         let pack = w.mobile(from).and_then(|m| m.backpack);
         let in_pack = match pack {
@@ -365,8 +363,7 @@ pub static ORIGAMI_PAPER: ItemType = ItemType {
 
 /// `EmptyOilFlask(amount)`.
 pub fn empty_oil_flask_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1C18);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.EmptyOilFlask");
     ops::set_amount(w, id, amount);
     id
 }
@@ -376,7 +373,7 @@ pub static EMPTY_OIL_FLASK: ItemType = ItemType {
     full_name: "Server.Items.EmptyOilFlask",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| empty_oil_flask_new(w, &EMPTY_OIL_FLASK, 1)),
-    label_number: |_, _| 1150866, // empty oil flask
+    label_number: crate::class_props::label_number, // empty oil flask
     on_double_click: |w, _, from| deps::send_localized_message(w, from, 500318), // This flask is empty.
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

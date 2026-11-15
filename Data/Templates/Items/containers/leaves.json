@@ -1,0 +1,72 @@
+[
+  {
+    "type": "Server.Items.CherryArmoire",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Drawer",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ElegantArmoire",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.FancyDrawer",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.FancyElvenArmoire",
+    "props": {
+      "defaultWeight": 1.0,
+      "gumpId": 78,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.FullBookcase",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.MapleArmoire",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.RedArmoire",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ShortCabinet",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SimpleElvenArmoire",
+    "props": {
+      "defaultWeight": 1.0,
+      "gumpId": 79,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.TallCabinet",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

@@ -178,8 +178,8 @@ pub static PLAGUE_BEAST_INNARD: ItemType = ItemType {
     full_name: "Server.Items.PlagueBeastInnard",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("plague beast innards".to_owned()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     is_accessible_to: innard_is_accessible,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -1306,10 +1306,10 @@ pub static PLAGUE_BEAST_BACKPACK: ItemType = ItemType {
     full_name: "Server.Items.PlagueBeastBackpack",
     parent: Some(&muo_content::items::cont::BASE_CONTAINER),
     construct: None,
-    default_max_weight: |_, _| 0,
-    default_max_items: |_, _| 0,
-    default_gump_id: |_, _| 0x2A63,
-    default_drop_sound: |_, _| 0x23F,
+    default_max_weight: crate::class_props::default_max_weight,
+    default_max_items: crate::class_props::default_max_items,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
     try_drop_item: |w, id, from, dropped, send_full, _| {
         is_innard_or_gland(w, dropped)
             && (muo_content::items::cont::BASE_CONTAINER.try_drop_item)(
@@ -1360,7 +1360,7 @@ pub static PLAGUE_BEAST_BACKPACK: ItemType = ItemType {
 
 /// `PlagueBeastMutationCore()`.
 pub fn plague_beast_mutation_core_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &PLAGUE_BEAST_MUTATION_CORE, 0x1CF0);
+    let id = crate::simple::from_template(w, &PLAGUE_BEAST_MUTATION_CORE, "Server.Items.PlagueBeastMutationCore");
     if let Some(d) = pb_mut(w, id) {
         d.cut = true;
     }
@@ -1400,8 +1400,8 @@ pub static PLAGUE_BEAST_MUTATION_CORE: ItemType = ItemType {
     full_name: "Server.Items.PlagueBeastMutationCore",
     parent: Some(&ITEM_BASE),
     construct: Some(plague_beast_mutation_core_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1153760, // a plague beast mutation core
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a plague beast mutation core
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_encoded_int(0);

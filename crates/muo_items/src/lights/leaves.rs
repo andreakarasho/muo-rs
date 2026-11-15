@@ -35,7 +35,7 @@ leaf! {
     BRAZIER = "Server.Items.Brazier" : BASE_LIGHT, v0;
     construct: Some(|w| brazier_new(w, &BRAZIER)),
     family: Some(&BRAZIER_CLASS),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BrazierTall()`.
@@ -57,7 +57,7 @@ leaf! {
     BRAZIER_TALL = "Server.Items.BrazierTall" : BASE_LIGHT, v0;
     construct: Some(|w| brazier_tall_new(w, &BRAZIER_TALL)),
     family: Some(&BRAZIER_TALL_CLASS),
-    default_weight: |_, _| 25.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandelabraStand()`.
@@ -79,7 +79,7 @@ leaf! {
     CANDELABRA_STAND = "Server.Items.CandelabraStand" : BASE_LIGHT, v0;
     construct: Some(|w| candelabra_stand_new(w, &CANDELABRA_STAND)),
     family: Some(&CANDELABRA_STAND_CLASS),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Candle()`.
@@ -110,7 +110,7 @@ leaf! {
     CANDLE = "Server.Items.Candle" : BASE_EQUIPABLE_LIGHT, v0;
     construct: Some(|w| candle_new(w, &CANDLE)),
     family: Some(&CANDLE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleLarge()`.
@@ -140,7 +140,7 @@ leaf! {
     CANDLE_LARGE = "Server.Items.CandleLarge" : BASE_LIGHT, v0;
     construct: Some(|w| candle_large_new(w, &CANDLE_LARGE)),
     family: Some(&CANDLE_LARGE_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleLong()`.
@@ -170,7 +170,7 @@ leaf! {
     CANDLE_LONG = "Server.Items.CandleLong" : BASE_LIGHT, v0;
     construct: Some(|w| candle_long_new(w, &CANDLE_LONG)),
     family: Some(&CANDLE_LONG_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleShort()`.
@@ -200,7 +200,7 @@ leaf! {
     CANDLE_SHORT = "Server.Items.CandleShort" : BASE_LIGHT, v0;
     construct: Some(|w| candle_short_new(w, &CANDLE_SHORT)),
     family: Some(&CANDLE_SHORT_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleSkull()`.
@@ -244,7 +244,7 @@ leaf! {
     CANDLE_SKULL = "Server.Items.CandleSkull" : BASE_LIGHT, v0;
     construct: Some(|w| candle_skull_new(w, &CANDLE_SKULL)),
     family: Some(&CANDLE_SKULL_CLASS),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `DarkSource()`.
@@ -278,7 +278,7 @@ leaf! {
     HANGING_LANTERN = "Server.Items.HangingLantern" : BASE_LIGHT, v0;
     construct: Some(|w| hanging_lantern_new(w, &HANGING_LANTERN)),
     family: Some(&HANGING_LANTERN_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LampPost1()`.
@@ -301,7 +301,7 @@ leaf! {
     LAMP_POST1 = "Server.Items.LampPost1" : BASE_LIGHT, v0;
     construct: Some(|w| lamp_post1_new(w, &LAMP_POST1)),
     family: Some(&LAMP_POST1_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LampPost2()`.
@@ -324,7 +324,7 @@ leaf! {
     LAMP_POST2 = "Server.Items.LampPost2" : BASE_LIGHT, v0;
     construct: Some(|w| lamp_post2_new(w, &LAMP_POST2)),
     family: Some(&LAMP_POST2_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LampPost3()`.
@@ -347,7 +347,7 @@ leaf! {
     LAMP_POST3 = "Server.Items.LampPost3" : BASE_LIGHT, v0;
     construct: Some(|w| lamp_post3_new(w, &LAMP_POST3)),
     family: Some(&LAMP_POST3_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LightSource()`.
@@ -381,7 +381,7 @@ leaf! {
     PAPER_LANTERN = "Server.Items.PaperLantern" : BASE_LIGHT, v0;
     construct: Some(|w| paper_lantern_new(w, &PAPER_LANTERN)),
     family: Some(&PAPER_LANTERN_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `RoundPaperLantern()`.
@@ -404,7 +404,7 @@ leaf! {
     ROUND_PAPER_LANTERN = "Server.Items.RoundPaperLantern" : BASE_LIGHT, v0;
     construct: Some(|w| round_paper_lantern_new(w, &ROUND_PAPER_LANTERN)),
     family: Some(&ROUND_PAPER_LANTERN_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ShojiLantern()`.
@@ -427,7 +427,7 @@ leaf! {
     SHOJI_LANTERN = "Server.Items.ShojiLantern" : BASE_LIGHT, v0;
     construct: Some(|w| shoji_lantern_new(w, &SHOJI_LANTERN)),
     family: Some(&SHOJI_LANTERN_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

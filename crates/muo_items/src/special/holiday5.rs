@@ -58,7 +58,7 @@ fn winter_props(w: &World, id: ItemId, list: &mut PropertyList) {
 
 /// `MistletoeAddon(hue)`.
 pub fn mistletoe_addon_new_with(w: &mut World, hue: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &MISTLETOE_ADDON, 0x2375);
+    let id = crate::simple::from_template(w, &MISTLETOE_ADDON, "Server.Items.MistletoeAddon");
     crate::simple::hue(w, id, hue);
     ops::set_movable(w, id, false);
     id
@@ -197,7 +197,7 @@ pub static MISTLETOE_ADDON: ItemType = ItemType {
 
 /// `MistletoeDeed(hue)`.
 pub fn mistletoe_deed_new(w: &mut World, hue: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &MISTLETOE_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &MISTLETOE_DEED, "Server.Items.MistletoeDeed");
     crate::simple::hue(w, id, hue);
     ops::set_loot_type(w, id, LootType::Blessed);
     id
@@ -310,8 +310,8 @@ pub static MISTLETOE_DEED: ItemType = ItemType {
     full_name: "Server.Items.MistletoeDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| mistletoe_deed_new(w, 0)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1070882, // Mistletoe Deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Mistletoe Deed
     on_single_click: winter_single_click,
     get_properties: winter_props,
     on_double_click: |w, id, from| {
@@ -371,7 +371,7 @@ pub static FIREFLIES: ItemType = ItemType {
     full_name: "Server.Items.Fireflies",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| fireflies_new(w, 0x1596)),
-    label_number: |_, _| 1150061,
+    label_number: crate::class_props::label_number,
     on_double_click: |w, id, from| {
         let loc = w.item(id).map_or(Point3D::default(), |i| i.location);
         if !deps::mobile_in_range(w, from, loc, 3) {
@@ -399,9 +399,7 @@ pub static FIREFLIES: ItemType = ItemType {
 
 /// `FirefliesDeed()`.
 pub fn fireflies_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &FIREFLIES_DEED, 0x14F0);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, &FIREFLIES_DEED, "Server.Items.FirefliesDeed")
 }
 
 struct FacingGump {
@@ -514,8 +512,8 @@ pub static FIREFLIES_DEED: ItemType = ItemType {
     full_name: "Server.Items.FirefliesDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(fireflies_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1150061,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             msg(w, from, 1042038); // You must have the object in your backpack to use it.

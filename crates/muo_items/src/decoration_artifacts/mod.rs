@@ -26,7 +26,7 @@ pub static BASE_DECORATION_ARTIFACT: ItemType = ItemType {
     full_name: "Server.Items.BaseDecorationArtifact",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |_, _| true,
     get_properties: |w, id, list: &mut PropertyList| {
         base::get_properties_base(w, id, list);
@@ -49,7 +49,7 @@ pub static BASE_DECORATION_CONTAINER_ARTIFACT: ItemType = ItemType {
     full_name: "Server.Items.BaseDecorationContainerArtifact",
     parent: Some(&BASE_CONTAINER),
     construct: None,
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |_, _| true,
     add_name_properties: |w, id, list: &mut PropertyList| {
         base::add_name_properties_base(w, id, list);

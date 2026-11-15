@@ -285,7 +285,7 @@ pub static MONSTER_STATUETTE: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| monster_statuette_new(w, kind::CROCODILE)),
     label_number: |w, id| get_info(sd(w, id).kind).label,
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     handles_on_movement: |w, id| turned_on(w, id) && ops::is_locked_down(w, id),
     on_movement: |w, id, m, old| {
         let loc = w.item(id).map_or_else(Point3D::default, |i| i.location);
@@ -359,8 +359,8 @@ pub static HERITAGE_TOKEN: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1076596, // A Heritage Token
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // A Heritage Token
     on_double_click: |w, id, from| {
         if in_pack(w, id, from) {
             if let Some(f) = hooks(w).and_then(|h| h.heritage_token_gump) {
@@ -441,8 +441,8 @@ pub static GRIZZLED_MARE_STATUETTE: ItemType = ItemType {
     parent: Some(&BASE_IMPRISONED_MOBILE),
     construct: Some(|w| ops::new_item_with_id(w, &GRIZZLED_MARE_STATUETTE, 0x2617)),
     family: Some(&GRIZZLED_MARE_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1074475, // Grizzled Mare Statuette
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Grizzled Mare Statuette
     serialize: |w, id, out| {
         (BASE_IMPRISONED_MOBILE.serialize)(w, id, out);
         out.write_i32(0);

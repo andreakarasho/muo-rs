@@ -142,7 +142,7 @@ pub fn new_trophy_deed(
     hunter: Option<String>,
     animal_weight: i32,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, &TROPHY_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &TROPHY_DEED, "Server.Items.TrophyDeed");
     set_data(
         w,
         id,
@@ -461,8 +461,8 @@ pub static TAXIDERMY_KIT: ItemType = ItemType {
     full_name: "Server.Items.TaxidermyKit",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &TAXIDERMY_KIT, 0x1EBA)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041279, // a taxidermy kit
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a taxidermy kit
     on_double_click: kit_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

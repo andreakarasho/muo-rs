@@ -73,7 +73,7 @@ pub static BLANK_SCROLL: ItemType = ItemType {
     full_name: "Server.Items.BlankScroll",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_blank_scroll(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -111,7 +111,7 @@ pub static BOTTLE: ItemType = ItemType {
     full_name: "Server.Items.Bottle",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_bottle(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -149,8 +149,8 @@ pub static SAND: ItemType = ItemType {
     full_name: "Server.Items.Sand",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_sand(w, 1)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1044626,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -186,7 +186,7 @@ pub static DRESSFORM: ItemType = ItemType {
     full_name: "Server.Items.Dressform",
     parent: Some(&ITEM_BASE),
     construct: Some(new_dressform),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -213,7 +213,7 @@ pub static AXLE: ItemType = ItemType {
     full_name: "Server.Items.Axle",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_axle(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -251,7 +251,7 @@ pub static AXLE_GEARS: ItemType = ItemType {
     full_name: "Server.Items.AxleGears",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_axle_gears(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -289,7 +289,7 @@ pub static CLOCK_FRAME: ItemType = ItemType {
     full_name: "Server.Items.ClockFrame",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_clock_frame(w, 1)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -327,7 +327,7 @@ pub static CLOCK_PARTS: ItemType = ItemType {
     full_name: "Server.Items.ClockParts",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_clock_parts(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -365,7 +365,7 @@ pub static GEARS: ItemType = ItemType {
     full_name: "Server.Items.Gears",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_gears(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -401,7 +401,7 @@ pub static GLOBE: ItemType = ItemType {
     full_name: "Server.Items.Globe",
     parent: Some(&ITEM_BASE),
     construct: Some(new_globe),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, true);
@@ -428,7 +428,7 @@ pub static HINGE: ItemType = ItemType {
     full_name: "Server.Items.Hinge",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_hinge(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -466,7 +466,7 @@ pub static SEXTANT_PARTS: ItemType = ItemType {
     full_name: "Server.Items.SextantParts",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_sextant_parts(w, 1)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -504,7 +504,7 @@ pub static SPRINGS: ItemType = ItemType {
     full_name: "Server.Items.Springs",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_springs(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -540,7 +540,7 @@ pub static FORK: ItemType = ItemType {
     full_name: "Server.Items.Fork",
     parent: Some(&ITEM_BASE),
     construct: Some(new_fork),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -565,7 +565,7 @@ pub static FORK_LEFT: ItemType = ItemType {
     full_name: "Server.Items.ForkLeft",
     parent: Some(&ITEM_BASE),
     construct: Some(new_fork_left),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -590,7 +590,7 @@ pub static FORK_RIGHT: ItemType = ItemType {
     full_name: "Server.Items.ForkRight",
     parent: Some(&ITEM_BASE),
     construct: Some(new_fork_right),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -615,7 +615,7 @@ pub static SPOON: ItemType = ItemType {
     full_name: "Server.Items.Spoon",
     parent: Some(&ITEM_BASE),
     construct: Some(new_spoon),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -640,7 +640,7 @@ pub static SPOON_LEFT: ItemType = ItemType {
     full_name: "Server.Items.SpoonLeft",
     parent: Some(&ITEM_BASE),
     construct: Some(new_spoon_left),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -665,7 +665,7 @@ pub static SPOON_RIGHT: ItemType = ItemType {
     full_name: "Server.Items.SpoonRight",
     parent: Some(&ITEM_BASE),
     construct: Some(new_spoon_right),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -690,7 +690,7 @@ pub static KNIFE: ItemType = ItemType {
     full_name: "Server.Items.Knife",
     parent: Some(&ITEM_BASE),
     construct: Some(new_knife),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -715,7 +715,7 @@ pub static KNIFE_LEFT: ItemType = ItemType {
     full_name: "Server.Items.KnifeLeft",
     parent: Some(&ITEM_BASE),
     construct: Some(new_knife_left),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -740,7 +740,7 @@ pub static KNIFE_RIGHT: ItemType = ItemType {
     full_name: "Server.Items.KnifeRight",
     parent: Some(&ITEM_BASE),
     construct: Some(new_knife_right),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -765,7 +765,7 @@ pub static PLATE: ItemType = ItemType {
     full_name: "Server.Items.Plate",
     parent: Some(&ITEM_BASE),
     construct: Some(new_plate),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);

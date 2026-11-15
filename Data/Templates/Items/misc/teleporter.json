@@ -1,0 +1,17 @@
+[
+  {
+    "type": "Server.Items.Teleporter",
+    "itemId": 7107,
+    "movable": false,
+    "visible": false,
+    "props": {
+      "labelNumber": 1026095
+    }
+  },
+  {
+    "type": "Server.Items.TimeoutGoal",
+    "props": {
+      "defaultName": "timeout teleporter goal"
+    }
+  }
+]

@@ -369,7 +369,7 @@ pub static SOULSTONE: ItemType = ItemType {
     full_name: "Server.Items.SoulStone",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| soulstone_new(w, &SOULSTONE, None, 0x2A93, 0x2A94)),
-    label_number: |_, _| 1030899, // soulstone
+    label_number: crate::class_props::label_number, // soulstone
     get_properties,
     on_double_click,
     serialize: soul_serialize,
@@ -412,7 +412,7 @@ pub static SOULSTONE_FRAGMENT: ItemType = ItemType {
     full_name: "Server.Items.SoulstoneFragment",
     parent: Some(&SOULSTONE),
     construct: Some(|w| soulstone_fragment_new(w, 5, None)),
-    label_number: |_, _| 1071000, // soulstone fragment
+    label_number: crate::class_props::label_number, // soulstone fragment
     get_properties: |w, id, list| {
         (SOULSTONE.get_properties)(w, id, list);
         list.add_int(1060584, fragment_uses(w, id)); // uses remaining: ~1_val~

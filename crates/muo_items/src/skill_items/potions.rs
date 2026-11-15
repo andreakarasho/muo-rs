@@ -596,7 +596,7 @@ pub static BASE_POTION: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: None,
     family: Some(&BASE_POTION_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         let c = class(w, id);
         if c.label != 0 {

@@ -9,7 +9,7 @@ pub static CLOSED_BARREL: ItemType = ItemType {
     full_name: "Server.Items.ClosedBarrel",
     parent: Some(&TRAPPABLE_CONTAINER),
     construct: Some(|w| new_trappable(w, &CLOSED_BARREL, 0x0FAE)),
-    default_gump_id: |_, _| 0x3e,
+    default_gump_id: crate::class_props::default_gump_id,
     serialize: |w, id, out| {
         (TRAPPABLE_CONTAINER.serialize)(w, id, out);
         out.write_i32(0);

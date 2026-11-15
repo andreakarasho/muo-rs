@@ -316,7 +316,7 @@ pub static SACK_FLOUR: ItemType = ItemType {
         }
         id
     }),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         let movable = w.item(id).is_some_and(|i| i.movable());
         let gid = w.item(id).map_or(0, |i| i.item_id);
@@ -382,7 +382,7 @@ pub static WHEAT_SHEAF: ItemType = ItemType {
     full_name: "Server.Items.WheatSheaf",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_wheat_sheaf(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if w.item(id).is_some_and(|i| i.movable()) {
             target::begin_target(w, from, 4, false, TargetFlags::NONE, move |w, from, t| {
@@ -403,8 +403,7 @@ pub static WHEAT_SHEAF: ItemType = ItemType {
 };
 
 fn new_wheat_sheaf(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &WHEAT_SHEAF, 7869);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, &WHEAT_SHEAF, "Server.Items.WheatSheaf");
     ops::set_amount(w, id, amount);
     id
 }

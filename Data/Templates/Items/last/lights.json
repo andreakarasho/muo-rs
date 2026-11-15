@@ -1,0 +1,14 @@
+[
+  {
+    "type": "Server.Items.Candelabra",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.HeatingStand",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

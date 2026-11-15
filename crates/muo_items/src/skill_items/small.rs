@@ -119,8 +119,7 @@ pub static LOCKPICK: ItemType = ItemType {
 
 /// `new Lockpick(amount)`.
 pub fn new_lockpick(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &LOCKPICK, 0x14FC);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, &LOCKPICK, "Server.Items.Lockpick");
     ops::set_amount(w, id, amount);
     id
 }
@@ -206,7 +205,7 @@ pub static CLOCK: ItemType = ItemType {
     full_name: "Server.Items.Clock",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_clock(w, 0x104B)),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: clock_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -287,7 +286,7 @@ pub static SPYGLASS: ItemType = ItemType {
     full_name: "Server.Items.Spyglass",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &SPYGLASS, 0x14F5)),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: spyglass_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

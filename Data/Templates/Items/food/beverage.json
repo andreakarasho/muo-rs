@@ -1,0 +1,15 @@
+[
+  {
+    "type": "Server.Items.EndlessDecanter",
+    "props": {
+      "defaultWeight": 2.0,
+      "labelNumber": 1115929
+    }
+  },
+  {
+    "type": "Server.Items.AdmiralsHeartyRum",
+    "props": {
+      "labelNumber": 1063477
+    }
+  }
+]

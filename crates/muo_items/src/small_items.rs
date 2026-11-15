@@ -100,7 +100,7 @@ pub static VINES: ItemType = ItemType {
         let v = random(w, 8);
         new_vines(w, v)
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
     serialize: write_v0,
     deserialize: read_v0,

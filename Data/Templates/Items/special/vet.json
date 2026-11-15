@@ -1,0 +1,66 @@
+[
+  {
+    "type": "Server.Items.BloodyPentagramComponent",
+    "props": {
+      "labelNumber": 1080279
+    }
+  },
+  {
+    "type": "Server.Items.BloodyPentagramDeed",
+    "props": {
+      "labelNumber": 1080384
+    }
+  },
+  {
+    "type": "Server.Items.StoneAnkhComponent",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.StoneAnkhDeed",
+    "props": {
+      "labelNumber": 1049773
+    }
+  },
+  {
+    "type": "Server.Items.MinotaurStatueDeed",
+    "props": {
+      "labelNumber": 1080409
+    }
+  },
+  {
+    "type": "Server.Items.TreeStumpDeed",
+    "props": {
+      "labelNumber": 1080406
+    }
+  },
+  {
+    "type": "Server.Items.RewardBrazier",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.RewardBrazierDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1080527
+    }
+  },
+  {
+    "type": "Server.Items.RewardPottedCactus",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.PottedCactusDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1080407
+    }
+  }
+]

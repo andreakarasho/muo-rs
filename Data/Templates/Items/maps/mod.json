@@ -1,0 +1,9 @@
+[
+  {
+    "type": "Server.Items.MapItem",
+    "itemId": 5356,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

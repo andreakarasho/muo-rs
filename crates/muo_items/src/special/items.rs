@@ -144,7 +144,7 @@ pub static COAL: ItemType = ItemType {
         hue(w, id, 0x965);
         id
     }),
-    label_number: |_, _| 1041426,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -167,7 +167,7 @@ pub static RED_POINSETTIA: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -190,7 +190,7 @@ pub static WHITE_POINSETTIA: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -213,7 +213,7 @@ pub static BLUE_SNOWFLAKE: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -236,7 +236,7 @@ pub static WHITE_SNOWFLAKE: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);
@@ -2744,7 +2744,7 @@ pub static ROSE_IN_AVASE: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    label_number: |_, _| 1023760,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         write_version(out, false);

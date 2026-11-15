@@ -152,7 +152,7 @@ leaf! {
     /// `Server.Items.GhostShipAnchor`.
     GHOST_SHIP_ANCHOR = "Server.Items.GhostShipAnchor" : ITEM_BASE, v0;
     construct: Some(|w| ghost_ship_anchor_new(w, &GHOST_SHIP_ANCHOR)),
-    label_number: |_, _| 1070816,
+    label_number: crate::class_props::label_number,
 }
 
 armor_leaf! {
@@ -170,7 +170,7 @@ leaf! {
     /// `Server.Items.GoldBricks`.
     GOLD_BRICKS = "Server.Items.GoldBricks" : ITEM_BASE, v0;
     construct: Some(|w| gold_bricks_new(w, &GOLD_BRICKS)),
-    label_number: |_, _| 1063489,
+    label_number: crate::class_props::label_number,
 }
 
 armor_leaf! {
@@ -402,7 +402,7 @@ leaf! {
     /// `Server.Items.ShipModelOfTheHMSCape`.
     SHIP_MODEL_OF_THE_HMS_CAPE = "Server.Items.ShipModelOfTheHMSCape" : ITEM_BASE, v0;
     construct: Some(|w| ship_model_of_the_hms_cape_new(w, &SHIP_MODEL_OF_THE_HMS_CAPE)),
-    label_number: |_, _| 1063476,
+    label_number: crate::class_props::label_number,
 }
 
 weapon_art! {

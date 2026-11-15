@@ -28,7 +28,7 @@ pub static MELISANDES_FERMENTED_WINE: ItemType = ItemType {
     full_name: "Server.Items.MelisandesFermentedWine",
     parent: Some(&GREATER_EXPLOSION_POTION),
     construct: Some(|w| melisandes_fermented_wine_new(w, &MELISANDES_FERMENTED_WINE)),
-    label_number: |_, _| 1072114,
+    label_number: crate::class_props::label_number,
     get_properties: |w, id, list| {
         (GREATER_EXPLOSION_POTION.get_properties)(w, id, list);
         list.add(1074502); // It looks explosive.

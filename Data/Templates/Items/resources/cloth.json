@@ -1,0 +1,38 @@
+[
+  {
+    "type": "Server.Items.TaintedWool",
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.BaseClothMaterial",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BigFish",
+    "props": {
+      "labelNumber": 1041112
+    }
+  },
+  {
+    "type": "Server.Items.Fish",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BaseMagicFish",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.PeculiarFish",
+    "props": {
+      "labelNumber": 1041076
+    }
+  }
+]

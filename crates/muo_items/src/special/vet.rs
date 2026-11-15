@@ -344,7 +344,7 @@ leaf! {
     /// `Server.Items.BloodyPentagramComponent`.
     BLOODY_PENTAGRAM_COMPONENT = "Server.Items.BloodyPentagramComponent" : ADDON_COMPONENT, enc;
     display_weight: |_, _| false,
-    label_number: |_, _| 1080279, // Bloody Pentagram
+    label_number: crate::class_props::label_number, // Bloody Pentagram
 }
 
 const PENTAGRAM_ROWS: [(i32, i32, i32); 34] = [
@@ -430,7 +430,7 @@ rtype! {
     BLOODY_PENTAGRAM_DEED = "Server.Items.BloodyPentagramDeed" : BASE_ADDON_DEED;
     construct: Some(bloody_pentagram_deed_new),
     family: Some(&PENTAGRAM_DEED_CLASS),
-    label_number: |_, _| 1080384, // Bloody Pentagram
+    label_number: crate::class_props::label_number, // Bloody Pentagram
     on_double_click: addon_deed_double_click,
     get_properties: |w, id, list| {
         (BASE_ADDON_DEED.get_properties)(w, id, list);
@@ -447,7 +447,7 @@ pub(super) fn stone_ankh_component_new(w: &mut World, item_id: i32) -> ItemId {
 leaf! {
     /// `Server.Items.StoneAnkhComponent`.
     STONE_ANKH_COMPONENT = "Server.Items.StoneAnkhComponent" : ADDON_COMPONENT, enc;
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
     get_properties: |w, id, list| {
         (ADDON_COMPONENT.get_properties)(w, id, list);
@@ -560,7 +560,7 @@ rtype! {
     STONE_ANKH_DEED = "Server.Items.StoneAnkhDeed" : BASE_ADDON_DEED;
     construct: Some(stone_ankh_deed_new),
     family: Some(&STONE_ANKH_DEED_CLASS),
-    label_number: |_, _| 1049773, // deed for a stone ankh
+    label_number: crate::class_props::label_number, // deed for a stone ankh
     on_double_click: |w, id, from| {
         if reward_blocked(w, from, id) {
             return;
@@ -633,7 +633,7 @@ rtype! {
     MINOTAUR_STATUE_DEED = "Server.Items.MinotaurStatueDeed" : BASE_ADDON_DEED;
     construct: Some(minotaur_statue_deed_new),
     family: Some(&MINOTAUR_DEED_CLASS),
-    label_number: |_, _| 1080409, // Minotaur Statue Deed
+    label_number: crate::class_props::label_number, // Minotaur Statue Deed
     on_double_click: |w, id, from| {
         if reward_blocked(w, from, id) {
             return;
@@ -860,7 +860,7 @@ pub static TREE_STUMP_DEED: ItemType = ItemType {
     parent: Some(&BASE_ADDON_DEED),
     construct: Some(tree_stump_deed_new),
     family: Some(&STUMP_DEED_CLASS),
-    label_number: |_, _| 1080406, // a deed for a tree stump decoration
+    label_number: crate::class_props::label_number, // a deed for a tree stump decoration
     on_double_click: |w, id, from| {
         if reward_blocked(w, from, id) {
             return;
@@ -959,7 +959,7 @@ pub static REWARD_BRAZIER: ItemType = ItemType {
         };
         reward_brazier_new_with(w, g)
     }),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
     on_delete: |w, id| {
         brazier_turn_off(w, id);
@@ -1113,7 +1113,7 @@ impl Pick for BrazierPick {
 
 /// `RewardBrazierDeed()`.
 pub fn reward_brazier_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &REWARD_BRAZIER_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &REWARD_BRAZIER_DEED, "Server.Items.RewardBrazierDeed");
     blessed(w, id)
 }
 
@@ -1121,8 +1121,8 @@ rtype! {
     /// `Server.Items.RewardBrazierDeed`.
     REWARD_BRAZIER_DEED = "Server.Items.RewardBrazierDeed" : ITEM_BASE;
     construct: Some(reward_brazier_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1080527, // Brazier Deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Brazier Deed
     on_double_click: |w, id, from| {
         if reward_blocked(w, from, id) {
             return;
@@ -1151,7 +1151,7 @@ rtype! {
         let g = utility::random_min_max(&mut w.rng, 0x1E0F, 0x1E14);
         potted_cactus_new_with(w, g)
     }),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -1192,7 +1192,7 @@ impl Pick for CactusPick {
 
 /// `PottedCactusDeed()`.
 pub fn potted_cactus_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &POTTED_CACTUS_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &POTTED_CACTUS_DEED, "Server.Items.PottedCactusDeed");
     blessed(w, id)
 }
 
@@ -1200,8 +1200,8 @@ rtype! {
     /// `Server.Items.PottedCactusDeed`.
     POTTED_CACTUS_DEED = "Server.Items.PottedCactusDeed" : ITEM_BASE;
     construct: Some(potted_cactus_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1080407, // Potted Cactus Deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Potted Cactus Deed
     on_double_click: |w, id, from| {
         if reward_blocked(w, from, id) {
             return;

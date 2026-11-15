@@ -173,7 +173,7 @@ pub static TAINTED_WOOL: ItemType = ItemType {
     full_name: "Server.Items.TaintedWool",
     parent: Some(&WOOL),
     construct: Some(|w| new_stack(w, &TAINTED_WOOL, 0x101F, 1)),
-    default_weight: |_, _| 4.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (WOOL.serialize)(w, id, out);
         out.write_i32(0);
@@ -267,7 +267,7 @@ pub static BASE_CLOTH_MATERIAL: ItemType = ItemType {
     full_name: "Server.Items.BaseClothMaterial",
     construct: None,
     parent: Some(&ITEM_BASE),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if in_pack(w, id, from) {
             deps::send_localized_message(w, from, 500366); // Select a loom to use that on.
@@ -436,7 +436,7 @@ pub static BIG_FISH: ItemType = ItemType {
         hue(w, id, h);
         id
     }),
-    label_number: |_, _| 1041112, // a big fish
+    label_number: crate::class_props::label_number, // a big fish
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);
         let weight = ops::weight(w, id);
@@ -504,7 +504,7 @@ pub static FISH: ItemType = ItemType {
     full_name: "Server.Items.Fish",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_fish(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_i32(0);
@@ -557,7 +557,7 @@ pub static BASE_MAGIC_FISH: ItemType = ItemType {
     full_name: "Server.Items.BaseMagicFish",
     construct: None,
     parent: Some(&ITEM_BASE),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             deps::send_localized_message(w, from, 1042001); // That must be in your pack for you to use it.
@@ -643,7 +643,7 @@ pub static PECULIAR_FISH: ItemType = ItemType {
         id
     }),
     family: Some(&PECULIAR_C),
-    label_number: |_, _| 1041076, // highly peculiar fish
+    label_number: crate::class_props::label_number, // highly peculiar fish
     serialize: |w, id, out| {
         (BASE_MAGIC_FISH.serialize)(w, id, out);
         out.write_i32(0);

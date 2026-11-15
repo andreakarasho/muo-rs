@@ -19,7 +19,7 @@ leaf! {
     /// `Server.Items.CherryArmoire`.
     CHERRY_ARMOIRE = "Server.Items.CherryArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| cherry_armoire_new(w, &CHERRY_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Drawer()`.
@@ -31,7 +31,7 @@ leaf! {
     /// `Server.Items.Drawer`.
     DRAWER = "Server.Items.Drawer" : BASE_CONTAINER, v0;
     construct: Some(|w| drawer_new(w, &DRAWER)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ElegantArmoire()`.
@@ -43,7 +43,7 @@ leaf! {
     /// `Server.Items.ElegantArmoire`.
     ELEGANT_ARMOIRE = "Server.Items.ElegantArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| elegant_armoire_new(w, &ELEGANT_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `EmptyBookcase()`.
@@ -66,7 +66,7 @@ leaf! {
     /// `Server.Items.FancyDrawer`.
     FANCY_DRAWER = "Server.Items.FancyDrawer" : BASE_CONTAINER, v0;
     construct: Some(|w| fancy_drawer_new(w, &FANCY_DRAWER)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `FancyElvenArmoire()`.
@@ -78,9 +78,9 @@ leaf! {
     /// `Server.Items.FancyElvenArmoire`.
     FANCY_ELVEN_ARMOIRE = "Server.Items.FancyElvenArmoire" : BASE_CONTAINER, enc;
     construct: Some(|w| fancy_elven_armoire_new(w, &FANCY_ELVEN_ARMOIRE)),
-    default_weight: |_, _| 1.0,
-    default_gump_id: |_, _| 0x4E,
-    default_drop_sound: |_, _| 0x42,
+    default_weight: crate::class_props::default_weight,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `FullBookcase()`.
@@ -92,7 +92,7 @@ leaf! {
     /// `Server.Items.FullBookcase`.
     FULL_BOOKCASE = "Server.Items.FullBookcase" : BASE_CONTAINER, v0;
     construct: Some(|w| full_bookcase_new(w, &FULL_BOOKCASE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `MapleArmoire()`.
@@ -104,7 +104,7 @@ leaf! {
     /// `Server.Items.MapleArmoire`.
     MAPLE_ARMOIRE = "Server.Items.MapleArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| maple_armoire_new(w, &MAPLE_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `RedArmoire()`.
@@ -116,7 +116,7 @@ leaf! {
     /// `Server.Items.RedArmoire`.
     RED_ARMOIRE = "Server.Items.RedArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| red_armoire_new(w, &RED_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ShortCabinet()`.
@@ -128,7 +128,7 @@ leaf! {
     /// `Server.Items.ShortCabinet`.
     SHORT_CABINET = "Server.Items.ShortCabinet" : BASE_CONTAINER, v0;
     construct: Some(|w| short_cabinet_new(w, &SHORT_CABINET)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SimpleElvenArmoire()`.
@@ -140,9 +140,9 @@ leaf! {
     /// `Server.Items.SimpleElvenArmoire`.
     SIMPLE_ELVEN_ARMOIRE = "Server.Items.SimpleElvenArmoire" : BASE_CONTAINER, enc;
     construct: Some(|w| simple_elven_armoire_new(w, &SIMPLE_ELVEN_ARMOIRE)),
-    default_weight: |_, _| 1.0,
-    default_gump_id: |_, _| 0x4F,
-    default_drop_sound: |_, _| 0x42,
+    default_weight: crate::class_props::default_weight,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `TallCabinet()`.
@@ -154,7 +154,7 @@ leaf! {
     /// `Server.Items.TallCabinet`.
     TALL_CABINET = "Server.Items.TallCabinet" : BASE_CONTAINER, v0;
     construct: Some(|w| tall_cabinet_new(w, &TALL_CABINET)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

@@ -77,7 +77,7 @@ fn data(w: &World, id: ItemId) -> Option<&HeadData> {
 
 /// `new Head(headType, playerName)`.
 pub fn new_head(w: &mut World, head_type: i32, player_name: Option<String>) -> ItemId {
-    let id = ops::new_item_with_id(w, &HEAD, 0x1DA0);
+    let id = crate::simple::from_template(w, &HEAD, "Server.Items.Head");
     let now = w.now;
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(HeadData {

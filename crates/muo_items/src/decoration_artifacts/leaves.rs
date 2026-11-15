@@ -23,7 +23,7 @@ leaf! {
     ACADEMIC_BOOKS_ARTIFACT = "Server.Items.AcademicBooksArtifact" : BASE_DECORATION_ARTIFACT, enc;
     construct: Some(|w| academic_books_artifact_new(w, &ACADEMIC_BOOKS_ARTIFACT)),
     family: Some(&ACADEMIC_BOOKS_ARTIFACT_CLASS),
-    label_number: |_, _| 1071202,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BackpackArtifact()`.

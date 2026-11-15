@@ -358,8 +358,8 @@ pub static DISGUISE_KIT: ItemType = ItemType {
     full_name: "Server.Items.DisguiseKit",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &DISGUISE_KIT, 0xE05)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041078, // a disguise kit
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a disguise kit
     on_double_click: kit_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

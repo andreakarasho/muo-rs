@@ -1,0 +1,20 @@
+[
+  {
+    "type": "Server.Items.Torch",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Lantern",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.LanternOfSouls",
+    "props": {
+      "labelNumber": 1061618
+    }
+  }
+]

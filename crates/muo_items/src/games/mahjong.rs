@@ -229,7 +229,7 @@ fn new_players() -> Players {
 
 /// `MahjongGame()`.
 pub fn mahjong_game_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xFAA);
+    let id = crate::simple::from_template(w, ty, "Server.Engines.Mahjong.MahjongGame");
     let tiles = build_walls(w);
     let first = utility::random_from(&mut w.rng, 1, 6);
     let second = utility::random_from(&mut w.rng, 1, 6);
@@ -1330,7 +1330,7 @@ item_leaf_raw! {
     /// `Server.Engines.Mahjong.MahjongGame` `[SerializationGenerator(1, false)]`.
     MAHJONG_GAME = "Server.Engines.Mahjong.MahjongGame" : ITEM_BASE;
     construct: Some(|w| mahjong_game_new(w, &MAHJONG_GAME)),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         if g(w, id).spectator_vision {

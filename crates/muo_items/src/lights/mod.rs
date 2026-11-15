@@ -49,7 +49,7 @@ leaf! {
     TORCH = "Server.Items.Torch" : BASE_EQUIPABLE_LIGHT, v0;
     construct: Some(|w| torch_new(w, &TORCH)),
     family: Some(&TORCH_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_added: torch_on_added,
 }
 
@@ -102,7 +102,7 @@ leaf! {
     LANTERN = "Server.Items.Lantern" : BASE_EQUIPABLE_LIGHT, v0;
     construct: Some(|w| lantern_new(w, &LANTERN)),
     family: Some(&LANTERN_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LanternOfSouls()`: `Hue = 0x482`.
@@ -116,7 +116,7 @@ leaf! {
     /// `Server.Items.LanternOfSouls` `[SerializationGenerator(0)]`.
     LANTERN_OF_SOULS = "Server.Items.LanternOfSouls" : LANTERN, enc;
     construct: Some(|w| lantern_of_souls_new(w, &LANTERN_OF_SOULS)),
-    label_number: |_, _| 1061618,
+    label_number: crate::class_props::label_number,
 }
 
 /// Registers the classes of this folder.

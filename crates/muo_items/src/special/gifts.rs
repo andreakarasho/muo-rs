@@ -87,8 +87,8 @@ pub static TAPESTRY_OF_SOSARIA: ItemType = ItemType {
         }
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1062917, // The Tapestry of Sosaria
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // The Tapestry of Sosaria
     get_context_menu_entries: context_menu,
     on_double_click: |w, id, from| {
         if in_reach(w, id, from, 2) {
@@ -196,8 +196,7 @@ pub fn set_petals(w: &mut World, id: ItemId, value: i32) {
 
 /// `RoseOfTrinsicPetal(amount)`.
 pub fn rose_petal_new(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &ROSE_OF_TRINSIC_PETAL, 0x1021);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, &ROSE_OF_TRINSIC_PETAL, "Server.Items.RoseOfTrinsicPetal");
     ops::set_amount(w, id, amount);
     super::hue(w, id, 0xE);
     id
@@ -221,8 +220,8 @@ pub static ROSE_OF_TRINSIC: ItemType = ItemType {
         start_spawn_timer(w, id, TimeSpan::from_secs(60));
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1062913, // Rose of Trinsic
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Rose of Trinsic
     on_after_duped: |w, id, new_item| {
         (ITEM_BASE.on_after_duped)(w, id, new_item);
         if w.item(new_item).is_some_and(|i| i.ty.is(&ROSE_OF_TRINSIC)) {
@@ -291,8 +290,8 @@ pub static ROSE_OF_TRINSIC_PETAL: ItemType = ItemType {
     full_name: "Server.Items.RoseOfTrinsicPetal",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| rose_petal_new(w, 1)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1062926, // Petal of the Rose of Trinsic
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Petal of the Rose of Trinsic
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             msg(w, from, 1042038); // You must have the object in your backpack to use it.
@@ -432,7 +431,7 @@ pub static HEARTH_OF_HOME_FIRE_DEED: ItemType = ItemType {
     parent: Some(&BASE_ADDON_DEED),
     construct: Some(hearth_deed_new),
     family: Some(&HEARTH_DEED_CLASS),
-    label_number: |_, _| 1062919, // Hearth of the Home Fire
+    label_number: crate::class_props::label_number, // Hearth of the Home Fire
     on_double_click: |w, id, from| {
         if in_pack(w, id, from) {
             send_gump_to_mobile(
@@ -476,7 +475,7 @@ pub static ZOOGI_FUNGUS: ItemType = ItemType {
     full_name: "Server.Items.ZoogiFungus",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| zoogi_fungus_new(w, 1)),
-    default_weight: |_, _| 0.1,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -552,7 +551,7 @@ pub static POWDER_OF_TRANSLOCATION: ItemType = ItemType {
     full_name: "Server.Items.PowderOfTranslocation",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| powder_of_translocation_new(w, 1)),
-    default_weight: |_, _| 0.1,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if in_reach(w, id, from, 2) {
             let mut t = target::Target::new(w, -1, false, TargetFlags::NONE);

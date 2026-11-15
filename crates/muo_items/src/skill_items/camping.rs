@@ -143,9 +143,7 @@ fn clear_entries(w: &mut World, fire: ItemId) {
 
 /// `new Campfire()`.
 pub fn new_campfire(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &CAMPFIRE, 0xDE3);
-    ops::set_movable(w, id, false);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = crate::simple::from_template(w, &CAMPFIRE, "Server.Items.Campfire");
     let timer = timer::start(
         w,
         TimeSpan::from_secs(1),
@@ -255,8 +253,7 @@ pub static CAMPFIRE: ItemType = ItemType {
 
 /// `new Kindling(amount)`.
 pub fn new_kindling(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &KINDLING, 0xDE1);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, &KINDLING, "Server.Items.Kindling");
     ops::set_amount(w, id, amount);
     id
 }
@@ -342,7 +339,7 @@ pub static KINDLING: ItemType = ItemType {
     full_name: "Server.Items.Kindling",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_kindling(w, 1)),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: kindling_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -478,7 +475,7 @@ pub static BEDROLL: ItemType = ItemType {
     full_name: "Server.Items.Bedroll",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &BEDROLL, 0xA57)),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: bedroll_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

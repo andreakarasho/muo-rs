@@ -1,0 +1,21 @@
+[
+  {
+    "type": "Server.Items.Sextant",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.RecallRune",
+    "itemId": 7956,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Runebook",
+    "props": {
+      "labelNumber": 1041267
+    }
+  }
+]

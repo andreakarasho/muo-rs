@@ -1,0 +1,9 @@
+[
+  {
+    "type": "Server.Items.DisguiseKit",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041078
+    }
+  }
+]

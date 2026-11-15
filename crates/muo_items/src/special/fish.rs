@@ -227,7 +227,7 @@ pub static VACATION_WAFER: ItemType = ItemType {
     full_name: "Server.Items.VacationWafer",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &VACATION_WAFER, 0x973)),
-    label_number: |_, _| 1074431, // An aquarium flake sphere
+    label_number: crate::class_props::label_number, // An aquarium flake sphere
     add_name_properties: |w, id, list| {
         (ITEM_BASE.add_name_properties)(w, id, list);
         list.add_localized_number(1074432, 7); // Vacation days: ~1_DAYS~

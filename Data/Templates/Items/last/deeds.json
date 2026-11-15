@@ -1,0 +1,22 @@
+[
+  {
+    "type": "Server.Items.HairRestylingDeed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041061
+    }
+  },
+  {
+    "type": "Server.Items.BarkeepContract",
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "a barkeep contract"
+    }
+  },
+  {
+    "type": "Server.Items.DragonBardingDeed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

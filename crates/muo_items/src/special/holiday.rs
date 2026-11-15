@@ -39,7 +39,7 @@ leaf! {
     /// `Server.Items.GiftBox` (`[Furniture]`, `[Flippable(0x232A, 0x232B)]`).
     GIFT_BOX = "Server.Items.GiftBox" : BASE_CONTAINER, v0;
     construct: Some(gift_box_new),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WinterGiftPackage2003()`.
@@ -128,8 +128,8 @@ leaf! {
         let g = utility::random_from(&mut w.rng, 0x2BD9, 2);
         new_base_container(w, &GREEN_STOCKING, g)
     }),
-    default_gump_id: |_, _| 0x103,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 leaf! {
@@ -139,8 +139,8 @@ leaf! {
         let g = utility::random_from(&mut w.rng, 0x2BDB, 2);
         new_base_container(w, &RED_STOCKING, g)
     }),
-    default_gump_id: |_, _| 0x103,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 // ---- SnowPiles ----
@@ -160,8 +160,8 @@ leaf! {
         let g = utility::random_element(&mut w.rng, &types).copied().unwrap_or(0x8E2);
         snow_pile_deco_new_with(w, g)
     }),
-    label_number: |_, _| 1095253, // decorative snow piles
-    default_weight: |_, _| 2.0,
+    label_number: crate::class_props::label_number, // decorative snow piles
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- HolidayBell ----
@@ -195,8 +195,7 @@ pub fn set_bell(w: &mut World, id: ItemId, d: BellData) {
 
 /// `HolidayBell(maker)`.
 pub fn holiday_bell_new_with(w: &mut World, maker: Option<TextDefinition>) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOLIDAY_BELL, 0x1C12);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    let id = crate::simple::from_template(w, &HOLIDAY_BELL, "Server.Items.HolidayBell");
     let h = utility::random_element(&mut w.rng, &BELL_HUES)
         .copied()
         .unwrap_or(0);
@@ -357,7 +356,7 @@ pub static SNOWMAN: ItemType = ItemType {
         let t = random_title(w);
         snowman_new_with(w, hue, Some(t))
     }),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         if let Some(t) = title(w, id) {
@@ -455,8 +454,8 @@ pub static ICY_PATCH: ItemType = ItemType {
         };
         icy_patch_new_with(w, g)
     }),
-    label_number: |_, _| 1095159, // An Icy Patch
-    default_weight: |_, _| 5.0,
+    label_number: crate::class_props::label_number, // An Icy Patch
+    default_weight: crate::class_props::default_weight,
     on_move_over: |w, id, m| {
         let ok = w.mobile(m).is_some_and(|x| {
             x.player
@@ -685,10 +684,7 @@ fn unused(w: &mut World, id: ItemId) {
 
 /// `SnowGlobe()` of class `ty`: `base(0xE2F)`, blessed, `Light = Circle150`.
 fn snow_globe_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xE2F);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle150);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SnowGlobe")
 }
 
 leaf! {
@@ -696,7 +692,7 @@ leaf! {
     SNOW_GLOBE = "Server.Items.SnowGlobe" : ITEM_BASE, v0;
     construct: None,
     make: Some(|w| snow_globe_new(w, &SNOW_GLOBE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SnowGlobeOne/Two/Three._place`.
@@ -866,8 +862,8 @@ leaf! {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    label_number: |_, _| 1041114, // A deed for a potted plant.
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // A deed for a potted plant.
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if super::util::in_pack(w, id, from) {
             super::vet::show_pick::<PlantPick>(w, from, id);
@@ -905,7 +901,7 @@ leaf! {
         ops::set_movable(w, id, true);
         id
     }),
-    label_number: |_, _| 1041428, // Maybe next year you will get a nicer gift.
+    label_number: crate::class_props::label_number, // Maybe next year you will get a nicer gift.
 }
 
 leaf! {
@@ -990,8 +986,8 @@ leaf! {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    label_number: |_, _| 1114296, // snow statue deed
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // snow statue deed
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if super::util::in_pack(w, id, from) {
             super::vet::show_pick::<SnowStatuePick>(w, from, id);

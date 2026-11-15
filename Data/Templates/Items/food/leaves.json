@@ -1,56 +1,127 @@
 [
   {
     "type": "Server.Items.EmptyBentoBox",
-    "itemId": 10292
+    "itemId": 10292,
+    "props": {
+      "defaultWeight": 5.0
+    }
   },
   {
     "type": "Server.Items.GreenTeaBasket",
-    "itemId": 10315
+    "itemId": 10315,
+    "props": {
+      "defaultWeight": 10.0
+    }
   },
   {
     "type": "Server.Items.Glass",
-    "itemId": 8065
+    "itemId": 8065,
+    "props": {
+      "defaultWeight": 0.1
+    }
   },
   {
     "type": "Server.Items.GlassBottle",
-    "itemId": 3627
+    "itemId": 3627,
+    "props": {
+      "defaultWeight": 0.3
+    }
   },
   {
     "type": "Server.Items.EmptyPewterBowl",
-    "itemId": 5629
+    "itemId": 5629,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyPewterTub",
-    "itemId": 5635
+    "itemId": 5635,
+    "props": {
+      "defaultWeight": 2.0
+    }
   },
   {
     "type": "Server.Items.EmptyWoodenBowl",
-    "itemId": 5624
+    "itemId": 5624,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyWoodenTub",
-    "itemId": 5637
+    "itemId": 5637,
+    "props": {
+      "defaultWeight": 2.0
+    }
   },
   {
     "type": "Server.Items.CocoaButter",
     "itemId": 4164,
-    "hue": 1111
+    "hue": 1111,
+    "props": {
+      "labelNumber": 1080005,
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.CocoaLiquor",
     "itemId": 4159,
-    "hue": 1130
+    "hue": 1130,
+    "props": {
+      "labelNumber": 1080007,
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.Eggshells",
-    "itemId": 2484
+    "itemId": 2484,
+    "props": {
+      "defaultWeight": 0.5
+    }
   },
   {
     "type": "Server.Items.WoodenBowl",
-    "itemId": 5624
+    "itemId": 5624,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SheafOfHay",
-    "itemId": 3894
+    "itemId": 3894,
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.CocoaPulp",
+    "itemId": 3964,
+    "hue": 537,
+    "stackable": true,
+    "props": {
+      "labelNumber": 1080530,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SackOfSugar",
+    "itemId": 4153,
+    "hue": 1121,
+    "stackable": true,
+    "props": {
+      "labelNumber": 1080003,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Vanilla",
+    "itemId": 3626,
+    "hue": 1122,
+    "stackable": true,
+    "props": {
+      "labelNumber": 1080009,
+      "defaultWeight": 1.0
+    }
   }
 ]

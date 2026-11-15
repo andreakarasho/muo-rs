@@ -1,0 +1,21 @@
+[
+  {
+    "type": "Server.Items.DyeTub",
+    "itemId": 4011,
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.Dyes",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.Scissors",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

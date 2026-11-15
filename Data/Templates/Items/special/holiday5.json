@@ -1,0 +1,29 @@
+[
+  {
+    "type": "Server.Items.MistletoeDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1070882
+    }
+  },
+  {
+    "type": "Server.Items.Fireflies",
+    "props": {
+      "labelNumber": 1150061
+    }
+  },
+  {
+    "type": "Server.Items.FirefliesDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1150061
+    }
+  },
+  {
+    "type": "Server.Items.MistletoeAddon",
+    "itemId": 9077
+  }
+]

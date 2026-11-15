@@ -24,5 +24,18 @@
       "armorBase": 15,
       "labelNumber": 1075196
     }
+  },
+  {
+    "type": "Server.Items.QuiverOfInfinity",
+    "props": {
+      "defaultWeight": 8.0,
+      "labelNumber": 1075201
+    }
+  },
+  {
+    "type": "Server.Items.BaseFormTalisman",
+    "props": {
+      "defaultWeight": 1.0
+    }
   }
 ]

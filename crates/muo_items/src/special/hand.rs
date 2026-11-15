@@ -47,7 +47,7 @@ fn wall_torch_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
 leaf! {
     /// `Server.Items.WallTorchComponent` (`[Flippable(0x3D98, 0x3D94)]`).
     WALL_TORCH_COMPONENT = "Server.Items.WallTorchComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076282,
+    label_number: crate::class_props::label_number,
     on_double_click: wall_torch_on_double_click,
 }
 

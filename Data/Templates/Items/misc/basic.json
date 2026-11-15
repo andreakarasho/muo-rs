@@ -1,0 +1,34 @@
+[
+  {
+    "type": "Server.Items.Blocker",
+    "props": {
+      "labelNumber": 503057
+    }
+  },
+  {
+    "type": "Server.Items.LOSBlocker",
+    "props": {
+      "defaultName": "no line of sight"
+    }
+  },
+  {
+    "type": "Server.Items.PowerCrystal",
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "power crystal"
+    }
+  },
+  {
+    "type": "Server.Items.Scales",
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.WayPoint",
+    "itemId": 7956,
+    "props": {
+      "defaultName": "AI Way Point"
+    }
+  }
+]

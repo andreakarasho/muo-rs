@@ -91,7 +91,7 @@ fn class(w: &World, id: ItemId) -> &'static MapItemClass {
 
 /// `MapItem(facet)` of class `ty`.
 pub fn map_item_new(w: &mut World, ty: &'static ItemType, facet: Option<MapId>) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14EC);
+    let id = crate::simple::from_template(w, ty, "Server.Items.MapItem");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(MapItemData {
             width: 200,
@@ -538,7 +538,7 @@ pub static MAP_ITEM: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| map_item_new(w, &MAP_ITEM, None)),
     family: Some(&MAP_ITEM_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         let loc = ops::get_world_location(w, id);
         if deps::mobile_in_range(w, from, loc, 2) {

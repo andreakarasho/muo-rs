@@ -146,7 +146,7 @@ pub static SEXTANT: ItemType = ItemType {
     full_name: "Server.Items.Sextant",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &SEXTANT, 0x1058)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, _id, from| {
         let Some((loc, map)) = w.mobile(from).map(|m| (m.location, m.map)) else {
             return;
@@ -233,7 +233,7 @@ fn calculate_hue(w: &mut World, id: ItemId) {
 
 /// `new RecallRune()`.
 pub fn new_rune(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &RECALL_RUNE, 0x1F14);
+    let id = crate::simple::from_template(w, &RECALL_RUNE, "Server.Items.RecallRune");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(RuneData::default());
     }
@@ -500,7 +500,7 @@ pub static RECALL_RUNE: ItemType = ItemType {
     full_name: "Server.Items.RecallRune",
     parent: Some(&ITEM_BASE),
     construct: Some(new_rune),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     get_properties: rune_get_properties,
     on_single_click: rune_on_single_click,
     on_double_click: rune_on_double_click,
@@ -999,7 +999,7 @@ pub static RUNEBOOK: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(new_runebook_default),
     default_weight: |w, _| if muo_content::core::se(w) { 1.0 } else { 3.0 },
-    label_number: |_, _| 1041267, // runebook
+    label_number: crate::class_props::label_number, // runebook
     display_loot_type: |w, _| muo_content::core::aos(w),
     allow_equipped_cast: |_, _, _| true,
     get_context_menu_entries: |w, id, from, list| {

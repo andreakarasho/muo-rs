@@ -121,9 +121,9 @@ pub static STRONG_BOX: ItemType = ItemType {
     // no parameterless constructor: `construct` is what loading a save uses
     construct: None,
     make: Some(|w| new_strong_box(w, None, None)),
-    default_weight: |_, _| 100.0,
-    label_number: |_, _| 1023712,
-    default_max_weight: |_, _| 0,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
+    default_max_weight: crate::class_props::default_max_weight,
     add_name_property: |w, id, list| match data(w, id).owner {
         Some(o) => {
             let name = w

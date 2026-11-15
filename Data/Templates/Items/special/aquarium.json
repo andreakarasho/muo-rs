@@ -1,0 +1,27 @@
+[
+  {
+    "type": "Server.Items.Aquarium",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.AquariumEastDeed",
+    "props": {
+      "labelNumber": 1074501
+    }
+  },
+  {
+    "type": "Server.Items.AquariumNorthDeed",
+    "props": {
+      "labelNumber": 1074497
+    }
+  },
+  {
+    "type": "Server.Items.FishBowl",
+    "props": {
+      "labelNumber": 1074499,
+      "defaultWeight": 2.0
+    }
+  }
+]

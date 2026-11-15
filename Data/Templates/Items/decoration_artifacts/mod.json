@@ -1,0 +1,14 @@
+[
+  {
+    "type": "Server.Items.BaseDecorationArtifact",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.BaseDecorationContainerArtifact",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  }
+]

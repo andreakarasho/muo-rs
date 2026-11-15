@@ -29,7 +29,7 @@ pub fn broken_armoire_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.BrokenArmoireComponent`.
     BROKEN_ARMOIRE_COMPONENT = "Server.Items.BrokenArmoireComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076262,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenArmoireAddon()`.
@@ -68,7 +68,7 @@ leaf! {
     BROKEN_ARMOIRE_DEED = "Server.Items.BrokenArmoireDeed" : BASE_ADDON_DEED, enc;
     construct: Some(broken_armoire_deed_new),
     family: Some(&BROKEN_ARMOIRE_DEED_CLASS),
-    label_number: |_, _| 1076262,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenBedAddon(bool east)`.
@@ -125,7 +125,7 @@ leaf! {
     construct: Some(broken_bed_deed_new),
     family: Some(&BROKEN_BED_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076263,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenBookcaseComponent()`.
@@ -135,7 +135,7 @@ pub fn broken_bookcase_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.BrokenBookcaseComponent`.
     BROKEN_BOOKCASE_COMPONENT = "Server.Items.BrokenBookcaseComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076258,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenBookcaseAddon()`.
@@ -174,7 +174,7 @@ leaf! {
     BROKEN_BOOKCASE_DEED = "Server.Items.BrokenBookcaseDeed" : BASE_ADDON_DEED, enc;
     construct: Some(broken_bookcase_deed_new),
     family: Some(&BROKEN_BOOKCASE_DEED_CLASS),
-    label_number: |_, _| 1076258,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenChestOfDrawersComponent()`.
@@ -184,7 +184,7 @@ pub fn broken_chest_of_drawers_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.BrokenChestOfDrawersComponent`.
     BROKEN_CHEST_OF_DRAWERS_COMPONENT = "Server.Items.BrokenChestOfDrawersComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076261,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenChestOfDrawersAddon()`.
@@ -223,7 +223,7 @@ leaf! {
     BROKEN_CHEST_OF_DRAWERS_DEED = "Server.Items.BrokenChestOfDrawersDeed" : BASE_ADDON_DEED, enc;
     construct: Some(broken_chest_of_drawers_deed_new),
     family: Some(&BROKEN_CHEST_OF_DRAWERS_DEED_CLASS),
-    label_number: |_, _| 1076261,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenCoveredChairComponent()`.
@@ -233,7 +233,7 @@ pub fn broken_covered_chair_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.BrokenCoveredChairComponent`.
     BROKEN_COVERED_CHAIR_COMPONENT = "Server.Items.BrokenCoveredChairComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076257,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenCoveredChairAddon()`.
@@ -272,7 +272,7 @@ leaf! {
     BROKEN_COVERED_CHAIR_DEED = "Server.Items.BrokenCoveredChairDeed" : BASE_ADDON_DEED, enc;
     construct: Some(broken_covered_chair_deed_new),
     family: Some(&BROKEN_COVERED_CHAIR_DEED_CLASS),
-    label_number: |_, _| 1076257,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenFallenChairComponent()`.
@@ -282,7 +282,7 @@ pub fn broken_fallen_chair_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.BrokenFallenChairComponent`.
     BROKEN_FALLEN_CHAIR_COMPONENT = "Server.Items.BrokenFallenChairComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076264,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenFallenChairAddon()`.
@@ -321,7 +321,7 @@ leaf! {
     BROKEN_FALLEN_CHAIR_DEED = "Server.Items.BrokenFallenChairDeed" : BASE_ADDON_DEED, enc;
     construct: Some(broken_fallen_chair_deed_new),
     family: Some(&BROKEN_FALLEN_CHAIR_DEED_CLASS),
-    label_number: |_, _| 1076264,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BrokenVanityAddon(bool east)`.
@@ -374,7 +374,7 @@ leaf! {
     construct: Some(broken_vanity_deed_new),
     family: Some(&BROKEN_VANITY_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076260,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StandingBrokenChairComponent()`.
@@ -384,7 +384,7 @@ pub fn standing_broken_chair_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.StandingBrokenChairComponent`.
     STANDING_BROKEN_CHAIR_COMPONENT = "Server.Items.StandingBrokenChairComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076259,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StandingBrokenChairAddon()`.
@@ -423,7 +423,7 @@ leaf! {
     STANDING_BROKEN_CHAIR_DEED = "Server.Items.StandingBrokenChairDeed" : BASE_ADDON_DEED, enc;
     construct: Some(standing_broken_chair_deed_new),
     family: Some(&STANDING_BROKEN_CHAIR_DEED_CLASS),
-    label_number: |_, _| 1076259,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BoneCouchComponent(itemID)`.
@@ -434,7 +434,7 @@ leaf! {
     /// `Server.Items.BoneCouchComponent`.
     BONE_COUCH_COMPONENT = "Server.Items.BoneCouchComponent" : ADDON_COMPONENT, enc;
     on_move_over: |w, id, m| addon::move_over_sound(w, id, m, 0x547, 0x54A),
-    label_number: |_, _| 1074477,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BoneTableAddon()`.
@@ -469,7 +469,7 @@ leaf! {
     BONE_TABLE_DEED = "Server.Items.BoneTableDeed" : BASE_ADDON_DEED, enc;
     construct: Some(bone_table_deed_new),
     family: Some(&BONE_TABLE_DEED_CLASS),
-    label_number: |_, _| 1074478,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BoneThroneComponent()`.
@@ -480,7 +480,7 @@ leaf! {
     /// `Server.Items.BoneThroneComponent`.
     BONE_THRONE_COMPONENT = "Server.Items.BoneThroneComponent" : ADDON_COMPONENT, enc;
     on_move_over: |w, id, m| addon::move_over_sound(w, id, m, 0x54B, 0x54D),
-    label_number: |_, _| 1074476,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BoneThroneAddon()`.
@@ -515,7 +515,7 @@ leaf! {
     BONE_THRONE_DEED = "Server.Items.BoneThroneDeed" : BASE_ADDON_DEED, enc;
     construct: Some(bone_throne_deed_new),
     family: Some(&BONE_THRONE_DEED_CLASS),
-    label_number: |_, _| 1074476,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieBlueComponent()`.
@@ -526,7 +526,7 @@ leaf! {
     /// `Server.Items.MountedPixieBlueComponent`.
     MOUNTED_PIXIE_BLUE_COMPONENT = "Server.Items.MountedPixieBlueComponent" : ADDON_COMPONENT, enc;
     on_double_click: |w, id, from| addon::reach_sound(w, id, from, 0x55C, 0x55E),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieBlueAddon()`.
@@ -564,7 +564,7 @@ leaf! {
     MOUNTED_PIXIE_BLUE_DEED = "Server.Items.MountedPixieBlueDeed" : BASE_ADDON_DEED, enc;
     construct: Some(mounted_pixie_blue_deed_new),
     family: Some(&MOUNTED_PIXIE_BLUE_DEED_CLASS),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieGreenComponent()`.
@@ -575,7 +575,7 @@ leaf! {
     /// `Server.Items.MountedPixieGreenComponent`.
     MOUNTED_PIXIE_GREEN_COMPONENT = "Server.Items.MountedPixieGreenComponent" : ADDON_COMPONENT, enc;
     on_double_click: |w, id, from| addon::reach_sound(w, id, from, 0x554, 0x557),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieGreenAddon()`.
@@ -613,7 +613,7 @@ leaf! {
     MOUNTED_PIXIE_GREEN_DEED = "Server.Items.MountedPixieGreenDeed" : BASE_ADDON_DEED, enc;
     construct: Some(mounted_pixie_green_deed_new),
     family: Some(&MOUNTED_PIXIE_GREEN_DEED_CLASS),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieLimeComponent()`.
@@ -624,7 +624,7 @@ leaf! {
     /// `Server.Items.MountedPixieLimeComponent`.
     MOUNTED_PIXIE_LIME_COMPONENT = "Server.Items.MountedPixieLimeComponent" : ADDON_COMPONENT, enc;
     on_double_click: |w, id, from| addon::reach_sound(w, id, from, 0x55F, 0x561),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieLimeAddon()`.
@@ -662,7 +662,7 @@ leaf! {
     MOUNTED_PIXIE_LIME_DEED = "Server.Items.MountedPixieLimeDeed" : BASE_ADDON_DEED, enc;
     construct: Some(mounted_pixie_lime_deed_new),
     family: Some(&MOUNTED_PIXIE_LIME_DEED_CLASS),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieOrangeComponent()`.
@@ -673,7 +673,7 @@ leaf! {
     /// `Server.Items.MountedPixieOrangeComponent`.
     MOUNTED_PIXIE_ORANGE_COMPONENT = "Server.Items.MountedPixieOrangeComponent" : ADDON_COMPONENT, enc;
     on_double_click: |w, id, from| addon::reach_sound(w, id, from, 0x558, 0x55B),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieOrangeAddon()`.
@@ -711,7 +711,7 @@ leaf! {
     MOUNTED_PIXIE_ORANGE_DEED = "Server.Items.MountedPixieOrangeDeed" : BASE_ADDON_DEED, enc;
     construct: Some(mounted_pixie_orange_deed_new),
     family: Some(&MOUNTED_PIXIE_ORANGE_DEED_CLASS),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieWhiteComponent()`.
@@ -722,7 +722,7 @@ leaf! {
     /// `Server.Items.MountedPixieWhiteComponent`.
     MOUNTED_PIXIE_WHITE_COMPONENT = "Server.Items.MountedPixieWhiteComponent" : ADDON_COMPONENT, enc;
     on_double_click: |w, id, from| addon::reach_sound(w, id, from, 0x562, 0x564),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedPixieWhiteAddon()`.
@@ -760,7 +760,7 @@ leaf! {
     MOUNTED_PIXIE_WHITE_DEED = "Server.Items.MountedPixieWhiteDeed" : BASE_ADDON_DEED, enc;
     construct: Some(mounted_pixie_white_deed_new),
     family: Some(&MOUNTED_PIXIE_WHITE_DEED_CLASS),
-    label_number: |_, _| 1074482,
+    label_number: crate::class_props::label_number,
 }
 
 /// `AppleTrunkAddon()`.
@@ -795,7 +795,7 @@ leaf! {
     APPLE_TRUNK_DEED = "Server.Items.AppleTrunkDeed" : BASE_ADDON_DEED, enc;
     construct: Some(apple_trunk_deed_new),
     family: Some(&APPLE_TRUNK_DEED_CLASS),
-    label_number: |_, _| 1076785,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BlueDecorativeRugAddon()`.
@@ -844,7 +844,7 @@ leaf! {
     BLUE_DECORATIVE_RUG_DEED = "Server.Items.BlueDecorativeRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(blue_decorative_rug_deed_new),
     family: Some(&BLUE_DECORATIVE_RUG_DEED_CLASS),
-    label_number: |_, _| 1076589,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BlueFancyRugAddon()`.
@@ -893,7 +893,7 @@ leaf! {
     BLUE_FANCY_RUG_DEED = "Server.Items.BlueFancyRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(blue_fancy_rug_deed_new),
     family: Some(&BLUE_FANCY_RUG_DEED_CLASS),
-    label_number: |_, _| 1076273,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BluePlainRugAddon()`.
@@ -942,7 +942,7 @@ leaf! {
     BLUE_PLAIN_RUG_DEED = "Server.Items.BluePlainRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(blue_plain_rug_deed_new),
     family: Some(&BLUE_PLAIN_RUG_DEED_CLASS),
-    label_number: |_, _| 1076585,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BoilingCauldronAddon()`.
@@ -967,9 +967,9 @@ leaf! {
     BOILING_CAULDRON_ADDON = "Server.Items.BoilingCauldronAddon" : BASE_ADDON_CONTAINER, enc;
     construct: Some(boiling_cauldron_addon_new),
     family: Some(&BOILING_CAULDRON_ADDON_CLASS),
-    label_number: |_, _| 1076267,
-    default_gump_id: |_, _| 0x9,
-    default_drop_sound: |_, _| 0x42,
+    label_number: crate::class_props::label_number,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `BoilingCauldronDeed()`.
@@ -987,7 +987,7 @@ leaf! {
     BOILING_CAULDRON_DEED = "Server.Items.BoilingCauldronDeed" : BASE_ADDON_CONTAINER_DEED, enc;
     construct: Some(boiling_cauldron_deed_new),
     family: Some(&BOILING_CAULDRON_DEED_CLASS),
-    label_number: |_, _| 1076267,
+    label_number: crate::class_props::label_number,
 }
 
 /// `CherryBlossomTreeAddon()`.
@@ -1029,7 +1029,7 @@ leaf! {
     CHERRY_BLOSSOM_TREE_DEED = "Server.Items.CherryBlossomTreeDeed" : BASE_ADDON_DEED, enc;
     construct: Some(cherry_blossom_tree_deed_new),
     family: Some(&CHERRY_BLOSSOM_TREE_DEED_CLASS),
-    label_number: |_, _| 1076268,
+    label_number: crate::class_props::label_number,
 }
 
 /// `CherryBlossomTrunkAddon()`.
@@ -1064,7 +1064,7 @@ leaf! {
     CHERRY_BLOSSOM_TRUNK_DEED = "Server.Items.CherryBlossomTrunkDeed" : BASE_ADDON_DEED, enc;
     construct: Some(cherry_blossom_trunk_deed_new),
     family: Some(&CHERRY_BLOSSOM_TRUNK_DEED_CLASS),
-    label_number: |_, _| 1076784,
+    label_number: crate::class_props::label_number,
 }
 
 /// `CinnamonFancyRugAddon()`.
@@ -1113,7 +1113,7 @@ leaf! {
     CINNAMON_FANCY_RUG_DEED = "Server.Items.CinnamonFancyRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(cinnamon_fancy_rug_deed_new),
     family: Some(&CINNAMON_FANCY_RUG_DEED_CLASS),
-    label_number: |_, _| 1076587,
+    label_number: crate::class_props::label_number,
 }
 
 /// `GoldenDecorativeRugAddon()`.
@@ -1162,7 +1162,7 @@ leaf! {
     GOLDEN_DECORATIVE_RUG_DEED = "Server.Items.GoldenDecorativeRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(golden_decorative_rug_deed_new),
     family: Some(&GOLDEN_DECORATIVE_RUG_DEED_CLASS),
-    label_number: |_, _| 1076586,
+    label_number: crate::class_props::label_number,
 }
 
 /// `GuillotineComponent()`.
@@ -1172,7 +1172,7 @@ pub fn guillotine_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.GuillotineComponent`.
     GUILLOTINE_COMPONENT = "Server.Items.GuillotineComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1024656,
+    label_number: crate::class_props::label_number,
 }
 
 /// `HangingAxesAddon(bool east)`.
@@ -1225,7 +1225,7 @@ leaf! {
     construct: Some(hanging_axes_deed_new),
     family: Some(&HANGING_AXES_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076271,
+    label_number: crate::class_props::label_number,
 }
 
 /// `HangingSwordsAddon(bool east)`.
@@ -1278,7 +1278,7 @@ leaf! {
     construct: Some(hanging_swords_deed_new),
     family: Some(&HANGING_SWORDS_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076272,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeFishingNetComponent()`.
@@ -1288,7 +1288,7 @@ pub fn large_fishing_net_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.LargeFishingNetComponent`.
     LARGE_FISHING_NET_COMPONENT = "Server.Items.LargeFishingNetComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076285,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LargeFishingNetAddon()`.
@@ -1327,7 +1327,7 @@ leaf! {
     LARGE_FISHING_NET_DEED = "Server.Items.LargeFishingNetDeed" : BASE_ADDON_DEED, enc;
     construct: Some(large_fishing_net_deed_new),
     family: Some(&LARGE_FISHING_NET_DEED_CLASS),
-    label_number: |_, _| 1076285,
+    label_number: crate::class_props::label_number,
 }
 
 /// `PeachTrunkAddon()`.
@@ -1362,7 +1362,7 @@ leaf! {
     PEACH_TRUNK_DEED = "Server.Items.PeachTrunkDeed" : BASE_ADDON_DEED, enc;
     construct: Some(peach_trunk_deed_new),
     family: Some(&PEACH_TRUNK_DEED_CLASS),
-    label_number: |_, _| 1076786,
+    label_number: crate::class_props::label_number,
 }
 
 /// `PinkFancyRugAddon()`.
@@ -1411,7 +1411,7 @@ leaf! {
     PINK_FANCY_RUG_DEED = "Server.Items.PinkFancyRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(pink_fancy_rug_deed_new),
     family: Some(&PINK_FANCY_RUG_DEED_CLASS),
-    label_number: |_, _| 1076590,
+    label_number: crate::class_props::label_number,
 }
 
 /// `RedPlainRugAddon()`.
@@ -1460,7 +1460,7 @@ leaf! {
     RED_PLAIN_RUG_DEED = "Server.Items.RedPlainRugDeed" : BASE_ADDON_DEED, enc;
     construct: Some(red_plain_rug_deed_new),
     family: Some(&RED_PLAIN_RUG_DEED_CLASS),
-    label_number: |_, _| 1076588,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ScarecrowComponent()`.
@@ -1470,7 +1470,7 @@ pub fn scarecrow_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.ScarecrowComponent`.
     SCARECROW_COMPONENT = "Server.Items.ScarecrowComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076608,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ScarecrowAddon()`.
@@ -1505,7 +1505,7 @@ leaf! {
     SCARECROW_DEED = "Server.Items.ScarecrowDeed" : BASE_ADDON_DEED, enc;
     construct: Some(scarecrow_deed_new),
     family: Some(&SCARECROW_DEED_CLASS),
-    label_number: |_, _| 1076608,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SmallFishingNetComponent()`.
@@ -1515,7 +1515,7 @@ pub fn small_fishing_net_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.SmallFishingNetComponent`.
     SMALL_FISHING_NET_COMPONENT = "Server.Items.SmallFishingNetComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076286,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SmallFishingNetAddon()`.
@@ -1554,7 +1554,7 @@ leaf! {
     SMALL_FISHING_NET_DEED = "Server.Items.SmallFishingNetDeed" : BASE_ADDON_DEED, enc;
     construct: Some(small_fishing_net_deed_new),
     family: Some(&SMALL_FISHING_NET_DEED_CLASS),
-    label_number: |_, _| 1076286,
+    label_number: crate::class_props::label_number,
 }
 
 /// `StoneStatueAddon(bool east)`.
@@ -1609,7 +1609,7 @@ leaf! {
     construct: Some(stone_statue_deed_new),
     family: Some(&STONE_STATUE_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076284,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SuitOfGoldArmorComponent()`.
@@ -1619,7 +1619,7 @@ pub fn suit_of_gold_armor_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.SuitOfGoldArmorComponent`.
     SUIT_OF_GOLD_ARMOR_COMPONENT = "Server.Items.SuitOfGoldArmorComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076265,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SuitOfGoldArmorAddon()`.
@@ -1658,7 +1658,7 @@ leaf! {
     SUIT_OF_GOLD_ARMOR_DEED = "Server.Items.SuitOfGoldArmorDeed" : BASE_ADDON_DEED, enc;
     construct: Some(suit_of_gold_armor_deed_new),
     family: Some(&SUIT_OF_GOLD_ARMOR_DEED_CLASS),
-    label_number: |_, _| 1076265,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SuitOfSilverArmorComponent()`.
@@ -1668,7 +1668,7 @@ pub fn suit_of_silver_armor_component_new(w: &mut World) -> ItemId {
 leaf! {
     /// `Server.Items.SuitOfSilverArmorComponent`.
     SUIT_OF_SILVER_ARMOR_COMPONENT = "Server.Items.SuitOfSilverArmorComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076266,
+    label_number: crate::class_props::label_number,
 }
 
 /// `SuitOfSilverArmorAddon()`.
@@ -1707,7 +1707,7 @@ leaf! {
     SUIT_OF_SILVER_ARMOR_DEED = "Server.Items.SuitOfSilverArmorDeed" : BASE_ADDON_DEED, enc;
     construct: Some(suit_of_silver_armor_deed_new),
     family: Some(&SUIT_OF_SILVER_ARMOR_DEED_CLASS),
-    label_number: |_, _| 1076266,
+    label_number: crate::class_props::label_number,
 }
 
 /// `TableWithBlueClothAddon()`.
@@ -1742,7 +1742,7 @@ leaf! {
     TABLE_WITH_BLUE_CLOTH_DEED = "Server.Items.TableWithBlueClothDeed" : BASE_ADDON_DEED, enc;
     construct: Some(table_with_blue_cloth_deed_new),
     family: Some(&TABLE_WITH_BLUE_CLOTH_DEED_CLASS),
-    label_number: |_, _| 1076276,
+    label_number: crate::class_props::label_number,
 }
 
 /// `TableWithOrangeClothAddon()`.
@@ -1777,7 +1777,7 @@ leaf! {
     TABLE_WITH_ORANGE_CLOTH_DEED = "Server.Items.TableWithOrangeClothDeed" : BASE_ADDON_DEED, enc;
     construct: Some(table_with_orange_cloth_deed_new),
     family: Some(&TABLE_WITH_ORANGE_CLOTH_DEED_CLASS),
-    label_number: |_, _| 1076278,
+    label_number: crate::class_props::label_number,
 }
 
 /// `TableWithPurpleClothAddon()`.
@@ -1812,7 +1812,7 @@ leaf! {
     TABLE_WITH_PURPLE_CLOTH_DEED = "Server.Items.TableWithPurpleClothDeed" : BASE_ADDON_DEED, enc;
     construct: Some(table_with_purple_cloth_deed_new),
     family: Some(&TABLE_WITH_PURPLE_CLOTH_DEED_CLASS),
-    label_number: |_, _| 1076275,
+    label_number: crate::class_props::label_number,
 }
 
 /// `TableWithRedClothAddon()`.
@@ -1847,7 +1847,7 @@ leaf! {
     TABLE_WITH_RED_CLOTH_DEED = "Server.Items.TableWithRedClothDeed" : BASE_ADDON_DEED, enc;
     construct: Some(table_with_red_cloth_deed_new),
     family: Some(&TABLE_WITH_RED_CLOTH_DEED_CLASS),
-    label_number: |_, _| 1076277,
+    label_number: crate::class_props::label_number,
 }
 
 /// `UnmadeBedAddon(bool east)`.
@@ -1904,7 +1904,7 @@ leaf! {
     construct: Some(unmade_bed_deed_new),
     family: Some(&UNMADE_BED_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076279,
+    label_number: crate::class_props::label_number,
 }
 
 /// `VanityAddon(bool east)`.
@@ -1926,9 +1926,9 @@ leaf! {
     /// `Server.Items.VanityAddon`.
     VANITY_ADDON = "Server.Items.VanityAddon" : BASE_ADDON_CONTAINER, enc;
     family: Some(&VANITY_ADDON_CLASS),
-    label_number: |_, _| 1074027,
-    default_gump_id: |_, _| 0x51,
-    default_drop_sound: |_, _| 0x42,
+    label_number: crate::class_props::label_number,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `VanityDeed()`.
@@ -1947,7 +1947,7 @@ leaf! {
     construct: Some(vanity_deed_new),
     family: Some(&VANITY_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1074027,
+    label_number: crate::class_props::label_number,
 }
 
 /// `WallTorchAddon()`.
@@ -1981,7 +1981,7 @@ leaf! {
     WALL_TORCH_DEED = "Server.Items.WallTorchDeed" : BASE_ADDON_DEED, enc;
     construct: Some(wall_torch_deed_new),
     family: Some(&WALL_TORCH_DEED_CLASS),
-    label_number: |_, _| 1076282,
+    label_number: crate::class_props::label_number,
 }
 
 /// `WoodenCoffinComponent(itemID)`.
@@ -1991,7 +1991,7 @@ pub fn wooden_coffin_component_new(w: &mut World, item_id: i32) -> ItemId {
 leaf! {
     /// `Server.Items.WoodenCoffinComponent`.
     WOODEN_COFFIN_COMPONENT = "Server.Items.WoodenCoffinComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1076274,
+    label_number: crate::class_props::label_number,
 }
 
 /// `WoodenCoffinAddon(bool east)`.
@@ -2046,7 +2046,7 @@ leaf! {
     construct: Some(wooden_coffin_deed_new),
     family: Some(&WOODEN_COFFIN_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076274,
+    label_number: crate::class_props::label_number,
 }
 
 /// Every class of this file, with its `[TypeAlias]`es.

@@ -59,7 +59,7 @@ pub static CANDELABRA: ItemType = ItemType {
     parent: Some(&BASE_LIGHT),
     construct: Some(|w| candelabra_new(w, &CANDELABRA)),
     family: Some(&CANDELABRA_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
     add_name_properties: |w, id, list| {
         (BASE_LIGHT.add_name_properties)(w, id, list);
         if shipwrecked(w, id) {
@@ -135,7 +135,7 @@ leaf! {
     HEATING_STAND = "Server.Items.HeatingStand" : BASE_LIGHT, v0;
     construct: Some(|w| heating_stand_new(w, &HEATING_STAND)),
     family: Some(&HEATING_STAND_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- the flippable lights ----

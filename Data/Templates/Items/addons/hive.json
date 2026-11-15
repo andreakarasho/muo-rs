@@ -1,0 +1,20 @@
+[
+  {
+    "type": "Server.Items.SHTeleComponent",
+    "props": {
+      "defaultName": "a hole"
+    }
+  },
+  {
+    "type": "Server.Items.BallotBox",
+    "props": {
+      "labelNumber": 1041006
+    }
+  },
+  {
+    "type": "Server.Items.BallotBoxDeed",
+    "props": {
+      "labelNumber": 1044327
+    }
+  }
+]

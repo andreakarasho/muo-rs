@@ -1,0 +1,22 @@
+[
+  {
+    "type": "Server.Items.MonsterStatuette",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.HeritageToken",
+    "props": {
+      "defaultWeight": 5.0,
+      "labelNumber": 1076596
+    }
+  },
+  {
+    "type": "Server.Items.GrizzledMareStatuette",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1074475
+    }
+  }
+]

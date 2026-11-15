@@ -159,8 +159,8 @@ pub static HAIR_RESTYLING_DEED: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041061, // a coupon for a free hair restyling
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a coupon for a free hair restyling
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             msg(w, from, 1042001); // That must be in your pack...
@@ -232,8 +232,8 @@ pub static BARKEEP_CONTRACT: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("a barkeep contract".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         use muo_multis::house::{access, storage};
         if !in_pack(w, id, from) {
@@ -393,7 +393,7 @@ pub static DRAGON_BARDING_DEED: ItemType = ItemType {
         }
         id
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         if bd(w, id).exceptional {
             1053181

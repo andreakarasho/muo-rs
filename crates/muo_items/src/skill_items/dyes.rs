@@ -124,7 +124,7 @@ pub fn new_unredyable_tub(w: &mut World, hue_value: i32) -> ItemId {
 
 /// `new DyeTub()` of class `ty`.
 pub fn new_tub(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xFAB);
+    let id = crate::simple::from_template(w, ty, "Server.Items.DyeTub");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(TubData {
             level: 1,
@@ -343,7 +343,7 @@ pub static DYE_TUB: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_tub(w, &DYE_TUB)),
     family: Some(&DYE_TUB_CLASS),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     get_context_menu_entries,
     get_properties,
     on_double_click,
@@ -511,7 +511,7 @@ pub static DYES: ItemType = ItemType {
     full_name: "Server.Items.Dyes",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &DYES, 0xFA9)),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: dyes_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -607,7 +607,7 @@ pub static SCISSORS: ItemType = ItemType {
     full_name: "Server.Items.Scissors",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| ops::new_item_with_id(w, &SCISSORS, 0xF9F)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: scissors_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

@@ -1,0 +1,14 @@
+[
+  {
+    "type": "Server.Items.BaseBoard",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.Dices",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

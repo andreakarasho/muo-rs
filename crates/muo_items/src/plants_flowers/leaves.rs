@@ -16,7 +16,7 @@ leaf! {
     /// `Server.Items.LargeEmptyPot`.
     LARGE_EMPTY_POT = "Server.Items.LargeEmptyPot" : ITEM_BASE, v0;
     construct: Some(|w| large_empty_pot_new(w, &LARGE_EMPTY_POT)),
-    default_weight: |_, _| 6.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SmallEmptyPot()`.
@@ -28,7 +28,7 @@ leaf! {
     /// `Server.Items.SmallEmptyPot`.
     SMALL_EMPTY_POT = "Server.Items.SmallEmptyPot" : ITEM_BASE, v0;
     construct: Some(|w| small_empty_pot_new(w, &SMALL_EMPTY_POT)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus()`.
@@ -40,7 +40,7 @@ leaf! {
     /// `Server.Items.PottedCactus`.
     POTTED_CACTUS = "Server.Items.PottedCactus" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus_new(w, &POTTED_CACTUS)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus1()`.
@@ -52,7 +52,7 @@ leaf! {
     /// `Server.Items.PottedCactus1`.
     POTTED_CACTUS1 = "Server.Items.PottedCactus1" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus1_new(w, &POTTED_CACTUS1)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus2()`.
@@ -64,7 +64,7 @@ leaf! {
     /// `Server.Items.PottedCactus2`.
     POTTED_CACTUS2 = "Server.Items.PottedCactus2" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus2_new(w, &POTTED_CACTUS2)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus3()`.
@@ -76,7 +76,7 @@ leaf! {
     /// `Server.Items.PottedCactus3`.
     POTTED_CACTUS3 = "Server.Items.PottedCactus3" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus3_new(w, &POTTED_CACTUS3)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus4()`.
@@ -88,7 +88,7 @@ leaf! {
     /// `Server.Items.PottedCactus4`.
     POTTED_CACTUS4 = "Server.Items.PottedCactus4" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus4_new(w, &POTTED_CACTUS4)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus5()`.
@@ -100,7 +100,7 @@ leaf! {
     /// `Server.Items.PottedCactus5`.
     POTTED_CACTUS5 = "Server.Items.PottedCactus5" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus5_new(w, &POTTED_CACTUS5)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedPlant()`.
@@ -112,7 +112,7 @@ leaf! {
     /// `Server.Items.PottedPlant`.
     POTTED_PLANT = "Server.Items.PottedPlant" : ITEM_BASE, v0;
     construct: Some(|w| potted_plant_new(w, &POTTED_PLANT)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedPlant1()`.
@@ -124,7 +124,7 @@ leaf! {
     /// `Server.Items.PottedPlant1`.
     POTTED_PLANT1 = "Server.Items.PottedPlant1" : ITEM_BASE, v0;
     construct: Some(|w| potted_plant1_new(w, &POTTED_PLANT1)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedPlant2()`.
@@ -136,7 +136,7 @@ leaf! {
     /// `Server.Items.PottedPlant2`.
     POTTED_PLANT2 = "Server.Items.PottedPlant2" : ITEM_BASE, v0;
     construct: Some(|w| potted_plant2_new(w, &POTTED_PLANT2)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedTree()`.
@@ -148,7 +148,7 @@ leaf! {
     /// `Server.Items.PottedTree`.
     POTTED_TREE = "Server.Items.PottedTree" : ITEM_BASE, v0;
     construct: Some(|w| potted_tree_new(w, &POTTED_TREE)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedTree1()`.
@@ -160,7 +160,7 @@ leaf! {
     /// `Server.Items.PottedTree1`.
     POTTED_TREE1 = "Server.Items.PottedTree1" : ITEM_BASE, v0;
     construct: Some(|w| potted_tree1_new(w, &POTTED_TREE1)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

@@ -2,6 +2,10 @@
   {
     "type": "Server.Items.InteriorDecorator",
     "itemId": 4033,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041280
+    }
   }
 ]

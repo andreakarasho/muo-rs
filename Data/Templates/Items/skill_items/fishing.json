@@ -1,0 +1,37 @@
+[
+  {
+    "type": "Server.Items.FishingPole",
+    "itemId": 3520,
+    "props": {
+      "defaultWeight": 8.0
+    }
+  },
+  {
+    "type": "Server.Items.MessageInABottle",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041080
+    }
+  },
+  {
+    "type": "Server.Items.SOS",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SpecialFishingNet",
+    "itemId": 3530,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041079
+    }
+  },
+  {
+    "type": "Server.Items.FabledFishingNet",
+    "itemId": 3530,
+    "props": {
+      "labelNumber": 1063451
+    }
+  }
+]

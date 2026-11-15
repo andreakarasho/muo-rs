@@ -48,6 +48,7 @@ pub mod wiring;
 
 mod template_keys_equipment;
 mod template_keys_misc;
+pub mod class_props;
 
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {

@@ -10,5 +10,95 @@
     "itemId": 5703,
     "layer": "TwoHanded",
     "movable": false
+  },
+  {
+    "type": "Server.Items.Brazier",
+    "props": {
+      "defaultWeight": 20.0
+    }
+  },
+  {
+    "type": "Server.Items.BrazierTall",
+    "props": {
+      "defaultWeight": 25.0
+    }
+  },
+  {
+    "type": "Server.Items.CandelabraStand",
+    "props": {
+      "defaultWeight": 20.0
+    }
+  },
+  {
+    "type": "Server.Items.Candle",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.CandleLarge",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.CandleLong",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.CandleShort",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.CandleSkull",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.HangingLantern",
+    "props": {
+      "defaultWeight": 40.0
+    }
+  },
+  {
+    "type": "Server.Items.LampPost1",
+    "props": {
+      "defaultWeight": 40.0
+    }
+  },
+  {
+    "type": "Server.Items.LampPost2",
+    "props": {
+      "defaultWeight": 40.0
+    }
+  },
+  {
+    "type": "Server.Items.LampPost3",
+    "props": {
+      "defaultWeight": 40.0
+    }
+  },
+  {
+    "type": "Server.Items.PaperLantern",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.RoundPaperLantern",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.ShojiLantern",
+    "props": {
+      "defaultWeight": 3.0
+    }
   }
 ]

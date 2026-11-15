@@ -86,7 +86,7 @@ pub static SPELL_SCROLL: ItemType = ItemType {
     full_name: "Server.Items.SpellScroll",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     get_context_menu_entries: |w, id, from, list| {
         base::get_context_menu_entries_base(w, id, from, list);
         if muo_server::mobile::base::alive(w, from) && w.item(id).is_some_and(|i| i.movable()) {

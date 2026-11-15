@@ -23,24 +23,24 @@ leaf! {
     /// `Server.Items.DarkChocolate`.
     DARK_CHOCOLATE = "Server.Items.DarkChocolate" : CANDY_CANE, v0;
     construct: Some(|w| chocolate_new(w, &DARK_CHOCOLATE, 0xF10, 0x465)),
-    label_number: |_, _| 1079994, // Dark chocolate
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // Dark chocolate
+    default_weight: crate::class_props::default_weight,
 }
 
 leaf! {
     /// `Server.Items.MilkChocolate`.
     MILK_CHOCOLATE = "Server.Items.MilkChocolate" : CANDY_CANE, v0;
     construct: Some(|w| chocolate_new(w, &MILK_CHOCOLATE, 0xF18, 0x461)),
-    label_number: |_, _| 1079995, // Milk chocolate
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // Milk chocolate
+    default_weight: crate::class_props::default_weight,
 }
 
 leaf! {
     /// `Server.Items.WhiteChocolate`.
     WHITE_CHOCOLATE = "Server.Items.WhiteChocolate" : CANDY_CANE, v0;
     construct: Some(|w| chocolate_new(w, &WHITE_CHOCOLATE, 0xF11, 0x47E)),
-    label_number: |_, _| 1079996, // White chocolate
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // White chocolate
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Registers the classes of this file.

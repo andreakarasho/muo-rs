@@ -1,0 +1,38 @@
+[
+  {
+    "type": "Server.Items.Coal",
+    "props": {
+      "labelNumber": 1041426
+    }
+  },
+  {
+    "type": "Server.Items.RedPoinsettia",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.WhitePoinsettia",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BlueSnowflake",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.WhiteSnowflake",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.RoseInAVase",
+    "props": {
+      "labelNumber": 1023760
+    }
+  }
+]

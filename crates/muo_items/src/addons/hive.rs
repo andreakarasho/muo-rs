@@ -459,7 +459,7 @@ pub static SH_TELE_COMPONENT: ItemType = ItemType {
     full_name: "Server.Items.SHTeleComponent",
     parent: Some(&ADDON_COMPONENT),
     construct: Some(|w| sh_tele_new(w, 0x1775, Point3D::default())),
-    default_name: |_, _| Some("a hole".to_string()),
+    default_name: crate::class_props::default_name,
     on_double_click: sh_tele_on_double_click,
     on_double_click_dead: sh_tele_on_double_click,
     serialize: |w, id, out| {
@@ -996,7 +996,7 @@ pub static BALLOT_BOX: ItemType = ItemType {
     full_name: "Server.Items.BallotBox",
     parent: Some(&ADDON_COMPONENT),
     construct: Some(ballot_box_new),
-    label_number: |_, _| 1041006, // a ballot box
+    label_number: crate::class_props::label_number, // a ballot box
     on_drag_drop: |w, id, from, _dropped| {
         messages::send_localized_message_to(w, id, from, 500369, ""); // I'm a ballot box, not a container!
         false
@@ -1075,7 +1075,7 @@ leaf! {
     BALLOT_BOX_DEED = "Server.Items.BallotBoxDeed" : BASE_ADDON_DEED, enc;
     construct: Some(|w| addon::new_deed(w, &BALLOT_BOX_DEED)),
     family: Some(&BALLOT_BOX_DEED_CLASS),
-    label_number: |_, _| 1044327,
+    label_number: crate::class_props::label_number,
 }
 
 pub static ALL: &[(&ItemType, &[&str])] = &[

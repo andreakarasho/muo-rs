@@ -180,7 +180,7 @@ pub static LIGHT_OF_THE_WINTER_SOLSTICE: ItemType = ItemType {
     full_name: "Server.Items.LightOfTheWinterSolstice",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| light_of_the_winter_solstice_new(w, None)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_single_click: |w, id, from| {
         (ITEM_BASE.on_single_click)(w, id, from);
         ops::label_to_number(w, id, from, 1070881, &strs(w, id, 0).unwrap_or_default()); // Hand Dipped by ~1_name~
@@ -274,8 +274,8 @@ leaf! {
         blessed(w, id);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1070874, // a Pile of Glacial Snow
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a Pile of Glacial Snow
     on_single_click: winter_single_click,
     get_properties: winter_props,
     on_double_click: snow_double_click,
@@ -290,8 +290,8 @@ leaf! {
         blessed(w, id);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1005578, // a pile of snow
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a pile of snow
     on_double_click: snow_double_click,
 }
 
@@ -304,7 +304,7 @@ leaf! {
         let g = if utility::random_bool(&mut w.rng) { 0x469B } else { 0x469C };
         new_item(w, &PUMPKIN_SCARECROW, g)
     }),
-    label_number: |_, _| 1096947,
+    label_number: crate::class_props::label_number,
 }
 
 leaf! {
@@ -314,7 +314,7 @@ leaf! {
         let g = if utility::random_bool(&mut w.rng) { 0x4699 } else { 0x469A };
         new_item(w, &RUINED_TAPESTRY, g)
     }),
-    default_name: |_, _| Some("Ruined Tapestry ".to_string()),
+    default_name: crate::class_props::default_name,
 }
 
 macro_rules! plain {
@@ -351,7 +351,7 @@ leaf! {
         crate::simple::hue(w, id, h);
         id
     }),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `HalloweenPumpkin()`.
@@ -532,7 +532,7 @@ leaf! {
     /// `Server.Items.DragonEasterEgg` (`IDyable`).
     DRAGON_EASTER_EGG = "Server.Items.DragonEasterEgg" : ITEM_BASE, v0;
     construct: Some(|w| new_item(w, &DRAGON_EASTER_EGG, 0x47E6)),
-    label_number: |_, _| 1097278,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- Halloween treats ----
@@ -583,7 +583,7 @@ leaf! {
         crate::simple::hue(w, id, 0x3E4);
         id
     }),
-    default_name: |_, _| Some("Creepy Cake".to_string()),
+    default_name: crate::class_props::default_name,
 }
 
 leaf! {
@@ -595,8 +595,8 @@ leaf! {
         crate::simple::hue(w, id, 0xF4);
         id
     }),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("Mr Plain's Cookies".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
 }
 
 leaf! {
@@ -609,7 +609,7 @@ leaf! {
         crate::simple::hue(w, id, 0xF3);
         id
     }),
-    default_name: |_, _| Some("Pumpkin Pizza".to_string()),
+    default_name: crate::class_props::default_name,
 }
 
 use crate::food::beverage::{BEVERAGE_BOTTLE, BeverageType, PITCHER, new_full, set_quantity};
@@ -622,8 +622,8 @@ leaf! {
         crate::simple::hue(w, id, 0xe0);
         id
     }),
-    default_name: |_, _| Some("Harvest Wine".to_string()),
-    default_weight: |_, _| 1.0,
+    default_name: crate::class_props::default_name,
+    default_weight: crate::class_props::default_weight,
 }
 
 leaf! {
@@ -638,8 +638,8 @@ leaf! {
         crate::simple::item_id(w, id, g);
         id
     }),
-    default_name: |_, _| Some("Murky Milk".to_string()),
-    default_weight: |_, _| 1.0,
+    default_name: crate::class_props::default_name,
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- TwilightLantern ----
@@ -653,7 +653,7 @@ leaf! {
         crate::simple::hue(w, id, h);
         id
     }),
-    default_name: |_, _| Some("Twilight Lantern".to_string()),
+    default_name: crate::class_props::default_name,
     allow_equipped_cast: |_, _, _| true,
     get_properties: |w, id, list| {
         (crate::lights::LANTERN.get_properties)(w, id, list);
@@ -671,7 +671,7 @@ leaf! {
         blessed(w, id);
         id
     }),
-    label_number: |_, _| 1099220, // cupid statue
+    label_number: crate::class_props::label_number, // cupid statue
 }
 
 /// `HeartShapedBox.m_DropSound` (static).
@@ -740,7 +740,7 @@ pub static CUPIDS_ARROW: ItemType = ItemType {
         blessed(w, id);
         id
     }),
-    label_number: |_, _| 1152270, // Cupid's Arrow 2012
+    label_number: crate::class_props::label_number, // Cupid's Arrow 2012
     add_name_property: |w, id, list| {
         (ITEM_BASE.add_name_property)(w, id, list);
         if arrow_signed(w, id) {

@@ -1,0 +1,16 @@
+[
+  {
+    "type": "Server.Items.SackFlour",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.WheatSheaf",
+    "itemId": 7869,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

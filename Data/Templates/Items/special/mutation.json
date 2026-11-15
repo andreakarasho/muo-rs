@@ -1,0 +1,26 @@
+[
+  {
+    "type": "Server.Items.PlagueBeastInnard",
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "plague beast innards"
+    }
+  },
+  {
+    "type": "Server.Items.PlagueBeastBackpack",
+    "props": {
+      "maxWeight": 0,
+      "maxItems": 0,
+      "gumpId": 10851,
+      "dropSound": 575
+    }
+  },
+  {
+    "type": "Server.Items.PlagueBeastMutationCore",
+    "itemId": 7408,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1153760
+    }
+  }
+]

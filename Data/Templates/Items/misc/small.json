@@ -1,0 +1,38 @@
+[
+  {
+    "type": "Server.Items.TrashChest",
+    "props": {
+      "maxWeight": 0
+    }
+  },
+  {
+    "type": "Server.Items.TrashBarrel",
+    "props": {
+      "labelNumber": 1041064,
+      "maxWeight": 0
+    }
+  },
+  {
+    "type": "Server.Items.Acid",
+    "itemId": 4650,
+    "hue": 63,
+    "movable": false,
+    "props": {
+      "defaultName": "a pool of acid"
+    }
+  },
+  {
+    "type": "Server.Items.OrigamiPaper",
+    "props": {
+      "labelNumber": 1030288
+    }
+  },
+  {
+    "type": "Server.Items.EmptyOilFlask",
+    "itemId": 7192,
+    "stackable": true,
+    "props": {
+      "labelNumber": 1150866
+    }
+  }
+]

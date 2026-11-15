@@ -1,0 +1,22 @@
+[
+  {
+    "type": "Server.Items.Kindling",
+    "itemId": 3553,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.Bedroll",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.Campfire",
+    "itemId": 3555,
+    "movable": false,
+    "light": "Circle300"
+  }
+]

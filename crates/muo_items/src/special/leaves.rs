@@ -75,8 +75,8 @@ leaf! {
     /// `Server.Items.MinotaurHedge`.
     MINOTAUR_HEDGE = "Server.Items.MinotaurHedge" : ITEM_BASE, v0;
     construct: Some(|w| minotaur_hedge_new(w, &MINOTAUR_HEDGE)),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("minotaur hedge".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
 }
 
 /// `TormentedChains()`.
@@ -89,7 +89,7 @@ leaf! {
     /// `Server.Items.TormentedChains`.
     TORMENTED_CHAINS = "Server.Items.TormentedChains" : ITEM_BASE, v0;
     construct: Some(|w| tormented_chains_new(w, &TORMENTED_CHAINS)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PlagueBeastGland()`.
@@ -101,8 +101,8 @@ leaf! {
     /// `Server.Items.PlagueBeastGland`.
     PLAGUE_BEAST_GLAND = "Server.Items.PlagueBeastGland" : ITEM_BASE, enc;
     construct: Some(|w| plague_beast_gland_new(w, &PLAGUE_BEAST_GLAND)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1153759,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- SamuraiHelm: [Flippable(0x236C, 0x236D)], BaseArmor ----
@@ -261,8 +261,8 @@ pub static REWARD_CAKE: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049786, // Happy Birthday!  ...
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Happy Birthday!  ...
     display_loot_type: |_, _| false,
     on_double_click: |w, id, from| {
         let p = ops::get_world_location(w, id);
