@@ -77,23 +77,15 @@ fn spill_blood(w: &mut World, map: MapId, cx: i32, cy: i32, cz: i32, amount: i32
     }
 }
 
-/// The deed of a blessed addon: `LootType = LootType.Blessed`.
+/// The deed of a blessed addon: its template sets `lootType`, its props `labelNumber` and `deedAddon`.
 macro_rules! blessed_deed {
-    ($ty:ident, $cls:ident, $full:literal, $addon:expr, $label:expr) => {
-        static $cls: DeedClass = DeedClass {
-            addon: $addon,
-            select_direction: None,
-        };
+    ($ty:ident, $full:literal) => {
         leaf! {
             #[doc = concat!("`", $full, "`.")]
             $ty = $full : BASE_ADDON_DEED, enc;
-            construct: Some(|w| {
-                let id = addon::new_deed(w, &$ty);
-                ops::set_loot_type(w, id, LootType::Blessed);
-                id
-            }),
-            family: Some(&$cls),
-            label_number: |_, _| $label,
+            construct: Some(|w| crate::addons::tmpl_deed(w, &$ty)),
+            family: Some(&crate::addons::TMPL_DEED_CLASS),
+            label_number: crate::class_props::label_number,
         }
     };
 }
@@ -176,21 +168,11 @@ fn guillotine_on_component_used(w: &mut World, a: ItemId, c: ItemId, from: Mobil
 
 /// `GuillotineAddon()`.
 pub fn guillotine_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &GUILLOTINE_ADDON);
-    addon::add_components(
-        w,
-        id,
-        &[(Comp::Custom(sp::guillotine_component_new), 0, 0, 0)],
-    );
-    id
+    crate::addons::tmpl_addon(w, &GUILLOTINE_ADDON)
 }
 
 static GUILLOTINE_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &GUILLOTINE_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     on_component_used: guillotine_on_component_used,
     ..BASE_ADDON_CLASS
 };
@@ -200,13 +182,7 @@ leaf! {
     construct: Some(guillotine_addon_new),
     family: Some(&GUILLOTINE_ADDON_CLASS),
 }
-blessed_deed!(
-    GUILLOTINE_DEED,
-    GUILLOTINE_DEED_CLASS,
-    "Server.Items.GuillotineDeed",
-    |w, _| guillotine_addon_new(w),
-    1024656
-);
+blessed_deed!(GUILLOTINE_DEED, "Server.Items.GuillotineDeed");
 
 // ---- IronMaiden ---------------------------------------------------------------------------------------------
 
@@ -249,17 +225,11 @@ fn iron_maiden_on_component_used(w: &mut World, a: ItemId, c: ItemId, from: Mobi
 
 /// `IronMaidenAddon()` (no `[Constructible]`).
 pub fn iron_maiden_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &IRON_MAIDEN_ADDON);
-    addon::add_components(w, id, &[(Comp::Localized(0x1249, 1076288), 0, 0, 0)]);
-    id
+    crate::addons::tmpl_addon(w, &IRON_MAIDEN_ADDON)
 }
 
 static IRON_MAIDEN_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &IRON_MAIDEN_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     on_component_used: iron_maiden_on_component_used,
     ..BASE_ADDON_CLASS
 };
@@ -268,50 +238,17 @@ leaf! {
     IRON_MAIDEN_ADDON = "Server.Items.IronMaidenAddon" : BASE_ADDON, enc;
     family: Some(&IRON_MAIDEN_ADDON_CLASS),
 }
-blessed_deed!(
-    IRON_MAIDEN_DEED,
-    IRON_MAIDEN_DEED_CLASS,
-    "Server.Items.IronMaidenDeed",
-    |w, _| iron_maiden_addon_new(w),
-    1076288
-);
+blessed_deed!(IRON_MAIDEN_DEED, "Server.Items.IronMaidenDeed");
 
 // ---- Fountain -----------------------------------------------------------------------------------------------
 
 /// `FountainAddon()`: the `StoneFountainAddon` components.
 pub fn fountain_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &FOUNTAIN_ADDON);
-    addon::add_components(
-        w,
-        id,
-        &[
-            (Comp::Plain(5937), -2, 1, 0),
-            (Comp::Plain(5938), -1, 1, 0),
-            (Comp::Plain(5939), 0, 1, 0),
-            (Comp::Plain(5940), 1, 1, 0),
-            (Comp::Plain(5941), 1, 0, 0),
-            (Comp::Plain(5942), 1, -1, 0),
-            (Comp::Plain(5943), 1, -2, 0),
-            (Comp::Plain(5944), 0, -2, 0),
-            (Comp::Plain(5945), 0, -1, 0),
-            (Comp::Plain(5946), 0, 0, 0),
-            (Comp::Plain(5947), -1, 0, 0),
-            (Comp::Plain(5948), -2, 0, 0),
-            (Comp::Plain(5949), -2, -1, 0),
-            (Comp::Plain(5950), -1, -1, 0),
-            (Comp::Plain(5951), -1, -2, 0),
-            (Comp::Plain(5953), -2, -2, 0),
-        ],
-    );
-    id
+    crate::addons::tmpl_addon(w, &FOUNTAIN_ADDON)
 }
 
 static FOUNTAIN_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &FOUNTAIN_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     ..BASE_ADDON_CLASS
 };
 leaf! {
@@ -320,13 +257,7 @@ leaf! {
     construct: Some(fountain_addon_new),
     family: Some(&FOUNTAIN_ADDON_CLASS),
 }
-blessed_deed!(
-    FOUNTAIN_DEED,
-    FOUNTAIN_DEED_CLASS,
-    "Server.Items.FountainDeed",
-    |w, _| fountain_addon_new(w),
-    1076283
-);
+blessed_deed!(FOUNTAIN_DEED, "Server.Items.FountainDeed");
 
 // ---- Curtains -----------------------------------------------------------------------------------------------
 
@@ -423,11 +354,7 @@ pub fn curtains_addon_new(w: &mut World, east: bool) -> ItemId {
 }
 
 static CURTAINS_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &CURTAINS_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     retain_deed_hue: true,
     ..BASE_ADDON_CLASS
 };
@@ -561,11 +488,7 @@ fn ladder_deed_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
 }
 
 static HOUSE_LADDER_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &HOUSE_LADDER_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     ..BASE_ADDON_CLASS
 };
 leaf! {
@@ -694,63 +617,43 @@ pub static BASE_FRUIT_TREE_ADDON: ItemType = ItemType {
     ..BASE_ADDON
 };
 
+/// A fruit tree: the respawn timer, then its template (components) and props (deed, label).
+static FRUIT_TREE_CLASS: AddonClass = AddonClass {
+    deed_of: Some(crate::addons::deed_by_prop),
+    ..BASE_FRUIT_TREE_CLASS
+};
+
 macro_rules! fruit_tree {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal,
-     $c1:expr, $c2:expr, $label:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal) => {
         pub fn $anew(w: &mut World) -> ItemId {
             let id = addon::new_addon(w, &$addon);
             fruit_tree_init(w, id);
-            addon::add_components(
-                w,
-                id,
-                &[
-                    (Comp::Localized($c1, $label), 0, 0, 0),
-                    (Comp::Localized($c2, $label), 0, 0, 0),
-                ],
-            );
+            muo_content::templates::apply_item_as(w, id, $afull);
             id
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| {
-                let id = addon::new_deed(w, &$deed);
-                ops::set_loot_type(w, id, LootType::Blessed);
-                id
-            }),
-            ..BASE_FRUIT_TREE_CLASS
-        };
         leaf! {
             #[doc = concat!("`", $afull, "`.")]
             $addon = $afull : BASE_FRUIT_TREE_ADDON, enc;
             construct: Some($anew),
-            family: Some(&$acls),
+            family: Some(&FRUIT_TREE_CLASS),
         }
-        blessed_deed!($deed, $dcls, $dfull, |w, _| $anew(w), $label);
+        blessed_deed!($deed, $dfull);
     };
 }
 
 fruit_tree!(
     APPLE_TREE_ADDON,
-    APPLE_TREE_ADDON_CLASS,
     apple_tree_addon_new,
     APPLE_TREE_DEED,
-    APPLE_TREE_DEED_CLASS,
     "Server.Items.AppleTreeAddon",
-    "Server.Items.AppleTreeDeed",
-    0xD98,
-    0x3124,
-    1076269
+    "Server.Items.AppleTreeDeed"
 );
 fruit_tree!(
     PEACH_TREE_ADDON,
-    PEACH_TREE_ADDON_CLASS,
     peach_tree_addon_new,
     PEACH_TREE_DEED,
-    PEACH_TREE_DEED_CLASS,
     "Server.Items.PeachTreeAddon",
-    "Server.Items.PeachTreeDeed",
-    0xD9C,
-    0x3123,
-    1076270
+    "Server.Items.PeachTreeDeed"
 );
 
 // ---- BedOfNails ---------------------------------------------------------------------------------------------
@@ -882,11 +785,7 @@ pub fn bed_of_nails_addon_new(w: &mut World) -> ItemId {
 }
 
 static BED_OF_NAILS_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &BED_OF_NAILS_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     ..BASE_ADDON_CLASS
 };
 leaf! {
@@ -896,13 +795,7 @@ leaf! {
     family: Some(&BED_OF_NAILS_ADDON_CLASS),
     on_move_over: bed_of_nails_on_move_over,
 }
-blessed_deed!(
-    BED_OF_NAILS_DEED,
-    BED_OF_NAILS_DEED_CLASS,
-    "Server.Items.BedOfNailsDeed",
-    |w, _| bed_of_nails_addon_new(w),
-    1074801
-);
+blessed_deed!(BED_OF_NAILS_DEED, "Server.Items.BedOfNailsDeed");
 
 // ---- BoneCouch ----------------------------------------------------------------------------------------------
 
@@ -936,11 +829,7 @@ pub fn bone_couch_addon_new(w: &mut World) -> ItemId {
 }
 
 static BONE_COUCH_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &BONE_COUCH_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     ..BASE_ADDON_CLASS
 };
 leaf! {
@@ -949,13 +838,7 @@ leaf! {
     construct: Some(bone_couch_addon_new),
     family: Some(&BONE_COUCH_ADDON_CLASS),
 }
-blessed_deed!(
-    BONE_COUCH_DEED,
-    BONE_COUCH_DEED_CLASS,
-    "Server.Items.BoneCouchDeed",
-    |w, _| bone_couch_addon_new(w),
-    1074477
-);
+blessed_deed!(BONE_COUCH_DEED, "Server.Items.BoneCouchDeed");
 
 // ---- HauntedMirror ------------------------------------------------------------------------------------------
 
@@ -1005,21 +888,11 @@ leaf! {
 
 /// `HaunterMirrorAddon()`.
 pub fn haunter_mirror_addon_new(w: &mut World) -> ItemId {
-    let id = addon::new_addon(w, &HAUNTER_MIRROR_ADDON);
-    addon::add_components(
-        w,
-        id,
-        &[(Comp::Custom(haunter_mirror_component_new), 0, 0, 0)],
-    );
-    id
+    crate::addons::tmpl_addon(w, &HAUNTER_MIRROR_ADDON)
 }
 
 static HAUNTER_MIRROR_ADDON_CLASS: AddonClass = AddonClass {
-    deed: Some(|w| {
-        let id = addon::new_deed(w, &HAUNTER_MIRROR_DEED);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
+    deed_of: Some(crate::addons::deed_by_prop),
     ..BASE_ADDON_CLASS
 };
 leaf! {
@@ -1028,13 +901,7 @@ leaf! {
     construct: Some(haunter_mirror_addon_new),
     family: Some(&HAUNTER_MIRROR_ADDON_CLASS),
 }
-blessed_deed!(
-    HAUNTER_MIRROR_DEED,
-    HAUNTER_MIRROR_DEED_CLASS,
-    "Server.Items.HaunterMirrorDeed",
-    |w, _| haunter_mirror_addon_new(w),
-    1074800
-);
+blessed_deed!(HAUNTER_MIRROR_DEED, "Server.Items.HaunterMirrorDeed");
 
 // ---- Portraits ----------------------------------------------------------------------------------------------
 
@@ -1293,74 +1160,55 @@ pub static AWESOME_DISTURBING_PORTRAIT_COMPONENT: ItemType = ItemType {
     ..ADDON_COMPONENT
 };
 
+/// A portrait: its animated component stays a Rust constructor; deed and label are template props.
 macro_rules! portrait_addon {
-    ($addon:ident, $acls:ident, $anew:ident, $deed:ident, $dcls:ident, $afull:literal, $dfull:literal, $comp:path, $label:expr) => {
+    ($addon:ident, $anew:ident, $deed:ident, $afull:literal, $dfull:literal, $comp:path) => {
         pub fn $anew(w: &mut World) -> ItemId {
             let id = addon::new_addon(w, &$addon);
             addon::add_components(w, id, &[(Comp::Custom($comp), 0, 0, 0)]);
             id
         }
-        static $acls: AddonClass = AddonClass {
-            deed: Some(|w| {
-                let id = addon::new_deed(w, &$deed);
-                ops::set_loot_type(w, id, LootType::Blessed);
-                id
-            }),
-            ..BASE_ADDON_CLASS
-        };
         leaf! {
             #[doc = concat!("`", $afull, "`.")]
             $addon = $afull : BASE_ADDON, enc;
             construct: Some($anew),
-            family: Some(&$acls),
+            family: Some(&crate::addons::TMPL_ADDON_CLASS),
         }
-        blessed_deed!($deed, $dcls, $dfull, |w, _| $anew(w), $label);
+        blessed_deed!($deed, $dfull);
     };
 }
 
 portrait_addon!(
     CREEPY_PORTRAIT_ADDON,
-    CREEPY_PORTRAIT_ADDON_CLASS,
     creepy_portrait_addon_new,
     CREEPY_PORTRAIT_DEED,
-    CREEPY_PORTRAIT_DEED_CLASS,
     "Server.Items.CreepyPortraitAddon",
     "Server.Items.CreepyPortraitDeed",
-    creepy_portrait_component_new,
-    1074481
+    creepy_portrait_component_new
 );
 portrait_addon!(
     DISTURBING_PORTRAIT_ADDON,
-    DISTURBING_PORTRAIT_ADDON_CLASS,
     disturbing_portrait_addon_new,
     DISTURBING_PORTRAIT_DEED,
-    DISTURBING_PORTRAIT_DEED_CLASS,
     "Server.Items.DisturbingPortraitAddon",
     "Server.Items.DisturbingPortraitDeed",
-    disturbing_portrait_component_new,
-    1074479
+    disturbing_portrait_component_new
 );
 portrait_addon!(
     UNSETTLING_PORTRAIT_ADDON,
-    UNSETTLING_PORTRAIT_ADDON_CLASS,
     unsettling_portrait_addon_new,
     UNSETTLING_PORTRAIT_DEED,
-    UNSETTLING_PORTRAIT_DEED_CLASS,
     "Server.Items.UnsettlingPortraitAddon",
     "Server.Items.UnsettlingPortraitDeed",
-    unsettling_portrait_component_new,
-    1074480
+    unsettling_portrait_component_new
 );
 portrait_addon!(
     AWESOME_DISTURBING_PORTRAIT_ADDON,
-    AWESOME_DISTURBING_PORTRAIT_ADDON_CLASS,
     awesome_disturbing_portrait_addon_new,
     AWESOME_DISTURBING_PORTRAIT_DEED,
-    AWESOME_DISTURBING_PORTRAIT_DEED_CLASS,
     "Server.Items.AwesomeDisturbingPortraitAddon",
     "Server.Items.AwesomeDisturbingPortraitDeed",
-    awesome_disturbing_portrait_component_new,
-    1074479
+    awesome_disturbing_portrait_component_new
 );
 
 // ---- SacrificialAltar ---------------------------------------------------------------------------------------
