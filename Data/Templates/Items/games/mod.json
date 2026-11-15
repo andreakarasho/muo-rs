@@ -112,20 +112,114 @@
   },
   {
     "type": "Server.Items.Backgammon",
-    "itemId": 3612
+    "itemId": 3612,
+    "props": {
+      "boardPieces": [
+        ["Server.Items.PieceWhiteChecker", 42, 6],
+        ["Server.Items.PieceBlackChecker", 42, 119],
+        ["Server.Items.PieceBlackChecker", 142, 6],
+        ["Server.Items.PieceWhiteChecker", 142, 119],
+        ["Server.Items.PieceWhiteChecker", 42, 23],
+        ["Server.Items.PieceBlackChecker", 42, 136],
+        ["Server.Items.PieceBlackChecker", 142, 23],
+        ["Server.Items.PieceWhiteChecker", 142, 136],
+        ["Server.Items.PieceWhiteChecker", 42, 40],
+        ["Server.Items.PieceBlackChecker", 42, 153],
+        ["Server.Items.PieceBlackChecker", 142, 40],
+        ["Server.Items.PieceWhiteChecker", 142, 153],
+        ["Server.Items.PieceWhiteChecker", 42, 57],
+        ["Server.Items.PieceBlackChecker", 42, 170],
+        ["Server.Items.PieceBlackChecker", 142, 57],
+        ["Server.Items.PieceWhiteChecker", 142, 170],
+        ["Server.Items.PieceWhiteChecker", 42, 74],
+        ["Server.Items.PieceBlackChecker", 42, 187],
+        ["Server.Items.PieceBlackChecker", 142, 74],
+        ["Server.Items.PieceWhiteChecker", 142, 187],
+        ["Server.Items.PieceBlackChecker", 108, 6],
+        ["Server.Items.PieceWhiteChecker", 108, 153],
+        ["Server.Items.PieceBlackChecker", 108, 23],
+        ["Server.Items.PieceWhiteChecker", 108, 170],
+        ["Server.Items.PieceBlackChecker", 108, 40],
+        ["Server.Items.PieceWhiteChecker", 108, 187],
+        ["Server.Items.PieceWhiteChecker", 223, 6],
+        ["Server.Items.PieceBlackChecker", 223, 170],
+        ["Server.Items.PieceWhiteChecker", 223, 23],
+        ["Server.Items.PieceBlackChecker", 223, 187]
+      ]
+    }
   },
   {
     "type": "Server.Items.CheckerBoard",
     "itemId": 4006,
     "props": {
-      "labelNumber": 1016449
+      "labelNumber": 1016449,
+      "boardPieces": [
+        ["Server.Items.PieceWhiteChecker", 45, 25],
+        ["Server.Items.PieceWhiteChecker", 70, 50],
+        ["Server.Items.PieceWhiteChecker", 45, 75],
+        ["Server.Items.PieceBlackChecker", 70, 150],
+        ["Server.Items.PieceBlackChecker", 45, 175],
+        ["Server.Items.PieceBlackChecker", 70, 200],
+        ["Server.Items.PieceWhiteChecker", 95, 25],
+        ["Server.Items.PieceWhiteChecker", 120, 50],
+        ["Server.Items.PieceWhiteChecker", 95, 75],
+        ["Server.Items.PieceBlackChecker", 120, 150],
+        ["Server.Items.PieceBlackChecker", 95, 175],
+        ["Server.Items.PieceBlackChecker", 120, 200],
+        ["Server.Items.PieceWhiteChecker", 145, 25],
+        ["Server.Items.PieceWhiteChecker", 170, 50],
+        ["Server.Items.PieceWhiteChecker", 145, 75],
+        ["Server.Items.PieceBlackChecker", 170, 150],
+        ["Server.Items.PieceBlackChecker", 145, 175],
+        ["Server.Items.PieceBlackChecker", 170, 200],
+        ["Server.Items.PieceWhiteChecker", 195, 25],
+        ["Server.Items.PieceWhiteChecker", 220, 50],
+        ["Server.Items.PieceWhiteChecker", 195, 75],
+        ["Server.Items.PieceBlackChecker", 220, 150],
+        ["Server.Items.PieceBlackChecker", 195, 175],
+        ["Server.Items.PieceBlackChecker", 220, 200]
+      ]
     }
   },
   {
     "type": "Server.Items.Chessboard",
     "itemId": 4006,
     "props": {
-      "labelNumber": 1016450
+      "labelNumber": 1016450,
+      "boardPieces": [
+        ["Server.Items.PieceBlackPawn", 67, 17],
+        ["Server.Items.PieceWhitePawn", 192, 17],
+        ["Server.Items.PieceBlackPawn", 67, 42],
+        ["Server.Items.PieceWhitePawn", 192, 42],
+        ["Server.Items.PieceBlackPawn", 67, 67],
+        ["Server.Items.PieceWhitePawn", 192, 67],
+        ["Server.Items.PieceBlackPawn", 67, 92],
+        ["Server.Items.PieceWhitePawn", 192, 92],
+        ["Server.Items.PieceBlackPawn", 67, 117],
+        ["Server.Items.PieceWhitePawn", 192, 117],
+        ["Server.Items.PieceBlackPawn", 67, 142],
+        ["Server.Items.PieceWhitePawn", 192, 142],
+        ["Server.Items.PieceBlackPawn", 67, 167],
+        ["Server.Items.PieceWhitePawn", 192, 167],
+        ["Server.Items.PieceBlackPawn", 67, 192],
+        ["Server.Items.PieceWhitePawn", 192, 192],
+        ["Server.Items.PieceBlackRook", 42, 5],
+        ["Server.Items.PieceBlackRook", 42, 180],
+        ["Server.Items.PieceWhiteRook", 216, 5],
+        ["Server.Items.PieceWhiteRook", 216, 180],
+        ["Server.Items.PieceBlackKnight", 42, 30],
+        ["Server.Items.PieceBlackKnight", 42, 155],
+        ["Server.Items.PieceWhiteKnight", 216, 30],
+        ["Server.Items.PieceWhiteKnight", 216, 155],
+        ["Server.Items.PieceBlackBishop", 42, 55],
+        ["Server.Items.PieceBlackBishop", 42, 130],
+        ["Server.Items.PieceWhiteBishop", 216, 55],
+        ["Server.Items.PieceWhiteBishop", 216, 130],
+        ["Server.Items.PieceBlackQueen", 42, 105],
+        ["Server.Items.PieceWhiteQueen", 216, 105],
+        ["Server.Items.PieceBlackKing", 42, 80],
+        ["Server.Items.PieceWhiteKing", 216, 80]
+      ]
     }
   }
 ]

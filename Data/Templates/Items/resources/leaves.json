@@ -22,7 +22,8 @@
   {
     "type": "Server.Items.BarkFragment",
     "itemId": 12687,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.Blight",
@@ -32,12 +33,14 @@
   {
     "type": "Server.Items.BlueDiamond",
     "itemId": 12696,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.BrilliantAmber",
     "itemId": 12697,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.CapturedEssence",
@@ -47,47 +50,56 @@
   {
     "type": "Server.Items.Corruption",
     "itemId": 12676,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.DarkSapphire",
     "itemId": 12690,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.DiseasedBark",
     "itemId": 12683,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.DreadHornMane",
     "itemId": 12682,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.EcruCitrine",
     "itemId": 12693,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.EyeOfTheTravesty",
     "itemId": 12685,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.FireRuby",
     "itemId": 12695,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.GrizzledBones",
     "itemId": 12684,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.LardOfParoxysmus",
     "itemId": 12681,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.LuminescentFungi",
@@ -97,42 +109,53 @@
   {
     "type": "Server.Items.Muculent",
     "itemId": 12680,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.ParasiticPlant",
     "itemId": 12688,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.PerfectEmerald",
     "itemId": 12692,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.Putrefication",
     "itemId": 12678,
-    "stackable": true
+    "hue": 883,
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.Scourge",
     "itemId": 12677,
-    "stackable": true
+    "hue": 150,
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.SwitchItem",
     "itemId": 12127,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.Taint",
     "itemId": 12679,
-    "stackable": true
+    "hue": 731,
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.Turquoise",
     "itemId": 12691,
-    "stackable": true
+    "stackable": true,
+    "script": "content/items/amount_range.rhai"
   },
   {
     "type": "Server.Items.WhitePearl",
