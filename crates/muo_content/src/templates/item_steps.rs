@@ -155,6 +155,7 @@ pub fn parse(key: &str, v: &Value, keys: &Keys<'_>) -> Result<Step, String> {
                 (def.check)(v)?;
                 Step::Ext(name, *def, v.clone())
             }
+            None if keys.lenient => Step::Ext("<unregistered>", Keys::skipped(), Value::Null),
             None => return Err("unknown key".into()),
         },
     })
