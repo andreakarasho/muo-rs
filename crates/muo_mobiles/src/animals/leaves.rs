@@ -6,6 +6,7 @@ use muo_content::abilities::{self, MonsterAbility};
 use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C, new_mount};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::items::weapon::Ability;
+use muo_content::templates::{self, creature_props as tp};
 use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::MobileId;
@@ -59,106 +60,38 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn silver_serpent_init(w: &mut World, id: MobileId) {
-    body(w, id, 92);
-    base_sound_id(w, id, 219);
-    set_str_range(w, id, 161, 360);
-    set_dex_range(w, id, 151, 300);
-    set_int_range(w, id, 21, 40);
-    set_hits_range(w, id, 97, 216);
-    set_damage(w, id, 5, 21);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::Poisoning, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 95.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 95.0);
-    set_skill_range(w, id, SkillName::Wrestling, 85.1, 100.0);
-    fame(w, id, 7000);
-    karma(w, id, -7000);
-    virtual_armor(w, id, 40);
-}
 fn silver_serpent_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SILVER_SERPENT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    silver_serpent_init(w, id);
-    id
+    templates::new_creature(w, &SILVER_SERPENT)
 }
 creature_leaf! {
     /// `Server.Mobiles.SilverSerpent`.
     SILVER_SERPENT, SILVER_SERPENT_C = "Server.Mobiles.SilverSerpent" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(silver_serpent_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a silver serpent corpse"),
+        corpse_name: tp::corpse_name,
         faction_allegiance: crate::hand::silver_serpent_faction_allegiance,
         ethic_allegiance: crate::hand::silver_serpent_ethic_allegiance,
-        default_name: |_w, _id| Some("a silver serpent"),
+        default_name: tp::default_name,
         death_adder_charmable: |_w, _id| true,
-        meat: |_w, _id| 1,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        meat: tp::meat,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn alligator_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xCA);
-    base_sound_id(w, id, 660);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 6, 25);
-    set_int_range(w, id, 11, 20);
-    set_hits_range(w, id, 46, 60);
-    set_stam_range(w, id, 46, 65);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 15);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 40.0);
-    set_skill_range(w, id, SkillName::Tactics, 40.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 60.0);
-    fame(w, id, 600);
-    karma(w, id, -600);
-    virtual_armor(w, id, 30);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 47.1);
-}
 fn alligator_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ALLIGATOR,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    alligator_init(w, id);
-    id
+    templates::new_creature(w, &ALLIGATOR)
 }
 creature_leaf! {
     /// `Server.Mobiles.Alligator`.
     ALLIGATOR, ALLIGATOR_C = "Server.Mobiles.Alligator" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(alligator_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an alligator corpse"),
-        default_name: |_w, _id| Some("an alligator"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::FISH,
     }
@@ -192,31 +125,19 @@ pub(crate) fn phoenix_init(w: &mut World, id: MobileId) {
     virtual_armor(w, id, 60);
 }
 fn phoenix_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PHOENIX,
-        AIType::AiMage,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    phoenix_init(w, id);
-    id
+    templates::new_creature(w, &PHOENIX)
 }
 creature_leaf! {
     /// `Server.Mobiles.Phoenix`.
     PHOENIX, PHOENIX_C = "Server.Mobiles.Phoenix" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(phoenix_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a phoenix corpse"),
-        default_name: |_w, _id| Some("a phoenix"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         meat_type: |_w, _id| MeatType::Bird,
-        feathers: |_w, _id| 36,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        feathers: tp::feathers,
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -246,25 +167,16 @@ pub(crate) fn black_bear_init(w: &mut World, id: MobileId) {
     min_tame_skill(w, id, 35.1);
 }
 fn black_bear_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BLACK_BEAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    black_bear_init(w, id);
-    id
+    templates::new_creature(w, &BLACK_BEAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.BlackBear`.
     BLACK_BEAR, BLACK_BEAR_C = "Server.Mobiles.BlackBear" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(black_bear_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a bear corpse"),
-        default_name: |_w, _id| Some("a black bear"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::MEAT | FoodType::FRUITS_AND_VEGGIES,
         pack_instinct: |_w, _id| PackInstinct::BEAR,
     }
@@ -272,51 +184,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn dire_wolf_init(w: &mut World, id: MobileId) {
-    body(w, id, 23);
-    base_sound_id(w, id, 0xE5);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 81, 105);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 58, 72);
-    set_mana(w, id, 0);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 57.6, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 2500);
-    karma(w, id, -2500);
-    virtual_armor(w, id, 22);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 83.1);
-}
 fn dire_wolf_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DIRE_WOLF,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    dire_wolf_init(w, id);
-    id
+    templates::new_creature(w, &DIRE_WOLF)
 }
 creature_leaf! {
     /// `Server.Mobiles.DireWolf`.
     DIRE_WOLF, DIRE_WOLF_C = "Server.Mobiles.DireWolf" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dire_wolf_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a dire wolf corpse"),
-        default_name: |_w, _id| Some("a dire wolf"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 7,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::CANINE,
@@ -351,76 +229,35 @@ pub(crate) fn eagle_init(w: &mut World, id: MobileId) {
     min_tame_skill(w, id, 17.1);
 }
 fn eagle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &EAGLE,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    eagle_init(w, id);
-    id
+    templates::new_creature(w, &EAGLE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Eagle`.
     EAGLE, EAGLE_C = "Server.Mobiles.Eagle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(eagle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a bird corpse"),
-        default_name: |_w, _id| Some("an eagle"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         meat_type: |_w, _id| MeatType::Bird,
-        feathers: |_w, _id| 36,
+        feathers: tp::feathers,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::FISH,
-        can_fly: |_w, _id| true,
+        can_fly: tp::can_fly,
     }
     m {
     }
 }
 
-pub(crate) fn brown_bear_init(w: &mut World, id: MobileId) {
-    body(w, id, 167);
-    base_sound_id(w, id, 0xA3);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 26, 45);
-    set_int_range(w, id, 23, 47);
-    set_hits_range(w, id, 46, 60);
-    set_mana(w, id, 0);
-    set_damage(w, id, 6, 12);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 35.0);
-    set_skill_range(w, id, SkillName::Tactics, 40.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 60.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 24);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 41.1);
-}
 fn brown_bear_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BROWN_BEAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    brown_bear_init(w, id);
-    id
+    templates::new_creature(w, &BROWN_BEAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.BrownBear`.
     BROWN_BEAR, BROWN_BEAR_C = "Server.Mobiles.BrownBear" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(brown_bear_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a bear corpse"),
-        default_name: |_w, _id| Some("a brown bear"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::FRUITS_AND_VEGGIES | FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::BEAR,
     }
@@ -428,50 +265,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn grizzly_bear_init(w: &mut World, id: MobileId) {
-    body(w, id, 212);
-    base_sound_id(w, id, 0xA3);
-    set_str_range(w, id, 126, 155);
-    set_dex_range(w, id, 81, 105);
-    set_int_range(w, id, 16, 40);
-    set_hits_range(w, id, 76, 93);
-    set_mana(w, id, 0);
-    set_damage(w, id, 8, 13);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 40.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 70.0);
-    fame(w, id, 1000);
-    karma(w, id, 0);
-    virtual_armor(w, id, 24);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 59.1);
-}
 fn grizzly_bear_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GRIZZLY_BEAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    grizzly_bear_init(w, id);
-    id
+    templates::new_creature(w, &GRIZZLY_BEAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.GrizzlyBear`.
     GRIZZLY_BEAR, GRIZZLY_BEAR_C = "Server.Mobiles.GrizzlyBear" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(grizzly_bear_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a grizzly bear corpse"),
-        default_name: |_w, _id| Some("a grizzly bear"),
-        meat: |_w, _id| 2,
-        hides: |_w, _id| 16,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::FRUITS_AND_VEGGIES | FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::BEAR,
     }
@@ -479,50 +283,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn polar_bear_init(w: &mut World, id: MobileId) {
-    body(w, id, 213);
-    base_sound_id(w, id, 0xA3);
-    set_str_range(w, id, 116, 140);
-    set_dex_range(w, id, 81, 105);
-    set_int_range(w, id, 26, 50);
-    set_hits_range(w, id, 70, 84);
-    set_mana(w, id, 0);
-    set_damage(w, id, 7, 12);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 70.0);
-    fame(w, id, 1500);
-    karma(w, id, 0);
-    virtual_armor(w, id, 18);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 35.1);
-}
 fn polar_bear_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &POLAR_BEAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    polar_bear_init(w, id);
-    id
+    templates::new_creature(w, &POLAR_BEAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.PolarBear`.
     POLAR_BEAR, POLAR_BEAR_C = "Server.Mobiles.PolarBear" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(polar_bear_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a polar bear corpse"),
-        default_name: |_w, _id| Some("a polar bear"),
-        meat: |_w, _id| 2,
-        hides: |_w, _id| 16,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::FRUITS_AND_VEGGIES | FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::BEAR,
     }
@@ -530,93 +301,36 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn chicken_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xD0);
-    base_sound_id(w, id, 0x6E);
-    set_str(w, id, 5);
-    set_dex(w, id, 15);
-    set_int(w, id, 5);
-    set_hits(w, id, 3);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 1);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 1, 5);
-    set_skill(w, id, SkillName::MagicResist, 4.0);
-    set_skill(w, id, SkillName::Tactics, 5.0);
-    set_skill(w, id, SkillName::Wrestling, 5.0);
-    fame(w, id, 150);
-    karma(w, id, 0);
-    virtual_armor(w, id, 2);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -0.9);
-}
 fn chicken_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CHICKEN,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    chicken_init(w, id);
-    id
+    templates::new_creature(w, &CHICKEN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Chicken`.
     CHICKEN, CHICKEN_C = "Server.Mobiles.Chicken" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(chicken_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a chicken corpse"),
-        default_name: |_w, _id| Some("a chicken"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         meat_type: |_w, _id| MeatType::Bird,
         favorite_food: |_w, _id| FoodType::GRAINS_AND_HAY,
-        can_fly: |_w, _id| true,
-        feathers: |_w, _id| 25,
+        can_fly: tp::can_fly,
+        feathers: tp::feathers,
     }
     m {
     }
 }
 
-pub(crate) fn crane_init(w: &mut World, id: MobileId) {
-    body(w, id, 254);
-    base_sound_id(w, id, 0x4D7);
-    set_str_range(w, id, 26, 35);
-    set_dex_range(w, id, 16, 25);
-    set_int_range(w, id, 11, 15);
-    set_hits_range(w, id, 26, 35);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 1);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 5);
-    set_skill_range(w, id, SkillName::MagicResist, 4.1, 5.0);
-    set_skill_range(w, id, SkillName::Tactics, 10.1, 11.0);
-    set_skill_range(w, id, SkillName::Wrestling, 10.1, 11.0);
-    fame(w, id, 0);
-    karma(w, id, 200);
-    virtual_armor(w, id, 5);
-}
 fn crane_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CRANE,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    crane_init(w, id);
-    id
+    templates::new_creature(w, &CRANE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Crane`.
     CRANE, CRANE_C = "Server.Mobiles.Crane" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(crane_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a bird corpse"),
-        default_name: |_w, _id| Some("a crane"),
-        meat: |_w, _id| 1,
-        feathers: |_w, _id| 25,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        feathers: tp::feathers,
     }
     m {
         get_anger_sound: |_w, _id| 0x4D9,
@@ -627,51 +341,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn grey_wolf_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[25, 27]);
-    base_sound_id(w, id, 0xE5);
-    set_str_range(w, id, 56, 80);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 31, 55);
-    set_hits_range(w, id, 34, 48);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 20.1, 35.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 60.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 53.1);
-}
 fn grey_wolf_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GREY_WOLF,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    grey_wolf_init(w, id);
-    id
+    templates::new_creature(w, &GREY_WOLF)
 }
 creature_leaf! {
     /// `Server.Mobiles.GreyWolf`.
     GREY_WOLF, GREY_WOLF_C = "Server.Mobiles.GreyWolf" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(grey_wolf_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a grey wolf corpse"),
-        default_name: |_w, _id| Some("a grey wolf"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::CANINE,
     }
@@ -679,51 +359,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn timber_wolf_init(w: &mut World, id: MobileId) {
-    body(w, id, 225);
-    base_sound_id(w, id, 0xE5);
-    set_str_range(w, id, 56, 80);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 11, 25);
-    set_hits_range(w, id, 34, 48);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 27.6, 45.0);
-    set_skill_range(w, id, SkillName::Tactics, 30.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 60.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 23.1);
-}
 fn timber_wolf_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TIMBER_WOLF,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    timber_wolf_init(w, id);
-    id
+    templates::new_creature(w, &TIMBER_WOLF)
 }
 creature_leaf! {
     /// `Server.Mobiles.TimberWolf`.
     TIMBER_WOLF, TIMBER_WOLF_C = "Server.Mobiles.TimberWolf" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(timber_wolf_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a timber wolf corpse"),
-        default_name: |_w, _id| Some("a timber wolf"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 5,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::CANINE,
     }
@@ -731,51 +377,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn white_wolf_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[34, 37]);
-    base_sound_id(w, id, 0xE5);
-    set_str_range(w, id, 56, 80);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 31, 55);
-    set_hits_range(w, id, 34, 48);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 20.1, 35.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 60.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 65.1);
-}
 fn white_wolf_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &WHITE_WOLF,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    white_wolf_init(w, id);
-    id
+    templates::new_creature(w, &WHITE_WOLF)
 }
 creature_leaf! {
     /// `Server.Mobiles.WhiteWolf`.
     WHITE_WOLF, WHITE_WOLF_C = "Server.Mobiles.WhiteWolf" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(white_wolf_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a white wolf corpse"),
-        default_name: |_w, _id| Some("a white wolf"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::CANINE,
     }
@@ -886,50 +498,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn cougar_init(w: &mut World, id: MobileId) {
-    body(w, id, 63);
-    base_sound_id(w, id, 0x73);
-    set_str_range(w, id, 56, 80);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 26, 50);
-    set_hits_range(w, id, 34, 48);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 60.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 41.1);
-}
 fn cougar_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &COUGAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    cougar_init(w, id);
-    id
+    templates::new_creature(w, &COUGAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.Cougar`.
     COUGAR, COUGAR_C = "Server.Mobiles.Cougar" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(cougar_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a cougar corpse"),
-        default_name: |_w, _id| Some("a cougar"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 10,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::FELINE,
     }
@@ -997,51 +576,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn panther_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xD6);
-    hue(w, id, 0x901);
-    base_sound_id(w, id, 0x462);
-    set_str_range(w, id, 61, 85);
-    set_dex_range(w, id, 86, 105);
-    set_int_range(w, id, 26, 50);
-    set_hits_range(w, id, 37, 51);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 12);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 65.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 53.1);
-}
 fn panther_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PANTHER,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    panther_init(w, id);
-    id
+    templates::new_creature(w, &PANTHER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Panther`.
     PANTHER, PANTHER_C = "Server.Mobiles.Panther" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(panther_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a panther corpse"),
-        default_name: |_w, _id| Some("a panther"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 10,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::FISH,
         pack_instinct: |_w, _id| PackInstinct::FELINE,
     }
@@ -1049,106 +594,38 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn predator_hell_cat_init(w: &mut World, id: MobileId) {
-    body(w, id, 127);
-    base_sound_id(w, id, 0xBA);
-    set_str_range(w, id, 161, 185);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 76, 100);
-    set_hits_range(w, id, 97, 131);
-    set_damage(w, id, 5, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 75.1, 90.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 65.0);
-    fame(w, id, 2500);
-    karma(w, id, -2500);
-    virtual_armor(w, id, 30);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 89.1);
-}
 fn predator_hell_cat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PREDATOR_HELL_CAT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    predator_hell_cat_init(w, id);
-    id
+    templates::new_creature(w, &PREDATOR_HELL_CAT)
 }
 static PREDATOR_HELL_CAT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.PredatorHellCat`.
     PREDATOR_HELL_CAT, PREDATOR_HELL_CAT_C = "Server.Mobiles.PredatorHellCat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(predator_hell_cat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a hell cat corpse"),
-        default_name: |_w, _id| Some("a hell cat"),
-        hides: |_w, _id| 10,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::FELINE,
         get_monster_abilities: |_, _| &PREDATOR_HELL_CAT_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn snow_leopard_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[64, 65]);
-    base_sound_id(w, id, 0x73);
-    set_str_range(w, id, 56, 80);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 26, 50);
-    set_hits_range(w, id, 34, 48);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 35.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 50.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 24);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 53.1);
-}
 fn snow_leopard_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SNOW_LEOPARD,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    snow_leopard_init(w, id);
-    id
+    templates::new_creature(w, &SNOW_LEOPARD)
 }
 creature_leaf! {
     /// `Server.Mobiles.SnowLeopard`.
     SNOW_LEOPARD, SNOW_LEOPARD_C = "Server.Mobiles.SnowLeopard" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(snow_leopard_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a leopard corpse"),
-        default_name: |_w, _id| Some("a snow leopard"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 8,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::FISH,
         pack_instinct: |_w, _id| PackInstinct::FELINE,
     }
@@ -1156,48 +633,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn boar_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x122);
-    base_sound_id(w, id, 0xC4);
-    set_str(w, id, 25);
-    set_dex(w, id, 15);
-    set_int(w, id, 5);
-    set_hits(w, id, 15);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 6);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_skill(w, id, SkillName::MagicResist, 9.0);
-    set_skill(w, id, SkillName::Tactics, 9.0);
-    set_skill(w, id, SkillName::Wrestling, 9.0);
-    fame(w, id, 300);
-    karma(w, id, 0);
-    virtual_armor(w, id, 10);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 29.1);
-}
 fn boar_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BOAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    boar_init(w, id);
-    id
+    templates::new_creature(w, &BOAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.Boar`.
     BOAR, BOAR_C = "Server.Mobiles.Boar" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(boar_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a pig corpse"),
-        default_name: |_w, _id| Some("a boar"),
-        meat: |_w, _id| 2,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES | FoodType::GRAINS_AND_HAY,
     }
     m {
@@ -1259,48 +704,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn dolphin_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x97);
-    base_sound_id(w, id, 0x8A);
-    set_str_range(w, id, 21, 49);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 96, 110);
-    set_hits_range(w, id, 15, 27);
-    set_damage(w, id, 3, 6);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 20.0);
-    set_skill_range(w, id, SkillName::Tactics, 19.2, 29.0);
-    set_skill_range(w, id, SkillName::Wrestling, 19.2, 29.0);
-    fame(w, id, 500);
-    karma(w, id, 2000);
-    virtual_armor(w, id, 16);
-    can_swim(w, id, true);
-    cant_walk(w, id, true);
-}
 fn dolphin_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DOLPHIN,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    dolphin_init(w, id);
-    id
+    templates::new_creature(w, &DOLPHIN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Dolphin`.
     DOLPHIN, DOLPHIN_C = "Server.Mobiles.Dolphin" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dolphin_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a dolphin corpse"),
-        default_name: |_w, _id| Some("a dolphin"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         on_think: crate::hand::dolphin_on_think,
     }
     m {
@@ -1308,49 +721,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn gaman_init(w: &mut World, id: MobileId) {
-    body(w, id, 248);
-    set_str_range(w, id, 146, 175);
-    set_dex_range(w, id, 111, 150);
-    set_int_range(w, id, 46, 60);
-    set_hits_range(w, id, 131, 160);
-    set_mana(w, id, 0);
-    set_damage(w, id, 6, 11);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 50);
-    set_skill_range(w, id, SkillName::MagicResist, 37.6, 42.5);
-    set_skill_range(w, id, SkillName::Tactics, 70.6, 83.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 57.5);
-    fame(w, id, 2000);
-    karma(w, id, -2000);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 68.7);
-}
 fn gaman_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GAMAN,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gaman_init(w, id);
-    id
+    templates::new_creature(w, &GAMAN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Gaman`.
     GAMAN, GAMAN_C = "Server.Mobiles.Gaman" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gaman_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gaman corpse"),
-        default_name: |_w, _id| Some("a gaman"),
-        meat: |_w, _id| 10,
-        hides: |_w, _id| 15,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::GRAINS_AND_HAY,
     }
     m {
@@ -1363,195 +744,69 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn giant_toad_init(w: &mut World, id: MobileId) {
-    body(w, id, 80);
-    base_sound_id(w, id, 0x26B);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 6, 25);
-    set_int_range(w, id, 11, 20);
-    set_hits_range(w, id, 46, 60);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 40.0);
-    set_skill_range(w, id, SkillName::Tactics, 40.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 60.0);
-    fame(w, id, 750);
-    karma(w, id, -750);
-    virtual_armor(w, id, 24);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 77.1);
-}
 fn giant_toad_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GIANT_TOAD,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    giant_toad_init(w, id);
-    id
+    templates::new_creature(w, &GIANT_TOAD)
 }
 creature_leaf! {
     /// `Server.Mobiles.GiantToad`.
     GIANT_TOAD, GIANT_TOAD_C = "Server.Mobiles.GiantToad" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(giant_toad_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a giant toad corpse"),
-        default_name: |_w, _id| Some("a giant toad"),
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::MEAT,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn goat_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xD1);
-    base_sound_id(w, id, 0x99);
-    set_str(w, id, 19);
-    set_dex(w, id, 15);
-    set_int(w, id, 5);
-    set_hits(w, id, 12);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 4);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 15);
-    set_skill(w, id, SkillName::MagicResist, 5.0);
-    set_skill(w, id, SkillName::Tactics, 5.0);
-    set_skill(w, id, SkillName::Wrestling, 5.0);
-    fame(w, id, 150);
-    karma(w, id, 0);
-    virtual_armor(w, id, 10);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 11.1);
-}
 fn goat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GOAT,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    goat_init(w, id);
-    id
+    templates::new_creature(w, &GOAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.Goat`.
     GOAT, GOAT_C = "Server.Mobiles.Goat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(goat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a goat corpse"),
-        default_name: |_w, _id| Some("a goat"),
-        meat: |_w, _id| 2,
-        hides: |_w, _id| 8,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::GRAINS_AND_HAY | FoodType::FRUITS_AND_VEGGIES | FoodType::LEATHER,
     }
     m {
     }
 }
 
-pub(crate) fn gorilla_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x1D);
-    base_sound_id(w, id, 0x9E);
-    set_str_range(w, id, 53, 95);
-    set_dex_range(w, id, 36, 55);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 38, 51);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 43.3, 58.0);
-    set_skill_range(w, id, SkillName::Wrestling, 43.3, 58.0);
-    fame(w, id, 450);
-    karma(w, id, 0);
-    virtual_armor(w, id, 20);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -18.9);
-}
 fn gorilla_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GORILLA,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gorilla_init(w, id);
-    id
+    templates::new_creature(w, &GORILLA)
 }
 creature_leaf! {
     /// `Server.Mobiles.Gorilla`.
     GORILLA, GORILLA_C = "Server.Mobiles.Gorilla" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gorilla_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gorilla corpse"),
-        default_name: |_w, _id| Some("a gorilla"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES | FoodType::GRAINS_AND_HAY,
     }
     m {
     }
 }
 
-pub(crate) fn great_hart_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xEA);
-    set_str_range(w, id, 41, 71);
-    set_dex_range(w, id, 47, 77);
-    set_int_range(w, id, 27, 57);
-    set_hits_range(w, id, 27, 41);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 26.8, 44.5);
-    set_skill_range(w, id, SkillName::Tactics, 29.8, 47.5);
-    set_skill_range(w, id, SkillName::Wrestling, 29.8, 47.5);
-    fame(w, id, 300);
-    karma(w, id, 0);
-    virtual_armor(w, id, 24);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 59.1);
-}
 fn great_hart_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GREAT_HART,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    great_hart_init(w, id);
-    id
+    templates::new_creature(w, &GREAT_HART)
 }
 creature_leaf! {
     /// `Server.Mobiles.GreatHart`.
     GREAT_HART, GREAT_HART_C = "Server.Mobiles.GreatHart" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(great_hart_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a deer corpse"),
-        default_name: |_w, _id| Some("a great hart"),
-        meat: |_w, _id| 6,
-        hides: |_w, _id| 15,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES | FoodType::GRAINS_AND_HAY,
     }
     m {
@@ -1561,47 +816,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn hind_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xED);
-    set_str_range(w, id, 21, 51);
-    set_dex_range(w, id, 47, 77);
-    set_int_range(w, id, 17, 47);
-    set_hits_range(w, id, 15, 29);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 4);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 15);
-    set_resistance(w, id, ResistanceType::Cold, 5);
-    set_skill(w, id, SkillName::MagicResist, 15.0);
-    set_skill(w, id, SkillName::Tactics, 19.0);
-    set_skill(w, id, SkillName::Wrestling, 26.0);
-    fame(w, id, 300);
-    karma(w, id, 0);
-    virtual_armor(w, id, 8);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 23.1);
-}
 fn hind_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &HIND,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    hind_init(w, id);
-    id
+    templates::new_creature(w, &HIND)
 }
 creature_leaf! {
     /// `Server.Mobiles.Hind`.
     HIND, HIND_C = "Server.Mobiles.Hind" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(hind_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a deer corpse"),
-        default_name: |_w, _id| Some("a hind"),
-        meat: |_w, _id| 5,
-        hides: |_w, _id| 8,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES | FoodType::GRAINS_AND_HAY,
     }
     m {
@@ -1611,98 +836,34 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn llama_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xDC);
-    base_sound_id(w, id, 0x3F3);
-    set_str_range(w, id, 21, 49);
-    set_dex_range(w, id, 36, 55);
-    set_int_range(w, id, 16, 30);
-    set_hits_range(w, id, 15, 27);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 5);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 20.0);
-    set_skill_range(w, id, SkillName::Tactics, 19.2, 29.0);
-    set_skill_range(w, id, SkillName::Wrestling, 19.2, 29.0);
-    fame(w, id, 300);
-    karma(w, id, 0);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 35.1);
-}
 fn llama_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LLAMA,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    llama_init(w, id);
-    id
+    templates::new_creature(w, &LLAMA)
 }
 creature_leaf! {
     /// `Server.Mobiles.Llama`.
     LLAMA, LLAMA_C = "Server.Mobiles.Llama" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(llama_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a llama corpse"),
-        default_name: |_w, _id| Some("a llama"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES | FoodType::GRAINS_AND_HAY,
     }
     m {
     }
 }
 
-pub(crate) fn mountain_goat_init(w: &mut World, id: MobileId) {
-    body(w, id, 88);
-    base_sound_id(w, id, 0x99);
-    set_str_range(w, id, 22, 64);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 16, 30);
-    set_hits_range(w, id, 20, 33);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 29.3, 44.0);
-    set_skill_range(w, id, SkillName::Wrestling, 29.3, 44.0);
-    fame(w, id, 300);
-    karma(w, id, 0);
-    virtual_armor(w, id, 10);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -0.9);
-}
 fn mountain_goat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MOUNTAIN_GOAT,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    mountain_goat_init(w, id);
-    id
+    templates::new_creature(w, &MOUNTAIN_GOAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.MountainGoat`.
     MOUNTAIN_GOAT, MOUNTAIN_GOAT_C = "Server.Mobiles.MountainGoat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(mountain_goat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a mountain goat corpse"),
-        default_name: |_w, _id| Some("a mountain goat"),
-        meat: |_w, _id| 2,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::GRAINS_AND_HAY | FoodType::FRUITS_AND_VEGGIES,
     }
     m {
@@ -1830,46 +991,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn pig_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xCB);
-    base_sound_id(w, id, 0xC4);
-    set_str(w, id, 20);
-    set_dex(w, id, 20);
-    set_int(w, id, 5);
-    set_hits(w, id, 12);
-    set_mana(w, id, 0);
-    set_damage(w, id, 2, 4);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 10, 15);
-    set_skill(w, id, SkillName::MagicResist, 5.0);
-    set_skill(w, id, SkillName::Tactics, 5.0);
-    set_skill(w, id, SkillName::Wrestling, 5.0);
-    fame(w, id, 150);
-    karma(w, id, 0);
-    virtual_armor(w, id, 12);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 11.1);
-}
 fn pig_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PIG,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    pig_init(w, id);
-    id
+    templates::new_creature(w, &PIG)
 }
 creature_leaf! {
     /// `Server.Mobiles.Pig`.
     PIG, PIG_C = "Server.Mobiles.Pig" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(pig_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a pig corpse"),
-        default_name: |_w, _id| Some("a pig"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES | FoodType::GRAINS_AND_HAY,
     }
     m {
@@ -1926,51 +1057,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn walrus_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xDD);
-    base_sound_id(w, id, 0xE0);
-    set_str_range(w, id, 21, 29);
-    set_dex_range(w, id, 46, 55);
-    set_int_range(w, id, 16, 20);
-    set_hits_range(w, id, 14, 17);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 20.0);
-    set_skill_range(w, id, SkillName::Tactics, 19.2, 29.0);
-    set_skill_range(w, id, SkillName::Wrestling, 19.2, 29.0);
-    fame(w, id, 150);
-    karma(w, id, 0);
-    virtual_armor(w, id, 18);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 35.1);
-}
 fn walrus_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &WALRUS,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    walrus_init(w, id);
-    id
+    templates::new_creature(w, &WALRUS)
 }
 creature_leaf! {
     /// `Server.Mobiles.Walrus`.
     WALRUS, WALRUS_C = "Server.Mobiles.Walrus" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(walrus_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a walrus corpse"),
-        default_name: |_w, _id| Some("a walrus"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH,
     }
     m {
@@ -3339,52 +2436,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn ice_snake_init(w: &mut World, id: MobileId) {
-    body(w, id, 52);
-    hue(w, id, 0x480);
-    base_sound_id(w, id, 0xDB);
-    set_str_range(w, id, 42, 54);
-    set_dex_range(w, id, 36, 45);
-    set_int_range(w, id, 26, 30);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 12);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Cold, 25);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 20.0);
-    set_skill_range(w, id, SkillName::Tactics, 39.3, 54.0);
-    set_skill_range(w, id, SkillName::Wrestling, 39.3, 54.0);
-    fame(w, id, 900);
-    karma(w, id, -900);
-    virtual_armor(w, id, 30);
-}
 fn ice_snake_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ICE_SNAKE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ice_snake_init(w, id);
-    id
+    templates::new_creature(w, &ICE_SNAKE)
 }
 creature_leaf! {
     /// `Server.Mobiles.IceSnake`.
     ICE_SNAKE, ICE_SNAKE_C = "Server.Mobiles.IceSnake" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ice_snake_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ice snake corpse"),
-        default_name: |_w, _id| Some("an ice snake"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         death_adder_charmable: |_w, _id| true,
-        meat: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -3455,57 +2518,22 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn lava_serpent_init(w: &mut World, id: MobileId) {
-    body(w, id, 90);
-    base_sound_id(w, id, 219);
-    set_str_range(w, id, 386, 415);
-    set_dex_range(w, id, 56, 80);
-    set_int_range(w, id, 66, 85);
-    set_hits_range(w, id, 232, 249);
-    set_mana(w, id, 0);
-    set_damage(w, id, 10, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Fire, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 25.3, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 40);
-    pack_new_amount(w, id, "Server.Items.SulfurousAsh", 3);
-    pack_new(w, id, "Server.Items.Bone");
-}
 fn lava_serpent_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LAVA_SERPENT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lava_serpent_init(w, id);
-    id
+    templates::new_creature(w, &LAVA_SERPENT)
 }
 static LAVA_SERPENT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.LavaSerpent`.
     LAVA_SERPENT, LAVA_SERPENT_C = "Server.Mobiles.LavaSerpent" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lava_serpent_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a lava serpent corpse"),
-        default_name: |_w, _id| Some("a lava serpent"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         death_adder_charmable: |_w, _id| true,
-        meat: |_w, _id| 4,
-        hides: |_w, _id| 15,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         get_monster_abilities: |_, _| &LAVA_SERPENT_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -3623,99 +2651,35 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn giant_rat_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xD7);
-    base_sound_id(w, id, 0x188);
-    set_str_range(w, id, 32, 74);
-    set_dex_range(w, id, 46, 65);
-    set_int_range(w, id, 16, 30);
-    set_hits_range(w, id, 26, 39);
-    set_mana(w, id, 0);
-    set_damage(w, id, 4, 8);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 29.3, 44.0);
-    set_skill_range(w, id, SkillName::Wrestling, 29.3, 44.0);
-    fame(w, id, 300);
-    karma(w, id, -300);
-    virtual_armor(w, id, 18);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 29.1);
-}
 fn giant_rat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GIANT_RAT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    giant_rat_init(w, id);
-    id
+    templates::new_creature(w, &GIANT_RAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.GiantRat`.
     GIANT_RAT, GIANT_RAT_C = "Server.Mobiles.GiantRat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(giant_rat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a giant rat corpse"),
-        default_name: |_w, _id| Some("a giant rat"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FISH | FoodType::MEAT | FoodType::FRUITS_AND_VEGGIES | FoodType::EGGS,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn jack_rabbit_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xCD);
-    hue(w, id, 0x1BB);
-    set_str(w, id, 15);
-    set_dex(w, id, 25);
-    set_int(w, id, 5);
-    set_hits(w, id, 9);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 2);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 2, 5);
-    set_skill(w, id, SkillName::MagicResist, 5.0);
-    set_skill(w, id, SkillName::Tactics, 5.0);
-    set_skill(w, id, SkillName::Wrestling, 5.0);
-    fame(w, id, 150);
-    karma(w, id, 0);
-    virtual_armor(w, id, 4);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -18.9);
-}
 fn jack_rabbit_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &JACK_RABBIT,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    jack_rabbit_init(w, id);
-    id
+    templates::new_creature(w, &JACK_RABBIT)
 }
 creature_leaf! {
     /// `Server.Mobiles.JackRabbit`.
     JACK_RABBIT, JACK_RABBIT_C = "Server.Mobiles.JackRabbit" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(jack_rabbit_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a jack rabbit corpse"),
-        default_name: |_w, _id| Some("a jack rabbit"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES,
     }
     m {
@@ -3780,52 +2744,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn sewer_rat_init(w: &mut World, id: MobileId) {
-    body(w, id, 238);
-    base_sound_id(w, id, 0xCC);
-    set_str(w, id, 9);
-    set_dex(w, id, 25);
-    set_int_range(w, id, 6, 10);
-    set_hits(w, id, 6);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 2);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill(w, id, SkillName::MagicResist, 5.0);
-    set_skill(w, id, SkillName::Tactics, 5.0);
-    set_skill(w, id, SkillName::Wrestling, 5.0);
-    fame(w, id, 300);
-    karma(w, id, -300);
-    virtual_armor(w, id, 6);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -0.9);
-}
 fn sewer_rat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SEWER_RAT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    sewer_rat_init(w, id);
-    id
+    templates::new_creature(w, &SEWER_RAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.SewerRat`.
     SEWER_RAT, SEWER_RAT_C = "Server.Mobiles.SewerRat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(sewer_rat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a rat corpse"),
-        default_name: |_w, _id| Some("a sewer rat"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::EGGS | FoodType::FRUITS_AND_VEGGIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -4159,51 +3089,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn rat_init(w: &mut World, id: MobileId) {
-    body(w, id, 238);
-    base_sound_id(w, id, 0xCC);
-    set_str(w, id, 9);
-    set_dex(w, id, 35);
-    set_int(w, id, 5);
-    set_hits(w, id, 6);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 2);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_skill(w, id, SkillName::MagicResist, 4.0);
-    set_skill(w, id, SkillName::Tactics, 4.0);
-    set_skill(w, id, SkillName::Wrestling, 4.0);
-    fame(w, id, 150);
-    karma(w, id, -150);
-    virtual_armor(w, id, 6);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -0.9);
-}
 fn rat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RAT,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    rat_init(w, id);
-    id
+    templates::new_creature(w, &RAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.Rat`.
     RAT, RAT_C = "Server.Mobiles.Rat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(rat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a rat corpse"),
-        default_name: |_w, _id| Some("a rat"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::FISH | FoodType::EGGS | FoodType::GRAINS_AND_HAY,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }

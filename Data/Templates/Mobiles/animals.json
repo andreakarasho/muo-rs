@@ -1,0 +1,1363 @@
+[
+  {
+    "type": "Server.Mobiles.SilverSerpent",
+    "body": 92,
+    "baseSoundId": 219,
+    "str": [161, 360],
+    "dex": [151, 300],
+    "int": [21, 40],
+    "hits": [97, 216],
+    "damage": [5, 21],
+    "damageTypes": {
+      "Physical": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [5, 10],
+      "Cold": [5, 10],
+      "Poison": 100,
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "Poisoning": [90.1, 100.0],
+      "MagicResist": [95.1, 100.0],
+      "Tactics": [80.1, 95.0],
+      "Wrestling": [85.1, 100.0]
+    },
+    "fame": 7000,
+    "karma": -7000,
+    "virtualArmor": 40,
+    "props": {
+      "corpseName": "a silver serpent corpse",
+      "defaultName": "a silver serpent",
+      "meat": 1,
+      "poisonImmune": 4,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Alligator",
+    "body": 202,
+    "baseSoundId": 660,
+    "str": [76, 100],
+    "dex": [6, 25],
+    "int": [11, 20],
+    "hits": [46, 60],
+    "stam": [46, 65],
+    "mana": 0,
+    "damage": [5, 15],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [5, 10],
+      "Poison": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [40.1, 60.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 600,
+    "karma": -600,
+    "virtualArmor": 30,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 47.1,
+    "props": {
+      "corpseName": "an alligator corpse",
+      "defaultName": "an alligator",
+      "meat": 1,
+      "hides": 12
+    }
+  },
+  {
+    "type": "Server.Mobiles.Phoenix",
+    "ai": "AiMage",
+    "fightMode": "Aggressor",
+    "body": 5,
+    "hue": 1652,
+    "baseSoundId": 143,
+    "str": [504, 700],
+    "dex": [202, 300],
+    "int": [504, 700],
+    "hits": [340, 383],
+    "damage": [25, 25],
+    "damageTypes": {
+      "Physical": 50,
+      "Fire": 50
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [60, 70],
+      "Poison": [25, 35],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "EvalInt": [90.2, 100.0],
+      "Magery": [90.2, 100.0],
+      "Meditation": [75.1, 100.0],
+      "MagicResist": [86.0, 135.0],
+      "Tactics": [80.1, 90.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 15000,
+    "karma": 0,
+    "virtualArmor": 60,
+    "props": {
+      "corpseName": "a phoenix corpse",
+      "defaultName": "a phoenix",
+      "meat": 1,
+      "feathers": 36,
+      "canFly": true,
+      "loot": [["FilthyRich", 1], ["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BlackBear",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 211,
+    "baseSoundId": 163,
+    "str": [76, 100],
+    "dex": [56, 75],
+    "int": [11, 14],
+    "hits": [46, 60],
+    "mana": 0,
+    "damage": [4, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Cold": [10, 15],
+      "Poison": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [20.1, 40.0],
+      "Tactics": [40.1, 60.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 24,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 35.1,
+    "props": {
+      "corpseName": "a bear corpse",
+      "defaultName": "a black bear",
+      "meat": 1,
+      "hides": 12
+    }
+  },
+  {
+    "type": "Server.Mobiles.DireWolf",
+    "body": 23,
+    "baseSoundId": 229,
+    "str": [96, 120],
+    "dex": [81, 105],
+    "int": [36, 60],
+    "hits": [58, 72],
+    "mana": 0,
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [10, 20],
+      "Cold": [5, 10],
+      "Poison": [5, 10],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [57.6, 75.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 22,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 83.1,
+    "props": {
+      "corpseName": "a dire wolf corpse",
+      "defaultName": "a dire wolf",
+      "meat": 1,
+      "hides": 7
+    }
+  },
+  {
+    "type": "Server.Mobiles.Eagle",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 5,
+    "baseSoundId": 750,
+    "str": [31, 47],
+    "dex": [36, 60],
+    "int": [8, 20],
+    "hits": [20, 27],
+    "mana": 0,
+    "damage": [5, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [10, 15],
+      "Cold": [20, 25],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [15.3, 30.0],
+      "Tactics": [18.1, 37.0],
+      "Wrestling": [20.1, 30.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 22,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 17.1,
+    "props": {
+      "corpseName": "a bird corpse",
+      "defaultName": "an eagle",
+      "meat": 1,
+      "feathers": 36,
+      "canFly": true
+    }
+  },
+  {
+    "type": "Server.Mobiles.BrownBear",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 167,
+    "baseSoundId": 163,
+    "str": [76, 100],
+    "dex": [26, 45],
+    "int": [23, 47],
+    "hits": [46, 60],
+    "mana": 0,
+    "damage": [6, 12],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 30],
+      "Cold": [15, 20],
+      "Poison": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [25.1, 35.0],
+      "Tactics": [40.1, 60.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 24,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 41.1,
+    "props": {
+      "corpseName": "a bear corpse",
+      "defaultName": "a brown bear",
+      "meat": 1,
+      "hides": 12
+    }
+  },
+  {
+    "type": "Server.Mobiles.GrizzlyBear",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 212,
+    "baseSoundId": 163,
+    "str": [126, 155],
+    "dex": [81, 105],
+    "int": [16, 40],
+    "hits": [76, 93],
+    "mana": 0,
+    "damage": [8, 13],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Cold": [15, 25],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [70.1, 100.0],
+      "Wrestling": [45.1, 70.0]
+    },
+    "fame": 1000,
+    "karma": 0,
+    "virtualArmor": 24,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 59.1,
+    "props": {
+      "corpseName": "a grizzly bear corpse",
+      "defaultName": "a grizzly bear",
+      "meat": 2,
+      "hides": 16
+    }
+  },
+  {
+    "type": "Server.Mobiles.PolarBear",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 213,
+    "baseSoundId": 163,
+    "str": [116, 140],
+    "dex": [81, 105],
+    "int": [26, 50],
+    "hits": [70, 84],
+    "mana": 0,
+    "damage": [7, 12],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Cold": [60, 80],
+      "Poison": [15, 25],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [45.1, 60.0],
+      "Tactics": [60.1, 90.0],
+      "Wrestling": [45.1, 70.0]
+    },
+    "fame": 1500,
+    "karma": 0,
+    "virtualArmor": 18,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 35.1,
+    "props": {
+      "corpseName": "a polar bear corpse",
+      "defaultName": "a polar bear",
+      "meat": 2,
+      "hides": 16
+    }
+  },
+  {
+    "type": "Server.Mobiles.Chicken",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 208,
+    "baseSoundId": 110,
+    "str": 5,
+    "dex": 15,
+    "int": 5,
+    "hits": 3,
+    "mana": 0,
+    "damage": [1, 1],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [1, 5]
+    },
+    "skills": {
+      "MagicResist": 4.0,
+      "Tactics": 5.0,
+      "Wrestling": 5.0
+    },
+    "fame": 150,
+    "karma": 0,
+    "virtualArmor": 2,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -0.9,
+    "props": {
+      "corpseName": "a chicken corpse",
+      "defaultName": "a chicken",
+      "meat": 1,
+      "canFly": true,
+      "feathers": 25
+    }
+  },
+  {
+    "type": "Server.Mobiles.Crane",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 254,
+    "baseSoundId": 1239,
+    "str": [26, 35],
+    "dex": [16, 25],
+    "int": [11, 15],
+    "hits": [26, 35],
+    "mana": 0,
+    "damage": [1, 1],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 5]
+    },
+    "skills": {
+      "MagicResist": [4.1, 5.0],
+      "Tactics": [10.1, 11.0],
+      "Wrestling": [10.1, 11.0]
+    },
+    "fame": 0,
+    "karma": 200,
+    "virtualArmor": 5,
+    "props": {
+      "corpseName": "a bird corpse",
+      "defaultName": "a crane",
+      "meat": 1,
+      "feathers": 25
+    }
+  },
+  {
+    "type": "Server.Mobiles.GreyWolf",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "bodies": [25, 27],
+    "baseSoundId": 229,
+    "str": [56, 80],
+    "dex": [56, 75],
+    "int": [31, 55],
+    "hits": [34, 48],
+    "mana": 0,
+    "damage": [3, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [10, 15],
+      "Cold": [20, 25],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [20.1, 35.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 60.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 53.1,
+    "props": {
+      "corpseName": "a grey wolf corpse",
+      "defaultName": "a grey wolf",
+      "meat": 1,
+      "hides": 6
+    }
+  },
+  {
+    "type": "Server.Mobiles.TimberWolf",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 225,
+    "baseSoundId": 229,
+    "str": [56, 80],
+    "dex": [56, 75],
+    "int": [11, 25],
+    "hits": [34, 48],
+    "mana": 0,
+    "damage": [5, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [5, 10],
+      "Cold": [10, 15],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [27.6, 45.0],
+      "Tactics": [30.1, 50.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 23.1,
+    "props": {
+      "corpseName": "a timber wolf corpse",
+      "defaultName": "a timber wolf",
+      "meat": 1,
+      "hides": 5
+    }
+  },
+  {
+    "type": "Server.Mobiles.WhiteWolf",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "bodies": [34, 37],
+    "baseSoundId": 229,
+    "str": [56, 80],
+    "dex": [56, 75],
+    "int": [31, 55],
+    "hits": [34, 48],
+    "mana": 0,
+    "damage": [3, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [10, 15],
+      "Cold": [20, 25],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [20.1, 35.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 60.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 65.1,
+    "props": {
+      "corpseName": "a white wolf corpse",
+      "defaultName": "a white wolf",
+      "meat": 1,
+      "hides": 6
+    }
+  },
+  {
+    "type": "Server.Mobiles.Cougar",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 63,
+    "baseSoundId": 115,
+    "str": [56, 80],
+    "dex": [66, 85],
+    "int": [26, 50],
+    "hits": [34, 48],
+    "mana": 0,
+    "damage": [4, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [5, 10],
+      "Cold": [10, 15],
+      "Poison": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [15.1, 30.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 60.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 41.1,
+    "props": {
+      "corpseName": "a cougar corpse",
+      "defaultName": "a cougar",
+      "meat": 1,
+      "hides": 10
+    }
+  },
+  {
+    "type": "Server.Mobiles.Panther",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 214,
+    "hue": 2305,
+    "baseSoundId": 1122,
+    "str": [61, 85],
+    "dex": [86, 105],
+    "int": [26, 50],
+    "hits": [37, 51],
+    "mana": 0,
+    "damage": [4, 12],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [5, 10],
+      "Cold": [10, 15],
+      "Poison": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [15.1, 30.0],
+      "Tactics": [50.1, 65.0],
+      "Wrestling": [50.1, 65.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 53.1,
+    "props": {
+      "corpseName": "a panther corpse",
+      "defaultName": "a panther",
+      "meat": 1,
+      "hides": 10
+    }
+  },
+  {
+    "type": "Server.Mobiles.PredatorHellCat",
+    "body": 127,
+    "baseSoundId": 186,
+    "str": [161, 185],
+    "dex": [96, 115],
+    "int": [76, 100],
+    "hits": [97, 131],
+    "damage": [5, 17],
+    "damageTypes": {
+      "Physical": 75,
+      "Fire": 25
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [30, 40],
+      "Energy": [5, 15]
+    },
+    "skills": {
+      "MagicResist": [75.1, 90.0],
+      "Tactics": [50.1, 65.0],
+      "Wrestling": [50.1, 65.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 30,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 89.1,
+    "props": {
+      "corpseName": "a hell cat corpse",
+      "defaultName": "a hell cat",
+      "hides": 10,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SnowLeopard",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "bodies": [64, 65],
+    "baseSoundId": 115,
+    "str": [56, 80],
+    "dex": [66, 85],
+    "int": [26, 50],
+    "hits": [34, 48],
+    "mana": 0,
+    "damage": [3, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [5, 10],
+      "Cold": [30, 40],
+      "Poison": [10, 20],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [25.1, 35.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [40.1, 50.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 24,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 53.1,
+    "props": {
+      "corpseName": "a leopard corpse",
+      "defaultName": "a snow leopard",
+      "meat": 1,
+      "hides": 8
+    }
+  },
+  {
+    "type": "Server.Mobiles.Boar",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 290,
+    "baseSoundId": 196,
+    "str": 25,
+    "dex": 15,
+    "int": 5,
+    "hits": 15,
+    "mana": 0,
+    "damage": [3, 6],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [10, 15],
+      "Fire": [5, 10],
+      "Poison": [5, 10]
+    },
+    "skills": {
+      "MagicResist": 9.0,
+      "Tactics": 9.0,
+      "Wrestling": 9.0
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 10,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "corpseName": "a pig corpse",
+      "defaultName": "a boar",
+      "meat": 2
+    }
+  },
+  {
+    "type": "Server.Mobiles.Dolphin",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 151,
+    "baseSoundId": 138,
+    "str": [21, 49],
+    "dex": [66, 85],
+    "int": [96, 110],
+    "hits": [15, 27],
+    "damage": [3, 6],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [70, 80],
+      "Cold": [25, 30],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.2, 29.0],
+      "Wrestling": [19.2, 29.0]
+    },
+    "fame": 500,
+    "karma": 2000,
+    "virtualArmor": 16,
+    "canSwim": true,
+    "cantWalk": true,
+    "props": {
+      "corpseName": "a dolphin corpse",
+      "defaultName": "a dolphin",
+      "meat": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.Gaman",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 248,
+    "str": [146, 175],
+    "dex": [111, 150],
+    "int": [46, 60],
+    "hits": [131, 160],
+    "mana": 0,
+    "damage": [6, 11],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 70],
+      "Fire": [30, 50],
+      "Cold": [30, 50],
+      "Poison": [40, 60],
+      "Energy": [30, 50]
+    },
+    "skills": {
+      "MagicResist": [37.6, 42.5],
+      "Tactics": [70.6, 83.0],
+      "Wrestling": [50.1, 57.5]
+    },
+    "fame": 2000,
+    "karma": -2000,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 68.7,
+    "props": {
+      "corpseName": "a gaman corpse",
+      "defaultName": "a gaman",
+      "meat": 10,
+      "hides": 15
+    }
+  },
+  {
+    "type": "Server.Mobiles.GiantToad",
+    "body": 80,
+    "baseSoundId": 619,
+    "str": [76, 100],
+    "dex": [6, 25],
+    "int": [11, 20],
+    "hits": [46, 60],
+    "mana": 0,
+    "damage": [5, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [40.1, 60.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 750,
+    "karma": -750,
+    "virtualArmor": 24,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 77.1,
+    "props": {
+      "corpseName": "a giant toad corpse",
+      "defaultName": "a giant toad",
+      "hides": 12,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Goat",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 209,
+    "baseSoundId": 153,
+    "str": 19,
+    "dex": 15,
+    "int": 5,
+    "hits": 12,
+    "mana": 0,
+    "damage": [3, 4],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 15]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 5.0,
+      "Wrestling": 5.0
+    },
+    "fame": 150,
+    "karma": 0,
+    "virtualArmor": 10,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 11.1,
+    "props": {
+      "corpseName": "a goat corpse",
+      "defaultName": "a goat",
+      "meat": 2,
+      "hides": 8
+    }
+  },
+  {
+    "type": "Server.Mobiles.Gorilla",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 29,
+    "baseSoundId": 158,
+    "str": [53, 95],
+    "dex": [36, 55],
+    "int": [36, 60],
+    "hits": [38, 51],
+    "mana": 0,
+    "damage": [4, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [5, 10],
+      "Cold": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [45.1, 60.0],
+      "Tactics": [43.3, 58.0],
+      "Wrestling": [43.3, 58.0]
+    },
+    "fame": 450,
+    "karma": 0,
+    "virtualArmor": 20,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -18.9,
+    "props": {
+      "corpseName": "a gorilla corpse",
+      "defaultName": "a gorilla",
+      "meat": 1,
+      "hides": 6
+    }
+  },
+  {
+    "type": "Server.Mobiles.GreatHart",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 234,
+    "str": [41, 71],
+    "dex": [47, 77],
+    "int": [27, 57],
+    "hits": [27, 41],
+    "mana": 0,
+    "damage": [5, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Cold": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [26.8, 44.5],
+      "Tactics": [29.8, 47.5],
+      "Wrestling": [29.8, 47.5]
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 24,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 59.1,
+    "props": {
+      "corpseName": "a deer corpse",
+      "defaultName": "a great hart",
+      "meat": 6,
+      "hides": 15
+    }
+  },
+  {
+    "type": "Server.Mobiles.Hind",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 237,
+    "str": [21, 51],
+    "dex": [47, 77],
+    "int": [17, 47],
+    "hits": [15, 29],
+    "mana": 0,
+    "damage": [4, 4],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 15],
+      "Cold": 5
+    },
+    "skills": {
+      "MagicResist": 15.0,
+      "Tactics": 19.0,
+      "Wrestling": 26.0
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 8,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 23.1,
+    "props": {
+      "corpseName": "a deer corpse",
+      "defaultName": "a hind",
+      "meat": 5,
+      "hides": 8
+    }
+  },
+  {
+    "type": "Server.Mobiles.Llama",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 220,
+    "baseSoundId": 1011,
+    "str": [21, 49],
+    "dex": [36, 55],
+    "int": [16, 30],
+    "hits": [15, 27],
+    "mana": 0,
+    "damage": [3, 5],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.2, 29.0],
+      "Wrestling": [19.2, 29.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 35.1,
+    "props": {
+      "corpseName": "a llama corpse",
+      "defaultName": "a llama",
+      "meat": 1,
+      "hides": 12
+    }
+  },
+  {
+    "type": "Server.Mobiles.MountainGoat",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 88,
+    "baseSoundId": 153,
+    "str": [22, 64],
+    "dex": [56, 75],
+    "int": [16, 30],
+    "hits": [20, 33],
+    "mana": 0,
+    "damage": [3, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [10, 20],
+      "Fire": [5, 10],
+      "Cold": [10, 20],
+      "Poison": [10, 15],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "MagicResist": [25.1, 30.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "virtualArmor": 10,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -0.9,
+    "props": {
+      "corpseName": "a mountain goat corpse",
+      "defaultName": "a mountain goat",
+      "meat": 2,
+      "hides": 12
+    }
+  },
+  {
+    "type": "Server.Mobiles.Pig",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 203,
+    "baseSoundId": 196,
+    "str": 20,
+    "dex": 20,
+    "int": 5,
+    "hits": 12,
+    "mana": 0,
+    "damage": [2, 4],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [10, 15]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 5.0,
+      "Wrestling": 5.0
+    },
+    "fame": 150,
+    "karma": 0,
+    "virtualArmor": 12,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 11.1,
+    "props": {
+      "corpseName": "a pig corpse",
+      "defaultName": "a pig",
+      "meat": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.Walrus",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 221,
+    "baseSoundId": 224,
+    "str": [21, 29],
+    "dex": [46, 55],
+    "int": [16, 20],
+    "hits": [14, 17],
+    "mana": 0,
+    "damage": [4, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [5, 10],
+      "Cold": [20, 25],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [19.2, 29.0],
+      "Wrestling": [19.2, 29.0]
+    },
+    "fame": 150,
+    "karma": 0,
+    "virtualArmor": 18,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 35.1,
+    "props": {
+      "corpseName": "a walrus corpse",
+      "defaultName": "a walrus",
+      "meat": 1,
+      "hides": 12
+    }
+  },
+  {
+    "type": "Server.Mobiles.IceSnake",
+    "body": 52,
+    "hue": 1152,
+    "baseSoundId": 219,
+    "str": [42, 54],
+    "dex": [36, 45],
+    "int": [26, 30],
+    "mana": 0,
+    "damage": [4, 12],
+    "damageTypes": {
+      "Physical": 25,
+      "Cold": 25,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Cold": [80, 90],
+      "Poison": [60, 70],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [39.3, 54.0],
+      "Wrestling": [39.3, 54.0]
+    },
+    "fame": 900,
+    "karma": -900,
+    "virtualArmor": 30,
+    "props": {
+      "corpseName": "an ice snake corpse",
+      "defaultName": "an ice snake",
+      "meat": 1,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LavaSerpent",
+    "body": 90,
+    "baseSoundId": 219,
+    "str": [386, 415],
+    "dex": [56, 80],
+    "int": [66, 85],
+    "hits": [232, 249],
+    "mana": 0,
+    "damage": [10, 22],
+    "damageTypes": {
+      "Physical": 20,
+      "Fire": 80
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [70, 80],
+      "Poison": [30, 40],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [25.3, 70.0],
+      "Tactics": [65.1, 70.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 40,
+    "pack": [
+      {"item": "Server.Items.SulfurousAsh", "amount": 3},
+      {"item": "Server.Items.Bone"}
+    ],
+    "props": {
+      "corpseName": "a lava serpent corpse",
+      "defaultName": "a lava serpent",
+      "meat": 4,
+      "hides": 15,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GiantRat",
+    "body": 215,
+    "baseSoundId": 392,
+    "str": [32, 74],
+    "dex": [46, 65],
+    "int": [16, 30],
+    "hits": [26, 39],
+    "mana": 0,
+    "damage": [4, 8],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Fire": [5, 10],
+      "Poison": [25, 35]
+    },
+    "skills": {
+      "MagicResist": [25.1, 30.0],
+      "Tactics": [29.3, 44.0],
+      "Wrestling": [29.3, 44.0]
+    },
+    "fame": 300,
+    "karma": -300,
+    "virtualArmor": 18,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 29.1,
+    "props": {
+      "corpseName": "a giant rat corpse",
+      "defaultName": "a giant rat",
+      "meat": 1,
+      "hides": 6,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.JackRabbit",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 205,
+    "hue": 443,
+    "str": 15,
+    "dex": 25,
+    "int": 5,
+    "hits": 9,
+    "mana": 0,
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [2, 5]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 5.0,
+      "Wrestling": 5.0
+    },
+    "fame": 150,
+    "karma": 0,
+    "virtualArmor": 4,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -18.9,
+    "props": {
+      "corpseName": "a jack rabbit corpse",
+      "defaultName": "a jack rabbit",
+      "meat": 1,
+      "hides": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.SewerRat",
+    "body": 238,
+    "baseSoundId": 204,
+    "str": 9,
+    "dex": 25,
+    "int": [6, 10],
+    "hits": 6,
+    "mana": 0,
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10],
+      "Poison": [15, 25],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": 5.0,
+      "Tactics": 5.0,
+      "Wrestling": 5.0
+    },
+    "fame": 300,
+    "karma": -300,
+    "virtualArmor": 6,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -0.9,
+    "props": {
+      "corpseName": "a rat corpse",
+      "defaultName": "a sewer rat",
+      "meat": 1,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Rat",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 238,
+    "baseSoundId": 204,
+    "str": 9,
+    "dex": 35,
+    "int": 5,
+    "hits": 6,
+    "mana": 0,
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10],
+      "Poison": [5, 10]
+    },
+    "skills": {
+      "MagicResist": 4.0,
+      "Tactics": 4.0,
+      "Wrestling": 4.0
+    },
+    "fame": 150,
+    "karma": -150,
+    "virtualArmor": 6,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -0.9,
+    "props": {
+      "corpseName": "a rat corpse",
+      "defaultName": "a rat",
+      "meat": 1,
+      "loot": [["Poor", 1]]
+    }
+  }
+]
