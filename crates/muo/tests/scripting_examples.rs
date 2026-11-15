@@ -36,3 +36,30 @@ fn examples_load_bind_and_run() {
     assert!(w.mobile(player).unwrap().hits >= 60);
     assert_eq!(w.item(stone).unwrap().hue, 0x3B2, "recharging");
 }
+
+#[test]
+fn a_script_rolls_magic_properties_on_a_json_class() {
+    use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
+    let mut w = World::new();
+    muo::register_content(&mut w.types);
+    w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    muo_content::templates::reload(&mut w).unwrap();
+    assert!(muo_scripting::reload_scripts(&mut w).is_empty());
+
+    let blade = muo_content::factory::make_item(&mut w, "Examples.RandomBlade").unwrap();
+    let attr = |w: &World, kind, bit| muo_content::items::attr(w, blade, kind, bit);
+    // the template's fixed values, then the script's rolls
+    assert_eq!(w.item(blade).unwrap().hue, 1161);
+    assert_eq!(
+        attr(&w, AttrKind::Attributes, AosAttribute::Luck as u32),
+        50
+    );
+    let dmg = attr(&w, AttrKind::Attributes, AosAttribute::WeaponDamage as u32);
+    assert!((20..=40).contains(&dmg), "{dmg}");
+    let hit = attr(
+        &w,
+        AttrKind::Weapon,
+        AosWeaponAttribute::HitLightning as u32,
+    );
+    assert!((10..=30).contains(&hit), "{hit}");
+}

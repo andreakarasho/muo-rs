@@ -150,7 +150,7 @@ pub fn parse(key: &str, v: &Value) -> Result<Step, String> {
 /// `[set path value]` at Owner level, without the command log. A path or value the property system rejects is a
 /// warning (the property tables are registered at Configure, after the templates load, so it cannot be checked
 /// earlier).
-fn set_property(w: &mut World, id: ItemId, path: &str, text: &str) {
+pub fn set_property(w: &mut World, id: ItemId, path: &str, text: &str) {
     use crate::props::{self, Access};
     let r = props::resolve_chain(
         w,

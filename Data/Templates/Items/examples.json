@@ -7,5 +7,14 @@
     "hue": 1153,
     "name": "a healing stone",
     "movable": false
+  },
+  {
+    "type": "Examples.RandomBlade",
+    "parent": "Server.Items.Longsword",
+    "script": "examples/random_blade.rhai",
+    "hue": 1161,
+    "attributes": {
+      "Luck": 50
+    }
   }
 ]

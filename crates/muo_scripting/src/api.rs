@@ -340,6 +340,75 @@ fn item_api(e: &mut Engine) {
             }
         })
     });
+    // Magic properties, named as in the JSON templates: `set_attr(item, "Attributes", "Luck", 200)`.
+    e.register_fn(
+        "set_attr",
+        |ctx: NativeCallContext, i: Item, bag: &str, name: &str, v: i64| -> R<bool> {
+            let Some((kind, bit)) = attr_bit(bag, name) else {
+                return Ok(false);
+            };
+            with_world(&ctx, |w| {
+                live_i(w, i).is_some_and(|_| {
+                    muo_content::items::set_attr(w, i.0, kind, bit, i32_of(v));
+                    true
+                })
+            })
+        },
+    );
+    e.register_fn(
+        "attr",
+        |ctx: NativeCallContext, i: Item, bag: &str, name: &str| -> R<i64> {
+            let Some((kind, bit)) = attr_bit(bag, name) else {
+                return Ok(0);
+            };
+            with_world(&ctx, |w| {
+                live_i(w, i).map_or(0, |_| {
+                    i64::from(muo_content::items::attr(w, i.0, kind, bit))
+                })
+            })
+        },
+    );
+    // `SkillBonuses.SetValues(index, skill, bonus)`, index 0..4.
+    e.register_fn(
+        "skill_bonus",
+        |ctx: NativeCallContext, i: Item, index: i64, skill: &str, bonus: f64| -> R<bool> {
+            let Ok(skill) = muo_content::templates::mobile_steps::skill(skill) else {
+                return Ok(false);
+            };
+            if !(0..5).contains(&index) {
+                return Ok(false);
+            }
+            with_world(&ctx, |w| {
+                live_i(w, i).is_some_and(|_| {
+                    let v = muo_content::aos::Attrs::skill_bonus_value(skill, bonus);
+                    muo_content::items::set_attr(
+                        w,
+                        i.0,
+                        muo_content::aos::AttrKind::SkillBonuses,
+                        1 << index,
+                        v,
+                    );
+                    true
+                })
+            })
+        },
+    );
+    // Any `[set` property: `set_prop(item, "Quality", "Exceptional")`.
+    e.register_fn(
+        "set_prop",
+        |ctx: NativeCallContext, i: Item, path: &str, value: Dynamic| -> R<()> {
+            with_world(&ctx, |w| {
+                if live_i(w, i).is_some() {
+                    muo_content::templates::item_steps::set_property(
+                        w,
+                        i.0,
+                        path,
+                        &value.to_string(),
+                    );
+                }
+            })
+        },
+    );
     // Not a wrapper of one engine call: `new T()` then `container.DropItem(item)`, for a corpse in `on_death`.
     e.register_fn(
         "add_item",
@@ -391,4 +460,20 @@ fn world_api(e: &mut Engine) {
             })
         },
     );
+}
+
+/// The bag and bit of a magic property by the names the JSON templates use.
+fn attr_bit(bag: &str, name: &str) -> Option<(muo_content::aos::AttrKind, u32)> {
+    use muo_content::aos::*;
+    let (kind, names) = match bag {
+        "Attributes" => (AttrKind::Attributes, AosAttribute::NAMES),
+        "WeaponAttributes" => (AttrKind::Weapon, AosWeaponAttribute::NAMES),
+        "ArmorAttributes" => (AttrKind::Armor, AosArmorAttribute::NAMES),
+        "ElementAttributes" => (AttrKind::Element, AosElementAttribute::NAMES),
+        _ => return None,
+    };
+    names
+        .iter()
+        .find(|(n, _)| *n == name)
+        .map(|(_, b)| (kind, *b))
 }
