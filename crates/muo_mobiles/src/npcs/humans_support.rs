@@ -6,7 +6,7 @@ use muo_server::item::{container, ops};
 use muo_server::mobile::part2::items;
 use muo_server::world::World;
 
-pub use super::hires::{BASE_HIRE, BASE_HIRE_C, new_hire};
+pub use super::hires::{BASE_HIRE, BASE_HIRE_C, new_hire, new_template_hire};
 
 /// `Female`.
 pub fn npc_female(w: &World, id: MobileId) -> bool {
