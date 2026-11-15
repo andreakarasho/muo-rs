@@ -1,0 +1,27 @@
+[
+  {
+    "type": "Server.Items.RedVelvetGiftBox",
+    "itemId": 3706,
+    "hue": 32,
+    "props": {
+      "gumpId": 63,
+      "labelNumber": 1077596
+    }
+  },
+  {
+    "type": "Server.Items.ValentinesCard",
+    "props": {
+      "defaultName": "a Valentine's card"
+    }
+  },
+  {
+    "type": "Server.Items.CommodityDeedBox",
+    "itemId": 2474,
+    "hue": 71,
+    "props": {
+      "defaultWeight": 4.0,
+      "labelNumber": 1080523,
+      "gumpId": 67
+    }
+  }
+]

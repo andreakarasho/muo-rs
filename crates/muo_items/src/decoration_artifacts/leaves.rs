@@ -23,12 +23,13 @@ leaf! {
     ACADEMIC_BOOKS_ARTIFACT = "Server.Items.AcademicBooksArtifact" : BASE_DECORATION_ARTIFACT, enc;
     construct: Some(|w| academic_books_artifact_new(w, &ACADEMIC_BOOKS_ARTIFACT)),
     family: Some(&ACADEMIC_BOOKS_ARTIFACT_CLASS),
-    label_number: |_, _| 1071202,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BackpackArtifact()`.
 pub fn backpack_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x9B2)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.BackpackArtifact")
 }
 
 static BACKPACK_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 5 };
@@ -329,7 +330,8 @@ leaf! {
 
 /// `Basket1Artifact()`.
 pub fn basket1_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24DD)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket1Artifact")
 }
 
 static BASKET1_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -342,7 +344,8 @@ leaf! {
 
 /// `Basket2Artifact()`.
 pub fn basket2_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24D7)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket2Artifact")
 }
 
 static BASKET2_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -355,7 +358,8 @@ leaf! {
 
 /// `Basket3NorthArtifact()`.
 pub fn basket3_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24DA)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket3NorthArtifact")
 }
 
 static BASKET3_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -368,7 +372,8 @@ leaf! {
 
 /// `Basket3WestArtifact()`.
 pub fn basket3_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24D9)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket3WestArtifact")
 }
 
 static BASKET3_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 1 };
@@ -381,7 +386,8 @@ leaf! {
 
 /// `Basket4Artifact()`.
 pub fn basket4_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24D8)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket4Artifact")
 }
 
 static BASKET4_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };
@@ -394,7 +400,8 @@ leaf! {
 
 /// `Basket5NorthArtifact()`.
 pub fn basket5_north_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24DB)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket5NorthArtifact")
 }
 
 static BASKET5_NORTH_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };
@@ -407,7 +414,8 @@ leaf! {
 
 /// `Basket5WestArtifact()`.
 pub fn basket5_west_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24DC)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket5WestArtifact")
 }
 
 static BASKET5_WEST_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };
@@ -420,7 +428,8 @@ leaf! {
 
 /// `Basket6Artifact()`.
 pub fn basket6_artifact_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x24D5)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Basket6Artifact")
 }
 
 static BASKET6_ARTIFACT_CLASS: DecoClass = DecoClass { artifact_rarity: 2 };

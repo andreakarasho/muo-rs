@@ -275,8 +275,8 @@ item_leaf_raw! {
     /// `Server.Items.InteriorDecorator`.
     INTERIOR_DECORATOR = "Server.Items.InteriorDecorator" : ITEM_BASE;
     construct: Some(|w| interior_decorator_new(w, &INTERIOR_DECORATOR)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041280, // an interior decorator
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // an interior decorator
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         let c = command(w, id);

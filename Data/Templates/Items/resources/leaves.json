@@ -2,5 +2,141 @@
   {
     "type": "Server.Items.PristineDreadHorn",
     "itemId": 12634
+  },
+  {
+    "type": "Server.Items.Feather",
+    "itemId": 7121,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Shaft",
+    "itemId": 7124,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.BarkFragment",
+    "itemId": 12687,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Blight",
+    "itemId": 12675,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.BlueDiamond",
+    "itemId": 12696,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.BrilliantAmber",
+    "itemId": 12697,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.CapturedEssence",
+    "itemId": 12686,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Corruption",
+    "itemId": 12676,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.DarkSapphire",
+    "itemId": 12690,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.DiseasedBark",
+    "itemId": 12683,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.DreadHornMane",
+    "itemId": 12682,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.EcruCitrine",
+    "itemId": 12693,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.EyeOfTheTravesty",
+    "itemId": 12685,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.FireRuby",
+    "itemId": 12695,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.GrizzledBones",
+    "itemId": 12684,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.LardOfParoxysmus",
+    "itemId": 12681,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.LuminescentFungi",
+    "itemId": 12689,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Muculent",
+    "itemId": 12680,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.ParasiticPlant",
+    "itemId": 12688,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.PerfectEmerald",
+    "itemId": 12692,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Putrefication",
+    "itemId": 12678,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Scourge",
+    "itemId": 12677,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.SwitchItem",
+    "itemId": 12127,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Taint",
+    "itemId": 12679,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.Turquoise",
+    "itemId": 12691,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.WhitePearl",
+    "itemId": 12694,
+    "stackable": true
   }
 ]

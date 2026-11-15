@@ -60,7 +60,7 @@ leaf! {
     /// `Server.Items.Torso`.
     TORSO = "Server.Items.Torso" : ITEM_BASE, v0;
     construct: Some(|w| torso_new(w, &TORSO)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

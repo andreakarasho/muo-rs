@@ -1,0 +1,24 @@
+[
+  {
+    "type": "Server.Items.BagOfSending",
+    "itemId": 3702,
+    "props": {
+      "defaultWeight": 2.0,
+      "labelNumber": 1054104
+    }
+  },
+  {
+    "type": "Server.Items.BallOfSummoning",
+    "itemId": 3630,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.BraceletOfBinding",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

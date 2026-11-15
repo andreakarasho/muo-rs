@@ -584,8 +584,8 @@ item_leaf_raw! {
     /// `Server.Items.PlayerBBSouth`.
     PLAYER_BB_SOUTH = "Server.Items.PlayerBBSouth" : BASE_PLAYER_BB;
     construct: Some(|w| player_bb_new(w, &PLAYER_BB_SOUTH, 0x2311)),
-    default_weight: |_, _| 15.0,
-    label_number: |_, _| 1062421, // bulletin board (south)
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // bulletin board (south)
     serialize: |w, id, out| {
         serialize_bb(w, id, out);
         write_version(out, false);
@@ -601,8 +601,8 @@ item_leaf_raw! {
     /// `Server.Items.PlayerBBEast`.
     PLAYER_BB_EAST = "Server.Items.PlayerBBEast" : BASE_PLAYER_BB;
     construct: Some(|w| player_bb_new(w, &PLAYER_BB_EAST, 0x2312)),
-    default_weight: |_, _| 15.0,
-    label_number: |_, _| 1062420, // bulletin board (east)
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // bulletin board (east)
     serialize: |w, id, out| {
         serialize_bb(w, id, out);
         write_version(out, false);

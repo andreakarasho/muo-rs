@@ -7,22 +7,21 @@ use muo_server::item::{ITEM_BASE, ItemType, container, ops};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
 /// `Gem(int amount = 1)` of class `ty`: `base(graphic)`, `Stackable = true; Amount = amount`.
-pub fn new_gem(w: &mut World, ty: &'static ItemType, graphic: i32, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, graphic);
-    ops::set_stackable(w, id, true);
+pub fn new_gem(w: &mut World, ty: &'static ItemType, name: &str, amount: i32) -> ItemId {
+    let id = crate::simple::from_template(w, ty, name);
     ops::set_amount(w, id, amount);
     id
 }
 
 macro_rules! gem_leaves {
-    ($($(#[$m:meta])* $name:ident = $full:literal, graphic $gid:expr;)*) => {
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {
         $(
             $(#[$m])*
             pub static $name: ItemType = ItemType {
                 full_name: $full,
                 parent: Some(&ITEM_BASE),
-                construct: Some(|w| new_gem(w, &$name, $gid, 1)),
-                default_weight: |_, _| 0.1,
+                construct: Some(|w| new_gem(w, &$name, $full, 1)),
+                default_weight: crate::class_props::default_weight,
                 serialize: |w, id, out| {
                     (ITEM_BASE.serialize)(w, id, out);
                     out.write_i32(0); // [SerializationGenerator(0, false)]
@@ -43,23 +42,23 @@ macro_rules! gem_leaves {
 
 gem_leaves! {
     /// `Server.Items.Amber`.
-    AMBER = "Server.Items.Amber", graphic 0xF25;
+    AMBER = "Server.Items.Amber";
     /// `Server.Items.Amethyst`.
-    AMETHYST = "Server.Items.Amethyst", graphic 0xF16;
+    AMETHYST = "Server.Items.Amethyst";
     /// `Server.Items.Citrine`.
-    CITRINE = "Server.Items.Citrine", graphic 0xF15;
+    CITRINE = "Server.Items.Citrine";
     /// `Server.Items.Diamond`.
-    DIAMOND = "Server.Items.Diamond", graphic 0xF26;
+    DIAMOND = "Server.Items.Diamond";
     /// `Server.Items.Emerald`.
-    EMERALD = "Server.Items.Emerald", graphic 0xF10;
+    EMERALD = "Server.Items.Emerald";
     /// `Server.Items.Ruby`.
-    RUBY = "Server.Items.Ruby", graphic 0xF13;
+    RUBY = "Server.Items.Ruby";
     /// `Server.Items.Sapphire`.
-    SAPPHIRE = "Server.Items.Sapphire", graphic 0xF19;
+    SAPPHIRE = "Server.Items.Sapphire";
     /// `Server.Items.StarSapphire`.
-    STAR_SAPPHIRE = "Server.Items.StarSapphire", graphic 0xF21;
+    STAR_SAPPHIRE = "Server.Items.StarSapphire";
     /// `Server.Items.Tourmaline`.
-    TOURMALINE = "Server.Items.Tourmaline", graphic 0xF2D;
+    TOURMALINE = "Server.Items.Tourmaline";
 }
 
 /// `BaseJewel.GetGemType(item)`: the gem an item of this class is (a gem class matches itself exactly, like the

@@ -56,5 +56,34 @@
       "defaultWeight": 1.0,
       "materialType": "Ringmail"
     }
+  },
+  {
+    "type": "Server.Items.OssianGrimoire",
+    "props": {
+      "labelNumber": 1078148
+    }
+  },
+  {
+    "type": "Server.Items.ColoredAnvil",
+    "itemId": 4015,
+    "props": {
+      "defaultWeight": 20.0
+    }
+  },
+  {
+    "type": "Server.Items.AncientSmithyHammer",
+    "props": {
+      "defaultWeight": 8.0,
+      "labelNumber": 1045127
+    }
+  },
+  {
+    "type": "Server.Items.PowderOfTemperament",
+    "itemId": 4102,
+    "hue": 2419,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1049082
+    }
   }
 ]

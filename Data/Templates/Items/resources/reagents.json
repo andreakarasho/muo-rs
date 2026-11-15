@@ -1,0 +1,135 @@
+[
+  {
+    "type": "Server.Items.BaseReagent",
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.BagOfReagents",
+    "itemId": 3702,
+    "props": {
+      "reagents": [
+        "BlackPearl",
+        "Bloodmoss",
+        "Garlic",
+        "Ginseng",
+        "MandrakeRoot",
+        "Nightshade",
+        "SulfurousAsh",
+        "SpidersSilk"
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.BatWing",
+    "itemId": 3960
+  },
+  {
+    "type": "Server.Items.BlackPearl",
+    "itemId": 3962
+  },
+  {
+    "type": "Server.Items.Bloodmoss",
+    "itemId": 3963
+  },
+  {
+    "type": "Server.Items.DaemonBlood",
+    "itemId": 3965
+  },
+  {
+    "type": "Server.Items.DaemonBone",
+    "itemId": 3968,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.DeadWood",
+    "itemId": 3984
+  },
+  {
+    "type": "Server.Items.DragonsBlood",
+    "itemId": 16503
+  },
+  {
+    "type": "Server.Items.Garlic",
+    "itemId": 3972
+  },
+  {
+    "type": "Server.Items.Ginseng",
+    "itemId": 3973
+  },
+  {
+    "type": "Server.Items.GraveDust",
+    "itemId": 3983
+  },
+  {
+    "type": "Server.Items.MandrakeRoot",
+    "itemId": 3974
+  },
+  {
+    "type": "Server.Items.Nightshade",
+    "itemId": 3976
+  },
+  {
+    "type": "Server.Items.NoxCrystal",
+    "itemId": 3982
+  },
+  {
+    "type": "Server.Items.PigIron",
+    "itemId": 3978
+  },
+  {
+    "type": "Server.Items.SpidersSilk",
+    "itemId": 3981
+  },
+  {
+    "type": "Server.Items.SulfurousAsh",
+    "itemId": 3980
+  },
+  {
+    "type": "Server.Items.BagOfAllReagents",
+    "props": {
+      "reagents": [
+        "BlackPearl",
+        "Bloodmoss",
+        "Garlic",
+        "Ginseng",
+        "MandrakeRoot",
+        "Nightshade",
+        "SulfurousAsh",
+        "SpidersSilk",
+        "BatWing",
+        "GraveDust",
+        "DaemonBlood",
+        "NoxCrystal",
+        "PigIron"
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.BagOfNecroReagents",
+    "props": {
+      "reagents": [
+        "BatWing",
+        "GraveDust",
+        "DaemonBlood",
+        "NoxCrystal",
+        "PigIron"
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.BagOfNecromancerReagents",
+    "props": {
+      "reagents": [
+        "BatWing",
+        "GraveDust",
+        "DaemonBlood",
+        "NoxCrystal",
+        "PigIron"
+      ]
+    }
+  }
+]

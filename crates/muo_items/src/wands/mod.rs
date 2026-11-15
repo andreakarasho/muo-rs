@@ -139,19 +139,28 @@ pub fn set_charges(w: &mut World, id: ItemId, value: i32) {
     }
 }
 
-/// `new BaseWand(effect, minCharges, maxCharges)` for class `ty`.
-pub fn new_wand(
-    w: &mut World,
-    ty: &'static ItemType,
-    effect: WandEffect,
-    min_charges: i32,
-    max_charges: i32,
-) -> ItemId {
+/// `new BaseWand(effect, minCharges, maxCharges)` for class `ty`: the arguments are the class's `wandEffect`,
+/// `minCharges` and `maxCharges` (`n`, or `[preML, ML]`) props.
+pub fn new_wand(w: &mut World, ty: &'static ItemType) -> ItemId {
     // `base(0xDF2 + Utility.Random(4))`
     let graphic = 0xDF2 + utility::random(&mut w.rng, 4);
     let id = new_weapon(w, ty, graphic);
+    let effect = crate::class_props::str_of(w, id, "wandEffect").and_then(|n| {
+        (0..=10)
+            .filter_map(WandEffect::from_i32)
+            .find(|e| format!("{e:?}") == n)
+    });
+    let min_charges = muo_content::templates::item_props::int(w, id, "minCharges", 0);
+    let ml = muo_content::core::ml(w);
+    let max_charges = muo_content::templates::item_props::ml_int(
+        w,
+        id,
+        "maxCharges",
+        muo_content::items::same(0),
+    )
+    .get(ml);
     if let Some(d) = weapon::data_mut(w, id) {
-        d.wand_effect = effect as i32;
+        d.wand_effect = effect.map_or(0, |e| e as i32);
     }
     let n = utility::random_min_max(&mut w.rng, min_charges, max_charges);
     if let Some(d) = weapon::data_mut(w, id) {
@@ -423,12 +432,11 @@ pub static BASE_WAND: ItemType = ItemType {
 
 /// One concrete wand: the effect and the charge range of its constructor (`max_ml`, `max` are `Core.ML ? a : b`).
 macro_rules! wand_leaves {
-    ($($(#[$m:meta])* $name:ident, $new:ident = $full:literal, $effect:ident, $min:expr, $max:expr, $spell:expr;)*) => {
+    ($($(#[$m:meta])* $name:ident, $new:ident = $full:literal, $spell:expr;)*) => {
         $(
-            /// `new T()`.
+            /// `new T()`: `base(effect, minCharges, maxCharges)` from the class's props.
             pub fn $new(w: &mut World, ty: &'static ItemType) -> ItemId {
-                let max: i32 = { let f: fn(&World) -> i32 = $max; f(w) };
-                new_wand(w, ty, WandEffect::$effect, $min, max)
+                new_wand(w, ty)
             }
 
             $(#[$m])*
@@ -464,34 +472,29 @@ macro_rules! wand_leaves {
     };
 }
 
-/// `Core.ML ? ml : old`.
-fn ml_or(w: &World, in_ml: i32, old: i32) -> i32 {
-    if muo_content::core::ml(w) { in_ml } else { old }
-}
-
 wand_leaves! {
     /// `Server.Items.ClumsyWand`.
-    CLUMSY_WAND, clumsy_wand_new = "Server.Items.ClumsyWand", Clumsiness, 5, |_| 30, Some("Server.Spells.First.ClumsySpell");
+    CLUMSY_WAND, clumsy_wand_new = "Server.Items.ClumsyWand", Some("Server.Spells.First.ClumsySpell");
     /// `Server.Items.FeebleWand`.
-    FEEBLE_WAND, feeble_wand_new = "Server.Items.FeebleWand", Feeblemindedness, 5, |_| 30, Some("Server.Spells.First.FeeblemindSpell");
+    FEEBLE_WAND, feeble_wand_new = "Server.Items.FeebleWand", Some("Server.Spells.First.FeeblemindSpell");
     /// `Server.Items.FireballWand`.
-    FIREBALL_WAND, fireball_wand_new = "Server.Items.FireballWand", Fireball, 5, |w| ml_or(w, 109, 15), Some("Server.Spells.Third.FireballSpell");
+    FIREBALL_WAND, fireball_wand_new = "Server.Items.FireballWand", Some("Server.Spells.Third.FireballSpell");
     /// `Server.Items.GreaterHealWand`.
-    GREATER_HEAL_WAND, greater_heal_wand_new = "Server.Items.GreaterHealWand", GreaterHealing, 1, |w| ml_or(w, 109, 5), Some("Server.Spells.Fourth.GreaterHealSpell");
+    GREATER_HEAL_WAND, greater_heal_wand_new = "Server.Items.GreaterHealWand", Some("Server.Spells.Fourth.GreaterHealSpell");
     /// `Server.Items.HarmWand`.
-    HARM_WAND, harm_wand_new = "Server.Items.HarmWand", Harming, 5, |w| ml_or(w, 109, 30), Some("Server.Spells.Second.HarmSpell");
+    HARM_WAND, harm_wand_new = "Server.Items.HarmWand", Some("Server.Spells.Second.HarmSpell");
     /// `Server.Items.HealWand`.
-    HEAL_WAND, heal_wand_new = "Server.Items.HealWand", Healing, 10, |w| ml_or(w, 109, 25), Some("Server.Spells.First.HealSpell");
+    HEAL_WAND, heal_wand_new = "Server.Items.HealWand", Some("Server.Spells.First.HealSpell");
     /// `Server.Items.IDWand` (`GetUseDelay => TimeSpan.Zero`, `OnWandTarget` identifies; no spell).
-    ID_WAND, id_wand_new = "Server.Items.IDWand", Identification, 25, |_| 175, None;
+    ID_WAND, id_wand_new = "Server.Items.IDWand", None;
     /// `Server.Items.LightningWand`.
-    LIGHTNING_WAND, lightning_wand_new = "Server.Items.LightningWand", Lightning, 5, |w| ml_or(w, 109, 20), Some("Server.Spells.Fourth.LightningSpell");
+    LIGHTNING_WAND, lightning_wand_new = "Server.Items.LightningWand", Some("Server.Spells.Fourth.LightningSpell");
     /// `Server.Items.MagicArrowWand`.
-    MAGIC_ARROW_WAND, magic_arrow_wand_new = "Server.Items.MagicArrowWand", MagicArrow, 5, |w| ml_or(w, 109, 30), Some("Server.Spells.First.MagicArrowSpell");
+    MAGIC_ARROW_WAND, magic_arrow_wand_new = "Server.Items.MagicArrowWand", Some("Server.Spells.First.MagicArrowSpell");
     /// `Server.Items.ManaDrainWand`.
-    MANA_DRAIN_WAND, mana_drain_wand_new = "Server.Items.ManaDrainWand", ManaDraining, 5, |_| 30, Some("Server.Spells.Fourth.ManaDrainSpell");
+    MANA_DRAIN_WAND, mana_drain_wand_new = "Server.Items.ManaDrainWand", Some("Server.Spells.Fourth.ManaDrainSpell");
     /// `Server.Items.WeaknessWand`.
-    WEAKNESS_WAND, weakness_wand_new = "Server.Items.WeaknessWand", Weakness, 5, |_| 30, Some("Server.Spells.First.WeakenSpell");
+    WEAKNESS_WAND, weakness_wand_new = "Server.Items.WeaknessWand", Some("Server.Spells.First.WeakenSpell");
 }
 
 /// Sets the `SpellHooks` the spell base calls on a wand.

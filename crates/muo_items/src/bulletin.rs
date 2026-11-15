@@ -125,8 +125,7 @@ pub fn bulletin_message_new(
     subject: String,
     lines: Vec<String>,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, &BULLETIN_MESSAGE, 0xEB0);
-    ops::set_movable(w, id, false);
+    let id = crate::simple::from_template(w, &BULLETIN_MESSAGE, "Server.Items.BulletinMessage");
     let now = w.now;
     let (name, body, hue, items) = w.mobile(poster).map_or((None, 0, 0, Vec::new()), |m| {
         (

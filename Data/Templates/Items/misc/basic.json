@@ -1,0 +1,45 @@
+[
+  {
+    "type": "Server.Items.Blocker",
+    "itemId": 8612,
+    "movable": false,
+    "props": {
+      "labelNumber": 503057
+    }
+  },
+  {
+    "type": "Server.Items.LOSBlocker",
+    "itemId": 8610,
+    "movable": false,
+    "props": {
+      "defaultName": "no line of sight"
+    }
+  },
+  {
+    "type": "Server.Items.PowerCrystal",
+    "itemId": 7964,
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "power crystal"
+    }
+  },
+  {
+    "type": "Server.Items.Scales",
+    "itemId": 6226,
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.WayPoint",
+    "itemId": 7956,
+    "props": {
+      "defaultName": "AI Way Point"
+    }
+  },
+  {
+    "type": "Server.Items.Guillotine",
+    "itemId": 4656,
+    "movable": false
+  }
+]

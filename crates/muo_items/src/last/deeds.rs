@@ -9,7 +9,7 @@ use muo_content::props::Value;
 use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, deps, ops};
+use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::mobile::AccessLevel;
 use muo_server::net_state::NetStateId;
 use muo_server::serialization_ext::ReadEntityExt;
@@ -155,12 +155,10 @@ pub static HAIR_RESTYLING_DEED: ItemType = ItemType {
     full_name: "Server.Items.HairRestylingDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &HAIR_RESTYLING_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
+        crate::simple::from_template(w, &HAIR_RESTYLING_DEED, "Server.Items.HairRestylingDeed")
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041061, // a coupon for a free hair restyling
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a coupon for a free hair restyling
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             msg(w, from, 1042001); // That must be in your pack...
@@ -228,12 +226,10 @@ pub static BARKEEP_CONTRACT: ItemType = ItemType {
     full_name: "Server.Items.BarkeepContract",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BARKEEP_CONTRACT, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
+        crate::simple::from_template(w, &BARKEEP_CONTRACT, "Server.Items.BarkeepContract")
     }),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("a barkeep contract".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         use muo_multis::house::{access, storage};
         if !in_pack(w, id, from) {
@@ -393,7 +389,7 @@ pub static DRAGON_BARDING_DEED: ItemType = ItemType {
         }
         id
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         if bd(w, id).exceptional {
             1053181

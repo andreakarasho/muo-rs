@@ -1,0 +1,10 @@
+[
+  {
+    "type": "Server.Items.Bandage",
+    "itemId": 3617,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  }
+]

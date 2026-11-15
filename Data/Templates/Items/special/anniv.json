@@ -26,5 +26,18 @@
       "defaultWeight": 6.0,
       "graphic": 11009
     }
+  },
+  {
+    "type": "Server.Items.QuiverOfInfinity",
+    "props": {
+      "defaultWeight": 8.0,
+      "labelNumber": 1075201
+    }
+  },
+  {
+    "type": "Server.Items.BaseFormTalisman",
+    "props": {
+      "defaultWeight": 1.0
+    }
   }
 ]

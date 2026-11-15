@@ -2,7 +2,7 @@
 
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ItemType, ops};
+use muo_server::item::ItemType;
 use muo_server::type_registry::TypeRegistry;
 
 use crate::simple::{hue, item_id, random};
@@ -10,8 +10,8 @@ use crate::skill_items::potions::{GREATER_EXPLOSION_POTION, fx, new_potion};
 
 /// `MelisandesFermentedWine()`: a `GreaterExplosionPotion` that is not stackable, with its own graphic and hue.
 pub fn melisandes_fermented_wine_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_potion(w, ty, 0xF0D, fx::EXPLOSION_GREATER);
-    ops::set_stackable(w, id, false);
+    let id = new_potion(w, ty, 0, fx::EXPLOSION_GREATER);
+    crate::simple::own_template(w, id, "Server.Items.MelisandesFermentedWine");
     item_id(w, id, 0x99B);
     // TODO update
     let h = match random(w, 3) {
@@ -28,7 +28,7 @@ pub static MELISANDES_FERMENTED_WINE: ItemType = ItemType {
     full_name: "Server.Items.MelisandesFermentedWine",
     parent: Some(&GREATER_EXPLOSION_POTION),
     construct: Some(|w| melisandes_fermented_wine_new(w, &MELISANDES_FERMENTED_WINE)),
-    label_number: |_, _| 1072114,
+    label_number: crate::class_props::label_number,
     get_properties: |w, id, list| {
         (GREATER_EXPLOSION_POTION.get_properties)(w, id, list);
         list.add(1074502); // It looks explosive.

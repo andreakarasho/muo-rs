@@ -1,0 +1,39 @@
+[
+  {
+    "type": "Server.Items.EffectController",
+    "itemId": 7026,
+    "movable": false,
+    "visible": false,
+    "props": {
+      "defaultName": "Effect Controller"
+    }
+  },
+  {
+    "type": "Server.Items.BroadcastCrystal",
+    "itemId": 7888,
+    "light": "Circle150",
+    "props": {
+      "labelNumber": 1060740
+    }
+  },
+  {
+    "type": "Server.Items.ReceiverCrystal",
+    "itemId": 7888,
+    "light": "Circle150",
+    "props": {
+      "labelNumber": 1060740
+    }
+  },
+  {
+    "type": "Server.Items.ControlPanel",
+    "props": {
+      "defaultName": "a control panel"
+    }
+  },
+  {
+    "type": "Server.Items.ProjectedItem",
+    "itemId": 1,
+    "movable": false,
+    "visible": false
+  }
+]

@@ -15,7 +15,7 @@ use muo_server::World;
 use muo_server::ext::Ext;
 use muo_server::guild::GuildId;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, base, deps, ops};
+use muo_server::item::{ITEM_BASE, ItemType, base, deps, ops};
 use muo_server::mobile::AccessLevel;
 use muo_server::mobile::part1::props_b;
 use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
@@ -143,9 +143,9 @@ fn guild_deed_response(w: &mut World, deed: ItemId, from: MobileId, text: &str) 
 pub static GUILD_DEED: ItemType = ItemType {
     full_name: "Server.Items.GuildDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &GUILD_DEED, 0x14F0)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041055, // a guild deed
+    construct: Some(|w| crate::simple::from_template(w, &GUILD_DEED, "Server.Items.GuildDeed")),
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a guild deed
     on_double_click: guild_deed_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -172,8 +172,7 @@ fn teleporter_stone(w: &World, id: ItemId) -> Option<ItemId> {
 
 /// `GuildTeleporter(stone)`.
 pub fn guild_teleporter_new(w: &mut World, ty: &'static ItemType, stone: Option<ItemId>) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1869);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    let id = crate::simple::from_template(w, ty, "Server.Items.GuildTeleporter");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(TeleporterData { stone });
     }
@@ -223,8 +222,8 @@ pub static GUILD_TELEPORTER: ItemType = ItemType {
     full_name: "Server.Items.GuildTeleporter",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| guild_teleporter_new(w, &GUILD_TELEPORTER, None)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041054, // guildstone teleporter
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // guildstone teleporter
     display_loot_type: |_, _| false,
     on_double_click: guild_teleporter_double_click,
     serialize: |w, id, out| {
@@ -369,7 +368,7 @@ pub static GUILDSTONE: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     // The two `Guildstone` constructors are not `[Constructible]`: `[add Guildstone` builds nothing.
     construct: None,
-    label_number: |_, _| 1041429, // a guildstone
+    label_number: crate::class_props::label_number, // a guildstone
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         add_guild_property(w, id, list);
@@ -574,7 +573,7 @@ pub fn guildstone_deed_new(
     name: Option<String>,
     abbrev: Option<String>,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F0);
+    let id = crate::simple::from_template(w, ty, "Server.Items.GuildstoneDeed");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(StoneData {
             guild_name: name,
@@ -590,8 +589,8 @@ pub static GUILDSTONE_DEED: ItemType = ItemType {
     full_name: "Server.Items.GuildstoneDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| guildstone_deed_new(w, &GUILDSTONE_DEED, None, None, None)), // the all-default constructor
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041233, // deed to a guildstone
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // deed to a guildstone
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         add_guild_property(w, id, list);

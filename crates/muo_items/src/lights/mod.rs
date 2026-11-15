@@ -19,25 +19,14 @@ pub use base::*;
 
 /// `Torch()`: `base(0xF6B)`.
 pub fn torch_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_equipable_light_new(w, ty, 0xF6B);
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(30)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_stackable(w, id, true);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = base_equipable_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Torch");
     id
 }
 
 static TORCH_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xA12,
-    unlit_item_id: |_, _| 0xF6B,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     lit_sound: 0x54,
     unlit_sound: 0x4BB,
     ignite: torch_ignite,
@@ -49,7 +38,7 @@ leaf! {
     TORCH = "Server.Items.Torch" : BASE_EQUIPABLE_LIGHT, v0;
     construct: Some(|w| torch_new(w, &TORCH)),
     family: Some(&TORCH_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_added: torch_on_added,
 }
 
@@ -60,7 +49,8 @@ pub const LANTERN_FULL_DURATION: TimeSpan = TimeSpan::from_mins(20);
 
 /// `Lantern()`: `base(0xA25)`.
 pub fn lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_equipable_light_new(w, ty, 0xA25);
+    let id = base_equipable_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Lantern");
     set_duration(
         w,
         id,
@@ -102,7 +92,7 @@ leaf! {
     LANTERN = "Server.Items.Lantern" : BASE_EQUIPABLE_LIGHT, v0;
     construct: Some(|w| lantern_new(w, &LANTERN)),
     family: Some(&LANTERN_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LanternOfSouls()`: `Hue = 0x482`.
@@ -116,7 +106,7 @@ leaf! {
     /// `Server.Items.LanternOfSouls` `[SerializationGenerator(0)]`.
     LANTERN_OF_SOULS = "Server.Items.LanternOfSouls" : LANTERN, enc;
     construct: Some(|w| lantern_of_souls_new(w, &LANTERN_OF_SOULS)),
-    label_number: |_, _| 1061618,
+    label_number: crate::class_props::label_number,
 }
 
 /// Registers the classes of this folder.

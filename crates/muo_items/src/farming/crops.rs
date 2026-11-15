@@ -132,16 +132,16 @@ fn make_named(w: &mut World, name: &str, gid: Option<i32>) -> Option<ItemId> {
 }
 
 macro_rules! crops {
-    ($($name:ident, $class:ident = $full:literal, |$cw:ident| $crop_id:expr,
+    ($($name:ident, $class:ident = $full:literal,
         crop |$ow:ident| $object:expr, picked |$pw:ident| $picked:expr;)*) => {$(
         static $class: CropClass = CropClass { crop_object: |$ow| $object, picked_id: |$pw| $picked };
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&FARMABLE_CROP),
-            construct: Some(|$cw| {
-                let gid: i32 = $crop_id;
-                new_crop($cw, &$name, gid)
+            construct: Some(|w| {
+                let id = new_crop(w, &$name, 0);
+                crate::simple::own_template(w, id, $full)
             }),
             family: Some(&$class),
             serialize: |w, id, out| {
@@ -159,30 +159,30 @@ macro_rules! crops {
 }
 
 crops! {
-    FARMABLE_CABBAGE, FC_CABBAGE = "Server.Items.FarmableCabbage", |_w| 0x0C7B,
+    FARMABLE_CABBAGE, FC_CABBAGE = "Server.Items.FarmableCabbage",
         crop |w| { let g = random_from(w, 3195, 2); make_named(w, "Server.Items.Cabbage", Some(g)) },
         picked |_w| 3254;
-    FARMABLE_CARROT, FC_CARROT = "Server.Items.FarmableCarrot", |_w| 3190,
+    FARMABLE_CARROT, FC_CARROT = "Server.Items.FarmableCarrot",
         crop |w| { let g = random_from(w, 3191, 2); make_named(w, "Server.Items.Carrot", Some(g)) },
         picked |_w| 3254;
-    FARMABLE_COTTON, FC_COTTON = "Server.Items.FarmableCotton", |w| random_from(w, 3153, 4),
+    FARMABLE_COTTON, FC_COTTON = "Server.Items.FarmableCotton",
         crop |w| make_named(w, "Server.Items.Cotton", None), picked |_w| 3254;
-    FARMABLE_FLAX, FC_FLAX = "Server.Items.FarmableFlax", |w| random_from(w, 6809, 3),
+    FARMABLE_FLAX, FC_FLAX = "Server.Items.FarmableFlax",
         crop |w| { let g = random_from(w, 6812, 2); make_named(w, "Server.Items.Flax", Some(g)) },
         picked |_w| 3254;
-    FARMABLE_LETTUCE, FC_LETTUCE = "Server.Items.FarmableLettuce", |_w| 3254,
+    FARMABLE_LETTUCE, FC_LETTUCE = "Server.Items.FarmableLettuce",
         crop |w| { let g = random_from(w, 3184, 2); make_named(w, "Server.Items.Lettuce", Some(g)) },
         picked |_w| 3254;
-    FARMABLE_ONION, FC_ONION = "Server.Items.FarmableOnion", |_w| 3183,
+    FARMABLE_ONION, FC_ONION = "Server.Items.FarmableOnion",
         crop |w| { let g = random_from(w, 3181, 2); make_named(w, "Server.Items.Onion", Some(g)) },
         picked |_w| 3254;
-    FARMABLE_PUMPKIN, FC_PUMPKIN = "Server.Items.FarmablePumpkin", |w| random_from(w, 3166, 3),
+    FARMABLE_PUMPKIN, FC_PUMPKIN = "Server.Items.FarmablePumpkin",
         crop |w| { let g = random_from(w, 3178, 3); make_named(w, "Server.Items.Pumpkin", Some(g)) },
         picked |w| random_from(w, 3166, 3);
-    FARMABLE_TURNIP, FC_TURNIP = "Server.Items.FarmableTurnip", |w| random_from(w, 3169, 3),
+    FARMABLE_TURNIP, FC_TURNIP = "Server.Items.FarmableTurnip",
         crop |w| { let g = random_from(w, 3385, 2); make_named(w, "Server.Items.Turnip", Some(g)) },
         picked |_w| 3254;
-    FARMABLE_WHEAT, FC_WHEAT = "Server.Items.FarmableWheat", |w| random_from(w, 3157, 4),
+    FARMABLE_WHEAT, FC_WHEAT = "Server.Items.FarmableWheat",
         crop |w| make_named(w, "Server.Items.WheatSheaf", None), picked |w| random_from(w, 3502, 2);
 }
 

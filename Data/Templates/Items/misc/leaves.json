@@ -1,421 +1,918 @@
 [
   {
     "type": "Server.Items.GlobOfMonstreousInterredGrizzle",
-    "itemId": 755
+    "itemId": 755,
+    "props": {
+      "labelNumber": 1072117
+    }
   },
   {
     "type": "Server.Items.GrizzledSkullCollection",
-    "itemId": 8700
+    "itemId": 8700,
+    "props": {
+      "labelNumber": 1072116
+    }
   },
   {
     "type": "Server.Items.MonsterousInterredGrizzleMaggots",
-    "itemId": 9779
+    "itemId": 9779,
+    "props": {
+      "labelNumber": 1075090
+    }
   },
   {
     "type": "Server.Items.ResolvesBridle",
-    "itemId": 4980
+    "itemId": 4980,
+    "props": {
+      "labelNumber": 1074761
+    }
   },
   {
     "type": "Server.Items.AbscessTail",
     "itemId": 6813,
     "lootType": "Blessed",
-    "hue": 1309
+    "hue": 1309,
+    "props": {
+      "labelNumber": 1074231
+    }
   },
   {
     "type": "Server.Items.CoilsFang",
     "itemId": 4328,
     "lootType": "Blessed",
-    "hue": 1159
+    "hue": 1159,
+    "props": {
+      "labelNumber": 1074229
+    }
   },
   {
     "type": "Server.Items.HydraScale",
     "itemId": 9908,
     "lootType": "Blessed",
-    "hue": 194
+    "hue": 194,
+    "props": {
+      "labelNumber": 1074760
+    }
   },
   {
     "type": "Server.Items.SalivasFeather",
     "itemId": 4128,
     "lootType": "Blessed",
-    "hue": 92
+    "hue": 92,
+    "props": {
+      "labelNumber": 1074234
+    }
   },
   {
     "type": "Server.Items.SamplesOfCorruptedWater",
     "itemId": 3838,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074999
+    }
   },
   {
     "type": "Server.Items.TaintedSeeds",
     "itemId": 3578,
     "lootType": "Blessed",
-    "hue": 72
+    "hue": 72,
+    "props": {
+      "labelNumber": 1074233
+    }
   },
   {
     "type": "Server.Items.ThorvaldsMedallion",
     "itemId": 10922,
     "lootType": "Blessed",
-    "hue": 1151
+    "hue": 1151,
+    "props": {
+      "labelNumber": 1074232
+    }
   },
   {
     "type": "Server.Items.ThrashersTail",
     "itemId": 6813,
     "lootType": "Blessed",
-    "hue": 1109
+    "hue": 1109,
+    "props": {
+      "labelNumber": 1074230
+    }
   },
   {
     "type": "Server.Items.ExecutionersCap",
-    "itemId": 3971
+    "itemId": 3971,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallFlask",
-    "itemId": 6190
+    "itemId": 6190,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.MediumFlask",
-    "itemId": 6186
+    "itemId": 6186,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LargeFlask",
-    "itemId": 6203
+    "itemId": 6203,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.CurvedFlask",
-    "itemId": 6194
+    "itemId": 6194,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LongFlask",
-    "itemId": 6200
+    "itemId": 6200,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SpinningHourglass",
-    "itemId": 6160
+    "itemId": 6160,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.GreenBottle",
-    "itemId": 3835
+    "itemId": 3835,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.RedBottle",
-    "itemId": 3836
+    "itemId": 3836,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallBrownBottle",
-    "itemId": 3837
+    "itemId": 3837,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallGreenBottle",
-    "itemId": 3841
+    "itemId": 3841,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallVioletBottle",
-    "itemId": 3842
+    "itemId": 3842,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.TinyYellowBottle",
-    "itemId": 3843
+    "itemId": 3843,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallBlueFlask",
-    "itemId": 6186
+    "itemId": 6186,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallYellowFlask",
-    "itemId": 6187
+    "itemId": 6187,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallRedFlask",
-    "itemId": 6188
+    "itemId": 6188,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallEmptyFlask",
-    "itemId": 6189
+    "itemId": 6189,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.YellowBeaker",
-    "itemId": 6190
+    "itemId": 6190,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.RedBeaker",
-    "itemId": 6191
+    "itemId": 6191,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.BlueBeaker",
-    "itemId": 6192
+    "itemId": 6192,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.GreenBeaker",
-    "itemId": 6193
+    "itemId": 6193,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyCurvedFlaskW",
-    "itemId": 6194
+    "itemId": 6194,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.RedCurvedFlask",
-    "itemId": 6195
+    "itemId": 6195,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LtBlueCurvedFlask",
-    "itemId": 6196
+    "itemId": 6196,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyCurvedFlaskE",
-    "itemId": 6197
+    "itemId": 6197,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.BlueCurvedFlask",
-    "itemId": 6198
+    "itemId": 6198,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.GreenCurvedFlask",
-    "itemId": 6199
+    "itemId": 6199,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.RedRibbedFlask",
-    "itemId": 6200
+    "itemId": 6200,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.VioletRibbedFlask",
-    "itemId": 6201
+    "itemId": 6201,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyRibbedFlask",
-    "itemId": 6202
+    "itemId": 6202,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LargeYellowFlask",
-    "itemId": 6203
+    "itemId": 6203,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LargeVioletFlask",
-    "itemId": 6204
+    "itemId": 6204,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.LargeEmptyFlask",
-    "itemId": 6205
+    "itemId": 6205,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.AniRedRibbedFlask",
-    "itemId": 6206
+    "itemId": 6206,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.AniLargeVioletFlask",
-    "itemId": 6209
+    "itemId": 6209,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.AniSmallBlueFlask",
-    "itemId": 6212
+    "itemId": 6212,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallBlueBottle",
-    "itemId": 6215
+    "itemId": 6215,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SmallGreenBottle2",
-    "itemId": 6216
+    "itemId": 6216,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyVialsWRack",
-    "itemId": 6235
+    "itemId": 6235,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.FullVialsWRack",
-    "itemId": 6237
+    "itemId": 6237,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.EmptyVial",
-    "itemId": 3620
+    "itemId": 3620,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.HourglassAni",
-    "itemId": 6161
+    "itemId": 6161,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.Hourglass",
-    "itemId": 6160
+    "itemId": 6160,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.TinyRedBottle",
-    "itemId": 3844
+    "itemId": 3844,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.HoveringWisp",
-    "itemId": 8448
+    "itemId": 8448,
+    "props": {
+      "labelNumber": 1072881
+    }
   },
   {
     "type": "Server.Items.OrigamiButterfly",
     "itemId": 10296,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1030296
+    }
   },
   {
     "type": "Server.Items.OrigamiSwan",
     "itemId": 10297,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1030297
+    }
   },
   {
     "type": "Server.Items.OrigamiFrog",
     "itemId": 10298,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1030298
+    }
   },
   {
     "type": "Server.Items.OrigamiShape",
     "itemId": 10299,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1030299
+    }
   },
   {
     "type": "Server.Items.OrigamiSongbird",
     "itemId": 10300,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1030300
+    }
   },
   {
     "type": "Server.Items.OrigamiFish",
     "itemId": 10301,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1030301
+    }
   },
   {
     "type": "Server.Items.GrobusFur",
     "itemId": 4596,
     "lootType": "Blessed",
-    "hue": 1109
+    "hue": 1109,
+    "props": {
+      "labelNumber": 1074676
+    }
   },
   {
     "type": "Server.Items.PrimitiveFetish",
     "itemId": 575,
     "lootType": "Blessed",
-    "hue": 580
+    "hue": 580,
+    "props": {
+      "labelNumber": 1074675
+    }
   },
   {
     "type": "Server.Items.AcidProofRope",
     "itemId": 525,
-    "hue": 977
+    "hue": 977,
+    "props": {
+      "labelNumber": 1074886
+    }
   },
   {
     "type": "Server.Items.ParoxysmusCorrodedStein",
-    "itemId": 2518
+    "itemId": 2518,
+    "props": {
+      "labelNumber": 1072083
+    }
   },
   {
     "type": "Server.Items.ParoxysmusDinner",
-    "itemId": 7829
+    "itemId": 7829,
+    "props": {
+      "labelNumber": 1072086
+    }
   },
   {
     "type": "Server.Items.StringOfPartsOfParoxysmusVictims",
-    "itemId": 4050
+    "itemId": 4050,
+    "props": {
+      "labelNumber": 1072082
+    }
   },
   {
     "type": "Server.Items.SweatOfParoxysmus",
-    "itemId": 3841
+    "itemId": 3841,
+    "props": {
+      "labelNumber": 1072081
+    }
   },
   {
     "type": "Server.Items.CrystallineFragments",
     "itemId": 8763,
     "lootType": "Blessed",
-    "hue": 1150
+    "hue": 1150,
+    "props": {
+      "labelNumber": 1073160
+    }
   },
   {
     "type": "Server.Items.IcyHeart",
-    "itemId": 587
+    "itemId": 587,
+    "props": {
+      "labelNumber": 1073162
+    }
   },
   {
     "type": "Server.Items.LuckyDagger",
     "itemId": 3922,
-    "hue": 2213
+    "hue": 2213,
+    "props": {
+      "labelNumber": 1151983
+    }
   },
   {
     "type": "Server.Items.ProtectorsEssence",
-    "itemId": 575
+    "itemId": 575,
+    "props": {
+      "labelNumber": 1073159
+    }
   },
   {
     "type": "Server.Items.HorseShoes",
-    "itemId": 4022
+    "itemId": 4022,
+    "props": {
+      "defaultWeight": 3.0
+    }
   },
   {
     "type": "Server.Items.ForgedMetal",
-    "itemId": 4024
+    "itemId": 4024,
+    "props": {
+      "defaultWeight": 5.0
+    }
   },
   {
     "type": "Server.Items.Whip",
-    "itemId": 5742
+    "itemId": 5742,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.PaintsAndBrush",
-    "itemId": 4033
+    "itemId": 4033,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.PenAndInk",
-    "itemId": 4031
+    "itemId": 4031,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.ChiselsNorth",
-    "itemId": 4134
+    "itemId": 4134,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.ChiselsWest",
-    "itemId": 4135
+    "itemId": 4135,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtyPan",
-    "itemId": 2536
+    "itemId": 2536,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtySmallRoundPot",
-    "itemId": 2535
+    "itemId": 2535,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtyPot",
-    "itemId": 2534
+    "itemId": 2534,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtyRoundPot",
-    "itemId": 2527
+    "itemId": 2527,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtyFrypan",
-    "itemId": 2526
+    "itemId": 2526,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtySmallPot",
-    "itemId": 2525
+    "itemId": 2525,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.DirtyKettle",
-    "itemId": 2524
+    "itemId": 2524,
+    "props": {
+      "defaultWeight": 1.0
+    }
   },
   {
     "type": "Server.Items.SwarmOfFlies",
     "itemId": 2331,
     "hue": 1,
-    "movable": false
+    "movable": false,
+    "props": {
+      "defaultName": "a swarm of flies"
+    }
   },
   {
     "type": "Server.Items.DragonFlameSectBadge",
     "itemId": 574,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073141
+    }
   },
   {
     "type": "Server.Items.OrdersFromMinax",
     "itemId": 8825,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1074639
+    }
   },
   {
     "type": "Server.Items.SerpentFangSectBadge",
     "itemId": 572,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073139
+    }
   },
   {
     "type": "Server.Items.TigerClawSectBadge",
     "itemId": 573,
-    "lootType": "Blessed"
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1073140
+    }
   },
   {
     "type": "Server.Items.TravestysCollectionOfShells",
-    "itemId": 4051
+    "itemId": 4051,
+    "props": {
+      "labelNumber": 1072090
+    }
   },
   {
     "type": "Server.Items.HornOfTheDreadhorn",
-    "itemId": 12636
+    "itemId": 12636,
+    "props": {
+      "labelNumber": 1072089
+    }
   },
   {
     "type": "Server.Items.MangledHeadOfDreadhorn",
-    "itemId": 12630
+    "itemId": 12630,
+    "props": {
+      "labelNumber": 1072088
+    }
+  },
+  {
+    "type": "Server.Items.TombstoneOfTheDamned",
+    "oneOf": [
+      {
+        "itemId": 3799
+      },
+      {
+        "itemId": 3800
+      },
+      {
+        "itemId": 3801
+      },
+      {
+        "itemId": 3802
+      },
+      {
+        "itemId": 3803
+      },
+      {
+        "itemId": 3804
+      },
+      {
+        "itemId": 3805
+      },
+      {
+        "itemId": 3806
+      }
+    ],
+    "props": {
+      "labelNumber": 1072123
+    }
+  },
+  {
+    "type": "Server.Items.Beeswax",
+    "itemId": 5154,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.EternallyCorruptTree",
+    "itemId": 8442,
+    "props": {
+      "labelNumber": 1072093
+    }
+  },
+  {
+    "type": "Server.Items.BolaBall",
+    "itemId": 3699,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.MinotaurArtifact",
+    "oneOf": [
+      {
+        "itemId": 2886
+      },
+      {
+        "itemId": 2888
+      },
+      {
+        "itemId": 2541
+      }
+    ],
+    "lootType": "Blessed",
+    "hue": 256,
+    "props": {
+      "labelNumber": 1074826
+    }
+  },
+  {
+    "type": "Server.Items.ShimmeringCrystals",
+    "props": {
+      "labelNumber": 1075095
+    }
+  },
+  {
+    "type": "Server.Items.Rope",
+    "itemId": 5368,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.IronWire",
+    "itemId": 6262,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.SilverWire",
+    "itemId": 6263,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.GoldWire",
+    "itemId": 6264,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.CopperWire",
+    "itemId": 6265,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.WhiteDriedFlowers",
+    "itemId": 3132,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.GreenDriedFlowers",
+    "itemId": 3134,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.DriedOnions",
+    "itemId": 3136,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.DriedHerbs",
+    "itemId": 3138,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.TravestysFineTeakwoodTray",
+    "oneOf": [
+      {
+        "itemId": 2449
+      },
+      {
+        "itemId": 2450
+      }
+    ],
+    "props": {
+      "labelNumber": 1075094
+    }
+  },
+  {
+    "type": "Server.Items.TravestysSushiPreparations",
+    "oneOf": [
+      {
+        "itemId": 7701
+      },
+      {
+        "itemId": 7702
+      }
+    ],
+    "props": {
+      "labelNumber": 1075093
+    }
+  },
+  {
+    "type": "Server.Items.TribalBerry",
+    "itemId": 2512,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1040001
+    }
+  },
+  {
+    "type": "Server.Items.TaintedMushroom",
+    "oneOf": [
+      {
+        "itemId": 8750
+      },
+      {
+        "itemId": 8751
+      },
+      {
+        "itemId": 8752
+      },
+      {
+        "itemId": 8753
+      }
+    ],
+    "props": {
+      "labelNumber": 1075088
+    }
   }
 ]

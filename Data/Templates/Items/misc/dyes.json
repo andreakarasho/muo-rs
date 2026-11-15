@@ -2,6 +2,48 @@
   {
     "type": "Server.Items.SpecialBeardDye",
     "itemId": 3622,
-    "lootType": "Newbied"
+    "lootType": "Newbied",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041087
+    }
+  },
+  {
+    "type": "Server.Items.HairDye",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041060
+    }
+  },
+  {
+    "type": "Server.Items.SpecialHairDye",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1074402
+    }
+  },
+  {
+    "type": "Server.Items.MelisandesHairDye",
+    "itemId": 3839,
+    "props": {
+      "labelNumber": 1041088
+    }
+  },
+  {
+    "type": "Server.Items.PromotionalToken",
+    "itemId": 10922,
+    "lootType": "Blessed",
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 5.0,
+      "labelNumber": 1070997
+    }
+  },
+  {
+    "type": "Server.Items.ContractOfEmployment",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041243
+    }
   }
 ]

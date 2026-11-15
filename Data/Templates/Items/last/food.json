@@ -1,0 +1,23 @@
+[
+  {
+    "type": "Server.Items.DarkChocolate",
+    "props": {
+      "labelNumber": 1079994,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.MilkChocolate",
+    "props": {
+      "labelNumber": 1079995,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.WhiteChocolate",
+    "props": {
+      "labelNumber": 1079996,
+      "defaultWeight": 1.0
+    }
+  }
+]

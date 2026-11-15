@@ -217,7 +217,7 @@ fn set_bx(w: &mut World, id: ItemId, d: BoxData) {
 
 /// `DawnsMusicBox()`.
 pub fn dawns_music_box_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &DAWNS_MUSIC_BOX, 0x2AF9);
+    let id = crate::simple::from_template(w, &DAWNS_MUSIC_BOX, "Server.Items.DawnsMusicBox");
     let mut shuffled = COMMON_TRACKS;
     w.rng.shuffle(&mut shuffled);
     set_bx(
@@ -406,8 +406,8 @@ pub static DAWNS_MUSIC_BOX: ItemType = ItemType {
     full_name: "Server.Items.DawnsMusicBox",
     parent: Some(&ITEM_BASE),
     construct: Some(dawns_music_box_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1075198, // Dawn's Music Box
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Dawn's Music Box
     on_after_duped: |w, id, new| {
         (ITEM_BASE.on_after_duped)(w, id, new);
         if w.item(new).is_some_and(|i| i.ty.is(&DAWNS_MUSIC_BOX)) {
@@ -499,7 +499,7 @@ fn gear_music(w: &World, id: ItemId) -> i32 {
 
 /// `DawnsMusicGear(music)`.
 pub fn dawns_music_gear_new_music(w: &mut World, music: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &DAWNS_MUSIC_GEAR, 0x1053);
+    let id = crate::simple::from_template(w, &DAWNS_MUSIC_GEAR, "Server.Items.DawnsMusicGear");
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(GearMusic(music));
     }
@@ -543,7 +543,7 @@ pub static DAWNS_MUSIC_GEAR: ItemType = ItemType {
     full_name: "Server.Items.DawnsMusicGear",
     parent: Some(&ITEM_BASE),
     construct: Some(dawns_music_gear_new),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     add_name_property: |w, id, list| {
         let Some((name, rarity)) = get_info(gear_music(w, id)) else {
             (ITEM_BASE.add_name_property)(w, id, list);
@@ -586,8 +586,7 @@ pub static DAWNS_MUSIC_GEAR: ItemType = ItemType {
 
 /// `EnhancedBandage(amount)`.
 pub fn enhanced_bandage_new(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &ENHANCED_BANDAGE, 0xE21);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, &ENHANCED_BANDAGE, "Server.Items.EnhancedBandage");
     ops::set_amount(w, id, amount);
     super::hue(w, id, 0x8A5);
     id
@@ -598,8 +597,8 @@ pub static ENHANCED_BANDAGE: ItemType = ItemType {
     full_name: "Server.Items.EnhancedBandage",
     parent: Some(&crate::skill_items::bandage::BANDAGE),
     construct: Some(|w| enhanced_bandage_new(w, 1)),
-    default_weight: |_, _| 0.1,
-    label_number: |_, _| 1152441, // enhanced bandage
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // enhanced bandage
     add_name_properties: |w, id, list| {
         (crate::skill_items::bandage::BANDAGE.add_name_properties)(w, id, list);
         list.add(1075216); // these bandages have been enhanced
@@ -740,10 +739,10 @@ pub static FOUNTAIN_OF_LIFE: ItemType = ItemType {
     parent: Some(&BASE_ADDON_CONTAINER),
     construct: Some(|w| fountain_of_life_new(w, MAX_CHARGES)),
     family: Some(&FOUNTAIN_CLASS),
-    label_number: |_, _| 1075197, // Fountain of Life
-    default_gump_id: |_, _| 0x484,
-    default_drop_sound: |_, _| 66,
-    default_max_items: |_, _| 125,
+    label_number: crate::class_props::label_number, // Fountain of Life
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
+    default_max_items: crate::class_props::default_max_items,
     on_drag_lift: |_, _, _| false,
     on_drag_drop: |w, id, from, dropped| {
         if !is_bandage(w, dropped) {
@@ -818,7 +817,7 @@ pub static FOUNTAIN_OF_LIFE_DEED: ItemType = ItemType {
     parent: Some(&BASE_ADDON_CONTAINER_DEED),
     construct: Some(|w| fountain_of_life_deed_new(w, MAX_CHARGES)),
     family: Some(&FOUNTAIN_DEED_CLASS),
-    label_number: |_, _| 1075197, // Fountain of Life
+    label_number: crate::class_props::label_number, // Fountain of Life
     serialize: |w, id, out| {
         (BASE_ADDON_CONTAINER_DEED.serialize)(w, id, out);
         out.write_encoded_int(0);

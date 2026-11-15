@@ -1,0 +1,760 @@
+[
+  {
+    "type": "Server.Items.Coal",
+    "itemId": 6585,
+    "stackable": false,
+    "lootType": "Blessed",
+    "hue": 2405,
+    "props": {
+      "labelNumber": 1041426
+    }
+  },
+  {
+    "type": "Server.Items.RedPoinsettia",
+    "itemId": 9008,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.WhitePoinsettia",
+    "itemId": 9009,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BlueSnowflake",
+    "itemId": 9006,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.WhiteSnowflake",
+    "itemId": 9007,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.RoseInAVase",
+    "itemId": 3760,
+    "hue": 32,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1023760
+    }
+  },
+  {
+    "type": "Server.Items.IcicleLargeSouth",
+    "itemId": 17778
+  },
+  {
+    "type": "Server.Items.IcicleMedSouth",
+    "itemId": 17779
+  },
+  {
+    "type": "Server.Items.IcicleSmallSouth",
+    "itemId": 17780
+  },
+  {
+    "type": "Server.Items.IcicleLargeEast",
+    "itemId": 17781
+  },
+  {
+    "type": "Server.Items.IcicleMedEast",
+    "itemId": 17782
+  },
+  {
+    "type": "Server.Items.IcicleSmallEast",
+    "itemId": 17783
+  },
+  {
+    "type": "Server.Items.UnfinishedBarrel",
+    "itemId": 7861,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRock",
+    "itemId": 6008,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRock2",
+    "itemId": 4963,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRocks",
+    "itemId": 4967,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRocks2",
+    "itemId": 4973,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoFlower",
+    "itemId": 6362,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoFlower2",
+    "itemId": 6361,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRoseOfTrinsic",
+    "itemId": 9036,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRoseOfTrinsic2",
+    "itemId": 9037,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoRoseOfTrinsic3",
+    "itemId": 9035,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoBottlesOfLiquor",
+    "itemId": 2462,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTray2",
+    "itemId": 2449,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Checkers",
+    "itemId": 3610,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Checkers2",
+    "itemId": 3611,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Chessmen",
+    "itemId": 3603,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Chessmen2",
+    "itemId": 3602,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Chessmen3",
+    "itemId": 3604,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGoldIngot",
+    "itemId": 7145,
+    "movable": true,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.DecoGoldIngot2",
+    "itemId": 7148,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGoldIngots",
+    "itemId": 7146,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGoldIngots2",
+    "itemId": 7147,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGoldIngots3",
+    "itemId": 7149,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGoldIngots4",
+    "itemId": 7150,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngot",
+    "itemId": 7151,
+    "movable": true,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.DecoIronIngot2",
+    "itemId": 7151,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngots",
+    "itemId": 7153,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngots2",
+    "itemId": 7152,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngots3",
+    "itemId": 7152,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngots4",
+    "itemId": 7153,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngots5",
+    "itemId": 7155,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoIronIngots6",
+    "itemId": 7156,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSilverIngot",
+    "itemId": 7157,
+    "movable": true,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.DecoSilverIngot2",
+    "itemId": 7160,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSilverIngots",
+    "itemId": 7162,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSilverIngots2",
+    "itemId": 7158,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSilverIngots3",
+    "itemId": 7159,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSilverIngots4",
+    "itemId": 7161,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSilverIngots5",
+    "itemId": 7162,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyJar",
+    "itemId": 4101,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyJars",
+    "itemId": 3652,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyJars2",
+    "itemId": 3653,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyJars3",
+    "itemId": 3654,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyJars4",
+    "itemId": 3655,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoFullJar",
+    "itemId": 4102,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoFullJars3",
+    "itemId": 3658,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoFullJars4",
+    "itemId": 3659,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.HalfEmptyJar",
+    "itemId": 4103,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.HalfEmptyJars",
+    "itemId": 3660,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Jars2",
+    "itemId": 3661,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Jars3",
+    "itemId": 3662,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Jars4",
+    "itemId": 3663,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoCrystalBall",
+    "itemId": 3630,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoMagicalCrystal",
+    "itemId": 7961,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoSpittoon",
+    "itemId": 4099,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoBlackmoor",
+    "itemId": 3961,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoBloodspawn",
+    "itemId": 3964,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoBrimstone",
+    "itemId": 3967,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoDragonsBlood",
+    "itemId": 16503,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoDragonsBlood2",
+    "itemId": 3970,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoEyeOfNewt",
+    "itemId": 3975,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGarlic",
+    "itemId": 6369,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGarlic2",
+    "itemId": 6370,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGarlicBulb",
+    "itemId": 6371,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGarlicBulb2",
+    "itemId": 6372,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGinseng",
+    "itemId": 6377,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGinseng2",
+    "itemId": 6378,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGinsengRoot",
+    "itemId": 6379,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoGinsengRoot2",
+    "itemId": 6380,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoMandrake",
+    "itemId": 6367,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoMandrake2",
+    "itemId": 6368,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoMandrake3",
+    "itemId": 6367,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoMandrakeRoot",
+    "itemId": 6366,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoMandrakeRoot2",
+    "itemId": 6365,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoNightshade",
+    "itemId": 6375,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoNightshade2",
+    "itemId": 6373,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoNightshade3",
+    "itemId": 6374,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoObsidian",
+    "itemId": 3977,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoPumice",
+    "itemId": 3979,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoWyrmsHeart",
+    "itemId": 3985,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Cards",
+    "itemId": 3609,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Cards2",
+    "itemId": 3606,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Cards3",
+    "itemId": 3605,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Cards4",
+    "itemId": 3607,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoCards5",
+    "itemId": 3608,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.PlayingCards",
+    "itemId": 4003,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.PlayingCards2",
+    "itemId": 4002,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoBridle",
+    "itemId": 4980,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoBridle2",
+    "itemId": 4981,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoHay",
+    "itemId": 3893,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoHay2",
+    "itemId": 3892,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoHorseDung",
+    "itemId": 3899,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoDeckOfTarot",
+    "itemId": 4779,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoDeckOfTarot2",
+    "itemId": 4780,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot",
+    "itemId": 4773,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot2",
+    "itemId": 4774,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot3",
+    "itemId": 4775,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot4",
+    "itemId": 4776,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot5",
+    "itemId": 4777,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot6",
+    "itemId": 4778,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTarot7",
+    "itemId": 4773,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.CrossbowBolts",
+    "itemId": 7164,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyToolKit",
+    "itemId": 7862,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.EmptyToolKit2",
+    "itemId": 7863,
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoTray",
+    "oneOf": [
+      {
+        "itemId": 2449
+      },
+      {
+        "itemId": 2450
+      }
+    ],
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.BrokenChair",
+    "oneOf": [
+      {
+        "itemId": 3097
+      },
+      {
+        "itemId": 3098
+      }
+    ],
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.DecoArrowShafts",
+    "oneOf": [
+      {
+        "itemId": 4132
+      },
+      {
+        "itemId": 4133
+      }
+    ],
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.Lockpicks",
+    "oneOf": [
+      {
+        "itemId": 5373
+      },
+      {
+        "itemId": 5374
+      }
+    ],
+    "movable": true,
+    "stackable": false
+  },
+  {
+    "type": "Server.Items.ToolKit",
+    "oneOf": [
+      {
+        "itemId": 7866
+      },
+      {
+        "itemId": 7867
+      }
+    ],
+    "movable": true,
+    "stackable": false
+  }
+]

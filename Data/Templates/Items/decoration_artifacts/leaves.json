@@ -2,7 +2,10 @@
   {
     "type": "Server.Items.AcademicBooksArtifact",
     "itemId": 7717,
-    "hue": 2413
+    "hue": 2413,
+    "props": {
+      "labelNumber": 1071202
+    }
   },
   {
     "type": "Server.Items.BloodyWaterArtifact",
@@ -270,5 +273,41 @@
   {
     "type": "Server.Items.ZenRock3Artifact",
     "itemId": 9445
+  },
+  {
+    "type": "Server.Items.BackpackArtifact",
+    "itemId": 2482
+  },
+  {
+    "type": "Server.Items.Basket1Artifact",
+    "itemId": 9437
+  },
+  {
+    "type": "Server.Items.Basket2Artifact",
+    "itemId": 9431
+  },
+  {
+    "type": "Server.Items.Basket3NorthArtifact",
+    "itemId": 9434
+  },
+  {
+    "type": "Server.Items.Basket3WestArtifact",
+    "itemId": 9433
+  },
+  {
+    "type": "Server.Items.Basket4Artifact",
+    "itemId": 9432
+  },
+  {
+    "type": "Server.Items.Basket5NorthArtifact",
+    "itemId": 9435
+  },
+  {
+    "type": "Server.Items.Basket5WestArtifact",
+    "itemId": 9436
+  },
+  {
+    "type": "Server.Items.Basket6Artifact",
+    "itemId": 9429
   }
 ]

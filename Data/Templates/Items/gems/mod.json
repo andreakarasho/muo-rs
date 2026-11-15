@@ -1,0 +1,74 @@
+[
+  {
+    "type": "Server.Items.Amber",
+    "itemId": 3877,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Amethyst",
+    "itemId": 3862,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Citrine",
+    "itemId": 3861,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Diamond",
+    "itemId": 3878,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Emerald",
+    "itemId": 3856,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Ruby",
+    "itemId": 3859,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Sapphire",
+    "itemId": 3865,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.StarSapphire",
+    "itemId": 3873,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Tourmaline",
+    "itemId": 3885,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  }
+]

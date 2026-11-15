@@ -9,8 +9,7 @@ use muo_server::type_registry::TypeRegistry;
 
 /// `Feather(i32 amount)`.
 pub fn feather_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1BD1);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Feather");
     ops::set_amount(w, id, amount);
     id
 }
@@ -19,13 +18,12 @@ leaf! {
     /// `Server.Items.Feather`.
     FEATHER = "Server.Items.Feather" : ITEM_BASE, v0;
     construct: Some(|w| feather_new(w, &FEATHER, 1)),
-    default_weight: |_, _| 0.1,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Shaft(i32 amount)`.
 pub fn shaft_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1BD4);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Shaft");
     ops::set_amount(w, id, amount);
     id
 }
@@ -34,13 +32,12 @@ leaf! {
     /// `Server.Items.Shaft`.
     SHAFT = "Server.Items.Shaft" : ITEM_BASE, v0;
     construct: Some(|w| shaft_new(w, &SHAFT, 1)),
-    default_weight: |_, _| 0.1,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BarkFragment(i32 amount)`.
 pub fn bark_fragment_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x318F);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.BarkFragment");
     ops::set_amount(w, id, amount);
     id
 }
@@ -64,8 +61,7 @@ leaf! {
 
 /// `Blight(i32 amount)`.
 pub fn blight_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3183);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Blight");
     ops::set_amount(w, id, amount);
     id
 }
@@ -78,8 +74,7 @@ leaf! {
 
 /// `BlueDiamond(i32 amount)`.
 pub fn blue_diamond_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3198);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.BlueDiamond");
     ops::set_amount(w, id, amount);
     id
 }
@@ -103,8 +98,7 @@ leaf! {
 
 /// `BrilliantAmber(i32 amount)`.
 pub fn brilliant_amber_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3199);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.BrilliantAmber");
     ops::set_amount(w, id, amount);
     id
 }
@@ -128,8 +122,7 @@ leaf! {
 
 /// `CapturedEssence(i32 amount)`.
 pub fn captured_essence_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x318E);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.CapturedEssence");
     ops::set_amount(w, id, amount);
     id
 }
@@ -142,8 +135,7 @@ leaf! {
 
 /// `Corruption(i32 amount)`.
 pub fn corruption_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3184);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Corruption");
     ops::set_amount(w, id, amount);
     id
 }
@@ -167,8 +159,7 @@ leaf! {
 
 /// `DarkSapphire(i32 amount)`.
 pub fn dark_sapphire_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3192);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.DarkSapphire");
     ops::set_amount(w, id, amount);
     id
 }
@@ -192,8 +183,7 @@ leaf! {
 
 /// `DiseasedBark(i32 amount)`.
 pub fn diseased_bark_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x318B);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.DiseasedBark");
     ops::set_amount(w, id, amount);
     id
 }
@@ -217,8 +207,7 @@ leaf! {
 
 /// `DreadHornMane(i32 amount)`.
 pub fn dread_horn_mane_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x318A);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.DreadHornMane");
     ops::set_amount(w, id, amount);
     id
 }
@@ -242,8 +231,7 @@ leaf! {
 
 /// `EcruCitrine(i32 amount)`.
 pub fn ecru_citrine_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3195);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.EcruCitrine");
     ops::set_amount(w, id, amount);
     id
 }
@@ -267,8 +255,7 @@ leaf! {
 
 /// `EyeOfTheTravesty(i32 amount)`.
 pub fn eye_of_the_travesty_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x318D);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.EyeOfTheTravesty");
     ops::set_amount(w, id, amount);
     id
 }
@@ -292,8 +279,7 @@ leaf! {
 
 /// `FireRuby(i32 amount)`.
 pub fn fire_ruby_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3197);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.FireRuby");
     ops::set_amount(w, id, amount);
     id
 }
@@ -317,8 +303,7 @@ leaf! {
 
 /// `GrizzledBones(i32 amount)`.
 pub fn grizzled_bones_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x318C);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.GrizzledBones");
     ops::set_amount(w, id, amount);
     id
 }
@@ -342,8 +327,7 @@ leaf! {
 
 /// `LardOfParoxysmus(i32 amount)`.
 pub fn lard_of_paroxysmus_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3189);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.LardOfParoxysmus");
     ops::set_amount(w, id, amount);
     id
 }
@@ -367,8 +351,7 @@ leaf! {
 
 /// `LuminescentFungi(i32 amount)`.
 pub fn luminescent_fungi_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3191);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.LuminescentFungi");
     ops::set_amount(w, id, amount);
     id
 }
@@ -381,8 +364,7 @@ leaf! {
 
 /// `Muculent(i32 amount)`.
 pub fn muculent_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3188);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Muculent");
     ops::set_amount(w, id, amount);
     id
 }
@@ -406,8 +388,7 @@ leaf! {
 
 /// `ParasiticPlant(i32 amount)`.
 pub fn parasitic_plant_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3190);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.ParasiticPlant");
     ops::set_amount(w, id, amount);
     id
 }
@@ -431,8 +412,7 @@ leaf! {
 
 /// `PerfectEmerald(i32 amount)`.
 pub fn perfect_emerald_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3194);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.PerfectEmerald");
     ops::set_amount(w, id, amount);
     id
 }
@@ -467,8 +447,7 @@ leaf! {
 
 /// `Putrefication(i32 amount)`.
 pub fn putrefication_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3186);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Putrefication");
     ops::set_amount(w, id, amount);
     hue(w, id, 883);
     id
@@ -493,8 +472,7 @@ leaf! {
 
 /// `Scourge(i32 amount)`.
 pub fn scourge_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3185);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Scourge");
     ops::set_amount(w, id, amount);
     hue(w, id, 150);
     id
@@ -519,8 +497,7 @@ leaf! {
 
 /// `SwitchItem(i32 amount)`.
 pub fn switch_item_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2F5F);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.SwitchItem");
     ops::set_amount(w, id, amount);
     id
 }
@@ -544,8 +521,7 @@ leaf! {
 
 /// `Taint(i32 amount)`.
 pub fn taint_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3187);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Taint");
     ops::set_amount(w, id, amount);
     hue(w, id, 731);
     id
@@ -570,8 +546,7 @@ leaf! {
 
 /// `Turquoise(i32 amount)`.
 pub fn turquoise_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3193);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Turquoise");
     ops::set_amount(w, id, amount);
     id
 }
@@ -595,8 +570,7 @@ leaf! {
 
 /// `WhitePearl(i32 amount)`.
 pub fn white_pearl_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x3196);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.WhitePearl");
     ops::set_amount(w, id, amount);
     id
 }

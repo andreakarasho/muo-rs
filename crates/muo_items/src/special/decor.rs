@@ -379,7 +379,7 @@ pub static CURTAINS_COMPONENT: ItemType = ItemType {
     full_name: "Server.Items.CurtainsComponent",
     parent: Some(&ADDON_COMPONENT),
     construct: None,
-    label_number: |_, _| 1076280, // Curtains
+    label_number: crate::class_props::label_number, // Curtains
     display_weight: |_, _| false,
     on_double_click: curtains_on_double_click,
     serialize: |w, id, out| {
@@ -451,7 +451,7 @@ leaf! {
     }),
     family: Some(&CURTAINS_DEED_CLASS),
     on_double_click: addon::direction_deed_on_double_click,
-    label_number: |_, _| 1076280,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- HouseLadder --------------------------------------------------------------------------------------------
@@ -588,7 +588,7 @@ leaf! {
     }),
     family: Some(&HOUSE_LADDER_DEED_CLASS),
     on_double_click: ladder_deed_on_double_click,
-    label_number: |_, _| 1076287,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- FruitTrees ---------------------------------------------------------------------------------------------
@@ -848,7 +848,7 @@ pub fn bed_of_nails_component_new(w: &mut World, item_id: i32) -> ItemId {
 leaf! {
     /// `Server.Items.BedOfNailsComponent`.
     BED_OF_NAILS_COMPONENT = "Server.Items.BedOfNailsComponent" : ADDON_COMPONENT, enc;
-    label_number: |_, _| 1074801,
+    label_number: crate::class_props::label_number,
     on_move_over: bed_of_nails_component_on_move_over,
 }
 
@@ -998,7 +998,7 @@ leaf! {
     HAUNTER_MIRROR_COMPONENT = "Server.Items.HaunterMirrorComponent" : ADDON_COMPONENT, enc;
     construct: None,
     make: Some(haunter_mirror_component_new),
-    label_number: |_, _| 1074800,
+    label_number: crate::class_props::label_number,
     handles_on_movement: |_, _| true,
     on_movement: haunted_mirror_on_movement,
 }
@@ -1141,7 +1141,7 @@ leaf! {
     CREEPY_PORTRAIT_COMPONENT = "Server.Items.CreepyPortraitComponent" : ADDON_COMPONENT, enc;
     construct: None,
     make: Some(creepy_portrait_component_new),
-    label_number: |_, _| 1074481,
+    label_number: crate::class_props::label_number,
     handles_on_movement: |_, _| true,
     on_movement: creepy_portrait_on_movement,
     on_double_click: |w, id, from| portrait_sound(w, id, from, 0x565, 0x566),
@@ -1275,7 +1275,7 @@ pub static AWESOME_DISTURBING_PORTRAIT_COMPONENT: ItemType = ItemType {
     parent: Some(&ADDON_COMPONENT),
     construct: None,
     make: Some(awesome_disturbing_portrait_component_new),
-    label_number: |_, _| 1074479,
+    label_number: crate::class_props::label_number,
     on_double_click: awesome_on_double_click,
     on_after_delete: portrait_on_after_delete,
     serialize: |w, id, out| {
@@ -1457,10 +1457,10 @@ pub static SACRIFICIAL_ALTAR_ADDON: ItemType = ItemType {
     parent: Some(&BASE_ADDON_CONTAINER),
     construct: Some(sacrificial_altar_addon_new),
     family: Some(&SACRIFICIAL_ALTAR_ADDON_CLASS),
-    label_number: |_, _| 1074818,
-    default_max_weight: |_, _| 0,
-    default_gump_id: |_, _| 0x107,
-    default_drop_sound: |_, _| 0x42,
+    label_number: crate::class_props::label_number,
+    default_max_weight: crate::class_props::default_max_weight,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
     on_drag_drop: |w, id, from, dropped| {
         if (BASE_ADDON_CONTAINER.on_drag_drop)(w, id, from, dropped) {
             altar_invalidate_contents(w, id, from);
@@ -1506,7 +1506,7 @@ leaf! {
         id
     }),
     family: Some(&SACRIFICIAL_ALTAR_DEED_CLASS),
-    label_number: |_, _| 1074818,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- GingerBreadHouse ---------------------------------------------------------------------------------------
@@ -1555,8 +1555,8 @@ leaf! {
     GINGER_BREAD_HOUSE_DEED = "Server.Items.GingerBreadHouseDeed" : BASE_ADDON_DEED, v0;
     construct: Some(ginger_bread_house_deed_new),
     family: Some(&GINGER_BREAD_HOUSE_DEED_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1077394,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- registry -----------------------------------------------------------------------------------------------

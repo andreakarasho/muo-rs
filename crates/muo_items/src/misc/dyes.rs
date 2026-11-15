@@ -16,7 +16,7 @@ use muo_io::TextDefinition;
 use muo_primitives::{MessageType, Point3D};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, deps, ops};
+use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::net_state::NetStateId;
 use muo_server::type_registry::TypeRegistry;
 
@@ -328,8 +328,8 @@ fn send_dye_gump(w: &mut World, to: MobileId, dye: Dye, item: ItemId) {
 item_leaf! {
     /// `Server.Items.HairDye`.
     HAIR_DYE = "Server.Items.HairDye" : ITEM_BASE, |w| ops::new_item_with_id(w, &HAIR_DYE, 0xEFF), encoded false;
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041060, // Hair Dye
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Hair Dye
     on_double_click: |w, id, from| {
         if in_range_1(w, id, from) {
             send_dye_gump(w, from, Dye::Hair, id);
@@ -347,8 +347,8 @@ pub fn special_beard_dye_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 item_leaf! {
     /// `Server.Items.SpecialBeardDye`.
     SPECIAL_BEARD_DYE = "Server.Items.SpecialBeardDye" : ITEM_BASE, |w| special_beard_dye_new(w, &SPECIAL_BEARD_DYE), encoded false;
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041087, // Special Beard Dye
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Special Beard Dye
     on_double_click: |w, id, from| {
         if in_range_1(w, id, from) {
             send_dye_gump(w, from, Dye::SpecialBeard, id);
@@ -361,8 +361,8 @@ item_leaf! {
 item_leaf! {
     /// `Server.Items.SpecialHairDye`.
     SPECIAL_HAIR_DYE = "Server.Items.SpecialHairDye" : ITEM_BASE, |w| special_beard_dye_new(w, &SPECIAL_HAIR_DYE), encoded false;
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1074402,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     on_double_click: |w, id, from| {
         if in_range_1(w, id, from) {
             send_dye_gump(w, from, Dye::SpecialHair, id);
@@ -376,7 +376,7 @@ item_leaf! {
 
 /// `MelisandesHairDye()`.
 pub fn melisandes_hair_dye_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xEFF);
+    let id = crate::simple::from_template(w, ty, "Server.Items.MelisandesHairDye");
     let h = random_min_max(w, 0x47E, 0x499);
     hue(w, id, h);
     id
@@ -456,7 +456,7 @@ fn build_confirm_layout(b: &mut StaticGumpBuilder, title: i32, label: i32) {
 item_leaf! {
     /// `Server.Items.MelisandesHairDye`.
     MELISANDES_HAIR_DYE = "Server.Items.MelisandesHairDye" : ITEM_BASE, |w| melisandes_hair_dye_new(w, &MELISANDES_HAIR_DYE), encoded false;
-    label_number: |_, _| 1041088, // Hair Dye
+    label_number: crate::class_props::label_number, // Hair Dye
     get_properties: |w, id, list| {
         muo_server::item::base::get_properties_base(w, id, list);
         list.add(1075085); // Requirement: Mondain's Legacy
@@ -492,10 +492,7 @@ fn token_class(w: &World, id: ItemId) -> Option<&'static TokenClass> {
 
 /// `PromotionalToken()`.
 pub fn promotional_token_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2AAA);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle300);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.PromotionalToken")
 }
 
 /// `PromotionalTokenGump`.
@@ -574,8 +571,8 @@ pub static PROMOTIONAL_TOKEN: ItemType = ItemType {
     full_name: "Server.Items.PromotionalToken",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1070997, // A promotional token
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // A promotional token
     get_properties: |w, id, list| {
         muo_server::item::base::get_properties_base(w, id, list);
         if let Some(c) = token_class(w, id) {
@@ -741,8 +738,8 @@ fn contract_double_click(w: &mut World, id: ItemId, from: MobileId) {
 item_leaf! {
     /// `Server.Items.ContractOfEmployment`.
     CONTRACT_OF_EMPLOYMENT = "Server.Items.ContractOfEmployment" : ITEM_BASE, |w| ops::new_item_with_id(w, &CONTRACT_OF_EMPLOYMENT, 0x14F0), encoded false;
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041243, // a contract of employment
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a contract of employment
     on_double_click: contract_double_click,
 }
 

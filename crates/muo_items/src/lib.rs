@@ -46,16 +46,18 @@ pub mod wands;
 pub mod weapons;
 pub mod wiring;
 
+pub mod class_props;
 mod template_keys_equipment;
 mod template_keys_misc;
 
 /// `World::new()` knowing this crate's template keys (a bare world's registry has none, so its table skips the
-/// steps of these keys).
+/// steps of these keys), with the template table loaded (class props read the loaded table).
 #[cfg(test)]
 pub(crate) fn test_world() -> muo_server::World {
     let mut w = muo_server::World::new();
     template_keys_equipment::register(&mut w.types);
     template_keys_misc::register(&mut w.types);
+    muo_content::templates::table(&mut w);
     w
 }
 
@@ -116,3 +118,6 @@ mod packet_tests;
 mod equipment_template_tests;
 #[cfg(test)]
 mod template_tests;
+
+#[cfg(test)]
+mod template_tests_misc;

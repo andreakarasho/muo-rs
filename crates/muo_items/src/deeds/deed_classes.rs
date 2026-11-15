@@ -59,8 +59,7 @@ pub fn set_commodity_field(w: &mut World, id: ItemId, c: Option<ItemId>) {
 
 /// `new CommodityDeed(commodity)`.
 pub fn new_commodity_deed(w: &mut World, c: Option<ItemId>) -> ItemId {
-    let id = ops::new_item_with_id(w, &COMMODITY_DEED, 0x14F0);
-    crate::simple::hue(w, id, 0x47);
+    let id = crate::simple::from_template(w, &COMMODITY_DEED, "Server.Items.CommodityDeed");
     set_commodity_field(w, id, c);
     ops::set_loot_type(w, id, LootType::Blessed);
     id
@@ -200,7 +199,7 @@ pub static COMMODITY_DEED: ItemType = ItemType {
     full_name: "Server.Items.CommodityDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_commodity_deed(w, None)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         if commodity_of(w, id).is_none() {
             1047016
@@ -339,11 +338,9 @@ pub static NAME_CHANGE_DEED: ItemType = ItemType {
     full_name: "Server.Items.NameChangeDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &NAME_CHANGE_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
+        crate::simple::from_template(w, &NAME_CHANGE_DEED, "Server.Items.NameChangeDeed")
     }),
-    default_name: |_, _| Some("a name change deed".to_string()),
+    default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         if ops::root_parent(w, id) == Some(EntityId::Mobile(from)) {
             if w.mobile(from).is_some_and(|m| m.net_state.is_some())
@@ -414,12 +411,10 @@ pub static CLOTHING_BLESS_DEED: ItemType = ItemType {
     full_name: "Server.Items.ClothingBlessDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &CLOTHING_BLESS_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
+        crate::simple::from_template(w, &CLOTHING_BLESS_DEED, "Server.Items.ClothingBlessDeed")
     }),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("a clothing bless deed".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     display_loot_type: |_, _| false,
     on_double_click: |w, id, from| {
         if !pack_has(w, id, from) {
@@ -575,13 +570,13 @@ pub static NEW_PLAYER_TICKET: ItemType = ItemType {
     full_name: "Server.Items.NewPlayerTicket",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &NEW_PLAYER_TICKET, 0x14EF);
-        ops::set_loot_type(w, id, LootType::Blessed);
+        let id =
+            crate::simple::from_template(w, &NEW_PLAYER_TICKET, "Server.Items.NewPlayerTicket");
         set_ticket_owner(w, id, None);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1062094, // a young player ticket
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a young player ticket
     display_loot_type: |_, _| false,
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);

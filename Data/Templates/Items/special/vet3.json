@@ -1,0 +1,29 @@
+[
+  {
+    "type": "Server.Items.AnkhOfSacrificeComponent",
+    "props": {
+      "labelNumber": 1027772
+    }
+  },
+  {
+    "type": "Server.Items.AnkhOfSacrificeDeed",
+    "props": {
+      "labelNumber": 1080397
+    }
+  },
+  {
+    "type": "Server.Items.MiningCartDeed",
+    "props": {
+      "labelNumber": 1080385
+    }
+  },
+  {
+    "type": "Server.Items.DecorativeShieldDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1049771
+    }
+  }
+]

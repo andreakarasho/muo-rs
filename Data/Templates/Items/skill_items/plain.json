@@ -1,0 +1,141 @@
+[
+  {
+    "type": "Server.Items.BlankScroll",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Bottle",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Sand",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1044626
+    }
+  },
+  {
+    "type": "Server.Items.Dressform",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.Axle",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.AxleGears",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ClockFrame",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.ClockParts",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Gears",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Globe",
+    "props": {
+      "defaultWeight": 3.0
+    }
+  },
+  {
+    "type": "Server.Items.Hinge",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SextantParts",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.Springs",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Fork",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ForkLeft",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ForkRight",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Spoon",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SpoonLeft",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SpoonRight",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Knife",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.KnifeLeft",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.KnifeRight",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Plate",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]

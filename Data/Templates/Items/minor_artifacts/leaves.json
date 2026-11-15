@@ -531,16 +531,25 @@
   {
     "type": "Server.Items.GhostShipAnchor",
     "itemId": 5367,
-    "hue": 1150
+    "hue": 1150,
+    "props": {
+      "labelNumber": 1070816
+    }
   },
   {
     "type": "Server.Items.GoldBricks",
-    "itemId": 7147
+    "itemId": 7147,
+    "props": {
+      "labelNumber": 1063489
+    }
   },
   {
     "type": "Server.Items.ShipModelOfTheHMSCape",
     "itemId": 5363,
-    "hue": 891
+    "hue": 891,
+    "props": {
+      "labelNumber": 1063476
+    }
   },
   {
     "type": "Server.Items.PolarBearMask",

@@ -1,0 +1,108 @@
+[
+  {
+    "type": "Server.Items.ClumsyWand",
+    "props": {
+      "wandEffect": "Clumsiness",
+      "minCharges": 5,
+      "maxCharges": 30
+    }
+  },
+  {
+    "type": "Server.Items.FeebleWand",
+    "props": {
+      "wandEffect": "Feeblemindedness",
+      "minCharges": 5,
+      "maxCharges": 30
+    }
+  },
+  {
+    "type": "Server.Items.FireballWand",
+    "props": {
+      "wandEffect": "Fireball",
+      "minCharges": 5,
+      "maxCharges": [
+        15,
+        109
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.GreaterHealWand",
+    "props": {
+      "wandEffect": "GreaterHealing",
+      "minCharges": 1,
+      "maxCharges": [
+        5,
+        109
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.HarmWand",
+    "props": {
+      "wandEffect": "Harming",
+      "minCharges": 5,
+      "maxCharges": [
+        30,
+        109
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.HealWand",
+    "props": {
+      "wandEffect": "Healing",
+      "minCharges": 10,
+      "maxCharges": [
+        25,
+        109
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.IDWand",
+    "props": {
+      "wandEffect": "Identification",
+      "minCharges": 25,
+      "maxCharges": 175
+    }
+  },
+  {
+    "type": "Server.Items.LightningWand",
+    "props": {
+      "wandEffect": "Lightning",
+      "minCharges": 5,
+      "maxCharges": [
+        20,
+        109
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.MagicArrowWand",
+    "props": {
+      "wandEffect": "MagicArrow",
+      "minCharges": 5,
+      "maxCharges": [
+        30,
+        109
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.ManaDrainWand",
+    "props": {
+      "wandEffect": "ManaDraining",
+      "minCharges": 5,
+      "maxCharges": 30
+    }
+  },
+  {
+    "type": "Server.Items.WeaknessWand",
+    "props": {
+      "wandEffect": "Weakness",
+      "minCharges": 5,
+      "maxCharges": 30
+    }
+  }
+]

@@ -286,7 +286,7 @@ pub static BLOODWOOD_SPIRIT: ItemType = ItemType {
     parent: Some(&talismans::BASE_TALISMAN),
     construct: Some(|w| bloodwood_spirit_new(w, &BLOODWOOD_SPIRIT)),
     family: Some(&BLOODWOOD_SPIRIT_CLASS),
-    label_number: |_, _| 1075034,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (talismans::BASE_TALISMAN.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -343,7 +343,7 @@ pub static TOTEM_OF_VOID: ItemType = ItemType {
     parent: Some(&talismans::BASE_TALISMAN),
     construct: Some(|w| totem_of_void_new(w, &TOTEM_OF_VOID)),
     family: Some(&TOTEM_OF_VOID_CLASS),
-    label_number: |_, _| 1075035,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (talismans::BASE_TALISMAN.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -414,10 +414,8 @@ use muo_content::items::tool;
 
 /// `AmeliasToolbox()`: `base(500)` of `TinkerTools`.
 pub fn amelias_toolbox_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = tool::new_tool(w, ty, 0x1EB8, 500);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 1895);
-    id
+    let id = tool::new_tool(w, ty, 0, 500);
+    crate::simple::own_template(w, id, "Server.Items.AmeliasToolbox")
 }
 
 /// `Server.Items.AmeliasToolbox`.
@@ -425,7 +423,7 @@ pub static AMELIAS_TOOLBOX: ItemType = ItemType {
     full_name: "Server.Items.AmeliasToolbox",
     parent: Some(&crate::skill_items::tools::TINKER_TOOLS),
     construct: Some(|w| amelias_toolbox_new(w, &AMELIAS_TOOLBOX)),
-    label_number: |_, _| 1077749,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (crate::skill_items::tools::TINKER_TOOLS.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -447,10 +445,8 @@ pub static HAMMER_OF_HEPHAESTUS_CLASS: tool::ToolClass = tool::ToolClass {
 /// `HammerOfHephaestus()`: `SmithHammer()`, `UsesRemaining = 20`, blessed. The recharge timer is not implemented
 /// (`StartRechargeTimer` is empty), so nothing recharges.
 pub fn hammer_of_hephaestus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = tool::new_tool_random(w, ty, 0x13E3);
-    (ty.set_layer)(w, id, muo_server::layer::Layer::OneHanded);
-    tool::set_uses_remaining(w, id, 20);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    let id = tool::new_tool_random(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.HammerOfHephaestus");
     id
 }
 
@@ -460,7 +456,7 @@ pub static HAMMER_OF_HEPHAESTUS: ItemType = ItemType {
     parent: Some(&crate::skill_items::tools::SMITH_HAMMER),
     construct: Some(|w| hammer_of_hephaestus_new(w, &HAMMER_OF_HEPHAESTUS)),
     family: Some(&HAMMER_OF_HEPHAESTUS_CLASS),
-    label_number: |_, _| 1077740,
+    label_number: crate::class_props::label_number,
     on_double_click: |w, id, from| {
         let pack = muo_server::mobile::part1::props_b::backpack(w, from);
         let held = w.item(id).and_then(|i| i.parent) == Some(EntityId::Mobile(from));
@@ -500,7 +496,7 @@ pub static HALLOWED_SPELLBOOK: ItemType = ItemType {
     full_name: "Server.Items.HallowedSpellbook",
     parent: Some(&crate::skill_items::spellbook::SPELLBOOK),
     construct: Some(|w| hallowed_spellbook_new(w, &HALLOWED_SPELLBOOK)),
-    label_number: |_, _| 1077620,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (crate::skill_items::spellbook::SPELLBOOK.serialize)(w, id, out);
         out.write_encoded_int(0);

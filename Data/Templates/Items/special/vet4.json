@@ -1,0 +1,11 @@
+[
+  {
+    "type": "Server.Items.HangingSkeletonDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1049772
+    }
+  }
+]

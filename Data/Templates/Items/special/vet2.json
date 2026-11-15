@@ -1,0 +1,32 @@
+[
+  {
+    "type": "Server.Items.BannerDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041007
+    }
+  },
+  {
+    "type": "Server.Items.FlamingHead",
+    "itemId": 4348,
+    "props": {
+      "labelNumber": 1041266
+    }
+  },
+  {
+    "type": "Server.Items.FlamingHeadDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041050
+    }
+  },
+  {
+    "type": "Server.Items.MiniHouseDeed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1062096
+    }
+  }
+]

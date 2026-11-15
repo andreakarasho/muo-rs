@@ -201,13 +201,9 @@ fn use_horn(w: &mut World, horn: ItemId, from: MobileId, loc: Point3D) {
 pub static FIRE_HORN: ItemType = ItemType {
     full_name: "Server.Items.FireHorn",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &FIRE_HORN, 0xFC7);
-        super::hue(w, id, 0x466);
-        id
-    }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1060456, // fire horn
+    construct: Some(|w| crate::simple::from_template(w, &FIRE_HORN, "Server.Items.FireHorn")),
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // fire horn
     on_double_click: horn_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -254,7 +250,7 @@ pub fn recipe_id(w: &World, id: ItemId) -> i32 {
 
 /// `new RecipeScroll(recipeID)`.
 pub fn new_recipe_scroll(w: &mut World, recipe_id: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &RECIPE_SCROLL, 0x2831);
+    let id = crate::simple::from_template(w, &RECIPE_SCROLL, "Server.Items.RecipeScroll");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(RecipeData(recipe_id));
     }
@@ -323,7 +319,7 @@ pub static RECIPE_SCROLL: ItemType = ItemType {
     full_name: "Server.Items.RecipeScroll",
     parent: Some(&ITEM_BASE),
     construct: None,
-    label_number: |_, _| 1074560, // recipe scroll
+    label_number: crate::class_props::label_number, // recipe scroll
     get_properties: scroll_properties,
     on_double_click: scroll_double_click,
     serialize: |w, id, out| {

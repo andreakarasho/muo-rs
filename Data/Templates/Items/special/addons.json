@@ -1,0 +1,396 @@
+[
+  {
+    "type": "Server.Items.BrokenArmoireComponent",
+    "props": {
+      "labelNumber": 1076262
+    }
+  },
+  {
+    "type": "Server.Items.BrokenArmoireDeed",
+    "props": {
+      "labelNumber": 1076262
+    }
+  },
+  {
+    "type": "Server.Items.BrokenBedDeed",
+    "props": {
+      "labelNumber": 1076263
+    }
+  },
+  {
+    "type": "Server.Items.BrokenBookcaseComponent",
+    "props": {
+      "labelNumber": 1076258
+    }
+  },
+  {
+    "type": "Server.Items.BrokenBookcaseDeed",
+    "props": {
+      "labelNumber": 1076258
+    }
+  },
+  {
+    "type": "Server.Items.BrokenChestOfDrawersComponent",
+    "props": {
+      "labelNumber": 1076261
+    }
+  },
+  {
+    "type": "Server.Items.BrokenChestOfDrawersDeed",
+    "props": {
+      "labelNumber": 1076261
+    }
+  },
+  {
+    "type": "Server.Items.BrokenCoveredChairComponent",
+    "props": {
+      "labelNumber": 1076257
+    }
+  },
+  {
+    "type": "Server.Items.BrokenCoveredChairDeed",
+    "props": {
+      "labelNumber": 1076257
+    }
+  },
+  {
+    "type": "Server.Items.BrokenFallenChairComponent",
+    "props": {
+      "labelNumber": 1076264
+    }
+  },
+  {
+    "type": "Server.Items.BrokenFallenChairDeed",
+    "props": {
+      "labelNumber": 1076264
+    }
+  },
+  {
+    "type": "Server.Items.BrokenVanityDeed",
+    "props": {
+      "labelNumber": 1076260
+    }
+  },
+  {
+    "type": "Server.Items.StandingBrokenChairComponent",
+    "props": {
+      "labelNumber": 1076259
+    }
+  },
+  {
+    "type": "Server.Items.StandingBrokenChairDeed",
+    "props": {
+      "labelNumber": 1076259
+    }
+  },
+  {
+    "type": "Server.Items.BoneCouchComponent",
+    "props": {
+      "labelNumber": 1074477
+    }
+  },
+  {
+    "type": "Server.Items.BoneTableDeed",
+    "props": {
+      "labelNumber": 1074478
+    }
+  },
+  {
+    "type": "Server.Items.BoneThroneComponent",
+    "props": {
+      "labelNumber": 1074476
+    }
+  },
+  {
+    "type": "Server.Items.BoneThroneDeed",
+    "props": {
+      "labelNumber": 1074476
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieBlueComponent",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieBlueDeed",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieGreenComponent",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieGreenDeed",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieLimeComponent",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieLimeDeed",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieOrangeComponent",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieOrangeDeed",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieWhiteComponent",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.MountedPixieWhiteDeed",
+    "props": {
+      "labelNumber": 1074482
+    }
+  },
+  {
+    "type": "Server.Items.AppleTrunkDeed",
+    "props": {
+      "labelNumber": 1076785
+    }
+  },
+  {
+    "type": "Server.Items.BlueDecorativeRugDeed",
+    "props": {
+      "labelNumber": 1076589
+    }
+  },
+  {
+    "type": "Server.Items.BlueFancyRugDeed",
+    "props": {
+      "labelNumber": 1076273
+    }
+  },
+  {
+    "type": "Server.Items.BluePlainRugDeed",
+    "props": {
+      "labelNumber": 1076585
+    }
+  },
+  {
+    "type": "Server.Items.BoilingCauldronAddon",
+    "props": {
+      "labelNumber": 1076267,
+      "gumpId": 9,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.BoilingCauldronDeed",
+    "props": {
+      "labelNumber": 1076267
+    }
+  },
+  {
+    "type": "Server.Items.CherryBlossomTreeDeed",
+    "props": {
+      "labelNumber": 1076268
+    }
+  },
+  {
+    "type": "Server.Items.CherryBlossomTrunkDeed",
+    "props": {
+      "labelNumber": 1076784
+    }
+  },
+  {
+    "type": "Server.Items.CinnamonFancyRugDeed",
+    "props": {
+      "labelNumber": 1076587
+    }
+  },
+  {
+    "type": "Server.Items.GoldenDecorativeRugDeed",
+    "props": {
+      "labelNumber": 1076586
+    }
+  },
+  {
+    "type": "Server.Items.GuillotineComponent",
+    "props": {
+      "labelNumber": 1024656
+    }
+  },
+  {
+    "type": "Server.Items.HangingAxesDeed",
+    "props": {
+      "labelNumber": 1076271
+    }
+  },
+  {
+    "type": "Server.Items.HangingSwordsDeed",
+    "props": {
+      "labelNumber": 1076272
+    }
+  },
+  {
+    "type": "Server.Items.LargeFishingNetComponent",
+    "props": {
+      "labelNumber": 1076285
+    }
+  },
+  {
+    "type": "Server.Items.LargeFishingNetDeed",
+    "props": {
+      "labelNumber": 1076285
+    }
+  },
+  {
+    "type": "Server.Items.PeachTrunkDeed",
+    "props": {
+      "labelNumber": 1076786
+    }
+  },
+  {
+    "type": "Server.Items.PinkFancyRugDeed",
+    "props": {
+      "labelNumber": 1076590
+    }
+  },
+  {
+    "type": "Server.Items.RedPlainRugDeed",
+    "props": {
+      "labelNumber": 1076588
+    }
+  },
+  {
+    "type": "Server.Items.ScarecrowComponent",
+    "props": {
+      "labelNumber": 1076608
+    }
+  },
+  {
+    "type": "Server.Items.ScarecrowDeed",
+    "props": {
+      "labelNumber": 1076608
+    }
+  },
+  {
+    "type": "Server.Items.SmallFishingNetComponent",
+    "props": {
+      "labelNumber": 1076286
+    }
+  },
+  {
+    "type": "Server.Items.SmallFishingNetDeed",
+    "props": {
+      "labelNumber": 1076286
+    }
+  },
+  {
+    "type": "Server.Items.StoneStatueDeed",
+    "props": {
+      "labelNumber": 1076284
+    }
+  },
+  {
+    "type": "Server.Items.SuitOfGoldArmorComponent",
+    "props": {
+      "labelNumber": 1076265
+    }
+  },
+  {
+    "type": "Server.Items.SuitOfGoldArmorDeed",
+    "props": {
+      "labelNumber": 1076265
+    }
+  },
+  {
+    "type": "Server.Items.SuitOfSilverArmorComponent",
+    "props": {
+      "labelNumber": 1076266
+    }
+  },
+  {
+    "type": "Server.Items.SuitOfSilverArmorDeed",
+    "props": {
+      "labelNumber": 1076266
+    }
+  },
+  {
+    "type": "Server.Items.TableWithBlueClothDeed",
+    "props": {
+      "labelNumber": 1076276
+    }
+  },
+  {
+    "type": "Server.Items.TableWithOrangeClothDeed",
+    "props": {
+      "labelNumber": 1076278
+    }
+  },
+  {
+    "type": "Server.Items.TableWithPurpleClothDeed",
+    "props": {
+      "labelNumber": 1076275
+    }
+  },
+  {
+    "type": "Server.Items.TableWithRedClothDeed",
+    "props": {
+      "labelNumber": 1076277
+    }
+  },
+  {
+    "type": "Server.Items.UnmadeBedDeed",
+    "props": {
+      "labelNumber": 1076279
+    }
+  },
+  {
+    "type": "Server.Items.VanityAddon",
+    "props": {
+      "labelNumber": 1074027,
+      "gumpId": 81,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.VanityDeed",
+    "props": {
+      "labelNumber": 1074027
+    }
+  },
+  {
+    "type": "Server.Items.WallTorchDeed",
+    "props": {
+      "labelNumber": 1076282
+    }
+  },
+  {
+    "type": "Server.Items.WoodenCoffinComponent",
+    "props": {
+      "labelNumber": 1076274
+    }
+  },
+  {
+    "type": "Server.Items.WoodenCoffinDeed",
+    "props": {
+      "labelNumber": 1076274
+    }
+  }
+]

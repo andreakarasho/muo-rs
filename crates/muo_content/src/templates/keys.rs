@@ -29,7 +29,7 @@ impl<Id> std::fmt::Debug for KeyDef<Id> {
 
 impl<Id> PartialEq for KeyDef<Id> {
     fn eq(&self, o: &Self) -> bool {
-        std::ptr::fn_addr_eq(self.apply, o.apply)
+        std::ptr::fn_addr_eq(self.apply, o.apply) && std::ptr::fn_addr_eq(self.check, o.check)
     }
 }
 
@@ -46,12 +46,14 @@ pub fn item_key(
     check: fn(&Value) -> Result<(), String>,
     apply: fn(&mut World, ItemId, &Value),
 ) {
-    let old = types
-        .extensions
-        .get_mut::<ItemKeys>()
-        .0
-        .insert(name, KeyDef { check, apply });
-    assert!(old.is_none(), "item template key {name} registered twice");
+    let def = KeyDef { check, apply };
+    let old = types.extensions.get_mut::<ItemKeys>().0.insert(name, def);
+    // registering the same definition again (a crate's `register` run twice) is harmless; two crates claiming
+    // one name is a bug
+    assert!(
+        old.is_none_or(|o| o == def),
+        "item template key {name} registered twice with different definitions"
+    );
 }
 
 /// Adds a mobile template key.
@@ -61,12 +63,14 @@ pub fn mobile_key(
     check: fn(&Value) -> Result<(), String>,
     apply: fn(&mut World, MobileId, &Value),
 ) {
-    let old = types
-        .extensions
-        .get_mut::<MobileKeys>()
-        .0
-        .insert(name, KeyDef { check, apply });
-    assert!(old.is_none(), "mobile template key {name} registered twice");
+    let def = KeyDef { check, apply };
+    let old = types.extensions.get_mut::<MobileKeys>().0.insert(name, def);
+    // registering the same definition again (a crate's `register` run twice) is harmless; two crates claiming
+    // one name is a bug
+    assert!(
+        old.is_none_or(|o| o == def),
+        "mobile template key {name} registered twice with different definitions"
+    );
 }
 
 /// The keys a load can use (empty for a bare registry).

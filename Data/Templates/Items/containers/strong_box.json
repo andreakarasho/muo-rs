@@ -1,0 +1,10 @@
+[
+  {
+    "type": "Server.Items.StrongBox",
+    "props": {
+      "defaultWeight": 100.0,
+      "labelNumber": 1023712,
+      "maxWeight": 0
+    }
+  }
+]

@@ -1,54 +1,93 @@
 [
   {
     "type": "Server.Items.LargeEmptyPot",
-    "itemId": 4551
+    "itemId": 4551,
+    "props": {
+      "defaultWeight": 6.0
+    }
   },
   {
     "type": "Server.Items.SmallEmptyPot",
-    "itemId": 4550
+    "itemId": 4550,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedCactus",
-    "itemId": 7695
+    "itemId": 7695,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedCactus1",
-    "itemId": 7696
+    "itemId": 7696,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedCactus2",
-    "itemId": 7697
+    "itemId": 7697,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedCactus3",
-    "itemId": 7698
+    "itemId": 7698,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedCactus4",
-    "itemId": 7699
+    "itemId": 7699,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedCactus5",
-    "itemId": 7700
+    "itemId": 7700,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedPlant",
-    "itemId": 4554
+    "itemId": 4554,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedPlant1",
-    "itemId": 4555
+    "itemId": 4555,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedPlant2",
-    "itemId": 4556
+    "itemId": 4556,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedTree",
-    "itemId": 4552
+    "itemId": 4552,
+    "props": {
+      "defaultWeight": 100.0
+    }
   },
   {
     "type": "Server.Items.PottedTree1",
-    "itemId": 4553
+    "itemId": 4553,
+    "props": {
+      "defaultWeight": 100.0
+    }
   }
 ]

@@ -23,8 +23,8 @@ fn add_to_box(w: &mut World, cont: ItemId, item: ItemId, loc: Point3D) {
 
 /// `RedVelvetGiftBox(fill)`.
 pub fn red_velvet_gift_box_new(w: &mut World, ty: &'static ItemType, fill: bool) -> ItemId {
-    let id = new_base_container(w, ty, 0xE7A);
-    super::hue(w, id, 0x20);
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.RedVelvetGiftBox");
     if fill {
         for i in 0..5 {
             if let Some(c) = value_card(w, "Server.Items.ValentinesCardSouth") {
@@ -53,8 +53,8 @@ pub static RED_VELVET_GIFT_BOX: ItemType = ItemType {
     full_name: "Server.Items.RedVelvetGiftBox",
     parent: Some(&BASE_CONTAINER),
     construct: Some(|w| red_velvet_gift_box_new(w, &RED_VELVET_GIFT_BOX, false)),
-    default_gump_id: |_, _| 0x3f,
-    label_number: |_, _| 1077596, // A Red Velvet Box
+    default_gump_id: crate::class_props::default_gump_id,
+    label_number: crate::class_props::label_number, // A Red Velvet Box
     serialize: |w, id, out| {
         (BASE_CONTAINER.serialize)(w, id, out);
         out.write_i32(0);
@@ -177,7 +177,7 @@ pub static VALENTINES_CARD: ItemType = ItemType {
     full_name: "Server.Items.ValentinesCard",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_name: |_, _| Some("a Valentine's card".to_string()),
+    default_name: crate::class_props::default_name,
     add_name_property: |w, id, list| {
         let d = card(w, id);
         list.add_str(d.label_number, &card_args(&d));
@@ -276,16 +276,16 @@ pub static COMMODITY_DEED_BOX: ItemType = ItemType {
     full_name: "Server.Items.CommodityDeedBox",
     parent: Some(&BASE_CONTAINER),
     construct: Some(|w| {
-        let id = new_base_container(w, &COMMODITY_DEED_BOX, 0x9AA);
-        super::hue(w, id, 0x47);
+        let id = new_base_container(w, &COMMODITY_DEED_BOX, 0);
+        crate::simple::own_template(w, id, "Server.Items.CommodityDeedBox");
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(RewardFlag(false));
         }
         id
     }),
-    default_weight: |_, _| 4.0,
-    label_number: |_, _| 1080523, // Commodity Deed Box
-    default_gump_id: |_, _| 0x43,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Commodity Deed Box
+    default_gump_id: crate::class_props::default_gump_id,
     get_properties: |w, id, list| {
         (BASE_CONTAINER.get_properties)(w, id, list);
         if reward_flag(w, id) {

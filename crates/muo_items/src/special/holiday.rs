@@ -39,7 +39,7 @@ leaf! {
     /// `Server.Items.GiftBox` (`[Furniture]`, `[Flippable(0x232A, 0x232B)]`).
     GIFT_BOX = "Server.Items.GiftBox" : BASE_CONTAINER, v0;
     construct: Some(gift_box_new),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WinterGiftPackage2003()`.
@@ -69,54 +69,33 @@ leaf! {
     construct: Some(winter_gift_package_new),
 }
 
-const NORMAL_HUES: [i32; 20] = [
-    0x672, 0x454, 0x507, 0x4ac, 0x504, 0x84b, 0x495, 0x97c, 0x493, 0x4a8, 0x494, 0x4aa, 0xb8b,
-    0x84f, 0x491, 0x851, 0x503, 0xb8c, 0x4ab, 0x84B,
-];
-const NEON_HUES: [i32; 6] = [0x438, 0x424, 0x433, 0x445, 0x42b, 0x448];
-
-fn random_gift_box_hue(w: &mut World) -> i32 {
-    utility::random_element(&mut w.rng, &NORMAL_HUES)
-        .copied()
-        .unwrap_or(0)
-}
-
 macro_rules! gift_box {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gump:expr, |$w:ident| $graphic:expr, $hue:ident;)*) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : BASE_CONTAINER, v0;
-            construct: Some(|$w| {
-                let g = $graphic;
-                let id = new_base_container($w, &$name, g);
-                let h = $hue($w);
-                super::hue($w, id, h);
-                id
+            construct: Some(|w| {
+                let id = new_base_container(w, &$name, 0);
+                crate::simple::own_template(w, id, $full)
             }),
-            default_gump_id: |_, _| $gump,
+            default_gump_id: crate::class_props::default_gump_id,
         }
     )*};
 }
 
-fn random_neon_box_hue(w: &mut World) -> i32 {
-    utility::random_element(&mut w.rng, &NEON_HUES)
-        .copied()
-        .unwrap_or(0)
-}
-
 gift_box! {
     /// `Server.Items.GiftBoxRectangle` (`[Flippable(0x46A5, 0x46A6)]`).
-    GIFT_BOX_RECTANGLE = "Server.Items.GiftBoxRectangle", 0x11E, |w| if utility::random_bool(&mut w.rng) { 0x46A5 } else { 0x46A6 }, random_gift_box_hue;
+    GIFT_BOX_RECTANGLE = "Server.Items.GiftBoxRectangle";
     /// `Server.Items.GiftBoxCube`.
-    GIFT_BOX_CUBE = "Server.Items.GiftBoxCube", 0x11B, |_w| 0x46A2, random_gift_box_hue;
+    GIFT_BOX_CUBE = "Server.Items.GiftBoxCube";
     /// `Server.Items.GiftBoxCylinder`.
-    GIFT_BOX_CYLINDER = "Server.Items.GiftBoxCylinder", 0x11C, |_w| 0x46A3, random_gift_box_hue;
+    GIFT_BOX_CYLINDER = "Server.Items.GiftBoxCylinder";
     /// `Server.Items.GiftBoxOctogon`.
-    GIFT_BOX_OCTOGON = "Server.Items.GiftBoxOctogon", 0x11D, |_w| 0x46A4, random_gift_box_hue;
+    GIFT_BOX_OCTOGON = "Server.Items.GiftBoxOctogon";
     /// `Server.Items.GiftBoxAngel`.
-    GIFT_BOX_ANGEL = "Server.Items.GiftBoxAngel", 0x11F, |_w| 0x46A7, random_gift_box_hue;
+    GIFT_BOX_ANGEL = "Server.Items.GiftBoxAngel";
     /// `Server.Items.GiftBoxNeon` (`[Flippable(0x232A, 0x232B)]`).
-    GIFT_BOX_NEON = "Server.Items.GiftBoxNeon", 0x11A, |w| if utility::random_bool(&mut w.rng) { 0x232A } else { 0x232B }, random_neon_box_hue;
+    GIFT_BOX_NEON = "Server.Items.GiftBoxNeon";
 }
 
 // ---- Stockings ----
@@ -125,22 +104,22 @@ leaf! {
     /// `Server.Items.GreenStocking` (`[Flippable(0x2bd9, 0x2bda)]`).
     GREEN_STOCKING = "Server.Items.GreenStocking" : BASE_CONTAINER, enc;
     construct: Some(|w| {
-        let g = utility::random_from(&mut w.rng, 0x2BD9, 2);
-        new_base_container(w, &GREEN_STOCKING, g)
+        let id = new_base_container(w, &GREEN_STOCKING, 0);
+        crate::simple::own_template(w, id, "Server.Items.GreenStocking")
     }),
-    default_gump_id: |_, _| 0x103,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 leaf! {
     /// `Server.Items.RedStocking` (`[Flippable(0x2bdb, 0x2bdc)]`).
     RED_STOCKING = "Server.Items.RedStocking" : BASE_CONTAINER, enc;
     construct: Some(|w| {
-        let g = utility::random_from(&mut w.rng, 0x2BDB, 2);
-        new_base_container(w, &RED_STOCKING, g)
+        let id = new_base_container(w, &RED_STOCKING, 0);
+        crate::simple::own_template(w, id, "Server.Items.RedStocking")
     }),
-    default_gump_id: |_, _| 0x103,
-    default_drop_sound: |_, _| 0x42,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 // ---- SnowPiles ----
@@ -160,8 +139,8 @@ leaf! {
         let g = utility::random_element(&mut w.rng, &types).copied().unwrap_or(0x8E2);
         snow_pile_deco_new_with(w, g)
     }),
-    label_number: |_, _| 1095253, // decorative snow piles
-    default_weight: |_, _| 2.0,
+    label_number: crate::class_props::label_number, // decorative snow piles
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- HolidayBell ----
@@ -195,8 +174,7 @@ pub fn set_bell(w: &mut World, id: ItemId, d: BellData) {
 
 /// `HolidayBell(maker)`.
 pub fn holiday_bell_new_with(w: &mut World, maker: Option<TextDefinition>) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOLIDAY_BELL, 0x1C12);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    let id = crate::simple::from_template(w, &HOLIDAY_BELL, "Server.Items.HolidayBell");
     let h = utility::random_element(&mut w.rng, &BELL_HUES)
         .copied()
         .unwrap_or(0);
@@ -357,7 +335,7 @@ pub static SNOWMAN: ItemType = ItemType {
         let t = random_title(w);
         snowman_new_with(w, hue, Some(t))
     }),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         if let Some(t) = title(w, id) {
@@ -455,8 +433,8 @@ pub static ICY_PATCH: ItemType = ItemType {
         };
         icy_patch_new_with(w, g)
     }),
-    label_number: |_, _| 1095159, // An Icy Patch
-    default_weight: |_, _| 5.0,
+    label_number: crate::class_props::label_number, // An Icy Patch
+    default_weight: crate::class_props::default_weight,
     on_move_over: |w, id, m| {
         let ok = w.mobile(m).is_some_and(|x| {
             x.player
@@ -685,10 +663,7 @@ fn unused(w: &mut World, id: ItemId) {
 
 /// `SnowGlobe()` of class `ty`: `base(0xE2F)`, blessed, `Light = Circle150`.
 fn snow_globe_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xE2F);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle150);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.SnowGlobe")
 }
 
 leaf! {
@@ -696,7 +671,7 @@ leaf! {
     SNOW_GLOBE = "Server.Items.SnowGlobe" : ITEM_BASE, v0;
     construct: None,
     make: Some(|w| snow_globe_new(w, &SNOW_GLOBE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SnowGlobeOne/Two/Three._place`.
@@ -861,13 +836,9 @@ impl super::vet::Pick for PlantPick {
 leaf! {
     /// `Server.Items.PottedPlantDeed`.
     POTTED_PLANT_DEED = "Server.Items.PottedPlantDeed" : ITEM_BASE, enc;
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &POTTED_PLANT_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
-    label_number: |_, _| 1041114, // A deed for a potted plant.
-    default_weight: |_, _| 1.0,
+    construct: Some(|w| crate::simple::from_template(w, &POTTED_PLANT_DEED, "Server.Items.PottedPlantDeed")),
+    label_number: crate::class_props::label_number, // A deed for a potted plant.
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if super::util::in_pack(w, id, from) {
             super::vet::show_pick::<PlantPick>(w, from, id);
@@ -896,7 +867,7 @@ leaf! {
     /// `Server.Items.BadCard`.
     BAD_CARD = "Server.Items.BadCard" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BAD_CARD, 0x14ef);
+        let id = crate::simple::from_template(w, &BAD_CARD, "Server.Items.BadCard");
         let hues = [0x45, 0x27, 0x3d0];
         let h = utility::random_element(&mut w.rng, &hues).copied().unwrap_or(0x45);
         super::hue(w, id, h);
@@ -905,26 +876,24 @@ leaf! {
         ops::set_movable(w, id, true);
         id
     }),
-    label_number: |_, _| 1041428, // Maybe next year you will get a nicer gift.
+    label_number: crate::class_props::label_number, // Maybe next year you will get a nicer gift.
 }
 
 leaf! {
     /// `Server.Items.Spam`.
     SPAM = "Server.Items.Spam" : FOOD, v0;
     construct: Some(|w| {
-        let id = new_food(w, &SPAM, 0x1044, 1);
-        ops::set_stackable(w, id, false);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
+        let id = new_food(w, &SPAM, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.Spam")
     }),
 }
 
 macro_rules! snow_statue {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $graphic:expr;)*) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, enc;
-            construct: Some(|w| ops::new_item_with_id(w, &$name, $graphic)),
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
             force_show_properties: |w, _| w.core.opl_enabled,
         }
     )*};
@@ -932,13 +901,13 @@ macro_rules! snow_statue {
 
 snow_statue! {
     /// `Server.Items.SnowStatuePegasus` (`[Flippable(0x456E, 0x456F)]`).
-    SNOW_STATUE_PEGASUS = "Server.Items.SnowStatuePegasus", 0x456E;
+    SNOW_STATUE_PEGASUS = "Server.Items.SnowStatuePegasus";
     /// `Server.Items.SnowStatueSeahorse` (`[Flippable(0x4578, 0x4579)]`).
-    SNOW_STATUE_SEAHORSE = "Server.Items.SnowStatueSeahorse", 0x4578;
+    SNOW_STATUE_SEAHORSE = "Server.Items.SnowStatueSeahorse";
     /// `Server.Items.SnowStatueMermaid` (`[Flippable(0x457A, 0x457B)]`).
-    SNOW_STATUE_MERMAID = "Server.Items.SnowStatueMermaid", 0x457A;
+    SNOW_STATUE_MERMAID = "Server.Items.SnowStatueMermaid";
     /// `Server.Items.SnowStatueGriffon` (`[Flippable(0x457C, 0x457D)]`).
-    SNOW_STATUE_GRIFFON = "Server.Items.SnowStatueGriffon", 0x457C;
+    SNOW_STATUE_GRIFFON = "Server.Items.SnowStatueGriffon";
 }
 
 struct SnowStatuePick;
@@ -985,13 +954,9 @@ impl super::vet::Pick for SnowStatuePick {
 leaf! {
     /// `Server.Items.SnowStatueDeed`.
     SNOW_STATUE_DEED = "Server.Items.SnowStatueDeed" : ITEM_BASE, enc;
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &SNOW_STATUE_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
-    label_number: |_, _| 1114296, // snow statue deed
-    default_weight: |_, _| 1.0,
+    construct: Some(|w| crate::simple::from_template(w, &SNOW_STATUE_DEED, "Server.Items.SnowStatueDeed")),
+    label_number: crate::class_props::label_number, // snow statue deed
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if super::util::in_pack(w, id, from) {
             super::vet::show_pick::<SnowStatuePick>(w, from, id);

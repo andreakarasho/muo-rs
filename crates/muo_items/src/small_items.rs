@@ -7,7 +7,6 @@ use muo_content::utilities::types::{Numeric, PropType};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId};
 use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
-use muo_server::light_type::LightType;
 use muo_server::packets::message::MessageType;
 use muo_server::type_registry::{Phase, TypeRegistry};
 
@@ -100,7 +99,7 @@ pub static VINES: ItemType = ItemType {
         let v = random(w, 8);
         new_vines(w, v)
     }),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
     serialize: write_v0,
     deserialize: read_v0,
@@ -118,9 +117,11 @@ pub static TOWER_LANTERN_ARTIFACT: ItemType = ItemType {
     full_name: "Server.Items.TowerLanternArtifact",
     parent: Some(&BASE_DECORATION_ARTIFACT),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &TOWER_LANTERN_ARTIFACT, 0x24C0);
-        ops::set_light(w, id, LightType::Circle225);
-        id
+        crate::simple::from_template(
+            w,
+            &TOWER_LANTERN_ARTIFACT,
+            "Server.Items.TowerLanternArtifact",
+        )
     }),
     family: Some(&TOWER_LANTERN_CLASS),
     on_double_click: |w, id, from| {

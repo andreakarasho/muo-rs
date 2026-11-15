@@ -1,0 +1,25 @@
+[
+  {
+    "type": "Server.Items.MonsterStatuette",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.HeritageToken",
+    "itemId": 13946,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 5.0,
+      "labelNumber": 1076596
+    }
+  },
+  {
+    "type": "Server.Items.GrizzledMareStatuette",
+    "itemId": 9751,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1074475
+    }
+  }
+]

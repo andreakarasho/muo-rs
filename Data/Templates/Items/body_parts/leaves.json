@@ -17,6 +17,9 @@
   },
   {
     "type": "Server.Items.Torso",
-    "itemId": 7583
+    "itemId": 7583,
+    "props": {
+      "defaultWeight": 2.0
+    }
   }
 ]

@@ -84,7 +84,11 @@
   {
     "type": "Server.Items.PlagueBeastGland",
     "itemId": 7407,
-    "hue": 6
+    "hue": 6,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1153759
+    }
   },
   {
     "type": "Server.Items.WaterloggedBoots",
@@ -150,6 +154,50 @@
     "props": {
       "labelNumber": 1075239,
       "graphic": 4232
+    }
+  },
+  {
+    "type": "Server.Items.MinotaurHedge",
+    "oneOf": [
+      {
+        "itemId": 3215
+      },
+      {
+        "itemId": 3216
+      },
+      {
+        "itemId": 3217
+      },
+      {
+        "itemId": 3218
+      }
+    ],
+    "props": {
+      "defaultWeight": 1.0,
+      "defaultName": "minotaur hedge"
+    }
+  },
+  {
+    "type": "Server.Items.TormentedChains",
+    "oneOf": [
+      {
+        "itemId": 6663
+      },
+      {
+        "itemId": 6664
+      }
+    ],
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.RewardCake",
+    "itemId": 2537,
+    "stackable": false,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1049786
     }
   }
 ]

@@ -9,7 +9,7 @@ use crate::armor::armor_leaf;
 use crate::armor::leaves::*;
 use crate::clothing::clothing_leaf;
 use crate::jewels::jewel_leaf;
-use crate::simple::{leaf, random_from, weapon_art};
+use crate::simple::{leaf, weapon_art};
 use crate::weapons::*;
 use muo_content::aos::{AosElementAttribute, AttrKind};
 use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS};
@@ -47,29 +47,27 @@ weapon_art! {
 
 /// `MinotaurHedge()`.
 pub fn minotaur_hedge_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 3215, 4);
-    ops::new_item_with_id(w, ty, t0)
+    crate::simple::from_template(w, ty, "Server.Items.MinotaurHedge")
 }
 
 leaf! {
     /// `Server.Items.MinotaurHedge`.
     MINOTAUR_HEDGE = "Server.Items.MinotaurHedge" : ITEM_BASE, v0;
     construct: Some(|w| minotaur_hedge_new(w, &MINOTAUR_HEDGE)),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("minotaur hedge".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
 }
 
 /// `TormentedChains()`.
 pub fn tormented_chains_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 6663, 2);
-    ops::new_item_with_id(w, ty, t0)
+    crate::simple::from_template(w, ty, "Server.Items.TormentedChains")
 }
 
 leaf! {
     /// `Server.Items.TormentedChains`.
     TORMENTED_CHAINS = "Server.Items.TormentedChains" : ITEM_BASE, v0;
     construct: Some(|w| tormented_chains_new(w, &TORMENTED_CHAINS)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PlagueBeastGland()`.
@@ -81,8 +79,8 @@ leaf! {
     /// `Server.Items.PlagueBeastGland`.
     PLAGUE_BEAST_GLAND = "Server.Items.PlagueBeastGland" : ITEM_BASE, enc;
     construct: Some(|w| plague_beast_gland_new(w, &PLAGUE_BEAST_GLAND)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1153759,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- SamuraiHelm: [Flippable(0x236C, 0x236D)], BaseArmor ----
@@ -217,8 +215,7 @@ pub static REWARD_CAKE: ItemType = ItemType {
     full_name: "Server.Items.RewardCake",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &REWARD_CAKE, 0x9e9);
-        ops::set_stackable(w, id, false);
+        let id = crate::simple::from_template(w, &REWARD_CAKE, "Server.Items.RewardCake");
         const HUES: [i32; 16] = [
             0x135, 0xcd, 0x38, 0x3b, 0x42, 0x4f, 0x11e, 0x60, 0x317, 0x10, 0x136, 0x1f9, 0x1a,
             0xeb, 0x86, 0x2e,
@@ -228,8 +225,8 @@ pub static REWARD_CAKE: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049786, // Happy Birthday!  ...
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Happy Birthday!  ...
     display_loot_type: |_, _| false,
     on_double_click: |w, id, from| {
         let p = ops::get_world_location(w, id);

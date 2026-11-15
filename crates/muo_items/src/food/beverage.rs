@@ -1129,8 +1129,8 @@ pub static ENDLESS_DECANTER: ItemType = ItemType {
         id
     }),
     family: Some(&ENDLESS_DECANTER_CLASS),
-    default_weight: |_, _| 2.0,
-    label_number: |_, _| 1115929, // Endless Decanter of Water
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Endless Decanter of Water
     get_context_menu_entries: decanter_context_entries,
     get_properties: |w, id, list| {
         get_properties(w, id, list);
@@ -1172,7 +1172,7 @@ pub static ADMIRALS_HEARTY_RUM: ItemType = ItemType {
         crate::simple::hue(w, id, 0x66C);
         id
     }),
-    label_number: |_, _| 1063477,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BEVERAGE_BOTTLE.serialize)(w, id, out);
         out.write_i32(0);

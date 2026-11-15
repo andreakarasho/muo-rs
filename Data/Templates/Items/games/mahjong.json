@@ -1,0 +1,9 @@
+[
+  {
+    "type": "Server.Engines.Mahjong.MahjongGame",
+    "itemId": 4010,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  }
+]

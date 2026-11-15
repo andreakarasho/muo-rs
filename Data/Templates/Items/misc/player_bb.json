@@ -1,0 +1,16 @@
+[
+  {
+    "type": "Server.Items.PlayerBBSouth",
+    "props": {
+      "defaultWeight": 15.0,
+      "labelNumber": 1062421
+    }
+  },
+  {
+    "type": "Server.Items.PlayerBBEast",
+    "props": {
+      "defaultWeight": 15.0,
+      "labelNumber": 1062420
+    }
+  }
+]

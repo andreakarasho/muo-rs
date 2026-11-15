@@ -1,10 +1,10 @@
 //! The Construction classes that are plain tables (a constructor and constant overrides); the classes with logic
 //! are hand-written next to this file.
 
-use crate::simple::{leaf, random_from};
+use crate::simple::leaf;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 /// `WoodenBench()`.
@@ -16,7 +16,7 @@ leaf! {
     /// `Server.Items.WoodenBench`.
     WOODEN_BENCH = "Server.Items.WoodenBench" : ITEM_BASE, v0;
     construct: Some(|w| wooden_bench_new(w, &WOODEN_BENCH)),
-    default_weight: |_, _| 6.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BambooChair()`.
@@ -28,7 +28,7 @@ leaf! {
     /// `Server.Items.BambooChair`.
     BAMBOO_CHAIR = "Server.Items.BambooChair" : ITEM_BASE, v0;
     construct: Some(|w| bamboo_chair_new(w, &BAMBOO_CHAIR)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BigElvenChair()`.
@@ -62,7 +62,7 @@ leaf! {
     /// `Server.Items.FancyWoodenChairCushion`.
     FANCY_WOODEN_CHAIR_CUSHION = "Server.Items.FancyWoodenChairCushion" : ITEM_BASE, v0;
     construct: Some(|w| fancy_wooden_chair_cushion_new(w, &FANCY_WOODEN_CHAIR_CUSHION)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `OrnateElvenChair()`.
@@ -74,7 +74,7 @@ leaf! {
     /// `Server.Items.OrnateElvenChair`.
     ORNATE_ELVEN_CHAIR = "Server.Items.OrnateElvenChair" : ITEM_BASE, enc;
     construct: Some(|w| ornate_elven_chair_new(w, &ORNATE_ELVEN_CHAIR)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `StoneChair()`.
@@ -86,7 +86,7 @@ leaf! {
     /// `Server.Items.StoneChair`.
     STONE_CHAIR = "Server.Items.StoneChair" : ITEM_BASE, v0;
     construct: Some(|w| stone_chair_new(w, &STONE_CHAIR)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WoodenChair()`.
@@ -98,7 +98,7 @@ leaf! {
     /// `Server.Items.WoodenChair`.
     WOODEN_CHAIR = "Server.Items.WoodenChair" : ITEM_BASE, v0;
     construct: Some(|w| wooden_chair_new(w, &WOODEN_CHAIR)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WoodenChairCushion()`.
@@ -110,7 +110,7 @@ leaf! {
     /// `Server.Items.WoodenChairCushion`.
     WOODEN_CHAIR_CUSHION = "Server.Items.WoodenChairCushion" : ITEM_BASE, v0;
     construct: Some(|w| wooden_chair_cushion_new(w, &WOODEN_CHAIR_CUSHION)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `FootStool()`.
@@ -122,7 +122,7 @@ leaf! {
     /// `Server.Items.FootStool`.
     FOOT_STOOL = "Server.Items.FootStool" : ITEM_BASE, v0;
     construct: Some(|w| foot_stool_new(w, &FOOT_STOOL)),
-    default_weight: |_, _| 6.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Stool()`.
@@ -134,7 +134,7 @@ leaf! {
     /// `Server.Items.Stool`.
     STOOL = "Server.Items.Stool" : ITEM_BASE, v0;
     construct: Some(|w| stool_new(w, &STOOL)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Throne()`.
@@ -146,7 +146,7 @@ leaf! {
     /// `Server.Items.Throne`.
     THRONE = "Server.Items.Throne" : ITEM_BASE, v0;
     construct: Some(|w| throne_new(w, &THRONE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WoodenThrone()`.
@@ -158,7 +158,7 @@ leaf! {
     /// `Server.Items.WoodenThrone`.
     WOODEN_THRONE = "Server.Items.WoodenThrone" : ITEM_BASE, v0;
     construct: Some(|w| wooden_throne_new(w, &WOODEN_THRONE)),
-    default_weight: |_, _| 15.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `DecorativeShield1()`.
@@ -284,10 +284,7 @@ leaf! {
 
 /// `DecorativeShieldSword1North()`.
 pub fn decorative_shield_sword1_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1582, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword1North")
 }
 
 leaf! {
@@ -298,10 +295,7 @@ leaf! {
 
 /// `DecorativeShieldSword1West()`.
 pub fn decorative_shield_sword1_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1634, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword1West")
 }
 
 leaf! {
@@ -312,10 +306,7 @@ leaf! {
 
 /// `DecorativeShieldSword2North()`.
 pub fn decorative_shield_sword2_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1584, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword2North")
 }
 
 leaf! {
@@ -326,10 +317,7 @@ leaf! {
 
 /// `DecorativeShieldSword2West()`.
 pub fn decorative_shield_sword2_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1636, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeShieldSword2West")
 }
 
 leaf! {
@@ -340,10 +328,7 @@ leaf! {
 
 /// `DecorativeAxeNorth()`.
 pub fn decorative_axe_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1560, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeAxeNorth")
 }
 
 leaf! {
@@ -354,10 +339,7 @@ leaf! {
 
 /// `DecorativeAxeWest()`.
 pub fn decorative_axe_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x1562, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeAxeWest")
 }
 
 leaf! {
@@ -368,10 +350,7 @@ leaf! {
 
 /// `DecorativeBowNorth()`.
 pub fn decorative_bow_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x155C, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeBowNorth")
 }
 
 leaf! {
@@ -382,10 +361,7 @@ leaf! {
 
 /// `DecorativeBowWest()`.
 pub fn decorative_bow_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 0x155E, 2);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.DecorativeBowWest")
 }
 
 leaf! {
@@ -403,8 +379,8 @@ leaf! {
     /// `Server.Items.GiantReplicaAcorn`.
     GIANT_REPLICA_ACORN = "Server.Items.GiantReplicaAcorn" : ITEM_BASE, enc;
     construct: Some(|w| giant_replica_acorn_new(w, &GIANT_REPLICA_ACORN)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1072889,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 /// `MountedDreadHorn()`.
@@ -416,8 +392,8 @@ leaf! {
     /// `Server.Items.MountedDreadHorn`.
     MOUNTED_DREAD_HORN = "Server.Items.MountedDreadHorn" : ITEM_BASE, enc;
     construct: Some(|w| mounted_dread_horn_new(w, &MOUNTED_DREAD_HORN)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1074464,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 /// `LadyPortrait1()`.
@@ -497,14 +473,6 @@ leaf! {
     construct: Some(|w| woman_portrait2_new(w, &WOMAN_PORTRAIT2)),
 }
 
-/// `BaseFloor(i32 item_id, i32 count)`.
-pub fn base_floor_new(w: &mut World, ty: &'static ItemType, item_id: i32, count: i32) -> ItemId {
-    let t0 = random_from(w, item_id, count);
-    let id = ops::new_item_with_id(w, ty, t0);
-    ops::set_movable(w, id, false);
-    id
-}
-
 leaf! {
     /// `Server.Items.BaseFloor` (abstract).
     BASE_FLOOR = "Server.Items.BaseFloor" : ITEM_BASE, v0;
@@ -513,7 +481,7 @@ leaf! {
 
 /// `BlueSlateFloorCenter()`.
 pub fn blue_slate_floor_center_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x49B, 1)
+    crate::simple::from_template(w, ty, "Server.Items.BlueSlateFloorCenter")
 }
 
 leaf! {
@@ -524,7 +492,7 @@ leaf! {
 
 /// `BricksFloor1()`.
 pub fn bricks_floor1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x4E2, 8)
+    crate::simple::from_template(w, ty, "Server.Items.BricksFloor1")
 }
 
 leaf! {
@@ -535,7 +503,7 @@ leaf! {
 
 /// `BricksFloor2()`.
 pub fn bricks_floor2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x537, 4)
+    crate::simple::from_template(w, ty, "Server.Items.BricksFloor2")
 }
 
 leaf! {
@@ -546,7 +514,7 @@ leaf! {
 
 /// `CaveFloorCenter()`.
 pub fn cave_floor_center_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x53B, 4)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorCenter")
 }
 
 leaf! {
@@ -557,7 +525,7 @@ leaf! {
 
 /// `CaveFloorEast()`.
 pub fn cave_floor_east_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x544, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorEast")
 }
 
 leaf! {
@@ -568,7 +536,7 @@ leaf! {
 
 /// `CaveFloorNorth()`.
 pub fn cave_floor_north_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x54D, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorNorth")
 }
 
 leaf! {
@@ -579,7 +547,7 @@ leaf! {
 
 /// `CaveFloorSouth()`.
 pub fn cave_floor_south_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x541, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorSouth")
 }
 
 leaf! {
@@ -590,7 +558,7 @@ leaf! {
 
 /// `CaveFloorWest()`.
 pub fn cave_floor_west_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x54A, 3)
+    crate::simple::from_template(w, ty, "Server.Items.CaveFloorWest")
 }
 
 leaf! {
@@ -601,7 +569,7 @@ leaf! {
 
 /// `CobblestonesFloor()`.
 pub fn cobblestones_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x515, 4)
+    crate::simple::from_template(w, ty, "Server.Items.CobblestonesFloor")
 }
 
 leaf! {
@@ -612,7 +580,7 @@ leaf! {
 
 /// `DarkSandstoneFloorN()`.
 pub fn dark_sandstone_floor_n_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x52F, 4)
+    crate::simple::from_template(w, ty, "Server.Items.DarkSandstoneFloorN")
 }
 
 leaf! {
@@ -623,7 +591,7 @@ leaf! {
 
 /// `DarkSandstoneFloorW()`.
 pub fn dark_sandstone_floor_w_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x533, 4)
+    crate::simple::from_template(w, ty, "Server.Items.DarkSandstoneFloorW")
 }
 
 leaf! {
@@ -634,7 +602,7 @@ leaf! {
 
 /// `GreenMarbleFloor()`.
 pub fn green_marble_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x50F, 2)
+    crate::simple::from_template(w, ty, "Server.Items.GreenMarbleFloor")
 }
 
 leaf! {
@@ -645,7 +613,7 @@ leaf! {
 
 /// `GreyFlagstones()`.
 pub fn grey_flagstones_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x4FC, 4)
+    crate::simple::from_template(w, ty, "Server.Items.GreyFlagstones")
 }
 
 leaf! {
@@ -656,7 +624,7 @@ leaf! {
 
 /// `GreyMarbleFloor()`.
 pub fn grey_marble_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x511, 4)
+    crate::simple::from_template(w, ty, "Server.Items.GreyMarbleFloor")
 }
 
 leaf! {
@@ -667,7 +635,7 @@ leaf! {
 
 /// `GreySlateFloor()`.
 pub fn grey_slate_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x49C, 1)
+    crate::simple::from_template(w, ty, "Server.Items.GreySlateFloor")
 }
 
 leaf! {
@@ -678,7 +646,7 @@ leaf! {
 
 /// `MarbleFloor()`.
 pub fn marble_floor_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x50D, 2)
+    crate::simple::from_template(w, ty, "Server.Items.MarbleFloor")
 }
 
 leaf! {
@@ -689,7 +657,7 @@ leaf! {
 
 /// `MarblePavers()`.
 pub fn marble_pavers_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x495, 4)
+    crate::simple::from_template(w, ty, "Server.Items.MarblePavers")
 }
 
 leaf! {
@@ -700,7 +668,7 @@ leaf! {
 
 /// `SandFlagstones()`.
 pub fn sand_flagstones_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x500, 4)
+    crate::simple::from_template(w, ty, "Server.Items.SandFlagstones")
 }
 
 leaf! {
@@ -711,7 +679,7 @@ leaf! {
 
 /// `SandstoneFloorN()`.
 pub fn sandstone_floor_n_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x525, 4)
+    crate::simple::from_template(w, ty, "Server.Items.SandstoneFloorN")
 }
 
 leaf! {
@@ -722,7 +690,7 @@ leaf! {
 
 /// `SandstoneFloorW()`.
 pub fn sandstone_floor_w_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x529, 4)
+    crate::simple::from_template(w, ty, "Server.Items.SandstoneFloorW")
 }
 
 leaf! {
@@ -733,7 +701,7 @@ leaf! {
 
 /// `StonePaversDark()`.
 pub fn stone_pavers_dark_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x521, 4)
+    crate::simple::from_template(w, ty, "Server.Items.StonePaversDark")
 }
 
 leaf! {
@@ -744,7 +712,7 @@ leaf! {
 
 /// `StonePaversLight()`.
 pub fn stone_pavers_light_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x519, 4)
+    crate::simple::from_template(w, ty, "Server.Items.StonePaversLight")
 }
 
 leaf! {
@@ -755,7 +723,7 @@ leaf! {
 
 /// `StonePaversMedium()`.
 pub fn stone_pavers_medium_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    base_floor_new(w, ty, 0x51D, 4)
+    crate::simple::from_template(w, ty, "Server.Items.StonePaversMedium")
 }
 
 leaf! {
@@ -773,8 +741,8 @@ leaf! {
     /// `Server.Items.BarrelHoops`.
     BARREL_HOOPS = "Server.Items.BarrelHoops" : ITEM_BASE, v0;
     construct: Some(|w| barrel_hoops_new(w, &BARREL_HOOPS)),
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1011228,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BarrelLid()`.
@@ -786,7 +754,7 @@ leaf! {
     /// `Server.Items.BarrelLid`.
     BARREL_LID = "Server.Items.BarrelLid" : ITEM_BASE, v0;
     construct: Some(|w| barrel_lid_new(w, &BARREL_LID)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BarrelStaves()`.
@@ -798,7 +766,7 @@ leaf! {
     /// `Server.Items.BarrelStaves`.
     BARREL_STAVES = "Server.Items.BarrelStaves" : ITEM_BASE, v0;
     construct: Some(|w| barrel_staves_new(w, &BARREL_STAVES)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BarrelTap()`.
@@ -810,7 +778,7 @@ leaf! {
     /// `Server.Items.BarrelTap`.
     BARREL_TAP = "Server.Items.BarrelTap" : ITEM_BASE, v0;
     construct: Some(|w| barrel_tap_new(w, &BARREL_TAP)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Easel()`.
@@ -822,7 +790,7 @@ leaf! {
     /// `Server.Items.Easel`.
     EASEL = "Server.Items.Easel" : ITEM_BASE, v0;
     construct: Some(|w| easel_new(w, &EASEL)),
-    default_weight: |_, _| 25.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `MeltedWax()`.
@@ -834,7 +802,7 @@ leaf! {
     /// `Server.Items.MeltedWax`.
     MELTED_WAX = "Server.Items.MeltedWax" : ITEM_BASE, v0;
     construct: Some(|w| melted_wax_new(w, &MELTED_WAX)),
-    label_number: |_, _| 1016492,
+    label_number: crate::class_props::label_number,
 }
 
 /// `ShortMusicStand()`.
@@ -846,7 +814,7 @@ leaf! {
     /// `Server.Items.ShortMusicStand`.
     SHORT_MUSIC_STAND = "Server.Items.ShortMusicStand" : ITEM_BASE, v0;
     construct: Some(|w| short_music_stand_new(w, &SHORT_MUSIC_STAND)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `TallMusicStand()`.
@@ -858,7 +826,7 @@ leaf! {
     /// `Server.Items.TallMusicStand`.
     TALL_MUSIC_STAND = "Server.Items.TallMusicStand" : ITEM_BASE, v0;
     construct: Some(|w| tall_music_stand_new(w, &TALL_MUSIC_STAND)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Obelisk()`.
@@ -870,7 +838,7 @@ leaf! {
     /// `Server.Items.Obelisk`.
     OBELISK = "Server.Items.Obelisk" : ITEM_BASE, v0;
     construct: Some(|w| obelisk_new(w, &OBELISK)),
-    label_number: |_, _| 1016474,
+    label_number: crate::class_props::label_number,
 }
 
 /// `BambooScreen()`.
@@ -882,7 +850,7 @@ leaf! {
     /// `Server.Items.BambooScreen`.
     BAMBOO_SCREEN = "Server.Items.BambooScreen" : ITEM_BASE, v0;
     construct: Some(|w| bamboo_screen_new(w, &BAMBOO_SCREEN)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ShojiScreen()`.
@@ -894,7 +862,7 @@ leaf! {
     /// `Server.Items.ShojiScreen`.
     SHOJI_SCREEN = "Server.Items.ShojiScreen" : ITEM_BASE, v0;
     construct: Some(|w| shoji_screen_new(w, &SHOJI_SCREEN)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BustEast()`.
@@ -906,7 +874,7 @@ leaf! {
     /// `Server.Items.BustEast`.
     BUST_EAST = "Server.Items.BustEast" : ITEM_BASE, v0;
     construct: Some(|w| bust_east_new(w, &BUST_EAST)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -919,7 +887,7 @@ leaf! {
     /// `Server.Items.BustSouth`.
     BUST_SOUTH = "Server.Items.BustSouth" : ITEM_BASE, v0;
     construct: Some(|w| bust_south_new(w, &BUST_SOUTH)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -932,7 +900,7 @@ leaf! {
     /// `Server.Items.SmallTowerSculpture`.
     SMALL_TOWER_SCULPTURE = "Server.Items.SmallTowerSculpture" : ITEM_BASE, v0;
     construct: Some(|w| small_tower_sculpture_new(w, &SMALL_TOWER_SCULPTURE)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `StatueEast()`.
@@ -944,7 +912,7 @@ leaf! {
     /// `Server.Items.StatueEast`.
     STATUE_EAST = "Server.Items.StatueEast" : ITEM_BASE, v0;
     construct: Some(|w| statue_east_new(w, &STATUE_EAST)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -957,7 +925,7 @@ leaf! {
     /// `Server.Items.StatueEast2`.
     STATUE_EAST2 = "Server.Items.StatueEast2" : ITEM_BASE, v0;
     construct: Some(|w| statue_east2_new(w, &STATUE_EAST2)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -970,7 +938,7 @@ leaf! {
     /// `Server.Items.StatueNorth`.
     STATUE_NORTH = "Server.Items.StatueNorth" : ITEM_BASE, v0;
     construct: Some(|w| statue_north_new(w, &STATUE_NORTH)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -983,7 +951,7 @@ leaf! {
     /// `Server.Items.StatuePegasus`.
     STATUE_PEGASUS = "Server.Items.StatuePegasus" : ITEM_BASE, v0;
     construct: Some(|w| statue_pegasus_new(w, &STATUE_PEGASUS)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -996,7 +964,7 @@ leaf! {
     /// `Server.Items.StatuePegasus2`.
     STATUE_PEGASUS2 = "Server.Items.StatuePegasus2" : ITEM_BASE, v0;
     construct: Some(|w| statue_pegasus2_new(w, &STATUE_PEGASUS2)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -1009,7 +977,7 @@ leaf! {
     /// `Server.Items.StatueSouth`.
     STATUE_SOUTH = "Server.Items.StatueSouth" : ITEM_BASE, v0;
     construct: Some(|w| statue_south_new(w, &STATUE_SOUTH)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -1022,7 +990,7 @@ leaf! {
     /// `Server.Items.StatueSouth2`.
     STATUE_SOUTH2 = "Server.Items.StatueSouth2" : ITEM_BASE, v0;
     construct: Some(|w| statue_south2_new(w, &STATUE_SOUTH2)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -1035,7 +1003,7 @@ leaf! {
     /// `Server.Items.StatueSouthEast`.
     STATUE_SOUTH_EAST = "Server.Items.StatueSouthEast" : ITEM_BASE, v0;
     construct: Some(|w| statue_south_east_new(w, &STATUE_SOUTH_EAST)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -1048,7 +1016,7 @@ leaf! {
     /// `Server.Items.StatueWest`.
     STATUE_WEST = "Server.Items.StatueWest" : ITEM_BASE, v0;
     construct: Some(|w| statue_west_new(w, &STATUE_WEST)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     force_show_properties: |w, _| w.core.opl_enabled,
 }
 
@@ -1061,7 +1029,7 @@ leaf! {
     /// `Server.Items.LargeVase`.
     LARGE_VASE = "Server.Items.LargeVase" : ITEM_BASE, v0;
     construct: Some(|w| large_vase_new(w, &LARGE_VASE)),
-    default_weight: |_, _| 15.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SmallUrn()`.
@@ -1073,7 +1041,7 @@ leaf! {
     /// `Server.Items.SmallUrn`.
     SMALL_URN = "Server.Items.SmallUrn" : ITEM_BASE, v0;
     construct: Some(|w| small_urn_new(w, &SMALL_URN)),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Vase()`.
@@ -1085,7 +1053,7 @@ leaf! {
     /// `Server.Items.Vase`.
     VASE = "Server.Items.Vase" : ITEM_BASE, v0;
     construct: Some(|w| vase_new(w, &VASE)),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CoveredChair()`.
@@ -1218,7 +1186,7 @@ leaf! {
     /// `Server.Items.ElvenPodium`.
     ELVEN_PODIUM = "Server.Items.ElvenPodium" : ITEM_BASE, enc;
     construct: Some(|w| elven_podium_new(w, &ELVEN_PODIUM)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ElegantLowTable()`.
@@ -1230,7 +1198,7 @@ leaf! {
     /// `Server.Items.ElegantLowTable`.
     ELEGANT_LOW_TABLE = "Server.Items.ElegantLowTable" : ITEM_BASE, v0;
     construct: Some(|w| elegant_low_table_new(w, &ELEGANT_LOW_TABLE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LargeTable()`.
@@ -1242,7 +1210,7 @@ leaf! {
     /// `Server.Items.LargeTable`.
     LARGE_TABLE = "Server.Items.LargeTable" : ITEM_BASE, v0;
     construct: Some(|w| large_table_new(w, &LARGE_TABLE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Nightstand()`.
@@ -1254,7 +1222,7 @@ leaf! {
     /// `Server.Items.Nightstand`.
     NIGHTSTAND = "Server.Items.Nightstand" : ITEM_BASE, v0;
     construct: Some(|w| nightstand_new(w, &NIGHTSTAND)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PlainLowTable()`.
@@ -1266,7 +1234,7 @@ leaf! {
     /// `Server.Items.PlainLowTable`.
     PLAIN_LOW_TABLE = "Server.Items.PlainLowTable" : ITEM_BASE, v0;
     construct: Some(|w| plain_low_table_new(w, &PLAIN_LOW_TABLE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `YewWoodTable()`.
@@ -1278,7 +1246,7 @@ leaf! {
     /// `Server.Items.YewWoodTable`.
     YEW_WOOD_TABLE = "Server.Items.YewWoodTable" : ITEM_BASE, v0;
     construct: Some(|w| yew_wood_table_new(w, &YEW_WOOD_TABLE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WritingTable()`.
@@ -1290,7 +1258,7 @@ leaf! {
     /// `Server.Items.WritingTable`.
     WRITING_TABLE = "Server.Items.WritingTable" : ITEM_BASE, v0;
     construct: Some(|w| writing_table_new(w, &WRITING_TABLE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

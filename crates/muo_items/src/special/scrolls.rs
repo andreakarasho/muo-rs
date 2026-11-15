@@ -99,8 +99,7 @@ fn special_scroll_new(
     skill: SkillName,
     value: f64,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F0);
-    ops::set_loot_type(w, id, LootType::Cursed);
+    let id = crate::simple::from_template(w, ty, "Server.Items.SpecialScroll");
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(ScrollData { skill, value });
     }
@@ -255,7 +254,7 @@ pub static SPECIAL_SCROLL: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: None,
     family: Some(&BASE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: scroll_on_double_click,
     serialize: scroll_serialize,
     deserialize: scroll_deserialize,
@@ -721,7 +720,7 @@ pub static SCROLL_OF_ALACRITY: ItemType = ItemType {
     parent: Some(&SPECIAL_SCROLL),
     construct: Some(|w| scroll_of_alacrity_new(w, SkillName::Alchemy)),
     family: Some(&ALACRITY_CLASS),
-    label_number: |_, _| 1078604, // Scroll of Alacrity
+    label_number: crate::class_props::label_number, // Scroll of Alacrity
     get_properties: |w, id, list| {
         (SPECIAL_SCROLL.get_properties)(w, id, list);
         list.add_localized_number(1071345, skill_label(skill(w, id))); // Skill: ~1_val~
@@ -852,7 +851,7 @@ pub static SCROLL_OF_TRANSCENDENCE: ItemType = ItemType {
     parent: Some(&SPECIAL_SCROLL),
     construct: Some(|w| scroll_of_transcendence_new(w, SkillName::Alchemy, 0.0)),
     family: Some(&TRANSCENDENCE_CLASS),
-    label_number: |_, _| 1094934, // Scroll of Transcendence
+    label_number: crate::class_props::label_number, // Scroll of Transcendence
     get_properties: |w, id, list| {
         (SPECIAL_SCROLL.get_properties)(w, id, list);
         list.add_str(

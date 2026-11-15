@@ -40,8 +40,8 @@ pub static QUIVER_OF_INFINITY: ItemType = ItemType {
     full_name: "Server.Items.QuiverOfInfinity",
     parent: Some(&crate::quivers::BASE_QUIVER),
     construct: Some(quiver_of_infinity_new),
-    default_weight: |_, _| 8.0,
-    label_number: |_, _| 1075201, // Quiver of Infinity
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Quiver of Infinity
     serialize: |w, id, out| {
         (crate::quivers::BASE_QUIVER.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -80,7 +80,7 @@ pub static BASE_FORM_TALISMAN: ItemType = ItemType {
     full_name: "Server.Items.BaseFormTalisman",
     parent: Some(&ITEM_BASE),
     construct: None, // no [Constructible]
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     add_name_property: |w, id, list| list.add_str(1075200, &format!("#{}", form_of(w, id))),
     on_removed: |w, id, parent| {
         (ITEM_BASE.on_removed)(w, id, parent);

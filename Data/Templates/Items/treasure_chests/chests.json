@@ -1,0 +1,54 @@
+[
+  {
+    "type": "Server.Items.TreasureChestLevel1",
+    "props": {
+      "gumpId": 68,
+      "dropSound": 66,
+      "containerBounds": [
+        18,
+        105,
+        144,
+        73
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.TreasureChestLevel2",
+    "props": {
+      "gumpId": 66,
+      "dropSound": 66,
+      "containerBounds": [
+        18,
+        105,
+        144,
+        73
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.TreasureChestLevel3",
+    "props": {
+      "gumpId": 66,
+      "dropSound": 66,
+      "containerBounds": [
+        18,
+        105,
+        144,
+        73
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.TreasureChestLevel4",
+    "props": {
+      "gumpId": 66,
+      "dropSound": 66,
+      "containerBounds": [
+        18,
+        105,
+        144,
+        73
+      ]
+    }
+  }
+]

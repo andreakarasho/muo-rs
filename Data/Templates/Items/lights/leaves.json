@@ -10,5 +10,191 @@
     "itemId": 5703,
     "layer": "TwoHanded",
     "movable": false
+  },
+  {
+    "type": "Server.Items.Brazier",
+    "itemId": 3633,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": true,
+    "light": "Circle225",
+    "props": {
+      "defaultWeight": 20.0,
+      "litItemId": 3633
+    }
+  },
+  {
+    "type": "Server.Items.BrazierTall",
+    "itemId": 6570,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": true,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 25.0,
+      "litItemId": 6570
+    }
+  },
+  {
+    "type": "Server.Items.CandelabraStand",
+    "itemId": 2601,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle225",
+    "props": {
+      "defaultWeight": 20.0,
+      "litItemId": 2854,
+      "unlitItemId": 2601
+    }
+  },
+  {
+    "type": "Server.Items.Candle",
+    "itemId": 2600,
+    "burnoutMinutes": 20,
+    "burning": false,
+    "stackable": true,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 1.0,
+      "litItemId": 2575,
+      "unlitItemId": 2600
+    }
+  },
+  {
+    "type": "Server.Items.CandleLarge",
+    "itemId": 2598,
+    "burnoutMinutes": 25,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 2.0,
+      "litItemId": 2842,
+      "unlitItemId": 2598
+    }
+  },
+  {
+    "type": "Server.Items.CandleLong",
+    "itemId": 5171,
+    "burnoutMinutes": 30,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 1.0,
+      "litItemId": 5168,
+      "unlitItemId": 5171
+    }
+  },
+  {
+    "type": "Server.Items.CandleShort",
+    "itemId": 5167,
+    "burnoutMinutes": 25,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 1.0,
+      "litItemId": 5164,
+      "unlitItemId": 5167
+    }
+  },
+  {
+    "type": "Server.Items.CandleSkull",
+    "itemId": 6227,
+    "burnoutMinutes": 25,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.HangingLantern",
+    "itemId": 2589,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 40.0,
+      "litItemId": 2586,
+      "unlitItemId": 2589
+    }
+  },
+  {
+    "type": "Server.Items.LampPost1",
+    "itemId": 2849,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 40.0,
+      "litItemId": 2848,
+      "unlitItemId": 2849
+    }
+  },
+  {
+    "type": "Server.Items.LampPost2",
+    "itemId": 2851,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 40.0,
+      "litItemId": 2850,
+      "unlitItemId": 2851
+    }
+  },
+  {
+    "type": "Server.Items.LampPost3",
+    "itemId": 2853,
+    "movable": false,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle300",
+    "props": {
+      "defaultWeight": 40.0,
+      "litItemId": 2852,
+      "unlitItemId": 2853
+    }
+  },
+  {
+    "type": "Server.Items.PaperLantern",
+    "itemId": 9406,
+    "movable": true,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 3.0,
+      "litItemId": 9405,
+      "unlitItemId": 9406
+    }
+  },
+  {
+    "type": "Server.Items.RoundPaperLantern",
+    "itemId": 9418,
+    "movable": true,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 3.0,
+      "litItemId": 9417,
+      "unlitItemId": 9418
+    }
+  },
+  {
+    "type": "Server.Items.ShojiLantern",
+    "itemId": 9404,
+    "movable": true,
+    "burnoutMinutes": 0,
+    "burning": false,
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 3.0,
+      "litItemId": 9403,
+      "unlitItemId": 9404
+    }
   }
 ]

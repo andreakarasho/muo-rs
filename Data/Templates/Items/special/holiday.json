@@ -1,0 +1,505 @@
+[
+  {
+    "type": "Server.Items.GiftBox",
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.GreenStocking",
+    "oneOf": [
+      {
+        "itemId": 11225
+      },
+      {
+        "itemId": 11226
+      }
+    ],
+    "props": {
+      "gumpId": 259,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.RedStocking",
+    "oneOf": [
+      {
+        "itemId": 11227
+      },
+      {
+        "itemId": 11228
+      }
+    ],
+    "props": {
+      "gumpId": 259,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.SnowPileDeco",
+    "props": {
+      "labelNumber": 1095253,
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.Snowman",
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.IcyPatch",
+    "props": {
+      "labelNumber": 1095159,
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.SnowGlobe",
+    "itemId": 3631,
+    "lootType": "Blessed",
+    "light": "Circle150",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.PottedPlantDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1041114,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BadCard",
+    "itemId": 5359,
+    "props": {
+      "labelNumber": 1041428
+    }
+  },
+  {
+    "type": "Server.Items.SnowStatueDeed",
+    "itemId": 5360,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1114296,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.HolidayBell",
+    "itemId": 7186,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.Spam",
+    "itemId": 4164,
+    "stackable": false,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.GiftBoxRectangle",
+    "coin": {
+      "then": {
+        "itemId": 18085
+      },
+      "else": {
+        "itemId": 18086
+      }
+    },
+    "oneOf": [
+      {
+        "hue": 1650
+      },
+      {
+        "hue": 1108
+      },
+      {
+        "hue": 1287
+      },
+      {
+        "hue": 1196
+      },
+      {
+        "hue": 1284
+      },
+      {
+        "hue": 2123
+      },
+      {
+        "hue": 1173
+      },
+      {
+        "hue": 2428
+      },
+      {
+        "hue": 1171
+      },
+      {
+        "hue": 1192
+      },
+      {
+        "hue": 1172
+      },
+      {
+        "hue": 1194
+      },
+      {
+        "hue": 2955
+      },
+      {
+        "hue": 2127
+      },
+      {
+        "hue": 1169
+      },
+      {
+        "hue": 2129
+      },
+      {
+        "hue": 1283
+      },
+      {
+        "hue": 2956
+      },
+      {
+        "hue": 1195
+      },
+      {
+        "hue": 2123
+      }
+    ],
+    "props": {
+      "gumpId": 286
+    }
+  },
+  {
+    "type": "Server.Items.GiftBoxCube",
+    "itemId": 18082,
+    "oneOf": [
+      {
+        "hue": 1650
+      },
+      {
+        "hue": 1108
+      },
+      {
+        "hue": 1287
+      },
+      {
+        "hue": 1196
+      },
+      {
+        "hue": 1284
+      },
+      {
+        "hue": 2123
+      },
+      {
+        "hue": 1173
+      },
+      {
+        "hue": 2428
+      },
+      {
+        "hue": 1171
+      },
+      {
+        "hue": 1192
+      },
+      {
+        "hue": 1172
+      },
+      {
+        "hue": 1194
+      },
+      {
+        "hue": 2955
+      },
+      {
+        "hue": 2127
+      },
+      {
+        "hue": 1169
+      },
+      {
+        "hue": 2129
+      },
+      {
+        "hue": 1283
+      },
+      {
+        "hue": 2956
+      },
+      {
+        "hue": 1195
+      },
+      {
+        "hue": 2123
+      }
+    ],
+    "props": {
+      "gumpId": 283
+    }
+  },
+  {
+    "type": "Server.Items.GiftBoxCylinder",
+    "itemId": 18083,
+    "oneOf": [
+      {
+        "hue": 1650
+      },
+      {
+        "hue": 1108
+      },
+      {
+        "hue": 1287
+      },
+      {
+        "hue": 1196
+      },
+      {
+        "hue": 1284
+      },
+      {
+        "hue": 2123
+      },
+      {
+        "hue": 1173
+      },
+      {
+        "hue": 2428
+      },
+      {
+        "hue": 1171
+      },
+      {
+        "hue": 1192
+      },
+      {
+        "hue": 1172
+      },
+      {
+        "hue": 1194
+      },
+      {
+        "hue": 2955
+      },
+      {
+        "hue": 2127
+      },
+      {
+        "hue": 1169
+      },
+      {
+        "hue": 2129
+      },
+      {
+        "hue": 1283
+      },
+      {
+        "hue": 2956
+      },
+      {
+        "hue": 1195
+      },
+      {
+        "hue": 2123
+      }
+    ],
+    "props": {
+      "gumpId": 284
+    }
+  },
+  {
+    "type": "Server.Items.GiftBoxOctogon",
+    "itemId": 18084,
+    "oneOf": [
+      {
+        "hue": 1650
+      },
+      {
+        "hue": 1108
+      },
+      {
+        "hue": 1287
+      },
+      {
+        "hue": 1196
+      },
+      {
+        "hue": 1284
+      },
+      {
+        "hue": 2123
+      },
+      {
+        "hue": 1173
+      },
+      {
+        "hue": 2428
+      },
+      {
+        "hue": 1171
+      },
+      {
+        "hue": 1192
+      },
+      {
+        "hue": 1172
+      },
+      {
+        "hue": 1194
+      },
+      {
+        "hue": 2955
+      },
+      {
+        "hue": 2127
+      },
+      {
+        "hue": 1169
+      },
+      {
+        "hue": 2129
+      },
+      {
+        "hue": 1283
+      },
+      {
+        "hue": 2956
+      },
+      {
+        "hue": 1195
+      },
+      {
+        "hue": 2123
+      }
+    ],
+    "props": {
+      "gumpId": 285
+    }
+  },
+  {
+    "type": "Server.Items.GiftBoxAngel",
+    "itemId": 18087,
+    "oneOf": [
+      {
+        "hue": 1650
+      },
+      {
+        "hue": 1108
+      },
+      {
+        "hue": 1287
+      },
+      {
+        "hue": 1196
+      },
+      {
+        "hue": 1284
+      },
+      {
+        "hue": 2123
+      },
+      {
+        "hue": 1173
+      },
+      {
+        "hue": 2428
+      },
+      {
+        "hue": 1171
+      },
+      {
+        "hue": 1192
+      },
+      {
+        "hue": 1172
+      },
+      {
+        "hue": 1194
+      },
+      {
+        "hue": 2955
+      },
+      {
+        "hue": 2127
+      },
+      {
+        "hue": 1169
+      },
+      {
+        "hue": 2129
+      },
+      {
+        "hue": 1283
+      },
+      {
+        "hue": 2956
+      },
+      {
+        "hue": 1195
+      },
+      {
+        "hue": 2123
+      }
+    ],
+    "props": {
+      "gumpId": 287
+    }
+  },
+  {
+    "type": "Server.Items.GiftBoxNeon",
+    "coin": {
+      "then": {
+        "itemId": 9002
+      },
+      "else": {
+        "itemId": 9003
+      }
+    },
+    "oneOf": [
+      {
+        "hue": 1080
+      },
+      {
+        "hue": 1060
+      },
+      {
+        "hue": 1075
+      },
+      {
+        "hue": 1093
+      },
+      {
+        "hue": 1067
+      },
+      {
+        "hue": 1096
+      }
+    ],
+    "props": {
+      "gumpId": 282
+    }
+  },
+  {
+    "type": "Server.Items.SnowStatuePegasus",
+    "itemId": 17774
+  },
+  {
+    "type": "Server.Items.SnowStatueSeahorse",
+    "itemId": 17784
+  },
+  {
+    "type": "Server.Items.SnowStatueMermaid",
+    "itemId": 17786
+  },
+  {
+    "type": "Server.Items.SnowStatueGriffon",
+    "itemId": 17788
+  }
+]

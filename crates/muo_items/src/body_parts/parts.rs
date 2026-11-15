@@ -12,7 +12,7 @@ use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-use crate::simple::{random_from, random_min_max};
+use crate::simple::random_min_max;
 
 fn scissor_bones(w: &mut World, id: ItemId, from: MobileId, min: i32, max: i32) -> bool {
     if ops::is_deleted(w, id) || !deps::can_see(w, from, id) {
@@ -28,18 +28,13 @@ fn scissor_bones(w: &mut World, id: ItemId, from: MobileId, min: i32, max: i32) 
 }
 
 macro_rules! bones {
-    ($($name:ident = $full:literal, base $base:expr, count $count:expr, weight $weight:expr;)*) => {$(
+    ($($name:ident = $full:literal;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| {
-                let g = $base + random_from(w, 0, $count);
-                let id = ops::new_item_with_id(w, &$name, g);
-                ops::set_stackable(w, id, false);
-                id
-            }),
-            default_weight: |_, _| $weight,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
             serialize: |w, id, out| {
                 (ITEM_BASE.serialize)(w, id, out);
                 out.write_i32(0);
@@ -55,8 +50,8 @@ macro_rules! bones {
 }
 
 bones! {
-    BONE_PILE = "Server.Items.BonePile", base 0x1B09, count 8, weight 10.0;
-    RIB_CAGE = "Server.Items.RibCage", base 0x1B17, count 2, weight 5.0;
+    BONE_PILE = "Server.Items.BonePile";
+    RIB_CAGE = "Server.Items.RibCage";
 }
 
 /// `HeadType`.
@@ -77,7 +72,7 @@ fn data(w: &World, id: ItemId) -> Option<&HeadData> {
 
 /// `new Head(headType, playerName)`.
 pub fn new_head(w: &mut World, head_type: i32, player_name: Option<String>) -> ItemId {
-    let id = ops::new_item_with_id(w, &HEAD, 0x1DA0);
+    let id = crate::simple::from_template(w, &HEAD, "Server.Items.Head");
     let now = w.now;
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(HeadData {

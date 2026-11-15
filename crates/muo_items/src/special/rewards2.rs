@@ -65,7 +65,7 @@ pub static OSSIAN_GRIMOIRE: ItemType = ItemType {
     full_name: "Server.Items.OssianGrimoire",
     parent: Some(&crate::skill_items::spellbook::NECROMANCER_SPELLBOOK),
     construct: Some(ossian_grimoire_new),
-    label_number: |_, _| 1078148, // Ossian Grimoire
+    label_number: crate::class_props::label_number, // Ossian Grimoire
     serialize: |w, id, out| {
         (crate::skill_items::spellbook::NECROMANCER_SPELLBOOK.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -94,12 +94,12 @@ leaf! {
     /// `Server.Items.ColoredAnvil` (`[Anvil]`, `[Flippable(0xFAF, 0xFB0)]`).
     COLORED_ANVIL = "Server.Items.ColoredAnvil" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &COLORED_ANVIL, 0xFAF);
+        let id = crate::simple::from_template(w, &COLORED_ANVIL, "Server.Items.ColoredAnvil");
         let h = random_ore_hue(w);
         super::hue(w, id, h); // TODO: Color weighted by rarity?
         id
     }),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- the skill mod of the hammer and the gloves ----
@@ -217,8 +217,8 @@ pub static ANCIENT_SMITHY_HAMMER: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: None,
     family: Some(&HAMMER_CLASS),
-    default_weight: |_, _| 8.0,
-    label_number: |_, _| 1045127, // ancient smithy hammer
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // ancient smithy hammer
     on_added: |w, id, parent| {
         (BASE_TOOL.on_added)(w, id, parent);
         on_added_bonus(w, id, parent, SkillName::Blacksmith, "AncientSmithyHammer");
@@ -380,8 +380,11 @@ pub fn set_powder_uses(w: &mut World, id: ItemId, value: i32) {
 
 /// `PowderOfTemperament(charges)`.
 pub fn powder_of_temperament_new(w: &mut World, charges: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &POWDER_OF_TEMPERAMENT, 4102);
-    super::hue(w, id, 2419);
+    let id = crate::simple::from_template(
+        w,
+        &POWDER_OF_TEMPERAMENT,
+        "Server.Items.PowderOfTemperament",
+    );
     set_powder_uses(w, id, charges);
     id
 }
@@ -521,8 +524,8 @@ pub static POWDER_OF_TEMPERAMENT: ItemType = ItemType {
     full_name: "Server.Items.PowderOfTemperament",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| powder_of_temperament_new(w, 10)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049082, // powder of fortifying
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // powder of fortifying
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         list.add_int(1060584, uses(w, id)); // uses remaining: ~1_val~

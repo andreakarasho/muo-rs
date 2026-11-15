@@ -1,0 +1,150 @@
+[
+  {
+    "type": "Server.Items.BasePotion",
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.InvisibilityPotion",
+    "itemId": 3850,
+    "potionEffect": "Invisibility",
+    "hue": 1165
+  },
+  {
+    "type": "Server.Items.NightSightPotion",
+    "itemId": 3846,
+    "potionEffect": "Nightsight"
+  },
+  {
+    "type": "Server.Items.LesserHealPotion",
+    "itemId": 3852,
+    "potionEffect": "HealLesser"
+  },
+  {
+    "type": "Server.Items.HealPotion",
+    "itemId": 3852,
+    "potionEffect": "Heal"
+  },
+  {
+    "type": "Server.Items.GreaterHealPotion",
+    "itemId": 3852,
+    "potionEffect": "HealGreater"
+  },
+  {
+    "type": "Server.Items.LesserCurePotion",
+    "itemId": 3847,
+    "potionEffect": "CureLesser"
+  },
+  {
+    "type": "Server.Items.CurePotion",
+    "itemId": 3847,
+    "potionEffect": "Cure"
+  },
+  {
+    "type": "Server.Items.GreaterCurePotion",
+    "itemId": 3847,
+    "potionEffect": "CureGreater"
+  },
+  {
+    "type": "Server.Items.RefreshPotion",
+    "itemId": 3851,
+    "potionEffect": "Refresh"
+  },
+  {
+    "type": "Server.Items.TotalRefreshPotion",
+    "itemId": 3851,
+    "potionEffect": "RefreshTotal"
+  },
+  {
+    "type": "Server.Items.AgilityPotion",
+    "itemId": 3848,
+    "potionEffect": "Agility"
+  },
+  {
+    "type": "Server.Items.GreaterAgilityPotion",
+    "itemId": 3848,
+    "potionEffect": "AgilityGreater"
+  },
+  {
+    "type": "Server.Items.StrengthPotion",
+    "itemId": 3849,
+    "potionEffect": "Strength"
+  },
+  {
+    "type": "Server.Items.GreaterStrengthPotion",
+    "itemId": 3849,
+    "potionEffect": "StrengthGreater"
+  },
+  {
+    "type": "Server.Items.LesserPoisonPotion",
+    "itemId": 3850,
+    "potionEffect": "PoisonLesser"
+  },
+  {
+    "type": "Server.Items.PoisonPotion",
+    "itemId": 3850,
+    "potionEffect": "Poison"
+  },
+  {
+    "type": "Server.Items.GreaterPoisonPotion",
+    "itemId": 3850,
+    "potionEffect": "PoisonGreater"
+  },
+  {
+    "type": "Server.Items.DeadlyPoisonPotion",
+    "itemId": 3850,
+    "potionEffect": "PoisonDeadly"
+  },
+  {
+    "type": "Server.Items.DarkglowPotion",
+    "itemId": 3850,
+    "potionEffect": "Darkglow",
+    "hue": 150
+  },
+  {
+    "type": "Server.Items.ParasiticPotion",
+    "itemId": 3850,
+    "potionEffect": "Parasitic",
+    "hue": 380
+  },
+  {
+    "type": "Server.Items.LesserExplosionPotion",
+    "itemId": 3853,
+    "potionEffect": "ExplosionLesser"
+  },
+  {
+    "type": "Server.Items.ExplosionPotion",
+    "itemId": 3853,
+    "potionEffect": "Explosion"
+  },
+  {
+    "type": "Server.Items.GreaterExplosionPotion",
+    "itemId": 3853,
+    "potionEffect": "ExplosionGreater"
+  },
+  {
+    "type": "Server.Items.ConflagrationPotion",
+    "itemId": 3846,
+    "potionEffect": "Conflagration",
+    "hue": 1161
+  },
+  {
+    "type": "Server.Items.GreaterConflagrationPotion",
+    "itemId": 3846,
+    "potionEffect": "ConflagrationGreater",
+    "hue": 1161
+  },
+  {
+    "type": "Server.Items.ConfusionBlastPotion",
+    "itemId": 3846,
+    "potionEffect": "ConfusionBlast",
+    "hue": 1165
+  },
+  {
+    "type": "Server.Items.GreaterConfusionBlastPotion",
+    "itemId": 3846,
+    "potionEffect": "ConfusionBlastGreater",
+    "hue": 1165
+  }
+]

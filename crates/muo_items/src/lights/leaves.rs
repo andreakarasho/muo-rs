@@ -2,15 +2,13 @@
 //! are hand-written next to this file.
 
 use crate::lights::{
-    BASE_EQUIPABLE_LIGHT_CLASS, BASE_LIGHT_CLASS, BURNOUT, LightClass, base_equipable_light_new,
-    base_light_new, set_burning, set_duration,
+    BASE_EQUIPABLE_LIGHT_CLASS, BASE_LIGHT_CLASS, LightClass, base_equipable_light_new,
+    base_light_new,
 };
 use crate::simple::leaf;
-use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
-use muo_server::light_type::LightType;
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 use crate::lights::BASE_EQUIPABLE_LIGHT;
@@ -18,16 +16,13 @@ use crate::lights::BASE_LIGHT;
 
 /// `Brazier()`.
 pub fn brazier_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xE31);
-    ops::set_movable(w, id, false);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, true);
-    ops::set_light(w, id, LightType::Circle225);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Brazier");
     id
 }
 
 static BRAZIER_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xE31,
+    lit_item_id: crate::class_props::lit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -35,21 +30,18 @@ leaf! {
     BRAZIER = "Server.Items.Brazier" : BASE_LIGHT, v0;
     construct: Some(|w| brazier_new(w, &BRAZIER)),
     family: Some(&BRAZIER_CLASS),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `BrazierTall()`.
 pub fn brazier_tall_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x19AA);
-    ops::set_movable(w, id, false);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, true);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.BrazierTall");
     id
 }
 
 static BRAZIER_TALL_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x19AA,
+    lit_item_id: crate::class_props::lit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -57,21 +49,19 @@ leaf! {
     BRAZIER_TALL = "Server.Items.BrazierTall" : BASE_LIGHT, v0;
     construct: Some(|w| brazier_tall_new(w, &BRAZIER_TALL)),
     family: Some(&BRAZIER_TALL_CLASS),
-    default_weight: |_, _| 25.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandelabraStand()`.
 pub fn candelabra_stand_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA29);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle225);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandelabraStand");
     id
 }
 
 static CANDELABRA_STAND_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB26,
-    unlit_item_id: |_, _| 0xA29,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -79,30 +69,19 @@ leaf! {
     CANDELABRA_STAND = "Server.Items.CandelabraStand" : BASE_LIGHT, v0;
     construct: Some(|w| candelabra_stand_new(w, &CANDELABRA_STAND)),
     family: Some(&CANDELABRA_STAND_CLASS),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Candle()`.
 pub fn candle_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_equipable_light_new(w, ty, 0xA28);
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(20)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_stackable(w, id, true);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_equipable_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Candle");
     id
 }
 
 static CANDLE_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xA0F,
-    unlit_item_id: |_, _| 0xA28,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_EQUIPABLE_LIGHT_CLASS
 };
 leaf! {
@@ -110,29 +89,19 @@ leaf! {
     CANDLE = "Server.Items.Candle" : BASE_EQUIPABLE_LIGHT, v0;
     construct: Some(|w| candle_new(w, &CANDLE)),
     family: Some(&CANDLE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleLarge()`.
 pub fn candle_large_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA26);
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(25)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleLarge");
     id
 }
 
 static CANDLE_LARGE_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB1A,
-    unlit_item_id: |_, _| 0xA26,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -140,29 +109,19 @@ leaf! {
     CANDLE_LARGE = "Server.Items.CandleLarge" : BASE_LIGHT, v0;
     construct: Some(|w| candle_large_new(w, &CANDLE_LARGE)),
     family: Some(&CANDLE_LARGE_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleLong()`.
 pub fn candle_long_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x1433);
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(30)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleLong");
     id
 }
 
 pub static CANDLE_LONG_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x1430,
-    unlit_item_id: |_, _| 0x1433,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -170,29 +129,19 @@ leaf! {
     CANDLE_LONG = "Server.Items.CandleLong" : BASE_LIGHT, v0;
     construct: Some(|w| candle_long_new(w, &CANDLE_LONG)),
     family: Some(&CANDLE_LONG_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleShort()`.
 pub fn candle_short_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x142F);
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(25)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleShort");
     id
 }
 
 static CANDLE_SHORT_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x142C,
-    unlit_item_id: |_, _| 0x142F,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -200,23 +149,13 @@ leaf! {
     CANDLE_SHORT = "Server.Items.CandleShort" : BASE_LIGHT, v0;
     construct: Some(|w| candle_short_new(w, &CANDLE_SHORT)),
     family: Some(&CANDLE_SHORT_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `CandleSkull()`.
 pub fn candle_skull_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x1853);
-    set_duration(
-        w,
-        id,
-        if BURNOUT {
-            TimeSpan::from_mins(25)
-        } else {
-            TimeSpan::ZERO
-        },
-    );
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CandleSkull");
     id
 }
 
@@ -244,7 +183,7 @@ leaf! {
     CANDLE_SKULL = "Server.Items.CandleSkull" : BASE_LIGHT, v0;
     construct: Some(|w| candle_skull_new(w, &CANDLE_SKULL)),
     family: Some(&CANDLE_SKULL_CLASS),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `DarkSource()`.
@@ -260,17 +199,14 @@ leaf! {
 
 /// `HangingLantern()`.
 pub fn hanging_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xA1D);
-    ops::set_movable(w, id, false);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.HangingLantern");
     id
 }
 
 static HANGING_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xA1A,
-    unlit_item_id: |_, _| 0xA1D,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -278,22 +214,19 @@ leaf! {
     HANGING_LANTERN = "Server.Items.HangingLantern" : BASE_LIGHT, v0;
     construct: Some(|w| hanging_lantern_new(w, &HANGING_LANTERN)),
     family: Some(&HANGING_LANTERN_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LampPost1()`.
 pub fn lamp_post1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xB21);
-    ops::set_movable(w, id, false);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.LampPost1");
     id
 }
 
 static LAMP_POST1_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB20,
-    unlit_item_id: |_, _| 0xB21,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -301,22 +234,19 @@ leaf! {
     LAMP_POST1 = "Server.Items.LampPost1" : BASE_LIGHT, v0;
     construct: Some(|w| lamp_post1_new(w, &LAMP_POST1)),
     family: Some(&LAMP_POST1_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LampPost2()`.
 pub fn lamp_post2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xB23);
-    ops::set_movable(w, id, false);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.LampPost2");
     id
 }
 
 static LAMP_POST2_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB22,
-    unlit_item_id: |_, _| 0xB23,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -324,22 +254,19 @@ leaf! {
     LAMP_POST2 = "Server.Items.LampPost2" : BASE_LIGHT, v0;
     construct: Some(|w| lamp_post2_new(w, &LAMP_POST2)),
     family: Some(&LAMP_POST2_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LampPost3()`.
 pub fn lamp_post3_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0xb25);
-    ops::set_movable(w, id, false);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle300);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.LampPost3");
     id
 }
 
 static LAMP_POST3_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0xB24,
-    unlit_item_id: |_, _| 0xB25,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -347,7 +274,7 @@ leaf! {
     LAMP_POST3 = "Server.Items.LampPost3" : BASE_LIGHT, v0;
     construct: Some(|w| lamp_post3_new(w, &LAMP_POST3)),
     family: Some(&LAMP_POST3_CLASS),
-    default_weight: |_, _| 40.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `LightSource()`.
@@ -363,17 +290,14 @@ leaf! {
 
 /// `PaperLantern()`.
 pub fn paper_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x24BE);
-    ops::set_movable(w, id, true);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.PaperLantern");
     id
 }
 
 static PAPER_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x24BD,
-    unlit_item_id: |_, _| 0x24BE,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -381,22 +305,19 @@ leaf! {
     PAPER_LANTERN = "Server.Items.PaperLantern" : BASE_LIGHT, v0;
     construct: Some(|w| paper_lantern_new(w, &PAPER_LANTERN)),
     family: Some(&PAPER_LANTERN_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `RoundPaperLantern()`.
 pub fn round_paper_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x24CA);
-    ops::set_movable(w, id, true);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.RoundPaperLantern");
     id
 }
 
 static ROUND_PAPER_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x24C9,
-    unlit_item_id: |_, _| 0x24CA,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -404,22 +325,19 @@ leaf! {
     ROUND_PAPER_LANTERN = "Server.Items.RoundPaperLantern" : BASE_LIGHT, v0;
     construct: Some(|w| round_paper_lantern_new(w, &ROUND_PAPER_LANTERN)),
     family: Some(&ROUND_PAPER_LANTERN_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ShojiLantern()`.
 pub fn shoji_lantern_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = base_light_new(w, ty, 0x24BC);
-    ops::set_movable(w, id, true);
-    set_duration(w, id, TimeSpan::ZERO);
-    set_burning(w, id, false);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = base_light_new(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.ShojiLantern");
     id
 }
 
 static SHOJI_LANTERN_CLASS: LightClass = LightClass {
-    lit_item_id: |_, _| 0x24BB,
-    unlit_item_id: |_, _| 0x24BC,
+    lit_item_id: crate::class_props::lit_item_id,
+    unlit_item_id: crate::class_props::unlit_item_id,
     ..BASE_LIGHT_CLASS
 };
 leaf! {
@@ -427,7 +345,7 @@ leaf! {
     SHOJI_LANTERN = "Server.Items.ShojiLantern" : BASE_LIGHT, v0;
     construct: Some(|w| shoji_lantern_new(w, &SHOJI_LANTERN)),
     family: Some(&SHOJI_LANTERN_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

@@ -1,0 +1,33 @@
+[
+  {
+    "type": "Server.Items.GuildDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041055
+    }
+  },
+  {
+    "type": "Server.Items.GuildTeleporter",
+    "itemId": 6249,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041054
+    }
+  },
+  {
+    "type": "Server.Items.Guildstone",
+    "props": {
+      "labelNumber": 1041429
+    }
+  },
+  {
+    "type": "Server.Items.GuildstoneDeed",
+    "itemId": 5360,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041233
+    }
+  }
+]

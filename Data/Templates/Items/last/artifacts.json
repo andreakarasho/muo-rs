@@ -423,5 +423,42 @@
       "initMaxHits": 150,
       "canFortify": false
     }
+  },
+  {
+    "type": "Server.Items.BloodwoodSpirit",
+    "props": {
+      "labelNumber": 1075034
+    }
+  },
+  {
+    "type": "Server.Items.TotemOfVoid",
+    "props": {
+      "labelNumber": 1075035
+    }
+  },
+  {
+    "type": "Server.Items.AmeliasToolbox",
+    "itemId": 7864,
+    "lootType": "Blessed",
+    "hue": 1895,
+    "props": {
+      "labelNumber": 1077749
+    }
+  },
+  {
+    "type": "Server.Items.HammerOfHephaestus",
+    "itemId": 5091,
+    "layer": "OneHanded",
+    "toolUses": 20,
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1077740
+    }
+  },
+  {
+    "type": "Server.Items.HallowedSpellbook",
+    "props": {
+      "labelNumber": 1077620
+    }
   }
 ]

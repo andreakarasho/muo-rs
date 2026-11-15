@@ -77,7 +77,7 @@ pub static FISHING_POLE: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(new_fishing_pole),
     family: Some(&POLE_CLASS),
-    default_weight: |_, _| 8.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: pole_double_click,
     get_context_menu_entries: |w, id, from, list| {
         base::get_context_menu_entries_base(w, id, from, list);
@@ -118,7 +118,7 @@ pub fn new_fishing_pole(w: &mut World) -> ItemId {
 
 /// `FishingPole()` of class `ty`.
 pub fn new_pole_of(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x0DC0);
+    let id = crate::simple::from_template(w, ty, "Server.Items.FishingPole");
     (FISHING_POLE.set_layer)(w, id, Layer::TwoHanded);
     id
 }
@@ -251,8 +251,8 @@ pub static MESSAGE_IN_A_BOTTLE: ItemType = ItemType {
     full_name: "Server.Items.MessageInABottle",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_message_in_a_bottle(w, None, None)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041080, // a message in a bottle
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a message in a bottle
     on_double_click: bottle_double_click,
     serialize: sos_serialize,
     deserialize: sos_deserialize,
@@ -452,7 +452,7 @@ pub static SOS: ItemType = ItemType {
     full_name: "Server.Items.SOS",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_sos(w, None, None)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| if is_ancient(w, id) { 1063450 } else { 1041081 }, // an ancient SOS / a waterstained SOS
     on_double_click: sos_double_click,
     serialize: sos_serialize,
@@ -580,7 +580,7 @@ pub fn new_special_fishing_net(w: &mut World) -> ItemId {
 
 /// `SpecialFishingNet()` of class `ty`.
 pub fn new_net_of(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x0DCA);
+    let id = crate::simple::from_template(w, ty, "Server.Items.SpecialFishingNet");
     set_in_use(w, id, false);
     let hue = if muo_content::core::lbr(w) && utility::random_double(&mut w.rng) < 0.1 {
         utility::random_element(&mut w.rng, &NET_HUES)
@@ -595,7 +595,7 @@ pub fn new_net_of(w: &mut World, ty: &'static ItemType) -> ItemId {
 
 /// `new FabledFishingNet()`.
 pub fn new_fabled_fishing_net(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &FABLED_FISHING_NET, 0x0DCA);
+    let id = crate::simple::from_template(w, &FABLED_FISHING_NET, "Server.Items.FabledFishingNet");
     set_in_use(w, id, false);
     let hue = if muo_content::core::lbr(w) && utility::random_double(&mut w.rng) < 0.1 {
         utility::random_element(&mut w.rng, &NET_HUES)
@@ -907,8 +907,8 @@ pub static SPECIAL_FISHING_NET: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(new_special_fishing_net),
     family: Some(&NET_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041079, // a special fishing net
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a special fishing net
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         // AddNetProperties: as if the name wasn't enough..
@@ -927,7 +927,7 @@ pub static FABLED_FISHING_NET: ItemType = ItemType {
     full_name: "Server.Items.FabledFishingNet",
     parent: Some(&SPECIAL_FISHING_NET),
     construct: Some(new_fabled_fishing_net),
-    label_number: |_, _| 1063451, // a fabled fishing net
+    label_number: crate::class_props::label_number, // a fabled fishing net
     serialize: |w, id, out| {
         net_serialize(w, id, out);
         write_version(out, false);

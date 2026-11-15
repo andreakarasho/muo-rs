@@ -799,7 +799,7 @@ pub static TREASURE_MAP_CHEST: ItemType = ItemType {
     parent: Some(&LOCKABLE_CONTAINER),
     construct: None,
     family: Some(&TMC_CLASS),
-    label_number: |_, _| 3000541,
+    label_number: crate::class_props::label_number,
     is_deco_container: |_, _| false,
     check_item_use: |w, id, from, item| {
         check_loot(w, id, from, item != id)

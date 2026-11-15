@@ -12,43 +12,47 @@ use muo_content::items::cont::BASE_CONTAINER;
 
 /// `CherryArmoire()`.
 pub fn cherry_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x285D)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.CherryArmoire")
 }
 
 leaf! {
     /// `Server.Items.CherryArmoire`.
     CHERRY_ARMOIRE = "Server.Items.CherryArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| cherry_armoire_new(w, &CHERRY_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `Drawer()`.
 pub fn drawer_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA2C)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.Drawer")
 }
 
 leaf! {
     /// `Server.Items.Drawer`.
     DRAWER = "Server.Items.Drawer" : BASE_CONTAINER, v0;
     construct: Some(|w| drawer_new(w, &DRAWER)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ElegantArmoire()`.
 pub fn elegant_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2859)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.ElegantArmoire")
 }
 
 leaf! {
     /// `Server.Items.ElegantArmoire`.
     ELEGANT_ARMOIRE = "Server.Items.ElegantArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| elegant_armoire_new(w, &ELEGANT_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `EmptyBookcase()`.
 pub fn empty_bookcase_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA9D)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.EmptyBookcase")
 }
 
 leaf! {
@@ -59,102 +63,110 @@ leaf! {
 
 /// `FancyDrawer()`.
 pub fn fancy_drawer_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA30)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.FancyDrawer")
 }
 
 leaf! {
     /// `Server.Items.FancyDrawer`.
     FANCY_DRAWER = "Server.Items.FancyDrawer" : BASE_CONTAINER, v0;
     construct: Some(|w| fancy_drawer_new(w, &FANCY_DRAWER)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `FancyElvenArmoire()`.
 pub fn fancy_elven_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2D07)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.FancyElvenArmoire")
 }
 
 leaf! {
     /// `Server.Items.FancyElvenArmoire`.
     FANCY_ELVEN_ARMOIRE = "Server.Items.FancyElvenArmoire" : BASE_CONTAINER, enc;
     construct: Some(|w| fancy_elven_armoire_new(w, &FANCY_ELVEN_ARMOIRE)),
-    default_weight: |_, _| 1.0,
-    default_gump_id: |_, _| 0x4E,
-    default_drop_sound: |_, _| 0x42,
+    default_weight: crate::class_props::default_weight,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `FullBookcase()`.
 pub fn full_bookcase_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0xA97)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.FullBookcase")
 }
 
 leaf! {
     /// `Server.Items.FullBookcase`.
     FULL_BOOKCASE = "Server.Items.FullBookcase" : BASE_CONTAINER, v0;
     construct: Some(|w| full_bookcase_new(w, &FULL_BOOKCASE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `MapleArmoire()`.
 pub fn maple_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x285B)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.MapleArmoire")
 }
 
 leaf! {
     /// `Server.Items.MapleArmoire`.
     MAPLE_ARMOIRE = "Server.Items.MapleArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| maple_armoire_new(w, &MAPLE_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `RedArmoire()`.
 pub fn red_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2857)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.RedArmoire")
 }
 
 leaf! {
     /// `Server.Items.RedArmoire`.
     RED_ARMOIRE = "Server.Items.RedArmoire" : BASE_CONTAINER, v0;
     construct: Some(|w| red_armoire_new(w, &RED_ARMOIRE)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `ShortCabinet()`.
 pub fn short_cabinet_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2817)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.ShortCabinet")
 }
 
 leaf! {
     /// `Server.Items.ShortCabinet`.
     SHORT_CABINET = "Server.Items.ShortCabinet" : BASE_CONTAINER, v0;
     construct: Some(|w| short_cabinet_new(w, &SHORT_CABINET)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SimpleElvenArmoire()`.
 pub fn simple_elven_armoire_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2D05)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.SimpleElvenArmoire")
 }
 
 leaf! {
     /// `Server.Items.SimpleElvenArmoire`.
     SIMPLE_ELVEN_ARMOIRE = "Server.Items.SimpleElvenArmoire" : BASE_CONTAINER, enc;
     construct: Some(|w| simple_elven_armoire_new(w, &SIMPLE_ELVEN_ARMOIRE)),
-    default_weight: |_, _| 1.0,
-    default_gump_id: |_, _| 0x4F,
-    default_drop_sound: |_, _| 0x42,
+    default_weight: crate::class_props::default_weight,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
 }
 
 /// `TallCabinet()`.
 pub fn tall_cabinet_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_base_container(w, ty, 0x2815)
+    let id = new_base_container(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.TallCabinet")
 }
 
 leaf! {
     /// `Server.Items.TallCabinet`.
     TALL_CABINET = "Server.Items.TallCabinet" : BASE_CONTAINER, v0;
     construct: Some(|w| tall_cabinet_new(w, &TALL_CABINET)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

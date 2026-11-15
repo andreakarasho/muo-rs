@@ -5,7 +5,7 @@
 use muo_content::items::cont::{self, LOCKABLE_CONTAINER, TrapType, new_lockable};
 use muo_content::items::gold::new_gold;
 use muo_content::loot;
-use muo_primitives::{Rectangle2D, TimeSpan};
+use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ItemType, container, ops};
@@ -367,7 +367,7 @@ fn new4(w: &mut World) -> ItemId {
 }
 
 macro_rules! chests {
-    ($($name:ident = $full:literal, $ctor:ident, $gump:expr;)*) => {$(
+    ($($name:ident = $full:literal, $ctor:ident;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
@@ -376,9 +376,9 @@ macro_rules! chests {
             decays: |_, _| true,
             is_deco_container: |_, _| false,
             decay_time: |w, id| w.item(id).and_then(|i| i.ext.get::<ChestDecay>()).map_or(TimeSpan::ZERO, |d| d.0),
-            default_gump_id: |_, _| $gump,
-            default_drop_sound: |_, _| 0x42,
-            bounds: |_, _| Rectangle2D::new(18, 105, 144, 73),
+            default_gump_id: crate::class_props::default_gump_id,
+            default_drop_sound: crate::class_props::default_drop_sound,
+            bounds: crate::class_props::bounds,
             serialize: |w, id, out| {
                 (LOCKABLE_CONTAINER.serialize)(w, id, out);
                 out.write_i32(0);
@@ -399,10 +399,10 @@ macro_rules! chests {
 }
 
 chests! {
-    TREASURE_CHEST_LEVEL1 = "Server.Items.TreasureChestLevel1", new1, 0x44;
-    TREASURE_CHEST_LEVEL2 = "Server.Items.TreasureChestLevel2", new2, 0x42;
-    TREASURE_CHEST_LEVEL3 = "Server.Items.TreasureChestLevel3", new3, 0x42;
-    TREASURE_CHEST_LEVEL4 = "Server.Items.TreasureChestLevel4", new4, 0x42;
+    TREASURE_CHEST_LEVEL1 = "Server.Items.TreasureChestLevel1", new1;
+    TREASURE_CHEST_LEVEL2 = "Server.Items.TreasureChestLevel2", new2;
+    TREASURE_CHEST_LEVEL3 = "Server.Items.TreasureChestLevel3", new3;
+    TREASURE_CHEST_LEVEL4 = "Server.Items.TreasureChestLevel4", new4;
 }
 
 /// Registers the classes.

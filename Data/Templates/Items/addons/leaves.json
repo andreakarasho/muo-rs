@@ -1,0 +1,521 @@
+[
+  {
+    "type": "Server.Items.AbbatoirDeed",
+    "props": {
+      "labelNumber": 1044329
+    }
+  },
+  {
+    "type": "Server.Items.AlchemistTableEastDeed",
+    "props": {
+      "labelNumber": 1073397
+    }
+  },
+  {
+    "type": "Server.Items.AlchemistTableSouthDeed",
+    "props": {
+      "labelNumber": 1073396
+    }
+  },
+  {
+    "type": "Server.Items.AnvilEastDeed",
+    "props": {
+      "labelNumber": 1044333
+    }
+  },
+  {
+    "type": "Server.Items.AnvilSouthDeed",
+    "props": {
+      "labelNumber": 1044334
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneBookshelfEastAddon",
+    "props": {
+      "gumpId": 263,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneBookshelfEastDeed",
+    "props": {
+      "labelNumber": 1073371
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneBookshelfSouthAddon",
+    "props": {
+      "gumpId": 263,
+      "dropSound": 66,
+      "labelNumber": 1032420
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneBookshelfSouthDeed",
+    "props": {
+      "labelNumber": 1072871
+    }
+  },
+  {
+    "type": "Server.Items.ArcaneCircleDeed",
+    "props": {
+      "labelNumber": 1072703
+    }
+  },
+  {
+    "type": "Server.Items.ArcanistStatueEastDeed",
+    "props": {
+      "labelNumber": 1072886
+    }
+  },
+  {
+    "type": "Server.Items.ArcanistStatueSouthDeed",
+    "props": {
+      "labelNumber": 1072885
+    }
+  },
+  {
+    "type": "Server.Items.BrownBearRugEastDeed",
+    "props": {
+      "labelNumber": 1049397
+    }
+  },
+  {
+    "type": "Server.Items.BrownBearRugSouthDeed",
+    "props": {
+      "labelNumber": 1049398
+    }
+  },
+  {
+    "type": "Server.Items.PolarBearRugEastDeed",
+    "props": {
+      "labelNumber": 1049399
+    }
+  },
+  {
+    "type": "Server.Items.PolarBearRugSouthDeed",
+    "props": {
+      "labelNumber": 1049400
+    }
+  },
+  {
+    "type": "Server.Items.ElvenBedEastDeed",
+    "props": {
+      "labelNumber": 1072861
+    }
+  },
+  {
+    "type": "Server.Items.ElvenBedSouthDeed",
+    "props": {
+      "labelNumber": 1072860
+    }
+  },
+  {
+    "type": "Server.Items.ElvenDresserEastAddon",
+    "props": {
+      "gumpId": 81,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.ElvenDresserEastDeed",
+    "props": {
+      "labelNumber": 1073388
+    }
+  },
+  {
+    "type": "Server.Items.ElvenDresserSouthAddon",
+    "props": {
+      "gumpId": 81,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.ElvenDresserSouthDeed",
+    "props": {
+      "labelNumber": 1072864
+    }
+  },
+  {
+    "type": "Server.Items.ElvenForgeAddon",
+    "props": {
+      "labelNumber": 1072875
+    }
+  },
+  {
+    "type": "Server.Items.ElvenForgeDeed",
+    "props": {
+      "labelNumber": 1072875
+    }
+  },
+  {
+    "type": "Server.Items.ElvenLoveseatEastDeed",
+    "props": {
+      "labelNumber": 1073372
+    }
+  },
+  {
+    "type": "Server.Items.ElvenLoveseatSouthDeed",
+    "props": {
+      "labelNumber": 1072867
+    }
+  },
+  {
+    "type": "Server.Items.ElvenStoveEastDeed",
+    "props": {
+      "labelNumber": 1073395
+    }
+  },
+  {
+    "type": "Server.Items.ElvenStoveSouthDeed",
+    "props": {
+      "labelNumber": 1073394
+    }
+  },
+  {
+    "type": "Server.Items.ElvenWashBasinEastAddon",
+    "props": {
+      "gumpId": 260,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.ElvenWashBasinEastDeed",
+    "props": {
+      "labelNumber": 1073387
+    }
+  },
+  {
+    "type": "Server.Items.ElvenWashBasinSouthAddon",
+    "props": {
+      "gumpId": 260,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.ElvenWashBasinSouthDeed",
+    "props": {
+      "labelNumber": 1072865
+    }
+  },
+  {
+    "type": "Server.Items.FancyElvenTableEastDeed",
+    "props": {
+      "labelNumber": 1073386
+    }
+  },
+  {
+    "type": "Server.Items.FancyElvenTableSouthDeed",
+    "props": {
+      "labelNumber": 1073385
+    }
+  },
+  {
+    "type": "Server.Items.LightFlowerTapestryEastDeed",
+    "props": {
+      "labelNumber": 1049393
+    }
+  },
+  {
+    "type": "Server.Items.LightFlowerTapestrySouthDeed",
+    "props": {
+      "labelNumber": 1049394
+    }
+  },
+  {
+    "type": "Server.Items.DarkFlowerTapestryEastDeed",
+    "props": {
+      "labelNumber": 1049395
+    }
+  },
+  {
+    "type": "Server.Items.DarkFlowerTapestrySouthDeed",
+    "props": {
+      "labelNumber": 1049396
+    }
+  },
+  {
+    "type": "Server.Items.GozaMatEastDeed",
+    "props": {
+      "labelNumber": 1030404
+    }
+  },
+  {
+    "type": "Server.Items.GozaMatSouthDeed",
+    "props": {
+      "labelNumber": 1030405
+    }
+  },
+  {
+    "type": "Server.Items.SquareGozaMatEastAddon",
+    "props": {
+      "labelNumber": 1030688
+    }
+  },
+  {
+    "type": "Server.Items.SquareGozaMatEastDeed",
+    "props": {
+      "labelNumber": 1030407
+    }
+  },
+  {
+    "type": "Server.Items.SquareGozaMatSouthDeed",
+    "props": {
+      "labelNumber": 1030406
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeGozaMatEastDeed",
+    "props": {
+      "labelNumber": 1030408
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeGozaMatSouthDeed",
+    "props": {
+      "labelNumber": 1030409
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeSquareGozaMatEastDeed",
+    "props": {
+      "labelNumber": 1030411
+    }
+  },
+  {
+    "type": "Server.Items.BrocadeSquareGozaMatSouthDeed",
+    "props": {
+      "labelNumber": 1030410
+    }
+  },
+  {
+    "type": "Server.Items.GrayBrickFireplaceEastDeed",
+    "props": {
+      "labelNumber": 1061846
+    }
+  },
+  {
+    "type": "Server.Items.GrayBrickFireplaceSouthDeed",
+    "props": {
+      "labelNumber": 1061847
+    }
+  },
+  {
+    "type": "Server.Items.LargeBedEastDeed",
+    "props": {
+      "labelNumber": 1044324
+    }
+  },
+  {
+    "type": "Server.Items.LargeBedSouthDeed",
+    "props": {
+      "labelNumber": 1044323
+    }
+  },
+  {
+    "type": "Server.Items.LargeForgeEastDeed",
+    "props": {
+      "labelNumber": 1044331
+    }
+  },
+  {
+    "type": "Server.Items.LargeForgeSouthDeed",
+    "props": {
+      "labelNumber": 1044332
+    }
+  },
+  {
+    "type": "Server.Items.LargeStoneTableEastDeed",
+    "props": {
+      "labelNumber": 1044511
+    }
+  },
+  {
+    "type": "Server.Items.LargeStoneTableSouthDeed",
+    "props": {
+      "labelNumber": 1044512
+    }
+  },
+  {
+    "type": "Server.Items.MediumStoneTableEastDeed",
+    "props": {
+      "labelNumber": 1044508
+    }
+  },
+  {
+    "type": "Server.Items.MediumStoneTableSouthDeed",
+    "props": {
+      "labelNumber": 1044509
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenChestEastAddon",
+    "props": {
+      "gumpId": 268,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenChestEastDeed",
+    "props": {
+      "labelNumber": 1073383
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenChestSouthAddon",
+    "props": {
+      "gumpId": 268,
+      "dropSound": 66
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenChestSouthDeed",
+    "props": {
+      "labelNumber": 1072862
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenTableEastDeed",
+    "props": {
+      "labelNumber": 1073384
+    }
+  },
+  {
+    "type": "Server.Items.OrnateElvenTableSouthDeed",
+    "props": {
+      "labelNumber": 1072869
+    }
+  },
+  {
+    "type": "Server.Items.ParrotPerchDeed",
+    "props": {
+      "labelNumber": 1072617
+    }
+  },
+  {
+    "type": "Server.Items.PentagramDeed",
+    "props": {
+      "labelNumber": 1044328
+    }
+  },
+  {
+    "type": "Server.Items.SandstoneFireplaceEastDeed",
+    "props": {
+      "labelNumber": 1061844
+    }
+  },
+  {
+    "type": "Server.Items.SandstoneFireplaceSouthDeed",
+    "props": {
+      "labelNumber": 1061845
+    }
+  },
+  {
+    "type": "Server.Items.ShrineOfWisdomComponent",
+    "props": {
+      "labelNumber": 1062046
+    }
+  },
+  {
+    "type": "Server.Items.SmallBedEastDeed",
+    "props": {
+      "labelNumber": 1044322
+    }
+  },
+  {
+    "type": "Server.Items.SmallBedSouthDeed",
+    "props": {
+      "labelNumber": 1044321
+    }
+  },
+  {
+    "type": "Server.Items.SmallForgeDeed",
+    "props": {
+      "labelNumber": 1044330
+    }
+  },
+  {
+    "type": "Server.Items.SquirrelStatueEastDeed",
+    "props": {
+      "labelNumber": 1073398
+    }
+  },
+  {
+    "type": "Server.Items.SquirrelStatueSouthDeed",
+    "props": {
+      "labelNumber": 1072884
+    }
+  },
+  {
+    "type": "Server.Items.StoneFireplaceEastDeed",
+    "props": {
+      "labelNumber": 1061848
+    }
+  },
+  {
+    "type": "Server.Items.StoneFireplaceSouthDeed",
+    "props": {
+      "labelNumber": 1061849
+    }
+  },
+  {
+    "type": "Server.Items.StoneOvenEastDeed",
+    "props": {
+      "labelNumber": 1044345
+    }
+  },
+  {
+    "type": "Server.Items.StoneOvenSouthDeed",
+    "props": {
+      "labelNumber": 1044346
+    }
+  },
+  {
+    "type": "Server.Items.SmallStretchedHideEastDeed",
+    "props": {
+      "labelNumber": 1049401
+    }
+  },
+  {
+    "type": "Server.Items.SmallStretchedHideSouthDeed",
+    "props": {
+      "labelNumber": 1049402
+    }
+  },
+  {
+    "type": "Server.Items.MediumStretchedHideEastDeed",
+    "props": {
+      "labelNumber": 1049403
+    }
+  },
+  {
+    "type": "Server.Items.MediumStretchedHideSouthDeed",
+    "props": {
+      "labelNumber": 1049404
+    }
+  },
+  {
+    "type": "Server.Items.TallElvenBedEastDeed",
+    "props": {
+      "labelNumber": 1072859
+    }
+  },
+  {
+    "type": "Server.Items.TallElvenBedSouthDeed",
+    "props": {
+      "labelNumber": 1072858
+    }
+  },
+  {
+    "type": "Server.Items.WarriorStatueEastDeed",
+    "props": {
+      "labelNumber": 1072888
+    }
+  },
+  {
+    "type": "Server.Items.WarriorStatueSouthDeed",
+    "props": {
+      "labelNumber": 1072887
+    }
+  }
+]

@@ -1,0 +1,172 @@
+[
+  {
+    "type": "Server.Items.Tapestry1N",
+    "itemId": 3754,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry1N+InternalItem",
+    "itemId": 3755,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry2N",
+    "itemId": 3756,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry2N+InternalItem",
+    "itemId": 3757,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry2W",
+    "itemId": 3758,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry2W+InternalItem",
+    "itemId": 3759,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry3N",
+    "itemId": 4054,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry3N+InternalItem",
+    "itemId": 4053,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry3W",
+    "itemId": 4055,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry3W+InternalItem",
+    "itemId": 4056,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry4N",
+    "itemId": 4058,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry4N+InternalItem",
+    "itemId": 4057,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry4W",
+    "itemId": 4059,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry4W+InternalItem",
+    "itemId": 4060,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry5N",
+    "itemId": 4062,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry5N+InternalItem",
+    "itemId": 4061,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry5W",
+    "itemId": 4063,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry5W+InternalItem",
+    "itemId": 4064,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry6N",
+    "itemId": 4066,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry6N+InternalItem",
+    "itemId": 4065,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.Tapestry6W",
+    "itemId": 4067,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.Tapestry6W+InternalItem",
+    "itemId": 4068,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.DecorativeSwordNorth",
+    "itemId": 5477,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeSwordNorth+InternalItem",
+    "itemId": 5476,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.DecorativeSwordWest",
+    "itemId": 5478,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeSwordWest+InternalItem",
+    "itemId": 5479,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.DecorativeDAxeNorth",
+    "itemId": 5481,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeDAxeNorth+InternalItem",
+    "itemId": 5480,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.DecorativeDAxeWest",
+    "itemId": 5482,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.DecorativeDAxeWest+InternalItem",
+    "itemId": 5483,
+    "movable": true
+  },
+  {
+    "type": "Server.Items.AnkhWest",
+    "itemId": 3,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.AnkhWest+InternalItem",
+    "itemId": 2,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.AnkhNorth",
+    "itemId": 4,
+    "movable": false
+  },
+  {
+    "type": "Server.Items.AnkhNorth+InternalItem",
+    "itemId": 5,
+    "movable": false
+  }
+]
