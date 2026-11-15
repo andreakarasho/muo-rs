@@ -23,7 +23,7 @@
 //! - `npcSeq: [{..}, {..}]`: blocks of template keys run in order (a block can repeat a key of an earlier one).
 //! - `npcIfLayerEmpty: {"layer": "TwoHanded", "then": {..}}`: the block when nothing is on that layer.
 //!
-//! Nested blocks are parsed when they run, so a mistake in one is logged then (`templates_npcs` tests every
+//! Nested blocks are parsed when they run, so a mistake in one is logged then (`npcs::template_tests` parses every
 //! shipped class).
 
 use serde_json::Value;
@@ -200,34 +200,6 @@ pub fn run_block(w: &mut World, id: MobileId, v: &Value) {
         Ok(steps) => steps.iter().for_each(|s| mobile_steps::apply(w, id, s)),
         Err(e) => tracing::error!("Templates: a nested NPC block: {e}"),
     }
-}
-
-/// `apply_mobile` for the NPC classes: each template of the class's `inherits` chain replays its keys, then its
-/// `"npcInit"` prop (a block of keys that may use the NPC keys); the script's `on_spawn` runs last.
-///
-/// shortcut: the NPC keys sit in a prop, not at the template's top level, because a world whose registry lacks
-/// them (the bare test worlds of other crates) would reject the whole table; move them up once the loader
-/// tolerates keys it does not know there.
-pub fn apply_template(w: &mut World, id: MobileId) {
-    let Some(name) = w.mobile(id).map(|m| m.ty.full_name) else {
-        return;
-    };
-    let t = muo_content::templates::table(w);
-    let chain: Vec<_> = t
-        .chain(muo_content::templates::Kind::Mobile, name)
-        .collect();
-    if chain.is_empty() {
-        tracing::warn!("Templates: no mobile template for {name}");
-    }
-    for tmpl in chain.into_iter().rev() {
-        for s in &tmpl.mobile_steps {
-            mobile_steps::apply(w, id, s);
-        }
-        if let Some(b) = tmpl.props.get("npcInit") {
-            run_block(w, id, b);
-        }
-    }
-    muo_server::script_hooks::mobile(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
 }
 
 fn layer(s: &str) -> Option<Layer> {

@@ -27,7 +27,7 @@ fn world() -> World {
     w
 }
 
-/// Every block of template keys under a template's `npcInit` / `npcOutfit` props, nested ones included.
+/// A block of template keys and every block nested in it.
 fn blocks<'a>(v: &'a Value, out: &mut Vec<&'a Value>) {
     let Some(o) = v.as_object() else { return };
     out.push(v);
@@ -84,22 +84,40 @@ fn every_npc_block_parses_and_every_sb_info_exists() {
     let mut types = TypeRegistry::default();
     crate::register(&mut types);
     let keys = Keys::of(&types);
+    // the strict load (the server's) knows every key at the top level
+    let dir = std::env::current_dir()
+        .unwrap()
+        .ancestors()
+        .map(|a| a.join("Data").join("Templates"))
+        .find(|p| p.is_dir())
+        .unwrap();
+    muo_content::templates::load_dir_with(&dir, &keys).unwrap();
+    // the blocks nested in NPC keys and the npcOutfit props are parsed when they run: parse them here
     let mut checked = 0;
-    for tmpl in t.mobiles.values() {
-        for prop in ["npcInit", "npcOutfit"] {
+    for e in std::fs::read_dir(dir.join("Mobiles").join("npcs")).unwrap() {
+        let file: Value =
+            serde_json::from_str(&std::fs::read_to_string(e.unwrap().path()).unwrap()).unwrap();
+        for tmpl in file.as_array().unwrap() {
+            let ty = tmpl["type"].as_str().unwrap();
             let mut list = Vec::new();
-            if let Some(v) = tmpl.props.get(prop) {
+            blocks(tmpl, &mut list);
+            if let Some(v) = tmpl["props"].get("npcOutfit") {
                 blocks(v, &mut list);
             }
             for b in list {
                 for (k, v) in b.as_object().unwrap() {
+                    if ["type", "inherits", "ai", "fightMode", "props"].contains(&k.as_str()) {
+                        continue;
+                    }
                     if let Err(e) = mobile_steps::parse(k, v, &keys) {
-                        panic!("{}: {prop}: \"{k}\": {e}", tmpl.type_name);
+                        panic!("{ty}: \"{k}\": {e}");
                     }
                     checked += 1;
                 }
             }
         }
+    }
+    for tmpl in t.mobiles.values() {
         let mut names = Vec::new();
         if let Some(v) = tmpl.props.get("npcSbInfos") {
             sb_names(v, &mut names);

@@ -75,7 +75,7 @@ pub fn new_template_hire(w: &mut World, ty: &'static MobileType) -> MobileId {
         .creature_args(ty.full_name)
         .ai;
     let id = new_hire(w, ty, ai);
-    crate::template_keys_npcs::apply_template(w, id);
+    muo_content::templates::apply_mobile(w, id);
     id
 }
 

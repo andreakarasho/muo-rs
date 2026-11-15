@@ -258,7 +258,7 @@ macro_rules! healer_leaf {
 fn new_healer_base(w: &mut World, ty: &'static MobileType, price: i32) -> MobileId {
     let id = new_vendor(w, ty, None);
     base_healer_init(w, id, price);
-    crate::template_keys_npcs::apply_template(w, id);
+    muo_content::templates::apply_mobile(w, id);
     id
 }
 

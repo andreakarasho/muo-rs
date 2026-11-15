@@ -8,18 +8,8 @@ use muo_content::hooks::rnd;
 use muo_content::loot_pack;
 use muo_content::templates;
 use muo_server::ids::MobileId;
-use muo_server::mobile::MobileType;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
-
-/// `new T()` of a townfolk class whose constructor is its template: `BaseCreature(ai, mode, ..)` from the
-/// template, then its keys (`template_keys_npcs::apply_template`).
-fn new_template_creature(w: &mut World, ty: &'static MobileType) -> MobileId {
-    let a = templates::table(w).creature_args(ty.full_name);
-    let id = new_creature(w, ty, a.ai, a.fight_mode, a.range_perception, a.range_fight);
-    npc_keys::apply_template(w, id);
-    id
-}
 
 fn hire_bard_generate_loot(w: &mut World, id: MobileId) {
     add_loot(w, id, loot_pack::average(w));
@@ -168,7 +158,7 @@ creature_leaf! {
 }
 
 creature_leaf! {
-    ACTOR, ACTOR_C = "Server.Mobiles.Actor" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &ACTOR)), encoded false;
+    ACTOR, ACTOR_C = "Server.Mobiles.Actor" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &ACTOR)), encoded false;
     c {
     }
     m {
@@ -177,17 +167,7 @@ creature_leaf! {
 }
 
 creature_leaf! {
-    ARTIST, ARTIST_C = "Server.Mobiles.Artist" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &ARTIST)), encoded false;
-    c {
-        can_teach: npc_keys::can_teach,
-    }
-    m {
-        click_title: npc_keys::click_title,
-    }
-}
-
-creature_leaf! {
-    GYPSY, GYPSY_C = "Server.Mobiles.Gypsy" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &GYPSY)), encoded false;
+    ARTIST, ARTIST_C = "Server.Mobiles.Artist" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &ARTIST)), encoded false;
     c {
         can_teach: npc_keys::can_teach,
     }
@@ -197,7 +177,7 @@ creature_leaf! {
 }
 
 creature_leaf! {
-    HARBOR_MASTER, HARBOR_MASTER_C = "Server.Mobiles.HarborMaster" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &HARBOR_MASTER)), encoded false;
+    GYPSY, GYPSY_C = "Server.Mobiles.Gypsy" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &GYPSY)), encoded false;
     c {
         can_teach: npc_keys::can_teach,
     }
@@ -207,7 +187,7 @@ creature_leaf! {
 }
 
 creature_leaf! {
-    NINJA, NINJA_C = "Server.Mobiles.Ninja" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &NINJA)), encoded true;
+    HARBOR_MASTER, HARBOR_MASTER_C = "Server.Mobiles.HarborMaster" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &HARBOR_MASTER)), encoded false;
     c {
         can_teach: npc_keys::can_teach,
     }
@@ -217,7 +197,7 @@ creature_leaf! {
 }
 
 creature_leaf! {
-    SAMURAI, SAMURAI_C = "Server.Mobiles.Samurai" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &SAMURAI)), encoded true;
+    NINJA, NINJA_C = "Server.Mobiles.Ninja" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &NINJA)), encoded true;
     c {
         can_teach: npc_keys::can_teach,
     }
@@ -227,7 +207,17 @@ creature_leaf! {
 }
 
 creature_leaf! {
-    SCULPTOR, SCULPTOR_C = "Server.Mobiles.Sculptor" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| new_template_creature(w, &SCULPTOR)), encoded false;
+    SAMURAI, SAMURAI_C = "Server.Mobiles.Samurai" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &SAMURAI)), encoded true;
+    c {
+        can_teach: npc_keys::can_teach,
+    }
+    m {
+        click_title: npc_keys::click_title,
+    }
+}
+
+creature_leaf! {
+    SCULPTOR, SCULPTOR_C = "Server.Mobiles.Sculptor" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &SCULPTOR)), encoded false;
     c {
     }
     m {

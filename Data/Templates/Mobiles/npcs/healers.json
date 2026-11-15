@@ -37,19 +37,17 @@
   {
     "type": "Server.Mobiles.Healer",
     "inherits": "Server.Mobiles.BaseHealer",
+    "title": "the healer",
+    "era": {
+      "atLeast": "AOS",
+      "else": {"npcNameHue": 53}
+    },
+    "skills": {
+      "Forensics": [80.0, 100.0],
+      "SpiritSpeak": [80.0, 100.0],
+      "Swords": [80.0, 100.0]
+    },
     "props": {
-      "npcInit": {
-        "title": "the healer",
-        "era": {
-          "atLeast": "AOS",
-          "else": {"npcNameHue": 53}
-        },
-        "skills": {
-          "Forensics": [80.0, 100.0],
-          "SpiritSpeak": [80.0, 100.0],
-          "Swords": [80.0, 100.0]
-        }
-      },
       "npcSbInfos": ["SBHealer"]
     }
   },
@@ -70,21 +68,17 @@
   {
     "type": "Server.Mobiles.EvilWanderingHealer",
     "inherits": "Server.Mobiles.BaseHealer",
-    "props": {
-      "npcInit": {
-        "era": {
-          "atLeast": "AOS",
-          "then": {"title": "the priest Of Mondain"},
-          "else": {"title": "the evil wandering healer"}
-        },
-        "karma": -10000,
-        "npcAddItem": ["Server.Items.GnarledStaff"],
-        "skills": {
-          "Camping": [80.0, 100.0],
-          "Forensics": [80.0, 100.0],
-          "SpiritSpeak": [80.0, 100.0]
-        }
-      }
+    "era": {
+      "atLeast": "AOS",
+      "then": {"title": "the priest Of Mondain"},
+      "else": {"title": "the evil wandering healer"}
+    },
+    "karma": -10000,
+    "npcAddItem": ["Server.Items.GnarledStaff"],
+    "skills": {
+      "Camping": [80.0, 100.0],
+      "Forensics": [80.0, 100.0],
+      "SpiritSpeak": [80.0, 100.0]
     }
   },
   {
@@ -132,28 +126,20 @@
   {
     "type": "Server.Mobiles.WanderingHealer",
     "inherits": "Server.Mobiles.BaseHealer",
-    "props": {
-      "npcInit": {
-        "title": "the wandering healer",
-        "npcAddItem": ["Server.Items.GnarledStaff"],
-        "skills": {
-          "Camping": [80.0, 100.0],
-          "Forensics": [80.0, 100.0],
-          "SpiritSpeak": [80.0, 100.0]
-        }
-      }
+    "title": "the wandering healer",
+    "npcAddItem": ["Server.Items.GnarledStaff"],
+    "skills": {
+      "Camping": [80.0, 100.0],
+      "Forensics": [80.0, 100.0],
+      "SpiritSpeak": [80.0, 100.0]
     }
   },
   {
     "type": "Server.Mobiles.PricedHealer",
     "inherits": "Server.Mobiles.BaseHealer",
-    "props": {
-      "npcInit": {
-        "era": {
-          "atLeast": "AOS",
-          "else": {"npcNameHue": 53}
-        }
-      }
+    "era": {
+      "atLeast": "AOS",
+      "else": {"npcNameHue": 53}
     }
   }
 ]
