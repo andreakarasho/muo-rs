@@ -21,31 +21,32 @@ fn make(w: &mut World, name: &str) -> Option<ItemId> {
 
 // ---- bowls ----
 
-fn bowl_eat(w: &mut World, id: ItemId, from: MobileId, empty: &str) -> bool {
+/// A bowl's `Eat`: the food's, then the empty bowl named by the class's `emptyBowl` prop.
+fn bowl_eat(w: &mut World, id: ItemId, from: MobileId) -> bool {
+    let empty = crate::class_props::str_of(w, id, "emptyBowl");
     if !(BASE_FOOD_CLASS.eat)(w, id, from) {
         return false;
     }
-    if let Some(b) = make(w, empty) {
+    if let Some(b) = empty.and_then(|e| make(w, e)) {
         muo_server::mobile::part2::items::add_to_backpack(w, from, b);
     }
     true
 }
 
+static BOWL_CLASS: FoodClass = FoodClass { eat: bowl_eat };
+
 macro_rules! bowls {
-    ($($name:ident, $class:ident = $full:literal, $gid:expr, $weight:expr, $empty:literal;)*) => {$(
-        static $class: FoodClass = FoodClass { eat: |w, id, from| bowl_eat(w, id, from, $empty) };
+    ($($name:ident = $full:literal;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&FOOD),
             construct: Some(|w| {
-                let id = new_food(w, &$name, $gid, 1);
-                ops::set_stackable(w, id, false);
-                set_fill_factor(w, id, 2);
-                id
+                let id = new_food(w, &$name, 0, 1);
+                crate::simple::own_template(w, id, $full)
             }),
-            family: Some(&$class),
-            default_weight: |_, _| $weight,
+            family: Some(&BOWL_CLASS),
+            default_weight: crate::class_props::default_weight,
             serialize: |w, id, out| {
                 (FOOD.serialize)(w, id, out);
                 out.write_i32(0);
@@ -61,17 +62,17 @@ macro_rules! bowls {
 }
 
 bowls! {
-    WOODEN_BOWL_OF_CARROTS, C1 = "Server.Items.WoodenBowlOfCarrots", 0x15F9, 1.0, "Server.Items.EmptyWoodenBowl";
-    WOODEN_BOWL_OF_CORN, C2 = "Server.Items.WoodenBowlOfCorn", 0x15FA, 1.0, "Server.Items.EmptyWoodenBowl";
-    WOODEN_BOWL_OF_LETTUCE, C3 = "Server.Items.WoodenBowlOfLettuce", 0x15FB, 1.0, "Server.Items.EmptyWoodenBowl";
-    WOODEN_BOWL_OF_PEAS, C4 = "Server.Items.WoodenBowlOfPeas", 0x15FC, 1.0, "Server.Items.EmptyWoodenBowl";
-    PEWTER_BOWL_OF_CARROTS, C5 = "Server.Items.PewterBowlOfCarrots", 0x15FE, 1.0, "Server.Items.EmptyPewterBowl";
-    PEWTER_BOWL_OF_CORN, C6 = "Server.Items.PewterBowlOfCorn", 0x15FF, 1.0, "Server.Items.EmptyPewterBowl";
-    PEWTER_BOWL_OF_LETTUCE, C7 = "Server.Items.PewterBowlOfLettuce", 0x1600, 1.0, "Server.Items.EmptyPewterBowl";
-    PEWTER_BOWL_OF_PEAS, C8 = "Server.Items.PewterBowlOfPeas", 0x1601, 1.0, "Server.Items.EmptyPewterBowl";
-    PEWTER_BOWL_OF_POTATOS, C9 = "Server.Items.PewterBowlOfPotatos", 0x1602, 1.0, "Server.Items.EmptyPewterBowl";
-    WOODEN_BOWL_OF_STEW, C10 = "Server.Items.WoodenBowlOfStew", 0x1604, 2.0, "Server.Items.EmptyWoodenTub";
-    WOODEN_BOWL_OF_TOMATO_SOUP, C11 = "Server.Items.WoodenBowlOfTomatoSoup", 0x1606, 2.0, "Server.Items.EmptyWoodenTub";
+    WOODEN_BOWL_OF_CARROTS = "Server.Items.WoodenBowlOfCarrots";
+    WOODEN_BOWL_OF_CORN = "Server.Items.WoodenBowlOfCorn";
+    WOODEN_BOWL_OF_LETTUCE = "Server.Items.WoodenBowlOfLettuce";
+    WOODEN_BOWL_OF_PEAS = "Server.Items.WoodenBowlOfPeas";
+    PEWTER_BOWL_OF_CARROTS = "Server.Items.PewterBowlOfCarrots";
+    PEWTER_BOWL_OF_CORN = "Server.Items.PewterBowlOfCorn";
+    PEWTER_BOWL_OF_LETTUCE = "Server.Items.PewterBowlOfLettuce";
+    PEWTER_BOWL_OF_PEAS = "Server.Items.PewterBowlOfPeas";
+    PEWTER_BOWL_OF_POTATOS = "Server.Items.PewterBowlOfPotatos";
+    WOODEN_BOWL_OF_STEW = "Server.Items.WoodenBowlOfStew";
+    WOODEN_BOWL_OF_TOMATO_SOUP = "Server.Items.WoodenBowlOfTomatoSoup";
 }
 
 // ---- CookableFood ----
@@ -82,10 +83,6 @@ pub struct CookData {
     pub level: i32,
 }
 
-/// `Cook()`: the class of the cooked food.
-pub struct CookClass {
-    pub cooked: &'static str,
-}
 
 /// `cookableFood.CookingLevel`.
 pub fn cooking_level(w: &World, id: ItemId) -> i32 {
@@ -134,20 +131,18 @@ static AMOUNT_1: [Param; 1] = [Param {
 }];
 
 macro_rules! cookables {
-    ($($name:ident, $class:ident, $ctor:ident = $full:literal, $gid:expr, $level:expr, $cooked:literal,
-        ($($body:tt)*), [$($field:ident : $v:expr),*];)*) => {$(
-        static $class: CookClass = CookClass { cooked: $cooked };
+    ($($name:ident, $ctor:ident = $full:literal, ($($body:tt)*);)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&COOKABLE_FOOD),
             construct: Some(|w| {
-                let id = new_cookable(w, &$name, $gid, $level);
-                cookables!(@body w id $($body)*);
-                id
+                let id = new_cookable(w, &$name, 0, 0);
+                crate::simple::own_template(w, id, $full)
             }),
-            family: Some(&$class),
-            $($field: $v,)*
+            default_weight: crate::class_props::default_weight,
+            label_number: crate::class_props::label_number,
+            default_name: crate::class_props::default_name,
             serialize: |w, id, out| {
                 (COOKABLE_FOOD.serialize)(w, id, out);
                 out.write_i32(0);
@@ -159,81 +154,56 @@ macro_rules! cookables {
             },
             ..COOKABLE_FOOD
         };
-        cookables!(@ctor $name, $ctor, $gid, $level, $($body)*);
+        cookables!(@ctor $name, $ctor, $full, $($body)*);
     )*};
-    (@body $w:ident $id:ident none) => {};
-    (@body $w:ident $id:ident stack) => { ops::set_stackable($w, $id, true); };
-    (@body $w:ident $id:ident amount) => { ops::set_stackable($w, $id, true); };
-    (@body $w:ident $id:ident eggs) => { { let h = 3 + random($w, 20) * 5; hue($w, $id, h); } };
-    (@ctor $name:ident, $ctor:ident, $gid:expr, $level:expr, amount) => {
+    (@ctor $name:ident, $ctor:ident, $full:literal, amount) => {
         static $ctor: [Ctor; 1] = [Ctor {
             access: None,
             params: &AMOUNT_1,
             make: |w, v| {
-                let id = new_cookable(w, &$name, $gid, $level);
-                ops::set_stackable(w, id, true);
+                let id = new_cookable(w, &$name, 0, 0);
+                crate::simple::own_template(w, id, $full);
                 ops::set_amount(w, id, v[0].i32());
                 EntityId::Item(id)
             },
         }];
     };
-    (@ctor $name:ident, $ctor:ident, $gid:expr, $level:expr, $($other:tt)*) => {};
+    (@ctor $name:ident, $ctor:ident, $full:literal, $($other:tt)*) => {};
 }
 
 cookables! {
-    RAW_RIBS, RAW_RIBS_C, C_RAW_RIBS = "Server.Items.RawRibs", 0x9F1, 10, "Server.Items.Ribs", (amount),
-        [default_weight: |_, _| 1.0];
-    RAW_LAMB_LEG, RAW_LAMB_LEG_C, C_RAW_LAMB_LEG = "Server.Items.RawLambLeg", 0x1609, 10, "Server.Items.LambLeg", (amount), [];
-    RAW_CHICKEN_LEG, RAW_CHICKEN_LEG_C, C_RAW_CHICKEN_LEG = "Server.Items.RawChickenLeg", 0x1607, 10,
-        "Server.Items.ChickenLeg", (stack), [default_weight: |_, _| 1.0];
-    RAW_BIRD, RAW_BIRD_C, C_RAW_BIRD = "Server.Items.RawBird", 0x9B9, 10, "Server.Items.CookedBird", (amount),
-        [default_weight: |_, _| 1.0];
-    UNBAKED_PEACH_COBBLER, UPC_C, C_UPC = "Server.Items.UnbakedPeachCobbler", 0x1042, 25, "Server.Items.PeachCobbler", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041335];
-    UNBAKED_FRUIT_PIE, UFP_C, C_UFP = "Server.Items.UnbakedFruitPie", 0x1042, 25, "Server.Items.FruitPie", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041334];
-    UNBAKED_MEAT_PIE, UMP_C, C_UMP = "Server.Items.UnbakedMeatPie", 0x1042, 25, "Server.Items.MeatPie", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041338];
-    UNBAKED_PUMPKIN_PIE, UPP_C, C_UPP = "Server.Items.UnbakedPumpkinPie", 0x1042, 25, "Server.Items.PumpkinPie", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041342];
-    UNBAKED_APPLE_PIE, UAP_C, C_UAP = "Server.Items.UnbakedApplePie", 0x1042, 25, "Server.Items.ApplePie", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041336];
-    UNCOOKED_CHEESE_PIZZA, UCP_C, C_UCP = "Server.Items.UncookedCheesePizza", 0x1083, 20, "Server.Items.CheesePizza", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041341];
-    UNCOOKED_SAUSAGE_PIZZA, USP_C, C_USP = "Server.Items.UncookedSausagePizza", 0x1083, 20, "Server.Items.SausagePizza", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041337];
-    UNBAKED_QUICHE, UQ_C, C_UQ = "Server.Items.UnbakedQuiche", 0x1042, 25, "Server.Items.Quiche", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041339];
-    EGGS, EGGS_C, C_EGGS = "Server.Items.Eggs", 0x9B5, 15, "Server.Items.FriedEggs", (amount),
-        [default_weight: |_, _| 1.0];
-    BRIGHTLY_COLORED_EGGS, BCE_C, C_BCE = "Server.Items.BrightlyColoredEggs", 0x9B5, 15, "Server.Items.FriedEggs", (eggs),
-        [default_weight: |_, _| 0.5, default_name: |_, _| Some("brightly colored eggs".to_string())];
-    EASTER_EGGS, EE_C, C_EE = "Server.Items.EasterEggs", 0x9B5, 15, "Server.Items.FriedEggs", (eggs),
-        [default_weight: |_, _| 0.5, label_number: |_, _| 1016105];
-    COOKIE_MIX, CM_C, C_CM = "Server.Items.CookieMix", 0x103F, 20, "Server.Items.Cookies", (none),
-        [default_weight: |_, _| 1.0];
-    CAKE_MIX, CAKEM_C, C_CAKEM = "Server.Items.CakeMix", 0x103F, 40, "Server.Items.Cake", (none),
-        [default_weight: |_, _| 1.0, label_number: |_, _| 1041002];
-    RAW_FISH_STEAK, RFS_C, C_RFS = "Server.Items.RawFishSteak", 0x097A, 10, "Server.Items.FishSteak", (amount),
-        [default_weight: |_, _| 0.1];
+    RAW_RIBS, C_RAW_RIBS = "Server.Items.RawRibs", (amount);
+    RAW_LAMB_LEG, C_RAW_LAMB_LEG = "Server.Items.RawLambLeg", (amount);
+    RAW_CHICKEN_LEG, C_RAW_CHICKEN_LEG = "Server.Items.RawChickenLeg", (stack);
+    RAW_BIRD, C_RAW_BIRD = "Server.Items.RawBird", (amount);
+    UNBAKED_PEACH_COBBLER, C_UPC = "Server.Items.UnbakedPeachCobbler", (none);
+    UNBAKED_FRUIT_PIE, C_UFP = "Server.Items.UnbakedFruitPie", (none);
+    UNBAKED_MEAT_PIE, C_UMP = "Server.Items.UnbakedMeatPie", (none);
+    UNBAKED_PUMPKIN_PIE, C_UPP = "Server.Items.UnbakedPumpkinPie", (none);
+    UNBAKED_APPLE_PIE, C_UAP = "Server.Items.UnbakedApplePie", (none);
+    UNCOOKED_CHEESE_PIZZA, C_UCP = "Server.Items.UncookedCheesePizza", (none);
+    UNCOOKED_SAUSAGE_PIZZA, C_USP = "Server.Items.UncookedSausagePizza", (none);
+    UNBAKED_QUICHE, C_UQ = "Server.Items.UnbakedQuiche", (none);
+    EGGS, C_EGGS = "Server.Items.Eggs", (amount);
+    BRIGHTLY_COLORED_EGGS, C_BCE = "Server.Items.BrightlyColoredEggs", (eggs);
+    EASTER_EGGS, C_EE = "Server.Items.EasterEggs", (eggs);
+    COOKIE_MIX, C_CM = "Server.Items.CookieMix", (none);
+    CAKE_MIX, C_CAKEM = "Server.Items.CakeMix", (none);
+    RAW_FISH_STEAK, C_RFS = "Server.Items.RawFishSteak", (amount);
 }
 
 // ---- Dough, SweetDough, JarHoney, BowlFlour ----
 
 macro_rules! plain {
-    ($($name:ident = $full:literal, $gid:expr, $weight:expr, [$($f:ident : $v:expr),*], |$w:ident, $id:ident| $init:block;)*) => {$(
+    ($($name:ident = $full:literal;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
-            construct: Some(|$w| {
-                let $id = ops::new_item_with_id($w, &$name, $gid);
-                $init
-                $id
-            }),
-            default_weight: |_, _| $weight,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
+            label_number: crate::class_props::label_number,
             on_double_click: t2a_double_click,
-            $($f: $v,)*
             serialize: |w, id, out| {
                 (ITEM_BASE.serialize)(w, id, out);
                 out.write_i32(0);
@@ -254,13 +224,10 @@ fn stackable_ml(w: &mut World, id: ItemId) {
 }
 
 plain! {
-    DOUGH = "Server.Items.Dough", 0x103D, 1.0, [], |w, id| { stackable_ml(w, id); };
-    SWEET_DOUGH = "Server.Items.SweetDough", 0x103D, 1.0, [label_number: |_, _| 1041340], |w, id| {
-        stackable_ml(w, id);
-        hue(w, id, 150);
-    };
-    JAR_HONEY = "Server.Items.JarHoney", 0x9EC, 1.0, [], |w, id| { ops::set_stackable(w, id, true); };
-    BOWL_FLOUR = "Server.Items.BowlFlour", 0xA1E, 1.0, [], |_w, _id| {};
+    DOUGH = "Server.Items.Dough";
+    SWEET_DOUGH = "Server.Items.SweetDough";
+    JAR_HONEY = "Server.Items.JarHoney";
+    BOWL_FLOUR = "Server.Items.BowlFlour";
 }
 
 // ---- SackFlour ----
@@ -1055,8 +1022,8 @@ fn finish_heat(
         burn(w);
         return;
     }
-    let result = if let Some(c) = ty.family::<CookClass>() {
-        make(w, c.cooked)
+    let result = if let Some(c) = crate::class_props::class_str(w, ty, "cooked") {
+        make(w, c)
     } else if named("Server.Items.Dough") {
         make(w, "Server.Items.BreadLoaf")
     } else if named("Server.Items.SweetDough") {

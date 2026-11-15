@@ -5,9 +5,11 @@
 //! Each member reads the prop of the item's class chain; without one (no table loaded, or a server owner removed
 //! it) it falls back to the nearest Rust ancestor whose member is not this reader, as `..PARENT` did.
 
-use muo_content::templates::props;
+use muo_content::templates::{self, Kind, props};
 use muo_server::World;
 use muo_server::ids::ItemId;
+use muo_server::item::ItemType;
+use serde_json::Value;
 
 macro_rules! member {
     ($(#[$m:meta])* $name:ident, $field:ident, $key:literal, $ret:ty, |$v:ident| $conv:expr) => {
@@ -57,3 +59,20 @@ member!(
     /// `DefaultMaxWeight`: the `maxWeight` prop.
     default_max_weight, default_max_weight, "maxWeight", i32, |v| props::as_i32(Some(v))
 );
+
+/// The prop `key` of class `ty` (its class chain), for callers that hold a class and no item.
+pub fn of_class<'a>(w: &'a World, ty: &'static ItemType, key: &str) -> Option<&'a Value> {
+    let t = templates::loaded(w)?;
+    std::iter::successors(Some(ty), |c| c.parent)
+        .find_map(|c| t.chain(Kind::Item, c.full_name).find_map(|tm| tm.props.get(key)))
+}
+
+/// A string prop of the item's class (`None` when no class in its chain sets one).
+pub fn str_of(w: &World, id: ItemId, key: &str) -> Option<&'static str> {
+    props::as_static_str(w, props::item(w, id, key)).flatten()
+}
+
+/// A string prop of class `ty`.
+pub fn class_str(w: &World, ty: &'static ItemType, key: &str) -> Option<&'static str> {
+    props::as_static_str(w, of_class(w, ty, key)).flatten()
+}

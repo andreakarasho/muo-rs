@@ -13,5 +13,466 @@
     "props": {
       "defaultWeight": 1.0
     }
+  },
+  {
+    "type": "Server.Items.WoodenBowlOfCarrots",
+    "itemId": 5625,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyWoodenBowl"
+    }
+  },
+  {
+    "type": "Server.Items.WoodenBowlOfCorn",
+    "itemId": 5626,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyWoodenBowl"
+    }
+  },
+  {
+    "type": "Server.Items.WoodenBowlOfLettuce",
+    "itemId": 5627,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyWoodenBowl"
+    }
+  },
+  {
+    "type": "Server.Items.WoodenBowlOfPeas",
+    "itemId": 5628,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyWoodenBowl"
+    }
+  },
+  {
+    "type": "Server.Items.PewterBowlOfCarrots",
+    "itemId": 5630,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyPewterBowl"
+    }
+  },
+  {
+    "type": "Server.Items.PewterBowlOfCorn",
+    "itemId": 5631,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyPewterBowl"
+    }
+  },
+  {
+    "type": "Server.Items.PewterBowlOfLettuce",
+    "itemId": 5632,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyPewterBowl"
+    }
+  },
+  {
+    "type": "Server.Items.PewterBowlOfPeas",
+    "itemId": 5633,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyPewterBowl"
+    }
+  },
+  {
+    "type": "Server.Items.PewterBowlOfPotatos",
+    "itemId": 5634,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 1.0,
+      "emptyBowl": "Server.Items.EmptyPewterBowl"
+    }
+  },
+  {
+    "type": "Server.Items.WoodenBowlOfStew",
+    "itemId": 5636,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 2.0,
+      "emptyBowl": "Server.Items.EmptyWoodenTub"
+    }
+  },
+  {
+    "type": "Server.Items.WoodenBowlOfTomatoSoup",
+    "itemId": 5638,
+    "stackable": false,
+    "foodFillFactor": 2,
+    "props": {
+      "defaultWeight": 2.0,
+      "emptyBowl": "Server.Items.EmptyWoodenTub"
+    }
+  },
+  {
+    "type": "Server.Items.RawRibs",
+    "itemId": 2545,
+    "cookingLevel": 10,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0,
+      "cooked": "Server.Items.Ribs"
+    }
+  },
+  {
+    "type": "Server.Items.RawLambLeg",
+    "itemId": 5641,
+    "cookingLevel": 10,
+    "stackable": true,
+    "props": {
+      "cooked": "Server.Items.LambLeg"
+    }
+  },
+  {
+    "type": "Server.Items.RawChickenLeg",
+    "itemId": 5639,
+    "cookingLevel": 10,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0,
+      "cooked": "Server.Items.ChickenLeg"
+    }
+  },
+  {
+    "type": "Server.Items.RawBird",
+    "itemId": 2489,
+    "cookingLevel": 10,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0,
+      "cooked": "Server.Items.CookedBird"
+    }
+  },
+  {
+    "type": "Server.Items.UnbakedPeachCobbler",
+    "itemId": 4162,
+    "cookingLevel": 25,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041335,
+      "cooked": "Server.Items.PeachCobbler"
+    }
+  },
+  {
+    "type": "Server.Items.UnbakedFruitPie",
+    "itemId": 4162,
+    "cookingLevel": 25,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041334,
+      "cooked": "Server.Items.FruitPie"
+    }
+  },
+  {
+    "type": "Server.Items.UnbakedMeatPie",
+    "itemId": 4162,
+    "cookingLevel": 25,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041338,
+      "cooked": "Server.Items.MeatPie"
+    }
+  },
+  {
+    "type": "Server.Items.UnbakedPumpkinPie",
+    "itemId": 4162,
+    "cookingLevel": 25,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041342,
+      "cooked": "Server.Items.PumpkinPie"
+    }
+  },
+  {
+    "type": "Server.Items.UnbakedApplePie",
+    "itemId": 4162,
+    "cookingLevel": 25,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041336,
+      "cooked": "Server.Items.ApplePie"
+    }
+  },
+  {
+    "type": "Server.Items.UncookedCheesePizza",
+    "itemId": 4227,
+    "cookingLevel": 20,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041341,
+      "cooked": "Server.Items.CheesePizza"
+    }
+  },
+  {
+    "type": "Server.Items.UncookedSausagePizza",
+    "itemId": 4227,
+    "cookingLevel": 20,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041337,
+      "cooked": "Server.Items.SausagePizza"
+    }
+  },
+  {
+    "type": "Server.Items.UnbakedQuiche",
+    "itemId": 4162,
+    "cookingLevel": 25,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041339,
+      "cooked": "Server.Items.Quiche"
+    }
+  },
+  {
+    "type": "Server.Items.Eggs",
+    "itemId": 2485,
+    "cookingLevel": 15,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0,
+      "cooked": "Server.Items.FriedEggs"
+    }
+  },
+  {
+    "type": "Server.Items.BrightlyColoredEggs",
+    "itemId": 2485,
+    "cookingLevel": 15,
+    "oneOf": [
+      {
+        "hue": 3
+      },
+      {
+        "hue": 8
+      },
+      {
+        "hue": 13
+      },
+      {
+        "hue": 18
+      },
+      {
+        "hue": 23
+      },
+      {
+        "hue": 28
+      },
+      {
+        "hue": 33
+      },
+      {
+        "hue": 38
+      },
+      {
+        "hue": 43
+      },
+      {
+        "hue": 48
+      },
+      {
+        "hue": 53
+      },
+      {
+        "hue": 58
+      },
+      {
+        "hue": 63
+      },
+      {
+        "hue": 68
+      },
+      {
+        "hue": 73
+      },
+      {
+        "hue": 78
+      },
+      {
+        "hue": 83
+      },
+      {
+        "hue": 88
+      },
+      {
+        "hue": 93
+      },
+      {
+        "hue": 98
+      }
+    ],
+    "props": {
+      "defaultWeight": 0.5,
+      "defaultName": "brightly colored eggs",
+      "cooked": "Server.Items.FriedEggs"
+    }
+  },
+  {
+    "type": "Server.Items.EasterEggs",
+    "itemId": 2485,
+    "cookingLevel": 15,
+    "oneOf": [
+      {
+        "hue": 3
+      },
+      {
+        "hue": 8
+      },
+      {
+        "hue": 13
+      },
+      {
+        "hue": 18
+      },
+      {
+        "hue": 23
+      },
+      {
+        "hue": 28
+      },
+      {
+        "hue": 33
+      },
+      {
+        "hue": 38
+      },
+      {
+        "hue": 43
+      },
+      {
+        "hue": 48
+      },
+      {
+        "hue": 53
+      },
+      {
+        "hue": 58
+      },
+      {
+        "hue": 63
+      },
+      {
+        "hue": 68
+      },
+      {
+        "hue": 73
+      },
+      {
+        "hue": 78
+      },
+      {
+        "hue": 83
+      },
+      {
+        "hue": 88
+      },
+      {
+        "hue": 93
+      },
+      {
+        "hue": 98
+      }
+    ],
+    "props": {
+      "defaultWeight": 0.5,
+      "labelNumber": 1016105,
+      "cooked": "Server.Items.FriedEggs"
+    }
+  },
+  {
+    "type": "Server.Items.CookieMix",
+    "itemId": 4159,
+    "cookingLevel": 20,
+    "props": {
+      "defaultWeight": 1.0,
+      "cooked": "Server.Items.Cookies"
+    }
+  },
+  {
+    "type": "Server.Items.CakeMix",
+    "itemId": 4159,
+    "cookingLevel": 40,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041002,
+      "cooked": "Server.Items.Cake"
+    }
+  },
+  {
+    "type": "Server.Items.RawFishSteak",
+    "itemId": 2426,
+    "cookingLevel": 10,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1,
+      "cooked": "Server.Items.FishSteak"
+    }
+  },
+  {
+    "type": "Server.Items.Dough",
+    "itemId": 4157,
+    "era": {
+      "atLeast": "ML",
+      "then": {
+        "stackable": true
+      },
+      "else": {
+        "stackable": false
+      }
+    },
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.SweetDough",
+    "itemId": 4157,
+    "era": {
+      "atLeast": "ML",
+      "then": {
+        "stackable": true
+      },
+      "else": {
+        "stackable": false
+      }
+    },
+    "hue": 150,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1041340
+    }
+  },
+  {
+    "type": "Server.Items.JarHoney",
+    "itemId": 2540,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.BowlFlour",
+    "itemId": 2590,
+    "props": {
+      "defaultWeight": 1.0
+    }
   }
 ]

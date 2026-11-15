@@ -12,7 +12,6 @@ use muo_server::ids::{EntityId, ItemId};
 use muo_server::item::{ITEM_BASE, ItemType, base, deps, ops};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-use super::hue;
 
 /// `SpellScroll._spellID`.
 #[derive(Clone, Copy, Debug, Default)]
@@ -30,20 +29,18 @@ pub fn is_spell_scroll(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.ty.is(&SPELL_SCROLL))
 }
 
-/// A subclass's constructor: `base(spellID, itemID, amount)` then `Hue = hue` when the class sets one.
-pub fn new_scroll_hued(
-    w: &mut World,
-    ty: &'static ItemType,
-    spell_id: i32,
-    item_id: i32,
-    hue_value: i32,
-    amount: i32,
-) -> ItemId {
-    let id = new_scroll(w, ty, spell_id, item_id, amount);
-    if hue_value != 0 {
-        hue(w, id, hue_value);
+/// A listed subclass's constructor: `base(spellID, itemID, amount)` and its `Hue`, all from the class's template
+/// (`spellId`, `itemId`, `hue`).
+pub fn new_listed(w: &mut World, ty: &'static ItemType, name: &str, amount: i32) -> ItemId {
+    let id = new_scroll(w, ty, 0, 0, amount);
+    crate::simple::own_template(w, id, name)
+}
+
+/// `SpellID = value`: the `spellId` template key.
+pub fn set_spell_id(w: &mut World, id: ItemId, value: i32) {
+    if let Some(d) = w.item_mut(id).and_then(|i| i.ext.get_mut::<ScrollData>()) {
+        d.spell_id = value;
     }
-    id
 }
 
 /// `new SpellScroll(spellID, itemID, amount)` of class `ty`.
@@ -153,12 +150,12 @@ static SPELL_SCROLL_CTOR: [Ctor; 1] = [Ctor {
 }];
 
 macro_rules! scrolls {
-    ($($name:ident, $ctor:ident = $full:literal, $spell:expr, $gid:expr, $hue:expr, [$($alias:literal),*];)*) => {$(
+    ($($name:ident, $ctor:ident = $full:literal, [$($alias:literal),*];)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&SPELL_SCROLL),
-            construct: Some(|w| new_scroll_hued(w, &$name, $spell, $gid, $hue, 1)),
+            construct: Some(|w| new_listed(w, &$name, $full, 1)),
             serialize: |w, id, out| {
                 (SPELL_SCROLL.serialize)(w, id, out);
                 out.write_i32(0);
@@ -173,7 +170,7 @@ macro_rules! scrolls {
         pub static $ctor: [Ctor; 1] = [Ctor {
             access: None,
             params: &AMOUNT_1,
-            make: |w, v| EntityId::Item(new_scroll_hued(w, &$name, $spell, $gid, $hue, v[0].i32())),
+            make: |w, v| EntityId::Item(new_listed(w, &$name, $full, v[0].i32())),
         }];
     )*};
 }
