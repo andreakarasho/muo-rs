@@ -1,0 +1,51 @@
+[
+  {
+    "type": "Server.Items.Harp",
+    "itemId": 3761,
+    "props": {
+      "defaultWeight": 35.0
+    }
+  },
+  {
+    "type": "Server.Items.Drums",
+    "itemId": 3740,
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.BambooFlute",
+    "itemId": 10245,
+    "props": {
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.Lute",
+    "itemId": 3763,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.LapHarp",
+    "itemId": 3762,
+    "props": {
+      "defaultWeight": 10.0
+    }
+  },
+  {
+    "type": "Server.Items.Tambourine",
+    "itemId": 3741,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.TambourineTassel",
+    "itemId": 3742,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  }
+]
