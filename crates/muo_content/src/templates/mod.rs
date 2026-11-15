@@ -548,9 +548,11 @@ pub fn apply_mobile_as(w: &mut World, id: MobileId, name: &str) {
             mobile_steps::apply(w, id, s);
         }
     }
-    // shortcut: fires once per template replay, so a JSON-only class whose Rust parent is itself templated and
-    // scripted gets `on_spawn` twice; Rust classes not built from a template never get it.
-    muo_server::script_hooks::mobile(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+    // `on_spawn` once, on the replay of the mobile's own class: a parent constructor replaying the parent's
+    // template for a derived class does not fire it. Rust classes not built from a template never get it.
+    if w.mobile(id).is_some_and(|m| m.ty.full_name == name) {
+        muo_server::script_hooks::mobile(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+    }
 }
 
 /// `new T()` of a creature class whose constructor is its template: the `BaseCreature` arguments and every
@@ -588,7 +590,10 @@ pub fn apply_item_as(w: &mut World, id: ItemId, name: &str) {
             item_steps::apply(w, id, s);
         }
     }
-    muo_server::script_hooks::item(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+    // as `apply_mobile_as`: only the replay of the item's own class fires `on_spawn`
+    if w.item(id).is_some_and(|i| i.ty.full_name == name) {
+        muo_server::script_hooks::item(w, id, muo_server::script_hooks::ScriptHook::Spawn, &[]);
+    }
 }
 
 #[cfg(test)]

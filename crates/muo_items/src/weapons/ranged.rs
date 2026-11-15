@@ -80,7 +80,7 @@ weapon_leaf! {
 weapon_leaf! {
     /// `Server.Items.SlayerLongbow`.
     SLAYER_LONGBOW, SLAYER_LONGBOW_CLASS, slayer_longbow_new = "Server.Items.SlayerLongbow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-
+    @json;
 }
 
 pub fn register(types: &mut TypeRegistry) {

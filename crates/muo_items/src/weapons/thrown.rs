@@ -5,7 +5,7 @@ use super::*;
 weapon_leaf! {
     /// `Server.Items.AbyssReaver`.
     ABYSS_REAVER, ABYSS_REAVER_CLASS, abyss_reaver_new = "Server.Items.AbyssReaver" : CYCLONE / CYCLONE_CLASS, via cyclone_new, enc;
-
+    @json;
 }
 
 weapon_leaf! {
