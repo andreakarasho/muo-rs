@@ -62,7 +62,8 @@
           {"item": "Server.Items.Shirt", "hue": "randomDyed"}
         ]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireBardArcher",
@@ -128,7 +129,8 @@
           {"item": "Server.Items.Shirt", "hue": "randomDyed"}
         ]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireBeggar",
@@ -195,7 +197,8 @@
       {
         "gold": [0, 25]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireFighter",
@@ -319,7 +322,8 @@
           }
         ]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireMage",
@@ -376,7 +380,8 @@
           }
         ]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HirePaladin",
@@ -442,7 +447,8 @@
       {
         "gold": [20, 100]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HirePeasant",
@@ -509,7 +515,8 @@
       {
         "gold": [0, 25]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireRanger",
@@ -601,7 +608,8 @@
       {
         "npcEquip": ["Server.Items.RangerChest", "Server.Items.RangerArms", "Server.Items.RangerGloves", "Server.Items.RangerGorget", "Server.Items.RangerLegs"]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireSailor",
@@ -661,7 +669,8 @@
           {"item": "Server.Items.Shirt", "hue": "randomDyed"}
         ]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.HireThief",
@@ -735,7 +744,8 @@
       {
         "gold": [0, 25]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.Actor",
@@ -770,7 +780,8 @@
       {"item": "Server.Items.Boots", "hue": "randomNeutral"}
     ],
     "randomHair": true,
-    "npcGoldPack": [250, 300]
+    "npcGoldPack": [250, 300],
+    "props": {"npcClickTitle": false}
   },
   {
     "type": "Server.Mobiles.Artist",
@@ -795,7 +806,8 @@
       {"item": "Server.Items.HalfApron", "hue": "randomDyed"}
     ],
     "randomHair": true,
-    "npcGoldPack": [250, 300]
+    "npcGoldPack": [250, 300],
+    "props": {"npcClickTitle": false, "npcCanTeach": true}
   },
   {
     "type": "Server.Mobiles.Gypsy",
@@ -839,7 +851,8 @@
       "Server.Items.Dagger"
     ],
     "randomHair": true,
-    "npcGoldPack": [250, 300]
+    "npcGoldPack": [250, 300],
+    "props": {"npcClickTitle": false, "npcCanTeach": true}
   },
   {
     "type": "Server.Mobiles.HarborMaster",
@@ -864,7 +877,8 @@
       "Server.Items.QuarterStaff"
     ],
     "randomHair": true,
-    "npcGoldPack": [250, 300]
+    "npcGoldPack": [250, 300],
+    "props": {"npcClickTitle": false, "npcCanTeach": false}
   },
   {
     "type": "Server.Mobiles.Ninja",
@@ -898,7 +912,8 @@
       {
         "gold": [250, 300]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false, "npcCanTeach": true}
   },
   {
     "type": "Server.Mobiles.Samurai",
@@ -971,7 +986,8 @@
           }
         ]
       }
-    ]
+    ],
+    "props": {"npcClickTitle": false, "npcCanTeach": true}
   },
   {
     "type": "Server.Mobiles.Sculptor",
@@ -1005,6 +1021,7 @@
       "Server.Items.HalfApron"
     ],
     "randomHair": true,
-    "npcGoldPack": [250, 300]
+    "npcGoldPack": [250, 300],
+    "props": {"npcClickTitle": false}
   }
 ]

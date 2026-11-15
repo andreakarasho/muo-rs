@@ -296,7 +296,19 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     );
 }
 
-// ---- vendor class members read from props ----
+// ---- class members read from props ----
+
+/// `"npcClickTitle": bool` (`ClickTitle`), else `BaseCreature`'s.
+pub fn click_title(w: &World, id: MobileId) -> bool {
+    props::as_bool(props::mobile(w, id, "npcClickTitle"))
+        .unwrap_or_else(|| (muo_content::creature::BASE_CREATURE.click_title)(w, id))
+}
+
+/// `"npcCanTeach": bool` (`CanTeach`), else `BaseCreature`'s.
+pub fn can_teach(w: &World, id: MobileId) -> bool {
+    props::as_bool(props::mobile(w, id, "npcCanTeach"))
+        .unwrap_or_else(|| (muo_content::creature::BASE_CREATURE_C.can_teach)(w, id))
+}
 
 /// `"npcGuild": "MagesGuild"`.
 pub fn npc_guild(w: &World, id: MobileId) -> muo_content::player_mobile::NpcGuild {

@@ -4,6 +4,7 @@ use super::humans_support::*;
 use crate::common::*;
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::hooks::rnd;
+use crate::template_keys_npcs as npc_keys;
 use muo_content::loot_pack;
 use muo_content::templates;
 use muo_server::ids::MobileId;
@@ -33,7 +34,7 @@ creature_leaf! {
         generate_loot: hire_bard_generate_loot,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -61,7 +62,7 @@ creature_leaf! {
         generate_loot: hire_bard_archer_generate_loot,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -70,7 +71,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -79,7 +80,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -88,7 +89,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -97,7 +98,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -106,7 +107,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -133,7 +134,7 @@ creature_leaf! {
         generate_loot: hire_ranger_archer_generate_loot,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -142,7 +143,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -151,7 +152,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -160,57 +161,57 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
 creature_leaf! {
     ARTIST, ARTIST_C = "Server.Mobiles.Artist" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &ARTIST)), encoded false;
     c {
-        can_teach: |_w, _| true,
+        can_teach: npc_keys::can_teach,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
 creature_leaf! {
     GYPSY, GYPSY_C = "Server.Mobiles.Gypsy" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &GYPSY)), encoded false;
     c {
-        can_teach: |_w, _| true,
+        can_teach: npc_keys::can_teach,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
 creature_leaf! {
     HARBOR_MASTER, HARBOR_MASTER_C = "Server.Mobiles.HarborMaster" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &HARBOR_MASTER)), encoded false;
     c {
-        can_teach: |_w, _| false,
+        can_teach: npc_keys::can_teach,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
 creature_leaf! {
     NINJA, NINJA_C = "Server.Mobiles.Ninja" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &NINJA)), encoded true;
     c {
-        can_teach: |_w, _| true,
+        can_teach: npc_keys::can_teach,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
 creature_leaf! {
     SAMURAI, SAMURAI_C = "Server.Mobiles.Samurai" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(|w| templates::new_creature(w, &SAMURAI)), encoded true;
     c {
-        can_teach: |_w, _| true,
+        can_teach: npc_keys::can_teach,
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
@@ -219,7 +220,7 @@ creature_leaf! {
     c {
     }
     m {
-        click_title: |_w, _| false,
+        click_title: npc_keys::click_title,
     }
 }
 
