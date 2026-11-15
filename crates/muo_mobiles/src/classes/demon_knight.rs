@@ -2,7 +2,6 @@
 
 use muo_content::creature::death::get_looting_rights;
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
-use muo_content::items::weapon::Ability;
 use muo_content::{factory, loot, loot_pack, mx};
 use muo_primitives::{Point3D, TimeSpan};
 use muo_server::World;
@@ -195,18 +194,13 @@ creature_leaf! {
     DEMON_KNIGHT, DEMON_KNIGHT_C = "Server.Mobiles.DemonKnight" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(demon_knight_new), encoded false;
     c {
         corpse_name: muo_content::templates::creature_props::corpse_name,
-        ignore_young_protection: |w, _id| w.core_ml(),
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        ignore_young_protection: crate::cprops::ignore_young_protection,
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         poison_immune: muo_content::templates::creature_props::poison_immune,
         treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
-        get_weapon_ability: |w, _id| Some(match rnd::below(w, 3) {
-            0 => Ability::DoubleStrike,
-            1 => Ability::WhirlwindAttack,
-            2 => Ability::CrushingBlow,
-            _ => Ability::DoubleStrike,
-        }),
+        get_weapon_ability: crate::cprops::get_weapon_ability,
         generate_loot: crate::cprops::generate_loot,
     }
     m {

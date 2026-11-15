@@ -29,19 +29,16 @@
     "virtualArmor": 40,
     "creatureItem": [
       {
-        "pick": [
-          "Server.Items.PlateArms",
-          "Server.Items.PlateChest",
-          "Server.Items.PlateGloves",
-          "Server.Items.PlateGorget",
-          "Server.Items.PlateLegs",
-          "Server.Items.PlateHelm"
-        ]
+        "pick": ["Server.Items.PlateArms", "Server.Items.PlateChest", "Server.Items.PlateGloves", "Server.Items.PlateGorget", "Server.Items.PlateLegs", "Server.Items.PlateHelm"]
       }
     ],
     "pack": [
-      {"item": "Server.Items.Scimitar"},
-      {"item": "Server.Items.WoodenShield"}
+      {
+        "item": "Server.Items.Scimitar"
+      },
+      {
+        "item": "Server.Items.WoodenShield"
+      }
     ],
     "paragon": true,
     "hue": 33,
@@ -78,7 +75,10 @@
       "corpseName": "a Lady Marai corpse",
       "defaultName": "Lady Marai",
       "givesMlMinorArtifact": true,
-      "weaponAbility": "CrushingBlow"
+      "weaponAbility": "CrushingBlow",
+      "loot": [
+        ["UltraRich", 3]
+      ]
     }
   },
   {
@@ -130,9 +130,35 @@
         ["SuperBoss", 2],
         [
           "HighScrolls",
-          {"min": 6, "max": 60}
+          {
+            "min": 6,
+            "max": 60
+          }
         ]
-      ]
+      ],
+      "ignoreYoungProtection": {
+        "atLeast": "ML",
+        "then": true,
+        "else": false
+      },
+      "bardImmune": {
+        "atLeast": "SE",
+        "then": false,
+        "else": true
+      },
+      "unprovokable": {
+        "atLeast": "SE",
+        "then": true,
+        "else": false
+      },
+      "areaPeaceImmune": {
+        "atLeast": "SE",
+        "then": true,
+        "else": false
+      },
+      "weaponAbility": {
+        "oneOf": ["DoubleStrike", "WhirlwindAttack", "CrushingBlow"]
+      }
     }
   },
   {
@@ -204,7 +230,12 @@
       "uncalmable": true,
       "poisonImmune": 4,
       "treasureMapLevel": 5,
-      "loot": [["FilthyRich", 8]]
+      "loot": [["FilthyRich", 8]],
+      "angerSound": 1409,
+      "idleSound": 1410,
+      "attackSound": 1408,
+      "hurtSound": 1411,
+      "deathSound": 1412
     }
   },
   {
@@ -281,7 +312,12 @@
           "era": "ML",
           "loot": [["AosSuperBoss", 5]]
         }
-      ]
+      ],
+      "angerSound": 1431,
+      "idleSound": 1430,
+      "attackSound": 1433,
+      "hurtSound": 1434,
+      "deathSound": 1436
     }
   },
   {
@@ -336,7 +372,8 @@
       "meat": 1,
       "hides": 8,
       "hideType": "Spined",
-      "loot": [["UltraRich", 2], ["Average", 1], ["Gems", 1]]
+      "loot": [["UltraRich", 2], ["Average", 1], ["Gems", 1]],
+      "monsterAbilities": ["SummonPixiesCounter"]
     }
   },
   {
@@ -385,11 +422,18 @@
       "scales": 5,
       "scaleType": "Green",
       "canAngerOnTame": true,
-      "overrideBondingReqs": true
+      "overrideBondingReqs": true,
+      "idleSound": 718,
+      "deathSound": 716,
+      "hurtSound": 721,
+      "attackSound": 712
     }
   },
   {
     "type": "Server.Mobiles.Golem",
+    "script": "content/creatures/golem.rhai",
+    "body": 752,
+    "controlSlots": 3,
     "props": {
       "corpseName": "a golem corpse",
       "isScaredOfScaryThings": false,
@@ -397,7 +441,12 @@
       "isBondable": false,
       "defaultName": "a golem",
       "deleteOnRelease": true,
-      "bleedImmune": true
+      "bleedImmune": true,
+      "monsterAbilities": ["ColossalBlow"],
+      "angerSound": 541,
+      "attackSound": 562,
+      "favoriteFood": [],
+      "poisonImmune": 4
     }
   },
   {
@@ -407,37 +456,230 @@
       "deleteCorpseOnDeath": true,
       "alwaysAttackable": true,
       "bardImmune": true,
-      "poisonImmune": 4
+      "poisonImmune": 4,
+      "idleSound": 447,
+      "angerSound": 263,
+      "deathSound": 253
     }
   },
   {
     "type": "Server.Mobiles.Leviathan",
+    "ai": "AiMage",
+    "body": 77,
+    "baseSoundId": 353,
+    "hue": 1153,
+    "str": 1000,
+    "dex": [501, 520],
+    "int": [501, 515],
+    "hits": 1500,
+    "damage": [25, 33],
+    "damageTypes": {
+      "Physical": 70,
+      "Cold": 30
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [45, 55],
+      "Cold": [45, 55],
+      "Poison": [35, 45],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "EvalInt": [97.6, 107.5],
+      "Magery": [97.6, 107.5],
+      "MagicResist": [97.6, 107.5],
+      "Meditation": [97.6, 107.5],
+      "Tactics": [97.6, 107.5],
+      "Wrestling": [97.6, 107.5]
+    },
+    "fame": 24000,
+    "karma": -24000,
+    "virtualArmor": 50,
+    "canSwim": true,
+    "cantWalk": true,
+    "pack": [
+      {
+        "item": "Server.Items.Rope",
+        "itemId": 5368
+      },
+      {
+        "item": "Server.Items.Rope",
+        "itemId": 5370
+      }
+    ],
     "props": {
       "corpseName": "a leviathan corpse",
       "defaultName": "a leviathan",
       "treasureMapLevel": 5,
       "treasureMapChance": 0.25,
-      "loot": [["FilthyRich", 5]]
+      "loot": [
+        ["FilthyRich", 5]
+      ],
+      "monsterAbilities": ["LeviathanBreath"]
     }
   },
   {
     "type": "Server.Mobiles.PlagueSpawn",
+    "creatureHue": {
+      "from": 17,
+      "count": 15
+    },
+    "oneOf": [
+      {
+        "body": 14,
+        "baseSoundId": 268
+      },
+      {
+        "body": 31,
+        "baseSoundId": 925
+      },
+      {
+        "bodies": [400, 401]
+      },
+      {
+        "body": 29,
+        "baseSoundId": 158
+      },
+      {
+        "body": 21,
+        "baseSoundId": 219
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      },
+      {
+        "body": 51,
+        "baseSoundId": 456
+      }
+    ],
+    "str": [201, 300],
+    "dex": 80,
+    "int": [16, 20],
+    "hits": [121, 180],
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [30, 40],
+      "Cold": [25, 35],
+      "Poison": [65, 75],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "MagicResist": 25.0,
+      "Tactics": 25.0,
+      "Wrestling": 50.0
+    },
+    "fame": 1000,
+    "karma": -1000,
+    "virtualArmor": 20,
     "props": {
       "corpseName": "a plague spawn corpse",
       "alwaysMurderer": true,
       "defaultName": "a plague spawn",
-      "loot": [["Poor", 1], ["Gems", 1]]
+      "loot": [
+        ["Poor", 1],
+        ["Gems", 1]
+      ]
     }
   },
   {
     "type": "Server.Mobiles.PumpkinHead",
+    "ai": {
+      "coin": ["AiMelee", "AiMage"]
+    },
+    "bodies": [1246, 1247],
+    "baseSoundId": 268,
+    "str": 350,
+    "dex": 125,
+    "int": 250,
+    "hits": 500,
+    "mana": 1000,
+    "damage": [10, 15],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": 55,
+      "Fire": 50,
+      "Cold": 50,
+      "Poison": 65,
+      "Energy": 80
+    },
+    "skills": {
+      "DetectHidden": 100.0,
+      "Meditation": 120.0,
+      "Necromancy": 100.0,
+      "SpiritSpeak": 120.0,
+      "Magery": 160.0,
+      "EvalInt": 100.0,
+      "MagicResist": 100.0,
+      "Tactics": 100.0,
+      "Wrestling": 80.0
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 49,
     "props": {
       "corpseName": "a killer pumpkin corpse",
       "defaultName": "a killer pumpkin",
       "autoDispel": true,
       "bardImmune": true,
       "unprovokable": true,
-      "areaPeaceImmune": true
+      "areaPeaceImmune": true,
+      "loot": [
+        {
+          "chance": 0.05,
+          "loot": [
+            {
+              "oneOf": [
+                {
+                  "item": "Server.Items.Holiday.PaintedEvilClownMask"
+                },
+                {
+                  "item": "Server.Items.Holiday.PaintedDaemonMask"
+                },
+                {
+                  "item": "Server.Items.Holiday.PaintedPlagueMask"
+                },
+                {
+                  "item": "Server.Items.Holiday.PaintedEvilJesterMask"
+                },
+                {
+                  "item": "Server.Items.Holiday.PaintedPorcelainMask"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "item": "Server.Items.WrappedCandy"
+        },
+        ["UltraRich", 2]
+      ]
     }
   },
   {
@@ -457,7 +699,72 @@
     "type": "Server.Engines.Events.ZombieSkeleton",
     "props": {
       "corpseName": "a rotting corpse",
-      "bleedImmune": true
+      "bleedImmune": true,
+      "poisonImmune": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.BaseEnraged",
+    "script": "content/creatures/enraged.rhai",
+    "str": [50, 200],
+    "dex": [50, 200],
+    "karma": -1000,
+    "tamable": false
+  },
+  {
+    "type": "Server.Mobiles.EnragedRabbit",
+    "inherits": "Server.Mobiles.BaseEnraged",
+    "body": 205,
+    "props": {
+      "corpseName": "a hare corpse",
+      "defaultName": "a rabbit",
+      "attackSound": 201,
+      "hurtSound": 202,
+      "deathSound": 203
+    }
+  },
+  {
+    "type": "Server.Mobiles.EnragedHart",
+    "inherits": "Server.Mobiles.BaseEnraged",
+    "body": 234,
+    "props": {
+      "corpseName": "a deer corpse",
+      "defaultName": "a great hart",
+      "attackSound": 130,
+      "hurtSound": 131,
+      "deathSound": 132
+    }
+  },
+  {
+    "type": "Server.Mobiles.EnragedHind",
+    "inherits": "Server.Mobiles.BaseEnraged",
+    "body": 237,
+    "props": {
+      "corpseName": "a deer corpse",
+      "defaultName": "a hind",
+      "attackSound": 130,
+      "hurtSound": 131,
+      "deathSound": 132
+    }
+  },
+  {
+    "type": "Server.Mobiles.EnragedBlackBear",
+    "inherits": "Server.Mobiles.BaseEnraged",
+    "body": 211,
+    "baseSoundId": 163,
+    "props": {
+      "corpseName": "a bear corpse",
+      "defaultName": "a black bear"
+    }
+  },
+  {
+    "type": "Server.Mobiles.EnragedEagle",
+    "inherits": "Server.Mobiles.BaseEnraged",
+    "body": 5,
+    "baseSoundId": 750,
+    "props": {
+      "corpseName": "an eagle corpse",
+      "defaultName": "an eagle"
     }
   }
 ]

@@ -11,22 +11,7 @@ use muo_server::ids::MobileId;
 use muo_server::mobile::part2::messages;
 use muo_server::type_registry::TypeRegistry;
 
-use crate::common::*;
 use crate::leaf::creature_leaf;
-
-/// `BaseEnraged(summoner)`.
-fn base_enraged_init(w: &mut World, id: MobileId, summoner: MobileId) {
-    set_str_range(w, id, 50, 200);
-    set_dex_range(w, id, 50, 200);
-    // On OSI, all stats are random 50-200, but str is never less than hits, and dex is never less than stam.
-    let s = muo_server::mobile::base::str(w, id);
-    set_hits_range(w, id, 50, s);
-    let d = muo_server::mobile::base::dex(w, id);
-    set_stam_range(w, id, 50, d);
-    karma(w, id, -1000);
-    tamable(w, id, false);
-    control::set_master(w, id, Some(summoner));
-}
 
 fn master(w: &World, id: MobileId) -> Option<MobileId> {
     muo_content::creature::cd(w, id).and_then(|d| d.master)
@@ -96,62 +81,57 @@ creature_leaf! {
 }
 
 macro_rules! enraged {
-    ($new:ident, $static:ident, $cls:ident, $full:literal, $body:expr, $sound:expr,
-     $corpse:literal, $name:literal, [$($m:tt)*]) => {
-        /// `new <Class>(summoner)`.
+    ($new:ident, $static:ident, $cls:ident, $full:literal) => {
+        /// `new <Class>(summoner)`: its template (`BaseEnraged`'s first), then `enraged.rhai` with the summoner.
         pub fn $new(w: &mut World, summoner: MobileId) -> MobileId {
-            let id = new_creature(w, &$static, AIType::AiMelee, FightMode::Closest, DEFAULT_RANGE_PERCEPTION, 1);
-            base_enraged_init(w, id, summoner);
-            body(w, id, $body);
-            if let Some(s) = $sound {
-                base_sound_id(w, id, s);
-            }
-            id
+            use muo_server::script_hooks::ScriptArg;
+            crate::cprops::new_creature_with(w, &$static, &[ScriptArg::Mobile(Some(summoner))])
         }
         creature_leaf! {
             #[doc = $full]
             $static, $cls = $full : BASE_ENRAGED / BASE_ENRAGED_C, ctor None, encoded false;
             c {
-                corpse_name: |_w, _id| Some($corpse),
-                default_name: |_w, _id| Some($name),
+                corpse_name: muo_content::templates::creature_props::corpse_name,
+                default_name: muo_content::templates::creature_props::default_name,
             }
             m {
-                $($m)*
+                get_attack_sound: crate::cprops::get_attack_sound,
+                get_hurt_sound: crate::cprops::get_hurt_sound,
+                get_death_sound: crate::cprops::get_death_sound,
             }
         }
     };
 }
 
-enraged!(new_enraged_rabbit, ENRAGED_RABBIT, ENRAGED_RABBIT_C, "Server.Mobiles.EnragedRabbit", 0xcd, None::<i32>,
-    "a hare corpse", "a rabbit",
-    [get_attack_sound: |_w, _id| 0xC9, get_hurt_sound: |_w, _id| 0xCA, get_death_sound: |_w, _id| 0xCB,]);
-enraged!(new_enraged_hart, ENRAGED_HART, ENRAGED_HART_C, "Server.Mobiles.EnragedHart", 0xea, None::<i32>,
-    "a deer corpse", "a great hart",
-    [get_attack_sound: |_w, _id| 0x82, get_hurt_sound: |_w, _id| 0x83, get_death_sound: |_w, _id| 0x84,]);
-enraged!(new_enraged_hind, ENRAGED_HIND, ENRAGED_HIND_C, "Server.Mobiles.EnragedHind", 0xed, None::<i32>,
-    "a deer corpse", "a hind",
-    [get_attack_sound: |_w, _id| 0x82, get_hurt_sound: |_w, _id| 0x83, get_death_sound: |_w, _id| 0x84,]);
+enraged!(
+    new_enraged_rabbit,
+    ENRAGED_RABBIT,
+    ENRAGED_RABBIT_C,
+    "Server.Mobiles.EnragedRabbit"
+);
+enraged!(
+    new_enraged_hart,
+    ENRAGED_HART,
+    ENRAGED_HART_C,
+    "Server.Mobiles.EnragedHart"
+);
+enraged!(
+    new_enraged_hind,
+    ENRAGED_HIND,
+    ENRAGED_HIND_C,
+    "Server.Mobiles.EnragedHind"
+);
 enraged!(
     new_enraged_black_bear,
     ENRAGED_BLACK_BEAR,
     ENRAGED_BLACK_BEAR_C,
-    "Server.Mobiles.EnragedBlackBear",
-    0xd3,
-    Some(0xa3),
-    "a bear corpse",
-    "a black bear",
-    []
+    "Server.Mobiles.EnragedBlackBear"
 );
 enraged!(
     new_enraged_eagle,
     ENRAGED_EAGLE,
     ENRAGED_EAGLE_C,
-    "Server.Mobiles.EnragedEagle",
-    0x5,
-    Some(0x2ee),
-    "an eagle corpse",
-    "an eagle",
-    []
+    "Server.Mobiles.EnragedEagle"
 );
 
 pub fn register(types: &mut TypeRegistry) {

@@ -3,15 +3,12 @@
 
 use crate::animals::leaves::*;
 use crate::common::*;
-use muo_content::abilities::{self, MonsterAbility};
 use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
-use muo_content::items::weapon::Ability;
 use muo_content::templates::creature_props as tp;
 use muo_server::World;
 use muo_server::ids::MobileId;
 use muo_server::mobile::MobileType;
-use muo_server::poison::PoisonId;
 use muo_server::type_registry::TypeRegistry;
 
 fn abysmal_horror_new(w: &mut World) -> MobileId {
@@ -22,14 +19,14 @@ creature_leaf! {
     ABYSMAL_HORROR, ABYSMAL_HORROR_C = "Server.Mobiles.AbysmalHorror" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(abysmal_horror_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        ignore_young_protection: |w, _id| w.core_ml(),
+        ignore_young_protection: crate::cprops::ignore_young_protection,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         poison_immune: tp::poison_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::MortalStrike) } else { Some(Ability::WhirlwindAttack) },
+        get_weapon_ability: crate::cprops::get_weapon_ability,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -46,9 +43,9 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         poison_immune: tp::poison_immune,
         treasure_map_level: tp::treasure_map_level,
         generate_loot: tp::generate_loot,
@@ -84,10 +81,10 @@ creature_leaf! {
     DARKNIGHT_CREEPER, DARKNIGHT_CREEPER_C = "Server.Mobiles.DarknightCreeper" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(darknight_creeper_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        ignore_young_protection: |w, _id| w.core_ml(),
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        ignore_young_protection: crate::cprops::ignore_young_protection,
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         bleed_immune: tp::bleed_immune,
         poison_immune: tp::poison_immune,
         hit_poison: crate::cprops::hit_poison,
@@ -142,24 +139,24 @@ creature_leaf! {
     FLESH_RENDERER, FLESH_RENDERER_C = "Server.Mobiles.FleshRenderer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(flesh_renderer_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        ignore_young_protection: |w, _id| w.core_ml(),
+        ignore_young_protection: crate::cprops::ignore_young_protection,
         default_name: tp::default_name,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         poison_immune: tp::poison_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::Dismount) } else { Some(Ability::ParalyzingBlow) },
+        get_weapon_ability: crate::cprops::get_weapon_ability,
         generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::flesh_renderer_on_death,
-        get_attack_sound: |_w, _id| 0x34C,
-        get_hurt_sound: |_w, _id| 0x354,
-        get_anger_sound: |_w, _id| 0x34C,
-        get_idle_sound: |_w, _id| 0x34C,
-        get_death_sound: |_w, _id| 0x354,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -193,7 +190,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_death_sound: |_w, _id| 1218,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -205,15 +202,15 @@ creature_leaf! {
     IMPALER, IMPALER_C = "Server.Mobiles.Impaler" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(impaler_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        ignore_young_protection: |w, _id| w.core_ml(),
+        ignore_young_protection: crate::cprops::ignore_young_protection,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         poison_immune: tp::poison_immune,
-        hit_poison: |w, _id| if rnd::double(w) < 0.8 { Some(PoisonId(2)) } else { Some(PoisonId(3)) },
+        hit_poison: crate::cprops::hit_poison,
         treasure_map_level: tp::treasure_map_level,
-        get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::MortalStrike) } else { Some(Ability::BleedAttack) },
+        get_weapon_ability: crate::cprops::get_weapon_ability,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -266,7 +263,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::Dismount) } else { Some(Ability::CrushingBlow) },
+        get_weapon_ability: crate::cprops::get_weapon_ability,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -281,23 +278,23 @@ creature_leaf! {
     SHADOW_KNIGHT, SHADOW_KNIGHT_C = "Server.Mobiles.ShadowKnight" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(shadow_knight_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        ignore_young_protection: |w, _id| w.core_ml(),
+        ignore_young_protection: crate::cprops::ignore_young_protection,
         opposition_group: crate::cprops::opposition_group,
-        bard_immune: |w, _id| !w.core_se(),
-        unprovokable: |w, _id| w.core_se(),
-        area_peace_immune: |w, _id| w.core_se(),
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         poison_immune: tp::poison_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::ConcussionBlow) } else { Some(Ability::CrushingBlow) },
+        get_weapon_ability: crate::cprops::get_weapon_ability,
         on_think: crate::hand::shadow_knight_on_think,
         generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::shadow_knight_on_death,
-        get_idle_sound: |_w, _id| 0x2CE,
-        get_death_sound: |_w, _id| 0x2C1,
-        get_hurt_sound: |_w, _id| 0x2D1,
-        get_attack_sound: |_w, _id| 0x2C8,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
         on_combatant_change: crate::hand::shadow_knight_on_combatant_change,
     }
 }
@@ -333,9 +330,9 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 443,
-        get_death_sound: |_w, _id| 31,
-        get_attack_sound: |_w, _id| 672,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -351,7 +348,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x29B,
+        get_idle_sound: crate::cprops::get_idle_sound,
     }
 }
 
@@ -383,7 +380,7 @@ creature_leaf! {
         default_name: tp::default_name,
         bleed_immune: tp::bleed_immune,
         poison_immune: tp::poison_immune,
-        treasure_map_level: |w, _id| if w.core_aos() { 4 } else { 1 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -402,11 +399,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x5A,
-        get_idle_sound: |_w, _id| 0x5A,
-        get_attack_sound: |_w, _id| 0x164,
-        get_hurt_sound: |_w, _id| 0x187,
-        get_death_sound: |_w, _id| 0x1BA,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -423,11 +420,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x259,
-        get_idle_sound: |_w, _id| 0x259,
-        get_attack_sound: |_w, _id| 0x195,
-        get_hurt_sound: |_w, _id| 0x250,
-        get_death_sound: |_w, _id| 0x25B,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::black_solen_infiltrator_queen_on_damage,
     }
 }
@@ -445,11 +442,11 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0xB5,
-        get_idle_sound: |_w, _id| 0xB5,
-        get_attack_sound: |_w, _id| 0x289,
-        get_hurt_sound: |_w, _id| 0xBC,
-        get_death_sound: |_w, _id| 0xE4,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::black_solen_infiltrator_warrior_on_damage,
     }
 }
@@ -467,11 +464,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x259,
-        get_idle_sound: |_w, _id| 0x259,
-        get_attack_sound: |_w, _id| 0x195,
-        get_hurt_sound: |_w, _id| 0x250,
-        get_death_sound: |_w, _id| 0x25B,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::black_solen_queen_on_damage,
         on_before_death: crate::hand::black_solen_queen_on_before_death,
     }
@@ -490,11 +487,11 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0xB5,
-        get_idle_sound: |_w, _id| 0xB5,
-        get_attack_sound: |_w, _id| 0x289,
-        get_hurt_sound: |_w, _id| 0xBC,
-        get_death_sound: |_w, _id| 0xE4,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::black_solen_warrior_on_damage,
         on_before_death: crate::hand::black_solen_warrior_on_before_death,
     }
@@ -513,11 +510,11 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x269,
-        get_idle_sound: |_w, _id| 0x269,
-        get_attack_sound: |_w, _id| 0x186,
-        get_hurt_sound: |_w, _id| 0x1BE,
-        get_death_sound: |_w, _id| 0x8E,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::black_solen_worker_on_damage,
     }
 }
@@ -535,11 +532,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x259,
-        get_idle_sound: |_w, _id| 0x259,
-        get_attack_sound: |_w, _id| 0x195,
-        get_hurt_sound: |_w, _id| 0x250,
-        get_death_sound: |_w, _id| 0x25B,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::red_solen_infiltrator_queen_on_damage,
     }
 }
@@ -557,11 +554,11 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0xB5,
-        get_idle_sound: |_w, _id| 0xB5,
-        get_attack_sound: |_w, _id| 0x289,
-        get_hurt_sound: |_w, _id| 0xBC,
-        get_death_sound: |_w, _id| 0xE4,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::red_solen_infiltrator_warrior_on_damage,
     }
 }
@@ -579,11 +576,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x259,
-        get_idle_sound: |_w, _id| 0x259,
-        get_attack_sound: |_w, _id| 0x195,
-        get_hurt_sound: |_w, _id| 0x250,
-        get_death_sound: |_w, _id| 0x25B,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::red_solen_queen_on_damage,
         on_before_death: crate::hand::red_solen_queen_on_before_death,
     }
@@ -602,11 +599,11 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0xB5,
-        get_idle_sound: |_w, _id| 0xB5,
-        get_attack_sound: |_w, _id| 0x289,
-        get_hurt_sound: |_w, _id| 0xBC,
-        get_death_sound: |_w, _id| 0xE4,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::red_solen_warrior_on_damage,
         on_before_death: crate::hand::red_solen_warrior_on_before_death,
     }
@@ -625,11 +622,11 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x269,
-        get_idle_sound: |_w, _id| 0x269,
-        get_attack_sound: |_w, _id| 0x186,
-        get_hurt_sound: |_w, _id| 0x1BE,
-        get_death_sound: |_w, _id| 0x8E,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::red_solen_worker_on_damage,
     }
 }
@@ -790,7 +787,7 @@ creature_leaf! {
         bleed_immune: tp::bleed_immune,
         hit_poison: crate::cprops::hit_poison,
         hit_poison_chance: crate::cprops::hit_poison_chance,
-        treasure_map_level: |w, _id| if w.core_aos() { 2 } else { 3 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -839,8 +836,8 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        treasure_map_level: |w, _id| if w.core_aos() { 4 } else { 5 },
-        generate_loot: crate::hand::efreet_generate_loot,
+        treasure_map_level: crate::cprops::treasure_map_level,
+        generate_loot: crate::cprops::generate_loot,
     }
     m {
     }
@@ -943,7 +940,7 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         bleed_immune: tp::bleed_immune,
-        treasure_map_level: |w, _id| { let list = [2, 3]; list[rnd::below(w, list.len() as i32) as usize] },
+        treasure_map_level: crate::cprops::treasure_map_level,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -953,7 +950,6 @@ creature_leaf! {
 fn ancient_lich_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &ANCIENT_LICH)
 }
-static ANCIENT_LICH_ABILITIES: [&MonsterAbility; 1] = [&abilities::SUMMON_LESSER_UNDEAD_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.AncientLich`.
     ANCIENT_LICH, ANCIENT_LICH_C = "Server.Mobiles.AncientLich" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ancient_lich_new), encoded false;
@@ -964,15 +960,15 @@ creature_leaf! {
         bleed_immune: tp::bleed_immune,
         poison_immune: tp::poison_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &ANCIENT_LICH_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x19D,
-        get_anger_sound: |_w, _id| 0x175,
-        get_death_sound: |_w, _id| 0x108,
-        get_attack_sound: |_w, _id| 0xE2,
-        get_hurt_sound: |_w, _id| 0x28B,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
@@ -1021,7 +1017,7 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         always_murderer: tp::always_murderer,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         poison_immune: tp::poison_immune,
         meat: tp::meat,
         treasure_map_level: tp::treasure_map_level,
@@ -1030,9 +1026,9 @@ creature_leaf! {
     }
     m {
         on_death: crate::hand::betrayer_on_death,
-        get_death_sound: |_w, _id| 0x423,
-        get_attack_sound: |_w, _id| 0x23B,
-        get_hurt_sound: |_w, _id| 0x140,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
@@ -1102,7 +1098,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        treasure_map_level: |w, _id| if w.core_aos() { 4 } else { 0 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1120,7 +1116,7 @@ creature_leaf! {
         can_rummage_corpses: tp::can_rummage_corpses,
         always_murderer: tp::always_murderer,
         meat: tp::meat,
-        treasure_map_level: |w, _id| if w.core_aos() { 1 } else { 0 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1138,7 +1134,7 @@ creature_leaf! {
         can_rummage_corpses: tp::can_rummage_corpses,
         always_murderer: tp::always_murderer,
         meat: tp::meat,
-        treasure_map_level: |w, _id| if w.core_aos() { 2 } else { 0 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1148,7 +1144,6 @@ creature_leaf! {
 fn fire_gargoyle_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &FIRE_GARGOYLE)
 }
-static FIRE_GARGOYLE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.FireGargoyle`.
     FIRE_GARGOYLE, FIRE_GARGOYLE_C = "Server.Mobiles.FireGargoyle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(fire_gargoyle_new), encoded false;
@@ -1157,7 +1152,7 @@ creature_leaf! {
         treasure_map_level: tp::treasure_map_level,
         meat: tp::meat,
         can_fly: tp::can_fly,
-        get_monster_abilities: |_, _| &FIRE_GARGOYLE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1185,17 +1180,16 @@ creature_leaf! {
 fn gargoyle_destroyer_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &GARGOYLE_DESTROYER)
 }
-static GARGOYLE_DESTROYER_ABILITIES: [&MonsterAbility; 1] = [&abilities::THROW_HATCHET_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.GargoyleDestroyer`.
     GARGOYLE_DESTROYER, GARGOYLE_DESTROYER_C = "Server.Mobiles.GargoyleDestroyer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gargoyle_destroyer_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         meat: tp::meat,
         can_fly: tp::can_fly,
-        get_monster_abilities: |_, _| &GARGOYLE_DESTROYER_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1249,8 +1243,8 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        click_title: |_w, _id| false,
-        show_fame_title: |_w, _id| false,
+        click_title: crate::cprops::click_title,
+        show_fame_title: crate::cprops::show_fame_title,
     }
 }
 
@@ -1316,7 +1310,6 @@ creature_leaf! {
 fn lich_lord_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &LICH_LORD)
 }
-static LICH_LORD_ABILITIES: [&MonsterAbility; 1] = [&abilities::SUMMON_SKELETONS_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.LichLord`.
     LICH_LORD, LICH_LORD_C = "Server.Mobiles.LichLord" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lich_lord_new), encoded false;
@@ -1328,7 +1321,7 @@ creature_leaf! {
         bleed_immune: tp::bleed_immune,
         poison_immune: tp::poison_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &LICH_LORD_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1343,7 +1336,7 @@ creature_leaf! {
     ORCISH_MAGE, ORCISH_MAGE_C = "Server.Mobiles.OrcishMage" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orcish_mage_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
+        speech_type: crate::cprops::speech_type,
         default_name: tp::default_name,
         can_rummage_corpses: tp::can_rummage_corpses,
         treasure_map_level: tp::treasure_map_level,
@@ -1365,7 +1358,7 @@ creature_leaf! {
     RATMAN_MAGE, RATMAN_MAGE_C = "Server.Mobiles.RatmanMage" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ratman_mage_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::RATMAN),
+        speech_type: crate::cprops::speech_type,
         can_rummage_corpses: tp::can_rummage_corpses,
         meat: tp::meat,
         hides: tp::hides,
@@ -1393,7 +1386,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
+        show_fame_title: crate::cprops::show_fame_title,
         aggressive_action_criminal: crate::hand::savage_shaman_aggressive_action_criminal,
     }
 }
@@ -1474,7 +1467,6 @@ creature_leaf! {
 fn succubus_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &SUCCUBUS)
 }
-static SUCCUBUS_ABILITIES: [&MonsterAbility; 1] = [&abilities::DRAIN_LIFE_AREA_ATTACK];
 creature_leaf! {
     /// `Server.Mobiles.Succubus`.
     SUCCUBUS, SUCCUBUS_C = "Server.Mobiles.Succubus" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(succubus_new), encoded false;
@@ -1483,7 +1475,7 @@ creature_leaf! {
         default_name: tp::default_name,
         meat: tp::meat,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &SUCCUBUS_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -1571,7 +1563,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        click_title: |_w, _id| false,
+        click_title: crate::cprops::click_title,
         on_death: |w, id, c| {
             (BASE_CREATURE.on_death)(w, id, c);
             if rnd::double(w) < 0.9 {
@@ -1609,9 +1601,9 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        click_title: |_w, _id| false,
-        show_fame_title: |_w, _id| false,
-        get_attack_sound: |_w, _id| -1,
+        click_title: crate::cprops::click_title,
+        show_fame_title: crate::cprops::show_fame_title,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -1660,7 +1652,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        click_title: |_w, _id| false,
+        click_title: crate::cprops::click_title,
         on_death: |w, id, c| {
             (BASE_CREATURE.on_death)(w, id, c);
             if rnd::double(w) < 0.9 {
@@ -1817,25 +1809,9 @@ creature_leaf! {
     }
 }
 
+/// `HordeMinion`'s constructor body on `id` (its template), for `CapturedHordeMinion`.
 pub(crate) fn horde_minion_init(w: &mut World, id: MobileId) {
-    body(w, id, 776);
-    base_sound_id(w, id, 357);
-    set_str_range(w, id, 16, 40);
-    set_dex_range(w, id, 31, 60);
-    set_int_range(w, id, 11, 25);
-    set_hits_range(w, id, 10, 24);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_skill(w, id, SkillName::MagicResist, 10.0);
-    set_skill_range(w, id, SkillName::Tactics, 0.1, 15.0);
-    set_skill_range(w, id, SkillName::Wrestling, 25.1, 40.0);
-    fame(w, id, 500);
-    karma(w, id, -500);
-    virtual_armor(w, id, 18);
-    add_new(w, id, "Server.Items.LightSource");
-    pack_new_amount(w, id, "Server.Items.Bone", 3);
+    muo_content::templates::apply_mobile_as(w, id, HORDE_MINION.full_name);
 }
 fn horde_minion_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &HORDE_MINION)
@@ -1848,18 +1824,17 @@ creature_leaf! {
         default_name: tp::default_name,
     }
     m {
-        get_idle_sound: |_w, _id| 338,
-        get_anger_sound: |_w, _id| 338,
-        get_death_sound: |_w, _id| 338,
-        get_attack_sound: |_w, _id| 406,
-        get_hurt_sound: |_w, _id| 194,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
 fn juggernaut_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &JUGGERNAUT)
 }
-static JUGGERNAUT_ABILITIES: [&MonsterAbility; 1] = [&abilities::COLOSSAL_BLOW];
 creature_leaf! {
     /// `Server.Mobiles.Juggernaut`.
     JUGGERNAUT, JUGGERNAUT_C = "Server.Mobiles.Juggernaut" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(juggernaut_new), encoded false;
@@ -1867,19 +1842,19 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         always_murderer: tp::always_murderer,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         bleed_immune: tp::bleed_immune,
         poison_immune: tp::poison_immune,
         meat: tp::meat,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &JUGGERNAUT_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::juggernaut_on_death,
-        get_death_sound: |_w, _id| 0x423,
-        get_attack_sound: |_w, _id| 0x23B,
-        get_hurt_sound: |_w, _id| 0x140,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
@@ -1895,12 +1870,12 @@ creature_leaf! {
         unprovokable: crate::cprops::unprovokable,
     }
     m {
-        click_title: |_w, _id| false,
-        show_fame_title: |_w, _id| false,
-        get_idle_sound: |_w, _id| 0x184,
-        get_anger_sound: |_w, _id| 0x286,
-        get_death_sound: |_w, _id| 0x288,
-        get_hurt_sound: |_w, _id| 0x19F,
+        click_title: crate::cprops::click_title,
+        show_fame_title: crate::cprops::show_fame_title,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
         on_before_death: crate::hand::khaldun_summoner_on_before_death,
     }
 }
@@ -1918,12 +1893,12 @@ creature_leaf! {
         poison_immune: tp::poison_immune,
     }
     m {
-        click_title: |_w, _id| false,
-        show_fame_title: |_w, _id| false,
-        get_idle_sound: |_w, _id| 0x184,
-        get_anger_sound: |_w, _id| 0x286,
-        get_death_sound: |_w, _id| 0x288,
-        get_hurt_sound: |_w, _id| 0x19F,
+        click_title: crate::cprops::click_title,
+        show_fame_title: crate::cprops::show_fame_title,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
         on_before_death: crate::hand::khaldun_zealot_on_before_death,
     }
 }
@@ -2028,7 +2003,7 @@ creature_leaf! {
     ORC, ORC_C = "Server.Mobiles.Orc" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orc_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
+        speech_type: crate::cprops::speech_type,
         can_rummage_corpses: tp::can_rummage_corpses,
         treasure_map_level: tp::treasure_map_level,
         meat: tp::meat,
@@ -2049,7 +2024,7 @@ creature_leaf! {
     ORC_BOMBER, ORC_BOMBER_C = "Server.Mobiles.OrcBomber" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orc_bomber_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
+        speech_type: crate::cprops::speech_type,
         default_name: tp::default_name,
         can_rummage_corpses: tp::can_rummage_corpses,
         opposition_group: crate::cprops::opposition_group,
@@ -2071,7 +2046,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         poison_immune: tp::poison_immune,
         meat: tp::meat,
         opposition_group: crate::cprops::opposition_group,
@@ -2094,7 +2069,7 @@ creature_leaf! {
     ORC_CAPTAIN, ORC_CAPTAIN_C = "Server.Mobiles.OrcCaptain" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orc_captain_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
+        speech_type: crate::cprops::speech_type,
         can_rummage_corpses: tp::can_rummage_corpses,
         meat: tp::meat,
         opposition_group: crate::cprops::opposition_group,
@@ -2120,7 +2095,7 @@ creature_leaf! {
     ORCISH_LORD, ORCISH_LORD_C = "Server.Mobiles.OrcishLord" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orcish_lord_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
+        speech_type: crate::cprops::speech_type,
         default_name: tp::default_name,
         can_rummage_corpses: tp::can_rummage_corpses,
         treasure_map_level: tp::treasure_map_level,
@@ -2142,7 +2117,7 @@ creature_leaf! {
     RATMAN, RATMAN_C = "Server.Mobiles.Ratman" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ratman_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::RATMAN),
+        speech_type: crate::cprops::speech_type,
         can_rummage_corpses: tp::can_rummage_corpses,
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
@@ -2160,7 +2135,7 @@ creature_leaf! {
     RATMAN_ARCHER, RATMAN_ARCHER_C = "Server.Mobiles.RatmanArcher" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ratman_archer_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::RATMAN),
+        speech_type: crate::cprops::speech_type,
         can_rummage_corpses: tp::can_rummage_corpses,
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
@@ -2187,9 +2162,9 @@ creature_leaf! {
     m {
         display_paperdoll_to: crate::hand::restless_soul_display_paperdoll_to,
         get_context_menu_entries: crate::hand::restless_soul_get_context_menu_entries,
-        get_idle_sound: |_w, _id| 0x107,
-        get_anger_sound: |_w, _id| 0x1BF,
-        get_death_sound: |_w, _id| 0xFD,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -2229,7 +2204,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
+        show_fame_title: crate::cprops::show_fame_title,
         aggressive_action_criminal: crate::hand::savage_aggressive_action_criminal,
     }
 }
@@ -2250,7 +2225,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
+        show_fame_title: crate::cprops::show_fame_title,
         on_before_death: crate::hand::savage_rider_on_before_death,
         aggressive_action_criminal: crate::hand::savage_rider_aggressive_action_criminal,
     }
@@ -2268,11 +2243,11 @@ creature_leaf! {
         can_rummage_corpses: tp::can_rummage_corpses,
     }
     m {
-        get_idle_sound: |_w, _id| 0x37A,
-        get_anger_sound: |_w, _id| 0x379,
-        get_death_sound: |_w, _id| 0x381,
-        get_attack_sound: |_w, _id| 0x37F,
-        get_hurt_sound: |_w, _id| 0x380,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
         on_before_death: crate::hand::shadow_fiend_on_before_death,
         on_after_delete: crate::hand::shadow_fiend_on_after_delete,
     }
@@ -2339,8 +2314,8 @@ creature_leaf! {
         poison_immune: tp::poison_immune,
     }
     m {
-        get_idle_sound: |_w, _id| 0x200,
-        get_anger_sound: |_w, _id| 0x56,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
         on_before_death: crate::hand::spectral_armour_on_before_death,
     }
 }
@@ -2427,17 +2402,17 @@ creature_leaf! {
         is_scary_to_pets: crate::cprops::is_scary_to_pets,
         default_name: tp::default_name,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         poison_immune: tp::poison_immune,
         generate_loot: tp::generate_loot,
         get_monster_abilities: crate::hand::exodus_abilities,
     }
     m {
-        get_idle_sound: |_w, _id| 0x218,
-        get_anger_sound: |_w, _id| 0x26C,
-        get_death_sound: |_w, _id| 0x211,
-        get_attack_sound: |_w, _id| 0x232,
-        get_hurt_sound: |_w, _id| 0x140,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
@@ -2453,24 +2428,23 @@ creature_leaf! {
         is_scary_to_pets: crate::cprops::is_scary_to_pets,
         default_name: tp::default_name,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         poison_immune: tp::poison_immune,
         generate_loot: tp::generate_loot,
         get_monster_abilities: crate::hand::exodus_abilities,
     }
     m {
-        get_idle_sound: |_w, _id| 0xFD,
-        get_anger_sound: |_w, _id| 0x26C,
-        get_death_sound: |_w, _id| 0x211,
-        get_attack_sound: |_w, _id| 0x23B,
-        get_hurt_sound: |_w, _id| 0x140,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
 fn chaos_dragoon_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &CHAOS_DRAGOON)
 }
-static CHAOS_DRAGOON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.ChaosDragoon`.
     CHAOS_DRAGOON, CHAOS_DRAGOON_C = "Server.Mobiles.ChaosDragoon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(chaos_dragoon_new), encoded false;
@@ -2478,19 +2452,19 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         can_rummage_corpses: tp::can_rummage_corpses,
         always_murderer: tp::always_murderer,
         alter_melee_damage_to: crate::hand::chaos_dragoon_alter_melee_damage_to,
-        get_monster_abilities: |_, _| &CHAOS_DRAGOON_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
-        get_idle_sound: |_w, _id| 0x2CE,
-        get_death_sound: |_w, _id| 0x2CC,
-        get_hurt_sound: |_w, _id| 0x2D1,
-        get_attack_sound: |_w, _id| 0x2C8,
+        show_fame_title: crate::cprops::show_fame_title,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
         on_before_death: crate::hand::chaos_dragoon_on_before_death,
     }
 }
@@ -2498,7 +2472,6 @@ creature_leaf! {
 fn chaos_dragoon_elite_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &CHAOS_DRAGOON_ELITE)
 }
-static CHAOS_DRAGOON_ELITE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.ChaosDragoonElite`.
     CHAOS_DRAGOON_ELITE, CHAOS_DRAGOON_ELITE_C = "Server.Mobiles.ChaosDragoonElite" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(chaos_dragoon_elite_new), encoded false;
@@ -2506,19 +2479,19 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         can_rummage_corpses: tp::can_rummage_corpses,
         always_murderer: tp::always_murderer,
         alter_melee_damage_to: crate::hand::chaos_dragoon_elite_alter_melee_damage_to,
-        get_monster_abilities: |_, _| &CHAOS_DRAGOON_ELITE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
-        get_idle_sound: |_w, _id| 0x2CE,
-        get_death_sound: |_w, _id| 0x2CC,
-        get_hurt_sound: |_w, _id| 0x2D1,
-        get_attack_sound: |_w, _id| 0x2C8,
+        show_fame_title: crate::cprops::show_fame_title,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
         on_before_death: crate::hand::chaos_dragoon_elite_on_before_death,
     }
 }
@@ -2533,17 +2506,17 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         always_murderer: tp::always_murderer,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         can_rummage_corpses: tp::can_rummage_corpses,
         meat: tp::meat,
         generate_loot: tp::generate_loot,
     }
     m {
         on_damage: crate::hand::juka_lord_on_damage,
-        get_idle_sound: |_w, _id| 0x262,
-        get_anger_sound: |_w, _id| 0x263,
-        get_hurt_sound: |_w, _id| 0x1D0,
-        get_death_sound: |_w, _id| 0x28D,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -2563,10 +2536,10 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x1AC,
-        get_anger_sound: |_w, _id| 0x1CD,
-        get_hurt_sound: |_w, _id| 0x1D0,
-        get_death_sound: |_w, _id| 0x28D,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -2586,10 +2559,10 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x1AC,
-        get_anger_sound: |_w, _id| 0x1CD,
-        get_hurt_sound: |_w, _id| 0x1D0,
-        get_death_sound: |_w, _id| 0x28D,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -2602,16 +2575,16 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         can_rummage_corpses: tp::can_rummage_corpses,
         initial_innocent: crate::cprops::initial_innocent,
         on_think: crate::hand::meer_captain_on_think,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_hurt_sound: |_w, _id| 0x14D,
-        get_death_sound: |_w, _id| 0x314,
-        get_attack_sound: |_w, _id| 0x75,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -2625,18 +2598,18 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         auto_dispel: crate::cprops::auto_dispel,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         can_rummage_corpses: tp::can_rummage_corpses,
         poison_immune: tp::poison_immune,
-        treasure_map_level: |w, _id| if w.core_aos() { 5 } else { 4 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         initial_innocent: crate::cprops::initial_innocent,
         on_think: crate::hand::meer_eternal_on_think,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_hurt_sound: |_w, _id| 0x167,
-        get_death_sound: |_w, _id| 0xBC,
-        get_attack_sound: |_w, _id| 0x28B,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -2659,9 +2632,9 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_hurt_sound: |_w, _id| 0x14D,
-        get_death_sound: |_w, _id| 0x314,
-        get_attack_sound: |_w, _id| 0x75,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -2674,15 +2647,15 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         can_rummage_corpses: tp::can_rummage_corpses,
         initial_innocent: crate::cprops::initial_innocent,
         generate_loot: tp::generate_loot,
     }
     m {
         on_damage: crate::hand::meer_warrior_on_damage,
-        get_hurt_sound: |_w, _id| 0x156,
-        get_death_sound: |_w, _id| 0x15C,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -2707,11 +2680,11 @@ creature_leaf! {
     }
     m {
         on_double_click: crate::hand::cu_sidhe_on_double_click,
-        get_idle_sound: |_w, _id| 0x577,
-        get_attack_sound: |_w, _id| 0x576,
-        get_anger_sound: |_w, _id| 0x578,
-        get_hurt_sound: |_w, _id| 0x576,
-        get_death_sound: |_w, _id| 0x579,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -2836,7 +2809,6 @@ creature_leaf! {
 fn red_death_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &RED_DEATH)
 }
-static RED_DEATH_ABILITIES: [&MonsterAbility; 1] = [&abilities::CHAOS_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.RedDeath`.
     RED_DEATH, RED_DEATH_C = "Server.Mobiles.RedDeath" : SKELETAL_MOUNT / SKELETAL_MOUNT_C, ctor Some(red_death_new), encoded false;
@@ -2846,7 +2818,7 @@ creature_leaf! {
         gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         always_murderer: tp::always_murderer,
         get_weapon_ability: crate::cprops::get_weapon_ability,
-        get_monster_abilities: |_, _| &RED_DEATH_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -2877,7 +2849,6 @@ creature_leaf! {
 fn hydra_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &HYDRA)
 }
-static HYDRA_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Hydra`.
     HYDRA, HYDRA_C = "Server.Mobiles.Hydra" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(hydra_new), encoded false;
@@ -2887,7 +2858,7 @@ creature_leaf! {
         hides: tp::hides,
         meat: tp::meat,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &HYDRA_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -3026,11 +2997,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_attack_sound: |_w, _id| 916,
-        get_anger_sound: |_w, _id| 916,
-        get_death_sound: |_w, _id| 917,
-        get_hurt_sound: |_w, _id| 919,
-        get_idle_sound: |_w, _id| 918,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
     }
 }
 
@@ -3062,7 +3033,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         poison_immune: tp::poison_immune,
         on_got_melee_attack: crate::hand::bog_thing_on_got_melee_attack,
         generate_loot: tp::generate_loot,
@@ -3130,11 +3101,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x56d,
-        get_idle_sound: |_w, _id| 0x56b,
-        get_attack_sound: |_w, _id| 0x56c,
-        get_hurt_sound: |_w, _id| 0x56c,
-        get_death_sound: |_w, _id| 0x56e,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -3150,11 +3121,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x581,
-        get_idle_sound: |_w, _id| 0x582,
-        get_attack_sound: |_w, _id| 0x580,
-        get_hurt_sound: |_w, _id| 0x583,
-        get_death_sound: |_w, _id| 0x584,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::interred_grizzle_on_damage,
     }
 }
@@ -3173,7 +3144,7 @@ creature_leaf! {
         always_murderer: tp::always_murderer,
     }
     m {
-        get_attack_sound: |_w, _id| 0x233,
+        get_attack_sound: crate::cprops::get_attack_sound,
         on_before_death: crate::hand::corrupted_soul_on_before_death,
     }
 }
@@ -3193,9 +3164,9 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 443,
-        get_death_sound: |_w, _id| 31,
-        get_attack_sound: |_w, _id| 672,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -3212,11 +3183,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x597,
-        get_idle_sound: |_w, _id| 0x596,
-        get_attack_sound: |_w, _id| 0x599,
-        get_hurt_sound: |_w, _id| 0x59a,
-        get_death_sound: |_w, _id| 0x59c,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -3233,11 +3204,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x597,
-        get_idle_sound: |_w, _id| 0x596,
-        get_attack_sound: |_w, _id| 0x599,
-        get_hurt_sound: |_w, _id| 0x59a,
-        get_death_sound: |_w, _id| 0x59c,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -3254,11 +3225,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x597,
-        get_idle_sound: |_w, _id| 0x596,
-        get_attack_sound: |_w, _id| 0x599,
-        get_hurt_sound: |_w, _id| 0x59a,
-        get_death_sound: |_w, _id| 0x59c,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -3294,11 +3265,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_death_sound: |_w, _id| 0x596,
-        get_attack_sound: |_w, _id| 0x597,
-        get_idle_sound: |_w, _id| 0x598,
-        get_anger_sound: |_w, _id| 0x599,
-        get_hurt_sound: |_w, _id| 0x59A,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
@@ -3337,7 +3308,7 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
         pack_instinct: crate::cprops::pack_instinct,
         poison_immune: tp::poison_immune,
-        hit_poison: |w, _id| if rnd::double(w) < 0.8 { Some(PoisonId(2)) } else { Some(PoisonId(3)) },
+        hit_poison: crate::cprops::hit_poison,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -3388,7 +3359,6 @@ creature_leaf! {
 fn reptalon_new(w: &mut World) -> MobileId {
     crate::cprops::new_mount(w, &REPTALON)
 }
-static REPTALON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Reptalon`.
     REPTALON, REPTALON_C = "Server.Mobiles.Reptalon" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(reptalon_new), encoded false;
@@ -3403,7 +3373,7 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
         can_fly: tp::can_fly,
         get_weapon_ability: crate::cprops::get_weapon_ability,
-        get_monster_abilities: |_, _| &REPTALON_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: crate::cprops::generate_loot,
     }
     m {
@@ -3430,7 +3400,6 @@ creature_leaf! {
 fn greater_dragon_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &GREATER_DRAGON)
 }
-static GREATER_DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.GreaterDragon`.
     GREATER_DRAGON, GREATER_DRAGON_C = "Server.Mobiles.GreaterDragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(greater_dragon_new), encoded false;
@@ -3450,7 +3419,7 @@ creature_leaf! {
         can_anger_on_tame: crate::cprops::can_anger_on_tame,
         can_fly: tp::can_fly,
         get_weapon_ability: crate::cprops::get_weapon_ability,
-        get_monster_abilities: |_, _| &GREATER_DRAGON_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -3543,7 +3512,7 @@ creature_leaf! {
         has_aura: crate::hand::corporeal_brume_has_aura,
         aura_interval: crate::cprops::aura_interval,
         aura_range: crate::cprops::aura_range,
-        aura_base_damage: |w, _id| rnd::min_max(w, 25, 35),
+        aura_base_damage: crate::cprops::aura_base_damage,
         aura_fire_damage: crate::cprops::aura_fire_damage,
         aura_cold_damage: crate::cprops::aura_cold_damage,
         aura_effect: crate::hand::corporeal_brume_aura_effect,
@@ -3584,18 +3553,17 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_attack_sound: |_w, _id| 0x2F6,
-        get_death_sound: |_w, _id| 0x2F7,
-        get_anger_sound: |_w, _id| 0x2F8,
-        get_hurt_sound: |_w, _id| 0x2F9,
-        get_idle_sound: |_w, _id| 0x2FA,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
     }
 }
 
 fn sea_serpent_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &SEA_SERPENT)
 }
-static SEA_SERPENT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.SeaSerpent`.
     SEA_SERPENT, SEA_SERPENT_C = "Server.Mobiles.SeaSerpent" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(sea_serpent_new), encoded false;
@@ -3607,7 +3575,7 @@ creature_leaf! {
         hide_type: crate::cprops::hide_type,
         scales: tp::scales,
         scale_type: crate::cprops::scale_type,
-        get_monster_abilities: |_, _| &SEA_SERPENT_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -3640,8 +3608,8 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x15,
-        get_attack_sound: |_w, _id| 0x28,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -3653,7 +3621,7 @@ creature_leaf! {
     WISP, WISP_C = "Server.Mobiles.Wisp" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(wisp_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::WISP),
+        speech_type: crate::cprops::speech_type,
         faction_allegiance: crate::hand::wisp_faction_allegiance,
         ethic_allegiance: crate::hand::wisp_ethic_allegiance,
         reacquire_delay: crate::cprops::reacquire_delay,
@@ -3707,8 +3675,8 @@ creature_leaf! {
         generate_loot_spawning: crate::hand::protector_generate_loot_spawning,
     }
     m {
-        property_title: |_w, _id| false,
-        show_fame_title: |_w, _id| false,
+        property_title: crate::cprops::property_title,
+        show_fame_title: crate::cprops::show_fame_title,
     }
 }
 
@@ -3784,12 +3752,12 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
-        get_anger_sound: |_w, _id| 0x46E,
-        get_idle_sound: |_w, _id| 0x470,
-        get_attack_sound: |_w, _id| 0x46D,
-        get_hurt_sound: |_w, _id| 0x471,
-        get_death_sound: |_w, _id| 0x46F,
+        show_fame_title: crate::cprops::show_fame_title,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_after_delete: crate::hand::changeling_on_after_delete,
         clear_hands: crate::hand::changeling_clear_hands,
     }
@@ -3816,7 +3784,6 @@ creature_leaf! {
 fn guile_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &GUILE)
 }
-static GUILE_ABILITIES: [&MonsterAbility; 1] = [&abilities::DRAIN_LIFE_ATTACK];
 creature_leaf! {
     /// `Server.Mobiles.Guile`.
     GUILE, GUILE_C = "Server.Mobiles.Guile" : CHANGELING / CHANGELING_C, ctor Some(guile_new), encoded false;
@@ -3825,7 +3792,7 @@ creature_leaf! {
         default_name: tp::default_name,
         default_hue: crate::cprops::default_hue,
         gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
-        get_monster_abilities: |_, _| &GUILE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -3973,7 +3940,6 @@ creature_leaf! {
 fn hell_hound_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &HELL_HOUND)
 }
-static HELL_HOUND_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.HellHound`.
     HELL_HOUND, HELL_HOUND_C = "Server.Mobiles.HellHound" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(hell_hound_new), encoded false;
@@ -3983,7 +3949,7 @@ creature_leaf! {
         meat: tp::meat,
         favorite_food: crate::cprops::favorite_food,
         pack_instinct: crate::cprops::pack_instinct,
-        get_monster_abilities: |_, _| &HELL_HOUND_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4001,13 +3967,13 @@ creature_leaf! {
         default_name: tp::default_name,
         meat: tp::meat,
         hides: tp::hides,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_attack_sound: |_w, _id| 0xC9,
-        get_hurt_sound: |_w, _id| 0xCA,
-        get_death_sound: |_w, _id| 0xCB,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -4019,7 +3985,7 @@ creature_leaf! {
     DARK_WISP, DARK_WISP_C = "Server.Mobiles.DarkWisp" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dark_wisp_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::WISP),
+        speech_type: crate::cprops::speech_type,
         ethic_allegiance: crate::hand::dark_wisp_ethic_allegiance,
         reacquire_delay: crate::cprops::reacquire_delay,
         default_name: tp::default_name,
@@ -4039,7 +4005,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         initial_innocent: crate::cprops::initial_innocent,
-        treasure_map_level: |w, _id| if w.core_aos() { 5 } else { 0 },
+        treasure_map_level: crate::cprops::treasure_map_level,
         opposition_group: crate::cprops::opposition_group,
         feathers: tp::feathers,
         on_gave_melee_attack: crate::hand::ethereal_warrior_on_gave_melee_attack,
@@ -4048,11 +4014,11 @@ creature_leaf! {
     }
     m {
         on_movement: crate::hand::ethereal_warrior_on_movement,
-        get_anger_sound: |_w, _id| 0x2F8,
-        get_idle_sound: |_w, _id| 0x2F8,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
         get_attack_sound: |w, _id| rnd::from(w, 0x2F5, 2),
-        get_hurt_sound: |_w, _id| 0x2F9,
-        get_death_sound: |_w, _id| 0x2F7,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -4105,7 +4071,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        delete_corpse_on_death: |w, _id| w.core_aos(),
+        delete_corpse_on_death: crate::cprops::delete_corpse_on_death,
         is_house_summonable: crate::cprops::is_house_summonable,
         dispel_difficulty: crate::cprops::dispel_difficulty,
         dispel_focus: crate::cprops::dispel_focus,
@@ -4116,9 +4082,9 @@ creature_leaf! {
         on_think: crate::hand::blade_spirits_on_think,
     }
     m {
-        get_anger_sound: |_w, _id| 0x23A,
-        get_attack_sound: |_w, _id| 0x3B8,
-        get_hurt_sound: |_w, _id| 0x23A,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
@@ -4160,8 +4126,8 @@ creature_leaf! {
         on_think: crate::hand::energy_vortex_on_think,
     }
     m {
-        get_anger_sound: |_w, _id| 0x15,
-        get_attack_sound: |_w, _id| 0x28,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
     }
 }
 
@@ -4198,10 +4164,10 @@ creature_leaf! {
         generate_loot: crate::cprops::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x1BF,
-        get_attack_sound: |_w, _id| 0x1C0,
-        get_hurt_sound: |_w, _id| 0x1C1,
-        get_death_sound: |_w, _id| 0x1C2,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -4225,10 +4191,10 @@ creature_leaf! {
         check_nonlocal_lift: crate::hand::plague_beast_lord_check_nonlocal_lift,
         check_nonlocal_drop: crate::hand::plague_beast_lord_check_nonlocal_drop,
         is_snoop: crate::hand::plague_beast_lord_is_snoop,
-        get_idle_sound: |_w, _id| 0x1BF,
-        get_attack_sound: |_w, _id| 0x1C0,
-        get_hurt_sound: |_w, _id| 0x1C1,
-        get_death_sound: |_w, _id| 0x1C2,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -4287,7 +4253,6 @@ creature_leaf! {
 fn bronze_elemental_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &BRONZE_ELEMENTAL)
 }
-static BRONZE_ELEMENTAL_ABILITIES: [&MonsterAbility; 1] = [&abilities::POISON_GAS_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.BronzeElemental`.
     BRONZE_ELEMENTAL, BRONZE_ELEMENTAL_C = "Server.Mobiles.BronzeElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(bronze_elemental_new), encoded false;
@@ -4297,7 +4262,7 @@ creature_leaf! {
         bleed_immune: tp::bleed_immune,
         auto_dispel: crate::cprops::auto_dispel,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &BRONZE_ELEMENTAL_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4327,7 +4292,6 @@ creature_leaf! {
 fn dull_copper_elemental_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &DULL_COPPER_ELEMENTAL)
 }
-static DULL_COPPER_ELEMENTAL_ABILITIES: [&MonsterAbility; 1] = [&abilities::DEATH_EXPLOSION];
 creature_leaf! {
     /// `Server.Mobiles.DullCopperElemental`.
     DULL_COPPER_ELEMENTAL, DULL_COPPER_ELEMENTAL_C = "Server.Mobiles.DullCopperElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dull_copper_elemental_new), encoded false;
@@ -4337,7 +4301,7 @@ creature_leaf! {
         auto_dispel: crate::cprops::auto_dispel,
         bleed_immune: tp::bleed_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &DULL_COPPER_ELEMENTAL_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4388,10 +4352,6 @@ creature_leaf! {
 fn valorite_elemental_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &VALORITE_ELEMENTAL)
 }
-static VALORITE_ELEMENTAL_ABILITIES: [&MonsterAbility; 2] = [
-    &abilities::POISON_GAS_COUNTER,
-    &abilities::DESTROY_EQUIPMENT,
-];
 creature_leaf! {
     /// `Server.Mobiles.ValoriteElemental`.
     VALORITE_ELEMENTAL, VALORITE_ELEMENTAL_C = "Server.Mobiles.ValoriteElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(valorite_elemental_new), encoded false;
@@ -4403,7 +4363,7 @@ creature_leaf! {
         treasure_map_level: tp::treasure_map_level,
         alter_melee_damage_from: crate::hand::valorite_elemental_alter_melee_damage_from,
         check_reflect: crate::hand::valorite_elemental_check_reflect,
-        get_monster_abilities: |_, _| &VALORITE_ELEMENTAL_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4413,7 +4373,6 @@ creature_leaf! {
 fn verite_elemental_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &VERITE_ELEMENTAL)
 }
-static VERITE_ELEMENTAL_ABILITIES: [&MonsterAbility; 1] = [&abilities::DESTROY_EQUIPMENT];
 creature_leaf! {
     /// `Server.Mobiles.VeriteElemental`.
     VERITE_ELEMENTAL, VERITE_ELEMENTAL_C = "Server.Mobiles.VeriteElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(verite_elemental_new), encoded false;
@@ -4423,7 +4382,7 @@ creature_leaf! {
         auto_dispel: crate::cprops::auto_dispel,
         bleed_immune: tp::bleed_immune,
         treasure_map_level: tp::treasure_map_level,
-        get_monster_abilities: |_, _| &VERITE_ELEMENTAL_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4497,7 +4456,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 353,
+        get_anger_sound: crate::cprops::get_anger_sound,
     }
 }
 
@@ -4526,7 +4485,7 @@ creature_leaf! {
     c {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
-        bard_immune: |w, _id| !w.core_aos(),
+        bard_immune: crate::cprops::bard_immune,
         poison_immune: tp::poison_immune,
     }
     m {
@@ -4536,7 +4495,6 @@ creature_leaf! {
 fn ancient_wyrm_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &ANCIENT_WYRM)
 }
-static ANCIENT_WYRM_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.AncientWyrm`.
     ANCIENT_WYRM, ANCIENT_WYRM_C = "Server.Mobiles.AncientWyrm" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ancient_wyrm_new), encoded false;
@@ -4551,22 +4509,21 @@ creature_leaf! {
         scales: tp::scales,
         scale_type: crate::hand::ancient_wyrm_scale_type,
         poison_immune: tp::poison_immune,
-        hit_poison: |w, _id| if rnd::bool(w) { Some(PoisonId(0)) } else { Some(PoisonId(1)) },
+        hit_poison: crate::cprops::hit_poison,
         treasure_map_level: tp::treasure_map_level,
         can_fly: tp::can_fly,
-        get_monster_abilities: |_, _| &ANCIENT_WYRM_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x2D3,
-        get_hurt_sound: |_w, _id| 0x2D1,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
 fn deep_sea_serpent_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &DEEP_SEA_SERPENT)
 }
-static DEEP_SEA_SERPENT_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.DeepSeaSerpent`.
     DEEP_SEA_SERPENT, DEEP_SEA_SERPENT_C = "Server.Mobiles.DeepSeaSerpent" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(deep_sea_serpent_new), encoded false;
@@ -4576,7 +4533,7 @@ creature_leaf! {
         meat: tp::meat,
         scales: tp::scales,
         scale_type: crate::cprops::scale_type,
-        get_monster_abilities: |_, _| &DEEP_SEA_SERPENT_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4586,7 +4543,6 @@ creature_leaf! {
 fn dragon_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &DRAGON)
 }
-static DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Dragon`.
     DRAGON, DRAGON_C = "Server.Mobiles.Dragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dragon_new), encoded false;
@@ -4604,7 +4560,7 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
         can_anger_on_tame: crate::cprops::can_anger_on_tame,
         can_fly: tp::can_fly,
-        get_monster_abilities: |_, _| &DRAGON_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4665,7 +4621,6 @@ creature_leaf! {
 fn serpentine_dragon_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &SERPENTINE_DRAGON)
 }
-static SERPENTINE_DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.SerpentineDragon`.
     SERPENTINE_DRAGON, SERPENTINE_DRAGON_C = "Server.Mobiles.SerpentineDragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(serpentine_dragon_new), encoded false;
@@ -4673,31 +4628,30 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         reacquire_on_movement: crate::cprops::reacquire_on_movement,
-        bonus_pet_damage_scalar: |w, _id| if w.core_se() { 3.0 } else { 1.0 },
+        bonus_pet_damage_scalar: crate::cprops::bonus_pet_damage_scalar,
         auto_dispel: crate::cprops::auto_dispel,
         hide_type: crate::cprops::hide_type,
         hides: tp::hides,
         meat: tp::meat,
         scales: tp::scales,
-        scale_type: |w, _id| if rnd::bool(w) { ScaleType::Black } else { ScaleType::White },
+        scale_type: crate::cprops::scale_type,
         treasure_map_level: tp::treasure_map_level,
         on_got_melee_attack: crate::hand::serpentine_dragon_on_got_melee_attack,
-        get_monster_abilities: |_, _| &SERPENTINE_DRAGON_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x2C4,
-        get_attack_sound: |_w, _id| 0x2C0,
-        get_death_sound: |_w, _id| 0x2C1,
-        get_anger_sound: |_w, _id| 0x2C4,
-        get_hurt_sound: |_w, _id| 0x2C3,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
 fn shadow_wyrm_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &SHADOW_WYRM)
 }
-static SHADOW_WYRM_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.ShadowWyrm`.
     SHADOW_WYRM, SHADOW_WYRM_C = "Server.Mobiles.ShadowWyrm" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(shadow_wyrm_new), encoded false;
@@ -4715,19 +4669,18 @@ creature_leaf! {
         scale_type: crate::cprops::scale_type,
         hide_type: crate::cprops::hide_type,
         can_fly: tp::can_fly,
-        get_monster_abilities: |_, _| &SHADOW_WYRM_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x2D5,
-        get_hurt_sound: |_w, _id| 0x2D1,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
     }
 }
 
 fn skeletal_dragon_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &SKELETAL_DRAGON)
 }
-static SKELETAL_DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::COLD_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.SkeletalDragon`.
     SKELETAL_DRAGON, SKELETAL_DRAGON_C = "Server.Mobiles.SkeletalDragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(skeletal_dragon_new), encoded false;
@@ -4735,14 +4688,14 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         reacquire_on_movement: crate::cprops::reacquire_on_movement,
-        bonus_pet_damage_scalar: |w, _id| if w.core_se() { 3.0 } else { 1.0 },
+        bonus_pet_damage_scalar: crate::cprops::bonus_pet_damage_scalar,
         auto_dispel: crate::cprops::auto_dispel,
         poison_immune: tp::poison_immune,
         bleed_immune: tp::bleed_immune,
         meat: tp::meat,
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
-        get_monster_abilities: |_, _| &SKELETAL_DRAGON_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4777,7 +4730,6 @@ creature_leaf! {
 fn drake_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &DRAKE)
 }
-static DRAKE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Drake`.
     DRAKE, DRAKE_C = "Server.Mobiles.Drake" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(drake_new), encoded false;
@@ -4793,7 +4745,7 @@ creature_leaf! {
         scale_type: crate::hand::drake_scale_type,
         favorite_food: crate::cprops::favorite_food,
         can_fly: tp::can_fly,
-        get_monster_abilities: |_, _| &DRAKE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4825,7 +4777,7 @@ creature_leaf! {
     LIZARDMAN, LIZARDMAN_C = "Server.Mobiles.Lizardman" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lizardman_new), encoded false;
     c {
         corpse_name: tp::corpse_name,
-        speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::LIZARDMAN),
+        speech_type: crate::cprops::speech_type,
         can_rummage_corpses: tp::can_rummage_corpses,
         meat: tp::meat,
         hides: tp::hides,
@@ -4887,11 +4839,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_attack_sound: |_w, _id| 916,
-        get_anger_sound: |_w, _id| 916,
-        get_death_sound: |_w, _id| 917,
-        get_hurt_sound: |_w, _id| 919,
-        get_idle_sound: |_w, _id| 918,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
     }
 }
 
@@ -4915,11 +4867,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_attack_sound: |_w, _id| 713,
-        get_anger_sound: |_w, _id| 718,
-        get_death_sound: |_w, _id| 716,
-        get_hurt_sound: |_w, _id| 721,
-        get_idle_sound: |_w, _id| 725,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
     }
 }
 
@@ -4941,10 +4893,10 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 1573,
-        get_anger_sound: |_w, _id| 1570,
-        get_hurt_sound: |_w, _id| 1572,
-        get_death_sound: |_w, _id| 1571,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_death: |w, id, c| {
             (BASE_CREATURE.on_death)(w, id, c);
             if !read(w, id, false, |d| d.controlled) && rnd::double(w) <= 0.005 {
@@ -4957,7 +4909,6 @@ creature_leaf! {
 fn slith_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &SLITH)
 }
-static SLITH_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Slith`.
     SLITH, SLITH_C = "Server.Mobiles.Slith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(slith_new), encoded true;
@@ -4967,7 +4918,7 @@ creature_leaf! {
         treasure_map_level: tp::treasure_map_level,
         meat: tp::meat,
         hides: tp::hides,
-        get_monster_abilities: |_, _| &SLITH_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -4977,8 +4928,6 @@ creature_leaf! {
 fn stone_slith_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &STONE_SLITH)
 }
-static STONE_SLITH_ABILITIES: [&MonsterAbility; 2] =
-    [&abilities::GRASPING_CLAW, &abilities::TAIL_SWIPE];
 creature_leaf! {
     /// `Server.Mobiles.StoneSlith`.
     STONE_SLITH, STONE_SLITH_C = "Server.Mobiles.StoneSlith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(stone_slith_new), encoded true;
@@ -4989,7 +4938,7 @@ creature_leaf! {
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
         get_weapon_ability: crate::cprops::get_weapon_ability,
-        get_monster_abilities: |_, _| &STONE_SLITH_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -5005,7 +4954,6 @@ creature_leaf! {
 fn toxic_slith_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &TOXIC_SLITH)
 }
-static TOXIC_SLITH_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.ToxicSlith`.
     TOXIC_SLITH, TOXIC_SLITH_C = "Server.Mobiles.ToxicSlith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(toxic_slith_new), encoded true;
@@ -5015,7 +4963,7 @@ creature_leaf! {
         meat: tp::meat,
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
-        get_monster_abilities: |_, _| &TOXIC_SLITH_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -5025,7 +4973,6 @@ creature_leaf! {
 fn bake_kitsune_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &BAKE_KITSUNE)
 }
-static BAKE_KITSUNE_ABILITIES: [&MonsterAbility; 1] = [&abilities::BLOOD_BATH_ATTACK];
 creature_leaf! {
     /// `Server.Mobiles.BakeKitsune`.
     BAKE_KITSUNE, BAKE_KITSUNE_C = "Server.Mobiles.BakeKitsune" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(bake_kitsune_new), state crate::hand::bake_kitsune_serialize, crate::hand::bake_kitsune_deserialize;
@@ -5036,20 +4983,20 @@ creature_leaf! {
         hides: tp::hides,
         hide_type: crate::cprops::hide_type,
         favorite_food: crate::cprops::favorite_food,
-        get_monster_abilities: |_, _| &BAKE_KITSUNE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        show_fame_title: |_w, _id| false,
-        click_title: |_w, _id| false,
-        property_title: |_w, _id| false,
+        show_fame_title: crate::cprops::show_fame_title,
+        click_title: crate::cprops::click_title,
+        property_title: crate::cprops::property_title,
         on_combatant_change: crate::hand::bake_kitsune_on_combatant_change,
         on_before_death: crate::hand::bake_kitsune_on_before_death,
-        get_anger_sound: |_w, _id| 0x4DE,
-        get_idle_sound: |_w, _id| 0x4DD,
-        get_attack_sound: |_w, _id| 0x4DC,
-        get_hurt_sound: |_w, _id| 0x4DF,
-        get_death_sound: |_w, _id| 0x4DB,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5068,11 +5015,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4F3,
-        get_idle_sound: |_w, _id| 0x4F2,
-        get_attack_sound: |_w, _id| 0x4F1,
-        get_hurt_sound: |_w, _id| 0x4F4,
-        get_death_sound: |_w, _id| 0x4F0,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::deathwatch_beetle_on_damage,
     }
 }
@@ -5090,11 +5037,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4F3,
-        get_idle_sound: |_w, _id| 0x4F2,
-        get_attack_sound: |_w, _id| 0x4F1,
-        get_hurt_sound: |_w, _id| 0x4F4,
-        get_death_sound: |_w, _id| 0x4F0,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5111,7 +5058,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        click_title: |_w, _id| false,
+        click_title: crate::cprops::click_title,
         on_death: |w, id, c| {
             (BASE_CREATURE.on_death)(w, id, c);
             drop_new(w, c, "Server.Items.BookOfNinjitsu");
@@ -5122,11 +5069,6 @@ creature_leaf! {
 fn fan_dancer_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &FAN_DANCER)
 }
-static FAN_DANCER_ABILITIES: [&MonsterAbility; 3] = [
-    &abilities::REFLECT_PHYSICAL_DAMAGE,
-    &abilities::FANNING_FIRE,
-    &abilities::FAN_THROW_COUNTER,
-];
 creature_leaf! {
     /// `Server.Mobiles.FanDancer`.
     FAN_DANCER, FAN_DANCER_C = "Server.Mobiles.FanDancer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(fan_dancer_new), encoded false;
@@ -5134,7 +5076,7 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         uncalmable: crate::cprops::uncalmable,
-        get_monster_abilities: |_, _| &FAN_DANCER_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
@@ -5161,18 +5103,17 @@ creature_leaf! {
     }
     m {
         on_combatant_change: crate::hand::fire_beetle_on_combatant_change,
-        get_anger_sound: |_w, _id| 0x21D,
-        get_idle_sound: |_w, _id| 0x21D,
-        get_attack_sound: |_w, _id| 0x162,
-        get_hurt_sound: |_w, _id| 0x163,
-        get_death_sound: |_w, _id| 0x21D,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
 fn kappa_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &KAPPA)
 }
-static KAPPA_ABILITIES: [&MonsterAbility; 1] = [&abilities::DRAIN_LIFE_ATTACK];
 creature_leaf! {
     /// `Server.Mobiles.Kappa`.
     KAPPA, KAPPA_C = "Server.Mobiles.Kappa" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(kappa_new), encoded false;
@@ -5180,15 +5121,15 @@ creature_leaf! {
         corpse_name: tp::corpse_name,
         default_name: tp::default_name,
         new_harmful_item: crate::hand::kappa_new_harmful_item,
-        get_monster_abilities: |_, _| &KAPPA_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x50B,
-        get_idle_sound: |_w, _id| 0x50A,
-        get_attack_sound: |_w, _id| 0x509,
-        get_hurt_sound: |_w, _id| 0x50C,
-        get_death_sound: |_w, _id| 0x508,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_damage: crate::hand::kappa_on_damage,
     }
 }
@@ -5226,7 +5167,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_death_sound: |_w, _id| 0x370,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5244,11 +5185,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4E3,
-        get_idle_sound: |_w, _id| 0x4E2,
-        get_attack_sound: |_w, _id| 0x4E1,
-        get_hurt_sound: |_w, _id| 0x4E4,
-        get_death_sound: |_w, _id| 0x4E0,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5285,11 +5226,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x518,
-        get_idle_sound: |_w, _id| 0x517,
-        get_attack_sound: |_w, _id| 0x516,
-        get_hurt_sound: |_w, _id| 0x519,
-        get_death_sound: |_w, _id| 0x515,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5308,7 +5249,7 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        click_title: |_w, _id| false,
+        click_title: crate::cprops::click_title,
         on_death: |w, id, c| {
             (BASE_CREATURE.on_death)(w, id, c);
             drop_new(w, c, "Server.Items.BookOfBushido");
@@ -5319,7 +5260,6 @@ creature_leaf! {
 fn rune_beetle_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &RUNE_BEETLE)
 }
-static RUNE_BEETLE_ABILITIES: [&MonsterAbility; 1] = [&abilities::RUNE_CORRUPTION];
 creature_leaf! {
     /// `Server.Mobiles.RuneBeetle`.
     RUNE_BEETLE, RUNE_BEETLE_C = "Server.Mobiles.RuneBeetle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(rune_beetle_new), encoded false;
@@ -5331,22 +5271,21 @@ creature_leaf! {
         favorite_food: crate::cprops::favorite_food,
         can_anger_on_tame: crate::cprops::can_anger_on_tame,
         get_weapon_ability: crate::cprops::get_weapon_ability,
-        get_monster_abilities: |_, _| &RUNE_BEETLE_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x4E8,
-        get_idle_sound: |_w, _id| 0x4E7,
-        get_attack_sound: |_w, _id| 0x4E6,
-        get_hurt_sound: |_w, _id| 0x4E9,
-        get_death_sound: |_w, _id| 0x4E5,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
 fn tsuki_wolf_new(w: &mut World) -> MobileId {
     crate::cprops::new_creature(w, &TSUKI_WOLF)
 }
-static TSUKI_WOLF_ABILITIES: [&MonsterAbility; 1] = [&abilities::BLOOD_BATH_ATTACK];
 creature_leaf! {
     /// `Server.Mobiles.TsukiWolf`.
     TSUKI_WOLF, TSUKI_WOLF_C = "Server.Mobiles.TsukiWolf" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(tsuki_wolf_new), encoded false;
@@ -5356,15 +5295,15 @@ creature_leaf! {
         meat: tp::meat,
         hides: tp::hides,
         favorite_food: crate::cprops::favorite_food,
-        get_monster_abilities: |_, _| &TSUKI_WOLF_ABILITIES,
+        get_monster_abilities: crate::cprops::get_monster_abilities,
         generate_loot: tp::generate_loot,
     }
     m {
-        get_anger_sound: |_w, _id| 0x52D,
-        get_idle_sound: |_w, _id| 0x52C,
-        get_attack_sound: |_w, _id| 0x52B,
-        get_hurt_sound: |_w, _id| 0x52E,
-        get_death_sound: |_w, _id| 0x52A,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5379,7 +5318,7 @@ creature_leaf! {
         default_name: tp::default_name,
         reacquire_on_movement: crate::cprops::reacquire_on_movement,
         poison_immune: tp::poison_immune,
-        hit_poison: |w, _id| if rnd::bool(w) { Some(PoisonId(3)) } else { Some(PoisonId(4)) },
+        hit_poison: crate::cprops::hit_poison,
         treasure_map_level: tp::treasure_map_level,
         hides: tp::hides,
         get_weapon_ability: crate::cprops::get_weapon_ability,
@@ -5388,11 +5327,11 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_attack_sound: |_w, _id| 1260,
-        get_anger_sound: |_w, _id| 1262,
-        get_death_sound: |_w, _id| 1259,
-        get_hurt_sound: |_w, _id| 1263,
-        get_idle_sound: |_w, _id| 1261,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
     }
 }
 
@@ -5414,10 +5353,10 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x42A,
-        get_attack_sound: |_w, _id| 0x435,
-        get_hurt_sound: |_w, _id| 0x436,
-        get_death_sound: |_w, _id| 0x43A,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5438,10 +5377,10 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x42A,
-        get_attack_sound: |_w, _id| 0x435,
-        get_hurt_sound: |_w, _id| 0x436,
-        get_death_sound: |_w, _id| 0x43A,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 
@@ -5463,10 +5402,10 @@ creature_leaf! {
         generate_loot: tp::generate_loot,
     }
     m {
-        get_idle_sound: |_w, _id| 0x42A,
-        get_attack_sound: |_w, _id| 0x435,
-        get_hurt_sound: |_w, _id| 0x436,
-        get_death_sound: |_w, _id| 0x43A,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
     }
 }
 

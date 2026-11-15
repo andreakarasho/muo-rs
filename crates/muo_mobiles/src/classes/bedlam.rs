@@ -1,11 +1,9 @@
 //! `LadyMarai`: a paragon skeletal knight of Bedlam.
 
-use muo_content::loot_pack;
 use muo_server::World;
 use muo_server::ids::MobileId;
 use muo_server::type_registry::TypeRegistry;
 
-use crate::common::*;
 use crate::leaf::creature_leaf;
 use crate::monsters::leaves::{SKELETAL_KNIGHT, SKELETAL_KNIGHT_C};
 
@@ -20,7 +18,7 @@ creature_leaf! {
         corpse_name: muo_content::templates::creature_props::corpse_name,
         default_name: muo_content::templates::creature_props::default_name,
         gives_ml_minor_artifact: muo_content::templates::creature_props::gives_ml_minor_artifact,
-        generate_loot: |w, id| add_loot_n(w, id, loot_pack::ultra_rich(w), 3),
+        generate_loot: crate::cprops::generate_loot,
         get_weapon_ability: crate::cprops::get_weapon_ability,
     }
     m {

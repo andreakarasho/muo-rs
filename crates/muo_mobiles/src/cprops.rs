@@ -11,12 +11,15 @@ use std::rc::Rc;
 
 use serde_json::Value;
 
+use muo_content::abilities::MonsterAbility;
 use muo_content::ai::opposition_group::{self as og, OppositionGroup};
-use muo_content::creature::BASE_CREATURE_C;
 use muo_content::creature::enums::{FoodType, HideType, MeatType, PackInstinct, ScaleType};
+use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::items::weapon::Ability;
+use muo_content::misc::inhuman_speech::InhumanSpeech;
 use muo_content::templates::props::{self, as_bool, as_f64, as_i32};
 use muo_content::templates::{self, Kind, TemplateTable};
+use muo_data::expansion::Expansion;
 use muo_primitives::TimeSpan;
 use muo_server::ids::MobileId;
 use muo_server::mobile::MobileType;
@@ -26,7 +29,7 @@ use muo_server::world::World;
 macro_rules! bool_prop {
     ($($f:ident = $key:literal;)*) => {$(
         pub fn $f(w: &World, id: MobileId) -> bool {
-            as_bool(props::mobile(w, id, $key)).unwrap_or_else(|| (BASE_CREATURE_C.$f)(w, id))
+            as_bool(props::mobile(w, id, $key).map(|v| era(w, v))).unwrap_or_else(|| (BASE_CREATURE_C.$f)(w, id))
         }
     )*};
 }
@@ -34,7 +37,7 @@ macro_rules! bool_prop {
 macro_rules! int_prop {
     ($($f:ident = $key:literal;)*) => {$(
         pub fn $f(w: &World, id: MobileId) -> i32 {
-            as_i32(props::mobile(w, id, $key)).unwrap_or_else(|| (BASE_CREATURE_C.$f)(w, id))
+            as_i32(props::mobile(w, id, $key).map(|v| era(w, v))).unwrap_or_else(|| (BASE_CREATURE_C.$f)(w, id))
         }
     )*};
 }
@@ -42,7 +45,7 @@ macro_rules! int_prop {
 macro_rules! f64_prop {
     ($($f:ident = $key:literal;)*) => {$(
         pub fn $f(w: &World, id: MobileId) -> f64 {
-            as_f64(props::mobile(w, id, $key)).unwrap_or_else(|| (BASE_CREATURE_C.$f)(w, id))
+            as_f64(props::mobile(w, id, $key).map(|v| era(w, v))).unwrap_or_else(|| (BASE_CREATURE_C.$f)(w, id))
         }
     )*};
 }
@@ -51,7 +54,7 @@ macro_rules! f64_prop {
 macro_rules! secs_prop {
     ($($f:ident = $key:literal;)*) => {$(
         pub fn $f(w: &World, id: MobileId) -> TimeSpan {
-            match as_f64(props::mobile(w, id, $key)) {
+            match as_f64(props::mobile(w, id, $key).map(|v| era(w, v))) {
                 Some(s) => TimeSpan::from_secs_f64(s),
                 None => (BASE_CREATURE_C.$f)(w, id),
             }
@@ -91,6 +94,7 @@ bool_prop! {
     has_aura = "hasAura";
     is_house_summonable = "isHouseSummonable";
     breath_immune = "breathImmune";
+    ignore_young_protection = "ignoreYoungProtection";
 }
 
 int_prop! {
@@ -106,6 +110,7 @@ f64_prop! {
     hit_poison_chance = "hitPoisonChance";
     weapon_ability_chance = "weaponAbilityChance";
     treasure_map_chance = "treasureMapChance";
+    bonus_pet_damage_scalar = "bonusPetDamageScalar";
 }
 
 secs_prop! {
@@ -114,13 +119,213 @@ secs_prop! {
     aura_interval = "auraInterval";
 }
 
-/// `"hitPoison": <level>` or `null`.
+/// `"hitPoison": <level>` or `null`, or a choice of them ([`int_rolled`]).
 pub fn hit_poison(w: &mut World, id: MobileId) -> Option<PoisonId> {
-    match props::mobile(w, id, "hitPoison") {
-        Some(Value::Null) => None,
-        Some(v) => v.as_u64().and_then(|n| u8::try_from(n).ok()).map(PoisonId),
+    match int_rolled(w, id, "hitPoison") {
+        Some(n) => n.and_then(|n| u8::try_from(n).ok()).map(PoisonId),
         None => (BASE_CREATURE_C.hit_poison)(w, id),
     }
+}
+
+/// `"treasureMapLevel"`: a level or a choice of them ([`int_rolled`]).
+pub fn treasure_map_level(w: &mut World, id: MobileId) -> i32 {
+    match int_rolled(w, id, "treasureMapLevel") {
+        Some(Some(n)) => n,
+        _ => (BASE_CREATURE_C.treasure_map_level)(w, id),
+    }
+}
+
+/// `"auraBaseDamage"`: a number or a choice of them ([`int_rolled`]).
+pub fn aura_base_damage(w: &mut World, id: MobileId) -> i32 {
+    match int_rolled(w, id, "auraBaseDamage") {
+        Some(Some(n)) => n,
+        _ => (BASE_CREATURE_C.aura_base_damage)(w, id),
+    }
+}
+
+/// An era-dependent prop `{"atLeast": "SE", "then": a, "else": b}` resolved for the world's era (`w.core_se()`
+/// style); any other value as it is.
+fn era<'a>(w: &World, v: &'a Value) -> &'a Value {
+    match v
+        .get("atLeast")
+        .and_then(Value::as_str)
+        .and_then(Expansion::parse)
+    {
+        Some(at) => v
+            .get(if w.expansion() >= at { "then" } else { "else" })
+            .unwrap_or(&Value::Null),
+        None => v,
+    }
+}
+
+/// The random draw a prop value asks for.
+#[derive(Clone, Copy)]
+enum Draw {
+    /// `{"coin": [a, b]}`: `Utility.RandomBool() ? a : b`.
+    Coin,
+    /// `{"oneOf": [..]}`: `values[Utility.Random(n)]`.
+    OneOf(i32),
+    /// `{"chance": p, "then": a, "else": b}`: `Utility.RandomDouble() < p ? a : b`.
+    Chance(f64),
+    /// `{"min": a, "max": b}`: `Utility.RandomMinMax(a, b)`.
+    MinMax(i32, i32),
+}
+
+fn draw_of(v: &Value) -> Option<Draw> {
+    let o = v.as_object()?;
+    if o.contains_key("coin") {
+        Some(Draw::Coin)
+    } else if let Some(a) = o.get("oneOf").and_then(Value::as_array) {
+        Some(Draw::OneOf(i32::try_from(a.len()).ok()?))
+    } else if let Some(p) = o.get("chance").and_then(Value::as_f64) {
+        Some(Draw::Chance(p))
+    } else if o.contains_key("min") {
+        Some(Draw::MinMax(as_i32(o.get("min"))?, as_i32(o.get("max"))?))
+    } else {
+        None
+    }
+}
+
+/// An int prop read by a member that ran a random expression on every call: a number, `null`, an era choice
+/// ([`era`]) or a [`Draw`], drawn on this read. `None` without the prop, `Some(None)` for `null`.
+fn int_rolled(w: &mut World, id: MobileId, key: &str) -> Option<Option<i32>> {
+    use muo_content::hooks::rnd;
+    let draw = draw_of(era(w, props::mobile(w, id, key)?));
+    // the draw needs `&mut World`, so the value is looked up again after it
+    let pick = match draw {
+        None => None,
+        Some(Draw::MinMax(a, b)) => return Some(Some(rnd::min_max(w, a, b))),
+        Some(Draw::Coin) => Some(usize::from(!rnd::bool(w))),
+        Some(Draw::OneOf(n)) => Some(rnd::below(w, n) as usize),
+        Some(Draw::Chance(p)) => Some(usize::from(rnd::double(w) >= p)),
+    };
+    let v = era(w, props::mobile(w, id, key)?);
+    let v = match pick {
+        None => v,
+        Some(i) => match v.get("coin").or_else(|| v.get("oneOf")) {
+            Some(a) => a.get(i)?,
+            None => v.get(if i == 0 { "then" } else { "else" })?,
+        },
+    };
+    Some(as_i32(Some(v)))
+}
+
+// ---- MobileType members ----
+
+macro_rules! sound_prop {
+    ($($f:ident = $key:literal;)*) => {$(
+        pub fn $f(w: &mut World, id: MobileId) -> i32 {
+            match as_i32(props::mobile(w, id, $key)) {
+                Some(v) => v,
+                None => (BASE_CREATURE.$f)(w, id),
+            }
+        }
+    )*};
+}
+
+sound_prop! {
+    get_anger_sound = "angerSound";
+    get_idle_sound = "idleSound";
+    get_attack_sound = "attackSound";
+    get_hurt_sound = "hurtSound";
+    get_death_sound = "deathSound";
+}
+
+macro_rules! title_prop {
+    ($($f:ident = $key:literal;)*) => {$(
+        pub fn $f(w: &World, id: MobileId) -> bool {
+            as_bool(props::mobile(w, id, $key)).unwrap_or_else(|| (BASE_CREATURE.$f)(w, id))
+        }
+    )*};
+}
+
+title_prop! {
+    show_fame_title = "showFameTitle";
+    click_title = "clickTitle";
+    property_title = "propertyTitle";
+}
+
+/// `"speechType": "Orc"` (`Ratman`, `Lizardman`, `Wisp`) or `null`.
+pub fn speech_type(w: &World, id: MobileId) -> Option<&'static InhumanSpeech> {
+    use muo_content::misc::inhuman_speech as sp;
+    let Some(v) = props::mobile(w, id, "speechType") else {
+        return (BASE_CREATURE_C.speech_type)(w, id);
+    };
+    match v.as_str()? {
+        "Orc" => Some(&sp::ORC),
+        "Ratman" => Some(&sp::RATMAN),
+        "Lizardman" => Some(&sp::LIZARDMAN),
+        "Wisp" => Some(&sp::WISP),
+        _ => None,
+    }
+}
+
+/// `"monsterAbilities": ["FireBreath", ..]`: names of [`MONSTER_ABILITIES`].
+pub fn get_monster_abilities(w: &World, id: MobileId) -> &'static [&'static MonsterAbility] {
+    lookup(w, id, "monsterAbilities", |e| e.monster_abilities)
+        .unwrap_or_else(|| (BASE_CREATURE_C.get_monster_abilities)(w, id))
+}
+
+/// The abilities a `"monsterAbilities"` list can name.
+pub(crate) static MONSTER_ABILITIES: [(&str, &MonsterAbility); 24] = {
+    use muo_content::abilities as a;
+    [
+        ("FireBreath", &a::FIRE_BREATH),
+        ("ColdBreath", &a::COLD_BREATH),
+        ("ChaosBreath", &a::CHAOS_BREATH),
+        ("ColossalBlow", &a::COLOSSAL_BLOW),
+        ("GraspingClaw", &a::GRASPING_CLAW),
+        ("SummonPixiesCounter", &a::SUMMON_PIXIES_COUNTER),
+        ("SummonSkeletonsCounter", &a::SUMMON_SKELETONS_COUNTER),
+        (
+            "SummonLesserUndeadCounter",
+            &a::SUMMON_LESSER_UNDEAD_COUNTER,
+        ),
+        ("ThrowHatchetCounter", &a::THROW_HATCHET_COUNTER),
+        ("EnergyBoltCounter", &a::ENERGY_BOLT_COUNTER),
+        ("FanThrowCounter", &a::FAN_THROW_COUNTER),
+        ("PoisonGasCounter", &a::POISON_GAS_COUNTER),
+        ("PoisonGasAreaAttack", &a::POISON_GAS_AREA_ATTACK),
+        ("DrainLifeAreaAttack", &a::DRAIN_LIFE_AREA_ATTACK),
+        ("DrainLifeAttack", &a::DRAIN_LIFE_ATTACK),
+        ("DeathExplosion", &a::DEATH_EXPLOSION),
+        ("ReflectPhysicalDamage", &a::REFLECT_PHYSICAL_DAMAGE),
+        ("DestroyEquipment", &a::DESTROY_EQUIPMENT),
+        ("MagicalBarrier", &a::MAGICAL_BARRIER),
+        ("TailSwipe", &a::TAIL_SWIPE),
+        ("RuneCorruption", &a::RUNE_CORRUPTION),
+        ("FanningFire", &a::FANNING_FIRE),
+        ("BloodBathAttack", &a::BLOOD_BATH_ATTACK),
+        ("LeviathanBreath", &crate::classes::misc4::LEVIATHAN_BREATH),
+    ]
+};
+
+/// The list as a `'static` slice. shortcut: each distinct list is leaked once and never freed (a few dozen
+/// exist); upgrade if lists ever become per-spawn data.
+fn monster_abilities(v: &Value) -> Option<&'static [&'static MonsterAbility]> {
+    use std::sync::{Mutex, PoisonError};
+    static INTERNED: Mutex<Vec<&'static [&'static MonsterAbility]>> = Mutex::new(Vec::new());
+    let list = v
+        .as_array()?
+        .iter()
+        .map(|n| {
+            let n = n.as_str()?;
+            MONSTER_ABILITIES
+                .iter()
+                .find(|(k, _)| *k == n)
+                .map(|(_, a)| *a)
+        })
+        .collect::<Option<Vec<_>>>()?;
+    let mut interned = INTERNED.lock().unwrap_or_else(PoisonError::into_inner);
+    let same = |s: &&'static [&'static MonsterAbility]| {
+        s.len() == list.len() && s.iter().zip(&list).all(|(a, b)| std::ptr::eq(*a, *b))
+    };
+    if let Some(s) = interned.iter().find(|s| same(s)) {
+        return Some(s);
+    }
+    let s: &'static [&'static MonsterAbility] = Box::leak(list.into_boxed_slice());
+    interned.push(s);
+    Some(s)
 }
 
 // ---- loot ----
@@ -151,7 +356,9 @@ fn loot_pack(w: &World, name: &str) -> Option<&'static muo_content::loot_pack::L
 
 /// `"loot"` with the forms the uniform `templates::creature_props::generate_loot` lacks, run in order:
 /// `[pack, n]` where `n` is a number or `{"min": a, "max": b}` / `{"from": a, "count": n}` (drawn then),
-/// `{"era": "ML", "loot": [..]}` (only from that era on) and `{"pack": "Weapon"}` (`PackItem(Loot.RandomWeapon())`).
+/// `{"era": "ML", "loot": [..]}` (only from that era on), `{"pack": "Weapon"}` (`PackItem(Loot.RandomWeapon())`),
+/// `{"item": "<class>"}` (`PackItem(new T())`), `{"chance": p, "loot": [..]}` (`Utility.RandomDouble() < p`) and
+/// `{"oneOf": [entry, ..]}` (one entry, `Utility.Random(n)`).
 pub fn generate_loot(w: &mut World, id: MobileId) {
     let Some(list) = props::mobile(w, id, "loot")
         .and_then(Value::as_array)
@@ -196,6 +403,22 @@ fn loot_list(w: &mut World, id: MobileId, list: &[Value]) {
         } else if e.get("pack").and_then(Value::as_str) == Some("Weapon") {
             let it = muo_content::loot::random_weapon(w, false, false, false);
             muo_content::creature::setters::pack_item(w, id, it);
+        } else if let Some(class) = e.get("item").and_then(Value::as_str) {
+            muo_content::creature::init_ops::pack_new(w, id, class);
+        } else if let Some(p) = e.get("chance").and_then(Value::as_f64) {
+            if rnd::double(w) < p {
+                let inner = e
+                    .get("loot")
+                    .and_then(Value::as_array)
+                    .cloned()
+                    .unwrap_or_default();
+                loot_list(w, id, &inner);
+            }
+        } else if let Some(l) = e.get("oneOf").and_then(Value::as_array) {
+            let i = rnd::below(w, l.len() as i32) as usize;
+            if let Some(pick) = l.get(i) {
+                loot_list(w, id, std::slice::from_ref(pick));
+            }
         } else {
             tracing::warn!("Templates: a bad \"loot\" entry {e}");
         }
@@ -211,9 +434,10 @@ pub struct Enums {
     pack_instinct: Option<PackInstinct>,
     meat_type: Option<MeatType>,
     hide_type: Option<HideType>,
-    scale_type: Option<ScaleType>,
+    scale_type: Option<Picks<ScaleType>>,
     opposition_group: Option<Option<&'static OppositionGroup>>,
-    weapon_ability: Option<Option<Ability>>,
+    weapon_ability: Option<Picks<Option<Ability>>>,
+    monster_abilities: Option<&'static [&'static MonsterAbility]>,
 }
 
 /// [`Enums`] by template name, and the table they were parsed from (held, so its address is not reused).
@@ -222,15 +446,62 @@ pub struct EnumCache {
     by_class: HashMap<String, Enums>,
 }
 
+/// An enum prop that may be drawn on each read: a value, `{"coin": [a, b]}` or `{"oneOf": [..]}` (at most 4).
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Picks<T: Copy> {
+    One(T),
+    Coin(T, T),
+    OneOf(u8, [T; 4]),
+}
+
+impl<T: Copy> Picks<T> {
+    fn roll(self, w: &mut World) -> T {
+        use muo_content::hooks::rnd;
+        match self {
+            Self::One(v) => v,
+            Self::Coin(a, b) => {
+                if rnd::bool(w) {
+                    a
+                } else {
+                    b
+                }
+            }
+            Self::OneOf(n, v) => v[rnd::below(w, i32::from(n)) as usize],
+        }
+    }
+}
+
+fn picks<T: Copy>(v: &Value, one: impl Fn(&Value) -> Option<T>) -> Option<Picks<T>> {
+    if let Some([a, b]) = v.get("coin").and_then(Value::as_array).map(Vec::as_slice) {
+        return Some(Picks::Coin(one(a)?, one(b)?));
+    }
+    match v.get("oneOf").and_then(Value::as_array) {
+        Some(l) if (1..=4).contains(&l.len()) => {
+            let first = one(&l[0])?;
+            let mut out = [first; 4];
+            for (o, x) in out.iter_mut().zip(l) {
+                *o = one(x)?;
+            }
+            Some(Picks::OneOf(l.len() as u8, out))
+        }
+        Some(_) => None,
+        None => one(v).map(Picks::One),
+    }
+}
+
 fn parse(get: impl Fn(&str) -> Option<Value>) -> Enums {
     Enums {
         favorite_food: get("favoriteFood").and_then(|v| flags(&v, FoodType::from_name)),
         pack_instinct: get("packInstinct").and_then(|v| flags(&v, PackInstinct::from_name)),
         meat_type: get("meatType").and_then(|v| named(&v, MeatType::from_i32)),
         hide_type: get("hideType").and_then(|v| named(&v, HideType::from_i32)),
-        scale_type: get("scaleType").and_then(|v| named(&v, ScaleType::from_i32)),
+        scale_type: get("scaleType").and_then(|v| picks(&v, |x| named(x, ScaleType::from_i32))),
         opposition_group: get("oppositionGroup").map(|v| group(&v)),
-        weapon_ability: get("weaponAbility").map(|v| ability(&v)),
+        weapon_ability: get("weaponAbility").and_then(|v| match v {
+            Value::Object(_) => picks(&v, |x| ability(x).map(Some)),
+            v => Some(Picks::One(ability(&v))),
+        }),
+        monster_abilities: get("monsterAbilities").and_then(|v| monster_abilities(&v)),
     }
 }
 
@@ -351,7 +622,27 @@ pub fn new_creature(w: &mut World, ty: &'static MobileType) -> MobileId {
     templates::new_creature(w, ty)
 }
 
-/// `new T()` of a mount class: the `BaseMount(body, itemID, ..)` arguments are the props `mountBody` and
+/// `new T(args..)` of a creature class whose constructor is its template and its script's `on_spawn(e, args..)`.
+pub fn new_creature_with(
+    w: &mut World,
+    ty: &'static MobileType,
+    args: &[muo_server::script_hooks::ScriptArg<'_>],
+) -> MobileId {
+    refresh(w);
+    let a = templates::table(w).roll_args(w, ty.full_name);
+    let id = muo_content::creature::setters::new_creature(
+        w,
+        ty,
+        a.ai,
+        a.fight_mode,
+        a.range_perception,
+        a.range_fight,
+    );
+    templates::apply_mobile_with(w, id, ty.full_name, args);
+    id
+}
+
+/// `new T()` of a mount class:the `BaseMount(body, itemID, ..)` arguments are the props `mountBody` and
 /// `mountItemId`, the rest is the template.
 pub fn new_mount(w: &mut World, ty: &'static MobileType) -> MobileId {
     refresh(w);
@@ -420,7 +711,7 @@ pub fn hide_type(w: &World, id: MobileId) -> HideType {
 
 pub fn scale_type(w: &mut World, id: MobileId) -> ScaleType {
     match lookup(w, id, "scaleType", |e| e.scale_type) {
-        Some(s) => s,
+        Some(s) => s.roll(w),
         None => (BASE_CREATURE_C.scale_type)(w, id),
     }
 }
@@ -434,7 +725,7 @@ pub fn opposition_group(w: &World, id: MobileId) -> Option<&'static OppositionGr
 /// `"weaponAbility": "BleedAttack"` (or `null`).
 pub fn get_weapon_ability(w: &mut World, id: MobileId) -> Option<Ability> {
     match lookup(w, id, "weaponAbility", |e| e.weapon_ability) {
-        Some(a) => a,
+        Some(a) => a.roll(w),
         None => (BASE_CREATURE_C.get_weapon_ability)(w, id),
     }
 }
@@ -468,7 +759,12 @@ pub(crate) fn bad_enum_props(t: &TemplateTable) -> Vec<String> {
             ("hideType", e.hide_type.is_some()),
             ("scaleType", e.scale_type.is_some()),
             ("oppositionGroup", e.opposition_group.flatten().is_some()),
-            ("weaponAbility", e.weapon_ability.flatten().is_some()),
+            (
+                "weaponAbility",
+                e.weapon_ability
+                    .is_some_and(|p| !matches!(p, Picks::One(None))),
+            ),
+            ("monsterAbilities", e.monster_abilities.is_some()),
         ];
         for (key, parsed) in checks {
             if !ok(key, parsed) {
@@ -507,7 +803,10 @@ mod tests {
                 .flatten()
                 .is_some_and(|g| std::ptr::eq(g, &og::FEY_AND_UNDEAD))
         );
-        assert_eq!(e.weapon_ability, Some(Some(Ability::BleedAttack)));
+        assert_eq!(
+            e.weapon_ability,
+            Some(Picks::One(Some(Ability::BleedAttack)))
+        );
         assert_eq!(e.meat_type, None);
     }
 }

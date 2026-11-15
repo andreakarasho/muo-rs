@@ -1,14 +1,11 @@
 //! Plant seeds the monsters pack (the `creatureItem` loot `BonsaiSeed` / `PeculiarSeed`). `Seed` is made through the overload table of its class (`new Seed(PlantType, PlantHue)`): without the
 //! plants engine registered nothing is packed (the random numbers are drawn all the same).
 
-use muo_content::creature::setters::{add_loot, add_loot_n};
 use muo_content::factory;
-use muo_content::loot_pack;
 use muo_content::props::Value;
 use muo_server::World;
-use muo_server::ids::{ItemId, MobileId};
+use muo_server::ids::ItemId;
 
-use super::ctors::pack;
 use crate::common::rnd;
 
 /// `PlantHue.Plain` = `0x1 | Crossable | Reproduces`.
@@ -115,27 +112,3 @@ pub fn random_bonsai_seed(w: &mut World) -> Option<ItemId> {
     let t = bonsai_type(w, 0.5);
     make_seed(w, t)
 }
-
-/// `AddLoot(Rich); AddLoot(Average); AddLoot(Gems);` and 2%: one of five daemon armor pieces.
-pub fn efreet_generate_loot(w: &mut World, id: MobileId) {
-    add_loot(w, id, loot_pack::rich(w));
-    add_loot(w, id, loot_pack::average(w));
-    add_loot(w, id, &loot_pack::GEMS);
-    if rnd::double(w) < 0.02 {
-        let i = rnd::below(w, 5) as usize;
-        pack(
-            w,
-            id,
-            [
-                "DaemonArms",
-                "DaemonChest",
-                "DaemonGloves",
-                "DaemonLegs",
-                "DaemonHelm",
-            ][i],
-        );
-    }
-}
-
-#[allow(unused_imports)]
-use add_loot_n as _;
