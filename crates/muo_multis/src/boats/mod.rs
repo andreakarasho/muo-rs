@@ -116,6 +116,20 @@ fn wrap_for(map: Option<MapId>) -> Vec<Rectangle2D> {
 
 /// What a concrete boat overrides.
 pub struct BoatClass {
+    /// `DockedBoat => new XDockedBoat(this)`.
+    pub docked_boat: fn(&mut World, ItemId) -> Option<ItemId>,
+}
+
+pub static BASE_BOAT_CLASS: BoatClass = BoatClass {
+    docked_boat: |_, _| None,
+};
+
+/// The constant members of a boat class (`NorthID`.., `HoldDistance`, `TillerManDistance`, `StarboardOffset`,
+/// `PortOffset`, `MarkOffset`): its template props `boatIds` (`[north, east, south, west]`), `holdDistance`,
+/// `tillerManDistance`, `starboardOffset`, `portOffset` and `markOffset`. Read into the boat's [`BoatData`] when it
+/// is made or loaded, so moving and turning read no props.
+#[derive(Copy, Clone, Debug, Default)]
+pub struct BoatLayout {
     pub north_id: i32,
     pub east_id: i32,
     pub south_id: i32,
@@ -125,22 +139,57 @@ pub struct BoatClass {
     pub starboard_offset: (i32, i32),
     pub port_offset: (i32, i32),
     pub mark_offset: (i32, i32, i32),
-    /// `DockedBoat => new XDockedBoat(this)`.
-    pub docked_boat: fn(&mut World, ItemId) -> Option<ItemId>,
 }
 
-pub static BASE_BOAT_CLASS: BoatClass = BoatClass {
-    north_id: 0,
-    east_id: 0,
-    south_id: 0,
-    west_id: 0,
-    hold_distance: 0,
-    tiller_man_distance: 0,
-    starboard_offset: (0, 0),
-    port_offset: (0, 0),
-    mark_offset: (0, 0, 0),
-    docked_boat: |_, _| None,
+fn layout_of_props(w: &World, b: ItemId) -> BoatLayout {
+    use muo_content::templates::props;
+    let n = |key: &str, i: usize| {
+        props::item(w, b, key)
+            .and_then(|v| v.get(i))
+            .and_then(serde_json::Value::as_i64)
+            .map_or(0, |v| v as i32)
+    };
+    let one = |key: &str| props::as_i32(props::item(w, b, key)).unwrap_or(0);
+    BoatLayout {
+        north_id: n("boatIds", 0),
+        east_id: n("boatIds", 1),
+        south_id: n("boatIds", 2),
+        west_id: n("boatIds", 3),
+        hold_distance: one("holdDistance"),
+        tiller_man_distance: one("tillerManDistance"),
+        starboard_offset: (n("starboardOffset", 0), n("starboardOffset", 1)),
+        port_offset: (n("portOffset", 0), n("portOffset", 1)),
+        mark_offset: (n("markOffset", 0), n("markOffset", 1), n("markOffset", 2)),
+    }
+}
+
+/// The `SmallBoat` layout of the shipped template, for tests that load no templates.
+#[cfg(test)]
+pub(crate) const SMALL_BOAT_LAYOUT: BoatLayout = BoatLayout {
+    north_id: 0x0,
+    east_id: 0x1,
+    south_id: 0x2,
+    west_id: 0x3,
+    hold_distance: 4,
+    tiller_man_distance: -4,
+    starboard_offset: (2, 0),
+    port_offset: (-2, 0),
+    mark_offset: (0, 1, 3),
 };
+
+/// Gives a boat made without templates a layout (and puts its parts where it says).
+#[cfg(test)]
+pub(crate) fn set_layout(w: &mut World, b: ItemId, l: BoatLayout) {
+    if let Some(d) = data_mut(w, b) {
+        d.layout = l;
+    }
+    update_components(w, b);
+}
+
+/// The boat's [`BoatLayout`].
+pub fn layout(w: &World, b: ItemId) -> BoatLayout {
+    data(w, b).map_or_else(BoatLayout::default, |d| d.layout)
+}
 
 /// A `MoveTimer`: the handle and what `Interval`/`Count` read.
 #[derive(Copy, Clone, Debug)]
@@ -180,6 +229,8 @@ pub struct BoatData {
     pub decaying: bool,
     pub turn_timer: Option<TurnTimerState>,
     pub move_timer: Option<MoveTimerState>,
+    /// The class's layout (not saved).
+    pub layout: BoatLayout,
 }
 
 impl Default for BoatData {
@@ -203,6 +254,7 @@ impl Default for BoatData {
             decaying: false,
             turn_timer: None,
             move_timer: None,
+            layout: BoatLayout::default(),
         }
     }
 }
@@ -434,7 +486,7 @@ pub fn get_rotated_location(w: &World, b: ItemId, x: i32, y: i32) -> Point3D {
 /// `GetMarkedLocation()`.
 pub fn get_marked_location(w: &World, b: ItemId) -> Point3D {
     let l = location(w, b);
-    let m = class(w, b).mark_offset;
+    let m = layout(w, b).mark_offset;
     rotate(
         w,
         b,
@@ -470,10 +522,12 @@ fn set_time_of_decay_silent(w: &mut World, b: ItemId, v: DateTime) {
 pub fn new_boat(w: &mut World, ty: &'static ItemType) -> ItemId {
     let b = multi::new_base_multi(w, ty, 0x0);
     let decay = w.now + boat_decay_delay();
+    let c = layout_of_props(w, b);
     if let Some(i) = w.item_mut(b) {
         i.ext.insert(BoatData {
             time_of_decay: decay,
             next_nav_point: 0,
+            layout: c,
             ..Default::default()
         });
     }
@@ -489,7 +543,7 @@ pub fn new_boat(w: &mut World, ty: &'static ItemType) -> ItemId {
         d.s_plank = Some(sp);
     }
     let (l, map) = (location(w, b), map_of(w, b));
-    let c = class(w, b);
+
     ops::move_to_world_map(
         w,
         pp,
@@ -557,7 +611,7 @@ pub fn remove_keys(w: &mut World, b: ItemId, m: MobileId) {
 
 /// `UpdateComponents()`.
 pub fn update_components(w: &mut World, b: ItemId) {
-    let c = class(w, b);
+    let c = layout(w, b);
     let f = facing(w, b);
     let map = map_of(w, b);
     if let Some(p) = p_plank(w, b) {
@@ -1366,7 +1420,7 @@ pub fn set_facing(w: &mut World, b: ItemId, new_facing: i32) -> bool {
         return false;
     }
     let map = map_of(w, b);
-    let c = class(w, b);
+    let c = layout(w, b);
     if map != Some(MapId::INTERNAL) && map.is_some() {
         let id = match new_facing {
             0 => Some(c.north_id),
@@ -2090,6 +2144,7 @@ fn deserialize(w: &mut World, b: ItemId, r: &mut dyn GenericReader) -> Result<()
         .filter(|&i| w.item(i).is_some_and(|x| x.ty.is(&parts::HOLD)));
     d.anchored = r.read_bool()?;
     d.ship_name = r.read_string()?;
+    d.layout = layout_of_props(w, b);
     if let Some(i) = w.item_mut(b) {
         i.ext.insert(d);
     }

@@ -18,7 +18,6 @@ use super::items::{
 use super::quester::{
     BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps, get_new_container,
 };
-use super::util::{add_item_hued, add_item_named, set_body};
 use crate::quester;
 
 fn quest(w: &World, player: MobileId) -> Option<Quest> {
@@ -535,37 +534,10 @@ quester! {
     /// `Server.Engines.Quests.Ninja.HiddenFigure`: its `Message` is saved (`[SerializableField(0)]`).
     HIDDEN_FIGURE, HIDDEN_FIGURE_C, HIDDEN_FIGURE_V = "Server.Engines.Quests.Ninja.HiddenFigure"
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
-        ops HIDDEN_FIGURE_OPS, encoded true, title None, extra |w, id| {
-            // Message = _messages.RandomElement()
-            let m = if muo_content::hooks::rnd::below(w, 2) == 0 { 1063191 } else { 1063192 }; // They won't find me here. / Ah, a quiet hideout.
-            if let Some(mob) = w.mobile_mut(id) {
-                mob.ext.insert(m);
-            }
-        };
+        ops HIDDEN_FIGURE_OPS, encoded true, title None, extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            let hue = muo_content::vendor::human_random_skin_hue(w);
-            muo_server::mobile::base::set_hue(w, id, hue);
-            let female = muo_content::hooks::rnd::bool(w);
-            muo_server::mobile::part1::props_b::set_female(w, id, female);
-            set_body(w, id, if female { 0x191 } else { 0x190 });
-            let name = muo_content::misc::small::random_name(w, if female { "female" } else { "male" });
-            if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-                f(w, id, Some(name));
-            }
-        },
-        init_outfit: |w, id| {
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            let h = muo_content::vendor::get_random_hue(w, id);
-            add_item_hued(w, id, "Server.Items.TattsukeHakama", h);
-            add_item_named(w, id, "Server.Items.Kasa");
-            let h = muo_content::vendor::get_random_hue(w, id);
-            add_item_hued(w, id, "Server.Items.HakamaShita", h);
-            let shoe = if muo_content::hooks::rnd::bool(w) { "Server.Items.Shoes" } else { "Server.Items.Sandals" };
-            let h = muo_content::vendor::get_shoe_hue(w, id);
-            add_item_hued(w, id, shoe, h);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Ninja.HiddenFigure"),
+        init_outfit: |_, _| {},
     }
     c { }
     m { }

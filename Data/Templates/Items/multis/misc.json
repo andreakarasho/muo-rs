@@ -3,7 +3,8 @@
     "type": "Server.Multis.LockableBarrel",
     "props": {
       "defaultWeight": 1.0
-    }
+    },
+    "itemId": 3703
   },
   {
     "type": "Server.Multis.MovingCrate",
@@ -22,5 +23,33 @@
     "props": {
       "defaultName": "a house transfer contract"
     }
+  },
+  {
+    "type": "Server.Multis.BrigandCamp",
+    "itemId": 4334
+  },
+  {
+    "type": "Server.Multis.LizardmenCamp",
+    "itemId": 4334
+  },
+  {
+    "type": "Server.Multis.RatCamp",
+    "itemId": 4334
+  },
+  {
+    "type": "Server.Multis.OrcCamp",
+    "itemId": 4334
+  },
+  {
+    "type": "Server.Multis.HealerCamp",
+    "itemId": 500
+  },
+  {
+    "type": "Server.Multis.BankerCamp",
+    "itemId": 502
+  },
+  {
+    "type": "Server.Multis.MageCamp",
+    "itemId": 501
   }
 ]

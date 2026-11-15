@@ -445,6 +445,15 @@ pub struct CoffinComponentData {
 }
 
 /// `new MaabusCoffinComponent(full, empty)`.
+/// The `coffinComponents` template key: `AddComponent(new MaabusCoffinComponent(full, empty), x, y, 0)` for each
+/// `[full, empty, x, y]`.
+pub fn add_coffin_components(w: &mut World, id: ItemId, list: &[[i32; 4]]) {
+    for &[full, empty, x, y] in list {
+        let c = new_coffin_component(w, full, empty);
+        addon::add_component(w, id, c, x, y, 0);
+    }
+}
+
 fn new_coffin_component(w: &mut World, full: i32, empty: i32) -> ItemId {
     let id = addon::new_component(w, &MAABUS_COFFIN_COMPONENT, full);
     if let Some(i) = w.item_mut(id) {
@@ -570,18 +579,7 @@ pub static MAABUS_COFFIN: ItemType = ItemType {
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(CoffinData::default());
         }
-        for (full, empty, x, y) in [
-            (0x1C2B, 0x1C2B, -1, -1),
-            (0x1D16, 0x1C2C, 0, -1),
-            (0x1D17, 0x1C2D, 1, -1),
-            (0x1D51, 0x1C2E, 2, -1),
-            (0x1D4E, 0x1C2A, 0, 0),
-            (0x1D4D, 0x1C29, 1, 0),
-            (0x1D4C, 0x1C28, 2, 0),
-        ] {
-            let c = new_coffin_component(w, full, empty);
-            addon::add_component(w, id, c, x, y, 0);
-        }
+        muo_content::templates::apply_item_as(w, id, MAABUS_COFFIN.full_name);
         id
     }),
     serialize: |w, id, out| {

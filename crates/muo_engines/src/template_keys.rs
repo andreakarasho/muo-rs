@@ -32,12 +32,17 @@ const RANDOM_HUES: &[(&str, HueDraw)] = &[
     ("randomDyedHue", utility::random_dyed_hue),
 ];
 
-/// `vendor.GetRandomHue()`: only for keys that know the mobile.
+/// `vendor.GetRandomHue()` / `vendor.GetShoeHue()`: only for keys that know the mobile.
 const VENDOR_RANDOM_HUE: &str = "vendorRandomHue";
+const VENDOR_SHOE_HUE: &str = "vendorShoeHue";
 
 fn check_hue(v: &Value) -> Result<(), String> {
     match v {
-        Value::String(s) if s == VENDOR_RANDOM_HUE || RANDOM_HUES.iter().any(|(n, _)| n == s) => {
+        Value::String(s)
+            if s == VENDOR_RANDOM_HUE
+                || s == VENDOR_SHOE_HUE
+                || RANDOM_HUES.iter().any(|(n, _)| n == s) =>
+        {
             Ok(())
         }
         Value::Object(o) if o.len() == 1 => match o.get("coin").and_then(Value::as_array) {
@@ -48,10 +53,11 @@ fn check_hue(v: &Value) -> Result<(), String> {
     }
 }
 
-/// [`hue`] for the mobile `owner`, which also knows `"vendorRandomHue"`.
+/// [`hue`] for the mobile `owner`, which also knows `"vendorRandomHue"` and `"vendorShoeHue"`.
 fn hue_of(w: &mut World, owner: MobileId, v: &Value) -> i32 {
     match v.as_str() {
         Some(VENDOR_RANDOM_HUE) => muo_content::vendor::get_random_hue(w, owner),
+        Some(VENDOR_SHOE_HUE) => muo_content::vendor::get_shoe_hue(w, owner),
         _ => hue(w, v),
     }
 }
@@ -99,7 +105,8 @@ fn nums(v: &Value) -> Vec<f64> {
 }
 
 /// One `mlqEquip` entry: `{"item": "Robe", "hue": <hue>}` draws the hue then makes the item (`AddItem(new T(hue))`);
-/// `"dye"` makes the item then draws (`new T { Hue = .. }`); `{"coin": [entry, entry]}` picks one.
+/// `"dye"` makes the item then draws (`new T { Hue = .. }`); `{"coin": [entry, entry]}` picks one. `"itemId": n`
+/// sets `ItemID` (before the hue) and `"movable": false` `Movable`.
 fn check_equip_entry(v: &Value) -> Result<(), String> {
     let o = v
         .as_object()
@@ -114,6 +121,8 @@ fn check_equip_entry(v: &Value) -> Result<(), String> {
         match k.as_str() {
             "item" => check_str(val)?,
             "hue" | "dye" => check_hue(val)?,
+            "itemId" => check_int(val)?,
+            "movable" => check_bool(val)?,
             _ => return Err(format!("unknown equip key \"{k}\"")),
         }
     }
@@ -133,6 +142,11 @@ fn equip_entry(w: &mut World, id: MobileId, v: &Value) {
     let name = v.get("item").and_then(Value::as_str).unwrap_or("");
     let before = v.get("hue").map(|h| hue(w, h));
     let item = npc::make_named(w, name);
+    if let (Some(i), Some(g)) = (item, v.get("itemId"))
+        && let Some(ty) = w.item(i).map(|i| i.ty)
+    {
+        (ty.set_item_id)(w, i, int(g));
+    }
     if let Some(h) = before {
         npc::set_item_hue(w, item, h);
     }
@@ -140,12 +154,16 @@ fn equip_entry(w: &mut World, id: MobileId, v: &Value) {
         let h = hue(w, d);
         npc::set_item_hue(w, item, h);
     }
+    if let (Some(i), Some(m)) = (item, v.get("movable").and_then(Value::as_bool)) {
+        muo_server::item::ops::set_movable(w, i, m);
+    }
     npc::add_item_id(w, id, item);
 }
 
 /// One `questEquip` entry: `{"item": "Server.Items.Robe", "hue": <hue>, "movable": false}`: the hue is drawn,
 /// then `AddItem(new T { Hue = hue, Movable = movable })` (the class by its full name). `"oneOf": [names]` in place of
-/// `"item"` picks the class (`Utility.Random(n)`) first.
+/// `"item"` picks the class (`Utility.Random(n)`) first. `"equip": true` is `EquipItem` (a refused item is deleted)
+/// in place of `AddItem`; `"ignite": true` lights the (light source) item once it is worn.
 fn check_quest_equip(v: &Value) -> Result<(), String> {
     let o = v
         .as_object()
@@ -155,7 +173,7 @@ fn check_quest_equip(v: &Value) -> Result<(), String> {
             "item" => check_str(val)?,
             "oneOf" => check_list(val, check_str)?,
             "hue" => check_hue(val)?,
-            "movable" => check_bool(val)?,
+            "movable" | "equip" | "ignite" => check_bool(val)?,
             _ => return Err(format!("unknown equip key \"{k}\"")),
         }
     }
@@ -188,7 +206,17 @@ fn quest_equip(w: &mut World, id: MobileId, v: &Value) {
     if let Some(m) = v.get("movable").and_then(Value::as_bool) {
         muo_server::item::ops::set_movable(w, it, m);
     }
-    muo_server::mobile::part2::items::add_item(w, id, it);
+    if v.get("equip").and_then(Value::as_bool) == Some(true) {
+        if !muo_server::mobile::base::equip_item(w, id, it) {
+            muo_server::item::base::delete(w, it);
+            return;
+        }
+    } else {
+        muo_server::mobile::part2::items::add_item(w, id, it);
+    }
+    if v.get("ignite").and_then(Value::as_bool) == Some(true) {
+        muo_items::lights::base::ignite(w, it);
+    }
 }
 
 fn check_list(v: &Value, f: fn(&Value) -> Result<(), String>) -> Result<(), String> {
@@ -307,6 +335,175 @@ pub(crate) fn register(types: &mut TypeRegistry) {
             }
         },
     );
+    // `HiddenFigure.Message = n` (saved).
+    mobile_key(types, "hiddenFigureMessage", check_int, |w, id, v| {
+        if let Some(m) = w.mobile_mut(id) {
+            m.ext.insert(int(v));
+        }
+    });
+    // `Direction = Direction.South`.
+    mobile_key(
+        types,
+        "mlqDirection",
+        |v| direction(v).map(drop),
+        |w, id, v| {
+            if let Ok(d) = direction(v) {
+                muo_server::mobile::part2::effects::set_direction(w, id, d);
+            }
+        },
+    );
+    // `Home` range (`RangeHome = n`).
+    mobile_key(types, "rangeHome", check_int, |w, id, v| {
+        if let Some(d) = muo_content::creature::cd_mut(w, id) {
+            d.range_home = int(v);
+        }
+    });
+    // `BaseFactionGuard.GenerateBody`'s skin: `Hue = Utility.RandomSkinHue()` (`Random(1002, 57) | 0x8000`).
+    mobile_key(types, "factionSkinHue", check_true, |w, id, _| {
+        let h = utility::random_from(&mut w.rng, 1002, 57) | 0x8000;
+        muo_server::mobile::base::set_hue(w, id, h);
+    });
+    mobile_key(
+        types,
+        "guardWear",
+        |v| check_list(v, check_wear),
+        |w, id, v| {
+            for e in v.as_array().into_iter().flatten() {
+                wear(w, id, e);
+            }
+        },
+    );
+    // `{"count": [min, max], "from": [classes]}`: `for (Utility.RandomMinMax(min, max)) PackItem(new <random of from>())`
+    // (`PackStrongPotions` / `PackWeakPotions`).
+    mobile_key(types, "packRandomItems", check_random_items, |w, id, v| {
+        let c = nums(&v["count"]);
+        let from = v["from"].as_array().map(Vec::as_slice).unwrap_or_default();
+        let n = muo_content::hooks::rnd::min_max(w, c[0] as i32, c[1] as i32);
+        for _ in 0..n {
+            let i = muo_content::hooks::rnd::below(w, from.len() as i32) as usize;
+            let item = muo_content::factory::make_item(w, from[i].as_str().unwrap_or(""));
+            muo_content::creature::setters::pack_item(w, id, item);
+        }
+    });
+    // `BasePigmentsOfTokuno.Label = n`.
+    item_key(types, "pigmentLabel", check_int, |w, id, v| {
+        crate::tokuno::pigments::set_label_key(w, id, int(v))
+    });
+    // `RewardBag.Fill(this, count, talismanChance)`.
+    item_key(
+        types,
+        "rewardBagFill",
+        |v| match (v.get("count").map(check_int), v.get("talismanChance")) {
+            (Some(Ok(())), Some(p))
+                if p.is_number() && v.as_object().is_some_and(|o| o.len() == 2) =>
+            {
+                Ok(())
+            }
+            _ => Err(format!(
+                "expected {{\"count\": n, \"talismanChance\": p}}, got {v}"
+            )),
+        },
+        |w, id, v| {
+            let p = v["talismanChance"].as_f64().unwrap_or(0.0);
+            crate::ml_quests::items2::fill(w, id, int(&v["count"]), p);
+        },
+    );
+    // `AddBaseLoot(sets..)`: one random item of one of the named sets, enhanced.
+    item_key(
+        types,
+        "satchelLoot",
+        |v| {
+            check_list(v, |s| match s.as_str() {
+                Some(n) if loot_set(n).is_some() => Ok(()),
+                _ => Err(format!("unknown loot set {s}")),
+            })
+        },
+        |w, id, v| {
+            let sets: Vec<&[&str]> = v
+                .as_array()
+                .into_iter()
+                .flatten()
+                .filter_map(|s| loot_set(s.as_str()?))
+                .collect();
+            crate::ml_quests::items2::add_base_loot(w, id, &sets);
+        },
+    );
+    // `AddRecipe(craft system)`.
+    item_key(types, "satchelRecipe", check_str, |w, id, v| {
+        crate::ml_quests::items2::add_recipe(w, id, v.as_str().unwrap_or(""))
+    });
+    // `MaabusCoffin`'s components: `[[full, empty, x, y], ..]`.
+    item_key(
+        types,
+        "coffinComponents",
+        |v| check_list(v, |c| check_nums(c, 4)),
+        |w, id, v| {
+            let list: Vec<[i32; 4]> = v
+                .as_array()
+                .into_iter()
+                .flatten()
+                .map(|c| {
+                    let n = nums(c);
+                    [n[0] as i32, n[1] as i32, n[2] as i32, n[3] as i32]
+                })
+                .collect();
+            crate::quests::dark_tides_mobs::add_coffin_components(w, id, &list);
+        },
+    );
+    // An addon's plain components: `AddComponent(new AddonComponent(itemID), x, y, z)` for each `[itemID, x, y, z]`.
+    item_key(
+        types,
+        "addonComponents",
+        |v| check_list(v, |c| check_nums(c, 4)),
+        |w, id, v| {
+            use muo_content::items::addon;
+            for c in v.as_array().into_iter().flatten() {
+                let n = nums(c);
+                let comp = addon::new_component(w, &addon::ADDON_COMPONENT, n[0] as i32);
+                addon::add_component(w, id, comp, n[1] as i32, n[2] as i32, n[3] as i32);
+            }
+        },
+    );
+    // `[itemID, labelNumber, hue, x, y, z]`: a `LocalizedAddonComponent` of that hue.
+    item_key(
+        types,
+        "addonLocalizedComponents",
+        |v| check_list(v, |c| check_nums(c, 6)),
+        |w, id, v| {
+            use muo_content::items::addon;
+            for c in v.as_array().into_iter().flatten() {
+                let n: Vec<i32> = nums(c).into_iter().map(|x| x as i32).collect();
+                let comp = addon::new_localized_component(
+                    w,
+                    &addon::LOCALIZED_ADDON_COMPONENT,
+                    n[0],
+                    n[1],
+                );
+                crate::util::hue(w, comp, n[2]);
+                addon::add_component(w, id, comp, n[3], n[4], n[5]);
+            }
+        },
+    );
+    // `ChampionSkullPlatform`'s braziers: `[["Power", x, y], ..]`.
+    item_key(
+        types,
+        "skullBraziers",
+        |v| {
+            check_list(v, |e| match e.as_array().map(Vec::as_slice) {
+                Some([t, x, y]) if skull_type(t).is_some() && x.is_i64() && y.is_i64() => Ok(()),
+                _ => Err(format!("expected [skull type, x, y], got {e}")),
+            })
+        },
+        |w, id, v| {
+            let list: Vec<_> = v
+                .as_array()
+                .into_iter()
+                .flatten()
+                .filter_map(|e| Some((skull_type(&e[0])?, int(&e[1]), int(&e[2]))))
+                .collect();
+            crate::canned_evil::items::add_skull_braziers(w, id, &list);
+        },
+    );
     item_key(types, "questItemHue", check_hue, |w, id, v| {
         let h = hue(w, v);
         crate::ml_quests::item_support::hue(w, id, h);
@@ -319,6 +516,123 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     item_key(types, "tokunoSlayer2", check_slayer, |w, id, v| {
         muo_items::weapons::ctor::set_slayer2(w, id, slayer(v) as i32)
     });
+}
+
+/// One `guardWear` entry, worn with `AddItem`: `{"item": class}`, `{"plainItem": itemID}` (`new Item(itemID)`) or
+/// `{"virtualMount": true}` (the rider's `VirtualMountItem`), then `"layer"`, `"hue"`, `"movable": false` and
+/// `"newbied": true` (`LootType.Newbied`) in that order.
+fn check_wear(v: &Value) -> Result<(), String> {
+    let o = v
+        .as_object()
+        .ok_or_else(|| format!("expected a wear entry, got {v}"))?;
+    let mut what = 0;
+    for (k, val) in o {
+        match k.as_str() {
+            "item" | "plainItem" | "virtualMount" => {
+                match k.as_str() {
+                    "item" => check_str(val)?,
+                    "plainItem" => check_int(val)?,
+                    _ => check_true(val)?,
+                }
+                what += 1;
+            }
+            "layer" => {
+                layer(val).ok_or_else(|| format!("unknown layer {val}"))?;
+            }
+            "hue" => check_int(val)?,
+            "movable" | "newbied" => check_bool(val)?,
+            _ => return Err(format!("unknown wear key \"{k}\"")),
+        }
+    }
+    if what == 1 {
+        Ok(())
+    } else {
+        Err(format!(
+            "a wear entry needs one of item, plainItem, virtualMount: {v}"
+        ))
+    }
+}
+
+fn layer(v: &Value) -> Option<muo_server::layer::Layer> {
+    let s = v.as_str()?;
+    (0..=0x1F)
+        .map(muo_server::layer::Layer)
+        .find(|l| format!("{l:?}") == s)
+}
+
+fn wear(w: &mut World, id: MobileId, v: &Value) {
+    use muo_server::item::{ITEM_BASE, LootType, ops};
+    let item = if let Some(g) = v.get("plainItem") {
+        Some(ops::new_item_with_id(w, &ITEM_BASE, int(g)))
+    } else if v.get("virtualMount").is_some() {
+        Some(muo_content::creature::virtual_mount::new_virtual_mount_item(w, id))
+    } else {
+        muo_content::factory::make_item(w, v["item"].as_str().unwrap_or(""))
+    };
+    let Some(item) = item else { return };
+    if let Some(l) = v.get("layer").and_then(layer)
+        && let Some(ty) = w.item(item).map(|i| i.ty)
+    {
+        (ty.set_layer)(w, item, l);
+    }
+    if let Some(h) = v.get("hue") {
+        muo_server::item::base::set_hue(w, item, int(h));
+    }
+    if let Some(m) = v.get("movable").and_then(Value::as_bool) {
+        ops::set_movable(w, item, m);
+    }
+    if v.get("newbied").and_then(Value::as_bool) == Some(true) {
+        ops::set_loot_type(w, item, LootType::Newbied);
+    }
+    muo_server::mobile::part2::items::add_item(w, id, item);
+}
+
+fn check_random_items(v: &Value) -> Result<(), String> {
+    let ok = v.as_object().is_some_and(|o| o.len() == 2)
+        && check_nums(&v["count"], 2).is_ok()
+        && v["from"]
+            .as_array()
+            .is_some_and(|a| !a.is_empty() && a.iter().all(Value::is_string));
+    if ok {
+        Ok(())
+    } else {
+        Err(format!(
+            "expected {{\"count\": [min, max], \"from\": [classes]}}, got {v}"
+        ))
+    }
+}
+
+fn loot_set(name: &str) -> Option<&'static [&'static str]> {
+    crate::ml_quests::items2::LOOT_SETS
+        .iter()
+        .find(|(n, _)| *n == name)
+        .map(|(_, s)| *s)
+}
+
+fn skull_type(v: &Value) -> Option<crate::canned_evil::info::ChampionSkullType> {
+    let s = v.as_str()?;
+    (0..6)
+        .map(crate::canned_evil::info::ChampionSkullType::from_i32)
+        .find(|t| format!("{t:?}") == s)
+}
+
+fn direction(v: &Value) -> Result<muo_primitives::Direction, String> {
+    use muo_primitives::Direction as D;
+    let all = [
+        ("North", D::NORTH),
+        ("Right", D::RIGHT),
+        ("East", D::EAST),
+        ("Down", D::DOWN),
+        ("South", D::SOUTH),
+        ("Left", D::LEFT),
+        ("West", D::WEST),
+        ("Up", D::UP),
+    ];
+    let s = v.as_str().unwrap_or("");
+    all.iter()
+        .find(|(n, _)| *n == s)
+        .map(|(_, d)| *d)
+        .ok_or_else(|| format!("expected a direction name, got {v}"))
 }
 
 fn slayer(v: &Value) -> SlayerName {

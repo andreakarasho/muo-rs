@@ -1714,7 +1714,7 @@ pub static TOURNAMENT_REGISTRAR: MobileType = MobileType {
     full_name: "Server.Engines.ConPVP.TournamentRegistrar",
     parent: Some(&muo_mobiles::npcs::banker::BANKER),
     construct: Some(|w| {
-        let id = muo_content::vendor::new_vendor(w, &TOURNAMENT_REGISTRAR, Some("the banker"));
+        let id = muo_mobiles::npcs::vendors::npc::new_template_vendor(w, &TOURNAMENT_REGISTRAR);
         if let Some(m) = w.mobile_mut(id) {
             m.ext.insert(RegistrarData::default());
         }

@@ -89,9 +89,8 @@ fn mobile_deleted(w: &World, m: MobileId) -> bool {
 
 /// `GauntletSpawner(typeName)`: `base(0x36FE)`, `Visible = false; Movable = false`.
 pub fn new_spawner(w: &mut World, type_name: Option<&str>) -> ItemId {
-    let id = ops::new_item_with_id(w, &GAUNTLET_SPAWNER, 0x36FE);
-    ops::set_visible(w, id, false);
-    ops::set_movable(w, id, false);
+    let id = ops::new_item_with_id(w, &GAUNTLET_SPAWNER, 0);
+    muo_content::templates::apply_item_as(w, id, GAUNTLET_SPAWNER.full_name);
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(SpawnerData {
             type_name: type_name.map(str::to_owned),

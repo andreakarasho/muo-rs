@@ -8,14 +8,18 @@ use muo_server::World;
 const FILES: &[(&str, Kind, usize)] = &[
     ("Mobiles/ml_quests/npcs.json", Kind::Mobile, 119),
     ("Mobiles/quests/creatures.json", Kind::Mobile, 8),
-    ("Mobiles/quests/questers.json", Kind::Mobile, 20),
+    ("Mobiles/ml_quests/npcs_more.json", Kind::Mobile, 16),
+    ("Mobiles/quests/questers.json", Kind::Mobile, 28),
+    ("Mobiles/factions.json", Kind::Mobile, 16),
+    ("Mobiles/conpvp.json", Kind::Mobile, 1),
     ("Mobiles/khaldun/mobiles.json", Kind::Mobile, 4),
     ("Mobiles/ethics/mobiles.json", Kind::Mobile, 4),
     ("Items/ml_quests/items.json", Kind::Item, 36),
     ("Items/ml_quests/items2.json", Kind::Item, 27),
-    ("Items/engines/misc.json", Kind::Item, 67),
+    ("Items/engines/misc.json", Kind::Item, 77),
     ("Items/multis/deeds.json", Kind::Item, 29),
-    ("Items/multis/misc.json", Kind::Item, 4),
+    ("Items/multis/misc.json", Kind::Item, 11),
+    ("Items/multis/boats.json", Kind::Item, 13),
     ("Items/multis/houses.json", Kind::Item, 13),
     ("Items/content/misc.json", Kind::Item, 89),
     ("Items/samples/leaves.json", Kind::Item, 10),
@@ -26,12 +30,15 @@ const BASES: &[&str] = &[
     "Server.Multis.Deeds.HouseDeed",
     "Server.Multis.BaseBoatDeed",
     "Server.Engines.MLQuests.Items.BaseCraftmansSatchel",
+    "Server.Multis.BaseDockedBoat",
 ];
 
 fn world() -> World {
     let mut w = World::new();
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    // the Configure phase, as startup: the `[set` properties scripts set, the templates, the scripts
+    muo_server::type_registry::invoke_phase(&mut w, muo_server::type_registry::Phase::Configure);
     templates::reload(&mut w).unwrap();
     assert!(muo_scripting::reload_scripts(&mut w).is_empty());
     w
@@ -121,6 +128,34 @@ fn converted_classes_build_what_their_constructors_built() {
         make_mobile(&mut w, "Server.Engines.MLQuests.Definitions.GrandpaCharley").unwrap();
     let m = w.mobile(charley).unwrap();
     assert_eq!(m.facial_hair_item_id, 0x203E, "the on_spawn script ran");
+
+    // the constructors with arguments hand them to the class's script
+    {
+        use muo_engines::tokuno::{artifacts, pigments};
+        let made = |w: &mut World, kind, uses| {
+            let p = pigments::pigments_new(w, kind, uses);
+            (pigments::uses_remaining(w, p), w.item(p).unwrap().hue)
+        };
+        assert_eq!(made(&mut w, 3, None), (50, 0x4F2), "InvulnerabilityBlue");
+        assert_eq!(made(&mut w, 0, None).0, 10);
+        assert_eq!(made(&mut w, 11, None).0, 10);
+        assert_eq!(made(&mut w, 3, Some(7)).0, 7);
+        let urn = artifacts::ancient_urn_new(&mut w, "Akira");
+        assert_eq!(artifacts::name(&w, urn).as_deref(), Some("Akira"));
+        let bag = muo_engines::craft::salvage_bag::salvage_bag_new_hue(&mut w, 0x480);
+        assert_eq!(w.item(bag).unwrap().hue, 0x480);
+    }
+
+    let horse = make_mobile(&mut w, "Server.Factions.FactionWarHorse").unwrap();
+    assert_eq!(w.mobile(horse).unwrap().body.0, 0xE2);
+    let knight = make_mobile(&mut w, "Server.Factions.FactionKnight").unwrap();
+    assert_eq!(
+        w.mobile(knight).unwrap().title.as_deref(),
+        Some("the knight")
+    );
+
+    let boat = make_item(&mut w, "Server.Multis.LargeBoat").unwrap();
+    assert_eq!(muo_multis::boats::layout(&w, boat).hold_distance, 5);
 
     let ingot = make_item(&mut w, "Server.Items.VeriteIngot").unwrap();
     assert_eq!(

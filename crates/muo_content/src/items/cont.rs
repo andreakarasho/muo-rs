@@ -1422,9 +1422,8 @@ container_leaf! {
 }
 
 container_leaf! {
-    /// `Server.Items.WoodenFootLocker` `[Flippable(0x2811, 0x2812)]`: `GumpID = 0x10B`.
+    /// `Server.Items.WoodenFootLocker` `[Flippable(0x2811, 0x2812)]`.
     WOODEN_FOOT_LOCKER = "Server.Items.WoodenFootLocker" : LOCKABLE_CONTAINER, new_lockable;
-    @init |w, id| { container::set_gump_id(w, id, 0x10B); };
 }
 
 /// The treasure chests (`BaseTreasureChest` at level 2).

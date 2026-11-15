@@ -1,7 +1,7 @@
 //! `GrimmochDrummel`, `LysanderGathenwale`, `MorgBergen` and `TavaraSewel`: the cursed
 //! expedition members of the Khaldun pit.
 
-use muo_content::creature::setters::{add_loot_n, pack_item};
+use muo_content::creature::setters::add_loot_n;
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C, CreatureType};
 use muo_content::{factory, hooks::rnd, loot, loot_pack, mx};
 use muo_server::World;
@@ -43,19 +43,7 @@ fn drop_book(w: &mut World, id: MobileId, make: fn(&mut World) -> Option<ItemId>
 // ---- GrimmochDrummel ----
 
 fn grimmoch_new(w: &mut World) -> MobileId {
-    let id = muo_content::templates::new_creature(w, &GRIMMOCH_DRUMMEL);
-
-    let arrows = factory::make_item_amount(w, "Server.Items.Arrow", 40);
-    pack_item(w, id, arrows);
-    if rnd::below(w, 100) < 3 {
-        let horn = factory::make_item(w, "Server.Items.FireHorn");
-        pack_item(w, id, horn);
-    }
-    if rnd::below(w, 3) < 1 {
-        let j = loot::random_grimmoch_journal(w);
-        pack_item(w, id, j);
-    }
-    id
+    muo_content::templates::new_creature(w, &GRIMMOCH_DRUMMEL)
 }
 
 static GRIMMOCH_DRUMMEL_C: CreatureType = CreatureType {
@@ -102,13 +90,7 @@ pub static GRIMMOCH_DRUMMEL: MobileType = MobileType {
 // ---- LysanderGathenwale ----
 
 fn lysander_new(w: &mut World) -> MobileId {
-    let id = muo_content::templates::new_creature(w, &LYSANDER_GATHENWALE);
-
-    if let Some(reags) = loot::random_reagent(w) {
-        ops::set_amount(w, reags, 30);
-        pack_item(w, id, Some(reags));
-    }
-    id
+    muo_content::templates::new_creature(w, &LYSANDER_GATHENWALE)
 }
 
 static LYSANDER_C: CreatureType = CreatureType {

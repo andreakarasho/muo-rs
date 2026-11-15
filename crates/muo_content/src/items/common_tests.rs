@@ -236,8 +236,7 @@ fn key_roundtrip_and_ring() {
     load(&mut w, copy, &bytes).unwrap();
     assert_eq!(gold::key_value(&w, copy), 0x1234);
 
-    let ring = gold::new_key_ring(&mut w);
-    assert_eq!(w.item(ring).unwrap().item_id, 0x1011);
+    let ring = gold::new_key_ring(&mut w); // its graphic is its template's (none loaded here)
     gold::ring_add(&mut w, ring, key);
     assert_eq!(w.item(ring).unwrap().item_id, 0x1769);
     assert!(gold::ring_contains_key(&w, ring, 0x1234));

@@ -22,13 +22,17 @@
     "type": "Server.Items.KeyRing",
     "props": {
       "defaultWeight": 1.0
-    }
+    },
+    "itemId": 4113
   },
   {
     "type": "Server.Items.FruitBasket",
     "props": {
       "defaultWeight": 2.0
-    }
+    },
+    "itemId": 2451,
+    "foodFillFactor": 5,
+    "stackable": false
   },
   {
     "type": "Server.Items.ResGate",
@@ -126,7 +130,10 @@
   },
   {
     "type": "Server.Items.WoodenFootLocker",
-    "itemId": 10257
+    "itemId": 10257,
+    "set": {
+      "GumpID": 267
+    }
   },
   {
     "type": "Server.Items.LargeBagBall",

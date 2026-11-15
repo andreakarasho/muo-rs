@@ -213,9 +213,8 @@ pub fn get_sub_level(w: &World, id: ItemId) -> i32 {
 /// `ChampionSpawn()`: `base(0xBD2)`, `Movable = false; Visible = false`, the platform, altar and idol, and
 /// `Timer.StartTimer(TimeSpan.Zero, SetInitialSpawnArea)`.
 pub fn new_spawn(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xBD2);
-    ops::set_movable(w, id, false);
-    ops::set_visible(w, id, false);
+    let id = ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
     let d = SpawnData {
         expire_delay: TimeSpan::from_mins(30),
         restart_delay: TimeSpan::from_mins(30),

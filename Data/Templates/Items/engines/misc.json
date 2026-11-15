@@ -48,7 +48,10 @@
     "type": "Server.Engines.CannedEvil.ChampionSpawn",
     "props": {
       "labelNumber": 1041030
-    }
+    },
+    "itemId": 3026,
+    "movable": false,
+    "visible": false
   },
   {
     "type": "Server.Engines.CannedEvil.IdolOfTheChampion",
@@ -69,7 +72,9 @@
     "type": "Server.Engines.ConPVP.BRBoard",
     "props": {
       "defaultName": "Scoreboard"
-    }
+    },
+    "itemId": 7774,
+    "movable": false
   },
   {
     "type": "Server.Engines.ConPVP.BRBomb",
@@ -87,31 +92,43 @@
     "type": "Server.Engines.ConPVP.BRController",
     "props": {
       "defaultName": "Bombing Run Controller"
-    }
+    },
+    "itemId": 7034,
+    "visible": false,
+    "movable": false
   },
   {
     "type": "Server.Engines.ConPVP.CTFBoard",
     "props": {
       "defaultName": "scoreboard"
-    }
+    },
+    "itemId": 7774,
+    "movable": false
   },
   {
     "type": "Server.Engines.ConPVP.CTFFlag",
     "props": {
       "defaultName": "old people cookies"
-    }
+    },
+    "itemId": 5643,
+    "movable": false
   },
   {
     "type": "Server.Engines.ConPVP.DDBoard",
     "props": {
       "defaultName": "scoreboard"
-    }
+    },
+    "itemId": 7774,
+    "movable": false
   },
   {
     "type": "Server.Engines.ConPVP.DDController",
     "props": {
       "defaultName": "DD Controller"
-    }
+    },
+    "itemId": 7034,
+    "visible": false,
+    "movable": false
   },
   {
     "type": "Server.Engines.ConPVP.LadderController",
@@ -166,13 +183,18 @@
     "props": {
       "labelNumber": 1079931,
       "defaultWeight": 2.0
-    }
+    },
+    "itemId": 3702,
+    "script": "content/engines/salvage_bag.rhai"
   },
   {
     "type": "Server.Engines.Doom.GauntletSpawner",
     "props": {
       "defaultName": "doom spawner"
-    }
+    },
+    "itemId": 14078,
+    "visible": false,
+    "movable": false
   },
   {
     "type": "Server.Factions.FactionStone",
@@ -348,19 +370,34 @@
     "props": {
       "labelNumber": 1071014,
       "defaultWeight": 1.0
-    }
+    },
+    "itemId": 9245,
+    "script": "content/engines/tokuno_named.rhai"
   },
   {
     "type": "Server.Items.HonorableSwords",
     "props": {
       "labelNumber": 1071015,
       "defaultWeight": 5.0
-    }
+    },
+    "itemId": 10323,
+    "script": "content/engines/tokuno_named.rhai"
   },
   {
     "type": "Server.Items.ChestOfHeirlooms",
     "props": {
       "labelNumber": 1070937
+    },
+    "itemId": 10257,
+    "set": {
+      "Locked": true,
+      "LockLevel": 95,
+      "MaxLockLevel": 140,
+      "RequiredSkill": 95,
+      "TrapType": "ExplosionTrap",
+      "TrapLevel": 10,
+      "TrapPower": 100,
+      "GumpID": 267
     }
   },
   {
@@ -374,7 +411,8 @@
     "type": "Server.Items.PigmentsOfTokuno",
     "props": {
       "labelNumber": 1070933
-    }
+    },
+    "script": "content/engines/pigments_of_tokuno.rhai"
   },
   {
     "type": "Server.Engines.ConPVP.KHBoard",
@@ -406,7 +444,10 @@
   {
     "type": "Server.Engines.Quests.Samurai.HaochisTreasureChest",
     "itemId": 10257,
-    "movable": false
+    "movable": false,
+    "set": {
+      "GumpID": 267
+    }
   },
   {
     "type": "Server.Items.FertileDirt",
@@ -463,5 +504,217 @@
     "props": {
       "defaultName": "a hole"
     }
+  },
+  {
+    "type": "Server.Items.LesserPigmentsOfTokuno",
+    "set": {
+      "UsesRemaining": 1
+    },
+    "script": "content/engines/lesser_pigments_of_tokuno.rhai"
+  },
+  {
+    "type": "Server.Items.MetalPigmentsOfTokuno",
+    "set": {
+      "UsesRemaining": 1
+    },
+    "pigmentLabel": -1,
+    "script": "content/engines/metal_pigments_of_tokuno.rhai"
+  },
+  {
+    "type": "Server.Items.RepairDeed",
+    "itemId": 5360,
+    "hue": 444,
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Engines.Quests.Necro.MaabusCoffin",
+    "coffinComponents": [
+      [
+        7211,
+        7211,
+        -1,
+        -1
+      ],
+      [
+        7446,
+        7212,
+        0,
+        -1
+      ],
+      [
+        7447,
+        7213,
+        1,
+        -1
+      ],
+      [
+        7505,
+        7214,
+        2,
+        -1
+      ],
+      [
+        7502,
+        7210,
+        0,
+        0
+      ],
+      [
+        7501,
+        7209,
+        1,
+        0
+      ],
+      [
+        7500,
+        7208,
+        2,
+        0
+      ]
+    ]
+  },
+  {
+    "type": "Server.Engines.ConPVP.CTFController",
+    "itemId": 7034,
+    "visible": false,
+    "movable": false
+  },
+  {
+    "type": "Server.Engines.ConPVP.KHController",
+    "itemId": 7034,
+    "visible": false,
+    "movable": false,
+    "name": "King of the Hill Controller"
+  },
+  {
+    "type": "Server.Engines.ConPVP.DDWayPoint",
+    "itemId": 1305,
+    "visible": true,
+    "name": "SET MY NAME"
+  },
+  {
+    "type": "Server.Engines.CannedEvil.DungeonChampionSpawn",
+    "inherits": "Server.Engines.CannedEvil.ChampionSpawn"
+  },
+  {
+    "type": "Server.Engines.CannedEvil.LLChampionSpawn",
+    "inherits": "Server.Engines.CannedEvil.ChampionSpawn"
+  },
+  {
+    "type": "Server.Engines.CannedEvil.ChampionSkullPlatform",
+    "addonComponents": [
+      [
+        1818,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        1801,
+        0,
+        -1,
+        -1
+      ],
+      [
+        1801,
+        1,
+        -1,
+        -1
+      ],
+      [
+        1801,
+        -1,
+        0,
+        -1
+      ],
+      [
+        1801,
+        0,
+        0,
+        -1
+      ],
+      [
+        1801,
+        1,
+        0,
+        -1
+      ],
+      [
+        1801,
+        -1,
+        1,
+        -1
+      ],
+      [
+        1801,
+        0,
+        1,
+        -1
+      ],
+      [
+        1819,
+        1,
+        1,
+        -1
+      ]
+    ],
+    "skullBraziers": [
+      [
+        "Power",
+        0,
+        -1
+      ],
+      [
+        "Enlightenment",
+        1,
+        -1
+      ],
+      [
+        "Venom",
+        -1,
+        0
+      ],
+      [
+        "Pain",
+        1,
+        0
+      ],
+      [
+        "Greed",
+        -1,
+        1
+      ],
+      [
+        "Death",
+        0,
+        1
+      ]
+    ],
+    "addonLocalizedComponents": [
+      [
+        8402,
+        1049495,
+        1154,
+        0,
+        0,
+        5
+      ],
+      [
+        3023,
+        1049496,
+        1154,
+        0,
+        2,
+        -7
+      ],
+      [
+        3024,
+        1049497,
+        1154,
+        2,
+        0,
+        -7
+      ]
+    ]
   }
 ]

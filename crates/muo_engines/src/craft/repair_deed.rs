@@ -7,7 +7,7 @@ use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ext::Ext;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, deps, ops};
+use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::layer::Layer;
 use muo_server::mobile::AccessLevel;
 use muo_server::property_list::PropertyList;
@@ -75,7 +75,7 @@ pub fn data(w: &World, id: ItemId) -> Option<&RepairDeedData> {
     w.item(id)?.ext.get::<RepairDeedData>()
 }
 
-/// `RepairDeed(skill, level, crafter, normalizeLevel)`.
+/// `RepairDeed(skill, level, crafter, normalizeLevel)`: the graphic, hue and loot type are the template.
 pub fn new_repair_deed(
     w: &mut World,
     skill: i32,
@@ -83,7 +83,7 @@ pub fn new_repair_deed(
     crafter: Option<MobileId>,
     normalize: bool,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, &REPAIR_DEED, 0x14F0);
+    let id = ops::new_item_with_id(w, &REPAIR_DEED, 0);
     let level = if normalize {
         f64::from((level / 10.0) as i32 * 10)
     } else {
@@ -97,8 +97,7 @@ pub fn new_repair_deed(
             crafter,
         });
     }
-    (REPAIR_DEED.set_hue)(w, id, 0x1BC);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    muo_content::templates::apply_item_as(w, id, REPAIR_DEED.full_name);
     id
 }
 

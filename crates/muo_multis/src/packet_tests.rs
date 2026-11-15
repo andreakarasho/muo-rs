@@ -281,6 +281,7 @@ static TEST_BOAT: muo_server::item::ItemType = muo_server::item::ItemType {
 /// A TestBoat at (10, 20, 15) on Felucca, facing `Direction.Right`.
 fn boat(w: &mut World) -> muo_server::ids::ItemId {
     let b = crate::boats::items::new_small_boat(w);
+    crate::boats::set_layout(w, b, crate::boats::SMALL_BOAT_LAYOUT); // no templates here
     w.item_mut(b).unwrap().ty = &TEST_BOAT;
     // components spanning offsets (-1, -1) to (2, 1): the rectangle (9, 19, 4, 3) around the boat at (10, 20)
     let entries = [

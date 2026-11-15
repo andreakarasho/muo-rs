@@ -33,8 +33,10 @@ fn base_bytes(w: &World, id: ItemId) -> Vec<u8> {
 fn tokuno_pigments_round_trip_and_golden() {
     use crate::tokuno::pigments::{self, PIGMENTS_OF_TOKUNO};
     let mut w = World::new();
-    let id = pigments::pigments_new(&mut w, 3, None); // InvulnerabilityBlue, 50 uses
-    assert_eq!(pigments::uses_remaining(&w, id), 50);
+    // the type and the uses are the class script's (`muo/tests/engines_templates.rs`); no scripts here
+    let id = pigments::pigments_new(&mut w, 3, None);
+    pigments::set_uses_remaining(&mut w, id, 50);
+    pigments::set_type(&mut w, id, 3); // InvulnerabilityBlue
     assert_eq!(w.item(id).unwrap().hue, 0x4F2);
     let bytes = save(&w, id);
     let mut want = base_bytes(&w, id);
@@ -47,22 +49,17 @@ fn tokuno_pigments_round_trip_and_golden() {
     assert_eq!(pigments::uses_remaining(&w, id2), 50);
     // The label is not saved: a loaded pigment has none.
     assert_eq!(pigments::data(&w, id2).unwrap().label, 0);
-    // None and FadedCoal+ start with 10 uses
-    let p = pigments::pigments_new(&mut w, 0, None);
-    assert_eq!(pigments::uses_remaining(&w, p), 10);
-    let p = pigments::pigments_new(&mut w, 11, None);
-    assert_eq!(pigments::uses_remaining(&w, p), 10);
 }
 
 #[test]
 fn tokuno_urn_names_are_saved() {
     use crate::tokuno::artifacts::{self, ANCIENT_URN};
     let mut w = World::new();
-    let id = artifacts::ancient_urn_new(&mut w, Some("Akira".to_owned()));
+    let id = artifacts::ancient_urn_new(&mut w, "Akira");
+    artifacts::set_name(&mut w, id, Some("Akira".to_owned())); // the script's part (no scripts here)
     let bytes = save(&w, id);
     let id2 = load(&mut w, &ANCIENT_URN, &bytes);
     assert_eq!(save(&w, id2), bytes);
-    assert_eq!(artifacts::NAMES.len(), 35);
 }
 
 #[test]
