@@ -97,6 +97,114 @@ pub enum AosElementAttribute {
     Direct = 0x40,
 }
 
+impl AosAttribute {
+    /// Every member by name (the JSON templates name attributes this way).
+    pub const NAMES: &[(&'static str, u32)] = &[
+        ("RegenHits", AosAttribute::RegenHits as u32),
+        ("RegenStam", AosAttribute::RegenStam as u32),
+        ("RegenMana", AosAttribute::RegenMana as u32),
+        ("DefendChance", AosAttribute::DefendChance as u32),
+        ("AttackChance", AosAttribute::AttackChance as u32),
+        ("BonusStr", AosAttribute::BonusStr as u32),
+        ("BonusDex", AosAttribute::BonusDex as u32),
+        ("BonusInt", AosAttribute::BonusInt as u32),
+        ("BonusHits", AosAttribute::BonusHits as u32),
+        ("BonusStam", AosAttribute::BonusStam as u32),
+        ("BonusMana", AosAttribute::BonusMana as u32),
+        ("WeaponDamage", AosAttribute::WeaponDamage as u32),
+        ("WeaponSpeed", AosAttribute::WeaponSpeed as u32),
+        ("SpellDamage", AosAttribute::SpellDamage as u32),
+        ("CastRecovery", AosAttribute::CastRecovery as u32),
+        ("CastSpeed", AosAttribute::CastSpeed as u32),
+        ("LowerManaCost", AosAttribute::LowerManaCost as u32),
+        ("LowerRegCost", AosAttribute::LowerRegCost as u32),
+        ("ReflectPhysical", AosAttribute::ReflectPhysical as u32),
+        ("EnhancePotions", AosAttribute::EnhancePotions as u32),
+        ("Luck", AosAttribute::Luck as u32),
+        ("SpellChanneling", AosAttribute::SpellChanneling as u32),
+        ("NightSight", AosAttribute::NightSight as u32),
+        (
+            "IncreasedKarmaLoss",
+            AosAttribute::IncreasedKarmaLoss as u32,
+        ),
+    ];
+}
+
+impl AosWeaponAttribute {
+    /// Every member by name (the JSON templates name attributes this way).
+    pub const NAMES: &[(&'static str, u32)] = &[
+        ("LowerStatReq", AosWeaponAttribute::LowerStatReq as u32),
+        ("SelfRepair", AosWeaponAttribute::SelfRepair as u32),
+        ("HitLeechHits", AosWeaponAttribute::HitLeechHits as u32),
+        ("HitLeechStam", AosWeaponAttribute::HitLeechStam as u32),
+        ("HitLeechMana", AosWeaponAttribute::HitLeechMana as u32),
+        ("HitLowerAttack", AosWeaponAttribute::HitLowerAttack as u32),
+        ("HitLowerDefend", AosWeaponAttribute::HitLowerDefend as u32),
+        ("HitMagicArrow", AosWeaponAttribute::HitMagicArrow as u32),
+        ("HitHarm", AosWeaponAttribute::HitHarm as u32),
+        ("HitFireball", AosWeaponAttribute::HitFireball as u32),
+        ("HitLightning", AosWeaponAttribute::HitLightning as u32),
+        ("HitDispel", AosWeaponAttribute::HitDispel as u32),
+        ("HitColdArea", AosWeaponAttribute::HitColdArea as u32),
+        ("HitFireArea", AosWeaponAttribute::HitFireArea as u32),
+        ("HitPoisonArea", AosWeaponAttribute::HitPoisonArea as u32),
+        ("HitEnergyArea", AosWeaponAttribute::HitEnergyArea as u32),
+        (
+            "HitPhysicalArea",
+            AosWeaponAttribute::HitPhysicalArea as u32,
+        ),
+        (
+            "ResistPhysicalBonus",
+            AosWeaponAttribute::ResistPhysicalBonus as u32,
+        ),
+        (
+            "ResistFireBonus",
+            AosWeaponAttribute::ResistFireBonus as u32,
+        ),
+        (
+            "ResistColdBonus",
+            AosWeaponAttribute::ResistColdBonus as u32,
+        ),
+        (
+            "ResistPoisonBonus",
+            AosWeaponAttribute::ResistPoisonBonus as u32,
+        ),
+        (
+            "ResistEnergyBonus",
+            AosWeaponAttribute::ResistEnergyBonus as u32,
+        ),
+        ("UseBestSkill", AosWeaponAttribute::UseBestSkill as u32),
+        ("MageWeapon", AosWeaponAttribute::MageWeapon as u32),
+        (
+            "DurabilityBonus",
+            AosWeaponAttribute::DurabilityBonus as u32,
+        ),
+    ];
+}
+
+impl AosArmorAttribute {
+    /// Every member by name (the JSON templates name attributes this way).
+    pub const NAMES: &[(&'static str, u32)] = &[
+        ("LowerStatReq", AosArmorAttribute::LowerStatReq as u32),
+        ("SelfRepair", AosArmorAttribute::SelfRepair as u32),
+        ("MageArmor", AosArmorAttribute::MageArmor as u32),
+        ("DurabilityBonus", AosArmorAttribute::DurabilityBonus as u32),
+    ];
+}
+
+impl AosElementAttribute {
+    /// Every member by name (the JSON templates name attributes this way).
+    pub const NAMES: &[(&'static str, u32)] = &[
+        ("Physical", AosElementAttribute::Physical as u32),
+        ("Fire", AosElementAttribute::Fire as u32),
+        ("Cold", AosElementAttribute::Cold as u32),
+        ("Poison", AosElementAttribute::Poison as u32),
+        ("Energy", AosElementAttribute::Energy as u32),
+        ("Chaos", AosElementAttribute::Chaos as u32),
+        ("Direct", AosElementAttribute::Direct as u32),
+    ];
+}
+
 /// Which of an item's bags (they are all `BaseAttributes`).
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum AttrKind {

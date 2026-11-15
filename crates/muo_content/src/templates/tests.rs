@@ -136,3 +136,33 @@ fn json_only_class_cannot_shadow_a_rust_class() {
     let e = reload(&mut w).unwrap_err();
     assert!(e.contains("drop \"parent\""), "{e}");
 }
+
+#[test]
+fn item_attributes_parse_by_name() {
+    use crate::aos::{AosArmorAttribute, AosAttribute, AttrKind};
+    let s = item_steps::parse(
+        "attributes",
+        &serde_json::json!({ "Luck": 200, "DefendChance": 15 }),
+    )
+    .unwrap();
+    assert_eq!(
+        s,
+        item_steps::Step::Attrs(vec![
+            (AttrKind::Attributes, AosAttribute::Luck as u32, 200),
+            (AttrKind::Attributes, AosAttribute::DefendChance as u32, 15),
+        ])
+    );
+    let s = item_steps::parse("armorAttributes", &serde_json::json!({ "MageArmor": 1 })).unwrap();
+    assert_eq!(
+        s,
+        item_steps::Step::Attrs(vec![(
+            AttrKind::Armor,
+            AosArmorAttribute::MageArmor as u32,
+            1
+        )])
+    );
+    let e = item_steps::parse("attributes", &serde_json::json!({ "Lucky": 1 })).unwrap_err();
+    assert!(e.contains("unknown attribute Lucky"), "{e}");
+    let e = item_steps::parse("skillBonuses", &serde_json::json!([["Swordz", 10]])).unwrap_err();
+    assert!(e.contains("unknown skill"), "{e}");
+}
