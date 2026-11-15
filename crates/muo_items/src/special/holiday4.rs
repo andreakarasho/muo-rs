@@ -436,10 +436,10 @@ pub static HALLOWEEN_PUMPKIN: ItemType = ItemType {
 // ---- Masks ----
 
 /// `BasePaintedMask(staffer, itemid)`: the staffer first, then `itemid + Utility.Random(2)`.
-fn mask_new(w: &mut World, ty: &'static ItemType, itemid: i32) -> ItemId {
+fn mask_new(w: &mut World, ty: &'static ItemType, name: &str) -> ItemId {
     let staffer = random_staff(w);
-    let g = itemid + utility::random(&mut w.rng, 2);
-    let id = new_item(w, ty, g);
+    let id = new_item(w, ty, 0);
+    crate::simple::own_template(w, id, name);
     set_strs(w, id, 0, Some(staffer));
     id
 }
@@ -473,53 +473,49 @@ pub static BASE_PAINTED_MASK: ItemType = ItemType {
 };
 
 macro_rules! masks {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr, $mask:literal;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : BASE_PAINTED_MASK, v0;
-            construct: Some(|w| mask_new(w, &$name, $gid)),
-            default_name: |w, id| mask_name(w, id, $mask),
+            construct: Some(|w| mask_new(w, &$name, $full)),
+            default_name: |w, id| mask_name(w, id, crate::class_props::str_of(w, id, "maskName").unwrap_or("A Mask")),
         }
     )+};
 }
 
 masks! {
     /// `Server.Items.Holiday.PaintedDaemonMask`.
-    PAINTED_DAEMON_MASK = "Server.Items.Holiday.PaintedDaemonMask", 0x4a92, "Daemon Mask";
+    PAINTED_DAEMON_MASK = "Server.Items.Holiday.PaintedDaemonMask";
     /// `Server.Items.Holiday.PaintedEvilClownMask`.
-    PAINTED_EVIL_CLOWN_MASK = "Server.Items.Holiday.PaintedEvilClownMask", 0x4a90, "Evil Clown Mask";
+    PAINTED_EVIL_CLOWN_MASK = "Server.Items.Holiday.PaintedEvilClownMask";
     /// `Server.Items.Holiday.PaintedPlagueMask`.
-    PAINTED_PLAGUE_MASK = "Server.Items.Holiday.PaintedPlagueMask", 0x4A8E, "Plague Mask";
+    PAINTED_PLAGUE_MASK = "Server.Items.Holiday.PaintedPlagueMask";
     /// `Server.Items.Holiday.PaintedEvilJesterMask`.
-    PAINTED_EVIL_JESTER_MASK = "Server.Items.Holiday.PaintedEvilJesterMask", 0x4BA5, "Evil Jester Mask";
+    PAINTED_EVIL_JESTER_MASK = "Server.Items.Holiday.PaintedEvilJesterMask";
     /// `Server.Items.Holiday.PaintedPorcelainMask`.
-    PAINTED_PORCELAIN_MASK = "Server.Items.Holiday.PaintedPorcelainMask", 0x4BA7, "Porcelain Mask";
+    PAINTED_PORCELAIN_MASK = "Server.Items.Holiday.PaintedPorcelainMask";
 }
 
 // ---- Winter 2010 ----
 
 macro_rules! winter_2010 {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, v0;
             // No `[Constructible]` on these two.
             construct: None,
-            make: Some(|w| {
-                let id = new_item(w, &$name, $gid);
-                blessed(w, id);
-                id
-            }),
-            default_weight: |_, _| 30.0,
+            make: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
         }
     )+};
 }
 
 winter_2010! {
     /// `Server.Items.Holiday.AngelDecoration` (`[Flippable(0x46FA, 0x46FB)]`).
-    ANGEL_DECORATION = "Server.Items.Holiday.AngelDecoration", 0x46FA;
+    ANGEL_DECORATION = "Server.Items.Holiday.AngelDecoration";
     /// `Server.Items.Holiday.RockingHorse` (`[Flippable(0x4214, 0x4215)]`).
-    ROCKING_HORSE = "Server.Items.Holiday.RockingHorse", 0x4214;
+    ROCKING_HORSE = "Server.Items.Holiday.RockingHorse";
 }
 
 // ---- Easter 2011 ----
@@ -539,35 +535,31 @@ leaf! {
 use super::holiday::CANDY_CANE;
 
 macro_rules! treats {
-    ($($(#[$m:meta])* $name:ident = $full:literal, |$w:ident| $gid:expr $(, label $label:expr)?;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : CANDY_CANE, v0;
-            construct: Some(|$w| {
-                let g = $gid;
-                // `CandyCane(itemID)`: not stackable and blessed; the treat then makes itself stackable.
-                let id = new_food($w, &$name, g, 1);
-                ops::set_stackable($w, id, false);
-                ops::set_loot_type($w, id, LootType::Blessed);
-                ops::set_stackable($w, id, true);
-                id
+            construct: Some(|w| {
+                // `CandyCane(itemID)`: blessed; the treat then makes itself stackable (the template).
+                let id = new_food(w, &$name, 0, 1);
+                crate::simple::own_template(w, id, $full)
             }),
-            $( label_number: |_, _| $label, )?
+            label_number: crate::class_props::label_number,
         }
     )+};
 }
 
 treats! {
     /// `Server.Items.JellyBeans`.
-    JELLY_BEANS = "Server.Items.JellyBeans", |_w| 0x468C, label 1096932;
+    JELLY_BEANS = "Server.Items.JellyBeans";
     /// `Server.Items.Lollipops` (`[TypeAlias("Server.Items.Lollipop")]`).
-    LOLLIPOPS = "Server.Items.Lollipops", |w| 0x468D + utility::random(&mut w.rng, 3);
+    LOLLIPOPS = "Server.Items.Lollipops";
     /// `Server.Items.NougatSwirl`.
-    NOUGAT_SWIRL = "Server.Items.NougatSwirl", |_w| 0x4690, label 1096936;
+    NOUGAT_SWIRL = "Server.Items.NougatSwirl";
     /// `Server.Items.Taffy`.
-    TAFFY = "Server.Items.Taffy", |_w| 0x469D, label 1096949;
+    TAFFY = "Server.Items.Taffy";
     /// `Server.Items.WrappedCandy`.
-    WRAPPED_CANDY = "Server.Items.WrappedCandy", |_w| 0x469e, label 1096950;
+    WRAPPED_CANDY = "Server.Items.WrappedCandy";
 }
 
 // ---- Halloween foods ----

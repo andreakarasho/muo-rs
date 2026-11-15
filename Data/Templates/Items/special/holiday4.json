@@ -172,5 +172,143 @@
     "props": {
       "defaultWeight": 5.0
     }
+  },
+  {
+    "type": "Server.Items.Holiday.PaintedDaemonMask",
+    "oneOf": [
+      {
+        "itemId": 19090
+      },
+      {
+        "itemId": 19091
+      }
+    ],
+    "props": {
+      "maskName": "Daemon Mask"
+    }
+  },
+  {
+    "type": "Server.Items.Holiday.PaintedEvilClownMask",
+    "oneOf": [
+      {
+        "itemId": 19088
+      },
+      {
+        "itemId": 19089
+      }
+    ],
+    "props": {
+      "maskName": "Evil Clown Mask"
+    }
+  },
+  {
+    "type": "Server.Items.Holiday.PaintedPlagueMask",
+    "oneOf": [
+      {
+        "itemId": 19086
+      },
+      {
+        "itemId": 19087
+      }
+    ],
+    "props": {
+      "maskName": "Plague Mask"
+    }
+  },
+  {
+    "type": "Server.Items.Holiday.PaintedEvilJesterMask",
+    "oneOf": [
+      {
+        "itemId": 19365
+      },
+      {
+        "itemId": 19366
+      }
+    ],
+    "props": {
+      "maskName": "Evil Jester Mask"
+    }
+  },
+  {
+    "type": "Server.Items.Holiday.PaintedPorcelainMask",
+    "oneOf": [
+      {
+        "itemId": 19367
+      },
+      {
+        "itemId": 19368
+      }
+    ],
+    "props": {
+      "maskName": "Porcelain Mask"
+    }
+  },
+  {
+    "type": "Server.Items.Holiday.AngelDecoration",
+    "itemId": 18170,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 30.0
+    }
+  },
+  {
+    "type": "Server.Items.Holiday.RockingHorse",
+    "itemId": 16916,
+    "lootType": "Blessed",
+    "props": {
+      "defaultWeight": 30.0
+    }
+  },
+  {
+    "type": "Server.Items.JellyBeans",
+    "itemId": 18060,
+    "lootType": "Blessed",
+    "stackable": true,
+    "props": {
+      "labelNumber": 1096932
+    }
+  },
+  {
+    "type": "Server.Items.Lollipops",
+    "oneOf": [
+      {
+        "itemId": 18061
+      },
+      {
+        "itemId": 18062
+      },
+      {
+        "itemId": 18063
+      }
+    ],
+    "lootType": "Blessed",
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.NougatSwirl",
+    "itemId": 18064,
+    "lootType": "Blessed",
+    "stackable": true,
+    "props": {
+      "labelNumber": 1096936
+    }
+  },
+  {
+    "type": "Server.Items.Taffy",
+    "itemId": 18077,
+    "lootType": "Blessed",
+    "stackable": true,
+    "props": {
+      "labelNumber": 1096949
+    }
+  },
+  {
+    "type": "Server.Items.WrappedCandy",
+    "itemId": 18078,
+    "lootType": "Blessed",
+    "stackable": true,
+    "props": {
+      "labelNumber": 1096950
+    }
   }
 ]
