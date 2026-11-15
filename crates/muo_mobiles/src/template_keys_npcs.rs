@@ -18,6 +18,7 @@
 //! - `npcGoldPack: [min, max]`: an unmovable backpack holding `new Gold(min, max)`.
 //! - `npcHoldGold: n`: the `BaseHire(AIType)` constructor's `HoldGold = 8`.
 //! - `npcVendorOutfit: true`: `BaseVendor.InitOutfit()` (in an `npcOutfit` prop).
+//! - `npcTitleByGender: {"female": "..", "male": ".."}`: `Title = Female ? .. : ..`.
 //! - `npcSeq: [{..}, {..}]`: blocks of template keys run in order (a block can repeat a key of an earlier one).
 //! - `npcIfLayerEmpty: {"layer": "TwoHanded", "then": {..}}`: the block when nothing is on that layer.
 //!
@@ -257,6 +258,19 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         "npcHoldGold",
         muo_content::templates::keys::check_int,
         |w, id, v| crate::npcs::hires::set_hold_gold(w, id, muo_content::templates::keys::int(v)),
+    );
+    mobile_key(
+        types,
+        "npcTitleByGender",
+        |v| match (v.get("female"), v.get("male")) {
+            (Some(Value::String(_)), Some(Value::String(_))) if v.as_object().is_some_and(|o| o.len() == 2) => Ok(()),
+            _ => Err(format!("expected {{\"female\": title, \"male\": title}}, got {v}")),
+        },
+        |w, id, v| {
+            let female = w.mobile(id).is_some_and(|m| m.female);
+            let t = v[if female { "female" } else { "male" }].as_str().map(str::to_owned);
+            muo_server::mobile::part1::props_a::set_title(w, id, t);
+        },
     );
     mobile_key(types, "npcVendorOutfit", check_bool, |w, id, _| {
         muo_content::vendor::init_outfit(w, id);
