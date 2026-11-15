@@ -10,3 +10,4 @@ build/
 # Written at run time by tests and servers started from this directory
 crates/*/Configuration/
 crates/*/Logs/
+/Configuration/
