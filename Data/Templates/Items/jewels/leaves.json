@@ -1,0 +1,108 @@
+[
+  {
+    "type": "Server.Items.RingOfTheVile",
+    "hue": 1271,
+    "attributes": {
+      "BonusDex": 8,
+      "RegenStam": 6,
+      "AttackChance": 15
+    },
+    "elementAttributes": {
+      "Poison": 20
+    },
+    "props": {
+      "labelNumber": 1061102,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.RingOfTheElements",
+    "hue": 1257,
+    "attributes": {
+      "Luck": 100
+    },
+    "elementAttributes": {
+      "Fire": 16,
+      "Cold": 16,
+      "Poison": 16,
+      "Energy": 16
+    },
+    "props": {
+      "labelNumber": 1061104,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.OrnamentOfTheMagician",
+    "hue": 1364,
+    "attributes": {
+      "CastRecovery": 3,
+      "CastSpeed": 2,
+      "LowerManaCost": 10,
+      "LowerRegCost": 20
+    },
+    "elementAttributes": {
+      "Energy": 15
+    },
+    "props": {
+      "labelNumber": 1061105,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.ResilientBracer",
+    "hue": 1160,
+    "skillBonuses": [
+      [
+        "MagicResist",
+        15.0
+      ]
+    ],
+    "attributes": {
+      "BonusHits": 5,
+      "RegenHits": 2,
+      "DefendChance": 10
+    },
+    "props": {
+      "labelNumber": 1072933
+    }
+  },
+  {
+    "type": "Server.Items.PendantOfTheMagi",
+    "hue": 1165,
+    "attributes": {
+      "BonusInt": 10,
+      "RegenMana": 3,
+      "SpellDamage": 5,
+      "LowerManaCost": 10,
+      "LowerRegCost": 30
+    },
+    "props": {
+      "labelNumber": 1072937
+    }
+  },
+  {
+    "type": "Server.Items.EssenceOfBattle",
+    "hue": 1360,
+    "attributes": {
+      "BonusDex": 7,
+      "BonusStr": 7,
+      "WeaponDamage": 30
+    },
+    "props": {
+      "labelNumber": 1072935
+    }
+  },
+  {
+    "type": "Server.Items.BraceletOfHealth",
+    "hue": 33,
+    "attributes": {
+      "BonusHits": 5,
+      "RegenHits": 10
+    },
+    "props": {
+      "labelNumber": 1061103,
+      "artifactRarity": 11
+    }
+  }
+]

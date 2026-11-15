@@ -253,7 +253,6 @@ clothing_leaf! {
             list.add(1073634); // An aquarium decoration
         },
     };
-    label_number: 1074572, // Crafty's Fishing Hat
     base_physical_resistance: 0,
     base_fire_resistance: 5,
     base_cold_resistance: 9,
@@ -278,7 +277,6 @@ clothing_leaf! {
             list.add(1073634); // An aquarium decoration
         },
     };
-    label_number: 1074364, // Waterlogged boots
 }
 
 /// Registers the classes of this file.

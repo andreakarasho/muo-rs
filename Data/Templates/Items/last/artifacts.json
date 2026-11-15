@@ -1,6 +1,18 @@
 [
   {
     "type": "Server.Items.AegisOfGrace",
+    "skillBonuses": [
+      [
+        "MagicResist",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "DefendChance": 20
+    },
+    "armorAttributes": {
+      "SelfRepair": 2
+    },
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 9,
@@ -8,11 +20,19 @@
       "basePoisonResistance": 7,
       "baseEnergyResistance": 15,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1075047
     }
   },
   {
     "type": "Server.Items.FeyLeggings",
+    "attributes": {
+      "BonusHits": 6,
+      "DefendChance": 20
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 12,
       "baseFireResistance": 8,
@@ -20,7 +40,8 @@
       "basePoisonResistance": 4,
       "baseEnergyResistance": 19,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1075041
     }
   },
   {
@@ -39,6 +60,15 @@
   },
   {
     "type": "Server.Items.ShieldOfInvulnerability",
+    "hue": 1266,
+    "attributes": {
+      "SpellChanneling": 1,
+      "ReflectPhysical": 10,
+      "DefendChance": 15
+    },
+    "armorAttributes": {
+      "LowerStatReq": 100
+    },
     "props": {
       "basePhysicalResistance": 8,
       "baseFireResistance": 0,
@@ -46,7 +76,8 @@
       "basePoisonResistance": 0,
       "baseEnergyResistance": 0,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1070693
     }
   },
   {
@@ -65,11 +96,25 @@
       "basePoisonResistance": 3,
       "baseEnergyResistance": 5,
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094924
     }
   },
   {
     "type": "Server.Items.ShroudOfDeciet",
+    "hue": 911,
+    "attributes": {
+      "RegenHits": 3
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
+    "skillBonuses": [
+      [
+        "MagicResist",
+        10.0
+      ]
+    ],
     "props": {
       "basePhysicalResistance": 11,
       "baseFireResistance": 6,
@@ -77,15 +122,98 @@
       "basePoisonResistance": 15,
       "baseEnergyResistance": 13,
       "initMinHits": 150,
-      "initMaxHits": 150
+      "initMaxHits": 150,
+      "labelNumber": 1094914
     }
   },
   {
     "type": "Server.Items.EscutcheonDeAriadne",
+    "lootType": "Blessed",
+    "hue": 2213,
+    "armorAttributes": {
+      "DurabilityBonus": 49
+    },
+    "attributes": {
+      "ReflectPhysical": 5,
+      "DefendChance": 5
+    },
     "props": {
       "basePhysicalResistance": 5,
       "baseEnergyResistance": 1,
-      "aosStrReq": 14
+      "aosStrReq": 14,
+      "labelNumber": 1077694
+    }
+  },
+  {
+    "type": "Server.Items.TheRobeOfBritanniaAri",
+    "props": {
+      "labelNumber": 1094931
+    }
+  },
+  {
+    "type": "Server.Items.TheMostKnowledgePerson",
+    "props": {
+      "labelNumber": 1094893
+    }
+  },
+  {
+    "type": "Server.Items.EmbroideredOakLeafCloak",
+    "props": {
+      "labelNumber": 1094901
+    }
+  },
+  {
+    "type": "Server.Items.CaptainJohnsHat",
+    "hue": 1109,
+    "attributes": {
+      "BonusDex": 8,
+      "NightSight": 1,
+      "AttackChance": 15
+    },
+    "skillBonuses": [
+      [
+        "Swords",
+        20.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1094911
+    }
+  },
+  {
+    "type": "Server.Items.RobeOfTheEquinox",
+    "attributes": {
+      "Luck": 95
+    },
+    "props": {
+      "labelNumber": 1075042
+    }
+  },
+  {
+    "type": "Server.Items.RobeOfTheEclipse",
+    "attributes": {
+      "Luck": 95
+    },
+    "props": {
+      "labelNumber": 1075082
+    }
+  },
+  {
+    "type": "Server.Items.PadsOfTheCuSidhe",
+    "props": {
+      "labelNumber": 1075048
+    }
+  },
+  {
+    "type": "Server.Items.DreadPirateHat",
+    "props": {
+      "labelNumber": 1063467
+    }
+  },
+  {
+    "type": "Server.Items.BurglarsBandana",
+    "props": {
+      "labelNumber": 1063473
     }
   }
 ]

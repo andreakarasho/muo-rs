@@ -1,42 +1,66 @@
 [
   {
     "type": "Server.Items.ArmsOfArmstrong",
+    "lootType": "Blessed",
+    "attributes": {
+      "BonusStr": 3,
+      "RegenHits": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
       "baseColdResistance": 5,
       "basePoisonResistance": 5,
-      "baseEnergyResistance": 5
+      "baseEnergyResistance": 5,
+      "labelNumber": 1077675
     }
   },
   {
     "type": "Server.Items.BulwarkLeggings",
+    "lootType": "Blessed",
+    "attributes": {
+      "RegenStam": 1,
+      "RegenMana": 1
+    },
     "props": {
       "basePhysicalResistance": 9,
       "baseFireResistance": 5,
       "baseColdResistance": 5,
       "basePoisonResistance": 5,
-      "baseEnergyResistance": 3
+      "baseEnergyResistance": 3,
+      "labelNumber": 1077727
     }
   },
   {
     "type": "Server.Items.GlovesOfSafeguarding",
+    "lootType": "Blessed",
+    "attributes": {
+      "BonusStam": 3,
+      "RegenHits": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
       "baseColdResistance": 5,
       "basePoisonResistance": 5,
-      "baseEnergyResistance": 5
+      "baseEnergyResistance": 5,
+      "labelNumber": 1077614
     }
   },
   {
     "type": "Server.Items.HealersTouch",
+    "lootType": "Blessed",
+    "attributes": {
+      "BonusStam": 3,
+      "ReflectPhysical": 5
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
       "baseColdResistance": 5,
       "basePoisonResistance": 5,
-      "baseEnergyResistance": 5
+      "baseEnergyResistance": 5,
+      "labelNumber": 1077684
     }
   },
   {
@@ -48,32 +72,99 @@
   },
   {
     "type": "Server.Items.TunicOfGuarding",
+    "lootType": "Blessed",
+    "attributes": {
+      "BonusHits": 2,
+      "ReflectPhysical": 5
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
       "baseColdResistance": 5,
       "basePoisonResistance": 5,
-      "baseEnergyResistance": 5
+      "baseEnergyResistance": 5,
+      "labelNumber": 1077693
     }
   },
   {
     "type": "Server.Items.TwilightJacket",
+    "lootType": "Blessed",
+    "attributes": {
+      "ReflectPhysical": 5
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 12,
       "baseColdResistance": 3,
       "basePoisonResistance": 3,
-      "baseEnergyResistance": 3
+      "baseEnergyResistance": 3,
+      "labelNumber": 1078183
     }
   },
   {
     "type": "Server.Items.WalkersLeggings",
+    "lootType": "Blessed",
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 6,
       "baseColdResistance": 6,
       "basePoisonResistance": 3,
-      "baseEnergyResistance": 3
+      "baseEnergyResistance": 3,
+      "labelNumber": 1078222
+    }
+  },
+  {
+    "type": "Server.Items.RingOfTheSavant",
+    "lootType": "Blessed",
+    "attributes": {
+      "BonusInt": 3,
+      "CastRecovery": 1,
+      "CastSpeed": 1
+    },
+    "props": {
+      "labelNumber": 1077608
+    }
+  },
+  {
+    "type": "Server.Items.PhilosophersHat",
+    "lootType": "Blessed",
+    "attributes": {
+      "RegenMana": 1,
+      "LowerRegCost": 7
+    },
+    "props": {
+      "labelNumber": 1077602
+    }
+  },
+  {
+    "type": "Server.Items.ClaspOfConcentration",
+    "lootType": "Blessed",
+    "attributes": {
+      "RegenStam": 2,
+      "RegenMana": 1
+    },
+    "elementAttributes": {
+      "Fire": 5,
+      "Cold": 5
+    },
+    "props": {
+      "labelNumber": 1077695
+    }
+  },
+  {
+    "type": "Server.Items.BraceletOfResilience",
+    "lootType": "Blessed",
+    "attributes": {
+      "DefendChance": 5
+    },
+    "elementAttributes": {
+      "Fire": 5,
+      "Cold": 5,
+      "Poison": 5,
+      "Energy": 5
+    },
+    "props": {
+      "labelNumber": 1077627
     }
   }
 ]

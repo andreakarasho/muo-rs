@@ -1,0 +1,150 @@
+[
+  {
+    "type": "Server.Items.Stormgrip",
+    "attributes": {
+      "BonusInt": 8,
+      "Luck": 125,
+      "WeaponDamage": 25
+    },
+    "props": {
+      "labelNumber": 1070970
+    }
+  },
+  {
+    "type": "Server.Items.RuneBeetleCarapace",
+    "attributes": {
+      "BonusMana": 10,
+      "RegenMana": 3,
+      "LowerManaCost": 15
+    },
+    "armorAttributes": {
+      "LowerStatReq": 100,
+      "MageArmor": 1
+    },
+    "props": {
+      "labelNumber": 1070968
+    }
+  },
+  {
+    "type": "Server.Items.KasaOfTheRajin",
+    "attributes": {
+      "SpellDamage": 12
+    },
+    "props": {
+      "labelNumber": 1070969
+    }
+  },
+  {
+    "type": "Server.Items.LeurociansMempoOfFortune",
+    "lootType": "Regular",
+    "hue": 1281,
+    "attributes": {
+      "Luck": 300,
+      "RegenMana": 1
+    },
+    "props": {
+      "labelNumber": 1071460
+    }
+  },
+  {
+    "type": "Server.Items.LegsOfStability",
+    "attributes": {
+      "BonusStam": 5
+    },
+    "armorAttributes": {
+      "SelfRepair": 3,
+      "LowerStatReq": 100,
+      "MageArmor": 1
+    },
+    "props": {
+      "labelNumber": 1070925
+    }
+  },
+  {
+    "type": "Server.Items.GlovesOfTheSun",
+    "attributes": {
+      "RegenHits": 2,
+      "NightSight": 1,
+      "LowerManaCost": 5,
+      "LowerRegCost": 18
+    },
+    "props": {
+      "labelNumber": 1070924
+    }
+  },
+  {
+    "type": "Server.Items.DaimyosHelm",
+    "armorAttributes": {
+      "LowerStatReq": 100,
+      "MageArmor": 1,
+      "SelfRepair": 3
+    },
+    "attributes": {
+      "WeaponSpeed": 10
+    },
+    "props": {
+      "labelNumber": 1070920
+    }
+  },
+  {
+    "type": "Server.Items.BlackLotusHood",
+    "attributes": {
+      "LowerManaCost": 6,
+      "AttackChance": 6
+    },
+    "armorAttributes": {
+      "SelfRepair": 5
+    },
+    "props": {
+      "labelNumber": 1070919
+    }
+  },
+  {
+    "type": "Server.Items.ArmsOfTacticalExcellence",
+    "attributes": {
+      "BonusDex": 5
+    },
+    "skillBonuses": [
+      [
+        "Tactics",
+        12.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1070921
+    }
+  },
+  {
+    "type": "Server.Items.AncientSamuraiDo",
+    "armorAttributes": {
+      "LowerStatReq": 100,
+      "MageArmor": 1
+    },
+    "skillBonuses": [
+      [
+        "Parry",
+        10.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1070926
+    }
+  },
+  {
+    "type": "Server.Items.AncientFarmersKasa",
+    "attributes": {
+      "BonusStr": 5,
+      "BonusStam": 5,
+      "RegenStam": 5
+    },
+    "skillBonuses": [
+      [
+        "AnimalLore",
+        5.0
+      ]
+    ],
+    "props": {
+      "labelNumber": 1070922
+    }
+  }
+]

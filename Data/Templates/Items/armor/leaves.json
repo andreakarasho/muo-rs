@@ -1,94 +1,204 @@
 [
   {
     "type": "Server.Items.ArmorOfFortune",
+    "hue": 1281,
+    "attributes": {
+      "Luck": 200,
+      "DefendChance": 15,
+      "LowerRegCost": 40
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061098,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.BrambleCoat",
+    "hue": 1,
+    "armorAttributes": {
+      "SelfRepair": 3
+    },
+    "attributes": {
+      "BonusHits": 4,
+      "Luck": 150,
+      "ReflectPhysical": 25,
+      "DefendChance": 15
+    },
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 8,
       "baseColdResistance": 7,
       "basePoisonResistance": 8,
-      "baseEnergyResistance": 7
+      "baseEnergyResistance": 7,
+      "labelNumber": 1072925
     }
   },
   {
     "type": "Server.Items.IronwoodCrown",
+    "hue": 1,
+    "armorAttributes": {
+      "SelfRepair": 3
+    },
+    "attributes": {
+      "BonusStr": 5,
+      "BonusDex": 5,
+      "BonusInt": 5
+    },
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 6,
       "baseColdResistance": 7,
       "basePoisonResistance": 7,
-      "baseEnergyResistance": 10
+      "baseEnergyResistance": 10,
+      "labelNumber": 1072924
     }
   },
   {
     "type": "Server.Items.SongWovenMantle",
+    "hue": 1171,
+    "skillBonuses": [
+      [
+        "Musicianship",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "Luck": 100,
+      "DefendChance": 5
+    },
     "props": {
       "basePhysicalResistance": 14,
       "baseColdResistance": 14,
-      "baseEnergyResistance": 16
+      "baseEnergyResistance": 16,
+      "labelNumber": 1072931
     }
   },
   {
     "type": "Server.Items.SpellWovenBritches",
+    "hue": 1159,
+    "skillBonuses": [
+      [
+        "Meditation",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "BonusInt": 8,
+      "SpellDamage": 10,
+      "LowerManaCost": 10
+    },
     "props": {
       "baseFireResistance": 15,
-      "basePoisonResistance": 16
+      "basePoisonResistance": 16,
+      "labelNumber": 1072929
     }
   },
   {
     "type": "Server.Items.StitchersMittens",
+    "hue": 1153,
+    "skillBonuses": [
+      [
+        "Healing",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "BonusDex": 5,
+      "LowerRegCost": 30
+    },
     "props": {
       "basePhysicalResistance": 20,
-      "baseColdResistance": 20
+      "baseColdResistance": 20,
+      "labelNumber": 1072932
     }
   },
   {
     "type": "Server.Items.GauntletsOfNobility",
+    "hue": 1278,
+    "attributes": {
+      "BonusStr": 8,
+      "Luck": 100,
+      "WeaponDamage": 20
+    },
     "props": {
       "basePhysicalResistance": 18,
       "basePoisonResistance": 20,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061092,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.HelmOfInsight",
+    "hue": 1364,
+    "attributes": {
+      "BonusInt": 8,
+      "BonusMana": 15,
+      "RegenMana": 2,
+      "LowerManaCost": 8
+    },
     "props": {
       "baseEnergyResistance": 17,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061096,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.HolyKnightsBreastplate",
+    "hue": 1150,
+    "attributes": {
+      "BonusHits": 10,
+      "ReflectPhysical": 15
+    },
     "props": {
       "basePhysicalResistance": 35,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061097,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.InquisitorsResolution",
+    "hue": 1266,
+    "attributes": {
+      "CastRecovery": 3,
+      "LowerManaCost": 8
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
     "props": {
       "baseColdResistance": 22,
       "baseEnergyResistance": 17,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1060206,
+      "artifactRarity": 10
     }
   },
   {
     "type": "Server.Items.JackalsCollar",
+    "hue": 1745,
+    "attributes": {
+      "BonusDex": 15,
+      "RegenHits": 2
+    },
     "props": {
       "baseFireResistance": 23,
       "baseColdResistance": 17,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061594,
+      "artifactRarity": 11
     }
   },
   {
@@ -96,51 +206,108 @@
     "props": {
       "basePoisonResistance": 36,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061100,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.MidnightBracers",
+    "hue": 1109,
+    "skillBonuses": [
+      [
+        "Necromancy",
+        20.0
+      ]
+    ],
+    "attributes": {
+      "SpellDamage": 10
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 23,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061093,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.OrnateCrownOfTheHarrower",
+    "hue": 1270,
+    "attributes": {
+      "RegenHits": 2,
+      "RegenStam": 3,
+      "WeaponDamage": 25
+    },
     "props": {
       "basePoisonResistance": 17,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061095,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.ShadowDancerLeggings",
+    "itemId": 5074,
+    "hue": 1109,
+    "skillBonuses": [
+      [
+        "Stealth",
+        20.0
+      ],
+      [
+        "Stealing",
+        20.0
+      ]
+    ],
     "props": {
       "basePhysicalResistance": 17,
       "basePoisonResistance": 18,
       "baseEnergyResistance": 18,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061598,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.TunicOfFire",
+    "hue": 1359,
+    "armorAttributes": {
+      "SelfRepair": 5
+    },
+    "attributes": {
+      "NightSight": 1,
+      "ReflectPhysical": 15
+    },
     "props": {
       "basePhysicalResistance": 24,
       "baseFireResistance": 34,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061099,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.VoiceOfTheFallenKing",
+    "hue": 1901,
+    "attributes": {
+      "BonusStr": 8,
+      "RegenHits": 5,
+      "RegenStam": 3
+    },
     "props": {
       "baseColdResistance": 18,
       "baseEnergyResistance": 18,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061094,
+      "artifactRarity": 11
     }
   },
   {
@@ -344,6 +511,10 @@
   },
   {
     "type": "Server.Items.DaemonArms",
+    "hue": 1608,
+    "armorAttributes": {
+      "SelfRepair": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
@@ -355,11 +526,16 @@
       "aosStrReq": 55,
       "oldStrReq": 40,
       "oldDexBonus": -2,
-      "armorBase": 46
+      "armorBase": 46,
+      "labelNumber": 1041371
     }
   },
   {
     "type": "Server.Items.DaemonChest",
+    "hue": 1608,
+    "armorAttributes": {
+      "SelfRepair": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
@@ -371,11 +547,16 @@
       "aosStrReq": 60,
       "oldStrReq": 40,
       "oldDexBonus": -6,
-      "armorBase": 46
+      "armorBase": 46,
+      "labelNumber": 1041372
     }
   },
   {
     "type": "Server.Items.DaemonGloves",
+    "hue": 1608,
+    "armorAttributes": {
+      "SelfRepair": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
@@ -387,11 +568,16 @@
       "aosStrReq": 55,
       "oldStrReq": 40,
       "oldDexBonus": -1,
-      "armorBase": 46
+      "armorBase": 46,
+      "labelNumber": 1041373
     }
   },
   {
     "type": "Server.Items.DaemonLegs",
+    "hue": 1608,
+    "armorAttributes": {
+      "SelfRepair": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
@@ -403,7 +589,8 @@
       "aosStrReq": 55,
       "oldStrReq": 40,
       "oldDexBonus": -4,
-      "armorBase": 46
+      "armorBase": 46,
+      "labelNumber": 1041375
     }
   },
   {
@@ -488,6 +675,12 @@
   },
   {
     "type": "Server.Items.AnthropomorphistGlasses",
+    "attributes": {
+      "BonusHits": 5,
+      "RegenMana": 3,
+      "ReflectPhysical": 20
+    },
+    "hue": 128,
     "props": {
       "basePhysicalResistance": 5,
       "baseFireResistance": 5,
@@ -495,11 +688,18 @@
       "basePoisonResistance": 20,
       "baseEnergyResistance": 20,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073379
     }
   },
   {
     "type": "Server.Items.ArtsGlasses",
+    "attributes": {
+      "BonusStr": 5,
+      "BonusInt": 5,
+      "BonusHits": 15
+    },
+    "hue": 115,
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 8,
@@ -507,11 +707,18 @@
       "basePoisonResistance": 4,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073363
     }
   },
   {
     "type": "Server.Items.FoldedSteelGlasses",
+    "attributes": {
+      "BonusStr": 8,
+      "NightSight": 1,
+      "DefendChance": 15
+    },
+    "hue": 1150,
     "props": {
       "basePhysicalResistance": 20,
       "baseFireResistance": 10,
@@ -519,11 +726,18 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073380
     }
   },
   {
     "type": "Server.Items.LightOfWayGlasses",
+    "attributes": {
+      "BonusStr": 7,
+      "BonusInt": 5,
+      "WeaponDamage": 30
+    },
+    "hue": 598,
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 10,
@@ -531,11 +745,20 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073378
     }
   },
   {
     "type": "Server.Items.LyricalGlasses",
+    "weaponAttributes": {
+      "HitLowerDefend": 20
+    },
+    "attributes": {
+      "NightSight": 1,
+      "ReflectPhysical": 15
+    },
+    "hue": 1151,
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 10,
@@ -543,11 +766,20 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073382
     }
   },
   {
     "type": "Server.Items.MaceShieldGlasses",
+    "weaponAttributes": {
+      "HitLowerDefend": 30
+    },
+    "attributes": {
+      "BonusStr": 10,
+      "BonusDex": 5
+    },
+    "hue": 477,
     "props": {
       "basePhysicalResistance": 25,
       "baseFireResistance": 10,
@@ -555,11 +787,18 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073381
     }
   },
   {
     "type": "Server.Items.MaritimeGlasses",
+    "attributes": {
+      "Luck": 150,
+      "NightSight": 1,
+      "ReflectPhysical": 20
+    },
+    "hue": 1409,
     "props": {
       "basePhysicalResistance": 3,
       "baseFireResistance": 4,
@@ -567,11 +806,17 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 3,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073364
     }
   },
   {
     "type": "Server.Items.NecromanticGlasses",
+    "attributes": {
+      "LowerManaCost": 15,
+      "LowerRegCost": 30
+    },
+    "hue": 557,
     "props": {
       "basePhysicalResistance": 0,
       "baseFireResistance": 0,
@@ -579,11 +824,17 @@
       "basePoisonResistance": 0,
       "baseEnergyResistance": 0,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073377
     }
   },
   {
     "type": "Server.Items.PoisonedGlasses",
+    "attributes": {
+      "BonusStam": 3,
+      "RegenStam": 4
+    },
+    "hue": 275,
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 10,
@@ -591,11 +842,16 @@
       "basePoisonResistance": 30,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073376
     }
   },
   {
     "type": "Server.Items.TradeGlasses",
+    "attributes": {
+      "BonusStr": 10,
+      "BonusInt": 10
+    },
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 10,
@@ -603,11 +859,18 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073362
     }
   },
   {
     "type": "Server.Items.TreasureTrinketGlasses",
+    "attributes": {
+      "BonusInt": 10,
+      "BonusHits": 5,
+      "SpellDamage": 10
+    },
+    "hue": 450,
     "props": {
       "basePhysicalResistance": 10,
       "baseFireResistance": 10,
@@ -615,11 +878,18 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073373
     }
   },
   {
     "type": "Server.Items.WizardsGlasses",
+    "attributes": {
+      "BonusMana": 10,
+      "RegenMana": 3,
+      "SpellDamage": 15
+    },
+    "hue": 688,
     "props": {
       "basePhysicalResistance": 5,
       "baseFireResistance": 5,
@@ -627,7 +897,8 @@
       "basePoisonResistance": 5,
       "baseEnergyResistance": 5,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1073374
     }
   },
   {
@@ -707,6 +978,10 @@
   },
   {
     "type": "Server.Items.DaemonHelm",
+    "hue": 1608,
+    "armorAttributes": {
+      "SelfRepair": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 6,
@@ -717,7 +992,8 @@
       "initMaxHits": 255,
       "aosStrReq": 20,
       "oldStrReq": 40,
-      "armorBase": 46
+      "armorBase": 46,
+      "labelNumber": 1041374
     }
   },
   {
@@ -1696,6 +1972,7 @@
   },
   {
     "type": "Server.Items.RangerArms",
+    "hue": 1436,
     "props": {
       "basePhysicalResistance": 2,
       "baseFireResistance": 4,
@@ -1706,11 +1983,13 @@
       "initMaxHits": 45,
       "aosStrReq": 25,
       "oldStrReq": 25,
-      "armorBase": 16
+      "armorBase": 16,
+      "labelNumber": 1041493
     }
   },
   {
     "type": "Server.Items.RangerChest",
+    "hue": 1436,
     "props": {
       "basePhysicalResistance": 2,
       "baseFireResistance": 4,
@@ -1721,11 +2000,13 @@
       "initMaxHits": 45,
       "aosStrReq": 35,
       "oldStrReq": 35,
-      "armorBase": 16
+      "armorBase": 16,
+      "labelNumber": 1041497
     }
   },
   {
     "type": "Server.Items.RangerGloves",
+    "hue": 1436,
     "props": {
       "basePhysicalResistance": 2,
       "baseFireResistance": 4,
@@ -1736,11 +2017,13 @@
       "initMaxHits": 45,
       "aosStrReq": 25,
       "oldStrReq": 25,
-      "armorBase": 16
+      "armorBase": 16,
+      "labelNumber": 1041494
     }
   },
   {
     "type": "Server.Items.RangerGorget",
+    "hue": 1436,
     "props": {
       "basePhysicalResistance": 2,
       "baseFireResistance": 4,
@@ -1751,11 +2034,13 @@
       "initMaxHits": 45,
       "aosStrReq": 25,
       "oldStrReq": 25,
-      "armorBase": 16
+      "armorBase": 16,
+      "labelNumber": 1041495
     }
   },
   {
     "type": "Server.Items.RangerLegs",
+    "hue": 1436,
     "props": {
       "basePhysicalResistance": 2,
       "baseFireResistance": 4,
@@ -1766,7 +2051,8 @@
       "initMaxHits": 45,
       "aosStrReq": 30,
       "oldStrReq": 35,
-      "armorBase": 16
+      "armorBase": 16,
+      "labelNumber": 1041496
     }
   },
   {
@@ -1835,6 +2121,12 @@
   },
   {
     "type": "Server.Items.SpiritualityHelm",
+    "lootType": "Blessed",
+    "weight": 6.0,
+    "hue": 550,
+    "armorAttributes": {
+      "SelfRepair": 5
+    },
     "props": {
       "basePhysicalResistance": 13,
       "baseFireResistance": 13,
@@ -1843,11 +2135,18 @@
       "baseEnergyResistance": 13,
       "initMinHits": 255,
       "initMaxHits": 255,
-      "aosStrReq": 25
+      "aosStrReq": 25,
+      "labelNumber": 1075237
     }
   },
   {
     "type": "Server.Items.ValorGauntlets",
+    "lootType": "Blessed",
+    "weight": 4.0,
+    "hue": 550,
+    "armorAttributes": {
+      "SelfRepair": 5
+    },
     "props": {
       "basePhysicalResistance": 11,
       "baseFireResistance": 11,
@@ -1856,7 +2155,8 @@
       "baseEnergyResistance": 10,
       "initMinHits": 255,
       "initMaxHits": 255,
-      "aosStrReq": 50
+      "aosStrReq": 50,
+      "labelNumber": 1075238
     }
   },
   {
@@ -2370,17 +2670,38 @@
   },
   {
     "type": "Server.Items.Aegis",
+    "hue": 1150,
+    "armorAttributes": {
+      "SelfRepair": 5
+    },
+    "attributes": {
+      "ReflectPhysical": 15,
+      "DefendChance": 15,
+      "LowerManaCost": 8
+    },
     "props": {
       "basePhysicalResistance": 15,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061602,
+      "artifactRarity": 11
     }
   },
   {
     "type": "Server.Items.ArcaneShield",
+    "itemId": 7032,
+    "hue": 1366,
+    "attributes": {
+      "NightSight": 1,
+      "SpellChanneling": 1,
+      "DefendChance": 15,
+      "CastSpeed": 1
+    },
     "props": {
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1061101,
+      "artifactRarity": 11
     }
   },
   {
@@ -2492,6 +2813,12 @@
       "initMaxHits": 25,
       "aosStrReq": 20,
       "armorBase": 8
+    }
+  },
+  {
+    "type": "Server.Items.ElvenGlasses",
+    "props": {
+      "labelNumber": 1032216
     }
   }
 ]

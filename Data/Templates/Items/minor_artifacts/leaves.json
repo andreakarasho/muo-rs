@@ -50,14 +50,35 @@
   },
   {
     "type": "Server.Items.GlovesOfThePugilist",
+    "hue": 1745,
+    "skillBonuses": [
+      [
+        "Wrestling",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "BonusDex": 8,
+      "WeaponDamage": 15
+    },
     "props": {
       "basePhysicalResistance": 18,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1070690
     }
   },
   {
     "type": "Server.Items.HeartOfTheLion",
+    "hue": 1281,
+    "attributes": {
+      "Luck": 95,
+      "DefendChance": 15
+    },
+    "armorAttributes": {
+      "LowerStatReq": 100,
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 15,
       "baseFireResistance": 10,
@@ -65,7 +86,8 @@
       "basePoisonResistance": 10,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1070817
     }
   },
   {
@@ -98,6 +120,14 @@
   },
   {
     "type": "Server.Items.BrightsightLenses",
+    "hue": 1281,
+    "attributes": {
+      "NightSight": 1,
+      "RegenMana": 3
+    },
+    "armorAttributes": {
+      "SelfRepair": 3
+    },
     "props": {
       "basePhysicalResistance": 9,
       "baseFireResistance": 29,
@@ -105,7 +135,8 @@
       "basePoisonResistance": 8,
       "baseEnergyResistance": 7,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1075039
     }
   },
   {
@@ -117,6 +148,15 @@
   },
   {
     "type": "Server.Items.HelmOfSwiftness",
+    "hue": 1426,
+    "attributes": {
+      "BonusInt": 5,
+      "CastSpeed": 1,
+      "CastRecovery": 2
+    },
+    "armorAttributes": {
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 6,
       "baseFireResistance": 5,
@@ -124,7 +164,8 @@
       "basePoisonResistance": 6,
       "baseEnergyResistance": 8,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1075037
     }
   },
   {
@@ -171,6 +212,14 @@
   },
   {
     "type": "Server.Items.OrcishVisage",
+    "hue": 1426,
+    "armorAttributes": {
+      "SelfRepair": 3
+    },
+    "attributes": {
+      "BonusStr": 10,
+      "BonusStam": 5
+    },
     "props": {
       "basePhysicalResistance": 8,
       "baseFireResistance": 5,
@@ -178,7 +227,8 @@
       "basePoisonResistance": 3,
       "baseEnergyResistance": 5,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1070691
     }
   },
   {
@@ -197,6 +247,15 @@
   },
   {
     "type": "Server.Items.VioletCourage",
+    "hue": 1158,
+    "attributes": {
+      "Luck": 95,
+      "DefendChance": 15
+    },
+    "armorAttributes": {
+      "LowerStatReq": 100,
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 14,
       "baseFireResistance": 12,
@@ -204,7 +263,8 @@
       "basePoisonResistance": 8,
       "baseEnergyResistance": 9,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1063471
     }
   },
   {
@@ -224,5 +284,39 @@
     "type": "Server.Items.ShipModelOfTheHMSCape",
     "itemId": 5363,
     "hue": 891
+  },
+  {
+    "type": "Server.Items.PolarBearMask",
+    "hue": 1153,
+    "armorAttributes": {
+      "SelfRepair": 3
+    },
+    "attributes": {
+      "RegenHits": 2,
+      "NightSight": 1
+    },
+    "props": {
+      "labelNumber": 1070637
+    }
+  },
+  {
+    "type": "Server.Items.AlchemistsBauble",
+    "hue": 656,
+    "skillBonuses": [
+      [
+        "Magery",
+        10.0
+      ]
+    ],
+    "attributes": {
+      "EnhancePotions": 30,
+      "LowerRegCost": 20
+    },
+    "elementAttributes": {
+      "Poison": 10
+    },
+    "props": {
+      "labelNumber": 1070638
+    }
   }
 ]

@@ -1,0 +1,89 @@
+[
+  {
+    "type": "Server.Items.ClothNinjaJacket",
+    "layer": "InnerTorso"
+  },
+  {
+    "type": "Server.Items.MonkRobe",
+    "props": {
+      "labelNumber": 1076584
+    }
+  },
+  {
+    "type": "Server.Items.MagicWizardsHat",
+    "props": {
+      "labelNumber": 1041072
+    }
+  },
+  {
+    "type": "Server.Items.SpiritOfTheTotem",
+    "hue": 1109,
+    "attributes": {
+      "BonusStr": 20,
+      "ReflectPhysical": 15,
+      "AttackChance": 15
+    },
+    "props": {
+      "labelNumber": 1061599,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.HuntersHeaddress",
+    "hue": 1428,
+    "skillBonuses": [
+      [
+        "Archery",
+        20.0
+      ]
+    ],
+    "attributes": {
+      "BonusDex": 8,
+      "NightSight": 1,
+      "AttackChance": 15
+    },
+    "props": {
+      "labelNumber": 1061595,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.HatOfTheMagi",
+    "hue": 1153,
+    "attributes": {
+      "BonusInt": 8,
+      "RegenMana": 4,
+      "SpellDamage": 10
+    },
+    "props": {
+      "labelNumber": 1061597,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.DivineCountenance",
+    "hue": 1154,
+    "attributes": {
+      "BonusInt": 8,
+      "RegenMana": 2,
+      "ReflectPhysical": 15,
+      "LowerManaCost": 8
+    },
+    "props": {
+      "labelNumber": 1061289,
+      "artifactRarity": 11
+    }
+  },
+  {
+    "type": "Server.Items.CrimsonCincture",
+    "hue": 1157,
+    "attributes": {
+      "BonusDex": 5,
+      "BonusHits": 10,
+      "RegenHits": 2
+    },
+    "props": {
+      "labelNumber": 1075043
+    }
+  }
+]

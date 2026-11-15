@@ -3,9 +3,7 @@
 
 use crate::armor::skill_bonus;
 use crate::simple::{hue, item_id, leaf, weapon_art};
-use muo_content::aos::{
-    AosArmorAttribute, AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind,
-};
+use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::items::{same, set_attr};
 use muo_server::World;
 use muo_server::ids::ItemId;
@@ -29,14 +27,7 @@ use muo_content::items::slayer::SlayerName;
 jewel_leaf! {
     /// `Server.Items.AlchemistsBauble`.
     ALCHEMISTS_BAUBLE, ALCHEMISTS_BAUBLE_CLASS, alchemists_bauble_new = "Server.Items.AlchemistsBauble" : GOLD_BRACELET / GOLD_BRACELET_CLASS, gold_bracelet_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x290);
-        skill_bonus(w, id, 0, SkillName::Magery, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::EnhancePotions as u32, 30);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 20);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Poison as u32, 10);
-    };
-    label_number: 1070638,
+    @template;
 }
 
 weapon_art! {
@@ -167,13 +158,7 @@ leaf! {
 armor_leaf! {
     /// `Server.Items.GlovesOfThePugilist`.
     GLOVES_OF_THE_PUGILIST, GLOVES_OF_THE_PUGILIST_CLASS, gloves_of_the_pugilist_new = "Server.Items.GlovesOfThePugilist" : LEATHER_GLOVES / LEATHER_GLOVES_CLASS, leather_gloves_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x6D1);
-        skill_bonus(w, id, 0, SkillName::Wrestling, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 15);
-    };
-    label_number: 1070690,
+    @template;
 }
 
 /// `GoldBricks()`.
@@ -191,14 +176,7 @@ leaf! {
 armor_leaf! {
     /// `Server.Items.HeartOfTheLion`.
     HEART_OF_THE_LION, HEART_OF_THE_LION_CLASS, heart_of_the_lion_new = "Server.Items.HeartOfTheLion" : PLATE_CHEST / PLATE_CHEST_CLASS, plate_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x501);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 95);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1070817,
+    @template;
 }
 
 weapon_art! {
@@ -259,13 +237,7 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.BrightsightLenses`.
     BRIGHTSIGHT_LENSES, BRIGHTSIGHT_LENSES_CLASS, brightsight_lenses_new = "Server.Items.BrightsightLenses" : ELVEN_GLASSES / ELVEN_GLASSES_CLASS, elven_glasses_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x501);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 3);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 3);
-    };
-    label_number: 1075039,
+    @template;
 }
 
 weapon_art! {
@@ -285,14 +257,7 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.HelmOfSwiftness`.
     HELM_OF_SWIFTNESS, HELM_OF_SWIFTNESS_CLASS, helm_of_swiftness_new = "Server.Items.HelmOfSwiftness" : WINGED_HELM / WINGED_HELM_CLASS, winged_helm_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x592);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastRecovery as u32, 2);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1075037,
+    @template;
 }
 
 weapon_art! {
@@ -399,13 +364,7 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.OrcishVisage`.
     ORCISH_VISAGE, ORCISH_VISAGE_CLASS, orcish_visage_new = "Server.Items.OrcishVisage" : ORC_HELM / ORC_HELM_CLASS, orc_helm_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x592);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 5);
-    };
-    label_number: 1070691,
+    @template;
 }
 
 weapon_art! {
@@ -427,13 +386,7 @@ weapon_art! {
 clothing_leaf! {
     /// `Server.Items.PolarBearMask`.
     POLAR_BEAR_MASK, POLAR_BEAR_MASK_CLASS, polar_bear_mask_new = "Server.Items.PolarBearMask" : BEAR_MASK / BEAR_MASK_CLASS, bear_mask_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x481);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-    };
-    label_number: 1070637,
+    @template;
     base_physical_resistance: 15,
     base_cold_resistance: 21,
     init_min_hits: same(255),
@@ -469,14 +422,7 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.VioletCourage`.
     VIOLET_COURAGE, VIOLET_COURAGE_CLASS, violet_courage_new = "Server.Items.VioletCourage" : FEMALE_PLATE_CHEST / FEMALE_PLATE_CHEST_CLASS, female_plate_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x486);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 95);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1063471,
+    @template;
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

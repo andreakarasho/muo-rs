@@ -9,7 +9,7 @@ use crate::clothing::clothing_leaf;
 use crate::clothing::leaves::*;
 use crate::simple::{random, random_bool, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{AosArmorAttribute, AosAttribute, AosWeaponAttribute, AttrKind};
+use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::craft::CraftResource;
 use muo_content::items::armor::{ArmorClass, ArmorMaterialType};
 use muo_content::items::clothing::{BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing};
@@ -35,7 +35,6 @@ clothing_leaf! {
         skill_bonus(w, id, 2, SkillName::Snooping, 10.0);
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
     };
-    label_number: 1063473,
     base_physical_resistance: 10,
     base_fire_resistance: 5,
     base_cold_resistance: 7,
@@ -65,7 +64,6 @@ clothing_leaf! {
         set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
         set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
     };
-    label_number: 1063467,
     base_cold_resistance: 14,
     base_poison_resistance: 10,
     init_min_hits: same(255),
@@ -77,12 +75,7 @@ clothing_leaf! {
 armor_leaf! {
     /// `Server.Items.AegisOfGrace`.
     AEGIS_OF_GRACE, AEGIS_OF_GRACE_CLASS, aegis_of_grace_new = "Server.Items.AegisOfGrace" : DRAGON_HELM / DRAGON_HELM_CLASS, dragon_helm_new, encoded true;
-    @init |w, id| {
-        skill_bonus(w, id, 0, SkillName::MagicResist, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 20);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 2);
-    };
-    label_number: 1075047,
+    @template;
     material_type: ArmorMaterialType::Dragon,
     default_resource: CraftResource::Iron,
     required_races: Some(ALLOW_ELVES_ONLY),
@@ -91,41 +84,29 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.FeyLeggings`.
     FEY_LEGGINGS, FEY_LEGGINGS_CLASS, fey_leggings_new = "Server.Items.FeyLeggings" : CHAIN_LEGS / CHAIN_LEGS_CLASS, chain_legs_new, encoded true;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 6);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 20);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1075041,
+    @template;
     required_races: Some(ALLOW_ELVES_ONLY),
 }
 
 clothing_leaf! {
     /// `Server.Items.PadsOfTheCuSidhe` (`base(0x47E)`).
     PADS_OF_THE_CU_SIDHE, PADS_OF_THE_CU_SIDHE_CLASS, pads_of_the_cu_sidhe_new = "Server.Items.PadsOfTheCuSidhe" : FUR_BOOTS / FUR_BOOTS_CLASS, fur_boots_new, hue 0x47E, encoded true;
-    label_number: 1075048,
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEclipse`.
     ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F03, 0x486), hue 0, encoded true;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 95);
-    };
+    @template;
     flippable: Some((0x1F03, 0x1F04)),
     default_weight: Some(3.0),
-    label_number: 1075082,
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEquinox`.
     ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F04, 0xD6), hue 0, encoded true;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 95);
-    };
+    @template;
     flippable: Some((0x1F03, 0x1F04)),
     default_weight: Some(3.0),
-    label_number: 1075042,
 }
 
 weapon_art! {
@@ -158,18 +139,11 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.ShieldOfInvulnerability`; `Validate(m) => true` makes the guild checks of OrderShield pass.
     SHIELD_OF_INVULNERABILITY, SHIELD_OF_INVULNERABILITY_CLASS, shield_of_invulnerability_new = "Server.Items.ShieldOfInvulnerability" : ORDER_SHIELD / ORDER_SHIELD_CLASS, order_shield_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4F2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-    };
+    @template;
     @ty {
         on_equip: muo_content::items::armor::BASE_SHIELD.on_equip,
         on_single_click: muo_content::items::armor::BASE_SHIELD.on_single_click,
     };
-    label_number: 1070693,
 }
 
 weapon_art! {
@@ -193,14 +167,7 @@ weapon_art! {
 clothing_leaf! {
     /// `Server.Items.CaptainJohnsHat`.
     CAPTAIN_JOHNS_HAT, CAPTAIN_JOHNS_HAT_CLASS, captain_johns_hat_new = "Server.Items.CaptainJohnsHat" : TRICORNE_HAT / TRICORNE_HAT_CLASS, tricorne_hat_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        skill_bonus(w, id, 0, SkillName::Swords, 20.0);
-    };
-    label_number: 1094911,
+    @template;
     base_physical_resistance: 2,
     base_fire_resistance: 6,
     base_cold_resistance: 9,
@@ -241,7 +208,6 @@ clothing_leaf! {
         muo_content::items::clothing::set_str_requirement(w, id, 0);
         skill_bonus(w, id, 0, SkillName::Stealth, 5.0);
     };
-    label_number: 1094901,
     init_min_hits: same(150),
     init_max_hits: same(150),
     can_fortify: false,
@@ -256,7 +222,6 @@ clothing_leaf! {
         let bonus = 3 + crate::simple::random_min_max(w, 0, 2);
         set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, bonus);
     };
-    label_number: 1094893,
     init_min_hits: same(150),
     init_max_hits: same(150),
     can_fortify: false,
@@ -270,7 +235,6 @@ clothing_leaf! {
         hue(w, id, 0x48b);
         muo_content::items::clothing::set_str_requirement(w, id, 0);
     };
-    label_number: 1094931,
     base_physical_resistance: 10,
     init_min_hits: same(150),
     init_max_hits: same(150),
@@ -290,20 +254,13 @@ armor_leaf! {
             set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 30);
         }
     };
-    label_number: 1094924,
     can_fortify: false,
 }
 
 armor_leaf! {
     /// `Server.Items.ShroudOfDeciet`.
     SHROUD_OF_DECIET, SHROUD_OF_DECIET_CLASS, shroud_of_deciet_new = "Server.Items.ShroudOfDeciet" : BONE_CHEST / BONE_CHEST_CLASS, bone_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x38F);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 3);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-        skill_bonus(w, id, 0, SkillName::MagicResist, 10.0);
-    };
-    label_number: 1094914,
+    @template;
     can_fortify: false,
 }
 
@@ -312,14 +269,7 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.EscutcheonDeAriadne`.
     ESCUTCHEON_DE_ARIADNE, ESCUTCHEON_DE_ARIADNE_CLASS, escutcheon_de_ariadne_new = "Server.Items.EscutcheonDeAriadne" : METAL_KITE_SHIELD / METAL_KITE_SHIELD_CLASS, metal_kite_shield_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        hue(w, id, 0x8A5);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::DurabilityBonus as u32, 49);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-    };
-    label_number: 1077694,
+    @template;
 }
 
 weapon_art! {

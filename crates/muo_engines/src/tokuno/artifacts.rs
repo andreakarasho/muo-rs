@@ -3,7 +3,7 @@
 //! `TomeOfEnlightenment`, `TomeOfLostKnowledge` (`Spellbook`) and `FluteOfRenewal` (`BambooFlute`) are at the end.
 //! `FluteOfRenewal.InitMaxUses` (300) is `instruments::init_uses_of`.
 
-use muo_content::aos::{AosArmorAttribute, AosAttribute, AosWeaponAttribute, AttrKind, Attrs};
+use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind, Attrs};
 use muo_content::items::slayer::SlayerName;
 use muo_content::items::weapon_combat::DamageTypes;
 use muo_content::items::{same, set_attr};
@@ -38,10 +38,6 @@ fn attr(w: &mut World, id: ItemId, a: AosAttribute, v: i32) {
     set_attr(w, id, AttrKind::Attributes, a as u32, v);
 }
 
-fn armor_attr(w: &mut World, id: ItemId, a: AosArmorAttribute, v: i32) {
-    set_attr(w, id, AttrKind::Armor, a as u32, v);
-}
-
 fn weapon_attr(w: &mut World, id: ItemId, a: AosWeaponAttribute, v: i32) {
     set_attr(w, id, AttrKind::Weapon, a as u32, v);
 }
@@ -50,6 +46,20 @@ fn weapon_attr(w: &mut World, id: ItemId, a: AosWeaponAttribute, v: i32) {
 /// `clothing_leaf!` and `weapon_art!`, which are private to that crate): `NAME, NAME_CLASS: ClassTable, ctor =
 /// "Full.Name" : PARENT, PARENT_CLASS, <parent constructor>;` then `@init` and one `field: value,` per `override`.
 macro_rules! art {
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident: $cty:ident, $ctor:ident = $full:literal : $parent:path, $pclass:path, $pnew:expr;
+        @template;
+        $($rest:tt)*
+    ) => {
+        art! {
+            $(#[$m])*
+            $name, $class: $cty, $ctor = $full : $parent, $pclass, $pnew;
+            @init |w, id| ::muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident: $cty:ident, $ctor:ident = $full:literal : $parent:path, $pclass:path, $pnew:expr;
@@ -108,13 +118,7 @@ fn dmg(phys: i32, fire: i32, cold: i32, pois: i32, nrgy: i32) -> DamageTypes {
 art! {
     /// `Server.Items.AncientFarmersKasa`.
     ANCIENT_FARMERS_KASA, ANCIENT_FARMERS_KASA_CLASS: ClothingClass, ancient_farmers_kasa_new = "Server.Items.AncientFarmersKasa" : KASA, KASA_CLASS, |w, ty| kasa_new(w, ty, 0);
-    @init |w, id| {
-        attr(w, id, AosAttribute::BonusStr, 5);
-        attr(w, id, AosAttribute::BonusStam, 5);
-        attr(w, id, AosAttribute::RegenStam, 5);
-        skill_bonus(w, id, 0, SkillName::AnimalLore, 5.0);
-    };
-    label_number: 1070922,
+    @template;
     base_cold_resistance: 19,
     init_min_hits: same(255),
     init_max_hits: same(255),
@@ -123,12 +127,7 @@ art! {
 art! {
     /// `Server.Items.AncientSamuraiDo`.
     ANCIENT_SAMURAI_DO, ANCIENT_SAMURAI_DO_CLASS: ArmorClass, ancient_samurai_do_new = "Server.Items.AncientSamuraiDo" : PLATE_DO, PLATE_DO_CLASS, plate_do_new;
-    @init |w, id| {
-        armor_attr(w, id, AosArmorAttribute::LowerStatReq, 100);
-        armor_attr(w, id, AosArmorAttribute::MageArmor, 1);
-        skill_bonus(w, id, 0, SkillName::Parry, 10.0);
-    };
-    label_number: 1070926,
+    @template;
     base_physical_resistance: 15,
     base_fire_resistance: 12,
     base_cold_resistance: 10,
@@ -141,11 +140,7 @@ art! {
 art! {
     /// `Server.Items.ArmsOfTacticalExcellence`.
     ARMS_OF_TACTICAL_EXCELLENCE, ARMS_OF_TACTICAL_EXCELLENCE_CLASS: ArmorClass, arms_of_tactical_excellence_new = "Server.Items.ArmsOfTacticalExcellence" : LEATHER_HIRO_SODE, LEATHER_HIRO_SODE_CLASS, leather_hiro_sode_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::BonusDex, 5);
-        skill_bonus(w, id, 0, SkillName::Tactics, 12.0);
-    };
-    label_number: 1070921,
+    @template;
     base_fire_resistance: 9,
     base_cold_resistance: 13,
     base_poison_resistance: 8,
@@ -156,12 +151,7 @@ art! {
 art! {
     /// `Server.Items.BlackLotusHood`.
     BLACK_LOTUS_HOOD, BLACK_LOTUS_HOOD_CLASS: ClothingClass, black_lotus_hood_new = "Server.Items.BlackLotusHood" : CLOTH_NINJA_HOOD, CLOTH_NINJA_HOOD_CLASS, |w, ty| cloth_ninja_hood_new(w, ty, 0);
-    @init |w, id| {
-        attr(w, id, AosAttribute::LowerManaCost, 6);
-        attr(w, id, AosAttribute::AttackChance, 6);
-        armor_attr(w, id, AosArmorAttribute::SelfRepair, 5);
-    };
-    label_number: 1070919,
+    @template;
     base_physical_resistance: 0,
     base_fire_resistance: 11,
     base_cold_resistance: 15,
@@ -174,13 +164,7 @@ art! {
 art! {
     /// `Server.Items.DaimyosHelm`.
     DAIMYOS_HELM, DAIMYOS_HELM_CLASS: ArmorClass, daimyos_helm_new = "Server.Items.DaimyosHelm" : PLATE_BATTLE_KABUTO, PLATE_BATTLE_KABUTO_CLASS, plate_battle_kabuto_new;
-    @init |w, id| {
-        armor_attr(w, id, AosArmorAttribute::LowerStatReq, 100);
-        armor_attr(w, id, AosArmorAttribute::MageArmor, 1);
-        armor_attr(w, id, AosArmorAttribute::SelfRepair, 3);
-        attr(w, id, AosAttribute::WeaponSpeed, 10);
-    };
-    label_number: 1070920,
+    @template;
     base_cold_resistance: 10,
     init_min_hits: 255,
     init_max_hits: 255,
@@ -234,13 +218,7 @@ art! {
 art! {
     /// `Server.Items.GlovesOfTheSun`.
     GLOVES_OF_THE_SUN, GLOVES_OF_THE_SUN_CLASS: ArmorClass, gloves_of_the_sun_new = "Server.Items.GlovesOfTheSun" : LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::RegenHits, 2);
-        attr(w, id, AosAttribute::NightSight, 1);
-        attr(w, id, AosAttribute::LowerManaCost, 5);
-        attr(w, id, AosAttribute::LowerRegCost, 18);
-    };
-    label_number: 1070924,
+    @template;
     base_fire_resistance: 24,
     init_min_hits: 255,
     init_max_hits: 255,
@@ -263,13 +241,7 @@ art! {
 art! {
     /// `Server.Items.LegsOfStability`.
     LEGS_OF_STABILITY, LEGS_OF_STABILITY_CLASS: ArmorClass, legs_of_stability_new = "Server.Items.LegsOfStability" : PLATE_SUNEATE, PLATE_SUNEATE_CLASS, plate_suneate_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::BonusStam, 5);
-        armor_attr(w, id, AosArmorAttribute::SelfRepair, 3);
-        armor_attr(w, id, AosArmorAttribute::LowerStatReq, 100);
-        armor_attr(w, id, AosArmorAttribute::MageArmor, 1);
-    };
-    label_number: 1070925,
+    @template;
     base_physical_resistance: 20,
     base_poison_resistance: 18,
     init_min_hits: 255,
@@ -323,13 +295,7 @@ art! {
 art! {
     /// `Server.Items.LeurociansMempoOfFortune`: `LootType = Regular; Hue = 0x501`.
     LEUROCIANS_MEMPO_OF_FORTUNE, LEUROCIANS_MEMPO_OF_FORTUNE_CLASS: ArmorClass, leurocians_mempo_of_fortune_new = "Server.Items.LeurociansMempoOfFortune" : LEATHER_MEMPO, LEATHER_MEMPO_CLASS, leather_mempo_new;
-    @init |w, id| {
-        ops::set_loot_type(w, id, muo_server::item::LootType::Regular);
-        hue(w, id, 0x501);
-        attr(w, id, AosAttribute::Luck, 300);
-        attr(w, id, AosAttribute::RegenMana, 1);
-    };
-    label_number: 1071460,
+    @template;
     base_physical_resistance: 15,
     base_fire_resistance: 10,
     base_cold_resistance: 10,
@@ -358,8 +324,7 @@ art! {
 art! {
     /// `Server.Items.KasaOfTheRajin`.
     KASA_OF_THE_RAJIN, KASA_OF_THE_RAJIN_CLASS: ClothingClass, kasa_of_the_rajin_new = "Server.Items.KasaOfTheRajin" : KASA, KASA_CLASS, |w, ty| kasa_new(w, ty, 0);
-    @init |w, id| { attr(w, id, AosAttribute::SpellDamage, 12); };
-    label_number: 1070969,
+    @template;
     base_physical_resistance: 12,
     base_fire_resistance: 17,
     base_cold_resistance: 21,
@@ -372,16 +337,9 @@ art! {
 art! {
     /// `Server.Items.RuneBeetleCarapace`.
     RUNE_BEETLE_CARAPACE, RUNE_BEETLE_CARAPACE_CLASS: ArmorClass, rune_beetle_carapace_new = "Server.Items.RuneBeetleCarapace" : PLATE_DO, PLATE_DO_CLASS, plate_do_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::BonusMana, 10);
-        attr(w, id, AosAttribute::RegenMana, 3);
-        attr(w, id, AosAttribute::LowerManaCost, 15);
-        armor_attr(w, id, AosArmorAttribute::LowerStatReq, 100);
-        armor_attr(w, id, AosArmorAttribute::MageArmor, 1);
-    };
+    @template;
     init_min_hits: 255,
     init_max_hits: 255,
-    label_number: 1070968,
     base_cold_resistance: 14,
     base_energy_resistance: 14,
 }
@@ -389,14 +347,9 @@ art! {
 art! {
     /// `Server.Items.Stormgrip`.
     STORMGRIP, STORMGRIP_CLASS: ArmorClass, stormgrip_new = "Server.Items.Stormgrip" : LEATHER_NINJA_MITTS, LEATHER_NINJA_MITTS_CLASS, leather_ninja_mitts_new;
-    @init |w, id| {
-        attr(w, id, AosAttribute::BonusInt, 8);
-        attr(w, id, AosAttribute::Luck, 125);
-        attr(w, id, AosAttribute::WeaponDamage, 25);
-    };
+    @template;
     init_min_hits: 255,
     init_max_hits: 255,
-    label_number: 1070970,
     base_physical_resistance: 10,
     base_cold_resistance: 18,
     base_energy_resistance: 18,

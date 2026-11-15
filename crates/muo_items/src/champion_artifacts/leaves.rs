@@ -2,11 +2,11 @@
 //! are hand-written next to this file.
 
 use crate::simple::{hue, leaf, random, weapon_art};
-use muo_content::aos::{AosArmorAttribute, AosAttribute, AosWeaponAttribute, AttrKind};
+use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::items::{same, set_attr};
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::type_registry::TypeRegistry;
 
 use crate::armor::armor_leaf;
@@ -149,10 +149,7 @@ leaf! {
 clothing_leaf! {
     /// `Server.Items.ANecromancerShroud`.
     A_NECROMANCER_SHROUD, A_NECROMANCER_SHROUD_CLASS, a_necromancer_shroud_new = "Server.Items.ANecromancerShroud" : ROBE / ROBE_CLASS, robe_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-    };
-    label_number: 1094913,
+    @template;
     base_cold_resistance: 5,
     init_min_hits: same(150),
     init_max_hits: same(150),
@@ -178,12 +175,7 @@ weapon_art! {
 jewel_leaf! {
     /// `Server.Items.DjinnisRing`.
     DJINNIS_RING, DJINNIS_RING_CLASS, djinnis_ring_new = "Server.Items.DjinnisRing" : SILVER_RING / SILVER_RING_CLASS, silver_ring_new, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, 2);
-    };
-    label_number: 1094927,
+    @template;
     init_min_hits: 150,
     init_max_hits: 150,
 }
@@ -191,26 +183,14 @@ jewel_leaf! {
 armor_leaf! {
     /// `Server.Items.GuantletsOfAnger`.
     GUANTLETS_OF_ANGER, GUANTLETS_OF_ANGER_CLASS, guantlets_of_anger_new = "Server.Items.GuantletsOfAnger" : PLATE_GLOVES / PLATE_GLOVES_CLASS, plate_gloves_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x29b);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 10);
-    };
-    label_number: 1094902,
+    @template;
     can_fortify: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.LieutenantOfTheBritannianRoyalGuard`.
     LIEUTENANT_OF_THE_BRITANNIAN_ROYAL_GUARD, LIEUTENANT_OF_THE_BRITANNIAN_ROYAL_GUARD_CLASS, lieutenant_of_the_britannian_royal_guard_new = "Server.Items.LieutenantOfTheBritannianRoyalGuard" : BODY_SASH / BODY_SASH_CLASS, body_sash_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0xe8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 10);
-    };
-    label_number: 1094910,
+    @template;
     init_min_hits: same(150),
     init_max_hits: same(150),
     can_fortify: false,
@@ -247,10 +227,7 @@ weapon_art! {
 clothing_leaf! {
     /// `Server.Items.SamaritanRobe`.
     SAMARITAN_ROBE, SAMARITAN_ROBE_CLASS, samaritan_robe_new = "Server.Items.SamaritanRobe" : ROBE / ROBE_CLASS, robe_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x2a3);
-    };
-    label_number: 1094926,
+    @template;
     base_physical_resistance: 5,
     init_min_hits: same(150),
     init_max_hits: same(150),
@@ -260,11 +237,7 @@ clothing_leaf! {
 clothing_leaf! {
     /// `Server.Items.AcidProofRobe`.
     ACID_PROOF_ROBE, ACID_PROOF_ROBE_CLASS, acid_proof_robe_new = "Server.Items.AcidProofRobe" : ROBE / ROBE_CLASS, robe_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        ops::set_loot_type(w, id, LootType::Blessed);
-    };
-    label_number: 1095236,
+    @template;
     base_fire_resistance: 4,
     init_min_hits: same(150),
     init_max_hits: same(150),
@@ -289,13 +262,7 @@ weapon_art! {
 clothing_leaf! {
     /// `Server.Items.CrownOfTalKeesh`.
     CROWN_OF_TAL_KEESH, CROWN_OF_TAL_KEESH_CLASS, crown_of_tal_keesh_new = "Server.Items.CrownOfTalKeesh" : BANDANA / BANDANA_CLASS, bandana_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4F2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 4);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellDamage as u32, 10);
-    };
-    label_number: 1094903,
+    @template;
     base_physical_resistance: 0,
     base_fire_resistance: 5,
     base_cold_resistance: 9,
@@ -325,13 +292,7 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.GladiatorsCollar`.
     GLADIATORS_COLLAR, GLADIATORS_COLLAR_CLASS, gladiators_collar_new = "Server.Items.GladiatorsCollar" : PLATE_GORGET / PLATE_GORGET_CLASS, plate_gorget_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x26d);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1094917,
+    @template;
     can_fortify: false,
 }
 

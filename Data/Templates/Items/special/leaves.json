@@ -8,6 +8,13 @@
   },
   {
     "type": "Server.Items.LeggingsOfEmbers",
+    "hue": 44,
+    "lootType": "Blessed",
+    "armorAttributes": {
+      "SelfRepair": 10,
+      "MageArmor": 1,
+      "LowerStatReq": 100
+    },
     "props": {
       "basePhysicalResistance": 15,
       "baseFireResistance": 25,
@@ -15,7 +22,8 @@
       "basePoisonResistance": 15,
       "baseEnergyResistance": 15,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1062911
     }
   },
   {
@@ -27,6 +35,15 @@
   },
   {
     "type": "Server.Items.SamuraiHelm",
+    "lootType": "Blessed",
+    "attributes": {
+      "DefendChance": 15
+    },
+    "armorAttributes": {
+      "SelfRepair": 10,
+      "LowerStatReq": 100,
+      "MageArmor": 1
+    },
     "props": {
       "basePhysicalResistance": 15,
       "baseFireResistance": 10,
@@ -34,12 +51,48 @@
       "basePoisonResistance": 15,
       "baseEnergyResistance": 10,
       "initMinHits": 255,
-      "initMaxHits": 255
+      "initMaxHits": 255,
+      "labelNumber": 1062923
     }
   },
   {
     "type": "Server.Items.PlagueBeastGland",
     "itemId": 7407,
     "hue": 6
+  },
+  {
+    "type": "Server.Items.WaterloggedBoots",
+    "props": {
+      "labelNumber": 1074364
+    }
+  },
+  {
+    "type": "Server.Items.CraftysFishingHat",
+    "props": {
+      "labelNumber": 1074572
+    }
+  },
+  {
+    "type": "Server.Items.HoodedShroudOfShadows",
+    "lootType": "Blessed"
+  },
+  {
+    "type": "Server.Items.JesterHatofChuckles",
+    "attributes": {
+      "Luck": 150
+    },
+    "props": {
+      "labelNumber": 1073256
+    }
+  },
+  {
+    "type": "Server.Items.LuckyNecklace",
+    "attributes": {
+      "Luck": 200
+    },
+    "lootType": "Blessed",
+    "props": {
+      "labelNumber": 1075239
+    }
   }
 ]

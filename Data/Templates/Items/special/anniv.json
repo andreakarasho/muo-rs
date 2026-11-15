@@ -1,6 +1,17 @@
 [
   {
     "type": "Server.Items.DupresShield",
+    "lootType": "Blessed",
+    "attributes": {
+      "BonusHits": 5,
+      "RegenHits": 1
+    },
+    "skillBonuses": [
+      [
+        "Parry",
+        5.0
+      ]
+    ],
     "props": {
       "basePhysicalResistance": 1,
       "baseFireResistance": 0,
@@ -10,7 +21,8 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "aosStrReq": 50,
-      "armorBase": 15
+      "armorBase": 15,
+      "labelNumber": 1075196
     }
   }
 ]

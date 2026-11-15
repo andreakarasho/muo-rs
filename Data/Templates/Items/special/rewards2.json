@@ -11,7 +11,8 @@
       "initMaxHits": 40,
       "aosStrReq": 20,
       "oldStrReq": 10,
-      "armorBase": 13
+      "armorBase": 13,
+      "labelNumber": 1045122
     }
   },
   {
@@ -26,7 +27,8 @@
       "initMaxHits": 45,
       "aosStrReq": 25,
       "oldStrReq": 25,
-      "armorBase": 16
+      "armorBase": 16,
+      "labelNumber": 1045123
     }
   },
   {
@@ -42,7 +44,8 @@
       "aosStrReq": 40,
       "oldStrReq": 20,
       "oldDexBonus": -1,
-      "armorBase": 22
+      "armorBase": 22,
+      "labelNumber": 1045124
     }
   }
 ]

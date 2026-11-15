@@ -2,7 +2,7 @@
 //! are hand-written next to this file.
 
 use crate::simple::weapon_art;
-use muo_content::aos::{AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind};
+use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::items::set_attr;
 use muo_server::World;
 use muo_server::ids::ItemId;
@@ -26,37 +26,19 @@ use muo_content::items::leaves::{LONGSWORD, LONGSWORD_CLASS};
 armor_leaf! {
     /// `Server.Items.ArmsOfArmstrong`.
     ARMS_OF_ARMSTRONG, ARMS_OF_ARMSTRONG_CLASS, arms_of_armstrong_new = "Server.Items.ArmsOfArmstrong" : LEATHER_ARMS / LEATHER_ARMS_CLASS, leather_arms_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStr as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
-    };
-    label_number: 1077675,
+    @template;
 }
 
 jewel_leaf! {
     /// `Server.Items.BraceletOfResilience`.
     BRACELET_OF_RESILIENCE, BRACELET_OF_RESILIENCE_CLASS, bracelet_of_resilience_new = "Server.Items.BraceletOfResilience" : GOLD_BRACELET / GOLD_BRACELET_CLASS, gold_bracelet_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Fire as u32, 5);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, 5);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Poison as u32, 5);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Energy as u32, 5);
-    };
-    label_number: 1077627,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.BulwarkLeggings`.
     BULWARK_LEGGINGS, BULWARK_LEGGINGS_CLASS, bulwark_leggings_new = "Server.Items.BulwarkLeggings" : RINGMAIL_LEGS / RINGMAIL_LEGS_CLASS, ringmail_legs_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenStam as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 1);
-    };
-    label_number: 1077727,
+    @template;
 }
 
 weapon_art! {
@@ -75,14 +57,7 @@ weapon_art! {
 jewel_leaf! {
     /// `Server.Items.ClaspOfConcentration`.
     CLASP_OF_CONCENTRATION, CLASP_OF_CONCENTRATION_CLASS, clasp_of_concentration_new = "Server.Items.ClaspOfConcentration" : SILVER_BRACELET / SILVER_BRACELET_CLASS, silver_bracelet_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenStam as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 1);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Fire as u32, 5);
-        set_attr(w, id, AttrKind::Element, AosElementAttribute::Cold as u32, 5);
-    };
-    label_number: 1077695,
+    @template;
 }
 
 weapon_art! {
@@ -102,23 +77,13 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.GlovesOfSafeguarding`.
     GLOVES_OF_SAFEGUARDING, GLOVES_OF_SAFEGUARDING_CLASS, gloves_of_safeguarding_new = "Server.Items.GlovesOfSafeguarding" : LEATHER_GLOVES / LEATHER_GLOVES_CLASS, leather_gloves_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
-    };
-    label_number: 1077614,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.HealersTouch`.
     HEALERS_TOUCH, HEALERS_TOUCH_CLASS, healers_touch_new = "Server.Items.HealersTouch" : LEATHER_GLOVES / LEATHER_GLOVES_CLASS, leather_gloves_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusStam as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
-    };
-    label_number: 1077684,
+    @template;
 }
 
 weapon_art! {
@@ -149,12 +114,7 @@ weapon_art! {
 clothing_leaf! {
     /// `Server.Items.PhilosophersHat`.
     PHILOSOPHERS_HAT, PHILOSOPHERS_HAT_CLASS, philosophers_hat_new = "Server.Items.PhilosophersHat" : WIZARDS_HAT / WIZARDS_HAT_CLASS, wizards_hat_new, hue 0, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenMana as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::LowerRegCost as u32, 7);
-    };
-    label_number: 1077602,
+    @template;
     base_physical_resistance: 5,
     base_fire_resistance: 5,
     base_cold_resistance: 9,
@@ -177,13 +137,7 @@ weapon_art! {
 jewel_leaf! {
     /// `Server.Items.RingOfTheSavant`.
     RING_OF_THE_SAVANT, RING_OF_THE_SAVANT_CLASS, ring_of_the_savant_new = "Server.Items.RingOfTheSavant" : GOLD_RING / GOLD_RING_CLASS, gold_ring_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastRecovery as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::CastSpeed as u32, 1);
-    };
-    label_number: 1077608,
+    @template;
 }
 
 weapon_art! {
@@ -213,31 +167,19 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.TunicOfGuarding`.
     TUNIC_OF_GUARDING, TUNIC_OF_GUARDING_CLASS, tunic_of_guarding_new = "Server.Items.TunicOfGuarding" : LEATHER_CHEST / LEATHER_CHEST_CLASS, leather_chest_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
-    };
-    label_number: 1077693,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.TwilightJacket`.
     TWILIGHT_JACKET, TWILIGHT_JACKET_CLASS, twilight_jacket_new = "Server.Items.TwilightJacket" : LEATHER_NINJA_JACKET / LEATHER_NINJA_JACKET_CLASS, leather_ninja_jacket_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
-    };
-    label_number: 1078183,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.WalkersLeggings`.
     WALKERS_LEGGINGS, WALKERS_LEGGINGS_CLASS, walkers_leggings_new = "Server.Items.WalkersLeggings" : LEATHER_NINJA_PANTS / LEATHER_NINJA_PANTS_CLASS, leather_ninja_pants_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-    };
-    label_number: 1078222,
+    @template;
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.
