@@ -13,7 +13,12 @@
       "oldSpeed": 35,
       "initMinHits": 31,
       "initMaxHits": 60,
-      "labelNumber": 1041281
+      "labelNumber": 1041281,
+      "defaultWeight": 11.0,
+      "harvestSystem": "Mining",
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "Disarm",
+      "defAnimation": "Slash1H"
     }
   },
   {
@@ -31,7 +36,12 @@
       "oldMinDamage": 1,
       "oldMaxDamage": 15,
       "oldSpeed": 35,
-      "labelNumber": 1045126
+      "labelNumber": 1045126,
+      "defaultWeight": 11.0,
+      "harvestSystem": "Mining",
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "Disarm",
+      "defAnimation": "Slash1H"
     }
   },
   {

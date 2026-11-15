@@ -14,7 +14,10 @@
       "defHitSound": 1334,
       "defMissSound": 570,
       "initMinHits": 25,
-      "initMaxHits": 50
+      "initMaxHits": 50,
+      "defaultWeight": 7.0,
+      "primaryAbility": "Feint",
+      "secondaryAbility": "NerveStrike"
     }
   },
   {
@@ -33,7 +36,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 45,
-      "initMaxHits": 65
+      "initMaxHits": 65,
+      "defaultWeight": 8.0,
+      "primaryAbility": "Feint",
+      "secondaryAbility": "DoubleStrike"
     }
   },
   {
@@ -52,7 +58,13 @@
       "defHitSound": 562,
       "defMissSound": 568,
       "initMinHits": 35,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 7.0,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "DefenseMastery",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -71,7 +83,13 @@
       "defHitSound": 562,
       "defMissSound": 568,
       "initMinHits": 90,
-      "initMaxHits": 95
+      "initMaxHits": 95,
+      "defaultWeight": 12.0,
+      "primaryAbility": "DefenseMastery",
+      "secondaryAbility": "FrenziedWhirlwind",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -90,7 +108,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 10.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "RidingSwipe"
     }
   },
   {
@@ -108,7 +129,10 @@
       "defHitSound": 1333,
       "defMissSound": 569,
       "initMinHits": 40,
-      "initMaxHits": 55
+      "initMaxHits": 55,
+      "defaultWeight": 5.0,
+      "primaryAbility": "Block",
+      "secondaryAbility": "Feint"
     }
   },
   {
@@ -127,7 +151,13 @@
       "defHitSound": 572,
       "defMissSound": 562,
       "initMinHits": 55,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 7.0,
+      "primaryAbility": "Block",
+      "secondaryAbility": "ArmorPierce",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -146,7 +176,13 @@
       "defHitSound": 568,
       "defMissSound": 562,
       "initMinHits": 35,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 5.0,
+      "primaryAbility": "DualWield",
+      "secondaryAbility": "TalonStrike",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -165,7 +201,11 @@
       "defHitSound": 562,
       "defMissSound": 568,
       "initMinHits": 55,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 6.0,
+      "primaryAbility": "Feint",
+      "secondaryAbility": "Block",
+      "defAnimation": "Bash2H"
     }
   },
   {
@@ -184,7 +224,11 @@
       "defHitSound": 563,
       "defMissSound": 568,
       "initMinHits": 60,
-      "initMaxHits": 65
+      "initMaxHits": 65,
+      "defaultWeight": 8.0,
+      "primaryAbility": "FrenziedWhirlwind",
+      "secondaryAbility": "CrushingBlow",
+      "defAnimation": "Bash2H"
     }
   },
   {
@@ -203,7 +247,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 45,
-      "initMaxHits": 50
+      "initMaxHits": 50,
+      "defaultWeight": 5.0,
+      "primaryAbility": "FrenziedWhirlwind",
+      "secondaryAbility": "DoubleStrike"
     }
   },
   {
@@ -225,7 +272,13 @@
       "oldSpeed": 25,
       "defMaxRange": 10,
       "initMinHits": 55,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 9.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "ArmorPierce",
+      "secondaryAbility": "DoubleShot",
+      "defAnimation": "ShootBow"
     }
   }
 ]

@@ -99,7 +99,6 @@ weapon_art! {
     /// `Server.Items.WildfireBow`.
     WILDFIRE_BOW, WILDFIRE_BOW_CLASS, wildfire_bow_new = "Server.Items.WildfireBow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
@@ -124,9 +123,6 @@ weapon_art! {
     /// `Server.Items.WrathOfTheDryad`.
     WRATH_OF_THE_DRYAD, WRATH_OF_THE_DRYAD_CLASS, wrath_of_the_dryad_new = "Server.Items.WrathOfTheDryad" : GNARLED_STAFF / GNARLED_STAFF_CLASS, via gnarled_staff_new, v0;
     @json;
-    primary_ability: Some(muo_content::items::weapon::Ability::ConcussionBlow),
-    secondary_ability: Some(muo_content::items::weapon::Ability::ParalyzingBlow),
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 100, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 // ---- Champion Artifacts ----

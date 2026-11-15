@@ -17,7 +17,13 @@
       "oldSpeed": 25,
       "defMaxRange": 10,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 5.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "MovingShot",
+      "defAnimation": "ShootBow"
     }
   },
   {
@@ -39,7 +45,12 @@
       "oldSpeed": 18,
       "defMaxRange": 8,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 7.0,
+      "effectId": 7166,
+      "ammoType": "Server.Items.Bolt",
+      "primaryAbility": "ConcussionBlow",
+      "secondaryAbility": "MortalStrike"
     }
   },
   {
@@ -64,7 +75,12 @@
       "oldSpeed": 10,
       "defMaxRange": 8,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 9.0,
+      "effectId": 7166,
+      "ammoType": "Server.Items.Bolt",
+      "primaryAbility": "MovingShot",
+      "secondaryAbility": "Dismount"
     }
   },
   {
@@ -95,7 +111,12 @@
       "oldSpeed": 41,
       "defMaxRange": 7,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 6.0,
+      "effectId": 7166,
+      "ammoType": "Server.Items.Bolt",
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "MovingShot"
     }
   },
   {

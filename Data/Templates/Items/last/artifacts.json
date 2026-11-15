@@ -60,7 +60,10 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1075044
+      "labelNumber": 1075044,
+      "damageTypes": {
+        "fire": 100
+      }
     }
   },
   {
@@ -115,7 +118,12 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1070853
+      "labelNumber": 1070853,
+      "primaryAbility": "ConcussionBlow",
+      "secondaryAbility": "ParalyzingBlow",
+      "damageTypes": {
+        "pois": 100
+      }
     }
   },
   {

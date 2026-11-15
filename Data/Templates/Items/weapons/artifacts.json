@@ -104,7 +104,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061111,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
@@ -139,7 +142,11 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061601,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "phys": 25,
+        "pois": 75
+      }
     }
   },
   {
@@ -157,7 +164,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061600,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
@@ -190,7 +200,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061248,
-      "artifactRarity": 11
+      "artifactRarity": 11,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
@@ -228,7 +241,10 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061110,
-      "artifactRarity": 10
+      "artifactRarity": 10,
+      "damageTypes": {
+        "pois": 100
+      }
     }
   },
   {
@@ -264,7 +280,14 @@
       "initMinHits": 255,
       "initMaxHits": 255,
       "labelNumber": 1061593,
-      "artifactRarity": 10
+      "artifactRarity": 10,
+      "damageTypes": {
+        "phys": 20,
+        "fire": 20,
+        "cold": 20,
+        "pois": 20,
+        "nrgy": 20
+      }
     }
   },
   {
@@ -296,7 +319,10 @@
     },
     "elementalDamageHue": true,
     "props": {
-      "labelNumber": 1072916
+      "labelNumber": 1072916,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
@@ -312,7 +338,10 @@
       "WeaponDamage": 60
     },
     "props": {
-      "labelNumber": 1072908
+      "labelNumber": 1072908,
+      "damageTypes": {
+        "fire": 100
+      }
     }
   },
   {
@@ -328,7 +357,10 @@
     },
     "elementalDamageHue": true,
     "props": {
-      "labelNumber": 1072922
+      "labelNumber": 1072922,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {
@@ -341,7 +373,10 @@
       "WeaponDamage": 45
     },
     "props": {
-      "labelNumber": 1072910
+      "labelNumber": 1072910,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
@@ -356,7 +391,10 @@
     },
     "elementalDamageHue": true,
     "props": {
-      "labelNumber": 1072920
+      "labelNumber": 1072920,
+      "damageTypes": {
+        "fire": 100
+      }
     }
   },
   {
@@ -369,7 +407,11 @@
       "WeaponDamage": 60
     },
     "props": {
-      "labelNumber": 1072919
+      "labelNumber": 1072919,
+      "damageTypes": {
+        "cold": 50,
+        "pois": 50
+      }
     }
   },
   {
@@ -414,7 +456,10 @@
       "WeaponDamage": 35
     },
     "props": {
-      "labelNumber": 1072955
+      "labelNumber": 1072955,
+      "damageTypes": {
+        "nrgy": 100
+      }
     }
   },
   {

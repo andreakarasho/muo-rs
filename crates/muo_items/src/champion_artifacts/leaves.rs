@@ -160,8 +160,6 @@ weapon_art! {
     /// `Server.Items.BraveKnightOfTheBritannia`.
     BRAVE_KNIGHT_OF_THE_BRITANNIA, BRAVE_KNIGHT_OF_THE_BRITANNIA_CLASS, brave_knight_of_the_britannia_new = "Server.Items.BraveKnightOfTheBritannia" : KATANA / KATANA_CLASS, via katana_new, v0;
     @json;
-    can_fortify: false,
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 40, cold: 30, pois: 10, nrgy: 20, chaos: 0, direct: 0 },
 }
 
 jewel_leaf! {
@@ -192,14 +190,12 @@ weapon_art! {
     /// `Server.Items.OblivionsNeedle`.
     OBLIVIONS_NEEDLE, OBLIVIONS_NEEDLE_CLASS, oblivions_needle_new = "Server.Items.OblivionsNeedle" : DAGGER / DAGGER_CLASS, via dagger_new, v0;
     @json;
-    can_fortify: false,
 }
 
 weapon_art! {
     /// `Server.Items.RoyalGuardSurvivalKnife`.
     ROYAL_GUARD_SURVIVAL_KNIFE, ROYAL_GUARD_SURVIVAL_KNIFE_CLASS, royal_guard_survival_knife_new = "Server.Items.RoyalGuardSurvivalKnife" : SKINNING_KNIFE / SKINNING_KNIFE_CLASS, via skinning_knife_new, v0;
     @json;
-    can_fortify: false,
 }
 
 clothing_leaf! {
@@ -226,7 +222,6 @@ weapon_art! {
     /// `Server.Items.Calm`.
     CALM, CALM_CLASS, calm_new = "Server.Items.Calm" : HALBERD / HALBERD_CLASS, via halberd_new, v0;
     @json;
-    can_fortify: false,
 }
 
 clothing_leaf! {
@@ -247,7 +242,6 @@ weapon_art! {
     /// `Server.Items.FangOfRactus`.
     FANG_OF_RACTUS, FANG_OF_RACTUS_CLASS, fang_of_ractus_new = "Server.Items.FangOfRactus" : KRYSS / KRYSS_CLASS, via kryss_new, v0;
     @json;
-    can_fortify: false,
 }
 
 armor_leaf! {
@@ -261,21 +255,18 @@ weapon_art! {
     /// `Server.Items.Pacify`.
     PACIFY, PACIFY_CLASS, pacify_new = "Server.Items.Pacify" : PIKE / PIKE_CLASS, via pike_new, v0;
     @json;
-    can_fortify: false,
 }
 
 weapon_art! {
     /// `Server.Items.Quell`.
     QUELL, QUELL_CLASS, quell_new = "Server.Items.Quell" : BARDICHE / BARDICHE_CLASS, via bardiche_new, v0;
     @json;
-    can_fortify: false,
 }
 
 weapon_art! {
     /// `Server.Items.Subdue`.
     SUBDUE, SUBDUE_CLASS, subdue_new = "Server.Items.Subdue" : SCYTHE / SCYTHE_CLASS, via scythe_new, v0;
     @json;
-    can_fortify: false,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

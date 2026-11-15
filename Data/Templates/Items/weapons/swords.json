@@ -9,7 +9,13 @@
       "defHitSound": 572,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "ParalyzingBlow",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H",
+      "requiredRaces": "AllowGargoylesOnly"
     }
   },
   {
@@ -27,7 +33,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 3.0,
+      "primaryAbility": "ParalyzingBlow",
+      "secondaryAbility": "MortalStrike"
     }
   },
   {
@@ -35,7 +44,9 @@
     "itemId": 526,
     "props": {
       "initMinHits": 5,
-      "initMaxHits": 5
+      "initMaxHits": 5,
+      "secondaryAbility": null,
+      "primaryAbility": null
     }
   },
   {
@@ -53,7 +64,10 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 6.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ArmorIgnore"
     }
   },
   {
@@ -71,7 +85,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 51,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "defaultWeight": 1.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "MortalStrike"
     }
   },
   {
@@ -89,7 +106,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 70
+      "initMaxHits": 70,
+      "defaultWeight": 8.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "ShadowStrike"
     }
   },
   {
@@ -102,7 +122,10 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ConcussionBlow",
+      "requiredRaces": "AllowGargoylesOnly"
     }
   },
   {
@@ -115,7 +138,10 @@
       "defHitSound": 567,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 80
+      "initMaxHits": 80,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "Dismount",
+      "requiredRaces": "AllowGargoylesOnly"
     }
   },
   {
@@ -128,7 +154,11 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 6.0,
+      "primaryAbility": "BleedAttack",
+      "secondaryAbility": "MortalStrike",
+      "requiredRaces": "AllowGargoylesOnly"
     }
   },
   {
@@ -146,7 +176,13 @@
       "defHitSound": 572,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 2.0,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "InfectiousStrike",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -164,7 +200,13 @@
       "defHitSound": 572,
       "defMissSound": 568,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 12.0,
+      "primaryAbility": "Dismount",
+      "secondaryAbility": "ConcussionBlow",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -182,7 +224,10 @@
       "defHitSound": 571,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 5.0,
+      "primaryAbility": "DoubleStrike",
+      "secondaryAbility": "ParalyzingBlow"
     }
   },
   {
@@ -200,7 +245,8 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 110
+      "initMaxHits": 110,
+      "defaultWeight": 1.0
     }
   },
   {
@@ -218,7 +264,10 @@
       "defHitSound": 567,
       "defMissSound": 570,
       "initMinHits": 31,
-      "initMaxHits": 100
+      "initMaxHits": 100,
+      "defaultWeight": 6.0,
+      "primaryAbility": "CrushingBlow",
+      "secondaryAbility": "ParalyzingBlow"
     }
   },
   {

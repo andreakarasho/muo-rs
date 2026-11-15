@@ -34,14 +34,12 @@ weapon_art! {
     /// `Server.Items.ArcticDeathDealer`.
     ARCTIC_DEATH_DEALER, ARCTIC_DEATH_DEALER_CLASS, arctic_death_dealer_new = "Server.Items.ArcticDeathDealer" : WAR_MACE / WAR_MACE_CLASS, via war_mace_new, v0;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 0, cold: 50, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
     /// `Server.Items.BlazeOfDeath`.
     BLAZE_OF_DEATH, BLAZE_OF_DEATH_CLASS, blaze_of_death_new = "Server.Items.BlazeOfDeath" : HALBERD / HALBERD_CLASS, via halberd_new, v0;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 50, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
@@ -77,7 +75,6 @@ weapon_art! {
     /// `Server.Items.ColdBlood`.
     COLD_BLOOD, COLD_BLOOD_CLASS, cold_blood_new = "Server.Items.ColdBlood" : CLEAVER / CLEAVER_CLASS, via cleaver_new, v0;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
@@ -144,7 +141,6 @@ weapon_art! {
     /// `Server.Items.Boomstick`.
     BOOMSTICK, BOOMSTICK_CLASS, boomstick_new = "Server.Items.Boomstick" : WILD_STAFF / WILD_STAFF_CLASS, via wild_staff_new, enc;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 0, nrgy: 0, chaos: 100, direct: 0 },
 }
 
 armor_leaf! {
@@ -187,7 +183,6 @@ weapon_art! {
     /// `Server.Items.SoulSeeker`.
     SOUL_SEEKER, SOUL_SEEKER_CLASS, soul_seeker_new = "Server.Items.SoulSeeker" : RADIANT_SCIMITAR / RADIANT_SCIMITAR_CLASS, via radiant_scimitar_new, enc;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 100, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 weapon_art! {
@@ -206,7 +201,6 @@ weapon_art! {
     /// `Server.Items.NoxRangersHeavyCrossbow`.
     NOX_RANGERS_HEAVY_CROSSBOW, NOX_RANGERS_HEAVY_CROSSBOW_CLASS, nox_rangers_heavy_crossbow_new = "Server.Items.NoxRangersHeavyCrossbow" : HEAVY_CROSSBOW / HEAVY_CROSSBOW_CLASS, via heavy_crossbow_new, v0;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 50, fire: 0, cold: 0, pois: 50, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 armor_leaf! {
@@ -219,7 +213,6 @@ weapon_art! {
     /// `Server.Items.PixieSwatter`.
     PIXIE_SWATTER, PIXIE_SWATTER_CLASS, pixie_swatter_new = "Server.Items.PixieSwatter" : SCEPTER / SCEPTER_CLASS, via scepter_new, v0;
     @json;
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
 }
 
 clothing_leaf! {

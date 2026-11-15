@@ -14,7 +14,14 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094909
+      "labelNumber": 1094909,
+      "canFortify": false,
+      "damageTypes": {
+        "fire": 40,
+        "cold": 30,
+        "pois": 10,
+        "nrgy": 20
+      }
     }
   },
   {
@@ -50,7 +57,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094916
+      "labelNumber": 1094916,
+      "canFortify": false
     }
   },
   {
@@ -67,7 +75,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094918
+      "labelNumber": 1094918,
+      "canFortify": false
     }
   },
   {
@@ -85,7 +94,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094915
+      "labelNumber": 1094915,
+      "canFortify": false
     }
   },
   {
@@ -104,7 +114,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094892
+      "labelNumber": 1094892,
+      "canFortify": false
     }
   },
   {
@@ -144,7 +155,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094929
+      "labelNumber": 1094929,
+      "canFortify": false
     }
   },
   {
@@ -163,7 +175,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094928
+      "labelNumber": 1094928,
+      "canFortify": false
     }
   },
   {
@@ -182,7 +195,8 @@
     "props": {
       "initMinHits": 150,
       "initMaxHits": 150,
-      "labelNumber": 1094930
+      "labelNumber": 1094930,
+      "canFortify": false
     }
   },
   {

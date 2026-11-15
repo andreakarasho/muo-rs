@@ -14,7 +14,11 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1063481
+      "labelNumber": 1063481,
+      "damageTypes": {
+        "phys": 50,
+        "cold": 50
+      }
     }
   },
   {
@@ -33,7 +37,11 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1063486
+      "labelNumber": 1063486,
+      "damageTypes": {
+        "phys": 50,
+        "fire": 50
+      }
     }
   },
   {
@@ -103,7 +111,10 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1070818
+      "labelNumber": 1070818,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
@@ -239,7 +250,10 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1075032
+      "labelNumber": 1075032,
+      "damageTypes": {
+        "chaos": 100
+      }
     }
   },
   {
@@ -356,7 +370,10 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1075046
+      "labelNumber": 1075046,
+      "damageTypes": {
+        "cold": 100
+      }
     }
   },
   {
@@ -417,7 +434,11 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1063485
+      "labelNumber": 1063485,
+      "damageTypes": {
+        "phys": 50,
+        "pois": 50
+      }
     }
   },
   {
@@ -457,7 +478,10 @@
     "props": {
       "initMinHits": 255,
       "initMaxHits": 255,
-      "labelNumber": 1070854
+      "labelNumber": 1070854,
+      "damageTypes": {
+        "fire": 100
+      }
     }
   },
   {

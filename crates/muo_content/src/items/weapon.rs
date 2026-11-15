@@ -36,6 +36,7 @@ use super::{MlInt, random_min_max, read_enum, same};
 use crate::aos::{AosWeaponAttribute, AttrKind, Attrs};
 use crate::core;
 use crate::craft::{self, CraftResource};
+use super::equip_props::{self as ep, Names};
 use crate::templates::{self, item_props as ip};
 
 int_enum! {
@@ -114,6 +115,23 @@ pub enum Ability {
     InfusedThrow,
     MysticArc,
 }
+
+impl Ability {
+    pub const ALL: [Ability; 31] = {
+        use Ability::*;
+        [
+            ArmorIgnore, BleedAttack, ConcussionBlow, CrushingBlow, Disarm, Dismount, DoubleStrike,
+            InfectiousStrike, MortalStrike, MovingShot, ParalyzingBlow, ShadowStrike, WhirlwindAttack, RidingSwipe,
+            FrenziedWhirlwind, Block, DefenseMastery, NerveStrike, TalonStrike, Feint, DualWield, DoubleShot,
+            ArmorPierce, Bladeweave, ForceArrow, LightningArrow, PsychicAttack, SerpentArrow, ForceOfNature,
+            InfusedThrow, MysticArc,
+        ]
+    };
+}
+
+static ABILITIES: Names<Ability> = Names::new(|| Ability::ALL.to_vec());
+static TYPES: Names<WeaponType> = Names::new(|| ep::all_of(16, WeaponType::from_i32));
+static ANIMATIONS: Names<WeaponAnimation> = Names::new(|| ep::all_of(64, WeaponAnimation::from_i32));
 
 /// The `override`s of a weapon class that are constants: one `static` per class, a subclass is
 /// `WeaponClass { .. , ..PARENT_CLASS }`. The stat fields (requirements, damage, speed, hits, sounds, range) are
@@ -532,8 +550,9 @@ pub fn max_range(w: &World, id: ItemId) -> i32 {
         return set;
     }
     let c = class(w, id);
-    if c.min_throw_range > 0 {
-        let (min, max) = (c.min_throw_range, c.min_throw_range + 3);
+    let mtr = min_throw_range(w, id);
+    if mtr > 0 {
+        let (min, max) = (mtr, mtr + 3);
         let Some(attacker) = super::parent_mobile(w, id) else {
             return max;
         };
@@ -550,11 +569,10 @@ pub fn max_range(w: &World, id: ItemId) -> i32 {
 
 /// BaseRanged `EffectID` (BaseThrown: the item's own graphic).
 pub fn effect_id(w: &World, id: ItemId) -> i32 {
-    let c = class(w, id);
-    if c.min_throw_range > 0 {
+    if min_throw_range(w, id) > 0 {
         w.item(id).map_or(0, |i| i.item_id)
     } else {
-        c.effect_id
+        ip::int(w, id, "effectId", class(w, id).effect_id)
     }
 }
 
@@ -572,19 +590,57 @@ pub fn set_poison_charges(w: &mut World, id: ItemId, value: i32) {
 /// `Skill`.
 pub fn skill(w: &World, id: ItemId) -> SkillName {
     let set = data(w, id).map_or(-1, |d| d.skill);
-    SkillName::from_i32(set).unwrap_or(class(w, id).def_skill)
+    SkillName::from_i32(set)
+        .unwrap_or_else(|| ep::named(w, id, "defSkill", &ep::SKILLS, class(w, id).def_skill))
 }
 
 /// `Type`.
 pub fn weapon_type(w: &World, id: ItemId) -> WeaponType {
     let set = data(w, id).map_or(-1, |d| d.weapon_type);
-    WeaponType::from_i32(set).unwrap_or(class(w, id).def_type)
+    WeaponType::from_i32(set)
+        .unwrap_or_else(|| ep::named(w, id, "defType", &TYPES, class(w, id).def_type))
 }
 
 /// `Animation`.
 pub fn animation(w: &World, id: ItemId) -> WeaponAnimation {
     let set = data(w, id).map_or(-1, |d| d.animation);
-    WeaponAnimation::from_i32(set).unwrap_or(class(w, id).def_animation)
+    WeaponAnimation::from_i32(set).unwrap_or_else(|| {
+        ep::named(w, id, "defAnimation", &ANIMATIONS, class(w, id).def_animation)
+    })
+}
+
+/// `PrimaryAbility` and `SecondaryAbility`.
+pub fn abilities(w: &World, id: ItemId) -> (Option<Ability>, Option<Ability>) {
+    let c = class(w, id);
+    (
+        ep::named_opt(w, id, "primaryAbility", &ABILITIES, c.primary_ability),
+        ep::named_opt(w, id, "secondaryAbility", &ABILITIES, c.secondary_ability),
+    )
+}
+
+/// BaseRanged's `AmmoType`, by full type name.
+pub fn ammo_type(w: &World, id: ItemId) -> Option<&'static str> {
+    ep::str_opt(w, id, "ammoType", class(w, id).ammo_type)
+}
+
+/// BaseThrown's `MinThrowRange` (0 for a weapon that is not thrown).
+pub fn min_throw_range(w: &World, id: ItemId) -> i32 {
+    ip::int(w, id, "minThrowRange", class(w, id).min_throw_range)
+}
+
+/// BaseAxe/BasePoleArm's `HarvestSystem` by name.
+pub fn harvest_system(w: &World, id: ItemId) -> Option<&'static str> {
+    ep::str_opt(w, id, "harvestSystem", class(w, id).harvest_system)
+}
+
+/// `VirtualDamageBonus`.
+pub fn virtual_damage_bonus(w: &World, id: ItemId) -> i32 {
+    ip::int(w, id, "virtualDamageBonus", class(w, id).virtual_damage_bonus)
+}
+
+/// `CanFortify`.
+pub fn can_fortify(w: &World, id: ItemId) -> bool {
+    ep::boolean(w, id, "canFortify", class(w, id).can_fortify)
 }
 
 // ---- properties with side effects ----
@@ -774,8 +830,7 @@ fn weapon_attr(w: &World, id: ItemId, a: AosWeaponAttribute) -> i32 {
 }
 
 fn default_weight(w: &World, id: ItemId) -> f64 {
-    class(w, id)
-        .default_weight
+    ep::float_opt(w, id, "defaultWeight", class(w, id).default_weight)
         .unwrap_or_else(|| base::default_weight_base(w, id))
 }
 
@@ -1243,6 +1298,9 @@ pub static BASE_WEAPON: ItemType = ItemType {
     family: Some(&BASE_WEAPON_CLASS),
     default_weight,
     label_number,
+    required_races: |w, id| {
+        ep::required_races(w, id, None).unwrap_or_else(|| base::required_races_base(w, id))
+    },
     set_hue,
     physical_resistance: |w, id| weapon_attr(w, id, AosWeaponAttribute::ResistPhysicalBonus),
     fire_resistance: |w, id| weapon_attr(w, id, AosWeaponAttribute::ResistFireBonus),

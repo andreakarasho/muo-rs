@@ -13,7 +13,11 @@
       "oldSpeed": 50,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 4.0,
+      "primaryAbility": "InfectiousStrike",
+      "secondaryAbility": "ShadowStrike",
+      "defSkill": "Fencing"
     }
   },
   {
@@ -29,7 +33,10 @@
       "oldMaxDamage": 17,
       "oldSpeed": 37,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 10.0,
+      "primaryAbility": "ConcussionBlow",
+      "secondaryAbility": "CrushingBlow"
     }
   },
   {
@@ -47,7 +54,13 @@
       "oldSpeed": 27,
       "defMaxRange": 10,
       "initMinHits": 41,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 8.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "ForceArrow",
+      "secondaryAbility": "SerpentArrow",
+      "defAnimation": "ShootBow"
     }
   },
   {
@@ -65,7 +78,10 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 6.0,
+      "primaryAbility": "DefenseMastery",
+      "secondaryAbility": "Bladeweave"
     }
   },
   {
@@ -83,7 +99,10 @@
       "oldSpeed": 44,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 5.0,
+      "primaryAbility": "PsychicAttack",
+      "secondaryAbility": "BleedAttack"
     }
   },
   {
@@ -100,7 +119,11 @@
       "oldSpeed": 42,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 8.0,
+      "primaryAbility": "Feint",
+      "secondaryAbility": "ArmorIgnore",
+      "defSkill": "Fencing"
     }
   },
   {
@@ -118,7 +141,12 @@
       "oldSpeed": 38,
       "defMaxRange": 10,
       "initMinHits": 41,
-      "initMaxHits": 90
+      "initMaxHits": 90,
+      "defaultWeight": 6.0,
+      "effectId": 3906,
+      "ammoType": "Server.Items.Arrow",
+      "primaryAbility": "LightningArrow",
+      "secondaryAbility": "PsychicAttack"
     }
   },
   {
@@ -136,7 +164,10 @@
       "oldSpeed": 26,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 12.0,
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "CrushingBlow"
     }
   },
   {
@@ -154,7 +185,10 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 9.0,
+      "primaryAbility": "WhirlwindAttack",
+      "secondaryAbility": "Bladeweave"
     }
   },
   {
@@ -173,7 +207,10 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 7.0,
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "Bladeweave"
     }
   },
   {
@@ -191,7 +228,13 @@
       "defHitSound": 571,
       "defMissSound": 569,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 10.0,
+      "primaryAbility": "Disarm",
+      "secondaryAbility": "Bladeweave",
+      "defSkill": "Fencing",
+      "defType": "Piercing",
+      "defAnimation": "Pierce1H"
     }
   },
   {
@@ -208,7 +251,10 @@
       "oldMaxDamage": 12,
       "oldSpeed": 48,
       "initMinHits": 30,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "defaultWeight": 8.0,
+      "primaryAbility": "Block",
+      "secondaryAbility": "ForceOfNature"
     }
   },
   {

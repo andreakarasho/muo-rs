@@ -30,7 +30,12 @@
       "aosMaxDamage": 15,
       "mlSpeed": 2.75,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "minThrowRange": 4,
+      "primaryAbility": "MysticArc",
+      "secondaryAbility": "ConcussionBlow",
+      "requiredRaces": "AllowGargoylesOnly",
+      "defaultWeight": 4.0
     }
   },
   {
@@ -42,7 +47,12 @@
       "aosMaxDamage": 17,
       "mlSpeed": 3.25,
       "initMinHits": 31,
-      "initMaxHits": 60
+      "initMaxHits": 60,
+      "minThrowRange": 6,
+      "primaryAbility": "MovingShot",
+      "secondaryAbility": "InfusedThrow",
+      "requiredRaces": "AllowGargoylesOnly",
+      "defaultWeight": 6.0
     }
   },
   {
@@ -72,7 +82,12 @@
       "aosMaxDamage": 20,
       "mlSpeed": 4.0,
       "initMinHits": 31,
-      "initMaxHits": 65
+      "initMaxHits": 65,
+      "minThrowRange": 8,
+      "primaryAbility": "ArmorIgnore",
+      "secondaryAbility": "MortalStrike",
+      "requiredRaces": "AllowGargoylesOnly",
+      "defaultWeight": 8.0
     }
   },
   {

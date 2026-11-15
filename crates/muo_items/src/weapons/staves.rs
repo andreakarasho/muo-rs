@@ -5,10 +5,6 @@ use super::*;
 weapon_leaf! {
     /// `Server.Items.BlackStaff`.
     BLACK_STAFF, BLACK_STAFF_CLASS, black_staff_new = "Server.Items.BlackStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0xDF0, v0;
-    flippable: Some((0xDF1, 0xDF0)),
-    default_weight: Some(6.0),
-    primary_ability: Some(Ability::WhirlwindAttack),
-    secondary_ability: Some(Ability::ParalyzingBlow),
 }
 
 // ChylothStaff (namespace Server.Engines.Quests.Doom)
@@ -28,45 +24,24 @@ weapon_leaf! {
     /// `Server.Items.GlassStaff`.
     GLASS_STAFF, GLASS_STAFF_CLASS, glass_staff_new = "Server.Items.GlassStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0x905, enc;
     @json;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    flippable: Some((0x905, 0x4070)),
-    default_weight: Some(4.0),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::MortalStrike),
 }
 
 weapon_leaf! {
     /// `Server.Items.GnarledStaff`.
     GNARLED_STAFF, GNARLED_STAFF_CLASS, gnarled_staff_new = "Server.Items.GnarledStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0x13F8, v0;
     @json;
-    flippable: Some((0x13F8, 0x13F9)),
-    default_weight: Some(3.0),
-    primary_ability: Some(Ability::ConcussionBlow),
-    secondary_ability: Some(Ability::ForceOfNature),
 }
 
 weapon_leaf! {
     /// `Server.Items.QuarterStaff`.
     QUARTER_STAFF, QUARTER_STAFF_CLASS, quarter_staff_new = "Server.Items.QuarterStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0xE89, v0;
     @json;
-    flippable: Some((0xE89, 0xE8A)),
-    default_weight: Some(4.0),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::ConcussionBlow),
 }
 
 weapon_leaf! {
     /// `Server.Items.SerpentstoneStaff`.
     SERPENTSTONE_STAFF, SERPENTSTONE_STAFF_CLASS, serpentstone_staff_new = "Server.Items.SerpentstoneStaff" : BASE_STAFF / BASE_STAFF_CLASS, graphic 0x906, enc;
     @json;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    flippable: Some((0x906, 0x406F)),
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::Dismount),
 }
 
 weapon_leaf! {
@@ -76,10 +51,6 @@ weapon_leaf! {
     @item {
         on_double_click: shepherds_crook_on_double_click,
     }
-    flippable: Some((0xE81, 0xE82)),
-    default_weight: Some(4.0),
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::Disarm),
 }
 
 pub fn register(types: &mut TypeRegistry) {

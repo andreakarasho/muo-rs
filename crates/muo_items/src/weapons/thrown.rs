@@ -18,26 +18,12 @@ weapon_leaf! {
     /// `Server.Items.Boomerang`.
     BOOMERANG, BOOMERANG_CLASS, boomerang_new = "Server.Items.Boomerang" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x8FF, enc;
     @json;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    default_weight: Some(4.0),
-    min_throw_range: 4,
-    primary_ability: Some(Ability::MysticArc),
-    secondary_ability: Some(Ability::ConcussionBlow),
 }
 
 weapon_leaf! {
     /// `Server.Items.Cyclone`.
     CYCLONE, CYCLONE_CLASS, cyclone_new = "Server.Items.Cyclone" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x901, enc;
     @json;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    default_weight: Some(6.0),
-    min_throw_range: 6,
-    primary_ability: Some(Ability::MovingShot),
-    secondary_ability: Some(Ability::InfusedThrow),
 }
 
 weapon_leaf! {
@@ -50,13 +36,6 @@ weapon_leaf! {
     /// `Server.Items.SoulGlaive`.
     SOUL_GLAIVE, SOUL_GLAIVE_CLASS, soul_glaive_new = "Server.Items.SoulGlaive" : BASE_THROWN / BASE_THROWN_CLASS, graphic 0x090A, enc;
     @json;
-    @item {
-        required_races: |_, _| ALLOW_GARGOYLES_ONLY,
-    }
-    default_weight: Some(8.0),
-    min_throw_range: 8,
-    primary_ability: Some(Ability::ArmorIgnore),
-    secondary_ability: Some(Ability::MortalStrike),
 }
 
 weapon_leaf! {
