@@ -119,9 +119,6 @@ art! {
     /// `Server.Items.AncientFarmersKasa`.
     ANCIENT_FARMERS_KASA, ANCIENT_FARMERS_KASA_CLASS: ClothingClass, ancient_farmers_kasa_new = "Server.Items.AncientFarmersKasa" : KASA, KASA_CLASS, |w, ty| kasa_new(w, ty, 0);
     @template;
-    base_cold_resistance: 19,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
 }
 
 art! {
@@ -152,13 +149,6 @@ art! {
     /// `Server.Items.BlackLotusHood`.
     BLACK_LOTUS_HOOD, BLACK_LOTUS_HOOD_CLASS: ClothingClass, black_lotus_hood_new = "Server.Items.BlackLotusHood" : CLOTH_NINJA_HOOD, CLOTH_NINJA_HOOD_CLASS, |w, ty| cloth_ninja_hood_new(w, ty, 0);
     @template;
-    base_physical_resistance: 0,
-    base_fire_resistance: 11,
-    base_cold_resistance: 15,
-    base_poison_resistance: 11,
-    base_energy_resistance: 11,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
 }
 
 art! {
@@ -325,13 +315,6 @@ art! {
     /// `Server.Items.KasaOfTheRajin`.
     KASA_OF_THE_RAJIN, KASA_OF_THE_RAJIN_CLASS: ClothingClass, kasa_of_the_rajin_new = "Server.Items.KasaOfTheRajin" : KASA, KASA_CLASS, |w, ty| kasa_new(w, ty, 0);
     @template;
-    base_physical_resistance: 12,
-    base_fire_resistance: 17,
-    base_cold_resistance: 21,
-    base_poison_resistance: 17,
-    base_energy_resistance: 17,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
 }
 
 art! {
