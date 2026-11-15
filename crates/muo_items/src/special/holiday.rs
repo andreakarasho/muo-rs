@@ -69,54 +69,33 @@ leaf! {
     construct: Some(winter_gift_package_new),
 }
 
-const NORMAL_HUES: [i32; 20] = [
-    0x672, 0x454, 0x507, 0x4ac, 0x504, 0x84b, 0x495, 0x97c, 0x493, 0x4a8, 0x494, 0x4aa, 0xb8b,
-    0x84f, 0x491, 0x851, 0x503, 0xb8c, 0x4ab, 0x84B,
-];
-const NEON_HUES: [i32; 6] = [0x438, 0x424, 0x433, 0x445, 0x42b, 0x448];
-
-fn random_gift_box_hue(w: &mut World) -> i32 {
-    utility::random_element(&mut w.rng, &NORMAL_HUES)
-        .copied()
-        .unwrap_or(0)
-}
-
 macro_rules! gift_box {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gump:expr, |$w:ident| $graphic:expr, $hue:ident;)*) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : BASE_CONTAINER, v0;
-            construct: Some(|$w| {
-                let g = $graphic;
-                let id = new_base_container($w, &$name, g);
-                let h = $hue($w);
-                super::hue($w, id, h);
-                id
+            construct: Some(|w| {
+                let id = new_base_container(w, &$name, 0);
+                crate::simple::own_template(w, id, $full)
             }),
-            default_gump_id: |_, _| $gump,
+            default_gump_id: crate::class_props::default_gump_id,
         }
     )*};
 }
 
-fn random_neon_box_hue(w: &mut World) -> i32 {
-    utility::random_element(&mut w.rng, &NEON_HUES)
-        .copied()
-        .unwrap_or(0)
-}
-
 gift_box! {
     /// `Server.Items.GiftBoxRectangle` (`[Flippable(0x46A5, 0x46A6)]`).
-    GIFT_BOX_RECTANGLE = "Server.Items.GiftBoxRectangle", 0x11E, |w| if utility::random_bool(&mut w.rng) { 0x46A5 } else { 0x46A6 }, random_gift_box_hue;
+    GIFT_BOX_RECTANGLE = "Server.Items.GiftBoxRectangle";
     /// `Server.Items.GiftBoxCube`.
-    GIFT_BOX_CUBE = "Server.Items.GiftBoxCube", 0x11B, |_w| 0x46A2, random_gift_box_hue;
+    GIFT_BOX_CUBE = "Server.Items.GiftBoxCube";
     /// `Server.Items.GiftBoxCylinder`.
-    GIFT_BOX_CYLINDER = "Server.Items.GiftBoxCylinder", 0x11C, |_w| 0x46A3, random_gift_box_hue;
+    GIFT_BOX_CYLINDER = "Server.Items.GiftBoxCylinder";
     /// `Server.Items.GiftBoxOctogon`.
-    GIFT_BOX_OCTOGON = "Server.Items.GiftBoxOctogon", 0x11D, |_w| 0x46A4, random_gift_box_hue;
+    GIFT_BOX_OCTOGON = "Server.Items.GiftBoxOctogon";
     /// `Server.Items.GiftBoxAngel`.
-    GIFT_BOX_ANGEL = "Server.Items.GiftBoxAngel", 0x11F, |_w| 0x46A7, random_gift_box_hue;
+    GIFT_BOX_ANGEL = "Server.Items.GiftBoxAngel";
     /// `Server.Items.GiftBoxNeon` (`[Flippable(0x232A, 0x232B)]`).
-    GIFT_BOX_NEON = "Server.Items.GiftBoxNeon", 0x11A, |w| if utility::random_bool(&mut w.rng) { 0x232A } else { 0x232B }, random_neon_box_hue;
+    GIFT_BOX_NEON = "Server.Items.GiftBoxNeon";
 }
 
 // ---- Stockings ----
@@ -910,11 +889,11 @@ leaf! {
 }
 
 macro_rules! snow_statue {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $graphic:expr;)*) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, enc;
-            construct: Some(|w| ops::new_item_with_id(w, &$name, $graphic)),
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
             force_show_properties: |w, _| w.core.opl_enabled,
         }
     )*};
@@ -922,13 +901,13 @@ macro_rules! snow_statue {
 
 snow_statue! {
     /// `Server.Items.SnowStatuePegasus` (`[Flippable(0x456E, 0x456F)]`).
-    SNOW_STATUE_PEGASUS = "Server.Items.SnowStatuePegasus", 0x456E;
+    SNOW_STATUE_PEGASUS = "Server.Items.SnowStatuePegasus";
     /// `Server.Items.SnowStatueSeahorse` (`[Flippable(0x4578, 0x4579)]`).
-    SNOW_STATUE_SEAHORSE = "Server.Items.SnowStatueSeahorse", 0x4578;
+    SNOW_STATUE_SEAHORSE = "Server.Items.SnowStatueSeahorse";
     /// `Server.Items.SnowStatueMermaid` (`[Flippable(0x457A, 0x457B)]`).
-    SNOW_STATUE_MERMAID = "Server.Items.SnowStatueMermaid", 0x457A;
+    SNOW_STATUE_MERMAID = "Server.Items.SnowStatueMermaid";
     /// `Server.Items.SnowStatueGriffon` (`[Flippable(0x457C, 0x457D)]`).
-    SNOW_STATUE_GRIFFON = "Server.Items.SnowStatueGriffon", 0x457C;
+    SNOW_STATUE_GRIFFON = "Server.Items.SnowStatueGriffon";
 }
 
 struct SnowStatuePick;
