@@ -471,7 +471,7 @@ pub fn table(w: &mut World) -> Rc<TemplateTable> {
     if let Some(t) = w.resources.get::<Rc<TemplateTable>>() {
         return t.clone();
     }
-    let t = match fallback_dir().map(|d| load_dir_with(&d, &keys::Keys::of(&w.types))) {
+    let t = match fallback_dir().map(|d| load_dir_with(&d, &keys::Keys::lenient(&w.types))) {
         Some(Ok(t)) => t,
         Some(Err(e)) => {
             tracing::error!("Templates: {e}");
