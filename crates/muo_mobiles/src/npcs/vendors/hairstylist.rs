@@ -649,7 +649,7 @@ mod tests {
 
     #[test]
     fn the_three_gumps_compile() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let from = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
         let vendor = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
         for (balance, female) in [
@@ -697,7 +697,7 @@ mod tests {
 
     #[test]
     fn it_has_no_sb_info_and_sells_through_its_own_gump() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (CUSTOM_HAIRSTYLIST.construct.unwrap())(&mut w);
         assert!(
             muo_content::vendor::data(&w, id)

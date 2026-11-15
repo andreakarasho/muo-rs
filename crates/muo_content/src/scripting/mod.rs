@@ -23,6 +23,7 @@ mod api_misc_items2;
 mod api_mobiles;
 mod api_npcs;
 mod classes;
+pub mod friendly;
 #[cfg(test)]
 mod tests;
 
@@ -59,6 +60,8 @@ pub struct ScriptHost {
     pub scripts: Vec<Script>,
     /// The constructor closures of the `class` declarations: (script, closure); `Template::ctor` indexes this.
     ctors: Vec<(usize, FnPtr)>,
+    /// The hook closures of the declarations: (class, hook name, script, closure).
+    class_hooks: Vec<(String, String, usize, FnPtr)>,
     /// The scripts defining each of [`GLOBALS`].
     globals: [Vec<usize>; 3],
 }
@@ -69,7 +72,18 @@ pub struct ScriptHost {
 struct ClassScripts {
     mobiles: HashMap<usize, usize>,
     items: HashMap<usize, usize>,
+    /// (class key, hook bit) -> the declaration's hook closure (script, closure).
+    closures: HashMap<(usize, u8), (usize, FnPtr)>,
 }
+
+/// What [`ScriptHost::load`] gives: the host, the class declarations, the other declared content
+/// (kind, name, value) and the errors.
+type Loaded = (
+    ScriptHost,
+    Vec<classes::Decl>,
+    Vec<(String, String, Dynamic)>,
+    Vec<String>,
+);
 
 /// Script calls in progress: a script action can raise a hook that runs a script again.
 #[derive(Default)]
@@ -148,14 +162,12 @@ impl ScriptHost {
 
     /// Compiles every `.rhai` under `dir` and runs each top level once, collecting its `class` declarations. A file
     /// that fails is left out and named in the errors.
-    pub(crate) fn load(
-        dir: &Path,
-        types: &TypeRegistry,
-    ) -> (ScriptHost, Vec<classes::Decl>, Vec<String>) {
+    pub(crate) fn load(dir: &Path, types: &TypeRegistry) -> Loaded {
         let mut engine = api::engine();
         api::register_steps(&mut engine, types);
         let collector = Rc::new(std::cell::RefCell::new(classes::Collector::default()));
         classes::register(&mut engine, &collector);
+        friendly::register(&mut engine, &collector);
         let mut files = Vec::new();
         rhai_files(dir, &mut files);
         let mut scripts = Vec::new();
@@ -192,10 +204,12 @@ impl ScriptHost {
             }
         }
         let decls = std::mem::take(&mut collector.borrow_mut().decls);
+        let data = std::mem::take(&mut collector.borrow_mut().data);
         let mut host = ScriptHost {
             engine,
             scripts,
             ctors: Vec::new(),
+            class_hooks: Vec::new(),
             globals: Default::default(),
         };
         for (g, (name, arity)) in GLOBALS.iter().enumerate() {
@@ -203,7 +217,7 @@ impl ScriptHost {
                 .filter(|&i| host.has_fn(i, name, *arity))
                 .collect();
         }
-        (host, decls, errors)
+        (host, decls, data, errors)
     }
 }
 
@@ -332,7 +346,63 @@ fn install(w: &mut World) -> Vec<String> {
             }
         }
     }
-    w.resources.insert(ClassScripts { mobiles, items });
+    // hook closures of `mobile(..)` / `item(..)` declarations: the class's own, else the nearest ancestor's
+    let mut closures = HashMap::new();
+    let by_class: HashMap<(&str, ScriptHook), (usize, &FnPtr)> = host
+        .class_hooks
+        .iter()
+        .filter_map(|(class, hook, script, f)| {
+            let h = ScriptHook::ALL
+                .into_iter()
+                .find(|h| h.fn_name().0 == hook)?;
+            Some(((class.as_str(), h), (*script, f)))
+        })
+        .collect();
+    if !by_class.is_empty() {
+        let t = templates::loaded(w);
+        let names_of = |first: &'static str, kind: Kind| -> Vec<String> {
+            let mut out = vec![first.to_owned()];
+            if let Some(t) = t {
+                out.extend(t.chain(kind, first).skip(1).map(|tm| tm.type_name.clone()));
+            }
+            out
+        };
+        let mut bind = |key: usize, chain: Vec<String>, bits: &mut u8| {
+            for h in ScriptHook::ALL {
+                if let Some((s, f)) = chain.iter().find_map(|n| by_class.get(&(n.as_str(), h))) {
+                    closures.insert((key, h.bit()), (*s, (*f).clone()));
+                    *bits |= h.bit();
+                }
+            }
+        };
+        for &ty in w.types.mobile_types() {
+            let chain: Vec<String> = std::iter::successors(Some(ty), |t| t.parent)
+                .flat_map(|t| names_of(t.full_name, Kind::Mobile))
+                .collect();
+            let k = script_hooks::mobile_class_key(ty);
+            let mut bits = hooks.mobiles.get(&k).copied().unwrap_or(0);
+            bind(k, chain, &mut bits);
+            if bits != 0 {
+                hooks.mobiles.insert(k, bits);
+            }
+        }
+        for &ty in w.types.item_types() {
+            let chain: Vec<String> = std::iter::successors(Some(ty), |t| t.parent)
+                .flat_map(|t| names_of(t.full_name, Kind::Item))
+                .collect();
+            let k = script_hooks::item_class_key(ty);
+            let mut bits = hooks.items.get(&k).copied().unwrap_or(0);
+            bind(k, chain, &mut bits);
+            if bits != 0 {
+                hooks.items.insert(k, bits);
+            }
+        }
+    }
+    w.resources.insert(ClassScripts {
+        mobiles,
+        items,
+        closures,
+    });
     let commands: Vec<(String, AccessLevel)> = host
         .scripts
         .iter()
@@ -385,6 +455,29 @@ fn run_command(w: &mut World, fn_name: &str, e: &mut CommandEventArgs) {
 /// The `ScriptHooks::call` of the hook table.
 fn dispatch(w: &mut World, e: EntityId, hook: ScriptHook, args: &[ScriptArg]) -> bool {
     let Some(host) = host(w) else { return false };
+    // a declaration's hook closure first
+    let key = match e {
+        EntityId::Mobile(m) => w.mobile(m).map(|m| script_hooks::mobile_class_key(m.ty)),
+        EntityId::Item(i) => w.item(i).map(|i| script_hooks::item_class_key(i.ty)),
+    };
+    let closure = key.and_then(|k| {
+        w.resources
+            .get::<ClassScripts>()?
+            .closures
+            .get(&(k, hook.bit()))
+            .cloned()
+    });
+    if let Some((script, f)) = closure {
+        let mut v: Vec<Dynamic> = f.curry().to_vec();
+        v.push(api::entity(Some(e)));
+        v.extend(args.iter().map(|a| api::arg(*a)));
+        if let Some(n) = host.arity(script, f.fn_name(), v.len()) {
+            v.resize(n.max(f.curry().len() + 1), Dynamic::UNIT);
+        }
+        return host
+            .call(w, script, f.fn_name(), v)
+            .is_some_and(|r| r.as_bool().unwrap_or(false));
+    }
     let script = match e {
         EntityId::Mobile(m) => w.mobile(m).and_then(|m| {
             let c = w.resources.get::<ClassScripts>()?;
@@ -457,7 +550,7 @@ pub(crate) fn source(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Res
     let Some(dir) = templates::data_root(w).map(|d| d.join("Scripts")) else {
         return Ok(());
     };
-    let (mut host, decls, errors) = ScriptHost::load(&dir, &w.types);
+    let (mut host, decls, data, errors) = ScriptHost::load(&dir, &w.types);
     if !errors.is_empty() {
         if !lenient {
             return Err(format!("Scripts: {}", errors.join("; ")));
@@ -467,9 +560,20 @@ pub(crate) fn source(w: &mut World, lenient: bool, t: &mut TemplateTable) -> Res
         }
     }
     let names: Vec<String> = host.scripts.iter().map(|s| s.name.clone()).collect();
-    let mut ctors = Vec::new();
-    classes::build(w, decls, &names, lenient, t, &mut ctors)?;
+    let (mut ctors, mut class_hooks) = (Vec::new(), Vec::new());
+    classes::build(w, decls, &names, lenient, t, &mut ctors, &mut class_hooks)?;
     host.ctors = ctors;
+    host.class_hooks = class_hooks;
+    for (kind, name, v) in data {
+        let mut v = api::to_json(&v).map_err(|e| format!("Scripts: {kind} {name}: {e}"))?;
+        friendly::resolve_shop_names(w, &mut v, !lenient)
+            .map_err(|e| format!("Scripts: {kind} {name}: {e}"))?;
+        let list = t.data.entry(kind.clone()).or_default();
+        if list.iter().any(|(n, _)| *n == name) {
+            return Err(format!("Scripts: {kind} {name} is declared twice"));
+        }
+        list.push((name, v));
+    }
     w.resources.insert(Rc::new(host));
     w.resources.insert(templates::CtorRunner(run_ctor));
     Ok(())
@@ -483,7 +587,7 @@ fn run_ctor(w: &mut World, e: EntityId, ctor: u32, args: &[ScriptArg<'_>]) {
         return;
     };
     let mut v: Vec<Dynamic> = f.curry().to_vec();
-    v.push(api::entity(Some(e)));
+    v.push(friendly::new_entity(e));
     v.extend(args.iter().map(|a| api::arg(*a)));
     if let Some(n) = host.arity(script, f.fn_name(), v.len()) {
         v.resize(n.max(f.curry().len() + 1), Dynamic::UNIT);
@@ -556,4 +660,19 @@ pub fn register(types: &mut TypeRegistry) {
         1000,
         configure,
     );
+}
+
+/// Gives `to` the class templates and script host `from` loaded (shared, they are read-only once loaded), so a world
+/// built from the same registry need not compile the scripts again. Test helpers use it to load the classes once
+/// per thread instead of once per test world.
+pub fn share_loaded(from: &World, to: &mut World) {
+    if let Some(t) = from.resources.get::<Rc<TemplateTable>>() {
+        to.resources.insert(t.clone());
+    }
+    if let Some(h) = from.resources.get::<Rc<ScriptHost>>() {
+        to.resources.insert(h.clone());
+    }
+    if let Some(r) = from.resources.get::<templates::CtorRunner>() {
+        to.resources.insert(*r);
+    }
 }

@@ -1,8 +1,0 @@
-[
-  {
-    "type": "Examples.ShoutingRat",
-    "parent": "Server.Mobiles.Rat",
-    "script": "examples/shouting_rat.rhai",
-    "name": "a shouting rat"
-  }
-]

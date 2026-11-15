@@ -50,7 +50,7 @@ macro_rules! armor_construct {
 }
 
 macro_rules! armor_leaf {
-    // `@template;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr, encoded $enc:literal;

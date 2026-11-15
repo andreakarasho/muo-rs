@@ -3,8 +3,6 @@
 
 use serde_json::Value;
 
-use muo_content::templates::keys::Keys;
-use muo_content::templates::mobile_steps;
 use muo_server::World;
 use muo_server::mobile::MobileType;
 use muo_server::type_registry::TypeRegistry;
@@ -21,34 +19,10 @@ fn converted() -> Vec<&'static MobileType> {
 }
 
 fn world() -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     crate::template_keys::register(&mut w.types);
     crate::template_keys_npcs::register(&mut w.types);
     w
-}
-
-/// A block of template keys and every block nested in it.
-fn blocks<'a>(v: &'a Value, out: &mut Vec<&'a Value>) {
-    let Some(o) = v.as_object() else { return };
-    out.push(v);
-    for (k, x) in o {
-        match (k.as_str(), x) {
-            ("npcSeq" | "oneOf", Value::Array(a)) => a.iter().for_each(|b| blocks(b, out)),
-            ("coin" | "chance" | "era", Value::Object(f)) => f
-                .get("then")
-                .into_iter()
-                .chain(f.get("else"))
-                .for_each(|b| blocks(b, out)),
-            ("npcIfLayerEmpty", Value::Object(f)) => {
-                f.get("then").into_iter().for_each(|b| blocks(b, out))
-            }
-            ("npcByGender", Value::Object(f)) => f.values().for_each(|b| blocks(b, out)),
-            ("npcEquipOrDelete", Value::Object(f)) => {
-                f.get("else").into_iter().for_each(|b| blocks(b, out))
-            }
-            _ => {}
-        }
-    }
 }
 
 /// The SBInfo names of an `npcSbInfos` list.
@@ -72,12 +46,19 @@ fn every_converted_npc_has_its_template() {
     assert_eq!(classes.len(), 91);
     for ty in classes {
         assert!(
-            t.mobiles.contains_key(ty.full_name),
+            t.get(muo_content::templates::Kind::Mobile, ty.full_name)
+                .is_some(),
             "no template for {}",
             ty.full_name
         );
     }
-    assert!(t.mobiles.contains_key("Server.Mobiles.BaseHealer"));
+    assert!(
+        t.get(
+            muo_content::templates::Kind::Mobile,
+            "Server.Mobiles.BaseHealer"
+        )
+        .is_some()
+    );
 }
 
 #[test]
@@ -87,41 +68,8 @@ fn every_npc_block_parses_and_every_sb_info_exists() {
     let sbs = super::vendors::sb::table(&mut w);
     let mut types = TypeRegistry::default();
     crate::register(&mut types);
-    // only this crate's keys are registered here: the strict load of every file with every crate's keys is
-    // `crates/muo/tests/templates_load.rs`
-    let keys = Keys::lenient(&types);
-    let dir = std::env::current_dir()
-        .unwrap()
-        .ancestors()
-        .map(|a| a.join("Data").join("Templates"))
-        .find(|p| p.is_dir())
-        .unwrap();
-    muo_content::templates::load_dir_with(&dir, &keys).unwrap();
-    // the blocks nested in NPC keys and the npcOutfit props are parsed when they run: parse them here
-    let mut checked = 0;
-    for e in std::fs::read_dir(dir.join("Mobiles").join("npcs")).unwrap() {
-        let file: Value =
-            serde_json::from_str(&std::fs::read_to_string(e.unwrap().path()).unwrap()).unwrap();
-        for tmpl in file.as_array().unwrap() {
-            let ty = tmpl["type"].as_str().unwrap();
-            let mut list = Vec::new();
-            blocks(tmpl, &mut list);
-            if let Some(v) = tmpl["props"].get("npcOutfit") {
-                blocks(v, &mut list);
-            }
-            for b in list {
-                for (k, v) in b.as_object().unwrap() {
-                    if ["type", "inherits", "ai", "fightMode", "props"].contains(&k.as_str()) {
-                        continue;
-                    }
-                    if let Err(e) = mobile_steps::parse(k, v, &keys) {
-                        panic!("{ty}: \"{k}\": {e}");
-                    }
-                    checked += 1;
-                }
-            }
-        }
-    }
+    // the classes are script code now: `crates/muo/tests/templates_load.rs` loads them strictly, and building
+    // them is what the snapshot of every class checks
     for tmpl in t.mobiles.values() {
         let mut names = Vec::new();
         if let Some(v) = tmpl.props.get("npcSbInfos") {
@@ -131,7 +79,6 @@ fn every_npc_block_parses_and_every_sb_info_exists() {
             assert!(sbs.contains(n), "{}: no SBInfo {n}", tmpl.type_name);
         }
     }
-    assert!(checked > 100, "{checked}");
     // the ones the Rust classes name
     for n in [
         "SBMage",
@@ -163,7 +110,7 @@ fn a_hireling_and_a_vendor_come_out_of_their_templates() {
     assert!(
         d.buy_info
             .iter()
-            .any(|b| b.type_name == "Server.Items.HousePlacementTool")
+            .any(|b| b.type_name.rsplit('.').next() == Some("HousePlacementTool"))
     );
     assert_eq!(
         crate::template_keys_npcs::npc_guild(&w, id),

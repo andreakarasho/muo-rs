@@ -522,12 +522,56 @@ pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::
     if let Some(k) = types.extensions.get::<ItemKeys>() {
         item_keys.extend(k.0.keys().copied());
     }
+    // the same functions on the handles of a constructor (`on_create`, `class(.., |m| ..)`)
+    for &key in &mobile_keys {
+        e.register_fn(
+            key,
+            move |ctx: NativeCallContext, m: super::friendly::NewMobile, v: Dynamic| -> R<()> {
+                let v = json(key, &v)?;
+                with_world(&ctx, |w| {
+                    if let Some(t) = &mut w.resources.get_mut::<crate::templates::StepTrace>().0 {
+                        t.push(key);
+                    }
+                    if live_m(w, Mobile(m.0)).is_none() {
+                        return Ok(());
+                    }
+                    let step = mobile_steps::parse(key, &v, &Keys::of(&w.types))
+                        .map_err(|e| format!("{key}: {e}"))?;
+                    mobile_steps::apply(w, m.0, &step);
+                    Ok::<(), Box<EvalAltResult>>(())
+                })?
+            },
+        );
+    }
+    for &key in &item_keys {
+        e.register_fn(
+            key,
+            move |ctx: NativeCallContext, i: super::friendly::NewItem, v: Dynamic| -> R<()> {
+                let v = json(key, &v)?;
+                with_world(&ctx, |w| {
+                    if let Some(t) = &mut w.resources.get_mut::<crate::templates::StepTrace>().0 {
+                        t.push(key);
+                    }
+                    if live_i(w, Item(i.0)).is_none() {
+                        return Ok(());
+                    }
+                    let step = item_steps::parse(key, &v, &Keys::of(&w.types))
+                        .map_err(|e| format!("{key}: {e}"))?;
+                    item_steps::apply(w, i.0, &step);
+                    Ok::<(), Box<EvalAltResult>>(())
+                })?
+            },
+        );
+    }
     for key in mobile_keys {
         e.register_fn(
             key,
             move |ctx: NativeCallContext, m: Mobile, v: Dynamic| -> R<()> {
                 let v = json(key, &v)?;
                 with_world(&ctx, |w| {
+                    if let Some(t) = &mut w.resources.get_mut::<crate::templates::StepTrace>().0 {
+                        t.push(key);
+                    }
                     if live_m(w, m).is_none() {
                         return Ok(());
                     }
@@ -545,6 +589,9 @@ pub(crate) fn register_steps(e: &mut Engine, types: &muo_server::type_registry::
             move |ctx: NativeCallContext, i: Item, v: Dynamic| -> R<()> {
                 let v = json(key, &v)?;
                 with_world(&ctx, |w| {
+                    if let Some(t) = &mut w.resources.get_mut::<crate::templates::StepTrace>().0 {
+                        t.push(key);
+                    }
                     if live_i(w, i).is_none() {
                         return Ok(());
                     }
@@ -674,6 +721,13 @@ pub(crate) fn to_json(v: &Dynamic) -> Result<serde_json::Value, String> {
             .map(to_json)
             .collect::<Result<_, _>>()
             .map(Value::Array);
+    }
+    // `96..=120` is the range `[96, 120]`
+    if let Some(r) = v.read_lock::<std::ops::RangeInclusive<i64>>() {
+        return Ok(serde_json::json!([r.start(), r.end()]));
+    }
+    if v.read_lock::<std::ops::Range<i64>>().is_some() {
+        return Err("write an inclusive range, a..=b".to_owned());
     }
     if let Ok(i) = v.as_int() {
         return Ok(i.into());

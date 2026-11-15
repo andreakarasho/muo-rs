@@ -14,7 +14,7 @@ pub use muo_server::skills::SkillName;
 /// The save is "parent part + version int 0" (`encoded` for `[SerializationGenerator(0)]` without `false`).
 macro_rules! creature_leaf {
     // `template`: the constructor and `DefaultName`/`IsInvulnerable`/`CanShout`/`CanTeach` are the class's mobile
-    // template (`Data/Templates/Mobiles`) and its props.
+    // template (`Data/Scripts/classes/mobiles`) and its props.
     (
         $(#[$m:meta])*
         $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, template, encoded $enc:literal;

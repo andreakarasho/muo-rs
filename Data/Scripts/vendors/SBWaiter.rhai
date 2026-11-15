@@ -1,0 +1,28 @@
+shop("SBWaiter", |s| {
+    s.sells("BeverageBottle", 7, 20, 0x099F, #{ beverage: 0, hue: 0 });
+    s.sells("BeverageBottle", 7, 20, 0x09C7, #{ beverage: 4, hue: 0 });
+    s.sells("BeverageBottle", 7, 20, 0x099B, #{ beverage: 2, hue: 0 });
+    s.sells("Jug", 13, 20, 0x09C8, #{ beverage: 1, hue: 0 });
+    s.sells("Pitcher", 7, 20, 0x09F0, #{ beverage: 3, hue: 0 });
+    s.sells("Pitcher", 11, 20, 0x1F95, #{ beverage: 0, hue: 0 });
+    s.sells("Pitcher", 11, 20, 0x1F97, #{ beverage: 1, hue: 0 });
+    s.sells("Pitcher", 11, 20, 0x1F99, #{ beverage: 2, hue: 0 });
+    s.sells("Pitcher", 11, 20, 0x1F9B, #{ beverage: 4, hue: 0 });
+    s.sells("Pitcher", 11, 20, 0x1F9D, #{ beverage: 5, hue: 0 });
+    s.sells("BreadLoaf", 6, 10, 0x103B, #{ hue: 0 });
+    s.sells("CheeseWheel", 21, 10, 0x097E, #{ hue: 0 });
+    s.sells("CookedBird", 17, 20, 0x09B7, #{ hue: 0 });
+    s.sells("LambLeg", 8, 20, 0x160A, #{ hue: 0 });
+    s.sells("WoodenBowlOfCarrots", 3, 20, 0x15F9, #{ hue: 0 });
+    s.sells("WoodenBowlOfCorn", 3, 20, 0x15FA, #{ hue: 0 });
+    s.sells("WoodenBowlOfLettuce", 3, 20, 0x15FB, #{ hue: 0 });
+    s.sells("WoodenBowlOfPeas", 3, 20, 0x15FC, #{ hue: 0 });
+    s.sells("EmptyPewterBowl", 2, 20, 0x15FD, #{ hue: 0 });
+    s.sells("PewterBowlOfCorn", 3, 20, 0x15FE, #{ hue: 0 });
+    s.sells("PewterBowlOfLettuce", 3, 20, 0x15FF, #{ hue: 0 });
+    s.sells("PewterBowlOfPeas", 3, 20, 0x1600, #{ hue: 0 });
+    s.sells("PewterBowlOfPotatos", 3, 20, 0x1601, #{ hue: 0 });
+    s.sells("WoodenBowlOfStew", 3, 20, 0x1604, #{ hue: 0 });
+    s.sells("WoodenBowlOfTomatoSoup", 3, 20, 0x1606, #{ hue: 0 });
+    s.sells("ApplePie", 7, 20, 0x1041, #{ hue: 0 });
+});

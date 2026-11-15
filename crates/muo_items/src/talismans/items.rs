@@ -1,5 +1,5 @@
 //! The four plain items that are talisman reagents and `RunedSwitch`, which
-//! recharges a talisman. Graphics, weights and labels are their templates (`Data/Templates/Items/talismans`).
+//! recharges a talisman. Graphics, weights and labels are their templates (`Data/Scripts/classes/items/talismans`).
 
 use std::rc::Rc;
 

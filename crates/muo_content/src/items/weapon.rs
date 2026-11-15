@@ -162,7 +162,7 @@ pub static ANIMATIONS: Names<WeaponAnimation> =
 
 /// The `override`s of a weapon class that are constants: one `static` per class, a subclass is
 /// `WeaponClass { .. , ..PARENT_CLASS }`. The stat fields (requirements, damage, speed, hits, sounds, range) are
-/// fallbacks: a class's template `props` (`Data/Templates/Items`, the field in camelCase) override them.
+/// fallbacks: a class's template `props` (`Data/Scripts/classes/items`, the field in camelCase) override them.
 #[derive(Copy, Clone, Debug)]
 pub struct WeaponClass {
     /// `DefaultWeight` when the class overrides it; else the tiledata weight.

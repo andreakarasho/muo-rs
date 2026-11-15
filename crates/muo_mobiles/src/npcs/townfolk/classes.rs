@@ -1,6 +1,6 @@
 //! `BrideGroom`, `EscortableMage`, `Merchant`, `Messenger`, `Noble`, `Peasant`, `Prisoner` and
 //! `SeekerOfAdventure`: every one is `[SerializationGenerator(0, false)]` over `BaseEscortable`. Their constructors
-//! and outfits are their templates (`Data/Templates/Mobiles/npcs/escortables.json`).
+//! and outfits are their templates (`Data/Scripts/classes/mobiles/npcs/escortables.json`).
 
 use muo_content::hooks::rnd;
 use muo_content::mx;

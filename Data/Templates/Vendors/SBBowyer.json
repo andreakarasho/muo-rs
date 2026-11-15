@@ -1,9 +1,0 @@
-[
-  {
-    "name": "SBBowyer",
-    "build": [
-      {"sell": "Server.Items.FletcherTools", "price": 1},
-      {"buy": "Server.Items.FletcherTools", "price": 2, "amount": 20, "itemId": 4130, "hue": 0}
-    ]
-  }
-]

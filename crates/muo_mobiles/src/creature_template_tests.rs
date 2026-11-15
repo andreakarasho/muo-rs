@@ -1,8 +1,7 @@
-//! The creature classes whose constructors became templates (`Data/Templates/Mobiles`): each has its
+//! The creature classes whose constructors became templates (`Data/Scripts/classes/mobiles`): each has its
 //! template, a mount also its `mountBody`/`mountItemId` props, and every prop the class members read parses.
 
 use muo_content::templates::{self, Kind};
-use muo_server::World;
 
 /// Constructors moved to templates (creature constructors and their `crate::hand::*_ctorN` parts).
 const CONVERTED: &[&str] = &[
@@ -214,7 +213,7 @@ const MOUNTS: &[&str] = &[
 
 #[test]
 fn converted_classes_have_templates() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let t = templates::table(&mut w);
     for name in CONVERTED {
         assert!(
@@ -233,7 +232,7 @@ fn converted_classes_have_templates() {
 
 #[test]
 fn enum_props_parse() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let t = templates::table(&mut w);
     let bad = crate::cprops::bad_enum_props(&t);
     assert!(bad.is_empty(), "{bad:?}");

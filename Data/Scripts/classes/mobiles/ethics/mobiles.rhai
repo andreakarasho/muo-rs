@@ -1,0 +1,123 @@
+mobile("HolyFamiliar", |c| {
+    c.ai = "Melee";
+    c.fight_mode = "Closest";
+    c.corpse_name = "a holy corpse";
+    c.name = "a silver wolf";
+    c.meat = 1;
+    c.hides = 7;
+    c.on_create(|m| {
+        m.body = 100;
+        m.sound = 0xE5;
+        m.str = 96..=120;
+        m.dex = 81..=105;
+        m.int = 36..=60;
+        m.hits = 58..=72;
+        m.mana = 0;
+        m.damage = 11..=17;
+        m.damage_type("Physical", 100);
+        m.resist("Physical", 20, 25);
+        m.resist("Fire", 10, 20);
+        m.resist("Cold", 5, 10);
+        m.resist("Poison", 5, 10);
+        m.resist("Energy", 10, 15);
+        m.skill("MagicResist", 57.6, 75.0);
+        m.skill("Tactics", 50.1, 70.0);
+        m.skill("Wrestling", 60.1, 80.0);
+        m.fame = 2500;
+        m.karma = 2500;
+        m.armor = 22;
+        m.tamable = false;
+        m.control_slots = 1;
+    });
+});
+
+mobile("UnholyFamiliar", |c| {
+    c.ai = "Melee";
+    c.fight_mode = "Closest";
+    c.corpse_name = "an evil corpse";
+    c.name = "a dark wolf";
+    c.meat = 1;
+    c.hides = 7;
+    c.on_create(|m| {
+        m.body = 99;
+        m.sound = 0xE5;
+        m.str = 96..=120;
+        m.dex = 81..=105;
+        m.int = 36..=60;
+        m.hits = 58..=72;
+        m.mana = 0;
+        m.damage = 11..=17;
+        m.damage_type("Physical", 100);
+        m.resist("Physical", 20, 25);
+        m.resist("Fire", 10, 20);
+        m.resist("Cold", 5, 10);
+        m.resist("Poison", 5, 10);
+        m.resist("Energy", 10, 15);
+        m.skill("MagicResist", 57.6, 75.0);
+        m.skill("Tactics", 50.1, 70.0);
+        m.skill("Wrestling", 60.1, 80.0);
+        m.fame = 2500;
+        m.karma = 2500;
+        m.armor = 22;
+        m.tamable = false;
+        m.control_slots = 1;
+    });
+});
+
+mobile("HolySteed", |c| {
+    c.name = "a silver steed";
+    c.corpse_name = "a holy corpse";
+    c.steps_max = 6400;
+    c.on_create(|m| {
+        m.str = 496..=525;
+        m.dex = 86..=105;
+        m.int = 86..=125;
+        m.hits = 298..=315;
+        m.damage = 16..=22;
+        m.damage_type("Physical", 40);
+        m.damage_type("Fire", 40);
+        m.damage_type("Energy", 20);
+        m.resist("Physical", 55, 65);
+        m.resist("Fire", 30, 40);
+        m.resist("Cold", 30, 40);
+        m.resist("Poison", 30, 40);
+        m.resist("Energy", 20, 30);
+        m.skill("MagicResist", 25.1, 30.0);
+        m.skill("Tactics", 97.6, 100.0);
+        m.skill("Wrestling", 80.5, 92.5);
+        m.fame = 14000;
+        m.karma = 14000;
+        m.armor = 60;
+        m.tamable = false;
+        m.control_slots = 1;
+    });
+});
+
+mobile("UnholySteed", |c| {
+    c.name = "a dark steed";
+    c.corpse_name = "an unholy corpse";
+    c.steps_max = 6400;
+    c.on_create(|m| {
+        m.str = 496..=525;
+        m.dex = 86..=105;
+        m.int = 86..=125;
+        m.hits = 298..=315;
+        m.damage = 16..=22;
+        m.damage_type("Physical", 40);
+        m.damage_type("Fire", 40);
+        m.damage_type("Energy", 20);
+        m.resist("Physical", 55, 65);
+        m.resist("Fire", 30, 40);
+        m.resist("Cold", 30, 40);
+        m.resist("Poison", 30, 40);
+        m.resist("Energy", 20, 30);
+        m.skill("MagicResist", 25.1, 30.0);
+        m.skill("Tactics", 97.6, 100.0);
+        m.skill("Wrestling", 80.5, 92.5);
+        m.fame = 14000;
+        m.karma = -14000;
+        m.armor = 60;
+        m.tamable = false;
+        m.control_slots = 1;
+    });
+});

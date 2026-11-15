@@ -1,4 +1,4 @@
-//! The NPC vendor classes whose constructor and class members are data (`Data/Templates/Mobiles/npcs/vendors.json`):
+//! The NPC vendor classes whose constructor and class members are data (`Data/Scripts/classes/mobiles/npcs/vendors.json`):
 //! the template (`title`, `skills`) runs after `new BaseVendor()`, and the `VendorClass` members read the
 //! template's props (`template_keys_npcs`): `npcSbInfos`, `npcGuild`, `npcShoeType`, `npcShoeHue`, `npcOutfit`.
 

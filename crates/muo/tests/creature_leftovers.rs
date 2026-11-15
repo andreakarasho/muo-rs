@@ -1,5 +1,5 @@
 //! Creature classes whose argument constructors, sounds, era/random members and ability lists moved to
-//! `Data/Templates/Mobiles` + `Data/Scripts/content/creatures`: the data is there and builds what the Rust built.
+//! `Data/Scripts/classes/mobiles` + `Data/Scripts/content/creatures`: the data is there and builds what the Rust built.
 
 use muo_content::creature::{cd, ctype};
 use muo_content::templates::{self, Kind};
@@ -45,7 +45,7 @@ fn converted_classes_have_their_templates_and_scripts() {
         let tm = t
             .get(Kind::Mobile, class)
             .unwrap_or_else(|| panic!("{class}"));
-        assert!(!tm.mobile_steps.is_empty(), "{class}: no constructor steps");
+        assert!(tm.has_constructor(), "{class}: no constructor");
         assert_eq!(tm.script.as_deref(), script, "{class}");
     }
     for c in ["Rabbit", "Hart", "Hind", "BlackBear", "Eagle"] {

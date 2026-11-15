@@ -1,0 +1,24 @@
+shop("SBWeaver", |s| {
+    s.buys("Scissors", 6);
+    s.buys("Dyes", 4);
+    s.buys("DyeTub", 4);
+    s.buys("UncutCloth", 1);
+    s.buys("BoltOfCloth", 50);
+    s.buys("LightYarnUnraveled", 9);
+    s.buys("LightYarn", 9);
+    s.buys("DarkYarn", 9);
+    s.sells("Dyes", 8, 20, 0x0FA9, #{ hue: 0 });
+    s.sells("DyeTub", 8, 20, 0x0FAB, #{ hue: 0 });
+    s.sells("UncutCloth", 3, 20, 0x1761, #{ hue: 0 });
+    s.sells("UncutCloth", 3, 20, 0x1762, #{ hue: 0 });
+    s.sells("UncutCloth", 3, 20, 0x1763, #{ hue: 0 });
+    s.sells("UncutCloth", 3, 20, 0x1764, #{ hue: 0 });
+    s.sells("BoltOfCloth", 100, 20, 0x0F9B, #{ hue: 0 });
+    s.sells("BoltOfCloth", 100, 20, 0x0F9C, #{ hue: 0 });
+    s.sells("BoltOfCloth", 100, 20, 0x0F96, #{ hue: 0 });
+    s.sells("BoltOfCloth", 100, 20, 0x0F97, #{ hue: 0 });
+    s.sells("DarkYarn", 18, 20, 0x0E1D, #{ hue: 0 });
+    s.sells("LightYarn", 18, 20, 0x0E1E, #{ hue: 0 });
+    s.sells("LightYarnUnraveled", 18, 20, 0x0E1F, #{ hue: 0 });
+    s.sells("Scissors", 11, 20, 0x0F9F, #{ hue: 0 });
+});

@@ -1,8 +1,8 @@
 //! The add-on, decoration and paired classes whose components, deed pairing and class tables moved to
-//! `Data/Templates/Items` keep them, and the moved readers give the old values.
+//! `Data/Scripts/classes/items` keep them, and the moved readers give the old values.
 
 use muo_content::items::addon;
-use muo_content::templates::{self, Kind, item_steps};
+use muo_content::templates::{self, Kind};
 use muo_primitives::Point3D;
 use muo_server::World;
 use muo_server::item::ItemType;
@@ -1128,12 +1128,8 @@ fn converted_classes_keep_their_template_keys() {
         if prop {
             assert!(tmpl.props.contains_key(key), "{class}: no prop {key}");
         } else {
-            assert!(
-                tmpl.item_steps
-                    .iter()
-                    .any(|s| matches!(s, item_steps::Step::Ext(n, _, _) if *n == key)),
-                "{class}: no key {key}"
-            );
+            let keys = templates::constructor_keys(&mut w, Kind::Item, class);
+            assert!(keys.contains(&key), "{class}: no key {key}");
         }
     }
 }

@@ -8,7 +8,7 @@ use muo_server::type_registry::TypeRegistry;
 /// One concrete jewel class: `NAME, NAME_CLASS, name_new = "Server.Items.Foo" : PARENT / PARENT_CLASS, base,
 /// encoded <bool>;` and then `@init`, `@ty { .. }` and the `field: value,` lines as in `clothing_leaf!`.
 macro_rules! jewel_leaf {
-    // `@template;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr,

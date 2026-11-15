@@ -278,6 +278,9 @@ fn check_block(v: &Value) -> Result<(), String> {
 
 /// Parses then applies a block of template keys (a JSON object) on `id`.
 pub fn run_block(w: &mut World, id: MobileId, v: &Value) {
+    if muo_content::templates::run_scripted(w, muo_server::ids::EntityId::Mobile(id), v) {
+        return;
+    }
     let Some(o) = v.as_object() else { return };
     let steps: Result<Vec<_>, String> = {
         let keys = Keys::of(&w.types);

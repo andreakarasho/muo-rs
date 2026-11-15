@@ -1,5 +1,5 @@
 //! The armor, clothing and jewel classes whose constructors and `LabelNumber`/`ArtifactRarity` moved to
-//! `Data/Templates/Items` keep them: a missing entry would make a plain item (no hue, no attributes) or drop the
+//! `Data/Scripts/classes/items` keep them: a missing entry would make a plain item (no hue, no attributes) or drop the
 //! label and rarity silently.
 
 use muo_content::templates::{self, Kind};
@@ -249,9 +249,8 @@ fn templated_classes_have_their_steps_and_props() {
     let t = templates::table(&mut crate::test_world());
     for name in TEMPLATED {
         assert!(
-            t.get(Kind::Item, name)
-                .is_some_and(|t| !t.item_steps.is_empty()),
-            "{name}: no template steps"
+            t.get(Kind::Item, name).is_some_and(|t| t.has_constructor()),
+            "{name}: no template constructor"
         );
     }
     for &(name, label, rarity) in LABELS {

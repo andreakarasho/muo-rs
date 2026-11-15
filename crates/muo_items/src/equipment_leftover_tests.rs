@@ -1,4 +1,4 @@
-//! The last equipment class tables and constructors moved to `Data/Templates/Items`: the samples, `Fists`,
+//! The last equipment class tables and constructors moved to `Data/Scripts/classes/items`: the samples, `Fists`,
 //! `ProspectorsTool`, `FireworksWand`, the wands, quivers, talismans, decoration artifacts and the special
 //! jewels/clothing. Each converted class keeps its values in its template.
 
@@ -59,12 +59,15 @@ const CONVERTED: &[(&str, &str)] = &[
 
 #[test]
 fn converted_equipment_classes_hold_their_values_in_templates() {
-    let t = templates::table(&mut crate::test_world());
+    let mut w = crate::test_world();
+    let t = templates::table(&mut w);
     for (name, key) in CONVERTED {
         let tm = t
             .get(Kind::Item, name)
             .unwrap_or_else(|| panic!("{name}: no template"));
-        let has = tm.props.contains_key(*key) || tm.item_steps.iter().any(|s| sets(s, key));
+        let has = tm.props.contains_key(*key)
+            || tm.item_steps.iter().any(|s| sets(s, key))
+            || templates::constructor_keys(&mut w, Kind::Item, name).contains(key);
         assert!(has, "{name}: no \"{key}\"");
     }
     for tm in t.items.values() {

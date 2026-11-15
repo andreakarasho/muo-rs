@@ -19,7 +19,7 @@ fn all() -> Vec<(&'static MobileType, &'static [&'static str])> {
 }
 
 fn world(era: Option<Expansion>) -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     // the creature template keys (`creatureSetup`, ...): a bare registry would skip them
     crate::template_keys::register(&mut w.types);
     w.core.expansion = era;
@@ -371,7 +371,7 @@ fn a_paragon_boss_is_converted_by_its_constructor() {
     assert_eq!(w.mobile(id).unwrap().hue, 0x21); // the class's own Hue, set after the conversion
 }
 
-/// The classes whose constructor is their `Data/Templates/Mobiles` template: (static name, full name) read from the
+/// The classes whose constructor is their `Data/Scripts/classes/mobiles` template: (static name, full name) read from the
 /// source, so a new templated constructor is covered without listing it here.
 fn templated_classes() -> Vec<(String, String)> {
     let mut out = Vec::new();
@@ -403,7 +403,9 @@ fn every_templated_class_has_its_template() {
     let types = all();
     for (ident, full) in &classes {
         assert!(
-            table.mobiles.contains_key(full.as_str()),
+            table
+                .get(muo_content::templates::Kind::Mobile, full.as_str())
+                .is_some(),
             "{ident}: no mobile template for {full}"
         );
         let ty = types.iter().find(|(t, _)| t.full_name == full).unwrap().0;

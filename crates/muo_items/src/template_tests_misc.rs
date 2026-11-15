@@ -1,5 +1,5 @@
 //! The non-equipment item classes whose constructor statements or constant members moved to
-//! `Data/Templates/Items` keep their templates, and each moved member reads its prop.
+//! `Data/Scripts/classes/items` keep their templates, and each moved member reads its prop.
 
 use muo_content::templates::{self, Kind};
 use muo_server::World;

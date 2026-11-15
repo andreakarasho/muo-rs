@@ -2,7 +2,7 @@
 //! (`npcs_gen.rs` has the ones on `BaseCreature`) and `SirHelper`.
 //!
 //! A class on a ready-made base builds the base with the parent's own constructor, then re-types the mobile to the
-//! subclass and replays the subclass's template (`Data/Templates/Mobiles/ml_quests/npcs_more.json`). The base
+//! subclass and replays the subclass's template (`Data/Scripts/classes/mobiles/ml_quests/npcs_more.json`). The base
 //! constructors of the monsters call no virtual the subclass overrides, so that builds the same mobile; the speeds
 //! are read again for the new class name (they are looked up by the class name). The vendors' templates inherit
 //! their parent vendor's (its title and skills), their outfit is the `npcOutfit` prop and their `DefaultName` and

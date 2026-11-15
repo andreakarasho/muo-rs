@@ -1,0 +1,22 @@
+shop("SBButcher", |s| {
+    s.buys("RawRibs", 8);
+    s.buys("RawLambLeg", 4);
+    s.buys("RawChickenLeg", 3);
+    s.buys("RawBird", 4);
+    s.buys("Bacon", 3);
+    s.buys("Sausage", 9);
+    s.buys("Ham", 13);
+    s.buys("ButcherKnife", 7);
+    s.buys("Cleaver", 7);
+    s.buys("SkinningKnife", 7);
+    s.sells("Bacon", 7, 20, 0x0979, #{ hue: 0 });
+    s.sells("Ham", 26, 20, 0x09C9, #{ hue: 0 });
+    s.sells("Sausage", 18, 20, 0x09C0, #{ hue: 0 });
+    s.sells("RawChickenLeg", 6, 20, 0x1607, #{ hue: 0 });
+    s.sells("RawBird", 9, 20, 0x09B9, #{ hue: 0 });
+    s.sells("RawLambLeg", 9, 20, 0x1609, #{ hue: 0 });
+    s.sells("RawRibs", 16, 20, 0x09F1, #{ hue: 0 });
+    s.sells("ButcherKnife", 13, 20, 0x13F6, #{ hue: 0 });
+    s.sells("Cleaver", 13, 20, 0x0EC3, #{ hue: 0 });
+    s.sells("SkinningKnife", 13, 20, 0x0EC4, #{ hue: 0 });
+});

@@ -9,25 +9,20 @@ use muo_server::world::World;
 
 use super::*;
 
-/// A server folder with a JSON-only mobile class `Test.Scripted` and item class `Test.ScriptedItem`, both bound
-/// to `Data/Scripts/a.rhai`.
+/// A server folder whose `Data/Scripts` declares the mobile class `Test.Scripted` and item class
+/// `Test.ScriptedItem`, both bound to `a.rhai`, plus `scripts`.
 fn server(name: &str, scripts: &[(&str, &str)]) -> PathBuf {
     let base = std::env::temp_dir().join(format!("muo-scripting-{name}-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&base);
-    let t = base.join("Data").join("Templates");
-    std::fs::create_dir_all(t.join("Mobiles")).unwrap();
-    std::fs::create_dir_all(t.join("Items")).unwrap();
-    std::fs::write(
-        t.join("Mobiles/t.json"),
-        r#"[{ "type": "Test.Scripted", "parent": "Server.Mobile", "script": "a.rhai" }]"#,
-    )
-    .unwrap();
-    std::fs::write(
-        t.join("Items/t.json"),
-        r#"[{ "type": "Test.ScriptedItem", "parent": "Server.Item", "script": "a.rhai" }]"#,
-    )
-    .unwrap();
     std::fs::create_dir_all(base.join("Data/Scripts")).unwrap();
+    write(
+        &base,
+        "test_classes.rhai",
+        r#"
+        mobile("Test.Scripted", |c| { c.extends = "Server.Mobile"; c.script = "a.rhai"; });
+        item("Test.ScriptedItem", |c| { c.extends = "Server.Item"; c.script = "a.rhai"; });
+        "#,
+    );
     for (f, text) in scripts {
         write(&base, f, text);
     }
@@ -259,13 +254,14 @@ fn constructor_arguments_reach_on_spawn() {
     );
 }
 
-/// A server folder with only `Data/Templates/Mobiles/t.json` = `json` and `Data/Scripts/c.rhai` = `rhai`.
+/// A server folder with only `Data/Scripts/classes/mobiles/t.json` = `json` and `Data/Scripts/c.rhai` = `rhai`.
+/// A server folder whose `Data/Scripts/c.rhai` is `rhai`; `json` (the templates in their JSON step form, to
+/// compare a script with) is kept next to it as `t.json`.
 fn class_server(name: &str, json: &str, rhai: &str) -> PathBuf {
     let base = std::env::temp_dir().join(format!("muo-classes-{name}-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&base);
-    std::fs::create_dir_all(base.join("Data/Templates/Mobiles")).unwrap();
     std::fs::create_dir_all(base.join("Data/Scripts")).unwrap();
-    std::fs::write(base.join("Data/Templates/Mobiles/t.json"), json).unwrap();
+    std::fs::write(base.join("t.json"), json).unwrap();
     std::fs::write(base.join("Data/Scripts/c.rhai"), rhai).unwrap();
     base
 }
@@ -289,6 +285,10 @@ fn creature_world(base: PathBuf) -> World {
     crate::scripting::register(&mut w.types);
     let errors = reload_scripts(&mut w);
     assert!(errors.is_empty(), "{errors:?}");
+    let json = std::fs::read_to_string(w.core.base_directory.join("t.json")).unwrap_or_default();
+    if !json.trim().is_empty() && json.trim() != "[]" {
+        crate::templates::install_json(&mut w, &json).unwrap();
+    }
     w
 }
 
@@ -370,4 +370,83 @@ fn a_script_class_takes_constructor_arguments_and_rejects_unknown_parents() {
         errors.iter().any(|e| e.contains("Custom.Nothing")),
         "{errors:?}"
     );
+}
+
+#[test]
+fn the_friendly_syntax_matches_the_json_form() {
+    let json = r#"[{ "type": "Custom.Beast", "parent": "Server.Mobiles.BaseCreature", "ai": { "coin": ["AiMelee", "AiMage"] },
+        "props": { "corpseName": "a beastly corpse", "loot": [["Meager", 1]] },
+        "body": 17, "str": [96, 120], "hits": [58, 72], "resists": { "Physical": [25, 30], "Fire": 20 },
+        "skills": { "Swords": [50.1, 75.0], "Tactics": 60.0 }, "virtualArmor": 28, "fame": 1500,
+        "chance": { "p": 0.5, "then": { "karma": -10 }, "else": { "karma": -20 } } }]"#;
+    let rhai = r#"
+        mobile("Custom.Beast", |c| {
+            c.extends = "BaseCreature";
+            c.ai = coin("Melee", "Mage");
+            c.corpse_name = "a beastly corpse";
+            c.loot = "Meager";
+            c.on_create(|m| {
+                m.body = 17;
+                m.str = 96..=120;
+                m.hits = 58..=72;
+                m.resist("Physical", 25, 30);
+                m.resist("Fire", 20);
+                m.skill("Swords", 50.1, 75.0);
+                m.skill("Tactics", 60.0);
+                m.armor = 28;
+                m.fame = 1500;
+                if chance(0.5) { m.karma = -10 } else { m.karma = -20 }
+            });
+        });
+    "#;
+    let mut a = creature_world(class_server("fjson", json, ""));
+    let mut b = creature_world(class_server("frhai", "[]", rhai));
+    for seed in 0..10 {
+        assert_eq!(record(&mut a, seed), record(&mut b, seed), "seed {seed}");
+    }
+    let t = crate::templates::loaded(&b).unwrap();
+    assert_eq!(
+        t.mobiles["Custom.Beast"].props["loot"],
+        serde_json::json!([["Meager", 1]])
+    );
+}
+
+#[test]
+fn friendly_items_set_attributes_and_hooks_run() {
+    let rhai = r#"
+        item("Custom.Stone", |c| {
+            c.extends = "Server.Item";
+            c.weight = 2.0;
+            c.on_create(|i| {
+                i.item_id = 0x1F19;
+                i.hue = 0x501;
+                i.movable = false;
+                i.attributes.luck = 200;
+                i.attributes.defend_chance = 15;
+                i.hue = 0x501;
+            });
+            c.on_use(|stone, from| {
+                stone.hue = 33;
+                true
+            });
+        });
+    "#;
+    let base = class_server("fitem", "[]", rhai);
+    let mut w = World::new();
+    w.core.base_directory = base;
+    crate::scripting::register(&mut w.types);
+    let errors = reload_scripts(&mut w);
+    assert!(errors.is_empty(), "{errors:?}");
+    let id = crate::factory::make_item(&mut w, "Custom.Stone").unwrap();
+    let i = w.item(id).unwrap();
+    assert_eq!((i.item_id, i.hue, i.movable()), (0x1F19, 0x501, false));
+    // the hue set after the magic properties shows every statement after them ran (a plain item has no bags)
+    let from = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
+    assert!(script_hooks::item(
+        &mut w,
+        id,
+        ScriptHook::Use,
+        &[ScriptArg::Mobile(Some(from))]
+    ));
+    assert_eq!(w.item(id).unwrap().hue, 33);
 }

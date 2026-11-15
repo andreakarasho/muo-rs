@@ -1,9 +1,0 @@
-[
-  {
-    "name": "SBWoodenShields",
-    "build": [
-      {"sell": "Server.Items.WoodenShield", "price": 15},
-      {"buy": "Server.Items.WoodenShield", "price": 30, "amount": 20, "itemId": 7034, "hue": 0}
-    ]
-  }
-]

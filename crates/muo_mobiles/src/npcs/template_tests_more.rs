@@ -59,7 +59,7 @@ const OUTFITS: [&str; 8] = [
 ];
 
 fn world() -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     crate::register(&mut w.types);
     w
 }
@@ -69,12 +69,14 @@ fn every_converted_npc_has_its_template_and_outfit() {
     let mut w = world();
     let t = muo_content::templates::table(&mut w);
     for n in CONVERTED {
-        assert!(t.mobiles.contains_key(n), "no template for {n}");
+        assert!(
+            t.get(muo_content::templates::Kind::Mobile, n).is_some(),
+            "no template for {n}"
+        );
     }
     for n in OUTFITS {
         let tmpl = t
-            .mobiles
-            .get(n)
+            .get(muo_content::templates::Kind::Mobile, n)
             .unwrap_or_else(|| panic!("no template for {n}"));
         assert!(tmpl.props.contains_key("npcOutfit"), "{n}: no npcOutfit");
     }

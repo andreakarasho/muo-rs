@@ -1,8 +1,0 @@
-[
-  {
-    "name": "SBKeeperOfChivalry",
-    "build": [
-      {"buy": "Server.Items.BookOfChivalry", "price": 140, "amount": 20, "itemId": 8786, "hue": 0}
-    ]
-  }
-]

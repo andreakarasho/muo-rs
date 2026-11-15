@@ -1,8 +1,0 @@
-[
-  {
-    "name": "SBNinja",
-    "build": [
-      {"buy": "Server.Items.BookOfNinjitsu", "price": 335, "amount": 20, "itemId": 9120, "hue": 0}
-    ]
-  }
-]

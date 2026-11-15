@@ -12,7 +12,7 @@ use crate::mobile::MobileType;
 use crate::world::World;
 
 /// The per-class hooks; the script function name and its parameters (the entity first) are in [`ScriptHook::fn_name`].
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum ScriptHook {
     /// `on_use(item, from)`: an item is double-clicked.
     Use,

@@ -1,4 +1,4 @@
-//! Class props of muo_multis content (`Data/Templates/Items/multis`): the deeds' multi and placement offset, and
+//! Class props of muo_multis content (`Data/Scripts/classes/items/multis`): the deeds' multi and placement offset, and
 //! the constant members (`labelNumber`, `defaultWeight`) of the converted classes.
 
 use serde_json::Value;

@@ -1,6 +1,6 @@
 //! `BaseWand` (a `BaseBashing` weapon with charges that casts a spell or targets) and
 //! its eleven wands, `WandTarget`. State: `WeaponData::{wand_effect, charges}`; the wand constants (`BaseWand`'s
-//! weapon stats, each wand's effect, charges and `wandSpell`) are template props (`Data/Templates/Items/wands`).
+//! weapon stats, each wand's effect, charges and `wandSpell`) are template props (`Data/Scripts/classes/items/wands`).
 //! [`configure`] sets the spell hooks (`wand_consume_charge`, `wand_charges`) the spell base calls.
 
 use std::rc::Rc;

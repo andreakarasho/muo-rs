@@ -237,7 +237,7 @@ pub fn random_bool(w: &mut World) -> bool {
 macro_rules! weapon_art {
     (@enc enc) => { true };
     (@enc v0) => { false };
-    // `@json;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    // `@json;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,

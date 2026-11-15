@@ -1,8 +1,0 @@
-[
-  {
-    "name": "SBSamurai",
-    "build": [
-      {"buy": "Server.Items.BookOfBushido", "price": 280, "amount": 20, "itemId": 9100, "hue": 0}
-    ]
-  }
-]

@@ -1080,7 +1080,7 @@ mod tests {
     use muo_content::gumps::base::Gump;
 
     fn world() -> World {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         w.resources
             .get_mut::<muo_content::creature::speeds::NpcSpeeds>()
             .register(muo_content::creature::speeds::SpeedClassEntry {

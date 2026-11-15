@@ -1,4 +1,4 @@
-//! The repository's `Data/Templates` and `Data/Scripts` load the way the server loads them at startup: strictly, with
+//! The repository's `Data/Scripts/classes` and `Data/Scripts` load the way the server loads them at startup: strictly, with
 //! every content crate's template keys registered. A typo or a key nobody registers fails here, not on a live server.
 
 use muo_server::World;

@@ -10,7 +10,7 @@ use muo_server::World;
 use muo_server::ids::MobileId;
 
 fn world(era: Option<Expansion>) -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = era;
     w.resources
         .get_mut::<NpcSpeeds>()
@@ -101,7 +101,7 @@ fn a_vendor_loads_its_sb_infos_and_prices() {
     let garlic = d
         .buy_info
         .iter()
-        .find(|b| b.type_name == "Server.Items.Garlic")
+        .find(|b| b.type_name.rsplit('.').next() == Some("Garlic")) // a test world keeps short names
         .unwrap();
     assert_eq!((garlic.price(), garlic.amount), (3, 20));
 }

@@ -1,4 +1,4 @@
-//! The equipment classes whose constructors and constant class values moved to `Data/Templates/Items` and
+//! The equipment classes whose constructors and constant class values moved to `Data/Scripts/classes/items` and
 //! `Data/Scripts/content/equipment`: every name a prop holds resolves, every templated graphic is the one a new
 //! item gets, and the scripted classes are bound.
 
@@ -100,13 +100,14 @@ fn templated_graphics_are_the_constructed_item_ids() {
         ) else {
             continue;
         };
-        // a class whose own steps set "itemId" ends on that one
+        // a class whose own constructor sets "itemId" ends on that one
         if steps.iter().any(|s| {
             matches!(
                 s,
                 templates::item_steps::Step::ItemId(_) | templates::item_steps::Step::Flow(_)
             )
-        }) {
+        }) || templates::constructor_keys(&mut w, Kind::Item, ty.full_name).contains(&"itemId")
+        {
             continue;
         }
         let id = ctor(&mut w);

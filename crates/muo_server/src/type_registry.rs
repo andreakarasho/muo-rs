@@ -168,6 +168,11 @@ impl TypeRegistry {
         self.by_hash.get(&hash)?.first().copied()
     }
 
+    /// Every class whose short name (`Type.Name`) is `name`, case-sensitive.
+    pub fn types_named(&self, name: &str) -> &[EntityType] {
+        self.by_name.get(name).map_or(&[], Vec::as_slice)
+    }
+
     /// `FindTypeByName(name, fullName, ignoreCase)`; a blank name finds nothing.
     pub fn find_type_by_name(
         &self,

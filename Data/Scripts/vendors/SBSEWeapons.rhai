@@ -1,0 +1,22 @@
+shop("SBSEWeapons", |s| {
+    s.buys("NoDachi", 41);
+    s.buys("Tessen", 41);
+    s.buys("Wakizashi", 19);
+    s.buys("Tetsubo", 21);
+    s.buys("Lajatang", 54);
+    s.buys("Daisho", 33);
+    s.buys("Tekagi", 22);
+    s.buys("Shuriken", 9);
+    s.buys("Kama", 30);
+    s.buys("Sai", 28);
+    s.sells("NoDachi", 82, 20, 0x27A2, #{ hue: 0 });
+    s.sells("Tessen", 83, 20, 0x27A3, #{ hue: 0 });
+    s.sells("Wakizashi", 38, 20, 0x27A4, #{ hue: 0 });
+    s.sells("Tetsubo", 43, 20, 0x27A6, #{ hue: 0 });
+    s.sells("Lajatang", 108, 20, 0x27A7, #{ hue: 0 });
+    s.sells("Daisho", 66, 20, 0x27A9, #{ hue: 0 });
+    s.sells("Tekagi", 55, 20, 0x27AB, #{ hue: 0 });
+    s.sells("Shuriken", 18, 20, 0x27AC, #{ hue: 0 });
+    s.sells("Kama", 61, 20, 0x27AD, #{ hue: 0 });
+    s.sells("Sai", 56, 20, 0x27AF, #{ hue: 0 });
+});

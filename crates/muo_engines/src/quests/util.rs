@@ -195,7 +195,7 @@ pub fn fame_karma(w: &mut World, id: MobileId, fame: i32, karma: i32) {
 /// `base(AIType.<ai>, FightMode.Aggressor)` followed by `init`.
 #[macro_export]
 macro_rules! quest_creature {
-    // `template`: the constructor is the class's mobile template (`Data/Templates/Mobiles`); the name, corpse name
+    // `template`: the constructor is the class's mobile template (`Data/Scripts/classes/mobiles`); the name, corpse name
     // and `AlwaysMurderer` are its props.
     (
         $(#[$m:meta])*

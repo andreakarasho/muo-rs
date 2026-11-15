@@ -1,5 +1,5 @@
 //! The books with a fixed text: their `BookContent` (title, author, pages) is the `"bookContent"` prop of the
-//! class template (`Data/Templates/Items/books/defined.json`), the name some of them show the `"nameText"` prop.
+//! class template (`Data/Scripts/classes/items/books/defined.json`), the name some of them show the `"nameText"` prop.
 
 use muo_server::type_registry::TypeRegistry;
 

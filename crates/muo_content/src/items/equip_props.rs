@@ -1,5 +1,5 @@
 //! Constant class values of weapons, armor, clothing and jewelry that moved from the Rust class tables to the
-//! template `props` (`Data/Templates/Items`, the field in camelCase). Each reader returns the prop of the item's
+//! template `props` (`Data/Scripts/classes/items`, the field in camelCase). Each reader returns the prop of the item's
 //! class chain, else `fallback` (the class table's value, which a class without the prop inherits from its parent).
 //!
 //! Enum values are stored by name (`"defSkill": "Swords"`); a name resolves through a table built once per enum,

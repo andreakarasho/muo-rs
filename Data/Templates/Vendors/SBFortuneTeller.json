@@ -1,9 +1,0 @@
-[
-  {
-    "name": "SBFortuneTeller",
-    "build": [
-      {"sell": "Server.Items.Bandage", "price": 1},
-      {"buy": "Server.Items.Bandage", "price": 5, "amount": 20, "itemId": 3617, "hue": 0}
-    ]
-  }
-]

@@ -1,5 +1,5 @@
 //! The Khaldun books (GrimmochJournal, LysanderNotebook, TavarasJournal): `base(Utility.Random(0xFF1, 2), false)`
-//! with a fixed `BookContent`, both in the class template (`Data/Templates/Items/books/khaldun.json`).
+//! with a fixed `BookContent`, both in the class template (`Data/Scripts/classes/items/books/khaldun.json`).
 
 use muo_items::books::{BASE_BOOK, new_book};
 use muo_server::World;

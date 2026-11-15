@@ -1,6 +1,6 @@
 //! Constant per-class members of the non-equipment items, moved to their template's `"props"` (`"labelNumber"`,
 //! `"defaultWeight"`, `"gumpId"`, ..). A class that had `label_number: |_, _| 1041100` now has
-//! `label_number: class_props::label_number` and the value in `Data/Templates/Items`.
+//! `label_number: class_props::label_number` and the value in `Data/Scripts/classes/items`.
 //!
 //! Each member reads the prop of the item's class chain; without one (no table loaded, or a server owner removed
 //! it) it falls back to the nearest Rust ancestor whose member is not this reader, as `..PARENT` did.

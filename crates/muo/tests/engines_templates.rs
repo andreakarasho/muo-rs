@@ -1,28 +1,28 @@
-//! The muo_engines, muo_multis and muo_content classes whose constructors moved to `Data/Templates` keep a
+//! The muo_engines, muo_multis and muo_content classes whose constructors moved to `Data/Scripts/classes` keep a
 //! template, and the template builds what the old constructor built.
 
 use muo_content::templates::{self, Kind};
 use muo_server::World;
 
-/// The converted template files, their kind and how many classes each holds.
+/// The class script files of the converted classes, their kind and how many classes each holds.
 const FILES: &[(&str, Kind, usize)] = &[
-    ("Mobiles/ml_quests/npcs.json", Kind::Mobile, 119),
-    ("Mobiles/quests/creatures.json", Kind::Mobile, 8),
-    ("Mobiles/ml_quests/npcs_more.json", Kind::Mobile, 16),
-    ("Mobiles/quests/questers.json", Kind::Mobile, 28),
-    ("Mobiles/factions.json", Kind::Mobile, 16),
-    ("Mobiles/conpvp.json", Kind::Mobile, 1),
-    ("Mobiles/khaldun/mobiles.json", Kind::Mobile, 4),
-    ("Mobiles/ethics/mobiles.json", Kind::Mobile, 4),
-    ("Items/ml_quests/items.json", Kind::Item, 36),
-    ("Items/ml_quests/items2.json", Kind::Item, 27),
-    ("Items/engines/misc.json", Kind::Item, 77),
-    ("Items/multis/deeds.json", Kind::Item, 29),
-    ("Items/multis/misc.json", Kind::Item, 11),
-    ("Items/multis/boats.json", Kind::Item, 13),
-    ("Items/multis/houses.json", Kind::Item, 13),
-    ("Items/content/misc.json", Kind::Item, 89),
-    ("Items/samples/leaves.json", Kind::Item, 10),
+    ("classes/mobiles/ml_quests/npcs.rhai", Kind::Mobile, 119),
+    ("classes/mobiles/quests/creatures.rhai", Kind::Mobile, 8),
+    ("classes/mobiles/ml_quests/npcs_more.rhai", Kind::Mobile, 16),
+    ("classes/mobiles/quests/questers.rhai", Kind::Mobile, 28),
+    ("classes/mobiles/factions.rhai", Kind::Mobile, 16),
+    ("classes/mobiles/conpvp.rhai", Kind::Mobile, 1),
+    ("classes/mobiles/khaldun/mobiles.rhai", Kind::Mobile, 4),
+    ("classes/mobiles/ethics/mobiles.rhai", Kind::Mobile, 4),
+    ("classes/items/ml_quests/items.rhai", Kind::Item, 36),
+    ("classes/items/ml_quests/items2.rhai", Kind::Item, 27),
+    ("classes/items/engines/misc.rhai", Kind::Item, 77),
+    ("classes/items/multis/deeds.rhai", Kind::Item, 29),
+    ("classes/items/multis/misc.rhai", Kind::Item, 11),
+    ("classes/items/multis/boats.rhai", Kind::Item, 13),
+    ("classes/items/multis/houses.rhai", Kind::Item, 13),
+    ("classes/items/content/misc.rhai", Kind::Item, 89),
+    ("classes/items/samples/leaves.rhai", Kind::Item, 10),
 ];
 
 /// Templates only inherited by the converted classes.
@@ -64,15 +64,10 @@ fn every_converted_class_has_its_template() {
             };
             // An abstract class (no `ItemType` registered) only holds props its subclasses read.
             assert!(
-                registered
-                    || BASES.contains(&name)
-                    || (tmpl.item_steps.is_empty() && tmpl.mobile_steps.is_empty()),
+                registered || BASES.contains(&name) || !tmpl.has_constructor(),
                 "{name} is not a registered class"
             );
-            let empty = tmpl.props.is_empty()
-                && tmpl.item_steps.is_empty()
-                && tmpl.mobile_steps.is_empty()
-                && tmpl.inherits.is_none();
+            let empty = tmpl.props.is_empty() && !tmpl.has_constructor() && tmpl.inherits.is_none();
             assert!(!empty, "{name} has an empty template");
         }
     }

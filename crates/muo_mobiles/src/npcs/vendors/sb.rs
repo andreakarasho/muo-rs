@@ -1,6 +1,5 @@
-//! The `SBInfo` tables, what each vendor buys and sells: `Data/Templates/Vendors/*.json`.
-//!
-//! Each file is an array of `{"name": "SBAlchemist", "build": [statement, ..]}`; the statements run in order (the
+//! The `SBInfo` tables, what each vendor buys and sells: the `shop("SBAlchemist", |s| ..)` declarations of
+//! `Data/Scripts` (see `muo_content::scripting::friendly`), each a list of statements in this form, run in order (the
 //! RNG is drawn in that order):
 //! - `{"sell": "<class>", "price": n}`: `GenericSellInfo.Add(type, price)`.
 //! - `{"buy": "<class>", "name": "<cliloc or text>", "price": n, "amount": n | {"from": a, "count": c},
@@ -14,7 +13,7 @@
 //! The tables reload with the templates (`[ReloadTemplates`).
 
 use std::collections::{HashMap, HashSet};
-use std::path::{Path, PathBuf};
+
 use std::rc::Rc;
 
 use serde_json::Value;
@@ -205,62 +204,26 @@ fn stmt(v: &Value, names: &mut Interned) -> Result<Stmt, String> {
     Err(format!("unknown statement {v}"))
 }
 
-fn load_dir(dir: &Path, names: &mut Interned) -> Result<HashMap<String, Vec<Stmt>>, String> {
-    let rd = std::fs::read_dir(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
-    let mut files: Vec<PathBuf> = rd
-        .filter_map(Result::ok)
-        .map(|e| e.path())
-        .filter(|p| {
-            p.extension()
-                .is_some_and(|e| e.eq_ignore_ascii_case("json"))
-        })
-        .collect();
-    files.sort();
+/// The `shop(..)` lists the scripts declared (the templates' `"vendors"` data).
+fn load_lists(
+    t: &TemplateTable,
+    names: &mut Interned,
+) -> Result<HashMap<String, Vec<Stmt>>, String> {
     let mut sbs = HashMap::new();
-    for f in files {
-        let err = |m: String| format!("{}: {m}", f.display());
-        let text = std::fs::read_to_string(&f).map_err(|e| err(e.to_string()))?;
-        let v: Value = serde_json::from_str(&text).map_err(|e| err(e.to_string()))?;
-        let arr = v
-            .as_array()
-            .ok_or_else(|| err("expected an array".into()))?;
-        for o in arr {
-            let name = o
-                .get("name")
-                .and_then(Value::as_str)
-                .ok_or_else(|| err("an SBInfo without a \"name\" string".into()))?;
-            let build = block(o.get("build"), names).map_err(|m| err(format!("{name}: {m}")))?;
-            if sbs.insert(name.to_owned(), build).is_some() {
-                return Err(err(format!("{name} is defined twice")));
-            }
+    for (name, o) in t.data.get("vendors").into_iter().flatten() {
+        let build = block(o.get("build"), names).map_err(|m| format!("shop {name}: {m}"))?;
+        if sbs.insert(name.clone(), build).is_some() {
+            return Err(format!("shop {name} is defined twice"));
         }
     }
     Ok(sbs)
 }
 
-/// `Data/Templates/Vendors`: next to the loaded templates, else where a test world finds them.
-fn vendors_dir(w: &World) -> Option<PathBuf> {
-    let d = templates::templates_dir(w).join("Vendors");
-    if d.is_dir() {
-        return Some(d);
-    }
-    if let Some(p) = std::env::var_os("MUO_TEMPLATES") {
-        return Some(PathBuf::from(p).join("Vendors"));
-    }
-    let cwd = std::env::current_dir().ok()?;
-    cwd.ancestors()
-        .map(|a| a.join("Data").join("Templates").join("Vendors"))
-        .find(|p| p.is_dir())
-}
-
-/// Reads `Data/Templates/Vendors` into the world.
+/// Builds the tables from the loaded templates' shops.
 pub fn reload(w: &mut World) -> Result<(), String> {
     let with = templates::table(w);
     let mut names = std::mem::take(w.resources.get_mut::<Interned>());
-    let r = match vendors_dir(w) {
-        Some(d) => load_dir(&d, &mut names),
-        None => Err("Data/Templates/Vendors is missing".to_owned()),
-    };
+    let r = load_lists(&with, &mut names);
     *w.resources.get_mut::<Interned>() = names;
     let (sbs, res) = match r {
         Ok(s) => (s, Ok(())),

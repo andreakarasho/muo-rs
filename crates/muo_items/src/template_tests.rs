@@ -1,7 +1,7 @@
-//! The classes whose constants and constructors moved to `Data/Templates/Items` keep their templates: a missing
+//! The classes whose constants and constructors moved to `Data/Scripts/classes/items` keep their templates: a missing
 //! entry would silently fall back to the parent class's stats or make an item with graphic 0.
 
-use muo_content::templates::{self, Kind, item_steps::Step};
+use muo_content::templates::{self, Kind};
 
 /// Weapon/armor classes whose stat constants are template `props`.
 const PROPS: &[&str] = &[
@@ -656,7 +656,8 @@ const CTORS: &[&str] = &[
 
 #[test]
 fn converted_classes_have_their_templates() {
-    let t = templates::table(&mut crate::test_world());
+    let mut w = crate::test_world();
+    let t = templates::table(&mut w);
     for name in PROPS {
         let tmpl = t.get(Kind::Item, name);
         assert!(
@@ -665,9 +666,9 @@ fn converted_classes_have_their_templates() {
         );
     }
     for name in CTORS {
-        let tmpl = t.get(Kind::Item, name);
-        assert!(
-            tmpl.is_some_and(|t| matches!(t.item_steps.first(), Some(Step::ItemId(_)))),
+        assert_eq!(
+            templates::constructor_keys(&mut w, Kind::Item, name).first(),
+            Some(&"itemId"),
             "{name}: no template starting with \"itemId\""
         );
     }

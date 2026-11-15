@@ -66,7 +66,7 @@ macro_rules! ver_read {
 /// `graphic X` is `: base(X)` of an abstract base; `via f` runs the constructor `f` of the parent leaf (an implicit
 /// `base()`), both for the leaf's own type (so a virtual the constructor reads is the leaf's). `v0` is
 /// `[SerializationGenerator(0, false)]` (the version as an int), `enc` is `[SerializationGenerator(0)]` (an
-/// encoded int). `@json;` in place of `@init` replays the class's own template (`Data/Templates/Items`).
+/// encoded int). `@json;` in place of `@init` replays the class's own template (`Data/Scripts/classes/items`).
 macro_rules! weapon_leaf {
     (
         $(#[$m:meta])*

@@ -1,8 +1,0 @@
-[
-  {
-    "type": "Server.Items.SpellScroll",
-    "props": {
-      "defaultWeight": 1.0
-    }
-  }
-]

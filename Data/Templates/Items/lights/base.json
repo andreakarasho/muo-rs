@@ -1,9 +1,0 @@
-[
-  {
-    "type": "Server.Items.BaseLight",
-    "props": {
-      "litItemId": 0,
-      "unlitItemId": 0
-    }
-  }
-]

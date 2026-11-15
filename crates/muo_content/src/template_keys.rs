@@ -1,4 +1,4 @@
-//! Class props of item classes whose constant members moved to `Data/Templates/Items` (`"props"`), and the
+//! Class props of item classes whose constant members moved to `Data/Scripts/classes/items` (`"props"`), and the
 //! constructor of a class that is only its template. A member reads its prop through the class chain; without the
 //! prop it answers what its Rust parent answers (`..PARENT`). Shared by the content crates above.
 

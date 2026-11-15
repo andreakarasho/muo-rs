@@ -2,7 +2,7 @@
 //! lowers its weight) and the four elven quivers. State is `muo_content::items::ext_bags::QuiverData` in
 //! `Item::ext` (so `items::attr` reaches the `AosAttributes`). The class constants (graphic, label, the
 //! `AlterBowDamage` split) are template props and the constructors' statements template keys
-//! (`Data/Templates/Items/quivers`). [`configure`] sets the hooks the weapon code calls (`quiver_of`, ..).
+//! (`Data/Scripts/classes/items/quivers`). [`configure`] sets the hooks the weapon code calls (`quiver_of`, ..).
 
 use muo_content::aos::{AosAttribute, AttrKind, Attrs};
 use muo_content::items::clothing::ClothingQuality;

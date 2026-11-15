@@ -39,7 +39,7 @@ fn attr(w: &mut World, id: ItemId, a: AosAttribute, v: i32) {
 /// `clothing_leaf!` and `weapon_art!`, which are private to that crate): `NAME, NAME_CLASS: ClassTable, ctor =
 /// "Full.Name" : PARENT, PARENT_CLASS, <parent constructor>;` then `@init` and one `field: value,` per `override`.
 macro_rules! art {
-    // `@template;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
     (
         $(#[$m:meta])*
         $name:ident, $class:ident: $cty:ident, $ctor:ident = $full:literal : $parent:path, $pclass:path, $pnew:expr;

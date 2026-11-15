@@ -1,8 +1,0 @@
-[
-  {
-    "type": "Server.Items.Spellbook",
-    "props": {
-      "defaultWeight": 3.0
-    }
-  }
-]

@@ -2,7 +2,7 @@
 //! movement and combat decisions), `BaseFactionVendor` and the five vendors, and `FactionWarHorse`.
 //!
 //! The constructors of the guard classes, the vendors and the war horse are their templates
-//! (`Data/Templates/Mobiles/factions.json`); a guard's `GuardAI` flags are its `guardFlags` prop, read when it is
+//! (`Data/Scripts/classes/mobiles/factions.json`); a guard's `GuardAI` flags are its `guardFlags` prop, read when it is
 //! made or loaded.
 //!
 //! (the spell, bandage and potion half of `Think` is guard_ai.rs).

@@ -1,5 +1,5 @@
 //! The weapon classes whose constructor statements and `LabelNumber`/`ArtifactRarity` live in
-//! `Data/Templates/Items/weapons`: each still has its template, and the class reads the moved values.
+//! `Data/Scripts/classes/items/weapons`: each still has its template, and the class reads the moved values.
 
 use muo_content::items::weapon;
 use muo_content::templates::{self, Kind};
@@ -126,7 +126,7 @@ fn every_moved_class_has_its_template_and_props() {
             .get(Kind::Item, name)
             .unwrap_or_else(|| panic!("{name}: no template"));
         assert_eq!(
-            !tmpl.item_steps.is_empty(),
+            tmpl.has_constructor(),
             steps,
             "{name}: constructor statements"
         );

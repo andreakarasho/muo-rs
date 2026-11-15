@@ -36,7 +36,7 @@ pub fn read_version(r: &mut dyn GenericReader, encoded: bool) -> Result<i32> {
 /// `@init` (the rest of the constructor, in order), `@ty { .. }` (overrides that replace an `ItemType` entry) and
 /// one `field: value,` per constant `override`.
 macro_rules! clothing_leaf {
-    // `@template;`: the rest of the constructor is the class's item template (`Data/Templates/Items`).
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr,

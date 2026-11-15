@@ -499,7 +499,7 @@ mod tests {
 
     #[test]
     fn the_event_window_is_the_2021_one() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         w.now = DateTime::from_ymd(2021, 10, 23).unwrap();
         assert!(!in_window(&w));
         w.now = DateTime::from_ymd(2021, 11, 1).unwrap();
@@ -510,7 +510,7 @@ mod tests {
 
     #[test]
     fn a_zombie_skeleton_is_immune_to_regular_poison_not_lethal() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let z = super::super::holiday::zombie_skeleton_new(&mut w, None);
         let id = (super::super::holiday::ZOMBIE_SKELETON_C.poison_immune)(&w, z);
         assert_eq!(id, Some(muo_server::poison::PoisonId(1)));
@@ -518,7 +518,7 @@ mod tests {
 
     #[test]
     fn a_death_outside_the_window_queues_nothing() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let p = muo_content::player_mobile::new_player_mobile(&mut w);
         w.now = DateTime::from_ymd(2026, 1, 1).unwrap();
         on_player_death(&mut w, p);

@@ -1,5 +1,5 @@
 //! Item family constants read through [`super::props`]: weapon and armor stats (`"aosStrReq"`, `"initMinHits"`,
-//! `"basePhysicalResistance"`, ..) moved from the Rust class tables to `Data/Templates/Items`.
+//! `"basePhysicalResistance"`, ..) moved from the Rust class tables to `Data/Scripts/classes/items`.
 //!
 //! Each reader returns the prop of the item's class chain, else `fallback`: the Rust class table's value, which for
 //! a class without the prop is its parent's (`..PARENT`). The key is the table field in camelCase.

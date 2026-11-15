@@ -2,7 +2,7 @@
 //! To add one, copy the nearest class below.
 //!
 //! A leaf is one `weapon_leaf!`/`armor_leaf!`/`clothing_leaf!`/`jewel_leaf!` call. Its data is its item template
-//! (`Data/Templates/Items/samples/leaves.json`): the `graphic` prop is what the constructor passes to `base(itemID)`,
+//! (`Data/Scripts/classes/items/samples/leaves.json`): the `graphic` prop is what the constructor passes to `base(itemID)`,
 //! the other props are the constant `override`s (the class table field in camelCase), and the template's keys are the
 //! rest of the constructor. Fields of the call are `override`s that are code (fn pointers of [`WeaponClass`],
 //! [`ArmorClass`], ..). The save part is generated: every `[SerializationGenerator(0, false)]` leaf with no fields of

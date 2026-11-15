@@ -1131,7 +1131,7 @@ pub static BASE_TREASURE_CHEST: ItemType = ItemType {
 
 /// One concrete container class whose save is `parent part + version int 0`.
 /// `$ctor` builds it (`new_base_container` / `new_lockable` / `new_trappable`), then the class's item template
-/// (`Data/Templates/Items`, its graphic and statements) runs; `@init` is what the template cannot hold.
+/// (`Data/Scripts/classes/items`, its graphic and statements) runs; `@init` is what the template cannot hold.
 macro_rules! container_leaf {
     // `[SerializationGenerator(0)]`: the class's own version is an encoded int.
     (

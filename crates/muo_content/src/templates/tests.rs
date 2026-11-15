@@ -1,5 +1,3 @@
-use std::path::PathBuf;
-
 use muo_io::{SaveReader, SaveWriter};
 use muo_server::mobile::ResistanceType;
 use muo_server::world::World;
@@ -8,19 +6,21 @@ use super::*;
 use crate::creature::speeds::{NpcSpeeds, SpeedClassEntry};
 use crate::creature::vtable::BASE_CREATURE;
 
-/// A fresh `<tmp>/<name>/Data/Templates` with `Mobiles/t.json` = `mobiles`; returns the server folder.
-fn server_dir(name: &str, mobiles: &str) -> PathBuf {
-    let base = std::env::temp_dir().join(format!("muo-templates-{name}-{}", std::process::id()));
-    let dir = base.join("Data").join("Templates").join("Mobiles");
-    let _ = std::fs::remove_dir_all(&base);
-    std::fs::create_dir_all(&dir).unwrap();
-    std::fs::write(dir.join("t.json"), mobiles).unwrap();
-    base
+/// The templates of a test, as the JSON array of mobile templates the steps are written in (`t.json`).
+fn server_dir(_name: &str, mobiles: &str) -> String {
+    mobiles.to_owned()
 }
 
-fn world(base: PathBuf) -> World {
+/// The table of `json`, without a world.
+fn load_dir(json: &str) -> Result<TemplateTable, String> {
+    json_table(json, &keys::Keys::default())
+}
+
+/// The JSON of the world's test, for [`reload`].
+struct TestJson(String);
+
+fn world(json: String) -> World {
     let mut w = World::new();
-    w.core.base_directory = base;
     w.types.register_mobile(&BASE_CREATURE, &[]);
     w.resources
         .get_mut::<NpcSpeeds>()
@@ -32,27 +32,38 @@ fn world(base: PathBuf) -> World {
             passive_move: 0.0,
             types: vec![],
         });
+    w.resources.insert(TestJson(json));
     w
+}
+
+/// Loads the world's test templates as a reload would.
+fn reload(w: &mut World) -> Result<(), String> {
+    let json = w
+        .resources
+        .get::<TestJson>()
+        .map(|t| t.0.clone())
+        .unwrap_or_default();
+    install_json(w, &json)
 }
 
 #[test]
 fn errors_name_the_file_type_and_key() {
     let base = server_dir("err", r#"[{ "type": "X.Y", "str": "lots" }]"#);
-    let e = load_dir(&base.join("Data/Templates")).unwrap_err();
+    let e = load_dir(&base).unwrap_err();
     assert!(
         e.contains("t.json") && e.contains("X.Y") && e.contains("\"str\""),
         "{e}"
     );
 
     let base = server_dir("unknown", r#"[{ "type": "X.Y", "strength": 5 }]"#);
-    let e = load_dir(&base.join("Data/Templates")).unwrap_err();
+    let e = load_dir(&base).unwrap_err();
     assert!(e.contains("\"strength\": unknown key"), "{e}");
 
     let base = server_dir(
         "cycle",
         r#"[{ "type": "A", "inherits": "B" }, { "type": "B", "inherits": "A" }]"#,
     );
-    let e = load_dir(&base.join("Data/Templates")).unwrap_err();
+    let e = load_dir(&base).unwrap_err();
     assert!(e.contains("cycle"), "{e}");
 }
 
@@ -62,7 +73,7 @@ fn keys_keep_file_order() {
         "order",
         r#"[{ "type": "A", "hits": 5, "str": [1, 2], "body": 9 }]"#,
     );
-    let t = load_dir(&base.join("Data/Templates")).unwrap();
+    let t = load_dir(&base).unwrap();
     let steps = &t.mobiles["A"].mobile_steps;
     assert_eq!(
         steps,
@@ -230,7 +241,7 @@ fn era_coin_and_registered_keys() {
         "badkey",
         r#"[{ "type": "X", "era": { "atLeast": "AOZ" } }]"#,
     );
-    let e = load_dir(&base.join("Data/Templates")).unwrap_err();
+    let e = load_dir(&base).unwrap_err();
     assert!(e.contains("unknown era AOZ"), "{e}");
 }
 
@@ -240,11 +251,10 @@ fn a_lenient_load_skips_unregistered_keys_and_a_strict_one_rejects_them() {
         "lenient",
         r#"[{ "type": "A", "hits": 5, "someCrateKey": 1 }]"#,
     );
-    let root = base.join("Data/Templates");
     let w = World::new();
-    let t = load_dir_with(&root, &keys::Keys::lenient(&w.types)).unwrap();
+    let t = json_table(&base, &keys::Keys::lenient(&w.types)).unwrap();
     assert_eq!(t.mobiles["A"].mobile_steps.len(), 2);
-    let e = load_dir_with(&root, &keys::Keys::of(&w.types)).unwrap_err();
+    let e = json_table(&base, &keys::Keys::of(&w.types)).unwrap_err();
     assert!(e.contains("\"someCrateKey\": unknown key"), "{e}");
 }
 
@@ -275,9 +285,5 @@ fn a_random_ai_is_drawn_before_the_creature_exists() {
         "aibad",
         r#"[{ "type": "X", "ai": { "coin": ["AiMelee"] } }]"#,
     );
-    assert!(
-        load_dir(&base.join("Data/Templates"))
-            .unwrap_err()
-            .contains("coin")
-    );
+    assert!(load_dir(&base).unwrap_err().contains("coin"));
 }
