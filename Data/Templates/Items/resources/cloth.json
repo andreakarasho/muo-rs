@@ -1,6 +1,8 @@
 [
   {
     "type": "Server.Items.TaintedWool",
+    "itemId": 4127,
+    "stackable": true,
     "props": {
       "defaultWeight": 4.0
     }
@@ -20,6 +22,21 @@
   },
   {
     "type": "Server.Items.Fish",
+    "oneOf": [
+      {
+        "itemId": 2508
+      },
+      {
+        "itemId": 2509
+      },
+      {
+        "itemId": 2510
+      },
+      {
+        "itemId": 2511
+      }
+    ],
+    "stackable": true,
     "props": {
       "defaultWeight": 1.0
     }
@@ -36,6 +53,123 @@
     "hue": 66,
     "props": {
       "labelNumber": 1041076
+    }
+  },
+  {
+    "type": "Server.Items.Cloth",
+    "itemId": 5990,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.UncutCloth",
+    "itemId": 5991,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.BoltOfCloth",
+    "itemId": 3989,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 5.0
+    }
+  },
+  {
+    "type": "Server.Items.Bone",
+    "itemId": 3966,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Bolt",
+    "itemId": 7163,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Arrow",
+    "itemId": 3903,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 0.1
+    }
+  },
+  {
+    "type": "Server.Items.Cotton",
+    "itemId": 3577,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.Flax",
+    "itemId": 6812,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 1.0,
+      "labelNumber": 1026812
+    }
+  },
+  {
+    "type": "Server.Items.Wool",
+    "itemId": 3576,
+    "stackable": true,
+    "props": {
+      "defaultWeight": 4.0
+    }
+  },
+  {
+    "type": "Server.Items.DarkYarn",
+    "itemId": 3613,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.LightYarn",
+    "itemId": 3614,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.LightYarnUnraveled",
+    "itemId": 3615,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.SpoolOfThread",
+    "itemId": 4000,
+    "stackable": true
+  },
+  {
+    "type": "Server.Items.PrizedFish",
+    "itemId": 3542,
+    "hue": 51,
+    "props": {
+      "labelNumber": 1041073
+    }
+  },
+  {
+    "type": "Server.Items.WondrousFish",
+    "itemId": 3542,
+    "hue": 86,
+    "props": {
+      "labelNumber": 1041074
+    }
+  },
+  {
+    "type": "Server.Items.TrulyRareFish",
+    "itemId": 3542,
+    "hue": 76,
+    "props": {
+      "labelNumber": 1041075
     }
   }
 ]
