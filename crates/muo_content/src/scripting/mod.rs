@@ -16,16 +16,31 @@
 //! logged with the file and function, and the default behavior runs.
 
 mod api;
+mod api_effects;
 mod api_engines;
 mod api_equipment;
+mod api_interaction;
+mod api_item_more;
 mod api_misc_items;
 mod api_misc_items2;
+mod api_mobile_more;
 mod api_mobiles;
 mod api_npcs;
+mod api_world;
 mod classes;
 pub mod friendly;
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
+mod tests_effects;
+#[cfg(test)]
+mod tests_interaction;
+#[cfg(test)]
+mod tests_item_more;
+#[cfg(test)]
+mod tests_mobile_more;
+#[cfg(test)]
+mod tests_world;
 
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
@@ -126,14 +141,27 @@ impl ScriptHost {
         name: &str,
         args: Vec<Dynamic>,
     ) -> Option<Dynamic> {
+        match self.call_result(w, script, name, args) {
+            Ok(v) => Some(v),
+            Err(e) => {
+                tracing::error!("Script {}: {name}: {e}", self.scripts[script].name);
+                None
+            }
+        }
+    }
+
+    /// [`ScriptHost::call`] returning the error instead of logging it.
+    fn call_result(
+        &self,
+        w: &mut World,
+        script: usize,
+        name: &str,
+        args: Vec<Dynamic>,
+    ) -> Result<Dynamic, String> {
         let s = &self.scripts[script];
         let depth = &mut w.resources.get_mut::<Depth>().0;
         if *depth >= MAX_DEPTH {
-            tracing::error!(
-                "Script {}: {name}: nested deeper than {MAX_DEPTH} script calls",
-                s.name
-            );
-            return None;
+            return Err(format!("nested deeper than {MAX_DEPTH} script calls"));
         }
         *depth += 1;
         // The pointer is the only way the world is reached during the call; `w` is not touched again until
@@ -151,13 +179,7 @@ impl ScriptHost {
             args,
         );
         w.resources.get_mut::<Depth>().0 -= 1;
-        match r {
-            Ok(v) => Some(v),
-            Err(e) => {
-                tracing::error!("Script {}: {name}: {e}", s.name);
-                None
-            }
-        }
+        r.map_err(|e| e.to_string())
     }
 
     /// Compiles every `.rhai` under `dir` and runs each top level once, collecting its `class` declarations. A file
@@ -518,16 +540,37 @@ fn call_global(w: &mut World, g: usize, args: impl Fn() -> Vec<Dynamic>) -> bool
 /// A `timer(ms, "fn", arg)` firing: `fn` in the script that started it, else in any script (resolved now, so a
 /// reload in between applies).
 fn fire_timer(w: &mut World, script: &str, name: &str, arg: Dynamic) {
-    let Some(host) = host(w) else { return };
+    if !call_named(w, script, name, vec![arg]) {
+        tracing::warn!("Script {script}: timer: no function {name}(arg)");
+    }
+}
+
+/// Calls script function `name` of any script with `args` and returns what it returned (`None` when no script
+/// defines it or it failed). For tests.
+#[cfg(test)]
+pub(crate) fn call_value(w: &mut World, name: &str, args: Vec<Dynamic>) -> Result<Dynamic, String> {
+    let host = host(w).ok_or("no script host")?;
+    let i = (0..host.scripts.len())
+        .find(|&i| host.has_fn(i, name, args.len()))
+        .ok_or_else(|| format!("no function {name}"))?;
+    host.call_result(w, i, name, args)
+}
+
+/// Calls script function `name` with `args`: the one in script `script` if it has it, else the first script
+/// defining it with that many parameters (resolved now, so a reload in between applies). False when none does.
+pub(crate) fn call_named(w: &mut World, script: &str, name: &str, args: Vec<Dynamic>) -> bool {
+    let Some(host) = host(w) else { return false };
     let n = host.scripts.len();
+    let arity = args.len();
     let found = (0..n)
-        .find(|&i| host.scripts[i].name == script && host.has_fn(i, name, 1))
-        .or_else(|| (0..n).find(|&i| host.has_fn(i, name, 1)));
+        .find(|&i| host.scripts[i].name == script && host.has_fn(i, name, arity))
+        .or_else(|| (0..n).find(|&i| host.has_fn(i, name, arity)));
     match found {
         Some(i) => {
-            host.call(w, i, name, vec![arg]);
+            host.call(w, i, name, args);
+            true
         }
-        None => tracing::warn!("Script {script}: timer: no function {name}(arg)"),
+        None => false,
     }
 }
 

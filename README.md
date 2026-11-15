@@ -140,6 +140,8 @@ shop("SBBlacksmith", |s| {
 - Random draws match the C# ones, so a class keeps its behavior when edited elsewhere: `chance(p)`, `coin()`,
   `random(a, b)`, `random_below(n)`, `pick([..])`, `era("AOS")`.
 - Edits apply to entities made afterwards; saved entities keep their saved values.
+- The full function list is in [`docs/scripting`](docs/scripting/README.md): the world, creatures and players,
+  items, sounds and effects, targeting, prompts and dialogs.
 - Plain script files also work: per-file hooks (`fn on_use(item, from)` bound with `c.script = "file.rhai"`), global
   hooks (`on_login`, `on_speech`, `on_server_started`) and staff commands (`fn command_<name>(m, args)` adds
   `[<name>`). See `Data/Scripts/examples/`.

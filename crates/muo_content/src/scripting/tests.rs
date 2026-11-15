@@ -450,3 +450,49 @@ fn friendly_items_set_attributes_and_hooks_run() {
     ));
     assert_eq!(w.item(id).unwrap().hue, 33);
 }
+
+/// A world whose `Data/Scripts` holds the repository's class scripts and `t.rhai` = `code`, with Felucca (map 0) and
+/// Trammel (map 1) as empty maps, loaded as a test world loads (keys of other crates skipped); for the tests of the
+/// script functions.
+pub(super) fn script_world(name: &str, code: &str) -> World {
+    fn copy_dir(from: &std::path::Path, to: &std::path::Path) {
+        std::fs::create_dir_all(to).unwrap();
+        for e in std::fs::read_dir(from).unwrap().flatten() {
+            let p = e.path();
+            if p.is_dir() {
+                copy_dir(&p, &to.join(e.file_name()));
+            } else {
+                std::fs::copy(&p, to.join(e.file_name())).unwrap();
+            }
+        }
+    }
+    let base = std::env::temp_dir().join(format!("muo-api-{name}-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&base);
+    let scripts = base.join("Data/Scripts");
+    let repo = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../Data/Scripts/classes");
+    copy_dir(&repo, &scripts.join("classes"));
+    std::fs::write(scripts.join("t.rhai"), code).unwrap();
+    let mut w = World::new();
+    w.core.base_directory = base;
+    crate::register(&mut w.types);
+    crate::scripting::register(&mut w.types);
+    for (i, map) in [(0, "Felucca"), (1, "Trammel")] {
+        w.maps.add(muo_server::map::Map::new(
+            i,
+            i,
+            i,
+            7168,
+            4096,
+            0,
+            map,
+            Default::default(),
+        ));
+    }
+    crate::templates::table(&mut w);
+    w
+}
+
+/// Calls `name(args..)` in the test script; panics with the script's error when it failed.
+pub(super) fn call(w: &mut World, name: &str, args: Vec<Dynamic>) -> Dynamic {
+    super::call_value(w, name, args).unwrap_or_else(|e| panic!("{name}: {e}"))
+}

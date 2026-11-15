@@ -46,6 +46,8 @@ fn type_name_of_full(n: &'static str) -> &'static str {
 /// `LoyaltyTimer.Initialize`, the creature event subscriptions and `VirtualMountItem`.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
     use muo_server::type_registry::{DEFAULT_CALL_PRIORITY, Phase};
+    // abstract in C# (no constructor): registered so script classes can `extends = "BaseCreature"`
+    types.register_mobile(&vtable::BASE_CREATURE, &[]);
     types.register_item(&virtual_mount::VIRTUAL_MOUNT_ITEM, &[]);
     types.register_item(&mount::MOUNT_ITEM, &[]);
     types.register_phase(

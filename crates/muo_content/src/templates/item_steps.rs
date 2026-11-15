@@ -165,11 +165,24 @@ pub fn parse(key: &str, v: &Value, keys: &Keys<'_>) -> Result<Step, String> {
 /// warning (the property tables are registered at Configure, after the templates load, so it cannot be checked
 /// earlier).
 pub fn set_property(w: &mut World, id: ItemId, path: &str, text: &str) {
+    if let Err(e) = set_entity_property(w, EntityId::Item(id), path, text) {
+        let ty = w.item(id).map_or("", |i| i.ty.full_name);
+        tracing::warn!("Templates: {ty}: \"set\": {path} = {text}: {e}");
+    }
+}
+
+/// `[set path value]` on any entity at Owner level, without the command log.
+pub fn set_entity_property(
+    w: &mut World,
+    e: EntityId,
+    path: &str,
+    text: &str,
+) -> Result<(), String> {
     use crate::props::{self, Access};
-    let r = props::resolve_chain(
+    props::resolve_chain(
         w,
         muo_server::mobile::AccessLevel::Owner,
-        EntityId::Item(id),
+        e,
         path,
         Access::WRITE,
     )
@@ -177,13 +190,8 @@ pub fn set_property(w: &mut World, id: ItemId, path: &str, text: &str) {
         let v = props::parse_for(w, def, text)?;
         let set = def.set.ok_or("read-only")?;
         set(w, owner, v)
-    });
-    if let Err(e) = r {
-        let ty = w.item(id).map_or("", |i| i.ty.full_name);
-        tracing::warn!("Templates: {ty}: \"set\": {path} = {text}: {e}");
-    }
+    })
 }
-
 pub fn apply(w: &mut World, id: ItemId, s: &Step) {
     let Some(ty) = w.item(id).map(|i| i.ty) else {
         return;

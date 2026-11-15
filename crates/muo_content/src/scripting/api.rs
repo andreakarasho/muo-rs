@@ -108,6 +108,12 @@ pub(crate) fn engine() -> Engine {
     mobile_api(&mut e);
     item_api(&mut e);
     world_api(&mut e);
+    content_api(&mut e);
+    super::api_world::register(&mut e);
+    super::api_mobile_more::register(&mut e);
+    super::api_item_more::register(&mut e);
+    super::api_effects::register(&mut e);
+    super::api_interaction::register(&mut e);
     super::api_equipment::register(&mut e);
     super::api_misc_items::register(&mut e);
     super::api_misc_items2::register(&mut e);
@@ -461,7 +467,8 @@ fn world_api(e: &mut Engine) {
         |ctx: NativeCallContext, class: &str, x: i64, y: i64, z: i64, map: i64| {
             with_world(&ctx, |w| {
                 let map = MapId(u8::try_from(map).ok()?);
-                let m = crate::factory::make_mobile(w, class)?;
+                let class = super::api_world::class_name(w, class);
+                let m = crate::factory::make_mobile(w, &class)?;
                 let p = Point3D::new(i32_of(x), i32_of(y), i32_of(z));
                 muo_server::mobile::base::move_to_world(w, m, p, map);
                 Some(m)
@@ -744,4 +751,111 @@ pub(crate) fn to_json(v: &Dynamic) -> Result<serde_json::Value, String> {
         return Ok(Value::String(s.to_string()));
     }
     Err(format!("{} is not a template value", v.type_name()))
+}
+
+/// A property as `[props` shows it, as a script value: numbers, bools and text as themselves, an entity as its
+/// handle, anything else (an enum, a point, a time) as its text.
+fn get_entity_property(w: &mut World, e: EntityId, path: &str) -> Result<Dynamic, String> {
+    use crate::props::{self, Access, Value};
+    let (owner, def) = props::resolve_chain(
+        w,
+        muo_server::mobile::AccessLevel::Owner,
+        e,
+        path,
+        Access::READ,
+    )?;
+    let v = (def.get)(w, owner);
+    Ok(match v {
+        Value::Null => Dynamic::UNIT,
+        Value::Int(n) => n.into(),
+        Value::UInt(n) => {
+            i64::try_from(n).map_or_else(|_| Dynamic::from_float(n as f64), Dynamic::from)
+        }
+        Value::Float(f) => f.into(),
+        Value::Bool(b) => b.into(),
+        Value::Str(t) | Value::Text(t) => t.into(),
+        Value::Entity(x) => entity(x),
+        other => props::describe(w, def, &other).into(),
+    })
+}
+
+/// Properties, the world around a point and class names, for content scripts.
+pub(crate) fn content_api(e: &mut Engine) {
+    use super::friendly::{NewItem, NewMobile};
+    use crate::templates::item_steps::set_entity_property;
+    fn set(ctx: &NativeCallContext, ent: EntityId, path: &str, v: &Dynamic) -> R<()> {
+        let text = v.to_string();
+        with_world(ctx, |w| set_entity_property(w, ent, path, &text))?
+            .map_err(|e| format!("set_prop {path} = {text}: {e}").into())
+    }
+    fn get(ctx: &NativeCallContext, ent: EntityId, path: &str) -> R<Dynamic> {
+        with_world(ctx, |w| get_entity_property(w, ent, path))?
+            .map_err(|e| format!("get_prop {path}: {e}").into())
+    }
+    // `m.set_prop("Team", 2)`: any property `[set` can set
+    e.register_fn(
+        "set_prop",
+        |ctx: NativeCallContext, m: Mobile, path: &str, v: Dynamic| {
+            set(&ctx, EntityId::Mobile(m.0), path, &v)
+        },
+    );
+    e.register_fn(
+        "set_prop",
+        |ctx: NativeCallContext, m: NewMobile, path: &str, v: Dynamic| {
+            set(&ctx, EntityId::Mobile(m.0), path, &v)
+        },
+    );
+    e.register_fn(
+        "set_prop",
+        |ctx: NativeCallContext, i: NewItem, path: &str, v: Dynamic| {
+            set(&ctx, EntityId::Item(i.0), path, &v)
+        },
+    );
+    // `m.get_prop("Team")`: any property `[props` shows
+    e.register_fn(
+        "get_prop",
+        |ctx: NativeCallContext, m: Mobile, path: &str| get(&ctx, EntityId::Mobile(m.0), path),
+    );
+    e.register_fn("get_prop", |ctx: NativeCallContext, i: Item, path: &str| {
+        get(&ctx, EntityId::Item(i.0), path)
+    });
+    // the mobiles within `range` tiles of (x, y) on `map`
+    e.register_fn(
+        "mobiles_in_range",
+        |ctx: NativeCallContext, x: i64, y: i64, map: i64, range: i64| -> R<rhai::Array> {
+            with_world(&ctx, |w| {
+                let Ok(map) = u8::try_from(map) else {
+                    return rhai::Array::new();
+                };
+                muo_server::map::enumerate::mobiles_in_range(
+                    w,
+                    Some(MapId(map)),
+                    i32_of(x),
+                    i32_of(y),
+                    i32_of(range),
+                )
+                .map(|m| Dynamic::from(Mobile(m)))
+                .collect()
+            })
+        },
+    );
+    // the full class name: `m.class_name == "Server.Mobiles.Orc"`
+    e.register_get(
+        "class_name",
+        |ctx: NativeCallContext, m: &mut Mobile| -> R<String> {
+            let m = *m;
+            with_world(&ctx, |w| {
+                live_m(w, m).map_or(String::new(), |t| t.full_name.to_owned())
+            })
+        },
+    );
+    e.register_get(
+        "class_name",
+        |ctx: NativeCallContext, i: &mut Item| -> R<String> {
+            let i = *i;
+            with_world(&ctx, |w| {
+                live_i(w, i).map_or(String::new(), |t| t.full_name.to_owned())
+            })
+        },
+    );
 }
