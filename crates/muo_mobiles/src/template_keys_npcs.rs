@@ -5,7 +5,8 @@
 //! `"randomBright"`, `"randomNondyed"`, `"humanSkin"` (`Race.Human.RandomSkinHue()`), `"humanHair"`.
 //!
 //! An item value (`npcEquip`, `npcAddItem`, `npcReplaceEquipment` take an array of them) is a class name or
-//! `{"item": "<class>", "hue": <hue>}`; the hue is drawn before the item is made, as `new T(hue)` does.
+//! `{"item": "<class>", "hue": <hue>, "hueAfter": <hue>}`: `hue` is drawn before the item is made (`new T(hue)`),
+//! `hueAfter` after (`new T { Hue = .. }`).
 //!
 //! Keys:
 //! - `npcSpeechHue`, `npcHue`: `SpeechHue = ..`, `Hue = ..`.
@@ -32,7 +33,7 @@ use muo_content::templates::keys::{Keys, check_bool, mobile_key};
 use muo_content::templates::mobile_steps;
 use muo_content::templates::props;
 use muo_primitives::utility;
-use muo_server::ids::MobileId;
+use muo_server::ids::{ItemId, MobileId};
 use muo_server::layer::Layer;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
@@ -109,18 +110,16 @@ fn check_ints<const N: usize>(v: &Value) -> Result<(), String> {
         .ok_or_else(|| format!("expected {N} integers, got {v}"))
 }
 
-/// An item value: the class and the hue spec.
-fn item_of(v: &Value) -> Option<(&str, Option<Hue>)> {
+/// An item value: the class, the hue drawn before it is made (`new T(hue)`) and the one set after
+/// (`new T { Hue = .. }`).
+fn item_of(v: &Value) -> Option<(&str, Option<Hue>, Option<Hue>)> {
+    let hue = |k| match v.get(k) {
+        None => Some(None),
+        Some(h) => Hue::parse(h).ok().map(Some),
+    };
     match v {
-        Value::String(s) => Some((s, None)),
-        Value::Object(o) => {
-            let n = o.get("item")?.as_str()?;
-            let h = match o.get("hue") {
-                None => None,
-                Some(h) => Some(Hue::parse(h).ok()?),
-            };
-            Some((n, h))
-        }
+        Value::String(s) => Some((s, None, None)),
+        Value::Object(o) => Some((o.get("item")?.as_str()?, hue("hue")?, hue("hueAfter")?)),
         _ => None,
     }
 }
@@ -129,11 +128,13 @@ fn check_items(v: &Value) -> Result<(), String> {
     let a = v.as_array().ok_or("expected an array of items")?;
     for x in a {
         if let Some(o) = x.as_object() {
-            if let Some(k) = o.keys().find(|k| *k != "item" && *k != "hue") {
+            if let Some(k) = o.keys().find(|k| !["item", "hue", "hueAfter"].contains(&k.as_str())) {
                 return Err(format!("unknown item key \"{k}\""));
             }
-            if let Some(h) = o.get("hue") {
-                check_hue(h)?;
+            for k in ["hue", "hueAfter"] {
+                if let Some(h) = o.get(k) {
+                    check_hue(h)?;
+                }
             }
         }
         item_of(x).ok_or_else(|| format!("expected an item, got {x}"))?;
@@ -141,18 +142,38 @@ fn check_items(v: &Value) -> Result<(), String> {
     Ok(())
 }
 
-/// Makes each item of an item array (its hue drawn first) and hands it to `put`.
-fn items(w: &mut World, id: MobileId, v: &Value, put: fn(&mut World, MobileId, &str, Option<i32>)) {
+type Put = fn(&mut World, MobileId, ItemId);
+
+/// Makes each item of an item array (its `hue` drawn first) and hands it to `put`, then sets its `hueAfter`.
+fn items(w: &mut World, id: MobileId, v: &Value, put: Put) {
     for x in v.as_array().map(Vec::as_slice).unwrap_or_default() {
-        if let Some((name, hue)) = item_of(x) {
-            let hue = hue.map(|h| h.roll(w));
-            put(w, id, name, hue);
+        let Some((name, hue, after)) = item_of(x) else {
+            continue;
+        };
+        let hue = hue.map(|h| h.roll(w));
+        let Some(it) = muo_content::factory::make_item(w, name) else {
+            continue;
+        };
+        if let Some(h) = hue {
+            muo_server::item::base::set_hue(w, it, h);
+        }
+        put(w, id, it);
+        if let Some(h) = after {
+            let h = h.roll(w);
+            if w.item(it).is_some() {
+                muo_server::item::base::set_hue(w, it, h);
+            }
         }
     }
 }
 
-fn add_item(w: &mut World, id: MobileId, name: &str, hue: Option<i32>) {
-    crate::npcs::vendors::add_item_hued(w, id, name, hue);
+/// `EquipItem(item)`: a refused item stays unreferenced.
+fn equip(w: &mut World, id: MobileId, it: ItemId) {
+    muo_server::mobile::base::equip_item(w, id, it);
+}
+
+fn add_item(w: &mut World, id: MobileId, it: ItemId) {
+    muo_server::mobile::part2::items::add_item(w, id, it);
 }
 
 fn check_block(v: &Value) -> Result<(), String> {
@@ -240,13 +261,13 @@ pub(crate) fn register(types: &mut TypeRegistry) {
         muo_server::mobile::part1::props_a::set_blessed(w, id, v.as_bool() == Some(true));
     });
     mobile_key(types, "npcEquip", check_items, |w, id, v| {
-        items(w, id, v, crate::npcs::humans_support::equip_new);
+        items(w, id, v, equip);
     });
     mobile_key(types, "npcAddItem", check_items, |w, id, v| {
         items(w, id, v, add_item);
     });
     mobile_key(types, "npcReplaceEquipment", check_items, |w, id, v| {
-        items(w, id, v, crate::npcs::vendors::replace_equipment);
+        items(w, id, v, crate::npcs::vendors::replace_equipment_item);
     });
     mobile_key(types, "npcGoldPack", check_ints::<2>, |w, id, v| {
         if let Some([a, b]) = ints::<2>(v) {

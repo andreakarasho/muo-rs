@@ -2,10 +2,9 @@
 
 use muo_content::items::gold::n0;
 use muo_content::mx;
-use muo_content::player_mobile::NpcGuild;
 use muo_content::vendor::banker::{get_balance, withdraw};
 use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass, init_outfit, new_vendor,
+    BASE_VENDOR, BASE_VENDOR_C, VendorClass, init_outfit,
 };
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::events::SpeechEventArgs;
@@ -14,7 +13,6 @@ use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{container, ops};
 use muo_server::layer::Layer;
 use muo_server::mobile::MobileType;
-use muo_server::mobile::part1::props_a;
 use muo_server::mobile::part2::messages;
 use muo_server::packets::message::AffixType;
 use muo_server::type_registry::TypeRegistry;
@@ -193,13 +191,8 @@ fn add_custom_context_entries(
 
 // ---- Banker ----
 
-fn banker_new(w: &mut World) -> MobileId {
-    new_vendor(w, &BANKER, Some("the banker"))
-}
 static BANKER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![crate::npcs::vendors::sb::named(w, id, "SBBanker")],
-    npc_guild: |_, _| NpcGuild::MerchantsGuild,
-    ..BASE_VENDOR_CLASS
+    ..super::vendors::npc::TEMPLATE_VENDOR_V
 };
 static BANKER_C: muo_content::creature::CreatureType = muo_content::creature::CreatureType {
     add_custom_context_entries,
@@ -214,7 +207,7 @@ fn handles_on_speech(w: &World, id: MobileId, from: MobileId) -> bool {
 pub static BANKER: MobileType = MobileType {
     full_name: "Server.Mobiles.Banker",
     parent: Some(&BASE_VENDOR),
-    construct: Some(banker_new),
+    construct: Some(|w| super::vendors::npc::new_template_vendor(w, &BANKER)),
     family: Some(&BANKER_C),
     handles_on_speech,
     on_speech,
@@ -232,14 +225,7 @@ pub static BANKER: MobileType = MobileType {
 
 // ---- Minter ----
 
-fn minter_new(w: &mut World) -> MobileId {
-    // Banker() then Title = "the minter".
-    let id = new_vendor(w, &MINTER, Some("the banker"));
-    props_a::set_title(w, id, Some("the minter".to_owned()));
-    id
-}
 static MINTER_V: VendorClass = VendorClass {
-    npc_guild: |_, _| NpcGuild::MerchantsGuild,
     ..BANKER_V
 };
 static MINTER_C: muo_content::creature::CreatureType = muo_content::creature::CreatureType {
@@ -250,7 +236,7 @@ static MINTER_C: muo_content::creature::CreatureType = muo_content::creature::Cr
 pub static MINTER: MobileType = MobileType {
     full_name: "Server.Mobiles.Minter",
     parent: Some(&BANKER),
-    construct: Some(minter_new),
+    construct: Some(|w| super::vendors::npc::new_template_vendor(w, &MINTER)),
     family: Some(&MINTER_C),
     serialize: |w, id, out| {
         (BANKER.serialize)(w, id, out);
@@ -266,14 +252,8 @@ pub static MINTER: MobileType = MobileType {
 
 // ---- GypsyBanker ----
 
-fn gypsy_banker_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &GYPSY_BANKER, Some("the banker"));
-    props_a::set_title(w, id, Some("the gypsy banker".to_owned()));
-    id
-}
 static GYPSY_BANKER_V: VendorClass = VendorClass {
     is_active_vendor: |_, _| false,
-    npc_guild: |_, _| NpcGuild::None,
     init_outfit: |w, id| {
         init_outfit(w, id);
         add_gypsy_hat(w, id);
@@ -299,7 +279,7 @@ static GYPSY_BANKER_C: muo_content::creature::CreatureType = muo_content::creatu
 pub static GYPSY_BANKER: MobileType = MobileType {
     full_name: "Server.Mobiles.GypsyBanker",
     parent: Some(&BANKER),
-    construct: Some(gypsy_banker_new),
+    construct: Some(|w| super::vendors::npc::new_template_vendor(w, &GYPSY_BANKER)),
     family: Some(&GYPSY_BANKER_C),
     click_title: |_, _| false,
     serialize: |w, id, out| {
