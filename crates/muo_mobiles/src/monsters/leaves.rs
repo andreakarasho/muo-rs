@@ -7,6 +7,7 @@ use muo_content::abilities::{self, MonsterAbility};
 use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C, new_mount};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 use muo_content::items::weapon::Ability;
+use muo_content::templates::{self, creature_props as tp};
 use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::MobileId;
@@ -14,399 +15,144 @@ use muo_server::mobile::MobileType;
 use muo_server::poison::PoisonId;
 use muo_server::type_registry::TypeRegistry;
 
-pub(crate) fn abysmal_horror_init(w: &mut World, id: MobileId) {
-    body(w, id, 312);
-    base_sound_id(w, id, 0x451);
-    set_str_range(w, id, 401, 420);
-    set_dex_range(w, id, 81, 90);
-    set_int_range(w, id, 401, 420);
-    set_hits(w, id, 6000);
-    set_damage(w, id, 13, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 35);
-    set_resistance(w, id, ResistanceType::Fire, 100);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 55);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 65);
-    set_resistance_range(w, id, ResistanceType::Energy, 77, 80);
-    set_skill(w, id, SkillName::EvalInt, 200.0);
-    set_skill_range(w, id, SkillName::Magery, 112.6, 117.5);
-    set_skill(w, id, SkillName::Meditation, 200.0);
-    set_skill_range(w, id, SkillName::MagicResist, 117.6, 120.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 84.1, 88.0);
-    fame(w, id, 26000);
-    karma(w, id, -26000);
-    virtual_armor(w, id, 54);
-}
 fn abysmal_horror_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ABYSMAL_HORROR,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    abysmal_horror_init(w, id);
-    id
+    templates::new_creature(w, &ABYSMAL_HORROR)
 }
 creature_leaf! {
     /// `Server.Mobiles.AbysmalHorror`.
     ABYSMAL_HORROR, ABYSMAL_HORROR_C = "Server.Mobiles.AbysmalHorror" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(abysmal_horror_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an abysmal horror corpse"),
+        corpse_name: tp::corpse_name,
         ignore_young_protection: |w, _id| w.core_ml(),
-        default_name: |_w, _id| Some("an abysmal horror"),
+        default_name: tp::default_name,
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::MortalStrike) } else { Some(Ability::WhirlwindAttack) },
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::abysmal_horror_on_death,
     }
 }
 
-pub(crate) fn bone_demon_init(w: &mut World, id: MobileId) {
-    body(w, id, 308);
-    base_sound_id(w, id, 0x48D);
-    set_str(w, id, 1000);
-    set_dex_range(w, id, 151, 175);
-    set_int_range(w, id, 171, 220);
-    set_hits(w, id, 3600);
-    set_damage(w, id, 34, 36);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_resistance(w, id, ResistanceType::Physical, 75);
-    set_resistance(w, id, ResistanceType::Fire, 60);
-    set_resistance(w, id, ResistanceType::Cold, 90);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance(w, id, ResistanceType::Energy, 60);
-    set_skill(w, id, SkillName::DetectHidden, 80.0);
-    set_skill_range(w, id, SkillName::EvalInt, 77.6, 87.5);
-    set_skill_range(w, id, SkillName::Magery, 77.6, 87.5);
-    set_skill(w, id, SkillName::Meditation, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 75.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 100.0);
-    fame(w, id, 20000);
-    karma(w, id, -20000);
-    virtual_armor(w, id, 44);
-}
 fn bone_demon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BONE_DEMON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    bone_demon_init(w, id);
-    id
+    templates::new_creature(w, &BONE_DEMON)
 }
 creature_leaf! {
     /// `Server.Mobiles.BoneDemon`.
     BONE_DEMON, BONE_DEMON_C = "Server.Mobiles.BoneDemon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(bone_demon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a bone demon corpse"),
-        default_name: |_w, _id| Some("a bone demon"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 8);
-        },
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn crystal_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 300);
-    base_sound_id(w, id, 278);
-    set_str_range(w, id, 136, 160);
-    set_dex_range(w, id, 51, 65);
-    set_int_range(w, id, 86, 110);
-    set_hits(w, id, 150);
-    set_damage(w, id, 10, 15);
-    set_damage_type(w, id, ResistanceType::Physical, 80);
-    set_damage_type(w, id, ResistanceType::Energy, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 55, 70);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 75.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 75.0);
-    set_skill_range(w, id, SkillName::Meditation, 65.1, 75.0);
-    set_skill_range(w, id, SkillName::MagicResist, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Tactics, 75.1, 85.0);
-    set_skill_range(w, id, SkillName::Wrestling, 65.1, 75.0);
-    fame(w, id, 6500);
-    karma(w, id, -6500);
-    virtual_armor(w, id, 54);
-}
 fn crystal_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CRYSTAL_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    crystal_elemental_init(w, id);
-    id
+    templates::new_creature(w, &CRYSTAL_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.CrystalElemental`.
     CRYSTAL_ELEMENTAL, CRYSTAL_ELEMENTAL_C = "Server.Mobiles.CrystalElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(crystal_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a crystal elemental corpse"),
-        default_name: |_w, _id| Some("a crystal elemental"),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::BleedAttack),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn darknight_creeper_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "darknight creeper");
-    body(w, id, 313);
-    base_sound_id(w, id, 0xE0);
-    set_str_range(w, id, 301, 330);
-    set_dex_range(w, id, 101, 110);
-    set_int_range(w, id, 301, 330);
-    set_hits(w, id, 4000);
-    set_damage(w, id, 22, 26);
-    set_damage_type(w, id, ResistanceType::Physical, 85);
-    set_damage_type(w, id, ResistanceType::Poison, 15);
-    set_resistance(w, id, ResistanceType::Physical, 60);
-    set_resistance(w, id, ResistanceType::Fire, 60);
-    set_resistance(w, id, ResistanceType::Cold, 100);
-    set_resistance(w, id, ResistanceType::Poison, 90);
-    set_resistance(w, id, ResistanceType::Energy, 75);
-    set_skill(w, id, SkillName::DetectHidden, 80.0);
-    set_skill_range(w, id, SkillName::EvalInt, 118.1, 120.0);
-    set_skill_range(w, id, SkillName::Magery, 112.6, 120.0);
-    set_skill(w, id, SkillName::Meditation, 150.0);
-    set_skill(w, id, SkillName::Poisoning, 120.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 90.9);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 90.9);
-    set_skill_range(w, id, SkillName::Necromancy, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 120.1, 130.0);
-    fame(w, id, 22000);
-    karma(w, id, -22000);
-    virtual_armor(w, id, 34);
-}
 fn darknight_creeper_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DARKNIGHT_CREEPER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    darknight_creeper_init(w, id);
-    id
+    templates::new_creature(w, &DARKNIGHT_CREEPER)
 }
 creature_leaf! {
     /// `Server.Mobiles.DarknightCreeper`.
     DARKNIGHT_CREEPER, DARKNIGHT_CREEPER_C = "Server.Mobiles.DarknightCreeper" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(darknight_creeper_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a darknight creeper corpse"),
+        corpse_name: tp::corpse_name,
         ignore_young_protection: |w, _id| w.core_ml(),
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::darknight_creeper_on_death,
     }
 }
 
-pub(crate) fn devourer_init(w: &mut World, id: MobileId) {
-    body(w, id, 303);
-    base_sound_id(w, id, 357);
-    set_str_range(w, id, 801, 950);
-    set_dex_range(w, id, 126, 175);
-    set_int_range(w, id, 201, 250);
-    set_hits(w, id, 650);
-    set_damage(w, id, 22, 26);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Cold, 20);
-    set_damage_type(w, id, ResistanceType::Energy, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::Tactics, 75.1, 85.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 100.0);
-    fame(w, id, 9500);
-    karma(w, id, -9500);
-    virtual_armor(w, id, 44);
-    pack_necro_reg_range(w, id, 24, 45);
-}
 fn devourer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DEVOURER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    devourer_init(w, id);
-    id
+    templates::new_creature(w, &DEVOURER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Devourer`.
     DEVOURER, DEVOURER_C = "Server.Mobiles.Devourer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(devourer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a devourer of souls corpse"),
-        default_name: |_w, _id| Some("a devourer of souls"),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        meat: |_w, _id| 3,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn flesh_golem_init(w: &mut World, id: MobileId) {
-    body(w, id, 304);
-    base_sound_id(w, id, 684);
-    set_str_range(w, id, 176, 200);
-    set_dex_range(w, id, 51, 75);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 106, 120);
-    set_damage(w, id, 18, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 70.0);
-    fame(w, id, 1000);
-    karma(w, id, -1800);
-    virtual_armor(w, id, 34);
-}
 fn flesh_golem_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FLESH_GOLEM,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    flesh_golem_init(w, id);
-    id
+    templates::new_creature(w, &FLESH_GOLEM)
 }
 creature_leaf! {
     /// `Server.Mobiles.FleshGolem`.
     FLESH_GOLEM, FLESH_GOLEM_C = "Server.Mobiles.FleshGolem" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(flesh_golem_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a flesh golem corpse"),
-        default_name: |_w, _id| Some("a flesh golem"),
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::BleedAttack),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn flesh_renderer_init(w: &mut World, id: MobileId) {
-    body(w, id, 315);
-    set_str_range(w, id, 401, 460);
-    set_dex_range(w, id, 201, 210);
-    set_int_range(w, id, 221, 260);
-    set_hits(w, id, 4500);
-    set_damage(w, id, 16, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 80);
-    set_damage_type(w, id, ResistanceType::Poison, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 70, 80);
-    set_skill(w, id, SkillName::DetectHidden, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 155.1, 160.0);
-    set_skill(w, id, SkillName::Meditation, 100.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 23000);
-    karma(w, id, -23000);
-    virtual_armor(w, id, 24);
-}
 fn flesh_renderer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FLESH_RENDERER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    flesh_renderer_init(w, id);
-    id
+    templates::new_creature(w, &FLESH_RENDERER)
 }
 creature_leaf! {
     /// `Server.Mobiles.FleshRenderer`.
     FLESH_RENDERER, FLESH_RENDERER_C = "Server.Mobiles.FleshRenderer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(flesh_renderer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a fleshrenderer corpse"),
+        corpse_name: tp::corpse_name,
         ignore_young_protection: |w, _id| w.core_ml(),
-        default_name: |_w, _id| Some("a fleshrenderer"),
+        default_name: tp::default_name,
         auto_dispel: |_w, _id| true,
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::Dismount) } else { Some(Ability::ParalyzingBlow) },
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::flesh_renderer_on_death,
@@ -418,371 +164,134 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn gibberling_init(w: &mut World, id: MobileId) {
-    body(w, id, 307);
-    base_sound_id(w, id, 422);
-    set_str_range(w, id, 141, 165);
-    set_dex_range(w, id, 101, 125);
-    set_int_range(w, id, 56, 80);
-    set_hits_range(w, id, 85, 99);
-    set_damage(w, id, 12, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Fire, 40);
-    set_damage_type(w, id, ResistanceType::Energy, 60);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 67.6, 92.5);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 1500);
-    karma(w, id, -1500);
-    virtual_armor(w, id, 27);
-}
 fn gibberling_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GIBBERLING,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gibberling_init(w, id);
-    id
+    templates::new_creature(w, &GIBBERLING)
 }
 creature_leaf! {
     /// `Server.Mobiles.Gibberling`.
     GIBBERLING, GIBBERLING_C = "Server.Mobiles.Gibberling" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gibberling_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gibberling corpse"),
-        default_name: |_w, _id| Some("a gibberling"),
-        treasure_map_level: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn gore_fiend_init(w: &mut World, id: MobileId) {
-    body(w, id, 305);
-    base_sound_id(w, id, 224);
-    set_str_range(w, id, 161, 185);
-    set_dex_range(w, id, 41, 65);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 97, 111);
-    set_damage(w, id, 15, 21);
-    set_damage_type(w, id, ResistanceType::Physical, 85);
-    set_damage_type(w, id, ResistanceType::Poison, 15);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 40.1, 55.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 70.0);
-    fame(w, id, 1500);
-    karma(w, id, -1500);
-    virtual_armor(w, id, 24);
-}
 fn gore_fiend_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GORE_FIEND,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gore_fiend_init(w, id);
-    id
+    templates::new_creature(w, &GORE_FIEND)
 }
 creature_leaf! {
     /// `Server.Mobiles.GoreFiend`.
     GORE_FIEND, GORE_FIEND_C = "Server.Mobiles.GoreFiend" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gore_fiend_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gore fiend corpse"),
-        default_name: |_w, _id| Some("a gore fiend"),
-        bleed_immune: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_death_sound: |_w, _id| 1218,
     }
 }
 
-pub(crate) fn impaler_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "impaler");
-    body(w, id, 306);
-    base_sound_id(w, id, 0x2A7);
-    set_str(w, id, 190);
-    set_dex(w, id, 45);
-    set_int(w, id, 190);
-    set_hits(w, id, 5000);
-    set_damage(w, id, 31, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance(w, id, ResistanceType::Physical, 90);
-    set_resistance(w, id, ResistanceType::Fire, 60);
-    set_resistance(w, id, ResistanceType::Cold, 75);
-    set_resistance(w, id, ResistanceType::Poison, 60);
-    set_resistance(w, id, ResistanceType::Energy, 100);
-    set_skill(w, id, SkillName::DetectHidden, 80.0);
-    set_skill(w, id, SkillName::Meditation, 120.0);
-    set_skill(w, id, SkillName::Poisoning, 160.0);
-    set_skill(w, id, SkillName::MagicResist, 100.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 80.0);
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-    virtual_armor(w, id, 49);
-}
 fn impaler_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &IMPALER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    impaler_init(w, id);
-    id
+    templates::new_creature(w, &IMPALER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Impaler`.
     IMPALER, IMPALER_C = "Server.Mobiles.Impaler" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(impaler_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an impaler corpse"),
+        corpse_name: tp::corpse_name,
         ignore_young_protection: |w, _id| w.core_ml(),
         auto_dispel: |_w, _id| true,
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        poison_immune: tp::poison_immune,
         hit_poison: |w, _id| if rnd::double(w) < 0.8 { Some(PoisonId(2)) } else { Some(PoisonId(3)) },
-        treasure_map_level: |_w, _id| 1,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::MortalStrike) } else { Some(Ability::BleedAttack) },
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::impaler_on_death,
     }
 }
 
-pub(crate) fn mound_of_maggots_init(w: &mut World, id: MobileId) {
-    body(w, id, 319);
-    base_sound_id(w, id, 898);
-    set_str_range(w, id, 61, 70);
-    set_dex_range(w, id, 61, 70);
-    set_int(w, id, 10);
-    set_mana(w, id, 0);
-    set_damage(w, id, 3, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance(w, id, ResistanceType::Physical, 90);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_skill(w, id, SkillName::Tactics, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 60.0);
-    fame(w, id, 1000);
-    karma(w, id, -1000);
-    virtual_armor(w, id, 24);
-}
 fn mound_of_maggots_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MOUND_OF_MAGGOTS,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    mound_of_maggots_init(w, id);
-    id
+    templates::new_creature(w, &MOUND_OF_MAGGOTS)
 }
 creature_leaf! {
     /// `Server.Mobiles.MoundOfMaggots`.
     MOUND_OF_MAGGOTS, MOUND_OF_MAGGOTS_C = "Server.Mobiles.MoundOfMaggots" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(mound_of_maggots_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a maggoty corpse"),
-        default_name: |_w, _id| Some("a mound of maggots"),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn patchwork_skeleton_init(w: &mut World, id: MobileId) {
-    body(w, id, 309);
-    base_sound_id(w, id, 0x48D);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 71, 95);
-    set_int_range(w, id, 16, 40);
-    set_hits_range(w, id, 58, 72);
-    set_damage(w, id, 18, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 85);
-    set_damage_type(w, id, ResistanceType::Cold, 15);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 70, 80);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::MagicResist, 70.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 70.0);
-    fame(w, id, 500);
-    karma(w, id, -500);
-    virtual_armor(w, id, 54);
-}
 fn patchwork_skeleton_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PATCHWORK_SKELETON,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    patchwork_skeleton_init(w, id);
-    id
+    templates::new_creature(w, &PATCHWORK_SKELETON)
 }
 creature_leaf! {
     /// `Server.Mobiles.PatchworkSkeleton`.
     PATCHWORK_SKELETON, PATCHWORK_SKELETON_C = "Server.Mobiles.PatchworkSkeleton" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(patchwork_skeleton_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a patchwork skeletal corpse"),
-        default_name: |_w, _id| Some("a patchwork skeleton"),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ravager_init(w: &mut World, id: MobileId) {
-    body(w, id, 314);
-    base_sound_id(w, id, 357);
-    set_str_range(w, id, 251, 275);
-    set_dex_range(w, id, 101, 125);
-    set_int_range(w, id, 66, 90);
-    set_hits_range(w, id, 161, 175);
-    set_damage(w, id, 15, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 75.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 90.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 54);
-}
 fn ravager_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RAVAGER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ravager_init(w, id);
-    id
+    templates::new_creature(w, &RAVAGER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Ravager`.
     RAVAGER, RAVAGER_C = "Server.Mobiles.Ravager" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ravager_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ravager corpse"),
-        default_name: |_w, _id| Some("a ravager"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::Dismount) } else { Some(Ability::CrushingBlow) },
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn shadow_knight_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "shadow knight");
-    title(w, id, "the Shadow Knight");
-    body(w, id, 311);
-    set_str(w, id, 250);
-    set_dex(w, id, 100);
-    set_int(w, id, 100);
-    set_hits(w, id, 2000);
-    set_damage(w, id, 20, 30);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Cold, 40);
-    set_resistance(w, id, ResistanceType::Physical, 90);
-    set_resistance(w, id, ResistanceType::Fire, 65);
-    set_resistance(w, id, ResistanceType::Cold, 75);
-    set_resistance(w, id, ResistanceType::Poison, 75);
-    set_resistance(w, id, ResistanceType::Energy, 55);
-    set_skill(w, id, SkillName::Chivalry, 120.0);
-    set_skill(w, id, SkillName::DetectHidden, 80.0);
-    set_skill(w, id, SkillName::EvalInt, 100.0);
-    set_skill(w, id, SkillName::Magery, 100.0);
-    set_skill(w, id, SkillName::Meditation, 100.0);
-    set_skill(w, id, SkillName::MagicResist, 120.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 100.0);
-    fame(w, id, 25000);
-    karma(w, id, -25000);
-    virtual_armor(w, id, 54);
-}
 fn shadow_knight_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SHADOW_KNIGHT,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    shadow_knight_init(w, id);
-    id
+    templates::new_creature(w, &SHADOW_KNIGHT)
 }
 creature_leaf! {
     /// `Server.Mobiles.ShadowKnight`.
     SHADOW_KNIGHT, SHADOW_KNIGHT_C = "Server.Mobiles.ShadowKnight" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(shadow_knight_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a shadow knight corpse"),
+        corpse_name: tp::corpse_name,
         ignore_young_protection: |w, _id| w.core_ml(),
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
         bard_immune: |w, _id| !w.core_se(),
         unprovokable: |w, _id| w.core_se(),
         area_peace_immune: |w, _id| w.core_se(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 1,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |w, _id| if rnd::bool(w) { Some(Ability::ConcussionBlow) } else { Some(Ability::CrushingBlow) },
         on_think: crate::hand::shadow_knight_on_think,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::shadow_knight_on_death,
@@ -794,103 +303,35 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn skittering_hopper_init(w: &mut World, id: MobileId) {
-    body(w, id, 302);
-    base_sound_id(w, id, 959);
-    set_str_range(w, id, 41, 65);
-    set_dex_range(w, id, 91, 115);
-    set_int_range(w, id, 26, 50);
-    set_hits_range(w, id, 31, 45);
-    set_damage(w, id, 3, 5);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 30.1, 45.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 60.0);
-    fame(w, id, 300);
-    karma(w, id, 0);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -12.9);
-    virtual_armor(w, id, 12);
-}
 fn skittering_hopper_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SKITTERING_HOPPER,
-        AIType::AiMelee,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    skittering_hopper_init(w, id);
-    id
+    templates::new_creature(w, &SKITTERING_HOPPER)
 }
 creature_leaf! {
     /// `Server.Mobiles.SkitteringHopper`.
     SKITTERING_HOPPER, SKITTERING_HOPPER_C = "Server.Mobiles.SkitteringHopper" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(skittering_hopper_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a skittering hopper corpse"),
-        default_name: |_w, _id| Some("a skittering hopper"),
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn treefellow_init(w: &mut World, id: MobileId) {
-    body(w, id, 301);
-    set_str_range(w, id, 196, 220);
-    set_dex_range(w, id, 31, 55);
-    set_int_range(w, id, 66, 90);
-    set_hits_range(w, id, 118, 132);
-    set_damage(w, id, 12, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 40.1, 55.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 65.1, 85.0);
-    fame(w, id, 500);
-    karma(w, id, 1500);
-    virtual_armor(w, id, 24);
-    {
-        let a0 = "Server.Items.Log";
-        let a1 = rnd::min_max(w, 23, 34);
-        pack_new_amount(w, id, a0, a1);
-    }
-}
 fn treefellow_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TREEFELLOW,
-        AIType::AiMelee,
-        FightMode::Evil,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    treefellow_init(w, id);
-    id
+    templates::new_creature(w, &TREEFELLOW)
 }
 creature_leaf! {
     /// `Server.Mobiles.Treefellow`.
     TREEFELLOW, TREEFELLOW_C = "Server.Mobiles.Treefellow" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(treefellow_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a treefellow corpse"),
-        default_name: |_w, _id| Some("a treefellow"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        bleed_immune: |_w, _id| true,
+        bleed_immune: tp::bleed_immune,
         get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 443,
@@ -948,52 +389,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn wailing_banshee_init(w: &mut World, id: MobileId) {
-    body(w, id, 310);
-    base_sound_id(w, id, 0x482);
-    set_str_range(w, id, 126, 150);
-    set_dex_range(w, id, 76, 100);
-    set_int_range(w, id, 86, 110);
-    set_hits_range(w, id, 76, 90);
-    set_damage(w, id, 10, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Cold, 60);
-    set_damage_type(w, id, ResistanceType::Poison, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::MagicResist, 70.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 70.0);
-    fame(w, id, 1500);
-    karma(w, id, -1500);
-    virtual_armor(w, id, 19);
-}
 fn wailing_banshee_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &WAILING_BANSHEE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    wailing_banshee_init(w, id);
-    id
+    templates::new_creature(w, &WAILING_BANSHEE)
 }
 creature_leaf! {
     /// `Server.Mobiles.WailingBanshee`.
     WAILING_BANSHEE, WAILING_BANSHEE_C = "Server.Mobiles.WailingBanshee" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(wailing_banshee_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a wailing banshee corpse"),
-        default_name: |_w, _id| Some("a wailing banshee"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         get_weapon_ability: |_w, _id| Some(Ability::MortalStrike),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -1777,388 +1184,127 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn dread_spider_init(w: &mut World, id: MobileId) {
-    body(w, id, 11);
-    base_sound_id(w, id, 1170);
-    set_str_range(w, id, 196, 220);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 286, 310);
-    set_hits_range(w, id, 118, 132);
-    set_damage(w, id, 5, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Poison, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 90, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::EvalInt, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Magery, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Meditation, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 75.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 36);
-    pack_new_amount(w, id, "Server.Items.SpidersSilk", 8);
-}
 fn dread_spider_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DREAD_SPIDER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    dread_spider_init(w, id);
-    id
+    templates::new_creature(w, &DREAD_SPIDER)
 }
 creature_leaf! {
     /// `Server.Mobiles.DreadSpider`.
     DREAD_SPIDER, DREAD_SPIDER_C = "Server.Mobiles.DreadSpider" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dread_spider_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a dread spider corpse"),
-        default_name: |_w, _id| Some("a dread spider"),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 3,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-        },
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn terathan_avenger_init(w: &mut World, id: MobileId) {
-    body(w, id, 152);
-    base_sound_id(w, id, 0x24D);
-    set_str_range(w, id, 467, 645);
-    set_dex_range(w, id, 77, 95);
-    set_int_range(w, id, 126, 150);
-    set_hits_range(w, id, 296, 372);
-    set_mana_range(w, id, 46, 70);
-    set_damage(w, id, 18, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Poison, 90, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill_range(w, id, SkillName::EvalInt, 70.3, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 70.3, 100.0);
-    set_skill_range(w, id, SkillName::Poisoning, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 50);
-}
 fn terathan_avenger_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TERATHAN_AVENGER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    terathan_avenger_init(w, id);
-    id
+    templates::new_creature(w, &TERATHAN_AVENGER)
 }
 creature_leaf! {
     /// `Server.Mobiles.TerathanAvenger`.
     TERATHAN_AVENGER, TERATHAN_AVENGER_C = "Server.Mobiles.TerathanAvenger" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(terathan_avenger_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a terathan avenger corpse"),
-        default_name: |_w, _id| Some("a terathan avenger"),
-        poison_immune: |_w, _id| Some(PoisonId(3)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(3)),
-        treasure_map_level: |_w, _id| 3,
-        meat: |_w, _id| 2,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::TERATHANS_AND_OPHIDIANS),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn terathan_matriarch_init(w: &mut World, id: MobileId) {
-    body(w, id, 72);
-    base_sound_id(w, id, 599);
-    set_str_range(w, id, 316, 405);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 366, 455);
-    set_hits_range(w, id, 190, 243);
-    set_damage(w, id, 11, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 10000);
-    karma(w, id, -10000);
-    pack_new_amount(w, id, "Server.Items.SpidersSilk", 5);
-    {
-        let a0 = rnd::min_max(w, 4, 10);
-        pack_necro_reg_n(w, id, a0);
-    }
-}
 fn terathan_matriarch_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TERATHAN_MATRIARCH,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    terathan_matriarch_init(w, id);
-    id
+    templates::new_creature(w, &TERATHAN_MATRIARCH)
 }
 creature_leaf! {
     /// `Server.Mobiles.TerathanMatriarch`.
     TERATHAN_MATRIARCH, TERATHAN_MATRIARCH_C = "Server.Mobiles.TerathanMatriarch" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(terathan_matriarch_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a terathan matriarch corpse"),
-        default_name: |_w, _id| Some("a terathan matriarch"),
-        treasure_map_level: |_w, _id| 4,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::TERATHANS_AND_OPHIDIANS),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn frost_spider_init(w: &mut World, id: MobileId) {
-    body(w, id, 20);
-    base_sound_id(w, id, 0x388);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 46, 60);
-    set_mana(w, id, 0);
-    set_damage(w, id, 6, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Cold, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 40.0);
-    set_skill_range(w, id, SkillName::Tactics, 35.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 65.0);
-    fame(w, id, 775);
-    karma(w, id, -775);
-    virtual_armor(w, id, 28);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 74.7);
-    pack_new_amount(w, id, "Server.Items.SpidersSilk", 7);
-}
 fn frost_spider_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FROST_SPIDER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    frost_spider_init(w, id);
-    id
+    templates::new_creature(w, &FROST_SPIDER)
 }
 creature_leaf! {
     /// `Server.Mobiles.FrostSpider`.
     FROST_SPIDER, FROST_SPIDER_C = "Server.Mobiles.FrostSpider" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(frost_spider_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a frost spider corpse"),
-        default_name: |_w, _id| Some("a frost spider"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::ARACHNID,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn giant_black_widow_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x9D);
-    base_sound_id(w, id, 0x388);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 46, 60);
-    set_damage(w, id, 5, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::Anatomy, 30.3, 75.0);
-    set_skill_range(w, id, SkillName::Poisoning, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 85.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 24);
-    pack_new_amount(w, id, "Server.Items.SpidersSilk", 5);
-    pack_new(w, id, "Server.Items.LesserPoisonPotion");
-    pack_new(w, id, "Server.Items.LesserPoisonPotion");
-}
 fn giant_black_widow_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GIANT_BLACK_WIDOW,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    giant_black_widow_init(w, id);
-    id
+    templates::new_creature(w, &GIANT_BLACK_WIDOW)
 }
 creature_leaf! {
     /// `Server.Mobiles.GiantBlackWidow`.
     GIANT_BLACK_WIDOW, GIANT_BLACK_WIDOW_C = "Server.Mobiles.GiantBlackWidow" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(giant_black_widow_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a giant black widow spider corpse"),
-        default_name: |_w, _id| Some("a giant black wide"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         favorite_food: |_w, _id| FoodType::MEAT,
-        poison_immune: |_w, _id| Some(PoisonId(3)),
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(3)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn giant_spider_init(w: &mut World, id: MobileId) {
-    body(w, id, 28);
-    base_sound_id(w, id, 0x388);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 46, 60);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 13);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_skill_range(w, id, SkillName::Poisoning, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 25.1, 40.0);
-    set_skill_range(w, id, SkillName::Tactics, 35.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 65.0);
-    fame(w, id, 600);
-    karma(w, id, -600);
-    virtual_armor(w, id, 16);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 59.1);
-    pack_new_amount(w, id, "Server.Items.SpidersSilk", 5);
-}
 fn giant_spider_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GIANT_SPIDER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    giant_spider_init(w, id);
-    id
+    templates::new_creature(w, &GIANT_SPIDER)
 }
 creature_leaf! {
     /// `Server.Mobiles.GiantSpider`.
     GIANT_SPIDER, GIANT_SPIDER_C = "Server.Mobiles.GiantSpider" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(giant_spider_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a giant spider corpse"),
-        default_name: |_w, _id| Some("a giant spider"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::ARACHNID,
-        poison_immune: |_w, _id| Some(PoisonId(1)),
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(1)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn terathan_drone_init(w: &mut World, id: MobileId) {
-    body(w, id, 71);
-    base_sound_id(w, id, 594);
-    set_str_range(w, id, 36, 65);
-    set_dex_range(w, id, 96, 145);
-    set_int_range(w, id, 21, 45);
-    set_hits_range(w, id, 22, 39);
-    set_mana(w, id, 0);
-    set_damage(w, id, 6, 12);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 15, 25);
-    set_skill_range(w, id, SkillName::Poisoning, 40.1, 60.0);
-    set_skill_range(w, id, SkillName::MagicResist, 30.1, 45.0);
-    set_skill_range(w, id, SkillName::Tactics, 30.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 50.0);
-    fame(w, id, 2000);
-    karma(w, id, -2000);
-    virtual_armor(w, id, 24);
-    pack_new_amount(w, id, "Server.Items.SpidersSilk", 2);
-}
 fn terathan_drone_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TERATHAN_DRONE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    terathan_drone_init(w, id);
-    id
+    templates::new_creature(w, &TERATHAN_DRONE)
 }
 creature_leaf! {
     /// `Server.Mobiles.TerathanDrone`.
     TERATHAN_DRONE, TERATHAN_DRONE_C = "Server.Mobiles.TerathanDrone" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(terathan_drone_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a terathan drone corpse"),
-        default_name: |_w, _id| Some("a terathan drone"),
-        meat: |_w, _id| 4,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::TERATHANS_AND_OPHIDIANS),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -2217,216 +1363,67 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn acid_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x9E);
-    base_sound_id(w, id, 278);
-    set_str_range(w, id, 326, 355);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 271, 295);
-    set_hits_range(w, id, 196, 213);
-    set_damage(w, id, 9, 15);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Fire, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Anatomy, 30.3, 60.0);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::MagicResist, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 90.0);
-    fame(w, id, 10000);
-    karma(w, id, -10000);
-    virtual_armor(w, id, 40);
-}
 fn acid_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ACID_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    acid_elemental_init(w, id);
-    id
+    templates::new_creature(w, &ACID_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.AcidElemental`.
     ACID_ELEMENTAL, ACID_ELEMENTAL_C = "Server.Mobiles.AcidElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(acid_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an acid elemental corpse"),
-        default_name: |_w, _id| Some("an acid elemental"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
         hit_poison_chance: |_w, _id| 0.6,
         treasure_map_level: |w, _id| if w.core_aos() { 2 } else { 3 },
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn air_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 13);
-    hue(w, id, 0x4001);
-    base_sound_id(w, id, 655);
-    set_str_range(w, id, 126, 155);
-    set_dex_range(w, id, 166, 185);
-    set_int_range(w, id, 101, 125);
-    set_hits_range(w, id, 76, 93);
-    set_damage(w, id, 8, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Cold, 40);
-    set_damage_type(w, id, ResistanceType::Energy, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    set_skill_range(w, id, SkillName::EvalInt, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Magery, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::MagicResist, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 40);
-}
 fn air_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &AIR_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    air_elemental_init(w, id);
-    id
+    templates::new_creature(w, &AIR_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.AirElemental`.
     AIR_ELEMENTAL, AIR_ELEMENTAL_C = "Server.Mobiles.AirElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(air_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an air elemental corpse"),
-        default_name: |_w, _id| Some("an air elemental"),
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 2,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, &loot_pack::LOW_SCROLLS);
-            add_loot(w, id, &loot_pack::MED_SCROLLS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn blood_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 159);
-    base_sound_id(w, id, 278);
-    set_str_range(w, id, 526, 615);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 226, 350);
-    set_hits_range(w, id, 316, 369);
-    set_damage(w, id, 17, 27);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 85.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 85.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 10.4, 50.0);
-    set_skill_range(w, id, SkillName::MagicResist, 80.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 100.0);
-    fame(w, id, 12500);
-    karma(w, id, -12500);
-    virtual_armor(w, id, 60);
-}
 fn blood_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BLOOD_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    blood_elemental_init(w, id);
-    id
+    templates::new_creature(w, &BLOOD_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.BloodElemental`.
     BLOOD_ELEMENTAL, BLOOD_ELEMENTAL_C = "Server.Mobiles.BloodElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(blood_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a blood elemental corpse"),
-        default_name: |_w, _id| Some("a blood elemental"),
-        treasure_map_level: |_w, _id| 5,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn efreet_init(w: &mut World, id: MobileId) {
-    body(w, id, 131);
-    base_sound_id(w, id, 768);
-    set_str_range(w, id, 326, 355);
-    set_dex_range(w, id, 266, 285);
-    set_int_range(w, id, 171, 195);
-    set_hits_range(w, id, 196, 213);
-    set_damage(w, id, 11, 13);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Fire, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::EvalInt, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Magery, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::MagicResist, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 10000);
-    karma(w, id, -10000);
-    virtual_armor(w, id, 56);
-}
 fn efreet_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &EFREET,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    efreet_init(w, id);
-    id
+    templates::new_creature(w, &EFREET)
 }
 creature_leaf! {
     /// `Server.Mobiles.Efreet`.
     EFREET, EFREET_C = "Server.Mobiles.Efreet" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(efreet_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an efreet corpse"),
-        default_name: |_w, _id| Some("an efreet"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         treasure_map_level: |w, _id| if w.core_aos() { 4 } else { 5 },
         generate_loot: crate::hand::efreet_generate_loot,
     }
@@ -2434,172 +1431,54 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn fire_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 15);
-    base_sound_id(w, id, 838);
-    set_str_range(w, id, 126, 155);
-    set_dex_range(w, id, 166, 185);
-    set_int_range(w, id, 101, 125);
-    set_hits_range(w, id, 76, 93);
-    set_damage(w, id, 7, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Fire, 75);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Magery, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::MagicResist, 75.2, 105.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 100.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 40);
-    pack_new_amount(w, id, "Server.Items.SulfurousAsh", 3);
-    add_new(w, id, "Server.Items.LightSource");
-}
 fn fire_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FIRE_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    fire_elemental_init(w, id);
-    id
+    templates::new_creature(w, &FIRE_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.FireElemental`.
     FIRE_ELEMENTAL, FIRE_ELEMENTAL_C = "Server.Mobiles.FireElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(fire_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a fire elemental corpse"),
-        default_name: |_w, _id| Some("a fire elemental"),
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 2,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ice_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 161);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 156, 185);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 171, 192);
-    set_hits_range(w, id, 94, 111);
-    set_damage(w, id, 10, 21);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Cold, 75);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::EvalInt, 10.5, 60.0);
-    set_skill_range(w, id, SkillName::Magery, 10.5, 60.0);
-    set_skill_range(w, id, SkillName::MagicResist, 30.1, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 40);
-    pack_new(w, id, "Server.Items.BlackPearl");
-    pack_reg(w, id, 3);
-}
 fn ice_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ICE_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ice_elemental_init(w, id);
-    id
+    templates::new_creature(w, &ICE_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.IceElemental`.
     ICE_ELEMENTAL, ICE_ELEMENTAL_C = "Server.Mobiles.IceElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ice_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ice elemental corpse"),
-        default_name: |_w, _id| Some("an ice elemental"),
-        bleed_immune: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn poison_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 162);
-    base_sound_id(w, id, 263);
-    set_str_range(w, id, 426, 515);
-    set_dex_range(w, id, 166, 185);
-    set_int_range(w, id, 361, 435);
-    set_hits_range(w, id, 256, 309);
-    set_damage(w, id, 12, 18);
-    set_damage_type(w, id, ResistanceType::Physical, 10);
-    set_damage_type(w, id, ResistanceType::Poison, 90);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::EvalInt, 80.1, 95.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 95.0);
-    set_skill_range(w, id, SkillName::Meditation, 80.2, 120.0);
-    set_skill_range(w, id, SkillName::Poisoning, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 85.2, 115.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 90.0);
-    fame(w, id, 12500);
-    karma(w, id, -12500);
-    virtual_armor(w, id, 70);
-    pack_new_amount(w, id, "Server.Items.Nightshade", 4);
-    pack_new(w, id, "Server.Items.LesserPoisonPotion");
-}
 fn poison_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &POISON_ELEMENTAL,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    poison_elemental_init(w, id);
-    id
+    templates::new_creature(w, &POISON_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.PoisonElemental`.
     POISON_ELEMENTAL, POISON_ELEMENTAL_C = "Server.Mobiles.PoisonElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(poison_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a poison elementals corpse"),
-        default_name: |_w, _id| Some("a poison elemental"),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
         hit_poison_chance: |_w, _id| 0.75,
-        treasure_map_level: |_w, _id| 5,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, &loot_pack::MED_SCROLLS);
-        },
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -2661,175 +1540,56 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn earth_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 14);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 126, 155);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 76, 93);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 15, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 34);
-    {
-        let a0 = "Server.Items.FertileDirt";
-        let a1 = rnd::min_max(w, 1, 4);
-        pack_new_amount(w, id, a0, a1);
-    }
-    pack_new(w, id, "Server.Items.MandrakeRoot");
-    pack_ore(w, id, "Server.Items.IronOre", 5, 0x19B7);
-}
 fn earth_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &EARTH_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    earth_elemental_init(w, id);
-    id
+    templates::new_creature(w, &EARTH_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.EarthElemental`.
     EARTH_ELEMENTAL, EARTH_ELEMENTAL_C = "Server.Mobiles.EarthElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(earth_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an earth elemental corpse"),
-        default_name: |_w, _id| Some("an earth elemental"),
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn snow_elemental_init(w: &mut World, id: MobileId) {
-    body(w, id, 163);
-    base_sound_id(w, id, 263);
-    set_str_range(w, id, 326, 355);
-    set_dex_range(w, id, 166, 185);
-    set_int_range(w, id, 71, 95);
-    set_hits_range(w, id, 196, 213);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Cold, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 100.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 50);
-    pack_new_amount(w, id, "Server.Items.BlackPearl", 3);
-    pack_ore(w, id, "Server.Items.IronOre", 3, 0x19B8);
-}
 fn snow_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SNOW_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    snow_elemental_init(w, id);
-    id
+    templates::new_creature(w, &SNOW_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.SnowElemental`.
     SNOW_ELEMENTAL, SNOW_ELEMENTAL_C = "Server.Mobiles.SnowElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(snow_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a snow elemental corpse"),
-        default_name: |_w, _id| Some("a snow elemental"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         treasure_map_level: |w, _id| { let list = [2, 3]; list[rnd::below(w, list.len() as i32) as usize] },
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ancient_lich_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "ancient lich");
-    body(w, id, 78);
-    base_sound_id(w, id, 412);
-    set_str_range(w, id, 216, 305);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 966, 1045);
-    set_hits_range(w, id, 560, 595);
-    set_damage(w, id, 15, 27);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Cold, 40);
-    set_damage_type(w, id, ResistanceType::Energy, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 30);
-    set_skill_range(w, id, SkillName::EvalInt, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::Magery, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::Meditation, 100.1, 101.0);
-    set_skill_range(w, id, SkillName::Poisoning, 100.1, 101.0);
-    set_skill_range(w, id, SkillName::MagicResist, 175.2, 200.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 75.1, 100.0);
-    set_skill_range(w, id, SkillName::Necromancy, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 120.1, 130.0);
-    fame(w, id, 23000);
-    karma(w, id, -23000);
-    virtual_armor(w, id, 60);
-    pack_necro_reg_range(w, id, 30, 275);
-}
 fn ancient_lich_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ANCIENT_LICH,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ancient_lich_init(w, id);
-    id
+    templates::new_creature(w, &ANCIENT_LICH)
 }
 static ANCIENT_LICH_ABILITIES: [&MonsterAbility; 1] = [&abilities::SUMMON_LESSER_UNDEAD_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.AncientLich`.
     ANCIENT_LICH, ANCIENT_LICH_C = "Server.Mobiles.AncientLich" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ancient_lich_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ancient lich's corpse"),
+        corpse_name: tp::corpse_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
         unprovokable: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 5,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &ANCIENT_LICH_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 3);
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 0x19D,
@@ -2840,114 +1600,36 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn arcane_daemon_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x310);
-    base_sound_id(w, id, 0x47D);
-    set_str_range(w, id, 131, 150);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 301, 350);
-    set_hits_range(w, id, 101, 115);
-    set_damage(w, id, 12, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 80);
-    set_damage_type(w, id, ResistanceType::Fire, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Meditation, 70.1, 80.0);
-    fame(w, id, 7000);
-    karma(w, id, -10000);
-    virtual_armor(w, id, 55);
-}
 fn arcane_daemon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ARCANE_DAEMON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    arcane_daemon_init(w, id);
-    id
+    templates::new_creature(w, &ARCANE_DAEMON)
 }
 creature_leaf! {
     /// `Server.Mobiles.ArcaneDaemon`.
     ARCANE_DAEMON, ARCANE_DAEMON_C = "Server.Mobiles.ArcaneDaemon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(arcane_daemon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an arcane daemon corpse"),
-        default_name: |_w, _id| Some("an arcane daemon"),
-        poison_immune: |_w, _id| Some(PoisonId(3)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
         get_weapon_ability: |_w, _id| Some(Ability::ConcussionBlow),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn balron_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "balron");
-    body(w, id, 40);
-    base_sound_id(w, id, 357);
-    set_str_range(w, id, 986, 1185);
-    set_dex_range(w, id, 177, 255);
-    set_int_range(w, id, 151, 250);
-    set_hits_range(w, id, 592, 711);
-    set_damage(w, id, 22, 29);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 80);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Anatomy, 25.1, 50.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 95.5, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 25.1, 50.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.5, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-    virtual_armor(w, id, 90);
-    pack_new(w, id, "Server.Items.Longsword");
-}
 fn balron_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BALRON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    balron_init(w, id);
-    id
+    templates::new_creature(w, &BALRON)
 }
 creature_leaf! {
     /// `Server.Mobiles.Balron`.
     BALRON, BALRON_C = "Server.Mobiles.Balron" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(balron_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a balron corpse"),
-        can_rummage_corpses: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(3)),
-        treasure_map_level: |_w, _id| 5,
-        meat: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        corpse_name: tp::corpse_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -3103,141 +1785,55 @@ pub(crate) fn bone_magi_init(w: &mut World, id: MobileId) {
     pack_new(w, id, "Server.Items.Bone");
 }
 fn bone_magi_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BONE_MAGI,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    bone_magi_init(w, id);
-    id
+    templates::new_creature(w, &BONE_MAGI)
 }
 creature_leaf! {
     /// `Server.Mobiles.BoneMagi`.
     BONE_MAGI, BONE_MAGI_C = "Server.Mobiles.BoneMagi" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(bone_magi_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a skeletal corpse"),
-        default_name: |_w, _id| Some("a bone mage"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::LOW_SCROLLS);
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn daemon_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "daemon");
-    body(w, id, 9);
-    base_sound_id(w, id, 357);
-    set_str_range(w, id, 476, 505);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 301, 325);
-    set_hits_range(w, id, 286, 303);
-    set_damage(w, id, 7, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 58);
-}
 fn daemon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DAEMON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    daemon_init(w, id);
-    id
+    templates::new_creature(w, &DAEMON)
 }
 creature_leaf! {
     /// `Server.Mobiles.Daemon`.
     DAEMON, DAEMON_C = "Server.Mobiles.Daemon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(daemon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a daemon corpse"),
+        corpse_name: tp::corpse_name,
         faction_allegiance: crate::hand::daemon_faction_allegiance,
         ethic_allegiance: crate::hand::daemon_ethic_allegiance,
-        can_rummage_corpses: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        treasure_map_level: |_w, _id| 4,
-        meat: |_w, _id| 1,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        can_rummage_corpses: tp::can_rummage_corpses,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn elder_gazer_init(w: &mut World, id: MobileId) {
-    body(w, id, 22);
-    base_sound_id(w, id, 377);
-    set_str_range(w, id, 296, 325);
-    set_dex_range(w, id, 86, 105);
-    set_int_range(w, id, 291, 385);
-    set_hits_range(w, id, 178, 195);
-    set_damage(w, id, 8, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Anatomy, 62.0, 100.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 115.1, 130.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 100.0);
-    fame(w, id, 12500);
-    karma(w, id, -12500);
-    virtual_armor(w, id, 50);
-}
 fn elder_gazer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ELDER_GAZER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    elder_gazer_init(w, id);
-    id
+    templates::new_creature(w, &ELDER_GAZER)
 }
 creature_leaf! {
     /// `Server.Mobiles.ElderGazer`.
     ELDER_GAZER, ELDER_GAZER_C = "Server.Mobiles.ElderGazer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(elder_gazer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an elder gazer corpse"),
-        default_name: |_w, _id| Some("an elder gazer"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         treasure_map_level: |w, _id| if w.core_aos() { 4 } else { 0 },
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -3357,109 +1953,37 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn fire_gargoyle_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "fire gargoyle");
-    body(w, id, 130);
-    base_sound_id(w, id, 0x174);
-    set_str_range(w, id, 351, 400);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 226, 250);
-    set_hits_range(w, id, 211, 240);
-    set_damage(w, id, 7, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Fire, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::Anatomy, 75.1, 85.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 105.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 80.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 32);
-}
 fn fire_gargoyle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FIRE_GARGOYLE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    fire_gargoyle_init(w, id);
-    id
+    templates::new_creature(w, &FIRE_GARGOYLE)
 }
 static FIRE_GARGOYLE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.FireGargoyle`.
     FIRE_GARGOYLE, FIRE_GARGOYLE_C = "Server.Mobiles.FireGargoyle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(fire_gargoyle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a charred corpse"),
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 1,
-        can_fly: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        can_fly: tp::can_fly,
         get_monster_abilities: |_, _| &FIRE_GARGOYLE_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn gargoyle_init(w: &mut World, id: MobileId) {
-    body(w, id, 4);
-    base_sound_id(w, id, 372);
-    set_str_range(w, id, 146, 175);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 81, 105);
-    set_hits_range(w, id, 88, 105);
-    set_damage(w, id, 7, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::MagicResist, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 80.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 32);
-    if rnd::double(w) < 0.025 {
-        pack_new(w, id, "Server.Items.GargoylesPickaxe");
-    }
-}
 fn gargoyle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GARGOYLE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gargoyle_init(w, id);
-    id
+    templates::new_creature(w, &GARGOYLE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Gargoyle`.
     GARGOYLE, GARGOYLE_C = "Server.Mobiles.Gargoyle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gargoyle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gargoyle corpse"),
-        default_name: |_w, _id| Some("a gargoyle"),
-        can_fly: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_fly: tp::can_fly,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
         generate_loot: |w, id| {
             add_loot(w, id, loot_pack::average(w));
             add_loot(w, id, &loot_pack::MED_SCROLLS);
@@ -3474,176 +1998,56 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn gargoyle_destroyer_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x2F3);
-    base_sound_id(w, id, 0x174);
-    set_str_range(w, id, 760, 850);
-    set_dex_range(w, id, 102, 150);
-    set_int_range(w, id, 152, 200);
-    set_hits_range(w, id, 482, 485);
-    set_damage(w, id, 7, 14);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 15, 25);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 120.4, 160.0);
-    set_skill_range(w, id, SkillName::Anatomy, 50.5, 100.0);
-    set_skill_range(w, id, SkillName::Swords, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Macing, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Fencing, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 100.0);
-    fame(w, id, 10000);
-    karma(w, id, -10000);
-    virtual_armor(w, id, 50);
-    if rnd::double(w) < 0.2 {
-        pack_new(w, id, "Server.Items.GargoylesPickaxe");
-    }
-}
 fn gargoyle_destroyer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GARGOYLE_DESTROYER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gargoyle_destroyer_init(w, id);
-    id
+    templates::new_creature(w, &GARGOYLE_DESTROYER)
 }
 static GARGOYLE_DESTROYER_ABILITIES: [&MonsterAbility; 1] = [&abilities::THROW_HATCHET_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.GargoyleDestroyer`.
     GARGOYLE_DESTROYER, GARGOYLE_DESTROYER_C = "Server.Mobiles.GargoyleDestroyer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gargoyle_destroyer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gargoyle corpse"),
-        default_name: |_w, _id| Some("a gargoyle destroyer"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         bard_immune: |w, _id| !w.core_aos(),
-        meat: |_w, _id| 1,
-        can_fly: |_w, _id| true,
+        meat: tp::meat,
+        can_fly: tp::can_fly,
         get_monster_abilities: |_, _| &GARGOYLE_DESTROYER_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, &loot_pack::MED_SCROLLS);
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn gargoyle_enforcer_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x2F2);
-    base_sound_id(w, id, 0x174);
-    set_str_range(w, id, 760, 850);
-    set_dex_range(w, id, 102, 150);
-    set_int_range(w, id, 152, 200);
-    set_hits_range(w, id, 482, 485);
-    set_damage(w, id, 7, 14);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 15, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Swords, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Anatomy, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::EvalInt, 70.3, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 70.3, 100.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 50);
-    if rnd::double(w) < 0.2 {
-        pack_new(w, id, "Server.Items.GargoylesPickaxe");
-    }
-}
 fn gargoyle_enforcer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GARGOYLE_ENFORCER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gargoyle_enforcer_init(w, id);
-    id
+    templates::new_creature(w, &GARGOYLE_ENFORCER)
 }
 creature_leaf! {
     /// `Server.Mobiles.GargoyleEnforcer`.
     GARGOYLE_ENFORCER, GARGOYLE_ENFORCER_C = "Server.Mobiles.GargoyleEnforcer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gargoyle_enforcer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gargoyle corpse"),
-        default_name: |_w, _id| Some("a gargoyle enforcer"),
-        can_fly: |_w, _id| true,
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_fly: tp::can_fly,
+        meat: tp::meat,
         get_weapon_ability: |_w, _id| Some(Ability::WhirlwindAttack),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, &loot_pack::MED_SCROLLS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn gazer_init(w: &mut World, id: MobileId) {
-    body(w, id, 22);
-    base_sound_id(w, id, 377);
-    set_str_range(w, id, 96, 125);
-    set_dex_range(w, id, 86, 105);
-    set_int_range(w, id, 141, 165);
-    set_hits_range(w, id, 58, 75);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::EvalInt, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Magery, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::MagicResist, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 70.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 36);
-    pack_new_amount(w, id, "Server.Items.Nightshade", 4);
-}
 fn gazer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GAZER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gazer_init(w, id);
-    id
+    templates::new_creature(w, &GAZER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Gazer`.
     GAZER, GAZER_C = "Server.Mobiles.Gazer" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gazer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gazer corpse"),
-        default_name: |_w, _id| Some("a gazer"),
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -3710,359 +2114,123 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn ice_fiend_init(w: &mut World, id: MobileId) {
-    body(w, id, 43);
-    base_sound_id(w, id, 357);
-    set_str_range(w, id, 376, 405);
-    set_dex_range(w, id, 176, 195);
-    set_int_range(w, id, 201, 225);
-    set_hits_range(w, id, 226, 243);
-    set_damage(w, id, 8, 19);
-    set_skill_range(w, id, SkillName::EvalInt, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::MagicResist, 75.1, 85.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 100.0);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    fame(w, id, 18000);
-    karma(w, id, -18000);
-    virtual_armor(w, id, 60);
-}
 fn ice_fiend_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ICE_FIEND,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ice_fiend_init(w, id);
-    id
+    templates::new_creature(w, &ICE_FIEND)
 }
 creature_leaf! {
     /// `Server.Mobiles.IceFiend`.
     ICE_FIEND, ICE_FIEND_C = "Server.Mobiles.IceFiend" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ice_fiend_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ice fiend corpse"),
-        default_name: |_w, _id| Some("an ice fiend"),
-        treasure_map_level: |_w, _id| 4,
-        meat: |_w, _id| 1,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn imp_init(w: &mut World, id: MobileId) {
-    body(w, id, 74);
-    base_sound_id(w, id, 422);
-    set_str_range(w, id, 91, 115);
-    set_dex_range(w, id, 61, 80);
-    set_int_range(w, id, 86, 105);
-    set_hits_range(w, id, 55, 70);
-    set_damage(w, id, 10, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Fire, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 20.1, 30.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 30.1, 50.0);
-    set_skill_range(w, id, SkillName::Tactics, 42.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 44.0);
-    fame(w, id, 2500);
-    karma(w, id, -2500);
-    virtual_armor(w, id, 30);
-    tamable(w, id, true);
-    control_slots(w, id, 2);
-    min_tame_skill(w, id, 83.1);
-}
 fn imp_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &IMP,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    imp_init(w, id);
-    id
+    templates::new_creature(w, &IMP)
 }
 creature_leaf! {
     /// `Server.Mobiles.Imp`.
     IMP, IMP_C = "Server.Mobiles.Imp" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(imp_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an imp corpse"),
-        default_name: |_w, _id| Some("an imp"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::DAEMON,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn lich_init(w: &mut World, id: MobileId) {
-    body(w, id, 24);
-    base_sound_id(w, id, 0x3E9);
-    set_str_range(w, id, 171, 200);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 276, 305);
-    set_hits_range(w, id, 103, 120);
-    set_damage(w, id, 24, 26);
-    set_damage_type(w, id, ResistanceType::Physical, 10);
-    set_damage_type(w, id, ResistanceType::Cold, 40);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Necromancy, 89.0, 99.1);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 90.0, 99.0);
-    set_skill(w, id, SkillName::EvalInt, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Meditation, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::MagicResist, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 90.0);
-    fame(w, id, 8000);
-    karma(w, id, -8000);
-    virtual_armor(w, id, 50);
-    pack_new(w, id, "Server.Items.GnarledStaff");
-    pack_necro_reg_range(w, id, 17, 24);
-}
 fn lich_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LICH,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lich_init(w, id);
-    id
+    templates::new_creature(w, &LICH)
 }
 creature_leaf! {
     /// `Server.Mobiles.Lich`.
     LICH, LICH_C = "Server.Mobiles.Lich" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lich_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a lich's corpse"),
-        default_name: |_w, _id| Some("a lich"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        can_rummage_corpses: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 3,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        can_rummage_corpses: tp::can_rummage_corpses,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn lich_lord_init(w: &mut World, id: MobileId) {
-    body(w, id, 79);
-    base_sound_id(w, id, 412);
-    set_str_range(w, id, 416, 505);
-    set_dex_range(w, id, 146, 165);
-    set_int_range(w, id, 566, 655);
-    set_hits_range(w, id, 250, 303);
-    set_damage(w, id, 11, 13);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Cold, 60);
-    set_damage_type(w, id, ResistanceType::Energy, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Necromancy, 90.0, 110.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 90.0, 110.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 150.5, 200.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 18000);
-    karma(w, id, -18000);
-    virtual_armor(w, id, 50);
-    pack_new(w, id, "Server.Items.GnarledStaff");
-    pack_necro_reg_range(w, id, 12, 40);
-}
 fn lich_lord_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LICH_LORD,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lich_lord_init(w, id);
-    id
+    templates::new_creature(w, &LICH_LORD)
 }
 static LICH_LORD_ABILITIES: [&MonsterAbility; 1] = [&abilities::SUMMON_SKELETONS_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.LichLord`.
     LICH_LORD, LICH_LORD_C = "Server.Mobiles.LichLord" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lich_lord_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a lich's corpse"),
-        default_name: |_w, _id| Some("a lich lord"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        can_rummage_corpses: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 4,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &LICH_LORD_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn orcish_mage_init(w: &mut World, id: MobileId) {
-    body(w, id, 140);
-    base_sound_id(w, id, 0x45A);
-    set_str_range(w, id, 116, 150);
-    set_dex_range(w, id, 91, 115);
-    set_int_range(w, id, 161, 185);
-    set_hits_range(w, id, 70, 90);
-    set_damage(w, id, 4, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 60.1, 72.5);
-    set_skill_range(w, id, SkillName::Magery, 60.1, 72.5);
-    set_skill_range(w, id, SkillName::MagicResist, 60.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 50.0);
-    fame(w, id, 3000);
-    karma(w, id, -3000);
-    virtual_armor(w, id, 30);
-    pack_reg(w, id, 6);
-    if rnd::double(w) < 0.05 {
-        pack_new(w, id, "Server.Items.OrcishKinMask");
-    }
-}
 fn orcish_mage_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ORCISH_MAGE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    orcish_mage_init(w, id);
-    id
+    templates::new_creature(w, &ORCISH_MAGE)
 }
 creature_leaf! {
     /// `Server.Mobiles.OrcishMage`.
     ORCISH_MAGE, ORCISH_MAGE_C = "Server.Mobiles.OrcishMage" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orcish_mage_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a glowing orc corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
-        default_name: |_w, _id| Some("an orcish mage"),
-        can_rummage_corpses: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 1,
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::SAVAGES_AND_ORCS),
         is_enemy: crate::hand::orcish_mage_is_enemy,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::LOW_SCROLLS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         aggressive_action_criminal: crate::hand::orcish_mage_aggressive_action_criminal,
     }
 }
 
-pub(crate) fn ratman_mage_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "ratman");
-    body(w, id, 0x8F);
-    base_sound_id(w, id, 437);
-    set_str_range(w, id, 146, 180);
-    set_dex_range(w, id, 101, 130);
-    set_int_range(w, id, 186, 210);
-    set_hits_range(w, id, 88, 108);
-    set_damage(w, id, 7, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 90.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 75.0);
-    fame(w, id, 7500);
-    karma(w, id, -7500);
-    virtual_armor(w, id, 44);
-    pack_reg(w, id, 6);
-    if rnd::double(w) < 0.02 {
-        pack_statue(w, id);
-    }
-}
 fn ratman_mage_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RATMAN_MAGE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ratman_mage_init(w, id);
-    id
+    templates::new_creature(w, &RATMAN_MAGE)
 }
 creature_leaf! {
     /// `Server.Mobiles.RatmanMage`.
     RATMAN_MAGE, RATMAN_MAGE_C = "Server.Mobiles.RatmanMage" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ratman_mage_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a glowing ratman corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::RATMAN),
-        can_rummage_corpses: |_w, _id| true,
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 8,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, &loot_pack::LOW_SCROLLS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -4142,212 +2310,72 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn shade_init(w: &mut World, id: MobileId) {
-    body(w, id, 26);
-    hue(w, id, 0x4001);
-    base_sound_id(w, id, 0x482);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 46, 60);
-    set_damage(w, id, 7, 11);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_skill_range(w, id, SkillName::EvalInt, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Magery, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::MagicResist, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 55.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 28);
-    pack_reg(w, id, 10);
-}
 fn shade_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SHADE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    shade_init(w, id);
-    id
+    templates::new_creature(w, &SHADE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Shade`.
     SHADE, SHADE_C = "Server.Mobiles.Shade" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(shade_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ghostly corpse"),
-        default_name: |_w, _id| Some("a shade"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn skeletal_mage_init(w: &mut World, id: MobileId) {
-    body(w, id, 148);
-    base_sound_id(w, id, 451);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 186, 210);
-    set_hits_range(w, id, 46, 60);
-    set_damage(w, id, 3, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 60.1, 70.0);
-    set_skill_range(w, id, SkillName::Magery, 60.1, 70.0);
-    set_skill_range(w, id, SkillName::MagicResist, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 55.0);
-    set_skill_range(w, id, SkillName::Necromancy, 89.0, 99.1);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 90.0, 99.0);
-    fame(w, id, 3000);
-    karma(w, id, -3000);
-    virtual_armor(w, id, 38);
-    pack_reg(w, id, 3);
-    pack_necro_reg_range(w, id, 3, 10);
-    pack_new(w, id, "Server.Items.Bone");
-}
 fn skeletal_mage_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SKELETAL_MAGE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    skeletal_mage_init(w, id);
-    id
+    templates::new_creature(w, &SKELETAL_MAGE)
 }
 creature_leaf! {
     /// `Server.Mobiles.SkeletalMage`.
     SKELETAL_MAGE, SKELETAL_MAGE_C = "Server.Mobiles.SkeletalMage" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(skeletal_mage_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a skeletal corpse"),
-        default_name: |_w, _id| Some("a skeletal mage"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::LOW_SCROLLS);
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn spectre_init(w: &mut World, id: MobileId) {
-    body(w, id, 26);
-    hue(w, id, 0x4001);
-    base_sound_id(w, id, 0x482);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 46, 60);
-    set_damage(w, id, 7, 11);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_skill_range(w, id, SkillName::EvalInt, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Magery, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::MagicResist, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 55.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 28);
-    pack_reg(w, id, 10);
-}
 fn spectre_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SPECTRE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    spectre_init(w, id);
-    id
+    templates::new_creature(w, &SPECTRE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Spectre`.
     SPECTRE, SPECTRE_C = "Server.Mobiles.Spectre" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(spectre_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ghostly corpse"),
-        default_name: |_w, _id| Some("a spectre"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn spellbinder_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[26, 50, 56]);
-    base_sound_id(w, id, 0x482);
-    set_str_range(w, id, 46, 70);
-    set_dex_range(w, id, 47, 65);
-    set_int_range(w, id, 187, 210);
-    set_hits_range(w, id, 36, 50);
-    set_damage(w, id, 3, 6);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 35.1, 50.0);
-    set_skill_range(w, id, SkillName::Tactics, 35.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 35.1, 45.0);
-    fame(w, id, 2500);
-    karma(w, id, -2500);
-    virtual_armor(w, id, 28);
-}
 fn spellbinder_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SPELLBINDER,
-        AIType::AiMage,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    spellbinder_init(w, id);
-    id
+    templates::new_creature(w, &SPELLBINDER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Spellbinder`.
     SPELLBINDER, SPELLBINDER_C = "Server.Mobiles.Spellbinder" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(spellbinder_new), encoded true;
     c {
-        corpse_name: |_w, _id| Some("a ghostly corpse"),
-        default_name: |_w, _id| Some("a spectral spellbinder"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        poison_immune: |_w, _id| Some(PoisonId(1)),
+        poison_immune: tp::poison_immune,
         generate_loot: |w, id| {
             add_loot(w, id, loot_pack::meager(w));
             { let it = muo_content::loot::random_weapon(w, false, false, false); pack_item(w, id, it); }
@@ -4358,57 +2386,20 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn succubus_init(w: &mut World, id: MobileId) {
-    body(w, id, 149);
-    base_sound_id(w, id, 0x4B0);
-    set_str_range(w, id, 488, 620);
-    set_dex_range(w, id, 121, 170);
-    set_int_range(w, id, 498, 657);
-    set_hits_range(w, id, 312, 353);
-    set_damage(w, id, 18, 28);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 60);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 99.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.5, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 90.0);
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-    virtual_armor(w, id, 80);
-}
 fn succubus_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SUCCUBUS,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    succubus_init(w, id);
-    id
+    templates::new_creature(w, &SUCCUBUS)
 }
 static SUCCUBUS_ABILITIES: [&MonsterAbility; 1] = [&abilities::DRAIN_LIFE_AREA_ATTACK];
 creature_leaf! {
     /// `Server.Mobiles.Succubus`.
     SUCCUBUS, SUCCUBUS_C = "Server.Mobiles.Succubus" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(succubus_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a succubus corpse"),
-        default_name: |_w, _id| Some("a succubus"),
-        meat: |_w, _id| 1,
-        treasure_map_level: |_w, _id| 5,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &SUCCUBUS_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -4469,105 +2460,36 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn wraith_init(w: &mut World, id: MobileId) {
-    body(w, id, 26);
-    hue(w, id, 0x4001);
-    base_sound_id(w, id, 0x482);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 46, 60);
-    set_damage(w, id, 7, 11);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_skill_range(w, id, SkillName::EvalInt, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Magery, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::MagicResist, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 55.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 28);
-    pack_reg(w, id, 10);
-}
 fn wraith_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &WRAITH,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    wraith_init(w, id);
-    id
+    templates::new_creature(w, &WRAITH)
 }
 creature_leaf! {
     /// `Server.Mobiles.Wraith`.
     WRAITH, WRAITH_C = "Server.Mobiles.Wraith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(wraith_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ghostly corpse"),
-        default_name: |_w, _id| Some("a wraith"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn arctic_ogre_lord_init(w: &mut World, id: MobileId) {
-    body(w, id, 135);
-    base_sound_id(w, id, 427);
-    set_str_range(w, id, 767, 945);
-    set_dex_range(w, id, 66, 75);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 476, 552);
-    set_damage(w, id, 20, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 30);
-    set_damage_type(w, id, ResistanceType::Cold, 70);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::MagicResist, 125.1, 140.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 50);
-    pack_new(w, id, "Server.Items.Club");
-}
 fn arctic_ogre_lord_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ARCTIC_OGRE_LORD,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    arctic_ogre_lord_init(w, id);
-    id
+    templates::new_creature(w, &ARCTIC_OGRE_LORD)
 }
 creature_leaf! {
     /// `Server.Mobiles.ArcticOgreLord`.
     ARCTIC_OGRE_LORD, ARCTIC_OGRE_LORD_C = "Server.Mobiles.ArcticOgreLord" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(arctic_ogre_lord_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a frozen ogre lord's corpse"),
-        default_name: |_w, _id| Some("an arctic ogre lord"),
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        treasure_map_level: |_w, _id| 3,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -4722,51 +2644,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn chaos_daemon_init(w: &mut World, id: MobileId) {
-    body(w, id, 792);
-    base_sound_id(w, id, 0x3E9);
-    set_str_range(w, id, 106, 130);
-    set_dex_range(w, id, 171, 200);
-    set_int_range(w, id, 56, 80);
-    set_hits_range(w, id, 91, 110);
-    set_damage(w, id, 12, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 85);
-    set_damage_type(w, id, ResistanceType::Fire, 15);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 95.1, 100.0);
-    fame(w, id, 3000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 15);
-}
 fn chaos_daemon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CHAOS_DAEMON,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    chaos_daemon_init(w, id);
-    id
+    templates::new_creature(w, &CHAOS_DAEMON)
 }
 creature_leaf! {
     /// `Server.Mobiles.ChaosDaemon`.
     CHAOS_DAEMON, CHAOS_DAEMON_C = "Server.Mobiles.ChaosDaemon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(chaos_daemon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a chaos daemon corpse"),
-        default_name: |_w, _id| Some("a chaos daemon"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         get_weapon_ability: |_w, _id| Some(Ability::CrushingBlow),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -4822,100 +2710,35 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn cyclops_init(w: &mut World, id: MobileId) {
-    body(w, id, 75);
-    base_sound_id(w, id, 604);
-    set_str_range(w, id, 336, 385);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 31, 55);
-    set_hits_range(w, id, 202, 231);
-    set_mana(w, id, 0);
-    set_damage(w, id, 7, 23);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 60.3, 105.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 90.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 48);
-}
 fn cyclops_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CYCLOPS,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    cyclops_init(w, id);
-    id
+    templates::new_creature(w, &CYCLOPS)
 }
 creature_leaf! {
     /// `Server.Mobiles.Cyclops`.
     CYCLOPS, CYCLOPS_C = "Server.Mobiles.Cyclops" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(cyclops_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a cyclopean corpse"),
-        default_name: |_w, _id| Some("a cyclopean warrior"),
-        meat: |_w, _id| 4,
-        treasure_map_level: |_w, _id| 3,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, loot_pack::average(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn doppleganger_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x309);
-    base_sound_id(w, id, 0x451);
-    set_str_range(w, id, 81, 110);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 81, 105);
-    set_hits_range(w, id, 101, 120);
-    set_damage(w, id, 8, 12);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 75.1, 85.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 90.0);
-    fame(w, id, 1000);
-    karma(w, id, -1000);
-    virtual_armor(w, id, 55);
-}
 fn doppleganger_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DOPPLEGANGER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    doppleganger_init(w, id);
-    id
+    templates::new_creature(w, &DOPPLEGANGER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Doppleganger`.
     DOPPLEGANGER, DOPPLEGANGER_C = "Server.Mobiles.Doppleganger" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(doppleganger_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a doppleganger corpse"),
-        default_name: |_w, _id| Some("a doppleganger"),
-        hides: |_w, _id| 6,
-        meat: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        hides: tp::hides,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -4998,105 +2821,36 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn enslaved_gargoyle_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x2F1);
-    base_sound_id(w, id, 0x174);
-    set_str_range(w, id, 302, 360);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 81, 105);
-    set_hits_range(w, id, 186, 212);
-    set_damage(w, id, 7, 14);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 40.1, 80.0);
-    fame(w, id, 3500);
-    karma(w, id, 0);
-    virtual_armor(w, id, 35);
-    if rnd::double(w) < 0.2 {
-        pack_new(w, id, "Server.Items.GargoylesPickaxe");
-    }
-}
 fn enslaved_gargoyle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ENSLAVED_GARGOYLE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    enslaved_gargoyle_init(w, id);
-    id
+    templates::new_creature(w, &ENSLAVED_GARGOYLE)
 }
 creature_leaf! {
     /// `Server.Mobiles.EnslavedGargoyle`.
     ENSLAVED_GARGOYLE, ENSLAVED_GARGOYLE_C = "Server.Mobiles.EnslavedGargoyle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(enslaved_gargoyle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an enslaved gargoyle corpse"),
-        default_name: |_w, _id| Some("an enslaved gargoyle"),
-        meat: |_w, _id| 1,
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ettin_init(w: &mut World, id: MobileId) {
-    body(w, id, 18);
-    base_sound_id(w, id, 367);
-    set_str_range(w, id, 136, 165);
-    set_dex_range(w, id, 56, 75);
-    set_int_range(w, id, 31, 55);
-    set_hits_range(w, id, 82, 99);
-    set_damage(w, id, 7, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 15, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 40.1, 55.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 60.0);
-    fame(w, id, 3000);
-    karma(w, id, -3000);
-    virtual_armor(w, id, 38);
-}
 fn ettin_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ETTIN,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ettin_init(w, id);
-    id
+    templates::new_creature(w, &ETTIN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Ettin`.
     ETTIN, ETTIN_C = "Server.Mobiles.Ettin" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ettin_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ettins corpse"),
-        default_name: |_w, _id| Some("an ettin"),
-        can_rummage_corpses: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 4,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -5191,101 +2945,34 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn frost_troll_init(w: &mut World, id: MobileId) {
-    body(w, id, 55);
-    base_sound_id(w, id, 461);
-    set_str_range(w, id, 227, 265);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 140, 156);
-    set_damage(w, id, 14, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Cold, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 100.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 50);
-    pack_new(w, id, "Server.Items.DoubleAxe");
-}
 fn frost_troll_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FROST_TROLL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    frost_troll_init(w, id);
-    id
+    templates::new_creature(w, &FROST_TROLL)
 }
 creature_leaf! {
     /// `Server.Mobiles.FrostTroll`.
     FROST_TROLL, FROST_TROLL_C = "Server.Mobiles.FrostTroll" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(frost_troll_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a frost troll corpse"),
-        default_name: |_w, _id| Some("a frost troll"),
-        meat: |_w, _id| 2,
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn gazer_larva_init(w: &mut World, id: MobileId) {
-    body(w, id, 778);
-    base_sound_id(w, id, 377);
-    set_str_range(w, id, 76, 100);
-    set_dex_range(w, id, 51, 75);
-    set_int_range(w, id, 56, 80);
-    set_hits_range(w, id, 36, 47);
-    set_damage(w, id, 2, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 25);
-    set_skill(w, id, SkillName::MagicResist, 70.0);
-    set_skill(w, id, SkillName::Tactics, 70.0);
-    set_skill(w, id, SkillName::Wrestling, 70.0);
-    fame(w, id, 900);
-    karma(w, id, -900);
-    virtual_armor(w, id, 25);
-    {
-        let a0 = "Server.Items.Nightshade";
-        let a1 = rnd::min_max(w, 2, 3);
-        pack_new_amount(w, id, a0, a1);
-    }
-}
 fn gazer_larva_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GAZER_LARVA,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gazer_larva_init(w, id);
-    id
+    templates::new_creature(w, &GAZER_LARVA)
 }
 creature_leaf! {
     /// `Server.Mobiles.GazerLarva`.
     GAZER_LARVA, GAZER_LARVA_C = "Server.Mobiles.GazerLarva" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(gazer_larva_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gazer larva corpse"),
-        default_name: |_w, _id| Some("a gazer larva"),
-        meat: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -5345,52 +3032,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn greater_mongbat_init(w: &mut World, id: MobileId) {
-    body(w, id, 39);
-    base_sound_id(w, id, 422);
-    set_str_range(w, id, 56, 80);
-    set_dex_range(w, id, 61, 80);
-    set_int_range(w, id, 26, 50);
-    set_hits_range(w, id, 34, 48);
-    set_stam_range(w, id, 61, 80);
-    set_mana_range(w, id, 26, 50);
-    set_damage(w, id, 5, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 35.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 20.1, 35.0);
-    fame(w, id, 450);
-    karma(w, id, -450);
-    virtual_armor(w, id, 10);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 71.1);
-}
 fn greater_mongbat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GREATER_MONGBAT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    greater_mongbat_init(w, id);
-    id
+    templates::new_creature(w, &GREATER_MONGBAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.GreaterMongbat`.
     GREATER_MONGBAT, GREATER_MONGBAT_C = "Server.Mobiles.GreaterMongbat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(greater_mongbat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a mongbat corpse"),
-        default_name: |_w, _id| Some("a greater mongbat"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -5538,65 +3192,24 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn juggernaut_init(w: &mut World, id: MobileId) {
-    body(w, id, 768);
-    set_str_range(w, id, 301, 400);
-    set_dex_range(w, id, 51, 70);
-    set_int_range(w, id, 51, 100);
-    set_hits_range(w, id, 181, 240);
-    set_damage(w, id, 12, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::Anatomy, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 140.1, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 12000);
-    karma(w, id, -12000);
-    virtual_armor(w, id, 70);
-    if rnd::double(w) < 0.1 {
-        pack_new(w, id, "Server.Items.PowerCrystal");
-    }
-    if rnd::double(w) < 0.4 {
-        pack_new(w, id, "Server.Items.ClockworkAssembly");
-    }
-}
 fn juggernaut_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &JUGGERNAUT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    juggernaut_init(w, id);
-    id
+    templates::new_creature(w, &JUGGERNAUT)
 }
 static JUGGERNAUT_ABILITIES: [&MonsterAbility; 1] = [&abilities::COLOSSAL_BLOW];
 creature_leaf! {
     /// `Server.Mobiles.Juggernaut`.
     JUGGERNAUT, JUGGERNAUT_C = "Server.Mobiles.Juggernaut" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(juggernaut_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a juggernaut corpse"),
-        default_name: |_w, _id| Some("a blackthorn juggernaut"),
-        always_murderer: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        always_murderer: tp::always_murderer,
         bard_immune: |w, _id| !w.core_aos(),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        meat: |_w, _id| 1,
-        treasure_map_level: |_w, _id| 5,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
+        meat: tp::meat,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &JUGGERNAUT_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 1);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: crate::hand::juggernaut_on_death,
@@ -5721,99 +3334,36 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn moloch_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x311);
-    base_sound_id(w, id, 0x300);
-    set_str_range(w, id, 331, 360);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 41, 65);
-    set_hits_range(w, id, 171, 200);
-    set_damage(w, id, 15, 23);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 75.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 90.0);
-    fame(w, id, 7500);
-    karma(w, id, -7500);
-    virtual_armor(w, id, 32);
-}
 fn moloch_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MOLOCH,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    moloch_init(w, id);
-    id
+    templates::new_creature(w, &MOLOCH)
 }
 creature_leaf! {
     /// `Server.Mobiles.Moloch`.
     MOLOCH, MOLOCH_C = "Server.Mobiles.Moloch" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(moloch_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a moloch corpse"),
-        default_name: |_w, _id| Some("a moloch"),
-        poison_immune: |_w, _id| Some(PoisonId(1)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
         get_weapon_ability: |_w, _id| Some(Ability::ConcussionBlow),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn mongbat_init(w: &mut World, id: MobileId) {
-    body(w, id, 39);
-    base_sound_id(w, id, 422);
-    set_str_range(w, id, 6, 10);
-    set_dex_range(w, id, 26, 38);
-    set_int_range(w, id, 6, 14);
-    set_hits_range(w, id, 4, 6);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 2);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 5, 10);
-    set_skill_range(w, id, SkillName::MagicResist, 5.1, 14.0);
-    set_skill_range(w, id, SkillName::Tactics, 5.1, 10.0);
-    set_skill_range(w, id, SkillName::Wrestling, 5.1, 10.0);
-    fame(w, id, 150);
-    karma(w, id, -150);
-    virtual_armor(w, id, 10);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -18.9);
-}
 fn mongbat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MONGBAT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    mongbat_init(w, id);
-    id
+    templates::new_creature(w, &MONGBAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.Mongbat`.
     MONGBAT, MONGBAT_C = "Server.Mobiles.Mongbat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(mongbat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a mongbat corpse"),
-        default_name: |_w, _id| Some("a mongbat"),
-        can_fly: |_w, _id| true,
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_fly: tp::can_fly,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::MEAT,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -5875,108 +3425,40 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn ogre_init(w: &mut World, id: MobileId) {
-    body(w, id, 1);
-    base_sound_id(w, id, 427);
-    set_str_range(w, id, 166, 195);
-    set_dex_range(w, id, 46, 65);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 100, 117);
-    set_mana(w, id, 0);
-    set_damage(w, id, 9, 11);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance(w, id, ResistanceType::Energy, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 55.1, 70.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 80.0);
-    fame(w, id, 3000);
-    karma(w, id, -3000);
-    virtual_armor(w, id, 32);
-    pack_new(w, id, "Server.Items.Club");
-}
 fn ogre_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &OGRE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ogre_init(w, id);
-    id
+    templates::new_creature(w, &OGRE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Ogre`.
     OGRE, OGRE_C = "Server.Mobiles.Ogre" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ogre_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ogre corpse"),
-        default_name: |_w, _id| Some("an ogre"),
-        can_rummage_corpses: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 2,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ogre_lord_init(w: &mut World, id: MobileId) {
-    body(w, id, 83);
-    base_sound_id(w, id, 427);
-    set_str_range(w, id, 767, 945);
-    set_dex_range(w, id, 66, 75);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 476, 552);
-    set_damage(w, id, 20, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::MagicResist, 125.1, 140.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 50);
-    pack_new(w, id, "Server.Items.Club");
-}
 fn ogre_lord_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &OGRE_LORD,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ogre_lord_init(w, id);
-    id
+    templates::new_creature(w, &OGRE_LORD)
 }
 creature_leaf! {
     /// `Server.Mobiles.OgreLord`.
     OGRE_LORD, OGRE_LORD_C = "Server.Mobiles.OgreLord" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ogre_lord_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ogre lords corpse"),
+        corpse_name: tp::corpse_name,
         faction_allegiance: crate::hand::ogre_lord_faction_allegiance,
         ethic_allegiance: crate::hand::ogre_lord_ethic_allegiance,
-        default_name: |_w, _id| Some("an ogre lord"),
-        can_rummage_corpses: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        treasure_map_level: |_w, _id| 3,
-        meat: |_w, _id| 2,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::rich(w), 2);
-        },
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -6060,142 +3542,45 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn orc_bomber_init(w: &mut World, id: MobileId) {
-    body(w, id, 182);
-    base_sound_id(w, id, 0x45A);
-    set_str_range(w, id, 147, 215);
-    set_dex_range(w, id, 91, 115);
-    set_int_range(w, id, 61, 85);
-    set_hits_range(w, id, 95, 123);
-    set_damage(w, id, 1, 8);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 70.1, 85.0);
-    set_skill_range(w, id, SkillName::Swords, 60.1, 85.0);
-    set_skill_range(w, id, SkillName::Tactics, 75.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 85.0);
-    fame(w, id, 2500);
-    karma(w, id, -2500);
-    virtual_armor(w, id, 30);
-    {
-        let a0 = "Server.Items.SulfurousAsh";
-        let a1 = rnd::min_max(w, 6, 10);
-        pack_new_amount(w, id, a0, a1);
-    }
-    {
-        let a0 = "Server.Items.MandrakeRoot";
-        let a1 = rnd::min_max(w, 6, 10);
-        pack_new_amount(w, id, a0, a1);
-    }
-    {
-        let a0 = "Server.Items.BlackPearl";
-        let a1 = rnd::min_max(w, 6, 10);
-        pack_new_amount(w, id, a0, a1);
-    }
-    pack_new(w, id, "Server.Items.MortarPestle");
-    pack_new(w, id, "Server.Items.LesserExplosionPotion");
-    if rnd::double(w) < 0.2 {
-        pack_new(w, id, "Server.Items.BolaBall");
-    }
-}
 fn orc_bomber_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ORC_BOMBER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    orc_bomber_init(w, id);
-    id
+    templates::new_creature(w, &ORC_BOMBER)
 }
 creature_leaf! {
     /// `Server.Mobiles.OrcBomber`.
     ORC_BOMBER, ORC_BOMBER_C = "Server.Mobiles.OrcBomber" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orc_bomber_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an orcish corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::ORC),
-        default_name: |_w, _id| Some("an orc bomber"),
-        can_rummage_corpses: |_w, _id| true,
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::SAVAGES_AND_ORCS),
         is_enemy: crate::hand::orc_bomber_is_enemy,
         on_action_combat: crate::hand::orc_bomber_on_action_combat,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         aggressive_action_criminal: crate::hand::orc_bomber_aggressive_action_criminal,
     }
 }
 
-pub(crate) fn orc_brute_init(w: &mut World, id: MobileId) {
-    body(w, id, 189);
-    base_sound_id(w, id, 0x45A);
-    set_str_range(w, id, 767, 945);
-    set_dex_range(w, id, 66, 75);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 476, 552);
-    set_damage(w, id, 20, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    set_skill_range(w, id, SkillName::Macing, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 125.1, 140.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 50);
-    pack_ore(w, id, "Server.Items.ShadowIronOre", 25, 0x19B9);
-    pack_new_amount(w, id, "Server.Items.IronIngot", 10);
-    if rnd::double(w) < 0.05 {
-        pack_new(w, id, "Server.Items.OrcishKinMask");
-    }
-    if rnd::double(w) < 0.2 {
-        pack_new(w, id, "Server.Items.BolaBall");
-    }
-}
 fn orc_brute_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ORC_BRUTE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    orc_brute_init(w, id);
-    id
+    templates::new_creature(w, &ORC_BRUTE)
 }
 creature_leaf! {
     /// `Server.Mobiles.OrcBrute`.
     ORC_BRUTE, ORC_BRUTE_C = "Server.Mobiles.OrcBrute" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(orc_brute_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an orcish corpse"),
-        default_name: |_w, _id| Some("an orc brute"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         bard_immune: |w, _id| !w.core_aos(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        meat: |_w, _id| 2,
+        poison_immune: tp::poison_immune,
+        meat: tp::meat,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::SAVAGES_AND_ORCS),
-        can_rummage_corpses: |_w, _id| true,
+        can_rummage_corpses: tp::can_rummage_corpses,
         auto_dispel: |_w, _id| true,
         is_enemy: crate::hand::orc_brute_is_enemy,
         on_damaged_by_spell: crate::hand::orc_brute_on_damaged_by_spell,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         aggressive_action_criminal: crate::hand::orc_brute_aggressive_action_criminal,
@@ -6343,162 +3728,55 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn ratman_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "ratman");
-    body(w, id, 42);
-    base_sound_id(w, id, 437);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 81, 100);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 58, 72);
-    set_damage(w, id, 4, 5);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 35.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 75.0);
-    fame(w, id, 1500);
-    karma(w, id, -1500);
-    virtual_armor(w, id, 28);
-}
 fn ratman_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RATMAN,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ratman_init(w, id);
-    id
+    templates::new_creature(w, &RATMAN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Ratman`.
     RATMAN, RATMAN_C = "Server.Mobiles.Ratman" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ratman_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ratman's corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::RATMAN),
-        can_rummage_corpses: |_w, _id| true,
-        hides: |_w, _id| 8,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ratman_archer_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "ratman");
-    body(w, id, 0x8E);
-    base_sound_id(w, id, 437);
-    set_str_range(w, id, 146, 180);
-    set_dex_range(w, id, 101, 130);
-    set_int_range(w, id, 116, 140);
-    set_hits_range(w, id, 88, 108);
-    set_damage(w, id, 4, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::Anatomy, 60.2, 100.0);
-    set_skill_range(w, id, SkillName::Archery, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 90.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 75.0);
-    fame(w, id, 6500);
-    karma(w, id, -6500);
-    virtual_armor(w, id, 56);
-    add_new(w, id, "Server.Items.Bow");
-    {
-        let a0 = "Server.Items.Arrow";
-        let a1 = rnd::min_max(w, 50, 70);
-        pack_new_amount(w, id, a0, a1);
-    }
-}
 fn ratman_archer_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RATMAN_ARCHER,
-        AIType::AiArcher,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ratman_archer_init(w, id);
-    id
+    templates::new_creature(w, &RATMAN_ARCHER)
 }
 creature_leaf! {
     /// `Server.Mobiles.RatmanArcher`.
     RATMAN_ARCHER, RATMAN_ARCHER_C = "Server.Mobiles.RatmanArcher" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ratman_archer_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ratman archer corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::RATMAN),
-        can_rummage_corpses: |_w, _id| true,
-        hides: |_w, _id| 8,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn restless_soul_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x3CA);
-    hue(w, id, 0x453);
-    set_str_range(w, id, 26, 40);
-    set_dex_range(w, id, 26, 40);
-    set_int_range(w, id, 26, 40);
-    set_hits_range(w, id, 16, 24);
-    set_damage(w, id, 1, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 20.1, 30.0);
-    set_skill_range(w, id, SkillName::Swords, 20.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 20.1, 30.0);
-    set_skill_range(w, id, SkillName::Wrestling, 20.1, 30.0);
-    fame(w, id, 500);
-    karma(w, id, -500);
-    virtual_armor(w, id, 6);
-}
 fn restless_soul_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RESTLESS_SOUL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    restless_soul_init(w, id);
-    id
+    templates::new_creature(w, &RESTLESS_SOUL)
 }
 creature_leaf! {
     /// `Server.Mobiles.RestlessSoul`.
     RESTLESS_SOUL, RESTLESS_SOUL_C = "Server.Mobiles.RestlessSoul" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(restless_soul_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a ghostly corpse"),
-        default_name: |_w, _id| Some("a restless soul"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         always_attackable: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
+        bleed_immune: tp::bleed_immune,
         is_enemy: crate::hand::restless_soul_is_enemy,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         display_paperdoll_to: crate::hand::restless_soul_display_paperdoll_to,
@@ -6509,58 +3787,21 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn rotting_corpse_init(w: &mut World, id: MobileId) {
-    body(w, id, 155);
-    base_sound_id(w, id, 471);
-    set_str_range(w, id, 301, 350);
-    set_dex(w, id, 75);
-    set_int_range(w, id, 151, 200);
-    set_hits(w, id, 1200);
-    set_stam(w, id, 150);
-    set_mana(w, id, 0);
-    set_damage(w, id, 8, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill(w, id, SkillName::Poisoning, 120.0);
-    set_skill(w, id, SkillName::MagicResist, 250.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 100.0);
-    fame(w, id, 6000);
-    karma(w, id, -6000);
-    virtual_armor(w, id, 40);
-}
 fn rotting_corpse_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ROTTING_CORPSE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    rotting_corpse_init(w, id);
-    id
+    templates::new_creature(w, &ROTTING_CORPSE)
 }
 creature_leaf! {
     /// `Server.Mobiles.RottingCorpse`.
     ROTTING_CORPSE, ROTTING_CORPSE_C = "Server.Mobiles.RottingCorpse" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(rotting_corpse_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a rotting corpse"),
-        default_name: |_w, _id| Some("a rotting corpse"),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 5,
+        treasure_map_level: tp::treasure_map_level,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -6922,155 +4163,53 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn stone_gargoyle_init(w: &mut World, id: MobileId) {
-    body(w, id, 67);
-    base_sound_id(w, id, 0x174);
-    set_str_range(w, id, 246, 275);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 81, 105);
-    set_hits_range(w, id, 148, 165);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 85.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 50);
-    pack_new_amount(w, id, "Server.Items.IronIngot", 12);
-    if rnd::double(w) < 0.05 {
-        pack_new(w, id, "Server.Items.GargoylesPickaxe");
-    }
-}
 fn stone_gargoyle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &STONE_GARGOYLE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    stone_gargoyle_init(w, id);
-    id
+    templates::new_creature(w, &STONE_GARGOYLE)
 }
 creature_leaf! {
     /// `Server.Mobiles.StoneGargoyle`.
     STONE_GARGOYLE, STONE_GARGOYLE_C = "Server.Mobiles.StoneGargoyle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(stone_gargoyle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a gargoyle corpse"),
-        default_name: |_w, _id| Some("a stone gargoyle"),
-        treasure_map_level: |_w, _id| 2,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot_n(w, id, &loot_pack::GEMS, 1);
-            add_loot(w, id, &loot_pack::POTIONS);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn strong_mongbat_init(w: &mut World, id: MobileId) {
-    body(w, id, 39);
-    base_sound_id(w, id, 422);
-    set_str_range(w, id, 6, 10);
-    set_dex_range(w, id, 26, 38);
-    set_int_range(w, id, 6, 14);
-    set_hits_range(w, id, 4, 6);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 30.0);
-    set_skill_range(w, id, SkillName::Tactics, 35.1, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 20.1, 35.0);
-    fame(w, id, 150);
-    karma(w, id, -150);
-    virtual_armor(w, id, 10);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 71.1);
-}
 fn strong_mongbat_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &STRONG_MONGBAT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    strong_mongbat_init(w, id);
-    id
+    templates::new_creature(w, &STRONG_MONGBAT)
 }
 creature_leaf! {
     /// `Server.Mobiles.StrongMongbat`.
     STRONG_MONGBAT, STRONG_MONGBAT_C = "Server.Mobiles.StrongMongbat" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(strong_mongbat_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a mongbat corpse"),
-        default_name: |_w, _id| Some("a mongbat"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 6,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         favorite_food: |_w, _id| FoodType::MEAT,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::poor(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn troll_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[53, 54]);
-    base_sound_id(w, id, 461);
-    set_str_range(w, id, 176, 205);
-    set_dex_range(w, id, 46, 65);
-    set_int_range(w, id, 46, 70);
-    set_hits_range(w, id, 106, 123);
-    set_damage(w, id, 8, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 15);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 70.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 40);
-}
 fn troll_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TROLL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    troll_init(w, id);
-    id
+    templates::new_creature(w, &TROLL)
 }
 creature_leaf! {
     /// `Server.Mobiles.Troll`.
     TROLL, TROLL_C = "Server.Mobiles.Troll" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(troll_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a troll corpse"),
-        default_name: |_w, _id| Some("a troll"),
-        can_rummage_corpses: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        meat: |_w, _id| 2,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -7505,60 +4644,20 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn juka_warrior_init(w: &mut World, id: MobileId) {
-    body(w, id, 764);
-    set_str_range(w, id, 251, 350);
-    set_dex_range(w, id, 61, 80);
-    set_int_range(w, id, 101, 150);
-    set_hits_range(w, id, 151, 210);
-    set_damage(w, id, 7, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::Anatomy, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Fencing, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Macing, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::MagicResist, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::Swords, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 80.1, 90.0);
-    fame(w, id, 10000);
-    karma(w, id, -10000);
-    virtual_armor(w, id, 22);
-    if rnd::double(w) < 0.1 {
-        pack_new(w, id, "Server.Items.ArcaneGem");
-    }
-}
 fn juka_warrior_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &JUKA_WARRIOR,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    juka_warrior_init(w, id);
-    id
+    templates::new_creature(w, &JUKA_WARRIOR)
 }
 creature_leaf! {
     /// `Server.Mobiles.JukaWarrior`.
     JUKA_WARRIOR, JUKA_WARRIOR_C = "Server.Mobiles.JukaWarrior" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(juka_warrior_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a jukan corpse"),
-        default_name: |_w, _id| Some("a juka warrior"),
-        always_murderer: |_w, _id| true,
-        can_rummage_corpses: |_w, _id| true,
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        always_murderer: tp::always_murderer,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        meat: tp::meat,
         on_gave_melee_attack: crate::hand::juka_warrior_on_gave_melee_attack,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 1);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 0x1AC,
@@ -7747,50 +4846,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn meer_warrior_init(w: &mut World, id: MobileId) {
-    body(w, id, 771);
-    set_str_range(w, id, 86, 100);
-    set_dex_range(w, id, 186, 200);
-    set_int_range(w, id, 86, 100);
-    set_hits_range(w, id, 52, 60);
-    set_damage(w, id, 12, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    set_skill_range(w, id, SkillName::MagicResist, 91.0, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 91.0, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 91.0, 100.0);
-    virtual_armor(w, id, 22);
-    fame(w, id, 2000);
-    karma(w, id, 5000);
-}
 fn meer_warrior_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MEER_WARRIOR,
-        AIType::AiMelee,
-        FightMode::Evil,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    meer_warrior_init(w, id);
-    id
+    templates::new_creature(w, &MEER_WARRIOR)
 }
 creature_leaf! {
     /// `Server.Mobiles.MeerWarrior`.
     MEER_WARRIOR, MEER_WARRIOR_C = "Server.Mobiles.MeerWarrior" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(meer_warrior_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a meer corpse"),
-        default_name: |_w, _id| Some("a meer warrior"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         bard_immune: |w, _id| !w.core_aos(),
-        can_rummage_corpses: |_w, _id| true,
+        can_rummage_corpses: tp::can_rummage_corpses,
         initial_innocent: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_damage: crate::hand::meer_warrior_on_damage,
@@ -7910,94 +4978,33 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn raging_grizzly_bear_init(w: &mut World, id: MobileId) {
-    body(w, id, 212);
-    base_sound_id(w, id, 0xA3);
-    set_str_range(w, id, 1251, 1550);
-    set_dex_range(w, id, 801, 1050);
-    set_int_range(w, id, 151, 400);
-    set_hits_range(w, id, 751, 930);
-    set_mana(w, id, 0);
-    set_damage(w, id, 18, 23);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::Wrestling, 73.4, 88.1);
-    set_skill_range(w, id, SkillName::Tactics, 73.6, 110.5);
-    set_skill_range(w, id, SkillName::MagicResist, 32.8, 54.6);
-    set_skill_range(w, id, SkillName::Anatomy, 0.0, 0.0);
-    fame(w, id, 10000);
-    karma(w, id, 10000);
-    virtual_armor(w, id, 24);
-    tamable(w, id, false);
-}
 fn raging_grizzly_bear_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RAGING_GRIZZLY_BEAR,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    raging_grizzly_bear_init(w, id);
-    id
+    templates::new_creature(w, &RAGING_GRIZZLY_BEAR)
 }
 creature_leaf! {
     /// `Server.Mobiles.RagingGrizzlyBear`.
     RAGING_GRIZZLY_BEAR, RAGING_GRIZZLY_BEAR_C = "Server.Mobiles.RagingGrizzlyBear" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(raging_grizzly_bear_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a grizzly bear corpse"),
-        default_name: |_w, _id| Some("a raging grizzly bear"),
-        meat: |_w, _id| 4,
-        hides: |_w, _id| 32,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         pack_instinct: |_w, _id| PackInstinct::BEAR,
     }
     m {
     }
 }
 
-pub(crate) fn squirrel_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x116);
-    set_str_range(w, id, 44, 50);
-    set_dex(w, id, 35);
-    set_int(w, id, 5);
-    set_hits_range(w, id, 42, 50);
-    set_damage(w, id, 1, 2);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 34);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 14);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 25);
-    set_skill(w, id, SkillName::MagicResist, 4.0);
-    set_skill(w, id, SkillName::Tactics, 4.0);
-    set_skill(w, id, SkillName::Wrestling, 4.0);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, -21.3);
-}
 fn squirrel_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SQUIRREL,
-        AIType::AiAnimal,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    squirrel_init(w, id);
-    id
+    templates::new_creature(w, &SQUIRREL)
 }
 creature_leaf! {
     /// `Server.Mobiles.Squirrel`.
     SQUIRREL, SQUIRREL_C = "Server.Mobiles.Squirrel" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(squirrel_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a squirrel corpse"),
-        default_name: |_w, _id| Some("a squirrell"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::FRUITS_AND_VEGGIES,
     }
     m {
@@ -8366,55 +5373,21 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn hydra_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x109);
-    base_sound_id(w, id, 0x16A);
-    set_str_range(w, id, 801, 828);
-    set_dex_range(w, id, 102, 118);
-    set_int_range(w, id, 102, 120);
-    set_hits_range(w, id, 1480, 1500);
-    set_damage(w, id, 21, 26);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Fire, 10);
-    set_damage_type(w, id, ResistanceType::Cold, 10);
-    set_damage_type(w, id, ResistanceType::Poison, 10);
-    set_damage_type(w, id, ResistanceType::Energy, 10);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 85);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 35, 43);
-    set_resistance_range(w, id, ResistanceType::Energy, 36, 45);
-    set_skill_range(w, id, SkillName::Wrestling, 103.5, 117.4);
-    set_skill_range(w, id, SkillName::Tactics, 100.1, 109.8);
-    set_skill_range(w, id, SkillName::MagicResist, 85.5, 98.5);
-    set_skill_range(w, id, SkillName::Anatomy, 75.4, 79.8);
-}
 fn hydra_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &HYDRA,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    hydra_init(w, id);
-    id
+    templates::new_creature(w, &HYDRA)
 }
 static HYDRA_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Hydra`.
     HYDRA, HYDRA_C = "Server.Mobiles.Hydra" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(hydra_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a hydra corpse"),
-        default_name: |_w, _id| Some("a hydra"),
-        hides: |_w, _id| 40,
-        meat: |_w, _id| 19,
-        treasure_map_level: |_w, _id| 5,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        hides: tp::hides,
+        meat: tp::meat,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &HYDRA_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 3);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -8424,52 +5397,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn abscess_init(w: &mut World, id: MobileId) {
-    hydra_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x8FD);
-    set_str_range(w, id, 845, 871);
-    set_dex_range(w, id, 121, 134);
-    set_int_range(w, id, 124, 142);
-    set_hits_range(w, id, 7470, 7540);
-    set_damage(w, id, 26, 31);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Fire, 10);
-    set_damage_type(w, id, ResistanceType::Cold, 10);
-    set_damage_type(w, id, ResistanceType::Poison, 10);
-    set_damage_type(w, id, ResistanceType::Energy, 10);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill_range(w, id, SkillName::Wrestling, 132.3, 143.8);
-    set_skill_range(w, id, SkillName::Tactics, 121.0, 130.5);
-    set_skill_range(w, id, SkillName::MagicResist, 102.9, 119.0);
-    set_skill_range(w, id, SkillName::Anatomy, 91.8, 94.3);
-}
 fn abscess_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ABSCESS,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    abscess_init(w, id);
-    id
+    templates::new_creature(w, &ABSCESS)
 }
 creature_leaf! {
     /// `Server.Mobiles.Abscess`.
     ABSCESS, ABSCESS_C = "Server.Mobiles.Abscess" : HYDRA / HYDRA_C, ctor Some(abscess_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an Abscess corpse"),
-        default_name: |_w, _id| Some("Abscess"),
-        gives_ml_minor_artifact: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 4);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -8479,57 +5417,22 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn coil_init(w: &mut World, id: MobileId) {
-    silver_serpent_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x3F);
-    set_str_range(w, id, 205, 343);
-    set_dex_range(w, id, 202, 283);
-    set_int_range(w, id, 88, 142);
-    set_hits_range(w, id, 628, 1291);
-    set_damage(w, id, 19, 28);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 56, 62);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 30);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 30);
-    set_skill_range(w, id, SkillName::Wrestling, 124.5, 141.3);
-    set_skill_range(w, id, SkillName::Tactics, 130.2, 142.0);
-    set_skill_range(w, id, SkillName::MagicResist, 102.3, 113.0);
-    set_skill_range(w, id, SkillName::Anatomy, 120.8, 138.1);
-    set_skill_range(w, id, SkillName::Poisoning, 110.1, 133.4);
-    pack_gem(w, id, 2);
-    pack_new(w, id, "Server.Items.Bone");
-}
 fn coil_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &COIL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    coil_init(w, id);
-    id
+    templates::new_creature(w, &COIL)
 }
 creature_leaf! {
     /// `Server.Mobiles.Coil`.
     COIL, COIL_C = "Server.Mobiles.Coil" : SILVER_SERPENT / SILVER_SERPENT_C, ctor Some(coil_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Coil corpse"),
-        default_name: |_w, _id| Some("Coil"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         hit_poison: |_w, _id| Some(PoisonId(4)),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        gives_ml_minor_artifact: |_w, _id| true,
-        hides: |_w, _id| 48,
-        meat: |_w, _id| 1,
+        poison_immune: tp::poison_immune,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
+        hides: tp::hides,
+        meat: tp::meat,
         get_weapon_ability: |_w, _id| Some(Ability::MortalStrike),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 3);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -8700,53 +5603,21 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn harpy_init(w: &mut World, id: MobileId) {
-    body(w, id, 30);
-    base_sound_id(w, id, 402);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 86, 110);
-    set_int_range(w, id, 51, 75);
-    set_hits_range(w, id, 58, 72);
-    set_damage(w, id, 5, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 90.0);
-    fame(w, id, 2500);
-    karma(w, id, -2500);
-    virtual_armor(w, id, 28);
-}
 fn harpy_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &HARPY,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    harpy_init(w, id);
-    id
+    templates::new_creature(w, &HARPY)
 }
 creature_leaf! {
     /// `Server.Mobiles.Harpy`.
     HARPY, HARPY_C = "Server.Mobiles.Harpy" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(harpy_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a harpy corpse"),
-        default_name: |_w, _id| Some("a harpy"),
-        can_rummage_corpses: |_w, _id| true,
-        meat: |_w, _id| 4,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        meat: tp::meat,
         meat_type: |_w, _id| MeatType::Bird,
-        feathers: |_w, _id| 50,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::meager(w), 2);
-        },
+        feathers: tp::feathers,
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_attack_sound: |_w, _id| 916,
@@ -8757,45 +5628,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn saliva_init(w: &mut World, id: MobileId) {
-    harpy_init(w, id);
-    hue(w, id, 0x11E);
-    set_str_range(w, id, 110, 206);
-    set_dex_range(w, id, 123, 222);
-    set_int_range(w, id, 80, 127);
-    set_hits_range(w, id, 409, 842);
-    set_damage(w, id, 20, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 46, 48);
-    set_resistance_range(w, id, ResistanceType::Fire, 32, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 34, 49);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 48);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 39);
-    set_skill_range(w, id, SkillName::Wrestling, 106.4, 128.8);
-    set_skill_range(w, id, SkillName::Tactics, 129.9, 141.0);
-    set_skill_range(w, id, SkillName::MagicResist, 84.3, 105.0);
-}
 fn saliva_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SALIVA,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    saliva_init(w, id);
-    id
+    templates::new_creature(w, &SALIVA)
 }
 creature_leaf! {
     /// `Server.Mobiles.Saliva`.
     SALIVA, SALIVA_C = "Server.Mobiles.Saliva" : HARPY / HARPY_C, ctor Some(saliva_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Saliva corpse"),
-        default_name: |_w, _id| Some("Saliva"),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -8917,50 +5759,20 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn thrasher_init(w: &mut World, id: MobileId) {
-    alligator_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x497);
-    set_str_range(w, id, 93, 327);
-    set_dex_range(w, id, 7, 201);
-    set_int_range(w, id, 15, 67);
-    set_hits_range(w, id, 260, 984);
-    set_stam_range(w, id, 56, 75);
-    set_mana_range(w, id, 25, 30);
-    set_damage(w, id, 20, 30);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 29);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 28);
-    set_skill_range(w, id, SkillName::Wrestling, 101.2, 118.3);
-    set_skill_range(w, id, SkillName::Tactics, 96.3, 117.3);
-    set_skill_range(w, id, SkillName::MagicResist, 102.4, 118.6);
-}
 fn thrasher_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &THRASHER,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    thrasher_init(w, id);
-    id
+    templates::new_creature(w, &THRASHER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Thrasher`.
     THRASHER, THRASHER_C = "Server.Mobiles.Thrasher" : ALLIGATOR / ALLIGATOR_C, ctor Some(thrasher_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Thrasher corpse"),
-        default_name: |_w, _id| Some("Thrasher"),
-        gives_ml_minor_artifact: |_w, _id| true,
-        hides: |_w, _id| 48,
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
+        hides: tp::hides,
+        meat: tp::meat,
         get_weapon_ability: |_w, _id| Some(Ability::ArmorIgnore),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 4);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -8970,54 +5782,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn fetid_essence_init(w: &mut World, id: MobileId) {
-    body(w, id, 273);
-    set_str_range(w, id, 101, 150);
-    set_dex_range(w, id, 210, 250);
-    set_int_range(w, id, 451, 550);
-    set_hits_range(w, id, 551, 650);
-    set_damage(w, id, 21, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 30);
-    set_damage_type(w, id, ResistanceType::Poison, 70);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 90);
-    set_resistance_range(w, id, ResistanceType::Energy, 75, 80);
-    set_skill_range(w, id, SkillName::Meditation, 91.4, 99.4);
-    set_skill_range(w, id, SkillName::EvalInt, 88.5, 92.3);
-    set_skill_range(w, id, SkillName::Magery, 97.9, 101.7);
-    set_skill(w, id, SkillName::Poisoning, 100.0);
-    set_skill_range(w, id, SkillName::Anatomy, 0.0, 4.5);
-    set_skill_range(w, id, SkillName::MagicResist, 103.5, 108.8);
-    set_skill_range(w, id, SkillName::Tactics, 81.0, 84.6);
-    set_skill_range(w, id, SkillName::Wrestling, 81.3, 83.9);
-    fame(w, id, 3700);
-    karma(w, id, -3700);
-}
 fn fetid_essence_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FETID_ESSENCE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    fetid_essence_init(w, id);
-    id
+    templates::new_creature(w, &FETID_ESSENCE)
 }
 creature_leaf! {
     /// `Server.Mobiles.FetidEssence`.
     FETID_ESSENCE, FETID_ESSENCE_C = "Server.Mobiles.FetidEssence" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(fetid_essence_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a fetid essence corpse"),
-        default_name: |_w, _id| Some("a fetid essence"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         hit_poison: |_w, _id| Some(PoisonId(3)),
-        poison_immune: |_w, _id| Some(PoisonId(3)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-        },
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 0x56d,
@@ -9028,53 +5804,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn interred_grizzle_init(w: &mut World, id: MobileId) {
-    body(w, id, 259);
-    set_str_range(w, id, 451, 500);
-    set_dex_range(w, id, 201, 250);
-    set_int_range(w, id, 801, 850);
-    set_hits(w, id, 1500);
-    set_stam(w, id, 150);
-    set_damage(w, id, 16, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 30);
-    set_damage_type(w, id, ResistanceType::Fire, 70);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 65);
-    set_resistance_range(w, id, ResistanceType::Cold, 55, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 80);
-    set_skill_range(w, id, SkillName::Meditation, 77.7, 84.0);
-    set_skill_range(w, id, SkillName::EvalInt, 72.2, 79.6);
-    set_skill_range(w, id, SkillName::Magery, 83.7, 89.6);
-    set_skill(w, id, SkillName::Poisoning, 0.0);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 80.2, 87.3);
-    set_skill_range(w, id, SkillName::Tactics, 104.5, 105.1);
-    set_skill_range(w, id, SkillName::Wrestling, 105.1, 109.4);
-    fame(w, id, 3700);
-    karma(w, id, -3700);
-}
 fn interred_grizzle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &INTERRED_GRIZZLE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    interred_grizzle_init(w, id);
-    id
+    templates::new_creature(w, &INTERRED_GRIZZLE)
 }
 creature_leaf! {
     /// `Server.Mobiles.InterredGrizzle`.
     INTERRED_GRIZZLE, INTERRED_GRIZZLE_C = "Server.Mobiles.InterredGrizzle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(interred_grizzle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an interred grizzle corpse"),
-        default_name: |_w, _id| Some("a interred grizzle"),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 0x581,
@@ -9135,54 +5874,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn feral_treefellow_init(w: &mut World, id: MobileId) {
-    body(w, id, 301);
-    set_str_range(w, id, 1351, 1600);
-    set_dex_range(w, id, 301, 550);
-    set_int_range(w, id, 651, 900);
-    set_hits_range(w, id, 1170, 1320);
-    set_damage(w, id, 26, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 60);
-    set_skill_range(w, id, SkillName::MagicResist, 40.1, 55.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 65.1, 85.0);
-    fame(w, id, 12500);
-    karma(w, id, 12500);
-    virtual_armor(w, id, 24);
-    {
-        let a0 = "Server.Items.Log";
-        let a1 = rnd::min_max(w, 23, 34);
-        pack_new_amount(w, id, a0, a1);
-    }
-}
 fn feral_treefellow_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FERAL_TREEFELLOW,
-        AIType::AiMelee,
-        FightMode::Evil,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    feral_treefellow_init(w, id);
-    id
+    templates::new_creature(w, &FERAL_TREEFELLOW)
 }
 creature_leaf! {
     /// `Server.Mobiles.FeralTreefellow`.
     FERAL_TREEFELLOW, FERAL_TREEFELLOW_C = "Server.Mobiles.FeralTreefellow" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(feral_treefellow_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a treefellow corpse"),
-        default_name: |_w, _id| Some("a feral treefellow"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        bleed_immune: |_w, _id| true,
+        bleed_immune: tp::bleed_immune,
         get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 443,
@@ -9191,53 +5895,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn minotaur_init(w: &mut World, id: MobileId) {
-    body(w, id, 263);
-    set_str_range(w, id, 301, 340);
-    set_dex_range(w, id, 91, 110);
-    set_int_range(w, id, 31, 50);
-    set_hits_range(w, id, 301, 340);
-    set_damage(w, id, 11, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill(w, id, SkillName::Meditation, 0.0);
-    set_skill(w, id, SkillName::EvalInt, 0.0);
-    set_skill(w, id, SkillName::Magery, 0.0);
-    set_skill(w, id, SkillName::Poisoning, 0.0);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 56.1, 64.0);
-    set_skill_range(w, id, SkillName::Tactics, 93.3, 97.8);
-    set_skill_range(w, id, SkillName::Wrestling, 90.4, 92.1);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 28);
-}
 fn minotaur_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MINOTAUR,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    minotaur_init(w, id);
-    id
+    templates::new_creature(w, &MINOTAUR)
 }
 creature_leaf! {
     /// `Server.Mobiles.Minotaur`.
     MINOTAUR, MINOTAUR_C = "Server.Mobiles.Minotaur" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(minotaur_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a minotaur corpse"),
-        default_name: |_w, _id| Some("a minotaur"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         get_weapon_ability: |_w, _id| Some(Ability::ParalyzingBlow),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 0x597,
@@ -9248,53 +5916,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn minotaur_captain_init(w: &mut World, id: MobileId) {
-    body(w, id, 280);
-    set_str_range(w, id, 401, 425);
-    set_dex_range(w, id, 91, 110);
-    set_int_range(w, id, 31, 50);
-    set_hits_range(w, id, 401, 440);
-    set_damage(w, id, 11, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill(w, id, SkillName::Meditation, 0.0);
-    set_skill(w, id, SkillName::EvalInt, 0.0);
-    set_skill(w, id, SkillName::Magery, 0.0);
-    set_skill(w, id, SkillName::Poisoning, 0.0);
-    set_skill_range(w, id, SkillName::Anatomy, 0.0, 6.3);
-    set_skill_range(w, id, SkillName::MagicResist, 66.1, 73.6);
-    set_skill_range(w, id, SkillName::Tactics, 93.0, 109.9);
-    set_skill_range(w, id, SkillName::Wrestling, 92.6, 107.2);
-    fame(w, id, 7000);
-    karma(w, id, -7000);
-    virtual_armor(w, id, 28);
-}
 fn minotaur_captain_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MINOTAUR_CAPTAIN,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    minotaur_captain_init(w, id);
-    id
+    templates::new_creature(w, &MINOTAUR_CAPTAIN)
 }
 creature_leaf! {
     /// `Server.Mobiles.MinotaurCaptain`.
     MINOTAUR_CAPTAIN, MINOTAUR_CAPTAIN_C = "Server.Mobiles.MinotaurCaptain" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(minotaur_captain_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a minotaur corpse"),
-        default_name: |_w, _id| Some("a minotaur captain"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         get_weapon_ability: |_w, _id| Some(Ability::ParalyzingBlow),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 0x597,
@@ -9305,49 +5937,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn minotaur_scout_init(w: &mut World, id: MobileId) {
-    body(w, id, 281);
-    set_str_range(w, id, 353, 375);
-    set_dex_range(w, id, 111, 130);
-    set_int_range(w, id, 34, 50);
-    set_hits_range(w, id, 354, 383);
-    set_damage(w, id, 11, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 60.6, 67.5);
-    set_skill_range(w, id, SkillName::Tactics, 86.9, 103.6);
-    set_skill_range(w, id, SkillName::Wrestling, 85.6, 104.5);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 28);
-}
 fn minotaur_scout_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MINOTAUR_SCOUT,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    minotaur_scout_init(w, id);
-    id
+    templates::new_creature(w, &MINOTAUR_SCOUT)
 }
 creature_leaf! {
     /// `Server.Mobiles.MinotaurScout`.
     MINOTAUR_SCOUT, MINOTAUR_SCOUT_C = "Server.Mobiles.MinotaurScout" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(minotaur_scout_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a minotaur corpse"),
-        default_name: |_w, _id| Some("a minotaur scout"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         get_weapon_ability: |_w, _id| Some(Ability::ParalyzingBlow),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 0x597,
@@ -9358,103 +5958,36 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn pestilent_bandage_init(w: &mut World, id: MobileId) {
-    body(w, id, 154);
-    hue(w, id, 0x515);
-    base_sound_id(w, id, 471);
-    set_str_range(w, id, 691, 740);
-    set_dex_range(w, id, 141, 180);
-    set_int_range(w, id, 51, 80);
-    set_hits_range(w, id, 415, 445);
-    set_damage(w, id, 13, 23);
-    set_damage_type(w, id, ResistanceType::Physical, 40);
-    set_damage_type(w, id, ResistanceType::Cold, 20);
-    set_damage_type(w, id, ResistanceType::Poison, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::Poisoning, 0.0, 10.0);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 75.0, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.0, 85.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.0, 75.0);
-    fame(w, id, 20000);
-    karma(w, id, -20000);
-    pack_new_amount(w, id, "Server.Items.Bandage", 5);
-}
 fn pestilent_bandage_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PESTILENT_BANDAGE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    pestilent_bandage_init(w, id);
-    id
+    templates::new_creature(w, &PESTILENT_BANDAGE)
 }
 creature_leaf! {
     /// `Server.Mobiles.PestilentBandage`.
     PESTILENT_BANDAGE, PESTILENT_BANDAGE_C = "Server.Mobiles.PestilentBandage" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(pestilent_bandage_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a pestilent bandage corpse"),
-        default_name: |_w, _id| Some("a pestilent bandage"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         hit_poison: |_w, _id| Some(PoisonId(4)),
         can_heal: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn tormented_minotaur_init(w: &mut World, id: MobileId) {
-    body(w, id, 262);
-    set_str_range(w, id, 822, 930);
-    set_dex_range(w, id, 401, 415);
-    set_int_range(w, id, 128, 138);
-    set_hits_range(w, id, 4000, 4200);
-    set_damage(w, id, 16, 30);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance(w, id, ResistanceType::Physical, 62);
-    set_resistance(w, id, ResistanceType::Fire, 74);
-    set_resistance(w, id, ResistanceType::Cold, 54);
-    set_resistance(w, id, ResistanceType::Poison, 56);
-    set_resistance(w, id, ResistanceType::Energy, 54);
-    set_skill_range(w, id, SkillName::Wrestling, 110.1, 111.0);
-    set_skill_range(w, id, SkillName::Tactics, 100.7, 102.8);
-    set_skill_range(w, id, SkillName::MagicResist, 104.3, 116.3);
-    fame(w, id, 20000);
-    karma(w, id, -20000);
-}
 fn tormented_minotaur_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TORMENTED_MINOTAUR,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    tormented_minotaur_init(w, id);
-    id
+    templates::new_creature(w, &TORMENTED_MINOTAUR)
 }
 creature_leaf! {
     /// `Server.Mobiles.TormentedMinotaur`.
     TORMENTED_MINOTAUR, TORMENTED_MINOTAUR_C = "Server.Mobiles.TormentedMinotaur" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(tormented_minotaur_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a tormented minotaur corpse"),
-        default_name: |_w, _id| Some("Tormented Minotaur"),
-        poison_immune: |_w, _id| Some(PoisonId(3)),
-        treasure_map_level: |_w, _id| 3,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 10);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_death_sound: |_w, _id| 0x596,
@@ -9465,53 +5998,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn troglodyte_init(w: &mut World, id: MobileId) {
-    body(w, id, 267);
-    base_sound_id(w, id, 0x59F);
-    set_str_range(w, id, 148, 217);
-    set_dex_range(w, id, 91, 120);
-    set_int_range(w, id, 51, 70);
-    set_hits_range(w, id, 302, 340);
-    set_damage(w, id, 11, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Anatomy, 70.5, 94.8);
-    set_skill_range(w, id, SkillName::MagicResist, 51.8, 65.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.4, 94.7);
-    set_skill_range(w, id, SkillName::Wrestling, 70.2, 93.5);
-    set_skill_range(w, id, SkillName::Healing, 70.0, 95.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 28);
-    pack_new_amount(w, id, "Server.Items.Bandage", 5);
-    pack_new(w, id, "Server.Items.Ribs");
-}
 fn troglodyte_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TROGLODYTE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    troglodyte_init(w, id);
-    id
+    templates::new_creature(w, &TROGLODYTE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Troglodyte`.
     TROGLODYTE, TROGLODYTE_C = "Server.Mobiles.Troglodyte" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(troglodyte_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a troglodyte corpse"),
-        default_name: |_w, _id| Some("a troglodyte"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         can_heal: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -9523,118 +6020,43 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn scorpion_init(w: &mut World, id: MobileId) {
-    body(w, id, 48);
-    base_sound_id(w, id, 397);
-    set_str_range(w, id, 73, 115);
-    set_dex_range(w, id, 76, 95);
-    set_int_range(w, id, 16, 30);
-    set_hits_range(w, id, 50, 63);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Poison, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::Poisoning, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 30.1, 35.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.3, 75.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.3, 65.0);
-    fame(w, id, 2000);
-    karma(w, id, -2000);
-    virtual_armor(w, id, 28);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 47.1);
-    pack_new(w, id, "Server.Items.LesserPoisonPotion");
-}
 fn scorpion_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SCORPION,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    scorpion_init(w, id);
-    id
+    templates::new_creature(w, &SCORPION)
 }
 creature_leaf! {
     /// `Server.Mobiles.Scorpion`.
     SCORPION, SCORPION_C = "Server.Mobiles.Scorpion" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(scorpion_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a scorpion corpse"),
-        default_name: |_w, _id| Some("a scorpion"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::ARACHNID,
-        poison_immune: |_w, _id| Some(PoisonId(2)),
+        poison_immune: tp::poison_immune,
         hit_poison: |w, _id| if rnd::double(w) < 0.8 { Some(PoisonId(2)) } else { Some(PoisonId(3)) },
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn miasma_init(w: &mut World, id: MobileId) {
-    scorpion_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x8FD);
-    set_str_range(w, id, 255, 847);
-    set_dex_range(w, id, 145, 428);
-    set_int_range(w, id, 26, 380);
-    set_hits_range(w, id, 750, 2000);
-    set_mana_range(w, id, 5, 60);
-    set_damage(w, id, 20, 30);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Poison, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 54);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 55);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 45);
-    set_skill_range(w, id, SkillName::Wrestling, 84.9, 103.3);
-    set_skill_range(w, id, SkillName::Tactics, 98.4, 110.6);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 74.4, 77.7);
-    set_skill_range(w, id, SkillName::Poisoning, 128.5, 143.6);
-    fame(w, id, 21000);
-    karma(w, id, -21000);
-}
 fn miasma_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MIASMA,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    miasma_init(w, id);
-    id
+    templates::new_creature(w, &MIASMA)
 }
 creature_leaf! {
     /// `Server.Mobiles.Miasma`.
     MIASMA, MIASMA_C = "Server.Mobiles.Miasma" : SCORPION / SCORPION_C, ctor Some(miasma_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Miasma corpse"),
-        default_name: |_w, _id| Some("Miasma"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         weapon_ability_chance: |_w, _id| 0.75,
         hit_poison_chance: |_w, _id| 0.35,
         hit_poison: |_w, _id| Some(PoisonId(4)),
         has_mana_override: |_w, _id| true,
-        gives_ml_minor_artifact: |_w, _id| true,
-        treasure_map_level: |_w, _id| 5,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::MortalStrike),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 4);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -9811,73 +6233,31 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn greater_dragon_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[12, 59]);
-    base_sound_id(w, id, 362);
-    set_str_range(w, id, 1025, 1425);
-    set_dex_range(w, id, 81, 148);
-    set_int_range(w, id, 475, 675);
-    set_hits_range(w, id, 1000, 2000);
-    set_stam_range(w, id, 120, 135);
-    set_damage(w, id, 24, 33);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 85);
-    set_resistance_range(w, id, ResistanceType::Fire, 65, 90);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 55);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 75);
-    set_skill(w, id, SkillName::Meditation, 0.0);
-    set_skill_range(w, id, SkillName::EvalInt, 110.0, 140.0);
-    set_skill_range(w, id, SkillName::Magery, 110.0, 140.0);
-    set_skill(w, id, SkillName::Poisoning, 0.0);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 110.0, 140.0);
-    set_skill_range(w, id, SkillName::Tactics, 110.0, 140.0);
-    set_skill_range(w, id, SkillName::Wrestling, 115.0, 145.0);
-    fame(w, id, 22000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 60);
-    tamable(w, id, true);
-    control_slots(w, id, 5);
-    min_tame_skill(w, id, 104.7);
-}
 fn greater_dragon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GREATER_DRAGON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    greater_dragon_init(w, id);
-    id
+    templates::new_creature(w, &GREATER_DRAGON)
 }
 static GREATER_DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.GreaterDragon`.
     GREATER_DRAGON, GREATER_DRAGON_C = "Server.Mobiles.GreaterDragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(greater_dragon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a dragon corpse"),
+        corpse_name: tp::corpse_name,
         stat_loss_after_tame: |_w, _id| true,
-        default_name: |_w, _id| Some("a greater dragon"),
+        default_name: tp::default_name,
         reacquire_on_movement: |w, id| !read(w, id, false, |d| d.controlled),
         auto_dispel: |w, id| !read(w, id, false, |d| d.controlled),
-        treasure_map_level: |_w, _id| 5,
-        meat: |_w, _id| 19,
-        hides: |_w, _id| 30,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Barbed,
-        scales: |_w, _id| 7,
+        scales: tp::scales,
         scale_type: crate::hand::greater_dragon_scale_type,
         favorite_food: |_w, _id| FoodType::MEAT,
         can_anger_on_tame: |_w, _id| true,
-        can_fly: |_w, _id| true,
+        can_fly: tp::can_fly,
         get_weapon_ability: |_w, _id| Some(Ability::BleedAttack),
         get_monster_abilities: |_, _| &GREATER_DRAGON_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 4);
-            add_loot_n(w, id, &loot_pack::GEMS, 8);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -9996,159 +6376,51 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn lurg_init(w: &mut World, id: MobileId) {
-    troglodyte_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x455);
-    set_str_range(w, id, 584, 625);
-    set_dex_range(w, id, 163, 176);
-    set_int_range(w, id, 90, 106);
-    set_hits_range(w, id, 3034, 3189);
-    set_stam_range(w, id, 163, 176);
-    set_mana_range(w, id, 90, 106);
-    set_damage(w, id, 16, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 53);
-    set_resistance_range(w, id, ResistanceType::Fire, 45, 47);
-    set_resistance_range(w, id, ResistanceType::Cold, 56, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 41, 56);
-    set_skill_range(w, id, SkillName::Wrestling, 122.7, 130.5);
-    set_skill_range(w, id, SkillName::Tactics, 109.3, 118.5);
-    set_skill_range(w, id, SkillName::MagicResist, 72.9, 87.6);
-    set_skill_range(w, id, SkillName::Anatomy, 110.5, 124.0);
-    set_skill_range(w, id, SkillName::Healing, 84.1, 105.0);
-    fame(w, id, 10000);
-    karma(w, id, -10000);
-}
 fn lurg_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LURG,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lurg_init(w, id);
-    id
+    templates::new_creature(w, &LURG)
 }
 creature_leaf! {
     /// `Server.Mobiles.Lurg`.
     LURG, LURG_C = "Server.Mobiles.Lurg" : TROGLODYTE / TROGLODYTE_C, ctor Some(lurg_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Lurg corpse"),
-        default_name: |_w, _id| Some("Lurg"),
-        gives_ml_minor_artifact: |_w, _id| true,
-        treasure_map_level: |_w, _id| 4,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
+        treasure_map_level: tp::treasure_map_level,
         get_weapon_ability: |_w, _id| Some(Ability::CrushingBlow),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn putrefier_init(w: &mut World, id: MobileId) {
-    balron_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 63);
-    set_str_range(w, id, 1057, 1400);
-    set_dex_range(w, id, 232, 560);
-    set_int_range(w, id, 201, 440);
-    set_hits_range(w, id, 3010, 4092);
-    set_damage(w, id, 27, 34);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Fire, 0);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 0);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 80);
-    set_resistance_range(w, id, ResistanceType::Fire, 65, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Wrestling, 111.2, 128.0);
-    set_skill_range(w, id, SkillName::Tactics, 115.2, 125.2);
-    set_skill_range(w, id, SkillName::MagicResist, 143.4, 170.0);
-    set_skill_range(w, id, SkillName::Anatomy, 44.6, 67.0);
-    set_skill_range(w, id, SkillName::Magery, 117.6, 118.8);
-    set_skill_range(w, id, SkillName::EvalInt, 113.0, 128.8);
-    set_skill_range(w, id, SkillName::Meditation, 41.4, 85.0);
-    set_skill_range(w, id, SkillName::Poisoning, 45.0, 50.0);
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-    pack_scroll_range(w, id, 4, 7);
-    pack_scroll_range(w, id, 4, 7);
-}
 fn putrefier_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PUTREFIER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    putrefier_init(w, id);
-    id
+    templates::new_creature(w, &PUTREFIER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Putrefier`.
     PUTREFIER, PUTREFIER_C = "Server.Mobiles.Putrefier" : BALRON / BALRON_C, ctor Some(putrefier_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Putrefier corpse"),
-        default_name: |_w, _id| Some("Putrefier"),
-        gives_ml_minor_artifact: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         hit_poison: |_w, _id| Some(PoisonId(3)),
-        treasure_map_level: |_w, _id| 5,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 3);
-        },
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn corporeal_brume_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x104);
-    base_sound_id(w, id, 0x56B);
-    set_str_range(w, id, 400, 450);
-    set_dex_range(w, id, 100, 150);
-    set_int_range(w, id, 50, 60);
-    set_hits_range(w, id, 1150, 1250);
-    set_damage(w, id, 21, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Wrestling, 110.0, 115.0);
-    set_skill_range(w, id, SkillName::Tactics, 110.0, 115.0);
-    set_skill_range(w, id, SkillName::MagicResist, 80.0, 95.0);
-    set_skill_range(w, id, SkillName::Anatomy, 100.0, 110.0);
-    fame(w, id, 12000);
-    karma(w, id, -12000);
-}
 fn corporeal_brume_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CORPOREAL_BRUME,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    corporeal_brume_init(w, id);
-    id
+    templates::new_creature(w, &CORPOREAL_BRUME)
 }
 creature_leaf! {
     /// `Server.Mobiles.CorporealBrume`.
     CORPOREAL_BRUME, CORPOREAL_BRUME_C = "Server.Mobiles.CorporealBrume" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(corporeal_brume_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a corporeal brume corpse"),
-        default_name: |_w, _id| Some("a corporeal brume"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         has_aura: crate::hand::corporeal_brume_has_aura,
         aura_interval: |_w, _id| TimeSpan::from_secs_f64(20_f64),
         aura_range: |_w, _id| 10,
@@ -10156,119 +6428,41 @@ creature_leaf! {
         aura_fire_damage: |_w, _id| 0,
         aura_cold_damage: |_w, _id| 100,
         aura_effect: crate::hand::corporeal_brume_aura_effect,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn crystal_daemon_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x310);
-    hue(w, id, 0x3E8);
-    base_sound_id(w, id, 0x47D);
-    set_str_range(w, id, 140, 200);
-    set_dex_range(w, id, 120, 150);
-    set_int_range(w, id, 800, 850);
-    set_hits_range(w, id, 200, 220);
-    set_damage(w, id, 16, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Cold, 40);
-    set_damage_type(w, id, ResistanceType::Energy, 60);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 0, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 65, 75);
-    set_skill_range(w, id, SkillName::Wrestling, 60.0, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.0, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.0, 110.0);
-    set_skill_range(w, id, SkillName::Magery, 120.0, 130.0);
-    set_skill_range(w, id, SkillName::EvalInt, 100.0, 110.0);
-    set_skill_range(w, id, SkillName::Meditation, 100.0, 110.0);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    pack_arcane_scroll_range(w, id, 0, 1);
-}
 fn crystal_daemon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CRYSTAL_DAEMON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    crystal_daemon_init(w, id);
-    id
+    templates::new_creature(w, &CRYSTAL_DAEMON)
 }
 creature_leaf! {
     /// `Server.Mobiles.CrystalDaemon`.
     CRYSTAL_DAEMON, CRYSTAL_DAEMON_C = "Server.Mobiles.CrystalDaemon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(crystal_daemon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a crystal daemon corpse"),
-        default_name: |_w, _id| Some("a crystal daemon"),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 3);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn crystal_lattice_seeker_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x7B);
-    hue(w, id, 0x47E);
-    set_str_range(w, id, 550, 850);
-    set_dex_range(w, id, 190, 250);
-    set_int_range(w, id, 350, 450);
-    set_hits_range(w, id, 350, 550);
-    set_damage(w, id, 13, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Anatomy, 50.0, 75.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.0, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 100.0, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.0, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.0, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.0, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.0, 100.0);
-    fame(w, id, 17000);
-    karma(w, id, -17000);
-    pack_arcane_scroll_range(w, id, 0, 2);
-}
 fn crystal_lattice_seeker_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CRYSTAL_LATTICE_SEEKER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    crystal_lattice_seeker_init(w, id);
-    id
+    templates::new_creature(w, &CRYSTAL_LATTICE_SEEKER)
 }
 creature_leaf! {
     /// `Server.Mobiles.CrystalLatticeSeeker`.
     CRYSTAL_LATTICE_SEEKER, CRYSTAL_LATTICE_SEEKER_C = "Server.Mobiles.CrystalLatticeSeeker" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(crystal_lattice_seeker_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Crystal Lattice Seeker corpse"),
-        default_name: |_w, _id| Some("Crystal Lattice Seeker"),
-        feathers: |_w, _id| 100,
-        treasure_map_level: |_w, _id| 5,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        feathers: tp::feathers,
+        treasure_map_level: tp::treasure_map_level,
         on_gave_melee_attack: crate::hand::crystal_lattice_seeker_on_gave_melee_attack,
         on_got_melee_attack: crate::hand::crystal_lattice_seeker_on_got_melee_attack,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 4);
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_attack_sound: |_w, _id| 0x2F6,
@@ -10385,52 +6579,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn crystal_vortex_init(w: &mut World, id: MobileId) {
-    body(w, id, 0xD);
-    hue(w, id, 0x2B2);
-    base_sound_id(w, id, 0x107);
-    set_str_range(w, id, 800, 900);
-    set_dex_range(w, id, 500, 600);
-    set_int(w, id, 200);
-    set_hits_range(w, id, 350, 400);
-    set_mana(w, id, 0);
-    set_damage(w, id, 15, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Fire, 0, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 90);
-    set_skill(w, id, SkillName::MagicResist, 120.0);
-    set_skill(w, id, SkillName::Tactics, 120.0);
-    set_skill(w, id, SkillName::Wrestling, 120.0);
-    fame(w, id, 17000);
-    karma(w, id, -17000);
-    pack_arcane_scroll_range(w, id, 0, 2);
-}
 fn crystal_vortex_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CRYSTAL_VORTEX,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    crystal_vortex_init(w, id);
-    id
+    templates::new_creature(w, &CRYSTAL_VORTEX)
 }
 creature_leaf! {
     /// `Server.Mobiles.CrystalVortex`.
     CRYSTAL_VORTEX, CRYSTAL_VORTEX_C = "Server.Mobiles.CrystalVortex" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(crystal_vortex_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a crystal vortex corpse"),
-        default_name: |_w, _id| Some("a crystal vortex"),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 0x15,
@@ -10523,52 +6681,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn mantra_effervescence_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x111);
-    base_sound_id(w, id, 0x56E);
-    set_str_range(w, id, 130, 150);
-    set_dex_range(w, id, 120, 130);
-    set_int_range(w, id, 150, 230);
-    set_hits_range(w, id, 150, 250);
-    set_damage(w, id, 21, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 30);
-    set_damage_type(w, id, ResistanceType::Energy, 70);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance(w, id, ResistanceType::Energy, 100);
-    set_skill_range(w, id, SkillName::Wrestling, 80.0, 85.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.0, 85.0);
-    set_skill_range(w, id, SkillName::MagicResist, 105.0, 115.0);
-    set_skill_range(w, id, SkillName::Magery, 90.0, 110.0);
-    set_skill_range(w, id, SkillName::EvalInt, 80.0, 90.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.0, 100.0);
-    fame(w, id, 6500);
-    karma(w, id, -6500);
-}
 fn mantra_effervescence_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MANTRA_EFFERVESCENCE,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    mantra_effervescence_init(w, id);
-    id
+    templates::new_creature(w, &MANTRA_EFFERVESCENCE)
 }
 creature_leaf! {
     /// `Server.Mobiles.MantraEffervescence`.
     MANTRA_EFFERVESCENCE, MANTRA_EFFERVESCENCE_C = "Server.Mobiles.MantraEffervescence" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(mantra_effervescence_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a mantra effervescence corpse"),
-        default_name: |_w, _id| Some("a mantra effervescence"),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot(w, id, loot_pack::rich(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -10634,186 +6756,58 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn unfrozen_mummy_init(w: &mut World, id: MobileId) {
-    body(w, id, 0x9B);
-    hue(w, id, 0x480);
-    base_sound_id(w, id, 0x1D7);
-    set_str_range(w, id, 450, 500);
-    set_dex_range(w, id, 200, 250);
-    set_int_range(w, id, 800, 850);
-    set_hits(w, id, 1500);
-    set_damage(w, id, 16, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 0);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_damage_type(w, id, ResistanceType::Cold, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 70, 80);
-    set_skill_range(w, id, SkillName::Wrestling, 90.0, 100.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::MagicResist, 250.0);
-    set_skill_range(w, id, SkillName::Magery, 50.0, 60.0);
-    set_skill_range(w, id, SkillName::EvalInt, 50.0, 60.0);
-    set_skill(w, id, SkillName::Meditation, 80.0);
-    fame(w, id, 25000);
-    karma(w, id, -25000);
-    pack_arcane_scroll_range(w, id, 0, 2);
-}
 fn unfrozen_mummy_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &UNFROZEN_MUMMY,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    unfrozen_mummy_init(w, id);
-    id
+    templates::new_creature(w, &UNFROZEN_MUMMY)
 }
 creature_leaf! {
     /// `Server.Mobiles.UnfrozenMummy`.
     UNFROZEN_MUMMY, UNFROZEN_MUMMY_C = "Server.Mobiles.UnfrozenMummy" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(unfrozen_mummy_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an unfrozen mummy corpse"),
-        default_name: |_w, _id| Some("an unfrozen mummy"),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn chiikkaha_init(w: &mut World, id: MobileId) {
-    ratman_mage_init(w, id);
-    set_str_range(w, id, 450, 476);
-    set_dex_range(w, id, 157, 179);
-    set_int_range(w, id, 251, 275);
-    set_hits_range(w, id, 400, 425);
-    set_damage(w, id, 10, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance(w, id, ResistanceType::Energy, 100);
-    set_skill_range(w, id, SkillName::EvalInt, 70.1, 80.0);
-    set_skill_range(w, id, SkillName::Magery, 70.1, 90.0);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 96.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 75.0);
-    fame(w, id, 7500);
-    karma(w, id, -7500);
-}
 fn chiikkaha_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CHIIKKAHA,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    chiikkaha_init(w, id);
-    id
+    templates::new_creature(w, &CHIIKKAHA)
 }
 creature_leaf! {
     /// `Server.Mobiles.Chiikkaha`.
     CHIIKKAHA, CHIIKKAHA_C = "Server.Mobiles.Chiikkaha" : RATMAN_MAGE / RATMAN_MAGE_C, ctor Some(chiikkaha_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Chiikkaha the Toothed corpse"),
-        default_name: |_w, _id| Some("Chiikkaha the Toothed"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
     }
     m {
     }
 }
 
-pub(crate) fn moug_guur_init(w: &mut World, id: MobileId) {
-    ettin_init(w, id);
-    set_str_range(w, id, 556, 575);
-    set_dex_range(w, id, 84, 94);
-    set_int_range(w, id, 59, 73);
-    set_hits_range(w, id, 400, 415);
-    set_damage(w, id, 12, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 61, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 16, 19);
-    set_resistance_range(w, id, ResistanceType::Cold, 41, 46);
-    set_resistance_range(w, id, ResistanceType::Poison, 21, 24);
-    set_resistance_range(w, id, ResistanceType::Energy, 19, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 70.2, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 80.8, 81.7);
-    set_skill_range(w, id, SkillName::Wrestling, 93.9, 99.4);
-    fame(w, id, 3000);
-    karma(w, id, -3000);
-}
 fn moug_guur_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MOUG_GUUR,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    moug_guur_init(w, id);
-    id
+    templates::new_creature(w, &MOUG_GUUR)
 }
 creature_leaf! {
     /// `Server.Mobiles.MougGuur`.
     MOUG_GUUR, MOUG_GUUR_C = "Server.Mobiles.MougGuur" : ETTIN / ETTIN_C, ctor Some(moug_guur_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Moug-Guur corpse"),
-        default_name: |_w, _id| Some("Moug-Guur"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
     }
     m {
     }
 }
 
-pub(crate) fn szavetra_init(w: &mut World, id: MobileId) {
-    succubus_init(w, id);
-    set_str_range(w, id, 627, 655);
-    set_dex_range(w, id, 164, 193);
-    set_int_range(w, id, 566, 595);
-    set_hits_range(w, id, 312, 415);
-    set_damage(w, id, 20, 30);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 83, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 72, 80);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 49);
-    set_resistance_range(w, id, ResistanceType::Poison, 51, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 60);
-    set_skill_range(w, id, SkillName::EvalInt, 90.3, 99.8);
-    set_skill_range(w, id, SkillName::Magery, 100.1, 100.6);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 110.0);
-    set_skill_range(w, id, SkillName::MagicResist, 112.2, 127.2);
-    set_skill_range(w, id, SkillName::Tactics, 91.2, 92.8);
-    set_skill_range(w, id, SkillName::Wrestling, 80.2, 86.4);
-    fame(w, id, 24000);
-    karma(w, id, -24000);
-}
 fn szavetra_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SZAVETRA,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    szavetra_init(w, id);
-    id
+    templates::new_creature(w, &SZAVETRA)
 }
 creature_leaf! {
     /// `Server.Mobiles.Szavetra`.
     SZAVETRA, SZAVETRA_C = "Server.Mobiles.Szavetra" : SUCCUBUS / SUCCUBUS_C, ctor Some(szavetra_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Szavetra corpse"),
-        default_name: |_w, _id| Some("Szavetra"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
     }
     m {
     }
@@ -10886,53 +6880,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn gnaw_init(w: &mut World, id: MobileId) {
-    dire_wolf_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x130);
-    set_str_range(w, id, 151, 172);
-    set_dex_range(w, id, 124, 145);
-    set_int_range(w, id, 60, 86);
-    set_hits_range(w, id, 817, 857);
-    set_stam_range(w, id, 124, 145);
-    set_mana_range(w, id, 52, 86);
-    set_damage(w, id, 16, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 64, 69);
-    set_resistance_range(w, id, ResistanceType::Fire, 53, 56);
-    set_resistance_range(w, id, ResistanceType::Cold, 22, 27);
-    set_resistance_range(w, id, ResistanceType::Poison, 27, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 21, 34);
-    set_skill_range(w, id, SkillName::Wrestling, 106.4, 116.5);
-    set_skill_range(w, id, SkillName::Tactics, 84.1, 103.2);
-    set_skill_range(w, id, SkillName::MagicResist, 96.8, 110.7);
-    fame(w, id, 17500);
-    karma(w, id, -17500);
-}
 fn gnaw_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GNAW,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    gnaw_init(w, id);
-    id
+    templates::new_creature(w, &GNAW)
 }
 creature_leaf! {
     /// `Server.Mobiles.Gnaw`.
     GNAW, GNAW_C = "Server.Mobiles.Gnaw" : DIRE_WOLF / DIRE_WOLF_C, ctor Some(gnaw_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Gnaw corpse"),
-        default_name: |_w, _id| Some("Gnaw"),
-        gives_ml_minor_artifact: |_w, _id| true,
-        hides: |_w, _id| 28,
-        meat: |_w, _id| 4,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
+        hides: tp::hides,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -11047,215 +7007,69 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn lady_lissith_init(w: &mut World, id: MobileId) {
-    giant_black_widow_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x452);
-    set_str_range(w, id, 81, 130);
-    set_dex_range(w, id, 116, 152);
-    set_int_range(w, id, 44, 100);
-    set_hits_range(w, id, 245, 375);
-    set_stam_range(w, id, 116, 152);
-    set_mana_range(w, id, 44, 100);
-    set_damage(w, id, 15, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 31, 39);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 71, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Wrestling, 108.6, 123.0);
-    set_skill_range(w, id, SkillName::Tactics, 102.7, 119.0);
-    set_skill_range(w, id, SkillName::MagicResist, 78.8, 95.6);
-    set_skill_range(w, id, SkillName::Anatomy, 68.6, 106.8);
-    set_skill_range(w, id, SkillName::Poisoning, 96.6, 112.9);
-    fame(w, id, 18900);
-    karma(w, id, -18900);
-}
 fn lady_lissith_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LADY_LISSITH,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lady_lissith_init(w, id);
-    id
+    templates::new_creature(w, &LADY_LISSITH)
 }
 creature_leaf! {
     /// `Server.Mobiles.LadyLissith`.
     LADY_LISSITH, LADY_LISSITH_C = "Server.Mobiles.LadyLissith" : GIANT_BLACK_WIDOW / GIANT_BLACK_WIDOW_C, ctor Some(lady_lissith_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Lady Lissith corpse"),
-        default_name: |_w, _id| Some("Lady Lissith"),
-        gives_ml_minor_artifact: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         get_weapon_ability: |_w, _id| Some(Ability::BleedAttack),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn lady_sabrix_init(w: &mut World, id: MobileId) {
-    giant_black_widow_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x497);
-    set_str_range(w, id, 82, 130);
-    set_dex_range(w, id, 117, 146);
-    set_int_range(w, id, 50, 98);
-    set_hits_range(w, id, 233, 361);
-    set_stam_range(w, id, 117, 146);
-    set_mana_range(w, id, 50, 98);
-    set_damage(w, id, 15, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 39);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 44);
-    set_skill_range(w, id, SkillName::Wrestling, 109.8, 122.8);
-    set_skill_range(w, id, SkillName::Tactics, 102.8, 120.0);
-    set_skill_range(w, id, SkillName::MagicResist, 79.4, 95.1);
-    set_skill_range(w, id, SkillName::Anatomy, 68.8, 105.1);
-    set_skill_range(w, id, SkillName::Poisoning, 97.8, 116.7);
-    fame(w, id, 18900);
-    karma(w, id, -18900);
-}
 fn lady_sabrix_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LADY_SABRIX,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lady_sabrix_init(w, id);
-    id
+    templates::new_creature(w, &LADY_SABRIX)
 }
 creature_leaf! {
     /// `Server.Mobiles.LadySabrix`.
     LADY_SABRIX, LADY_SABRIX_C = "Server.Mobiles.LadySabrix" : GIANT_BLACK_WIDOW / GIANT_BLACK_WIDOW_C, ctor Some(lady_sabrix_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Lady Sabrix corpse"),
-        default_name: |_w, _id| Some("Lady Sabrix"),
-        gives_ml_minor_artifact: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         get_weapon_ability: |_w, _id| Some(Ability::ArmorIgnore),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn malefic_init(w: &mut World, id: MobileId) {
-    dread_spider_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x455);
-    set_str_range(w, id, 210, 284);
-    set_dex_range(w, id, 153, 197);
-    set_int_range(w, id, 349, 390);
-    set_hits_range(w, id, 600, 747);
-    set_stam_range(w, id, 153, 197);
-    set_mana_range(w, id, 349, 390);
-    set_damage(w, id, 15, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Poison, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 49);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 41, 48);
-    set_skill_range(w, id, SkillName::Wrestling, 96.9, 112.4);
-    set_skill_range(w, id, SkillName::Tactics, 91.3, 105.4);
-    set_skill_range(w, id, SkillName::MagicResist, 79.8, 95.1);
-    set_skill_range(w, id, SkillName::Magery, 103.0, 118.6);
-    set_skill_range(w, id, SkillName::EvalInt, 105.7, 119.6);
-    set_skill(w, id, SkillName::Meditation, 0.0);
-    fame(w, id, 21000);
-    karma(w, id, -21000);
-}
 fn malefic_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &MALEFIC,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    malefic_init(w, id);
-    id
+    templates::new_creature(w, &MALEFIC)
 }
 creature_leaf! {
     /// `Server.Mobiles.Malefic`.
     MALEFIC, MALEFIC_C = "Server.Mobiles.Malefic" : DREAD_SPIDER / DREAD_SPIDER_C, ctor Some(malefic_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Malefic corpse"),
-        default_name: |_w, _id| Some("Malefic"),
-        gives_ml_minor_artifact: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 3);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn silk_init(w: &mut World, id: MobileId) {
-    giant_black_widow_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x47E);
-    set_str_range(w, id, 80, 131);
-    set_dex_range(w, id, 126, 156);
-    set_int_range(w, id, 63, 102);
-    set_hits_range(w, id, 279, 378);
-    set_stam_range(w, id, 126, 156);
-    set_mana_range(w, id, 63, 102);
-    set_damage(w, id, 15, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 39);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 76);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Wrestling, 114.1, 123.7);
-    set_skill_range(w, id, SkillName::Tactics, 102.6, 118.3);
-    set_skill_range(w, id, SkillName::MagicResist, 78.6, 94.8);
-    set_skill_range(w, id, SkillName::Anatomy, 81.3, 105.7);
-    set_skill_range(w, id, SkillName::Poisoning, 106.0, 119.2);
-    fame(w, id, 18900);
-    karma(w, id, -18900);
-}
 fn silk_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SILK,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    silk_init(w, id);
-    id
+    templates::new_creature(w, &SILK)
 }
 creature_leaf! {
     /// `Server.Mobiles.Silk`.
     SILK, SILK_C = "Server.Mobiles.Silk" : GIANT_BLACK_WIDOW / GIANT_BLACK_WIDOW_C, ctor Some(silk_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Silk corpse"),
-        default_name: |_w, _id| Some("Silk"),
-        gives_ml_minor_artifact: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         get_weapon_ability: |_w, _id| Some(Ability::ParalyzingBlow),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -11369,110 +7183,38 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn virulent_init(w: &mut World, id: MobileId) {
-    dread_spider_init(w, id);
-    is_paragon(w, id, true);
-    hue(w, id, 0x8FD);
-    set_str_range(w, id, 207, 252);
-    set_dex_range(w, id, 156, 194);
-    set_int_range(w, id, 346, 398);
-    set_hits_range(w, id, 616, 740);
-    set_stam_range(w, id, 156, 194);
-    set_mana_range(w, id, 346, 398);
-    set_damage(w, id, 15, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Poison, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 68);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 49);
-    set_resistance_range(w, id, ResistanceType::Cold, 41, 50);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 49);
-    set_skill_range(w, id, SkillName::Wrestling, 92.8, 111.7);
-    set_skill_range(w, id, SkillName::Tactics, 91.6, 107.4);
-    set_skill_range(w, id, SkillName::MagicResist, 78.1, 93.3);
-    set_skill(w, id, SkillName::Poisoning, 120.0);
-    set_skill_range(w, id, SkillName::Magery, 104.2, 119.8);
-    set_skill_range(w, id, SkillName::EvalInt, 102.8, 117.8);
-    fame(w, id, 21000);
-    karma(w, id, -21000);
-}
 fn virulent_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &VIRULENT,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    virulent_init(w, id);
-    id
+    templates::new_creature(w, &VIRULENT)
 }
 creature_leaf! {
     /// `Server.Mobiles.Virulent`.
     VIRULENT, VIRULENT_C = "Server.Mobiles.Virulent" : DREAD_SPIDER / DREAD_SPIDER_C, ctor Some(virulent_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a Virulent corpse"),
-        default_name: |_w, _id| Some("Virulent"),
-        gives_ml_minor_artifact: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        gives_ml_minor_artifact: tp::gives_ml_minor_artifact,
         get_weapon_ability: |_w, _id| Some(Ability::MortalStrike),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 3);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn hell_hound_init(w: &mut World, id: MobileId) {
-    body(w, id, 98);
-    base_sound_id(w, id, 229);
-    set_str_range(w, id, 102, 150);
-    set_dex_range(w, id, 81, 105);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 66, 125);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 20);
-    set_damage_type(w, id, ResistanceType::Fire, 80);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    fame(w, id, 3400);
-    karma(w, id, -3400);
-    virtual_armor(w, id, 30);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 85.5);
-    pack_new_amount(w, id, "Server.Items.SulfurousAsh", 5);
-}
 fn hell_hound_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &HELL_HOUND,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    hell_hound_init(w, id);
-    id
+    templates::new_creature(w, &HELL_HOUND)
 }
 static HELL_HOUND_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.HellHound`.
     HELL_HOUND, HELL_HOUND_C = "Server.Mobiles.HellHound" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(hell_hound_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a hell hound corpse"),
-        default_name: |_w, _id| Some("a hell hound"),
-        meat: |_w, _id| 1,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
         favorite_food: |_w, _id| FoodType::MEAT,
         pack_instinct: |_w, _id| PackInstinct::CANINE,
         get_monster_abilities: |_, _| &HELL_HOUND_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -11535,114 +7277,40 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn dark_wisp_init(w: &mut World, id: MobileId) {
-    body(w, id, 165);
-    base_sound_id(w, id, 466);
-    set_str_range(w, id, 196, 225);
-    set_dex_range(w, id, 196, 225);
-    set_int_range(w, id, 196, 225);
-    set_hits_range(w, id, 118, 135);
-    set_damage(w, id, 17, 18);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 70);
-    set_skill(w, id, SkillName::EvalInt, 80.0);
-    set_skill(w, id, SkillName::Magery, 80.0);
-    set_skill(w, id, SkillName::MagicResist, 80.0);
-    set_skill(w, id, SkillName::Tactics, 80.0);
-    set_skill(w, id, SkillName::Wrestling, 80.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 40);
-    add_new(w, id, "Server.Items.LightSource");
-}
 fn dark_wisp_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DARK_WISP,
-        AIType::AiMage,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    dark_wisp_init(w, id);
-    id
+    templates::new_creature(w, &DARK_WISP)
 }
 creature_leaf! {
     /// `Server.Mobiles.DarkWisp`.
     DARK_WISP, DARK_WISP_C = "Server.Mobiles.DarkWisp" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dark_wisp_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a wisp corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::WISP),
         ethic_allegiance: crate::hand::dark_wisp_ethic_allegiance,
         reacquire_delay: |_w, _id| TimeSpan::from_secs_f64(1.0_f64),
-        default_name: |_w, _id| Some("a wisp"),
+        default_name: tp::default_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn ethereal_warrior_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "ethereal warrior");
-    body(w, id, 123);
-    set_str_range(w, id, 586, 785);
-    set_dex_range(w, id, 177, 255);
-    set_int_range(w, id, 351, 450);
-    set_hits_range(w, id, 352, 471);
-    set_damage(w, id, 13, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::Anatomy, 50.1, 75.0);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 99.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 7000);
-    karma(w, id, 7000);
-    virtual_armor(w, id, 120);
-}
 fn ethereal_warrior_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ETHEREAL_WARRIOR,
-        AIType::AiMage,
-        FightMode::Evil,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ethereal_warrior_init(w, id);
-    id
+    templates::new_creature(w, &ETHEREAL_WARRIOR)
 }
 creature_leaf! {
     /// `Server.Mobiles.EtherealWarrior`.
     ETHEREAL_WARRIOR, ETHEREAL_WARRIOR_C = "Server.Mobiles.EtherealWarrior" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ethereal_warrior_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ethereal warrior corpse"),
+        corpse_name: tp::corpse_name,
         initial_innocent: |_w, _id| true,
         treasure_map_level: |w, _id| if w.core_aos() { 5 } else { 0 },
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        feathers: |_w, _id| 100,
+        feathers: tp::feathers,
         on_gave_melee_attack: crate::hand::ethereal_warrior_on_gave_melee_attack,
         on_got_melee_attack: crate::hand::ethereal_warrior_on_got_melee_attack,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::rich(w), 3);
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_movement: crate::hand::ethereal_warrior_on_movement,
@@ -11654,60 +7322,20 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn pixie_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "pixie");
-    body(w, id, 128);
-    base_sound_id(w, id, 0x467);
-    set_str_range(w, id, 21, 30);
-    set_dex_range(w, id, 301, 400);
-    set_int_range(w, id, 201, 250);
-    set_hits_range(w, id, 13, 18);
-    set_damage(w, id, 9, 15);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.5, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 10.1, 20.0);
-    set_skill_range(w, id, SkillName::Wrestling, 10.1, 12.5);
-    fame(w, id, 7000);
-    karma(w, id, 7000);
-    virtual_armor(w, id, 100);
-    if rnd::double(w) < 0.02 {
-        pack_statue(w, id);
-    }
-}
 fn pixie_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PIXIE,
-        AIType::AiMage,
-        FightMode::Evil,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    pixie_init(w, id);
-    id
+    templates::new_creature(w, &PIXIE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Pixie`.
     PIXIE, PIXIE_C = "Server.Mobiles.Pixie" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(pixie_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a pixie corpse"),
+        corpse_name: tp::corpse_name,
         initial_innocent: |_w, _id| true,
         hide_type: |_w, _id| HideType::Spined,
-        hides: |_w, _id| 5,
-        meat: |_w, _id| 1,
+        hides: tp::hides,
+        meat: tp::meat,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        generate_loot: |w, id| {
-            add_loot(w, id, &loot_pack::LOW_SCROLLS);
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -11838,62 +7466,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn centaur_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "centaur");
-    body(w, id, 101);
-    base_sound_id(w, id, 679);
-    set_str_range(w, id, 202, 300);
-    set_dex_range(w, id, 104, 260);
-    set_int_range(w, id, 91, 100);
-    set_hits_range(w, id, 130, 172);
-    set_damage(w, id, 13, 24);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill_range(w, id, SkillName::Anatomy, 95.1, 115.0);
-    set_skill_range(w, id, SkillName::Archery, 95.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 50.3, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 95.1, 100.0);
-    fame(w, id, 6500);
-    karma(w, id, 0);
-    virtual_armor(w, id, 50);
-    add_new(w, id, "Server.Items.Bow");
-    {
-        let a0 = "Server.Items.Arrow";
-        let a1 = rnd::min_max(w, 80, 90);
-        pack_new_amount(w, id, a0, a1);
-    }
-}
 fn centaur_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &CENTAUR,
-        AIType::AiMelee,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    centaur_init(w, id);
-    id
+    templates::new_creature(w, &CENTAUR)
 }
 creature_leaf! {
     /// `Server.Mobiles.Centaur`.
     CENTAUR, CENTAUR_C = "Server.Mobiles.Centaur" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(centaur_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a centaur corpse"),
+        corpse_name: tp::corpse_name,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::FEY_AND_UNDEAD),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 8,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, &loot_pack::GEMS);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -11962,44 +7547,15 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn frost_ooze_init(w: &mut World, id: MobileId) {
-    body(w, id, 94);
-    base_sound_id(w, id, 456);
-    set_str_range(w, id, 18, 30);
-    set_dex_range(w, id, 16, 21);
-    set_int_range(w, id, 16, 20);
-    set_hits_range(w, id, 13, 17);
-    set_damage(w, id, 3, 9);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 5.1, 10.0);
-    set_skill_range(w, id, SkillName::Tactics, 19.3, 34.0);
-    set_skill_range(w, id, SkillName::Wrestling, 25.3, 40.0);
-    fame(w, id, 450);
-    karma(w, id, -450);
-    virtual_armor(w, id, 38);
-}
 fn frost_ooze_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &FROST_OOZE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    frost_ooze_init(w, id);
-    id
+    templates::new_creature(w, &FROST_OOZE)
 }
 creature_leaf! {
     /// `Server.Mobiles.FrostOoze`.
     FROST_OOZE, FROST_OOZE_C = "Server.Mobiles.FrostOoze" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(frost_ooze_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a frost ooze corpse"),
-        default_name: |_w, _id| Some("a frost ooze"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         generate_loot: |w, id| {
             {
                 let a0 = &loot_pack::GEMS;
@@ -12081,48 +7637,16 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn plague_beast_lord_init(w: &mut World, id: MobileId) {
-    body(w, id, 775);
-    base_sound_id(w, id, 679);
-    speech_hue(w, id, 0x3B2);
-    set_str(w, id, 500);
-    set_dex(w, id, 100);
-    set_int(w, id, 30);
-    set_hits(w, id, 1800);
-    set_damage(w, id, 20, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_damage_type(w, id, ResistanceType::Poison, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Poison, 75, 85);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 35);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 100.0);
-    fame(w, id, 2000);
-    karma(w, id, -2000);
-    virtual_armor(w, id, 50);
-}
 fn plague_beast_lord_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &PLAGUE_BEAST_LORD,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    plague_beast_lord_init(w, id);
-    id
+    templates::new_creature(w, &PLAGUE_BEAST_LORD)
 }
 creature_leaf! {
     /// `Server.Mobiles.PlagueBeastLord`.
     PLAGUE_BEAST_LORD, PLAGUE_BEAST_LORD_C = "Server.Mobiles.PlagueBeastLord" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(plague_beast_lord_new), state crate::hand::plague_beast_lord_serialize, crate::hand::plague_beast_lord_deserialize;
     c {
-        corpse_name: |_w, _id| Some("a plague beast lord corpse"),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        default_name: |_w, _id| Some("a plague beast lord"),
+        corpse_name: tp::corpse_name,
+        poison_immune: tp::poison_immune,
+        default_name: tp::default_name,
     }
     m {
         on_double_click: crate::hand::plague_beast_lord_on_double_click,
@@ -12140,51 +7664,17 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn sand_vortex_init(w: &mut World, id: MobileId) {
-    body(w, id, 790);
-    base_sound_id(w, id, 263);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 171, 195);
-    set_int_range(w, id, 76, 100);
-    set_hits_range(w, id, 51, 62);
-    set_damage(w, id, 3, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 90);
-    set_damage_type(w, id, ResistanceType::Fire, 10);
-    set_resistance_range(w, id, ResistanceType::Physical, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 70);
-    set_skill(w, id, SkillName::MagicResist, 150.0);
-    set_skill(w, id, SkillName::Tactics, 70.0);
-    set_skill(w, id, SkillName::Wrestling, 80.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 28);
-    pack_new(w, id, "Server.Items.Bone");
-}
 fn sand_vortex_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SAND_VORTEX,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    sand_vortex_init(w, id);
-    id
+    templates::new_creature(w, &SAND_VORTEX)
 }
 creature_leaf! {
     /// `Server.Mobiles.SandVortex`.
     SAND_VORTEX, SAND_VORTEX_C = "Server.Mobiles.SandVortex" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(sand_vortex_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a sand vortex corpse"),
-        default_name: |_w, _id| Some("a sand vortex"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         on_action_combat: crate::hand::sand_vortex_on_action_combat,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::meager(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -12246,373 +7736,127 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn agapite_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 107);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 28, 28);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 32);
-    pack_ore(w, id, "Server.Items.AgapiteOre", ore_amount, 0x19B9);
-}
 fn agapite_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &AGAPITE_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    agapite_elemental_init(w, id);
-    id
+    templates::new_creature(w, &AGAPITE_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.AgapiteElemental`.
     AGAPITE_ELEMENTAL, AGAPITE_ELEMENTAL_C = "Server.Mobiles.AgapiteElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(agapite_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("an agapite elemental"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         auto_dispel: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn bronze_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 108);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 30);
-    set_damage_type(w, id, ResistanceType::Fire, 70);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 29);
-    pack_ore(w, id, "Server.Items.BronzeOre", ore_amount, 0x19B9);
-}
 fn bronze_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BRONZE_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    bronze_elemental_init(w, id);
-    id
+    templates::new_creature(w, &BRONZE_ELEMENTAL)
 }
 static BRONZE_ELEMENTAL_ABILITIES: [&MonsterAbility; 1] = [&abilities::POISON_GAS_COUNTER];
 creature_leaf! {
     /// `Server.Mobiles.BronzeElemental`.
     BRONZE_ELEMENTAL, BRONZE_ELEMENTAL_C = "Server.Mobiles.BronzeElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(bronze_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a bronze elemental"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         auto_dispel: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &BRONZE_ELEMENTAL_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn copper_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 109);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 4800);
-    karma(w, id, -4800);
-    virtual_armor(w, id, 26);
-    pack_ore(w, id, "Server.Items.CopperOre", ore_amount, 0x19B9);
-}
 fn copper_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &COPPER_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    copper_elemental_init(w, id);
-    id
+    templates::new_creature(w, &COPPER_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.CopperElemental`.
     COPPER_ELEMENTAL, COPPER_ELEMENTAL_C = "Server.Mobiles.CopperElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(copper_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a copper elemental"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         auto_dispel: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
+        treasure_map_level: tp::treasure_map_level,
         alter_melee_damage_from: crate::hand::copper_elemental_alter_melee_damage_from,
         check_reflect: crate::hand::copper_elemental_check_reflect,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn dull_copper_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 110);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 20);
-    pack_ore(w, id, "Server.Items.DullCopperOre", ore_amount, 0x19B9);
-}
 fn dull_copper_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DULL_COPPER_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    dull_copper_elemental_init(w, id);
-    id
+    templates::new_creature(w, &DULL_COPPER_ELEMENTAL)
 }
 static DULL_COPPER_ELEMENTAL_ABILITIES: [&MonsterAbility; 1] = [&abilities::DEATH_EXPLOSION];
 creature_leaf! {
     /// `Server.Mobiles.DullCopperElemental`.
     DULL_COPPER_ELEMENTAL, DULL_COPPER_ELEMENTAL_C = "Server.Mobiles.DullCopperElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dull_copper_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a dull copper elemental"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         auto_dispel: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &DULL_COPPER_ELEMENTAL_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn golden_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 166);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 60);
-    pack_ore(w, id, "Server.Items.GoldOre", ore_amount, 0x19B9);
-}
 fn golden_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &GOLDEN_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    golden_elemental_init(w, id);
-    id
+    templates::new_creature(w, &GOLDEN_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.GoldenElemental`.
     GOLDEN_ELEMENTAL, GOLDEN_ELEMENTAL_C = "Server.Mobiles.GoldenElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(golden_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a golden elemental"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         auto_dispel: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn shadow_iron_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 111);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 23);
-    pack_ore(w, id, "Server.Items.ShadowIronOre", ore_amount, 0x19B9);
-}
 fn shadow_iron_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SHADOW_IRON_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    shadow_iron_elemental_init(w, id);
-    id
+    templates::new_creature(w, &SHADOW_IRON_ELEMENTAL)
 }
 creature_leaf! {
     /// `Server.Mobiles.ShadowIronElemental`.
     SHADOW_IRON_ELEMENTAL, SHADOW_IRON_ELEMENTAL_C = "Server.Mobiles.ShadowIronElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(shadow_iron_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a shadow iron elemental"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         auto_dispel: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
-        poison_immune: |_w, _id| Some(PoisonId(3)),
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
+        poison_immune: tp::poison_immune,
         breath_immune: |_w, _id| true,
         alter_melee_damage_from: crate::hand::shadow_iron_elemental_alter_melee_damage_from,
         alter_damage_scalar_from: crate::hand::shadow_iron_elemental_alter_damage_scalar_from,
         alter_spell_damage_from: crate::hand::shadow_iron_elemental_alter_spell_damage_from,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn valorite_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 112);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 28, 28);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_damage_type(w, id, ResistanceType::Cold, 25);
-    set_damage_type(w, id, ResistanceType::Energy, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 50);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 38);
-    pack_ore(w, id, "Server.Items.ValoriteOre", ore_amount, 0x19B9);
-}
 fn valorite_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &VALORITE_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    valorite_elemental_init(w, id);
-    id
+    templates::new_creature(w, &VALORITE_ELEMENTAL)
 }
 static VALORITE_ELEMENTAL_ABILITIES: [&MonsterAbility; 2] = [
     &abilities::POISON_GAS_COUNTER,
@@ -12622,181 +7866,70 @@ creature_leaf! {
     /// `Server.Mobiles.ValoriteElemental`.
     VALORITE_ELEMENTAL, VALORITE_ELEMENTAL_C = "Server.Mobiles.ValoriteElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(valorite_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a valorite elemental"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         auto_dispel: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
         alter_melee_damage_from: crate::hand::valorite_elemental_alter_melee_damage_from,
         check_reflect: crate::hand::valorite_elemental_check_reflect,
         get_monster_abilities: |_, _| &VALORITE_ELEMENTAL_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::filthy_rich(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 4);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn verite_elemental_init(w: &mut World, id: MobileId) {
-    let ore_amount: i32 = 2;
-    body(w, id, 113);
-    base_sound_id(w, id, 268);
-    set_str_range(w, id, 226, 255);
-    set_dex_range(w, id, 126, 145);
-    set_int_range(w, id, 71, 92);
-    set_hits_range(w, id, 136, 153);
-    set_damage(w, id, 9, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Energy, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 60);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 100.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 35);
-    pack_ore(w, id, "Server.Items.VeriteOre", ore_amount, 0x19B9);
-}
 fn verite_elemental_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &VERITE_ELEMENTAL,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    verite_elemental_init(w, id);
-    id
+    templates::new_creature(w, &VERITE_ELEMENTAL)
 }
 static VERITE_ELEMENTAL_ABILITIES: [&MonsterAbility; 1] = [&abilities::DESTROY_EQUIPMENT];
 creature_leaf! {
     /// `Server.Mobiles.VeriteElemental`.
     VERITE_ELEMENTAL, VERITE_ELEMENTAL_C = "Server.Mobiles.VeriteElemental" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(verite_elemental_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ore elemental corpse"),
-        default_name: |_w, _id| Some("a verite elemental"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         auto_dispel: |_w, _id| true,
-        bleed_immune: |_w, _id| true,
-        treasure_map_level: |_w, _id| 1,
+        bleed_immune: tp::bleed_immune,
+        treasure_map_level: tp::treasure_map_level,
         get_monster_abilities: |_, _| &VERITE_ELEMENTAL_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn reaper_init(w: &mut World, id: MobileId) {
-    body(w, id, 47);
-    base_sound_id(w, id, 442);
-    set_str_range(w, id, 66, 215);
-    set_dex_range(w, id, 66, 75);
-    set_int_range(w, id, 101, 250);
-    set_hits_range(w, id, 40, 129);
-    set_stam(w, id, 0);
-    set_damage(w, id, 9, 11);
-    set_damage_type(w, id, ResistanceType::Physical, 80);
-    set_damage_type(w, id, ResistanceType::Poison, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.1, 125.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 60.0);
-    fame(w, id, 3500);
-    karma(w, id, -3500);
-    virtual_armor(w, id, 40);
-    pack_new_amount(w, id, "Server.Items.Log", 10);
-    pack_new_amount(w, id, "Server.Items.MandrakeRoot", 5);
-}
 fn reaper_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &REAPER,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    reaper_init(w, id);
-    id
+    templates::new_creature(w, &REAPER)
 }
 creature_leaf! {
     /// `Server.Mobiles.Reaper`.
     REAPER, REAPER_C = "Server.Mobiles.Reaper" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(reaper_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a reapers corpse"),
-        default_name: |_w, _id| Some("a reaper"),
-        poison_immune: |_w, _id| Some(PoisonId(2)),
-        treasure_map_level: |_w, _id| 2,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         disallow_all_moves: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn bogling_init(w: &mut World, id: MobileId) {
-    body(w, id, 779);
-    base_sound_id(w, id, 422);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 91, 115);
-    set_int_range(w, id, 21, 45);
-    set_hits_range(w, id, 58, 72);
-    set_damage(w, id, 5, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 20, 25);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Energy, 15, 25);
-    set_skill_range(w, id, SkillName::MagicResist, 75.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 55.1, 75.0);
-    fame(w, id, 450);
-    karma(w, id, -450);
-    virtual_armor(w, id, 28);
-    pack_new_amount(w, id, "Server.Items.Log", 4);
-    pack_new(w, id, "Server.Engines.Plants.Seed");
-}
 fn bogling_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &BOGLING,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    bogling_init(w, id);
-    id
+    templates::new_creature(w, &BOGLING)
 }
 creature_leaf! {
     /// `Server.Mobiles.Bogling`.
     BOGLING, BOGLING_C = "Server.Mobiles.Bogling" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(bogling_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a plant corpse"),
-        default_name: |_w, _id| Some("a bogling"),
-        hides: |_w, _id| 6,
-        meat: |_w, _id| 1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        hides: tp::hides,
+        meat: tp::meat,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -12858,227 +7991,80 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn quagmire_init(w: &mut World, id: MobileId) {
-    body(w, id, 789);
-    base_sound_id(w, id, 352);
-    set_str_range(w, id, 101, 130);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 31, 55);
-    set_hits_range(w, id, 91, 105);
-    set_damage(w, id, 10, 14);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Poison, 40);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 20, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 75.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 60.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 1500);
-    karma(w, id, -1500);
-    virtual_armor(w, id, 32);
-}
 fn quagmire_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &QUAGMIRE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    quagmire_init(w, id);
-    id
+    templates::new_creature(w, &QUAGMIRE)
 }
 creature_leaf! {
     /// `Server.Mobiles.Quagmire`.
     QUAGMIRE, QUAGMIRE_C = "Server.Mobiles.Quagmire" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(quagmire_new), state crate::hand::evil_mage_serialize, crate::hand::quagmire_deserialize;
     c {
-        corpse_name: |_w, _id| Some("a quagmire corpse"),
-        default_name: |_w, _id| Some("a quagmire"),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(4)),
         hit_poison_chance: |_w, _id| 0.1,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_anger_sound: |_w, _id| 353,
     }
 }
 
-pub(crate) fn swamp_tentacle_init(w: &mut World, id: MobileId) {
-    body(w, id, 66);
-    base_sound_id(w, id, 352);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 16, 30);
-    set_hits_range(w, id, 58, 72);
-    set_mana(w, id, 0);
-    set_damage(w, id, 6, 12);
-    set_damage_type(w, id, ResistanceType::Physical, 40);
-    set_damage_type(w, id, ResistanceType::Poison, 60);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 15.1, 20.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 65.1, 80.0);
-    fame(w, id, 3000);
-    karma(w, id, -3000);
-    virtual_armor(w, id, 28);
-    pack_reg(w, id, 3);
-}
 fn swamp_tentacle_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SWAMP_TENTACLE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    swamp_tentacle_init(w, id);
-    id
+    templates::new_creature(w, &SWAMP_TENTACLE)
 }
 creature_leaf! {
     /// `Server.Mobiles.SwampTentacle`.
     SWAMP_TENTACLE, SWAMP_TENTACLE_C = "Server.Mobiles.SwampTentacle" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(swamp_tentacle_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a swamp tentacle corpse"),
-        default_name: |_w, _id| Some("a swamp tentacle"),
-        poison_immune: |_w, _id| Some(PoisonId(2)),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn whipping_vine_init(w: &mut World, id: MobileId) {
-    body(w, id, 8);
-    hue(w, id, 0x851);
-    base_sound_id(w, id, 352);
-    set_str_range(w, id, 251, 300);
-    set_dex_range(w, id, 76, 100);
-    set_int_range(w, id, 26, 40);
-    set_mana(w, id, 0);
-    set_damage(w, id, 7, 25);
-    set_damage_type(w, id, ResistanceType::Physical, 70);
-    set_damage_type(w, id, ResistanceType::Poison, 30);
-    set_resistance_range(w, id, ResistanceType::Physical, 75, 85);
-    set_resistance_range(w, id, ResistanceType::Fire, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Cold, 15, 25);
-    set_resistance_range(w, id, ResistanceType::Poison, 75, 85);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill(w, id, SkillName::MagicResist, 70.0);
-    set_skill(w, id, SkillName::Tactics, 70.0);
-    set_skill(w, id, SkillName::Wrestling, 70.0);
-    fame(w, id, 1000);
-    karma(w, id, -1000);
-    virtual_armor(w, id, 45);
-    pack_reg(w, id, 3);
-    {
-        let a0 = "Server.Items.FertileDirt";
-        let a1 = rnd::min_max(w, 1, 10);
-        pack_new_amount(w, id, a0, a1);
-    }
-    if rnd::double(w) < 0.2 {
-        pack_new(w, id, "Server.Items.ExecutionersCap");
-    }
-    pack_new(w, id, "Server.Items.Vines");
-}
 fn whipping_vine_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &WHIPPING_VINE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    whipping_vine_init(w, id);
-    id
+    templates::new_creature(w, &WHIPPING_VINE)
 }
 creature_leaf! {
     /// `Server.Mobiles.WhippingVine`.
     WHIPPING_VINE, WHIPPING_VINE_C = "Server.Mobiles.WhippingVine" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(whipping_vine_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a whipping vine corpse"),
-        default_name: |_w, _id| Some("a whipping vine"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         bard_immune: |w, _id| !w.core_aos(),
-        poison_immune: |_w, _id| Some(PoisonId(4)),
+        poison_immune: tp::poison_immune,
     }
     m {
     }
 }
 
-pub(crate) fn ancient_wyrm_init(w: &mut World, id: MobileId) {
-    body(w, id, 46);
-    base_sound_id(w, id, 362);
-    set_str_range(w, id, 1096, 1185);
-    set_dex_range(w, id, 86, 175);
-    set_int_range(w, id, 686, 775);
-    set_hits_range(w, id, 658, 711);
-    set_damage(w, id, 29, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 80, 90);
-    set_resistance_range(w, id, ResistanceType::Cold, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Poison, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 70);
-    set_skill_range(w, id, SkillName::EvalInt, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 52.5, 75.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.5, 150.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 70);
-}
 fn ancient_wyrm_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &ANCIENT_WYRM,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ancient_wyrm_init(w, id);
-    id
+    templates::new_creature(w, &ANCIENT_WYRM)
 }
 static ANCIENT_WYRM_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.AncientWyrm`.
     ANCIENT_WYRM, ANCIENT_WYRM_C = "Server.Mobiles.AncientWyrm" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ancient_wyrm_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a dragon corpse"),
-        default_name: |_w, _id| Some("an ancient wyrm"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         reacquire_on_movement: |_w, _id| true,
         auto_dispel: |_w, _id| true,
         hide_type: |_w, _id| HideType::Barbed,
-        hides: |_w, _id| 40,
-        meat: |_w, _id| 19,
-        scales: |_w, _id| 12,
+        hides: tp::hides,
+        meat: tp::meat,
+        scales: tp::scales,
         scale_type: crate::hand::ancient_wyrm_scale_type,
-        poison_immune: |_w, _id| Some(PoisonId(1)),
+        poison_immune: tp::poison_immune,
         hit_poison: |w, _id| if rnd::bool(w) { Some(PoisonId(0)) } else { Some(PoisonId(1)) },
-        treasure_map_level: |_w, _id| 5,
-        can_fly: |_w, _id| true,
+        treasure_map_level: tp::treasure_map_level,
+        can_fly: tp::can_fly,
         get_monster_abilities: |_, _| &ANCIENT_WYRM_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 3);
-            add_loot_n(w, id, &loot_pack::GEMS, 5);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 0x2D3,
@@ -13149,67 +8135,29 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn dragon_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[12, 59]);
-    base_sound_id(w, id, 362);
-    set_str_range(w, id, 796, 825);
-    set_dex_range(w, id, 86, 105);
-    set_int_range(w, id, 436, 475);
-    set_hits_range(w, id, 478, 495);
-    set_damage(w, id, 16, 22);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 60, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill_range(w, id, SkillName::EvalInt, 30.1, 40.0);
-    set_skill_range(w, id, SkillName::Magery, 30.1, 40.0);
-    set_skill_range(w, id, SkillName::MagicResist, 99.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 92.5);
-    fame(w, id, 15000);
-    karma(w, id, -15000);
-    virtual_armor(w, id, 60);
-    tamable(w, id, true);
-    control_slots(w, id, 3);
-    min_tame_skill(w, id, 93.9);
-}
 fn dragon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DRAGON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    dragon_init(w, id);
-    id
+    templates::new_creature(w, &DRAGON)
 }
 static DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Dragon`.
     DRAGON, DRAGON_C = "Server.Mobiles.Dragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(dragon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a dragon corpse"),
-        default_name: |_w, _id| Some("a dragon"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         reacquire_on_movement: |w, id| !read(w, id, false, |d| d.controlled),
         auto_dispel: |w, id| !read(w, id, false, |d| d.controlled),
-        treasure_map_level: |_w, _id| 4,
-        meat: |_w, _id| 19,
-        hides: |_w, _id| 20,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Barbed,
-        scales: |_w, _id| 7,
+        scales: tp::scales,
         scale_type: crate::hand::dragon_scale_type,
         favorite_food: |_w, _id| FoodType::MEAT,
         can_anger_on_tame: |_w, _id| true,
-        can_fly: |_w, _id| true,
+        can_fly: tp::can_fly,
         get_monster_abilities: |_, _| &DRAGON_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 2);
-            add_loot_n(w, id, &loot_pack::GEMS, 8);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -13326,56 +8274,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn ophidian_matriarch_init(w: &mut World, id: MobileId) {
-    body(w, id, 87);
-    base_sound_id(w, id, 644);
-    set_str_range(w, id, 416, 505);
-    set_dex_range(w, id, 96, 115);
-    set_int_range(w, id, 366, 455);
-    set_hits_range(w, id, 250, 303);
-    set_damage(w, id, 11, 13);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Energy, 35, 45);
-    set_skill_range(w, id, SkillName::EvalInt, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 5.4, 25.0);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 100.0);
-    set_skill_range(w, id, SkillName::Tactics, 50.1, 70.0);
-    set_skill_range(w, id, SkillName::Wrestling, 60.1, 80.0);
-    fame(w, id, 16000);
-    karma(w, id, -16000);
-    virtual_armor(w, id, 50);
-}
 fn ophidian_matriarch_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &OPHIDIAN_MATRIARCH,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    ophidian_matriarch_init(w, id);
-    id
+    templates::new_creature(w, &OPHIDIAN_MATRIARCH)
 }
 creature_leaf! {
     /// `Server.Mobiles.OphidianMatriarch`.
     OPHIDIAN_MATRIARCH, OPHIDIAN_MATRIARCH_C = "Server.Mobiles.OphidianMatriarch" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(ophidian_matriarch_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("an ophidian corpse"),
-        default_name: |_w, _id| Some("an ophidian matriarch"),
-        poison_immune: |_w, _id| Some(PoisonId(2)),
-        treasure_map_level: |_w, _id| 4,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        poison_immune: tp::poison_immune,
+        treasure_map_level: tp::treasure_map_level,
         opposition_group: |_w, _id| Some(&muo_content::ai::opposition_group::TERATHANS_AND_OPHIDIANS),
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -13451,66 +8362,29 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn shadow_wyrm_init(w: &mut World, id: MobileId) {
-    body(w, id, 106);
-    base_sound_id(w, id, 362);
-    set_str_range(w, id, 898, 1030);
-    set_dex_range(w, id, 68, 200);
-    set_int_range(w, id, 488, 620);
-    set_hits_range(w, id, 558, 599);
-    set_damage(w, id, 29, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Cold, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 75);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 60);
-    set_skill_range(w, id, SkillName::EvalInt, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 52.5, 75.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.3, 130.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 70);
-}
 fn shadow_wyrm_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SHADOW_WYRM,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    shadow_wyrm_init(w, id);
-    id
+    templates::new_creature(w, &SHADOW_WYRM)
 }
 static SHADOW_WYRM_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.ShadowWyrm`.
     SHADOW_WYRM, SHADOW_WYRM_C = "Server.Mobiles.ShadowWyrm" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(shadow_wyrm_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a shadow wyrm corpse"),
-        default_name: |_w, _id| Some("a shadow wyrm"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         reacquire_on_movement: |_w, _id| true,
         auto_dispel: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(3)),
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(3)),
-        treasure_map_level: |_w, _id| 5,
-        meat: |_w, _id| 19,
-        hides: |_w, _id| 20,
-        scales: |_w, _id| 10,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
+        scales: tp::scales,
         scale_type: |_w, _id| ScaleType::Black,
         hide_type: |_w, _id| HideType::Barbed,
-        can_fly: |_w, _id| true,
+        can_fly: tp::can_fly,
         get_monster_abilities: |_, _| &SHADOW_WYRM_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 3);
-            add_loot_n(w, id, &loot_pack::GEMS, 5);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 0x2D5,
@@ -13518,64 +8392,26 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn skeletal_dragon_init(w: &mut World, id: MobileId) {
-    body(w, id, 104);
-    base_sound_id(w, id, 0x488);
-    set_str_range(w, id, 898, 1030);
-    set_dex_range(w, id, 68, 200);
-    set_int_range(w, id, 488, 620);
-    set_hits_range(w, id, 558, 599);
-    set_damage(w, id, 29, 35);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Fire, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 75, 80);
-    set_resistance_range(w, id, ResistanceType::Fire, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 80);
-    set_resistance_range(w, id, ResistanceType::Energy, 40, 60);
-    set_skill_range(w, id, SkillName::EvalInt, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::Magery, 80.1, 100.0);
-    set_skill_range(w, id, SkillName::MagicResist, 100.3, 130.0);
-    set_skill_range(w, id, SkillName::Tactics, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 97.6, 100.0);
-    set_skill_range(w, id, SkillName::Necromancy, 120.1, 130.0);
-    set_skill_range(w, id, SkillName::SpiritSpeak, 120.1, 130.0);
-    fame(w, id, 22500);
-    karma(w, id, -22500);
-    virtual_armor(w, id, 80);
-}
 fn skeletal_dragon_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SKELETAL_DRAGON,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    skeletal_dragon_init(w, id);
-    id
+    templates::new_creature(w, &SKELETAL_DRAGON)
 }
 static SKELETAL_DRAGON_ABILITIES: [&MonsterAbility; 1] = [&abilities::COLD_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.SkeletalDragon`.
     SKELETAL_DRAGON, SKELETAL_DRAGON_C = "Server.Mobiles.SkeletalDragon" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(skeletal_dragon_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a skeletal dragon corpse"),
-        default_name: |_w, _id| Some("a skeletal dragon"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         reacquire_on_movement: |_w, _id| true,
         bonus_pet_damage_scalar: |w, _id| if w.core_se() { 3.0 } else { 1.0 },
         auto_dispel: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        bleed_immune: |_w, _id| true,
-        meat: |_w, _id| 19,
-        hides: |_w, _id| 20,
+        poison_immune: tp::poison_immune,
+        bleed_immune: tp::bleed_immune,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Barbed,
         get_monster_abilities: |_, _| &SKELETAL_DRAGON_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 4);
-            add_loot_n(w, id, &loot_pack::GEMS, 5);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -13653,65 +8489,27 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn drake_init(w: &mut World, id: MobileId) {
-    body_list(w, id, &[60, 61]);
-    base_sound_id(w, id, 362);
-    set_str_range(w, id, 401, 430);
-    set_dex_range(w, id, 133, 152);
-    set_int_range(w, id, 101, 140);
-    set_hits_range(w, id, 241, 258);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 80);
-    set_damage_type(w, id, ResistanceType::Fire, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 65.1, 80.0);
-    fame(w, id, 5500);
-    karma(w, id, -5500);
-    virtual_armor(w, id, 46);
-    tamable(w, id, true);
-    control_slots(w, id, 2);
-    min_tame_skill(w, id, 84.3);
-    pack_reg(w, id, 3);
-}
 fn drake_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &DRAKE,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    drake_init(w, id);
-    id
+    templates::new_creature(w, &DRAKE)
 }
 static DRAKE_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Drake`.
     DRAKE, DRAKE_C = "Server.Mobiles.Drake" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(drake_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a drake corpse"),
-        default_name: |_w, _id| Some("a drake"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         reacquire_on_movement: |_w, _id| true,
-        treasure_map_level: |_w, _id| 2,
-        meat: |_w, _id| 10,
-        hides: |_w, _id| 20,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Horned,
-        scales: |_w, _id| 2,
+        scales: tp::scales,
         scale_type: crate::hand::drake_scale_type,
         favorite_food: |_w, _id| FoodType::MEAT | FoodType::FISH,
-        can_fly: |_w, _id| true,
+        can_fly: tp::can_fly,
         get_monster_abilities: |_, _| &DRAKE_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::rich(w));
-            add_loot_n(w, id, &loot_pack::MED_SCROLLS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -13771,52 +8569,20 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn lizardman_init(w: &mut World, id: MobileId) {
-    name_random(w, id, "lizardman");
-    body_list(w, id, &[35, 36]);
-    base_sound_id(w, id, 417);
-    set_str_range(w, id, 96, 120);
-    set_dex_range(w, id, 86, 105);
-    set_int_range(w, id, 36, 60);
-    set_hits_range(w, id, 58, 72);
-    set_damage(w, id, 5, 7);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 20);
-    set_skill_range(w, id, SkillName::MagicResist, 35.1, 60.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 80.0);
-    set_skill_range(w, id, SkillName::Wrestling, 50.1, 70.0);
-    fame(w, id, 1500);
-    karma(w, id, -1500);
-    virtual_armor(w, id, 28);
-}
 fn lizardman_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &LIZARDMAN,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    lizardman_init(w, id);
-    id
+    templates::new_creature(w, &LIZARDMAN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Lizardman`.
     LIZARDMAN, LIZARDMAN_C = "Server.Mobiles.Lizardman" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(lizardman_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a lizardman corpse"),
+        corpse_name: tp::corpse_name,
         speech_type: |_, _| Some(&muo_content::misc::inhuman_speech::LIZARDMAN),
-        can_rummage_corpses: |_w, _id| true,
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        can_rummage_corpses: tp::can_rummage_corpses,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::meager(w));
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -13930,54 +8696,19 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn stone_harpy_init(w: &mut World, id: MobileId) {
-    body(w, id, 73);
-    base_sound_id(w, id, 402);
-    set_str_range(w, id, 296, 320);
-    set_dex_range(w, id, 86, 110);
-    set_int_range(w, id, 51, 75);
-    set_hits_range(w, id, 178, 192);
-    set_mana(w, id, 0);
-    set_damage(w, id, 8, 16);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Poison, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 50.1, 65.0);
-    set_skill_range(w, id, SkillName::Tactics, 70.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 100.0);
-    fame(w, id, 4500);
-    karma(w, id, -4500);
-    virtual_armor(w, id, 50);
-}
 fn stone_harpy_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &STONE_HARPY,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    stone_harpy_init(w, id);
-    id
+    templates::new_creature(w, &STONE_HARPY)
 }
 creature_leaf! {
     /// `Server.Mobiles.StoneHarpy`.
     STONE_HARPY, STONE_HARPY_C = "Server.Mobiles.StoneHarpy" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(stone_harpy_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a stone harpy corpse"),
-        default_name: |_w, _id| Some("a stone harpy"),
-        meat: |_w, _id| 1,
-        feathers: |_w, _id| 50,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        feathers: tp::feathers,
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_attack_sound: |_w, _id| 916,
@@ -13988,61 +8719,24 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn wyvern_init(w: &mut World, id: MobileId) {
-    body(w, id, 62);
-    base_sound_id(w, id, 362);
-    set_str_range(w, id, 202, 240);
-    set_dex_range(w, id, 153, 172);
-    set_int_range(w, id, 51, 90);
-    set_hits_range(w, id, 125, 141);
-    set_damage(w, id, 8, 19);
-    set_damage_type(w, id, ResistanceType::Physical, 50);
-    set_damage_type(w, id, ResistanceType::Poison, 50);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Poison, 90, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Poisoning, 60.1, 80.0);
-    set_skill_range(w, id, SkillName::MagicResist, 65.1, 80.0);
-    set_skill_range(w, id, SkillName::Tactics, 65.1, 90.0);
-    set_skill_range(w, id, SkillName::Wrestling, 65.1, 80.0);
-    fame(w, id, 4000);
-    karma(w, id, -4000);
-    virtual_armor(w, id, 40);
-    pack_new(w, id, "Server.Items.LesserPoisonPotion");
-}
 fn wyvern_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &WYVERN,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    wyvern_init(w, id);
-    id
+    templates::new_creature(w, &WYVERN)
 }
 creature_leaf! {
     /// `Server.Mobiles.Wyvern`.
     WYVERN, WYVERN_C = "Server.Mobiles.Wyvern" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(wyvern_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a wyvern corpse"),
-        default_name: |_w, _id| Some("a wyvern"),
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
         reacquire_on_movement: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(3)),
+        poison_immune: tp::poison_immune,
         hit_poison: |_w, _id| Some(PoisonId(3)),
-        treasure_map_level: |_w, _id| 2,
-        meat: |_w, _id| 10,
-        hides: |_w, _id| 20,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Horned,
-        can_fly: |_w, _id| true,
-        generate_loot: |w, id| {
-            add_loot(w, id, loot_pack::average(w));
-            add_loot(w, id, loot_pack::meager(w));
-            add_loot(w, id, &loot_pack::MED_SCROLLS);
-        },
+        can_fly: tp::can_fly,
+        generate_loot: tp::generate_loot,
     }
     m {
         get_attack_sound: |_w, _id| 713,
@@ -14053,55 +8747,22 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn raptor_init(w: &mut World, id: MobileId) {
-    body(w, id, 730);
-    set_str_range(w, id, 404, 471);
-    set_dex_range(w, id, 132, 155);
-    set_int_range(w, id, 105, 145);
-    set_hits_range(w, id, 343, 400);
-    set_damage(w, id, 11, 17);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 75.1, 90.0);
-    set_skill_range(w, id, SkillName::Tactics, 75.1, 100.0);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 95.1);
-    fame(w, id, 7500);
-    karma(w, id, -7500);
-    tamable(w, id, true);
-    min_tame_skill(w, id, 107.1);
-    control_slots(w, id, 2);
-}
 fn raptor_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RAPTOR,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    raptor_init(w, id);
-    id
+    templates::new_creature(w, &RAPTOR)
 }
 creature_leaf! {
     /// `Server.Mobiles.Raptor`.
     RAPTOR, RAPTOR_C = "Server.Mobiles.Raptor" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(raptor_new), encoded true;
     c {
-        corpse_name: |_w, _id| Some("a raptor corpse"),
-        default_name: |_w, _id| Some("a raptor"),
-        treasure_map_level: |_w, _id| 3,
-        meat: |_w, _id| 7,
-        hides: |_w, _id| 11,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Horned,
         pack_instinct: |_w, _id| PackInstinct::OSTARD,
         get_weapon_ability: |_w, _id| Some(Ability::BleedAttack),
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::rich(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         get_idle_sound: |_w, _id| 1573,
@@ -14117,90 +8778,28 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn slith_init(w: &mut World, id: MobileId) {
-    body(w, id, 734);
-    set_str_range(w, id, 129, 136);
-    set_dex_range(w, id, 72, 75);
-    set_int_range(w, id, 12, 13);
-    set_hits_range(w, id, 84, 85);
-    set_damage(w, id, 6, 24);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 35);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 30);
-    set_skill_range(w, id, SkillName::MagicResist, 59.1, 63.5);
-    set_skill_range(w, id, SkillName::Tactics, 74.6, 76.4);
-    set_skill_range(w, id, SkillName::Wrestling, 62.0, 77.1);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 80.7);
-}
 fn slith_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &SLITH,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    slith_init(w, id);
-    id
+    templates::new_creature(w, &SLITH)
 }
 static SLITH_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.Slith`.
     SLITH, SLITH_C = "Server.Mobiles.Slith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(slith_new), encoded true;
     c {
-        corpse_name: |_w, _id| Some("a slith corpse"),
-        default_name: |_w, _id| Some("a slith"),
-        treasure_map_level: |_w, _id| 2,
-        meat: |_w, _id| 6,
-        hides: |_w, _id| 10,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        treasure_map_level: tp::treasure_map_level,
+        meat: tp::meat,
+        hides: tp::hides,
         get_monster_abilities: |_, _| &SLITH_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
 }
 
-pub(crate) fn stone_slith_init(w: &mut World, id: MobileId) {
-    body(w, id, 734);
-    set_str_range(w, id, 250, 300);
-    set_dex_range(w, id, 76, 90);
-    set_int_range(w, id, 34, 69);
-    set_hits_range(w, id, 154, 166);
-    set_stam_range(w, id, 76, 90);
-    set_mana_range(w, id, 34, 69);
-    set_damage(w, id, 6, 24);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 55);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 20);
-    set_resistance_range(w, id, ResistanceType::Poison, 30, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::MagicResist, 86.8, 95.1);
-    set_skill_range(w, id, SkillName::Tactics, 82.6, 88.6);
-    set_skill_range(w, id, SkillName::Wrestling, 75.8, 87.4);
-    set_skill_range(w, id, SkillName::Anatomy, 0.0, 2.9);
-    tamable(w, id, true);
-    min_tame_skill(w, id, 65.1);
-    control_slots(w, id, 2);
-}
 fn stone_slith_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &STONE_SLITH,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    stone_slith_init(w, id);
-    id
+    templates::new_creature(w, &STONE_SLITH)
 }
 static STONE_SLITH_ABILITIES: [&MonsterAbility; 2] =
     [&abilities::GRASPING_CLAW, &abilities::TAIL_SWIPE];
@@ -14208,16 +8807,14 @@ creature_leaf! {
     /// `Server.Mobiles.StoneSlith`.
     STONE_SLITH, STONE_SLITH_C = "Server.Mobiles.StoneSlith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(stone_slith_new), encoded true;
     c {
-        corpse_name: |_w, _id| Some("a slith corpse"),
-        default_name: |_w, _id| Some("a stone slith"),
-        meat: |_w, _id| 1,
-        hides: |_w, _id| 12,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Spined,
         get_weapon_ability: |_w, _id| Some(Ability::BleedAttack),
         get_monster_abilities: |_, _| &STONE_SLITH_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
         on_death: |w, id, c| {
@@ -14229,52 +8826,21 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn toxic_slith_init(w: &mut World, id: MobileId) {
-    body(w, id, 734);
-    hue(w, id, 476);
-    set_str_range(w, id, 223, 306);
-    set_dex_range(w, id, 231, 258);
-    set_int_range(w, id, 30, 35);
-    set_hits_range(w, id, 197, 215);
-    set_stam_range(w, id, 231, 258);
-    set_damage(w, id, 6, 24);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 45);
-    set_resistance_range(w, id, ResistanceType::Fire, 0, 9);
-    set_resistance_range(w, id, ResistanceType::Cold, 5, 10);
-    set_resistance_range(w, id, ResistanceType::Poison, 100, 100);
-    set_resistance_range(w, id, ResistanceType::Energy, 5, 7);
-    set_skill_range(w, id, SkillName::MagicResist, 95.4, 98.3);
-    set_skill_range(w, id, SkillName::Tactics, 85.5, 90.9);
-    set_skill_range(w, id, SkillName::Wrestling, 90.4, 95.1);
-    set_skill_range(w, id, SkillName::Poisoning, 90.0, 110.0);
-}
 fn toxic_slith_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &TOXIC_SLITH,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    toxic_slith_init(w, id);
-    id
+    templates::new_creature(w, &TOXIC_SLITH)
 }
 static TOXIC_SLITH_ABILITIES: [&MonsterAbility; 1] = [&abilities::FIRE_BREATH];
 creature_leaf! {
     /// `Server.Mobiles.ToxicSlith`.
     TOXIC_SLITH, TOXIC_SLITH_C = "Server.Mobiles.ToxicSlith" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(toxic_slith_new), encoded true;
     c {
-        corpse_name: |_w, _id| Some("a slith corpse"),
-        default_name: |_w, _id| Some("a toxic slith"),
-        meat: |_w, _id| 6,
-        hides: |_w, _id| 11,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        meat: tp::meat,
+        hides: tp::hides,
         hide_type: |_w, _id| HideType::Horned,
         get_monster_abilities: |_, _| &TOXIC_SLITH_ABILITIES,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::average(w), 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -14763,54 +9329,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn kaze_kemono_init(w: &mut World, id: MobileId) {
-    body(w, id, 196);
-    base_sound_id(w, id, 655);
-    set_str_range(w, id, 201, 275);
-    set_dex_range(w, id, 101, 155);
-    set_int_range(w, id, 101, 105);
-    set_hits_range(w, id, 251, 330);
-    set_damage(w, id, 15, 20);
-    set_damage_type(w, id, ResistanceType::Physical, 70);
-    set_damage_type(w, id, ResistanceType::Fire, 10);
-    set_damage_type(w, id, ResistanceType::Cold, 10);
-    set_damage_type(w, id, ResistanceType::Poison, 10);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Fire, 30, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 80);
-    set_skill_range(w, id, SkillName::MagicResist, 110.1, 125.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 65.0);
-    set_skill_range(w, id, SkillName::Wrestling, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::Anatomy, 25.1, 35.0);
-    set_skill_range(w, id, SkillName::Magery, 95.1, 105.0);
-    fame(w, id, 8000);
-    karma(w, id, -8000);
-}
 fn kaze_kemono_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &KAZE_KEMONO,
-        AIType::AiMage,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    kaze_kemono_init(w, id);
-    id
+    templates::new_creature(w, &KAZE_KEMONO)
 }
 creature_leaf! {
     /// `Server.Mobiles.KazeKemono`.
     KAZE_KEMONO, KAZE_KEMONO_C = "Server.Mobiles.KazeKemono" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(kaze_kemono_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a kaze kemono corpse"),
-        default_name: |_w, _id| Some("a kaze kemono"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         on_gave_melee_attack: crate::hand::kaze_kemono_on_gave_melee_attack,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::rich(w), 3);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }
@@ -14933,55 +9463,18 @@ creature_leaf! {
     }
 }
 
-pub(crate) fn rai_ju_init(w: &mut World, id: MobileId) {
-    body(w, id, 199);
-    base_sound_id(w, id, 0x346);
-    set_str_range(w, id, 151, 225);
-    set_dex_range(w, id, 81, 135);
-    set_int_range(w, id, 176, 180);
-    set_hits_range(w, id, 201, 280);
-    set_damage(w, id, 12, 15);
-    set_damage_type(w, id, ResistanceType::Physical, 10);
-    set_damage_type(w, id, ResistanceType::Fire, 10);
-    set_damage_type(w, id, ResistanceType::Cold, 10);
-    set_damage_type(w, id, ResistanceType::Poison, 10);
-    set_damage_type(w, id, ResistanceType::Energy, 60);
-    set_resistance_range(w, id, ResistanceType::Physical, 45, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 70, 85);
-    set_resistance_range(w, id, ResistanceType::Cold, 30, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 50, 70);
-    set_resistance_range(w, id, ResistanceType::Energy, 60, 80);
-    set_skill_range(w, id, SkillName::Wrestling, 85.1, 95.0);
-    set_skill_range(w, id, SkillName::Tactics, 55.1, 65.0);
-    set_skill_range(w, id, SkillName::MagicResist, 110.1, 125.0);
-    set_skill_range(w, id, SkillName::Anatomy, 25.1, 35.0);
-    fame(w, id, 8000);
-    karma(w, id, -8000);
-}
 fn rai_ju_new(w: &mut World) -> MobileId {
-    let id = new_creature(
-        w,
-        &RAI_JU,
-        AIType::AiMelee,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    rai_ju_init(w, id);
-    id
+    templates::new_creature(w, &RAI_JU)
 }
 creature_leaf! {
     /// `Server.Mobiles.RaiJu`.
     RAI_JU, RAI_JU_C = "Server.Mobiles.RaiJu" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(rai_ju_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a rai-ju corpse"),
-        default_name: |_w, _id| Some("a Rai-Ju"),
-        bleed_immune: |_w, _id| true,
+        corpse_name: tp::corpse_name,
+        default_name: tp::default_name,
+        bleed_immune: tp::bleed_immune,
         on_gave_melee_attack: crate::hand::rai_ju_on_gave_melee_attack,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::rich(w), 2);
-            add_loot_n(w, id, &loot_pack::GEMS, 2);
-        },
+        generate_loot: tp::generate_loot,
     }
     m {
     }

@@ -27,6 +27,8 @@ pub fn new_creature(
     range_perception: i32,
     range_fight: i32,
 ) -> MobileId {
+    // Members of the class (or a parent) may read template props: a world that skipped Configure loads them now.
+    crate::templates::table(w);
     let id = w.new_mobile(ty);
     let mut d = CreatureData::new(w.tick_count);
     d.loyalty = MAX_LOYALTY;

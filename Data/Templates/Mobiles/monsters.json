@@ -1,0 +1,6008 @@
+[
+  {
+    "type": "Server.Mobiles.AbysmalHorror",
+    "ai": "AiMage",
+    "body": 312,
+    "baseSoundId": 1105,
+    "str": [401, 420],
+    "dex": [81, 90],
+    "int": [401, 420],
+    "hits": 6000,
+    "damage": [13, 17],
+    "damageTypes": {
+      "Physical": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": 100,
+      "Cold": [50, 55],
+      "Poison": [60, 65],
+      "Energy": [77, 80]
+    },
+    "skills": {
+      "EvalInt": 200.0,
+      "Magery": [112.6, 117.5],
+      "Meditation": 200.0,
+      "MagicResist": [117.6, 120.0],
+      "Tactics": 100.0,
+      "Wrestling": [84.1, 88.0]
+    },
+    "fame": 26000,
+    "karma": -26000,
+    "virtualArmor": 54,
+    "props": {
+      "corpseName": "an abysmal horror corpse",
+      "defaultName": "an abysmal horror",
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BoneDemon",
+    "ai": "AiMage",
+    "body": 308,
+    "baseSoundId": 1165,
+    "str": 1000,
+    "dex": [151, 175],
+    "int": [171, 220],
+    "hits": 3600,
+    "damage": [34, 36],
+    "damageTypes": {
+      "Physical": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": 75,
+      "Fire": 60,
+      "Cold": 90,
+      "Poison": 100,
+      "Energy": 60
+    },
+    "skills": {
+      "DetectHidden": 80.0,
+      "EvalInt": [77.6, 87.5],
+      "Magery": [77.6, 87.5],
+      "Meditation": 100.0,
+      "MagicResist": [50.1, 75.0],
+      "Tactics": 100.0,
+      "Wrestling": 100.0
+    },
+    "fame": 20000,
+    "karma": -20000,
+    "virtualArmor": 44,
+    "props": {
+      "corpseName": "a bone demon corpse",
+      "defaultName": "a bone demon",
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["FilthyRich", 8]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CrystalElemental",
+    "ai": "AiMage",
+    "body": 300,
+    "baseSoundId": 278,
+    "str": [136, 160],
+    "dex": [51, 65],
+    "int": [86, 110],
+    "hits": 150,
+    "damage": [10, 15],
+    "damageTypes": {
+      "Physical": 80,
+      "Energy": 20
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": 100,
+      "Energy": [55, 70]
+    },
+    "skills": {
+      "EvalInt": [70.1, 75.0],
+      "Magery": [70.1, 75.0],
+      "Meditation": [65.1, 75.0],
+      "MagicResist": [80.1, 90.0],
+      "Tactics": [75.1, 85.0],
+      "Wrestling": [65.1, 75.0]
+    },
+    "fame": 6500,
+    "karma": -6500,
+    "virtualArmor": 54,
+    "props": {
+      "corpseName": "a crystal elemental corpse",
+      "defaultName": "a crystal elemental",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["Rich", 1], ["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.DarknightCreeper",
+    "ai": "AiMage",
+    "nameRandom": "darknight creeper",
+    "body": 313,
+    "baseSoundId": 224,
+    "str": [301, 330],
+    "dex": [101, 110],
+    "int": [301, 330],
+    "hits": 4000,
+    "damage": [22, 26],
+    "damageTypes": {
+      "Physical": 85,
+      "Poison": 15
+    },
+    "resists": {
+      "Physical": 60,
+      "Fire": 60,
+      "Cold": 100,
+      "Poison": 90,
+      "Energy": 75
+    },
+    "skills": {
+      "DetectHidden": 80.0,
+      "EvalInt": [118.1, 120.0],
+      "Magery": [112.6, 120.0],
+      "Meditation": 150.0,
+      "Poisoning": 120.0,
+      "MagicResist": [90.1, 90.9],
+      "Tactics": 100.0,
+      "Wrestling": [90.1, 90.9],
+      "Necromancy": [120.1, 130.0],
+      "SpiritSpeak": [120.1, 130.0]
+    },
+    "fame": 22000,
+    "karma": -22000,
+    "virtualArmor": 34,
+    "props": {
+      "corpseName": "a darknight creeper corpse",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Devourer",
+    "ai": "AiMage",
+    "body": 303,
+    "baseSoundId": 357,
+    "str": [801, 950],
+    "dex": [126, 175],
+    "int": [201, 250],
+    "hits": 650,
+    "damage": [22, 26],
+    "damageTypes": {
+      "Physical": 60,
+      "Cold": 20,
+      "Energy": 20
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [25, 35],
+      "Cold": [15, 25],
+      "Poison": [60, 70],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "Meditation": [90.1, 100.0],
+      "MagicResist": [90.1, 105.0],
+      "Tactics": [75.1, 85.0],
+      "Wrestling": [80.1, 100.0]
+    },
+    "fame": 9500,
+    "karma": -9500,
+    "virtualArmor": 44,
+    "pack": [
+      {"necroReg": [24, 45]}
+    ],
+    "props": {
+      "corpseName": "a devourer of souls corpse",
+      "defaultName": "a devourer of souls",
+      "poisonImmune": 4,
+      "meat": 3,
+      "loot": [["FilthyRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FleshGolem",
+    "body": 304,
+    "baseSoundId": 684,
+    "str": [176, 200],
+    "dex": [51, 75],
+    "int": [46, 70],
+    "hits": [106, 120],
+    "damage": [18, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [25, 35],
+      "Cold": [15, 25],
+      "Poison": [60, 70],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [50.1, 75.0],
+      "Tactics": [55.1, 80.0],
+      "Wrestling": [60.1, 70.0]
+    },
+    "fame": 1000,
+    "karma": -1800,
+    "virtualArmor": 34,
+    "props": {
+      "corpseName": "a flesh golem corpse",
+      "defaultName": "a flesh golem",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FleshRenderer",
+    "body": 315,
+    "str": [401, 460],
+    "dex": [201, 210],
+    "int": [221, 260],
+    "hits": 4500,
+    "damage": [16, 20],
+    "damageTypes": {
+      "Physical": 80,
+      "Poison": 20
+    },
+    "resists": {
+      "Physical": [80, 90],
+      "Fire": [50, 60],
+      "Cold": [50, 60],
+      "Poison": 100,
+      "Energy": [70, 80]
+    },
+    "skills": {
+      "DetectHidden": 80.0,
+      "MagicResist": [155.1, 160.0],
+      "Meditation": 100.0,
+      "Tactics": 100.0,
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 23000,
+    "karma": -23000,
+    "virtualArmor": 24,
+    "props": {
+      "corpseName": "a fleshrenderer corpse",
+      "defaultName": "a fleshrenderer",
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Gibberling",
+    "body": 307,
+    "baseSoundId": 422,
+    "str": [141, 165],
+    "dex": [101, 125],
+    "int": [56, 80],
+    "hits": [85, 99],
+    "damage": [12, 17],
+    "damageTypes": {
+      "Physical": 0,
+      "Fire": 40,
+      "Energy": 60
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [25, 35],
+      "Cold": [25, 35],
+      "Poison": [10, 20],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [45.1, 70.0],
+      "Tactics": [67.6, 92.5],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "virtualArmor": 27,
+    "props": {
+      "corpseName": "a gibberling corpse",
+      "defaultName": "a gibberling",
+      "treasureMapLevel": 1,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GoreFiend",
+    "body": 305,
+    "baseSoundId": 224,
+    "str": [161, 185],
+    "dex": [41, 65],
+    "int": [46, 70],
+    "hits": [97, 111],
+    "damage": [15, 21],
+    "damageTypes": {
+      "Physical": 85,
+      "Poison": 15
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [25, 35],
+      "Cold": [15, 25],
+      "Poison": [5, 15],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [40.1, 55.0],
+      "Tactics": [45.1, 70.0],
+      "Wrestling": [50.1, 70.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "virtualArmor": 24,
+    "props": {
+      "corpseName": "a gore fiend corpse",
+      "defaultName": "a gore fiend",
+      "bleedImmune": true,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Impaler",
+    "nameRandom": "impaler",
+    "body": 306,
+    "baseSoundId": 679,
+    "str": 190,
+    "dex": 45,
+    "int": 190,
+    "hits": 5000,
+    "damage": [31, 35],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": 90,
+      "Fire": 60,
+      "Cold": 75,
+      "Poison": 60,
+      "Energy": 100
+    },
+    "skills": {
+      "DetectHidden": 80.0,
+      "Meditation": 120.0,
+      "Poisoning": 160.0,
+      "MagicResist": 100.0,
+      "Tactics": 100.0,
+      "Wrestling": 80.0
+    },
+    "fame": 24000,
+    "karma": -24000,
+    "virtualArmor": 49,
+    "props": {
+      "corpseName": "an impaler corpse",
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.MoundOfMaggots",
+    "body": 319,
+    "baseSoundId": 898,
+    "str": [61, 70],
+    "dex": [61, 70],
+    "int": 10,
+    "mana": 0,
+    "damage": [3, 9],
+    "damageTypes": {
+      "Physical": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": 90,
+      "Poison": 100
+    },
+    "skills": {
+      "Tactics": 50.0,
+      "Wrestling": [50.1, 60.0]
+    },
+    "fame": 1000,
+    "karma": -1000,
+    "virtualArmor": 24,
+    "props": {
+      "corpseName": "a maggoty corpse",
+      "defaultName": "a mound of maggots",
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["Meager", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.PatchworkSkeleton",
+    "body": 309,
+    "baseSoundId": 1165,
+    "str": [96, 120],
+    "dex": [71, 95],
+    "int": [16, 40],
+    "hits": [58, 72],
+    "damage": [18, 22],
+    "damageTypes": {
+      "Physical": 85,
+      "Cold": 15
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [50, 60],
+      "Cold": [70, 80],
+      "Poison": 100,
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "MagicResist": [70.1, 95.0],
+      "Tactics": [55.1, 80.0],
+      "Wrestling": [50.1, 70.0]
+    },
+    "fame": 500,
+    "karma": -500,
+    "virtualArmor": 54,
+    "props": {
+      "corpseName": "a patchwork skeletal corpse",
+      "defaultName": "a patchwork skeleton",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Ravager",
+    "body": 314,
+    "baseSoundId": 357,
+    "str": [251, 275],
+    "dex": [101, 125],
+    "int": [66, 90],
+    "hits": [161, 175],
+    "damage": [15, 20],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [50, 60],
+      "Cold": [60, 70],
+      "Poison": [30, 40],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [50.1, 75.0],
+      "Tactics": [75.1, 100.0],
+      "Wrestling": [70.1, 90.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 54,
+    "props": {
+      "corpseName": "a ravager corpse",
+      "defaultName": "a ravager",
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ShadowKnight",
+    "ai": "AiMage",
+    "nameRandom": "shadow knight",
+    "title": "the Shadow Knight",
+    "body": 311,
+    "str": 250,
+    "dex": 100,
+    "int": 100,
+    "hits": 2000,
+    "damage": [20, 30],
+    "damageTypes": {
+      "Physical": 60,
+      "Cold": 40
+    },
+    "resists": {
+      "Physical": 90,
+      "Fire": 65,
+      "Cold": 75,
+      "Poison": 75,
+      "Energy": 55
+    },
+    "skills": {
+      "Chivalry": 120.0,
+      "DetectHidden": 80.0,
+      "EvalInt": 100.0,
+      "Magery": 100.0,
+      "Meditation": 100.0,
+      "MagicResist": 120.0,
+      "Tactics": 100.0,
+      "Wrestling": 100.0
+    },
+    "fame": 25000,
+    "karma": -25000,
+    "virtualArmor": 54,
+    "props": {
+      "corpseName": "a shadow knight corpse",
+      "poisonImmune": 4,
+      "treasureMapLevel": 1,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SkitteringHopper",
+    "fightMode": "Aggressor",
+    "body": 302,
+    "baseSoundId": 959,
+    "str": [41, 65],
+    "dex": [91, 115],
+    "int": [26, 50],
+    "hits": [31, 45],
+    "damage": [3, 5],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10],
+      "Cold": [10, 20],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [30.1, 45.0],
+      "Tactics": [45.1, 70.0],
+      "Wrestling": [40.1, 60.0]
+    },
+    "fame": 300,
+    "karma": 0,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -12.9,
+    "virtualArmor": 12,
+    "props": {
+      "corpseName": "a skittering hopper corpse",
+      "defaultName": "a skittering hopper",
+      "treasureMapLevel": 1,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Treefellow",
+    "fightMode": "Evil",
+    "body": 301,
+    "str": [196, 220],
+    "dex": [31, 55],
+    "int": [66, 90],
+    "hits": [118, 132],
+    "damage": [12, 16],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Cold": [50, 60],
+      "Poison": [30, 35],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [40.1, 55.0],
+      "Tactics": [65.1, 90.0],
+      "Wrestling": [65.1, 85.0]
+    },
+    "fame": 500,
+    "karma": 1500,
+    "virtualArmor": 24,
+    "pack": [
+      {"item": "Server.Items.Log", "amount": [23, 34]}
+    ],
+    "props": {
+      "corpseName": "a treefellow corpse",
+      "defaultName": "a treefellow",
+      "bleedImmune": true,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.WailingBanshee",
+    "body": 310,
+    "baseSoundId": 1154,
+    "str": [126, 150],
+    "dex": [76, 100],
+    "int": [86, 110],
+    "hits": [76, 90],
+    "damage": [10, 14],
+    "damageTypes": {
+      "Physical": 20,
+      "Cold": 60,
+      "Poison": 20
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [25, 30],
+      "Cold": [70, 80],
+      "Poison": [30, 40],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "MagicResist": [70.1, 95.0],
+      "Tactics": [45.1, 70.0],
+      "Wrestling": [50.1, 70.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "virtualArmor": 19,
+    "props": {
+      "corpseName": "a wailing banshee corpse",
+      "defaultName": "a wailing banshee",
+      "bleedImmune": true,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.DreadSpider",
+    "ai": "AiMage",
+    "body": 11,
+    "baseSoundId": 1170,
+    "str": [196, 220],
+    "dex": [126, 145],
+    "int": [286, 310],
+    "hits": [118, 132],
+    "damage": [5, 17],
+    "damageTypes": {
+      "Physical": 20,
+      "Poison": 80
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [20, 30],
+      "Cold": [20, 30],
+      "Poison": [90, 100],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "EvalInt": [65.1, 80.0],
+      "Magery": [65.1, 80.0],
+      "Meditation": [65.1, 80.0],
+      "MagicResist": [45.1, 60.0],
+      "Tactics": [55.1, 70.0],
+      "Wrestling": [60.1, 75.0]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 36,
+    "pack": [
+      {"item": "Server.Items.SpidersSilk", "amount": 8}
+    ],
+    "props": {
+      "corpseName": "a dread spider corpse",
+      "defaultName": "a dread spider",
+      "poisonImmune": 4,
+      "treasureMapLevel": 3,
+      "loot": [["FilthyRich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.TerathanAvenger",
+    "ai": "AiMage",
+    "body": 152,
+    "baseSoundId": 589,
+    "str": [467, 645],
+    "dex": [77, 95],
+    "int": [126, 150],
+    "hits": [296, 372],
+    "mana": [46, 70],
+    "damage": [18, 22],
+    "damageTypes": {
+      "Physical": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [30, 40],
+      "Cold": [35, 45],
+      "Poison": [90, 100],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "EvalInt": [70.3, 100.0],
+      "Magery": [70.3, 100.0],
+      "Poisoning": [60.1, 80.0],
+      "MagicResist": [65.1, 80.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "virtualArmor": 50,
+    "props": {
+      "corpseName": "a terathan avenger corpse",
+      "defaultName": "a terathan avenger",
+      "poisonImmune": 3,
+      "treasureMapLevel": 3,
+      "meat": 2,
+      "loot": [["Rich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.TerathanMatriarch",
+    "ai": "AiMage",
+    "body": 72,
+    "baseSoundId": 599,
+    "str": [316, 405],
+    "dex": [96, 115],
+    "int": [366, 455],
+    "hits": [190, 243],
+    "damage": [11, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [30, 40],
+      "Cold": [35, 45],
+      "Poison": [40, 50],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "MagicResist": [90.1, 100.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "pack": [
+      {"item": "Server.Items.SpidersSilk", "amount": 5},
+      {"necroReg": [4, 10]}
+    ],
+    "props": {
+      "corpseName": "a terathan matriarch corpse",
+      "defaultName": "a terathan matriarch",
+      "treasureMapLevel": 4,
+      "loot": [["Rich", 1], ["Average", 2], ["MedScrolls", 2], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FrostSpider",
+    "body": 20,
+    "baseSoundId": 904,
+    "str": [76, 100],
+    "dex": [126, 145],
+    "int": [36, 60],
+    "hits": [46, 60],
+    "mana": 0,
+    "damage": [6, 16],
+    "damageTypes": {
+      "Physical": 20,
+      "Cold": 80
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Fire": [5, 10],
+      "Cold": [40, 50],
+      "Poison": [20, 30],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [35.1, 50.0],
+      "Wrestling": [50.1, 65.0]
+    },
+    "fame": 775,
+    "karma": -775,
+    "virtualArmor": 28,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 74.7,
+    "pack": [
+      {"item": "Server.Items.SpidersSilk", "amount": 7}
+    ],
+    "props": {
+      "corpseName": "a frost spider corpse",
+      "defaultName": "a frost spider",
+      "loot": [["Meager", 1], ["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GiantBlackWidow",
+    "body": 157,
+    "baseSoundId": 904,
+    "str": [76, 100],
+    "dex": [96, 115],
+    "int": [36, 60],
+    "hits": [46, 60],
+    "damage": [5, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 30],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [50, 60],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Anatomy": [30.3, 75.0],
+      "Poisoning": [60.1, 80.0],
+      "MagicResist": [45.1, 60.0],
+      "Tactics": [65.1, 80.0],
+      "Wrestling": [70.1, 85.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 24,
+    "pack": [
+      {"item": "Server.Items.SpidersSilk", "amount": 5},
+      {"item": "Server.Items.LesserPoisonPotion"},
+      {"item": "Server.Items.LesserPoisonPotion"}
+    ],
+    "props": {
+      "corpseName": "a giant black widow spider corpse",
+      "defaultName": "a giant black wide",
+      "poisonImmune": 3,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GiantSpider",
+    "body": 28,
+    "baseSoundId": 904,
+    "str": [76, 100],
+    "dex": [76, 95],
+    "int": [36, 60],
+    "hits": [46, 60],
+    "mana": 0,
+    "damage": [5, 13],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Poison": [25, 35]
+    },
+    "skills": {
+      "Poisoning": [60.1, 80.0],
+      "MagicResist": [25.1, 40.0],
+      "Tactics": [35.1, 50.0],
+      "Wrestling": [50.1, 65.0]
+    },
+    "fame": 600,
+    "karma": -600,
+    "virtualArmor": 16,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 59.1,
+    "pack": [
+      {"item": "Server.Items.SpidersSilk", "amount": 5}
+    ],
+    "props": {
+      "corpseName": "a giant spider corpse",
+      "defaultName": "a giant spider",
+      "poisonImmune": 1,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.TerathanDrone",
+    "body": 71,
+    "baseSoundId": 594,
+    "str": [36, 65],
+    "dex": [96, 145],
+    "int": [21, 45],
+    "hits": [22, 39],
+    "mana": 0,
+    "damage": [6, 12],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [10, 20],
+      "Cold": [15, 25],
+      "Poison": [30, 40],
+      "Energy": [15, 25]
+    },
+    "skills": {
+      "Poisoning": [40.1, 60.0],
+      "MagicResist": [30.1, 45.0],
+      "Tactics": [30.1, 50.0],
+      "Wrestling": [40.1, 50.0]
+    },
+    "fame": 2000,
+    "karma": -2000,
+    "virtualArmor": 24,
+    "pack": [
+      {"item": "Server.Items.SpidersSilk", "amount": 2}
+    ],
+    "props": {
+      "corpseName": "a terathan drone corpse",
+      "defaultName": "a terathan drone",
+      "meat": 4,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.AcidElemental",
+    "ai": "AiMage",
+    "body": 158,
+    "baseSoundId": 278,
+    "str": [326, 355],
+    "dex": [66, 85],
+    "int": [271, 295],
+    "hits": [196, 213],
+    "damage": [9, 15],
+    "damageTypes": {
+      "Physical": 25,
+      "Fire": 50,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [40, 50],
+      "Cold": [20, 30],
+      "Poison": [10, 20],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Anatomy": [30.3, 60.0],
+      "EvalInt": [70.1, 85.0],
+      "Magery": [70.1, 85.0],
+      "MagicResist": [60.1, 75.0],
+      "Tactics": [80.1, 90.0],
+      "Wrestling": [70.1, 90.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "virtualArmor": 40,
+    "props": {
+      "corpseName": "an acid elemental corpse",
+      "defaultName": "an acid elemental",
+      "bleedImmune": true,
+      "loot": [["Rich", 1], ["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.AirElemental",
+    "ai": "AiMage",
+    "body": 13,
+    "hue": 16385,
+    "baseSoundId": 655,
+    "str": [126, 155],
+    "dex": [166, 185],
+    "int": [101, 125],
+    "hits": [76, 93],
+    "damage": [8, 10],
+    "damageTypes": {
+      "Physical": 20,
+      "Cold": 40,
+      "Energy": 40
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [15, 25],
+      "Cold": [10, 20],
+      "Poison": [10, 20],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "EvalInt": [60.1, 75.0],
+      "Magery": [60.1, 75.0],
+      "MagicResist": [60.1, 75.0],
+      "Tactics": [60.1, 80.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 40,
+    "props": {
+      "corpseName": "an air elemental corpse",
+      "defaultName": "an air elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 2,
+      "loot": [["Average", 1], ["Meager", 1], ["LowScrolls", 1], ["MedScrolls", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BloodElemental",
+    "ai": "AiMage",
+    "body": 159,
+    "baseSoundId": 278,
+    "str": [526, 615],
+    "dex": [66, 85],
+    "int": [226, 350],
+    "hits": [316, 369],
+    "damage": [17, 27],
+    "damageTypes": {
+      "Physical": 0,
+      "Poison": 50,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [20, 30],
+      "Cold": [40, 50],
+      "Poison": [50, 60],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [85.1, 100.0],
+      "Magery": [85.1, 100.0],
+      "Meditation": [10.4, 50.0],
+      "MagicResist": [80.1, 95.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [80.1, 100.0]
+    },
+    "fame": 12500,
+    "karma": -12500,
+    "virtualArmor": 60,
+    "props": {
+      "corpseName": "a blood elemental corpse",
+      "defaultName": "a blood elemental",
+      "treasureMapLevel": 5,
+      "loot": [["FilthyRich", 1], ["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Efreet",
+    "ai": "AiMage",
+    "body": 131,
+    "baseSoundId": 768,
+    "str": [326, 355],
+    "dex": [266, 285],
+    "int": [171, 195],
+    "hits": [196, 213],
+    "damage": [11, 13],
+    "damageTypes": {
+      "Physical": 0,
+      "Fire": 50,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [60, 70],
+      "Poison": [30, 40],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "EvalInt": [60.1, 75.0],
+      "Magery": [60.1, 75.0],
+      "MagicResist": [60.1, 75.0],
+      "Tactics": [60.1, 80.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "virtualArmor": 56,
+    "props": {
+      "corpseName": "an efreet corpse",
+      "defaultName": "an efreet"
+    }
+  },
+  {
+    "type": "Server.Mobiles.FireElemental",
+    "ai": "AiMage",
+    "body": 15,
+    "baseSoundId": 838,
+    "str": [126, 155],
+    "dex": [166, 185],
+    "int": [101, 125],
+    "hits": [76, 93],
+    "damage": [7, 9],
+    "damageTypes": {
+      "Physical": 25,
+      "Fire": 75
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [60, 80],
+      "Cold": [5, 10],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [60.1, 75.0],
+      "Magery": [60.1, 75.0],
+      "MagicResist": [75.2, 105.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [70.1, 100.0]
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 40,
+    "pack": [
+      {"item": "Server.Items.SulfurousAsh", "amount": 3},
+      {"item": "Server.Items.LightSource", "equip": true}
+    ],
+    "props": {
+      "corpseName": "a fire elemental corpse",
+      "defaultName": "a fire elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 2,
+      "loot": [["Average", 1], ["Meager", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.IceElemental",
+    "ai": "AiMage",
+    "body": 161,
+    "baseSoundId": 268,
+    "str": [156, 185],
+    "dex": [96, 115],
+    "int": [171, 192],
+    "hits": [94, 111],
+    "damage": [10, 21],
+    "damageTypes": {
+      "Physical": 25,
+      "Cold": 75
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [5, 10],
+      "Cold": [50, 60],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "EvalInt": [10.5, 60.0],
+      "Magery": [10.5, 60.0],
+      "MagicResist": [30.1, 80.0],
+      "Tactics": [70.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 40,
+    "pack": [
+      {"item": "Server.Items.BlackPearl"},
+      {"reg": 3}
+    ],
+    "props": {
+      "corpseName": "an ice elemental corpse",
+      "defaultName": "an ice elemental",
+      "bleedImmune": true,
+      "loot": [["Average", 2], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.PoisonElemental",
+    "ai": "AiMage",
+    "body": 162,
+    "baseSoundId": 263,
+    "str": [426, 515],
+    "dex": [166, 185],
+    "int": [361, 435],
+    "hits": [256, 309],
+    "damage": [12, 18],
+    "damageTypes": {
+      "Physical": 10,
+      "Poison": 90
+    },
+    "resists": {
+      "Physical": [60, 70],
+      "Fire": [20, 30],
+      "Cold": [20, 30],
+      "Poison": 100,
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "EvalInt": [80.1, 95.0],
+      "Magery": [80.1, 95.0],
+      "Meditation": [80.2, 120.0],
+      "Poisoning": [90.1, 100.0],
+      "MagicResist": [85.2, 115.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [70.1, 90.0]
+    },
+    "fame": 12500,
+    "karma": -12500,
+    "virtualArmor": 70,
+    "pack": [
+      {"item": "Server.Items.Nightshade", "amount": 4},
+      {"item": "Server.Items.LesserPoisonPotion"}
+    ],
+    "props": {
+      "corpseName": "a poison elementals corpse",
+      "defaultName": "a poison elemental",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 5,
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["MedScrolls", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.EarthElemental",
+    "body": 14,
+    "baseSoundId": 268,
+    "str": [126, 155],
+    "dex": [66, 85],
+    "int": [71, 92],
+    "hits": [76, 93],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [15, 25],
+      "Energy": [15, 25]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 34,
+    "pack": [
+      {"item": "Server.Items.FertileDirt", "amount": [1, 4]},
+      {"item": "Server.Items.MandrakeRoot"},
+      {"item": "Server.Items.IronOre", "amount": 5, "itemId": 6583}
+    ],
+    "props": {
+      "corpseName": "an earth elemental corpse",
+      "defaultName": "an earth elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Meager", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SnowElemental",
+    "body": 163,
+    "baseSoundId": 263,
+    "str": [326, 355],
+    "dex": [166, 185],
+    "int": [71, 95],
+    "hits": [196, 213],
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 20,
+      "Cold": 80
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [10, 15],
+      "Cold": [60, 70],
+      "Poison": [25, 35],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "MagicResist": [50.1, 65.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [80.1, 100.0]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.BlackPearl", "amount": 3},
+      {"item": "Server.Items.IronOre", "amount": 3, "itemId": 6584}
+    ],
+    "props": {
+      "corpseName": "a snow elemental corpse",
+      "defaultName": "a snow elemental",
+      "bleedImmune": true,
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.AncientLich",
+    "ai": "AiMage",
+    "nameRandom": "ancient lich",
+    "body": 78,
+    "baseSoundId": 412,
+    "str": [216, 305],
+    "dex": [96, 115],
+    "int": [966, 1045],
+    "hits": [560, 595],
+    "damage": [15, 27],
+    "damageTypes": {
+      "Physical": 20,
+      "Cold": 40,
+      "Energy": 40
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [25, 30],
+      "Cold": [50, 60],
+      "Poison": [50, 60],
+      "Energy": [25, 30]
+    },
+    "skills": {
+      "EvalInt": [120.1, 130.0],
+      "Magery": [120.1, 130.0],
+      "Meditation": [100.1, 101.0],
+      "Poisoning": [100.1, 101.0],
+      "MagicResist": [175.2, 200.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [75.1, 100.0],
+      "Necromancy": [120.1, 130.0],
+      "SpiritSpeak": [120.1, 130.0]
+    },
+    "fame": 23000,
+    "karma": -23000,
+    "virtualArmor": 60,
+    "pack": [
+      {"necroReg": [30, 275]}
+    ],
+    "props": {
+      "corpseName": "an ancient lich's corpse",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 5,
+      "loot": [["FilthyRich", 3], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ArcaneDaemon",
+    "ai": "AiMage",
+    "body": 784,
+    "baseSoundId": 1149,
+    "str": [131, 150],
+    "dex": [126, 145],
+    "int": [301, 350],
+    "hits": [101, 115],
+    "damage": [12, 16],
+    "damageTypes": {
+      "Physical": 80,
+      "Fire": 20
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [70, 80],
+      "Cold": [10, 20],
+      "Poison": [50, 60],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [85.1, 95.0],
+      "Tactics": [70.1, 80.0],
+      "Wrestling": [60.1, 80.0],
+      "Magery": [80.1, 90.0],
+      "EvalInt": [70.1, 80.0],
+      "Meditation": [70.1, 80.0]
+    },
+    "fame": 7000,
+    "karma": -10000,
+    "virtualArmor": 55,
+    "props": {
+      "corpseName": "an arcane daemon corpse",
+      "defaultName": "an arcane daemon",
+      "poisonImmune": 3,
+      "loot": [["Average", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Balron",
+    "ai": "AiMage",
+    "nameRandom": "balron",
+    "body": 40,
+    "baseSoundId": 357,
+    "str": [986, 1185],
+    "dex": [177, 255],
+    "int": [151, 250],
+    "hits": [592, 711],
+    "damage": [22, 29],
+    "damageTypes": {
+      "Physical": 50,
+      "Fire": 25,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [65, 80],
+      "Fire": [60, 80],
+      "Cold": [50, 60],
+      "Poison": 100,
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Anatomy": [25.1, 50.0],
+      "EvalInt": [90.1, 100.0],
+      "Magery": [95.5, 100.0],
+      "Meditation": [25.1, 50.0],
+      "MagicResist": [100.5, 150.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 24000,
+    "karma": -24000,
+    "virtualArmor": 90,
+    "pack": [
+      {"item": "Server.Items.Longsword"}
+    ],
+    "props": {
+      "corpseName": "a balron corpse",
+      "canRummageCorpses": true,
+      "poisonImmune": 3,
+      "treasureMapLevel": 5,
+      "meat": 1,
+      "loot": [["FilthyRich", 2], ["Rich", 1], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BoneMagi",
+    "ai": "AiMage",
+    "body": 148,
+    "baseSoundId": 451,
+    "str": [76, 100],
+    "dex": [56, 75],
+    "int": [186, 210],
+    "hits": [46, 60],
+    "damage": [3, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [20, 30],
+      "Cold": [50, 60],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [60.1, 70.0],
+      "Magery": [60.1, 70.0],
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 55.0],
+      "Necromancy": [89.0, 99.1],
+      "SpiritSpeak": [90.0, 99.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 38,
+    "pack": [
+      {"reg": 3},
+      {"necroReg": [3, 10]},
+      {"item": "Server.Items.Bone"}
+    ],
+    "props": {
+      "corpseName": "a skeletal corpse",
+      "defaultName": "a bone mage",
+      "bleedImmune": true,
+      "poisonImmune": 1,
+      "loot": [["Average", 1], ["LowScrolls", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Daemon",
+    "ai": "AiMage",
+    "nameRandom": "daemon",
+    "body": 9,
+    "baseSoundId": 357,
+    "str": [476, 505],
+    "dex": [76, 95],
+    "int": [301, 325],
+    "hits": [286, 303],
+    "damage": [7, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 60],
+      "Fire": [50, 60],
+      "Cold": [30, 40],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [70.1, 80.0],
+      "Magery": [70.1, 80.0],
+      "MagicResist": [85.1, 95.0],
+      "Tactics": [70.1, 80.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "virtualArmor": 58,
+    "props": {
+      "corpseName": "a daemon corpse",
+      "canRummageCorpses": true,
+      "poisonImmune": 1,
+      "treasureMapLevel": 4,
+      "meat": 1,
+      "canFly": true,
+      "loot": [["Rich", 1], ["Average", 2], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ElderGazer",
+    "ai": "AiMage",
+    "body": 22,
+    "baseSoundId": 377,
+    "str": [296, 325],
+    "dex": [86, 105],
+    "int": [291, 385],
+    "hits": [178, 195],
+    "damage": [8, 19],
+    "damageTypes": {
+      "Physical": 50,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [60, 70],
+      "Cold": [40, 50],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Anatomy": [62.0, 100.0],
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "MagicResist": [115.1, 130.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [80.1, 100.0]
+    },
+    "fame": 12500,
+    "karma": -12500,
+    "virtualArmor": 50,
+    "props": {
+      "corpseName": "an elder gazer corpse",
+      "defaultName": "an elder gazer",
+      "loot": [["FilthyRich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FireGargoyle",
+    "ai": "AiMage",
+    "nameRandom": "fire gargoyle",
+    "body": 130,
+    "baseSoundId": 372,
+    "str": [351, 400],
+    "dex": [126, 145],
+    "int": [226, 250],
+    "hits": [211, 240],
+    "damage": [7, 14],
+    "damageTypes": {
+      "Physical": 20,
+      "Fire": 80
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": [50, 60],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "Anatomy": [75.1, 85.0],
+      "EvalInt": [90.1, 105.0],
+      "Magery": [90.1, 105.0],
+      "Meditation": [90.1, 105.0],
+      "MagicResist": [90.1, 105.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [40.1, 80.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 32,
+    "props": {
+      "corpseName": "a charred corpse",
+      "treasureMapLevel": 1,
+      "meat": 1,
+      "canFly": true,
+      "loot": [["Rich", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Gargoyle",
+    "ai": "AiMage",
+    "body": 4,
+    "baseSoundId": 372,
+    "str": [146, 175],
+    "dex": [76, 95],
+    "int": [81, 105],
+    "hits": [88, 105],
+    "damage": [7, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": [25, 35],
+      "Cold": [5, 10],
+      "Poison": [15, 25]
+    },
+    "skills": {
+      "EvalInt": [70.1, 85.0],
+      "Magery": [70.1, 85.0],
+      "MagicResist": [70.1, 85.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [40.1, 80.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 32,
+    "pack": [
+      {"chance": 0.025, "item": "Server.Items.GargoylesPickaxe"}
+    ],
+    "props": {
+      "corpseName": "a gargoyle corpse",
+      "defaultName": "a gargoyle",
+      "canFly": true,
+      "treasureMapLevel": 1,
+      "meat": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.GargoyleDestroyer",
+    "ai": "AiMage",
+    "body": 755,
+    "baseSoundId": 372,
+    "str": [760, 850],
+    "dex": [102, 150],
+    "int": [152, 200],
+    "hits": [482, 485],
+    "damage": [7, 14],
+    "resists": {
+      "Physical": [40, 60],
+      "Fire": [60, 70],
+      "Cold": [15, 25],
+      "Poison": [15, 25],
+      "Energy": [15, 25]
+    },
+    "skills": {
+      "Wrestling": [90.1, 100.0],
+      "Tactics": [90.1, 100.0],
+      "MagicResist": [120.4, 160.0],
+      "Anatomy": [50.5, 100.0],
+      "Swords": [90.1, 100.0],
+      "Macing": [90.1, 100.0],
+      "Fencing": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "EvalInt": [90.1, 100.0],
+      "Meditation": [90.1, 100.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "virtualArmor": 50,
+    "pack": [
+      {"chance": 0.2, "item": "Server.Items.GargoylesPickaxe"}
+    ],
+    "props": {
+      "corpseName": "a gargoyle corpse",
+      "defaultName": "a gargoyle destroyer",
+      "meat": 1,
+      "canFly": true,
+      "loot": [["FilthyRich", 1], ["Rich", 1], ["MedScrolls", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GargoyleEnforcer",
+    "ai": "AiMage",
+    "body": 754,
+    "baseSoundId": 372,
+    "str": [760, 850],
+    "dex": [102, 150],
+    "int": [152, 200],
+    "hits": [482, 485],
+    "damage": [7, 14],
+    "resists": {
+      "Physical": [40, 60],
+      "Fire": [50, 60],
+      "Cold": [20, 30],
+      "Poison": [25, 35],
+      "Energy": [15, 25]
+    },
+    "skills": {
+      "MagicResist": [120.1, 130.0],
+      "Tactics": [70.1, 80.0],
+      "Wrestling": [80.1, 90.0],
+      "Swords": [80.1, 90.0],
+      "Anatomy": [70.1, 80.0],
+      "Magery": [80.1, 90.0],
+      "EvalInt": [70.3, 100.0],
+      "Meditation": [70.3, 100.0]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 50,
+    "pack": [
+      {"chance": 0.2, "item": "Server.Items.GargoylesPickaxe"}
+    ],
+    "props": {
+      "corpseName": "a gargoyle corpse",
+      "defaultName": "a gargoyle enforcer",
+      "canFly": true,
+      "meat": 1,
+      "loot": [["Rich", 1], ["MedScrolls", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Gazer",
+    "ai": "AiMage",
+    "body": 22,
+    "baseSoundId": 377,
+    "str": [96, 125],
+    "dex": [86, 105],
+    "int": [141, 165],
+    "hits": [58, 75],
+    "damage": [5, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [40, 50],
+      "Cold": [20, 30],
+      "Poison": [10, 20],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "EvalInt": [50.1, 65.0],
+      "Magery": [50.1, 65.0],
+      "MagicResist": [60.1, 75.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [50.1, 70.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 36,
+    "pack": [
+      {"item": "Server.Items.Nightshade", "amount": 4}
+    ],
+    "props": {
+      "corpseName": "a gazer corpse",
+      "defaultName": "a gazer",
+      "treasureMapLevel": 1,
+      "meat": 1,
+      "loot": [["Average", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.IceFiend",
+    "ai": "AiMage",
+    "body": 43,
+    "baseSoundId": 357,
+    "str": [376, 405],
+    "dex": [176, 195],
+    "int": [201, 225],
+    "hits": [226, 243],
+    "damage": [8, 19],
+    "skills": {
+      "EvalInt": [80.1, 90.0],
+      "Magery": [80.1, 90.0],
+      "MagicResist": [75.1, 85.0],
+      "Tactics": [80.1, 90.0],
+      "Wrestling": [80.1, 100.0]
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [10, 20],
+      "Cold": [60, 70],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "fame": 18000,
+    "karma": -18000,
+    "virtualArmor": 60,
+    "props": {
+      "corpseName": "an ice fiend corpse",
+      "defaultName": "an ice fiend",
+      "treasureMapLevel": 4,
+      "meat": 1,
+      "canFly": true,
+      "loot": [["FilthyRich", 1], ["Average", 1], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Imp",
+    "ai": "AiMage",
+    "body": 74,
+    "baseSoundId": 422,
+    "str": [91, 115],
+    "dex": [61, 80],
+    "int": [86, 105],
+    "hits": [55, 70],
+    "damage": [10, 14],
+    "damageTypes": {
+      "Physical": 0,
+      "Fire": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [40, 50],
+      "Cold": [20, 30],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [20.1, 30.0],
+      "Magery": [90.1, 100.0],
+      "MagicResist": [30.1, 50.0],
+      "Tactics": [42.1, 50.0],
+      "Wrestling": [40.1, 44.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 30,
+    "tamable": true,
+    "controlSlots": 2,
+    "minTameSkill": 83.1,
+    "props": {
+      "corpseName": "an imp corpse",
+      "defaultName": "an imp",
+      "meat": 1,
+      "hides": 6,
+      "canFly": true,
+      "loot": [["Meager", 1], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Lich",
+    "ai": "AiMage",
+    "body": 24,
+    "baseSoundId": 1001,
+    "str": [171, 200],
+    "dex": [126, 145],
+    "int": [276, 305],
+    "hits": [103, 120],
+    "damage": [24, 26],
+    "damageTypes": {
+      "Physical": 10,
+      "Cold": 40,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [40, 60],
+      "Fire": [20, 30],
+      "Cold": [50, 60],
+      "Poison": [55, 65],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Necromancy": [89.0, 99.1],
+      "SpiritSpeak": [90.0, 99.0],
+      "EvalInt": 100.0,
+      "Magery": [70.1, 80.0],
+      "Meditation": [85.1, 95.0],
+      "MagicResist": [80.1, 100.0],
+      "Tactics": [70.1, 90.0]
+    },
+    "fame": 8000,
+    "karma": -8000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.GnarledStaff"},
+      {"necroReg": [17, 24]}
+    ],
+    "props": {
+      "corpseName": "a lich's corpse",
+      "defaultName": "a lich",
+      "canRummageCorpses": true,
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 3,
+      "loot": [["Rich", 1], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LichLord",
+    "ai": "AiMage",
+    "body": 79,
+    "baseSoundId": 412,
+    "str": [416, 505],
+    "dex": [146, 165],
+    "int": [566, 655],
+    "hits": [250, 303],
+    "damage": [11, 13],
+    "damageTypes": {
+      "Physical": 0,
+      "Cold": 60,
+      "Energy": 40
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [30, 40],
+      "Cold": [50, 60],
+      "Poison": [50, 60],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Necromancy": [90.0, 110.0],
+      "SpiritSpeak": [90.0, 110.0],
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "MagicResist": [150.5, 200.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 18000,
+    "karma": -18000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.GnarledStaff"},
+      {"necroReg": [12, 40]}
+    ],
+    "props": {
+      "corpseName": "a lich's corpse",
+      "defaultName": "a lich lord",
+      "canRummageCorpses": true,
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 4,
+      "loot": [["FilthyRich", 1], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.OrcishMage",
+    "ai": "AiMage",
+    "body": 140,
+    "baseSoundId": 1114,
+    "str": [116, 150],
+    "dex": [91, 115],
+    "int": [161, 185],
+    "hits": [70, 90],
+    "damage": [4, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [30, 40],
+      "Cold": [20, 30],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [60.1, 72.5],
+      "Magery": [60.1, 72.5],
+      "MagicResist": [60.1, 75.0],
+      "Tactics": [50.1, 65.0],
+      "Wrestling": [40.1, 50.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 30,
+    "pack": [
+      {"reg": 6},
+      {"chance": 0.05, "item": "Server.Items.OrcishKinMask"}
+    ],
+    "props": {
+      "corpseName": "a glowing orc corpse",
+      "defaultName": "an orcish mage",
+      "canRummageCorpses": true,
+      "treasureMapLevel": 1,
+      "meat": 1,
+      "loot": [["Average", 1], ["LowScrolls", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RatmanMage",
+    "ai": "AiMage",
+    "nameRandom": "ratman",
+    "body": 143,
+    "baseSoundId": 437,
+    "str": [146, 180],
+    "dex": [101, 130],
+    "int": [186, 210],
+    "hits": [88, 108],
+    "damage": [7, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 45],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [10, 20],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "EvalInt": [70.1, 80.0],
+      "Magery": [70.1, 80.0],
+      "MagicResist": [65.1, 90.0],
+      "Tactics": [50.1, 75.0],
+      "Wrestling": [50.1, 75.0]
+    },
+    "fame": 7500,
+    "karma": -7500,
+    "virtualArmor": 44,
+    "pack": [
+      {"reg": 6},
+      {"chance": 0.02, "statue": 1}
+    ],
+    "props": {
+      "corpseName": "a glowing ratman corpse",
+      "canRummageCorpses": true,
+      "meat": 1,
+      "hides": 8,
+      "loot": [["Rich", 1], ["LowScrolls", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Shade",
+    "ai": "AiMage",
+    "body": 26,
+    "hue": 16385,
+    "baseSoundId": 1154,
+    "str": [76, 100],
+    "dex": [76, 95],
+    "int": [36, 60],
+    "hits": [46, 60],
+    "damage": [7, 11],
+    "damageTypes": {
+      "Physical": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Cold": [15, 25],
+      "Poison": [10, 20]
+    },
+    "skills": {
+      "EvalInt": [55.1, 70.0],
+      "Magery": [55.1, 70.0],
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 55.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 28,
+    "pack": [
+      {"reg": 10}
+    ],
+    "props": {
+      "corpseName": "a ghostly corpse",
+      "defaultName": "a shade",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SkeletalMage",
+    "ai": "AiMage",
+    "body": 148,
+    "baseSoundId": 451,
+    "str": [76, 100],
+    "dex": [56, 75],
+    "int": [186, 210],
+    "hits": [46, 60],
+    "damage": [3, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [20, 30],
+      "Cold": [50, 60],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [60.1, 70.0],
+      "Magery": [60.1, 70.0],
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 55.0],
+      "Necromancy": [89.0, 99.1],
+      "SpiritSpeak": [90.0, 99.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 38,
+    "pack": [
+      {"reg": 3},
+      {"necroReg": [3, 10]},
+      {"item": "Server.Items.Bone"}
+    ],
+    "props": {
+      "corpseName": "a skeletal corpse",
+      "defaultName": "a skeletal mage",
+      "bleedImmune": true,
+      "poisonImmune": 1,
+      "loot": [["Average", 1], ["LowScrolls", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Spectre",
+    "ai": "AiMage",
+    "body": 26,
+    "hue": 16385,
+    "baseSoundId": 1154,
+    "str": [76, 100],
+    "dex": [76, 95],
+    "int": [36, 60],
+    "hits": [46, 60],
+    "damage": [7, 11],
+    "damageTypes": {
+      "Physical": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Cold": [15, 25],
+      "Poison": [10, 20]
+    },
+    "skills": {
+      "EvalInt": [55.1, 70.0],
+      "Magery": [55.1, 70.0],
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 55.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 28,
+    "pack": [
+      {"reg": 10}
+    ],
+    "props": {
+      "corpseName": "a ghostly corpse",
+      "defaultName": "a spectre",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Spellbinder",
+    "ai": "AiMage",
+    "fightMode": "Aggressor",
+    "bodies": [26, 50, 56],
+    "baseSoundId": 1154,
+    "str": [46, 70],
+    "dex": [47, 65],
+    "int": [187, 210],
+    "hits": [36, 50],
+    "damage": [3, 6],
+    "damageTypes": {
+      "Physical": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Cold": [15, 25],
+      "Poison": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [35.1, 50.0],
+      "Tactics": [35.1, 50.0],
+      "Wrestling": [35.1, 45.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a ghostly corpse",
+      "defaultName": "a spectral spellbinder",
+      "bleedImmune": true,
+      "poisonImmune": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.Succubus",
+    "ai": "AiMage",
+    "body": 149,
+    "baseSoundId": 1200,
+    "str": [488, 620],
+    "dex": [121, 170],
+    "int": [498, 657],
+    "hits": [312, 353],
+    "damage": [18, 28],
+    "damageTypes": {
+      "Physical": 75,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [80, 90],
+      "Fire": [70, 80],
+      "Cold": [40, 50],
+      "Poison": [50, 60],
+      "Energy": [50, 60]
+    },
+    "skills": {
+      "EvalInt": [90.1, 100.0],
+      "Magery": [99.1, 100.0],
+      "Meditation": [90.1, 100.0],
+      "MagicResist": [100.5, 150.0],
+      "Tactics": [80.1, 90.0],
+      "Wrestling": [80.1, 90.0]
+    },
+    "fame": 24000,
+    "karma": -24000,
+    "virtualArmor": 80,
+    "props": {
+      "corpseName": "a succubus corpse",
+      "defaultName": "a succubus",
+      "meat": 1,
+      "treasureMapLevel": 5,
+      "loot": [["FilthyRich", 2], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Wraith",
+    "ai": "AiMage",
+    "body": 26,
+    "hue": 16385,
+    "baseSoundId": 1154,
+    "str": [76, 100],
+    "dex": [76, 95],
+    "int": [36, 60],
+    "hits": [46, 60],
+    "damage": [7, 11],
+    "damageTypes": {
+      "Physical": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Cold": [15, 25],
+      "Poison": [10, 20]
+    },
+    "skills": {
+      "EvalInt": [55.1, 70.0],
+      "Magery": [55.1, 70.0],
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [45.1, 55.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 28,
+    "pack": [
+      {"reg": 10}
+    ],
+    "props": {
+      "corpseName": "a ghostly corpse",
+      "defaultName": "a wraith",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ArcticOgreLord",
+    "body": 135,
+    "baseSoundId": 427,
+    "str": [767, 945],
+    "dex": [66, 75],
+    "int": [46, 70],
+    "hits": [476, 552],
+    "damage": [20, 25],
+    "damageTypes": {
+      "Physical": 30,
+      "Cold": 70
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Cold": [60, 70],
+      "Poison": 100,
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "MagicResist": [125.1, 140.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.Club"}
+    ],
+    "props": {
+      "corpseName": "a frozen ogre lord's corpse",
+      "defaultName": "an arctic ogre lord",
+      "poisonImmune": 1,
+      "treasureMapLevel": 3,
+      "loot": [["FilthyRich", 1], ["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ChaosDaemon",
+    "body": 792,
+    "baseSoundId": 1001,
+    "str": [106, 130],
+    "dex": [171, 200],
+    "int": [56, 80],
+    "hits": [91, 110],
+    "damage": [12, 17],
+    "damageTypes": {
+      "Physical": 85,
+      "Fire": 15
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [60, 70],
+      "Cold": [40, 50],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [85.1, 95.0],
+      "Tactics": [70.1, 80.0],
+      "Wrestling": [95.1, 100.0]
+    },
+    "fame": 3000,
+    "karma": -4000,
+    "virtualArmor": 15,
+    "props": {
+      "corpseName": "a chaos daemon corpse",
+      "defaultName": "a chaos daemon",
+      "loot": [["Average", 1], ["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Cyclops",
+    "body": 75,
+    "baseSoundId": 604,
+    "str": [336, 385],
+    "dex": [96, 115],
+    "int": [31, 55],
+    "hits": [202, 231],
+    "mana": 0,
+    "damage": [7, 23],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 50],
+      "Fire": [30, 40],
+      "Cold": [25, 35],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [60.3, 105.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [80.1, 90.0]
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 48,
+    "props": {
+      "corpseName": "a cyclopean corpse",
+      "defaultName": "a cyclopean warrior",
+      "meat": 4,
+      "treasureMapLevel": 3,
+      "loot": [["Rich", 1], ["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Doppleganger",
+    "body": 777,
+    "baseSoundId": 1105,
+    "str": [81, 110],
+    "dex": [56, 75],
+    "int": [81, 105],
+    "hits": [101, 120],
+    "damage": [8, 12],
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [10, 20],
+      "Cold": [40, 50],
+      "Poison": [50, 60],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [75.1, 85.0],
+      "Tactics": [70.1, 80.0],
+      "Wrestling": [80.1, 90.0]
+    },
+    "fame": 1000,
+    "karma": -1000,
+    "virtualArmor": 55,
+    "props": {
+      "corpseName": "a doppleganger corpse",
+      "defaultName": "a doppleganger",
+      "hides": 6,
+      "meat": 1,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.EnslavedGargoyle",
+    "body": 753,
+    "baseSoundId": 372,
+    "str": [302, 360],
+    "dex": [76, 95],
+    "int": [81, 105],
+    "hits": [186, 212],
+    "damage": [7, 14],
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [50, 70],
+      "Cold": [15, 25],
+      "Poison": [25, 30],
+      "Energy": [25, 30]
+    },
+    "skills": {
+      "MagicResist": [70.1, 85.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [40.1, 80.0]
+    },
+    "fame": 3500,
+    "karma": 0,
+    "virtualArmor": 35,
+    "pack": [
+      {"chance": 0.2, "item": "Server.Items.GargoylesPickaxe"}
+    ],
+    "props": {
+      "corpseName": "an enslaved gargoyle corpse",
+      "defaultName": "an enslaved gargoyle",
+      "meat": 1,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 2], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Ettin",
+    "body": 18,
+    "baseSoundId": 367,
+    "str": [136, 165],
+    "dex": [56, 75],
+    "int": [31, 55],
+    "hits": [82, 99],
+    "damage": [7, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [15, 25],
+      "Cold": [40, 50],
+      "Poison": [15, 25],
+      "Energy": [15, 25]
+    },
+    "skills": {
+      "MagicResist": [40.1, 55.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [50.1, 60.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 38,
+    "props": {
+      "corpseName": "an ettins corpse",
+      "defaultName": "an ettin",
+      "canRummageCorpses": true,
+      "treasureMapLevel": 1,
+      "meat": 4,
+      "loot": [["Meager", 1], ["Average", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FrostTroll",
+    "body": 55,
+    "baseSoundId": 461,
+    "str": [227, 265],
+    "dex": [66, 85],
+    "int": [46, 70],
+    "hits": [140, 156],
+    "damage": [14, 20],
+    "damageTypes": {
+      "Physical": 75,
+      "Cold": 25
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Cold": [40, 50],
+      "Poison": [5, 10],
+      "Energy": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [65.1, 80.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [80.1, 100.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.DoubleAxe"}
+    ],
+    "props": {
+      "corpseName": "a frost troll corpse",
+      "defaultName": "a frost troll",
+      "meat": 2,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GazerLarva",
+    "body": 778,
+    "baseSoundId": 377,
+    "str": [76, 100],
+    "dex": [51, 75],
+    "int": [56, 80],
+    "hits": [36, 47],
+    "damage": [2, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 25]
+    },
+    "skills": {
+      "MagicResist": 70.0,
+      "Tactics": 70.0,
+      "Wrestling": 70.0
+    },
+    "fame": 900,
+    "karma": -900,
+    "virtualArmor": 25,
+    "pack": [
+      {"item": "Server.Items.Nightshade", "amount": [2, 3]}
+    ],
+    "props": {
+      "corpseName": "a gazer larva corpse",
+      "defaultName": "a gazer larva",
+      "meat": 1,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GreaterMongbat",
+    "body": 39,
+    "baseSoundId": 422,
+    "str": [56, 80],
+    "dex": [61, 80],
+    "int": [26, 50],
+    "hits": [34, 48],
+    "stam": [61, 80],
+    "mana": [26, 50],
+    "damage": [5, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 25]
+    },
+    "skills": {
+      "MagicResist": [15.1, 30.0],
+      "Tactics": [35.1, 50.0],
+      "Wrestling": [20.1, 35.0]
+    },
+    "fame": 450,
+    "karma": -450,
+    "virtualArmor": 10,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 71.1,
+    "props": {
+      "corpseName": "a mongbat corpse",
+      "defaultName": "a greater mongbat",
+      "meat": 1,
+      "hides": 6,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Juggernaut",
+    "body": 768,
+    "str": [301, 400],
+    "dex": [51, 70],
+    "int": [51, 100],
+    "hits": [181, 240],
+    "damage": [12, 19],
+    "damageTypes": {
+      "Physical": 50,
+      "Fire": 25,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [35, 45],
+      "Cold": [35, 45],
+      "Poison": [15, 25],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Anatomy": [90.1, 100.0],
+      "MagicResist": [140.1, 150.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 12000,
+    "karma": -12000,
+    "virtualArmor": 70,
+    "pack": [
+      {"chance": 0.1, "item": "Server.Items.PowerCrystal"},
+      {"chance": 0.4, "item": "Server.Items.ClockworkAssembly"}
+    ],
+    "props": {
+      "corpseName": "a juggernaut corpse",
+      "defaultName": "a blackthorn juggernaut",
+      "alwaysMurderer": true,
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "meat": 1,
+      "treasureMapLevel": 5,
+      "loot": [["Rich", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Moloch",
+    "body": 785,
+    "baseSoundId": 768,
+    "str": [331, 360],
+    "dex": [66, 85],
+    "int": [41, 65],
+    "hits": [171, 200],
+    "damage": [15, 23],
+    "resists": {
+      "Physical": [60, 70],
+      "Fire": [60, 70],
+      "Cold": [40, 50],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [65.1, 75.0],
+      "Tactics": [75.1, 90.0],
+      "Wrestling": [70.1, 90.0]
+    },
+    "fame": 7500,
+    "karma": -7500,
+    "virtualArmor": 32,
+    "props": {
+      "corpseName": "a moloch corpse",
+      "defaultName": "a moloch",
+      "poisonImmune": 1,
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Mongbat",
+    "body": 39,
+    "baseSoundId": 422,
+    "str": [6, 10],
+    "dex": [26, 38],
+    "int": [6, 14],
+    "hits": [4, 6],
+    "mana": 0,
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [5, 10]
+    },
+    "skills": {
+      "MagicResist": [5.1, 14.0],
+      "Tactics": [5.1, 10.0],
+      "Wrestling": [5.1, 10.0]
+    },
+    "fame": 150,
+    "karma": -150,
+    "virtualArmor": 10,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -18.9,
+    "props": {
+      "corpseName": "a mongbat corpse",
+      "defaultName": "a mongbat",
+      "canFly": true,
+      "meat": 1,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Ogre",
+    "body": 1,
+    "baseSoundId": 427,
+    "str": [166, 195],
+    "dex": [46, 65],
+    "int": [46, 70],
+    "hits": [100, 117],
+    "mana": 0,
+    "damage": [9, 11],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": [15, 25],
+      "Cold": [15, 25],
+      "Poison": [15, 25],
+      "Energy": 25
+    },
+    "skills": {
+      "MagicResist": [55.1, 70.0],
+      "Tactics": [60.1, 70.0],
+      "Wrestling": [70.1, 80.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 32,
+    "pack": [
+      {"item": "Server.Items.Club"}
+    ],
+    "props": {
+      "corpseName": "an ogre corpse",
+      "defaultName": "an ogre",
+      "canRummageCorpses": true,
+      "treasureMapLevel": 1,
+      "meat": 2,
+      "loot": [["Average", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.OgreLord",
+    "body": 83,
+    "baseSoundId": 427,
+    "str": [767, 945],
+    "dex": [66, 75],
+    "int": [46, 70],
+    "hits": [476, 552],
+    "damage": [20, 25],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [30, 40],
+      "Cold": [30, 40],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "MagicResist": [125.1, 140.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.Club"}
+    ],
+    "props": {
+      "corpseName": "an ogre lords corpse",
+      "defaultName": "an ogre lord",
+      "canRummageCorpses": true,
+      "poisonImmune": 1,
+      "treasureMapLevel": 3,
+      "meat": 2,
+      "loot": [["Rich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.OrcBomber",
+    "body": 182,
+    "baseSoundId": 1114,
+    "str": [147, 215],
+    "dex": [91, 115],
+    "int": [61, 85],
+    "hits": [95, 123],
+    "damage": [1, 8],
+    "damageTypes": {
+      "Physical": 75,
+      "Fire": 25
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [30, 40],
+      "Cold": [15, 25],
+      "Poison": [15, 20],
+      "Energy": [25, 30]
+    },
+    "skills": {
+      "MagicResist": [70.1, 85.0],
+      "Swords": [60.1, 85.0],
+      "Tactics": [75.1, 90.0],
+      "Wrestling": [60.1, 85.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 30,
+    "pack": [
+      {"item": "Server.Items.SulfurousAsh", "amount": [6, 10]},
+      {"item": "Server.Items.MandrakeRoot", "amount": [6, 10]},
+      {"item": "Server.Items.BlackPearl", "amount": [6, 10]},
+      {"item": "Server.Items.MortarPestle"},
+      {"item": "Server.Items.LesserExplosionPotion"},
+      {"chance": 0.2, "item": "Server.Items.BolaBall"}
+    ],
+    "props": {
+      "corpseName": "an orcish corpse",
+      "defaultName": "an orc bomber",
+      "canRummageCorpses": true,
+      "loot": [["Average", 1], ["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.OrcBrute",
+    "body": 189,
+    "baseSoundId": 1114,
+    "str": [767, 945],
+    "dex": [66, 75],
+    "int": [46, 70],
+    "hits": [476, 552],
+    "damage": [20, 25],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [40, 50],
+      "Cold": [25, 35],
+      "Poison": [25, 35],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "Macing": [90.1, 100.0],
+      "MagicResist": [125.1, 140.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.ShadowIronOre", "amount": 25, "itemId": 6585},
+      {"item": "Server.Items.IronIngot", "amount": 10},
+      {"chance": 0.05, "item": "Server.Items.OrcishKinMask"},
+      {"chance": 0.2, "item": "Server.Items.BolaBall"}
+    ],
+    "props": {
+      "corpseName": "an orcish corpse",
+      "defaultName": "an orc brute",
+      "poisonImmune": 4,
+      "meat": 2,
+      "canRummageCorpses": true,
+      "loot": [["FilthyRich", 1], ["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Ratman",
+    "nameRandom": "ratman",
+    "body": 42,
+    "baseSoundId": 437,
+    "str": [96, 120],
+    "dex": [81, 100],
+    "int": [36, 60],
+    "hits": [58, 72],
+    "damage": [4, 5],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [10, 20],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [35.1, 60.0],
+      "Tactics": [50.1, 75.0],
+      "Wrestling": [50.1, 75.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a ratman's corpse",
+      "canRummageCorpses": true,
+      "hides": 8,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RatmanArcher",
+    "ai": "AiArcher",
+    "nameRandom": "ratman",
+    "body": 142,
+    "baseSoundId": 437,
+    "str": [146, 180],
+    "dex": [101, 130],
+    "int": [116, 140],
+    "hits": [88, 108],
+    "damage": [4, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 55],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [10, 20],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Anatomy": [60.2, 100.0],
+      "Archery": [80.1, 90.0],
+      "MagicResist": [65.1, 90.0],
+      "Tactics": [50.1, 75.0],
+      "Wrestling": [50.1, 75.0]
+    },
+    "fame": 6500,
+    "karma": -6500,
+    "virtualArmor": 56,
+    "pack": [
+      {"item": "Server.Items.Bow", "equip": true},
+      {"item": "Server.Items.Arrow", "amount": [50, 70]}
+    ],
+    "props": {
+      "corpseName": "a ratman archer corpse",
+      "canRummageCorpses": true,
+      "hides": 8,
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RestlessSoul",
+    "body": 970,
+    "hue": 1107,
+    "str": [26, 40],
+    "dex": [26, 40],
+    "int": [26, 40],
+    "hits": [16, 24],
+    "damage": [1, 10],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 25],
+      "Fire": [5, 15],
+      "Cold": [25, 40],
+      "Poison": [5, 10],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [20.1, 30.0],
+      "Swords": [20.1, 30.0],
+      "Tactics": [20.1, 30.0],
+      "Wrestling": [20.1, 30.0]
+    },
+    "fame": 500,
+    "karma": -500,
+    "virtualArmor": 6,
+    "props": {
+      "corpseName": "a ghostly corpse",
+      "defaultName": "a restless soul",
+      "bleedImmune": true,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RottingCorpse",
+    "body": 155,
+    "baseSoundId": 471,
+    "str": [301, 350],
+    "dex": 75,
+    "int": [151, 200],
+    "hits": 1200,
+    "stam": 150,
+    "mana": 0,
+    "damage": [8, 10],
+    "damageTypes": {
+      "Physical": 0,
+      "Cold": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [20, 30],
+      "Cold": [50, 70],
+      "Poison": [40, 50],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "Poisoning": 120.0,
+      "MagicResist": 250.0,
+      "Tactics": 100.0,
+      "Wrestling": [90.1, 100.0]
+    },
+    "fame": 6000,
+    "karma": -6000,
+    "virtualArmor": 40,
+    "props": {
+      "corpseName": "a rotting corpse",
+      "defaultName": "a rotting corpse",
+      "bleedImmune": true,
+      "poisonImmune": 4,
+      "treasureMapLevel": 5,
+      "loot": [["FilthyRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.StoneGargoyle",
+    "body": 67,
+    "baseSoundId": 372,
+    "str": [246, 275],
+    "dex": [76, 95],
+    "int": [81, 105],
+    "hits": [148, 165],
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [20, 30],
+      "Cold": [10, 20],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [85.1, 100.0],
+      "Tactics": [80.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.IronIngot", "amount": 12},
+      {"chance": 0.05, "item": "Server.Items.GargoylesPickaxe"}
+    ],
+    "props": {
+      "corpseName": "a gargoyle corpse",
+      "defaultName": "a stone gargoyle",
+      "treasureMapLevel": 2,
+      "loot": [["Average", 2], ["Gems", 1], ["Potions", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.StrongMongbat",
+    "body": 39,
+    "baseSoundId": 422,
+    "str": [6, 10],
+    "dex": [26, 38],
+    "int": [6, 14],
+    "hits": [4, 6],
+    "mana": 0,
+    "damage": [5, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 25]
+    },
+    "skills": {
+      "MagicResist": [15.1, 30.0],
+      "Tactics": [35.1, 50.0],
+      "Wrestling": [20.1, 35.0]
+    },
+    "fame": 150,
+    "karma": -150,
+    "virtualArmor": 10,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 71.1,
+    "props": {
+      "corpseName": "a mongbat corpse",
+      "defaultName": "a mongbat",
+      "meat": 1,
+      "hides": 6,
+      "loot": [["Poor", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Troll",
+    "bodies": [53, 54],
+    "baseSoundId": 461,
+    "str": [176, 205],
+    "dex": [46, 65],
+    "int": [46, 70],
+    "hits": [106, 123],
+    "damage": [8, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [25, 35],
+      "Cold": [15, 25],
+      "Poison": [5, 15],
+      "Energy": [5, 15]
+    },
+    "skills": {
+      "MagicResist": [45.1, 60.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [50.1, 70.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 40,
+    "props": {
+      "corpseName": "a troll corpse",
+      "defaultName": "a troll",
+      "canRummageCorpses": true,
+      "treasureMapLevel": 1,
+      "meat": 2,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.JukaWarrior",
+    "body": 764,
+    "str": [251, 350],
+    "dex": [61, 80],
+    "int": [101, 150],
+    "hits": [151, 210],
+    "damage": [7, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [30, 40],
+      "Cold": [25, 35],
+      "Poison": [10, 20],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Anatomy": [80.1, 90.0],
+      "Fencing": [80.1, 90.0],
+      "Macing": [80.1, 90.0],
+      "MagicResist": [120.1, 130.0],
+      "Swords": [80.1, 90.0],
+      "Tactics": [80.1, 90.0],
+      "Wrestling": [80.1, 90.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "virtualArmor": 22,
+    "pack": [
+      {"chance": 0.1, "item": "Server.Items.ArcaneGem"}
+    ],
+    "props": {
+      "corpseName": "a jukan corpse",
+      "defaultName": "a juka warrior",
+      "alwaysMurderer": true,
+      "canRummageCorpses": true,
+      "meat": 1,
+      "loot": [["Average", 1], ["Meager", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.MeerWarrior",
+    "fightMode": "Evil",
+    "body": 771,
+    "str": [86, 100],
+    "dex": [186, 200],
+    "int": [86, 100],
+    "hits": [52, 60],
+    "damage": [12, 19],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [5, 15],
+      "Cold": [30, 40],
+      "Poison": [25, 35],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "MagicResist": [91.0, 100.0],
+      "Tactics": [91.0, 100.0],
+      "Wrestling": [91.0, 100.0]
+    },
+    "virtualArmor": 22,
+    "fame": 2000,
+    "karma": 5000,
+    "props": {
+      "corpseName": "a meer corpse",
+      "defaultName": "a meer warrior",
+      "canRummageCorpses": true,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RagingGrizzlyBear",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 212,
+    "baseSoundId": 163,
+    "str": [1251, 1550],
+    "dex": [801, 1050],
+    "int": [151, 400],
+    "hits": [751, 930],
+    "mana": 0,
+    "damage": [18, 23],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 70],
+      "Cold": [30, 50],
+      "Poison": [10, 20],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "Wrestling": [73.4, 88.1],
+      "Tactics": [73.6, 110.5],
+      "MagicResist": [32.8, 54.6],
+      "Anatomy": [0.0, 0.0]
+    },
+    "fame": 10000,
+    "karma": 10000,
+    "virtualArmor": 24,
+    "tamable": false,
+    "props": {
+      "corpseName": "a grizzly bear corpse",
+      "defaultName": "a raging grizzly bear",
+      "meat": 4,
+      "hides": 32
+    }
+  },
+  {
+    "type": "Server.Mobiles.Squirrel",
+    "ai": "AiAnimal",
+    "fightMode": "Aggressor",
+    "body": 278,
+    "str": [44, 50],
+    "dex": 35,
+    "int": 5,
+    "hits": [42, 50],
+    "damage": [1, 2],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 34],
+      "Fire": [10, 14],
+      "Cold": [30, 35],
+      "Poison": [20, 25],
+      "Energy": [20, 25]
+    },
+    "skills": {
+      "MagicResist": 4.0,
+      "Tactics": 4.0,
+      "Wrestling": 4.0
+    },
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": -21.3,
+    "props": {
+      "corpseName": "a squirrel corpse",
+      "defaultName": "a squirrell",
+      "meat": 1
+    }
+  },
+  {
+    "type": "Server.Mobiles.Hydra",
+    "body": 265,
+    "baseSoundId": 362,
+    "str": [801, 828],
+    "dex": [102, 118],
+    "int": [102, 120],
+    "hits": [1480, 1500],
+    "damage": [21, 26],
+    "damageTypes": {
+      "Physical": 60,
+      "Fire": 10,
+      "Cold": 10,
+      "Poison": 10,
+      "Energy": 10
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [70, 85],
+      "Cold": [25, 35],
+      "Poison": [35, 43],
+      "Energy": [36, 45]
+    },
+    "skills": {
+      "Wrestling": [103.5, 117.4],
+      "Tactics": [100.1, 109.8],
+      "MagicResist": [85.5, 98.5],
+      "Anatomy": [75.4, 79.8]
+    },
+    "props": {
+      "corpseName": "a hydra corpse",
+      "defaultName": "a hydra",
+      "hides": 40,
+      "meat": 19,
+      "treasureMapLevel": 5,
+      "loot": [["UltraRich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Abscess",
+    "inherits": "Server.Mobiles.Hydra",
+    "paragon": true,
+    "hue": 2301,
+    "str": [845, 871],
+    "dex": [121, 134],
+    "int": [124, 142],
+    "hits": [7470, 7540],
+    "damage": [26, 31],
+    "damageTypes": {
+      "Physical": 60,
+      "Fire": 10,
+      "Cold": 10,
+      "Poison": 10,
+      "Energy": 10
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [70, 80],
+      "Cold": [25, 35],
+      "Poison": [35, 45],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "Wrestling": [132.3, 143.8],
+      "Tactics": [121.0, 130.5],
+      "MagicResist": [102.9, 119.0],
+      "Anatomy": [91.8, 94.3]
+    },
+    "props": {
+      "corpseName": "an Abscess corpse",
+      "defaultName": "Abscess",
+      "givesMlMinorArtifact": true,
+      "loot": [["UltraRich", 4]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Coil",
+    "inherits": "Server.Mobiles.SilverSerpent",
+    "paragon": true,
+    "hue": 63,
+    "str": [205, 343],
+    "dex": [202, 283],
+    "int": [88, 142],
+    "hits": [628, 1291],
+    "damage": [19, 28],
+    "damageTypes": {
+      "Physical": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [56, 62],
+      "Fire": [25, 30],
+      "Cold": [25, 30],
+      "Poison": 100,
+      "Energy": [25, 30]
+    },
+    "skills": {
+      "Wrestling": [124.5, 141.3],
+      "Tactics": [130.2, 142.0],
+      "MagicResist": [102.3, 113.0],
+      "Anatomy": [120.8, 138.1],
+      "Poisoning": [110.1, 133.4]
+    },
+    "pack": [
+      {"gem": 2},
+      {"item": "Server.Items.Bone"}
+    ],
+    "props": {
+      "corpseName": "a Coil corpse",
+      "defaultName": "Coil",
+      "poisonImmune": 4,
+      "givesMlMinorArtifact": true,
+      "hides": 48,
+      "meat": 1,
+      "loot": [["UltraRich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Harpy",
+    "body": 30,
+    "baseSoundId": 402,
+    "str": [96, 120],
+    "dex": [86, 110],
+    "int": [51, 75],
+    "hits": [58, 72],
+    "damage": [5, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Fire": [10, 20],
+      "Cold": [10, 30],
+      "Poison": [20, 30],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [50.1, 65.0],
+      "Tactics": [70.1, 100.0],
+      "Wrestling": [60.1, 90.0]
+    },
+    "fame": 2500,
+    "karma": -2500,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a harpy corpse",
+      "defaultName": "a harpy",
+      "canRummageCorpses": true,
+      "meat": 4,
+      "feathers": 50,
+      "canFly": true,
+      "loot": [["Meager", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Saliva",
+    "inherits": "Server.Mobiles.Harpy",
+    "hue": 286,
+    "str": [110, 206],
+    "dex": [123, 222],
+    "int": [80, 127],
+    "hits": [409, 842],
+    "damage": [20, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [46, 48],
+      "Fire": [32, 40],
+      "Cold": [34, 49],
+      "Poison": [40, 48],
+      "Energy": [35, 39]
+    },
+    "skills": {
+      "Wrestling": [106.4, 128.8],
+      "Tactics": [129.9, 141.0],
+      "MagicResist": [84.3, 105.0]
+    },
+    "props": {
+      "corpseName": "a Saliva corpse",
+      "defaultName": "Saliva",
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Thrasher",
+    "inherits": "Server.Mobiles.Alligator",
+    "paragon": true,
+    "hue": 1175,
+    "str": [93, 327],
+    "dex": [7, 201],
+    "int": [15, 67],
+    "hits": [260, 984],
+    "stam": [56, 75],
+    "mana": [25, 30],
+    "damage": [20, 30],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 55],
+      "Fire": [25, 29],
+      "Poison": [25, 28]
+    },
+    "skills": {
+      "Wrestling": [101.2, 118.3],
+      "Tactics": [96.3, 117.3],
+      "MagicResist": [102.4, 118.6]
+    },
+    "props": {
+      "corpseName": "a Thrasher corpse",
+      "defaultName": "Thrasher",
+      "givesMlMinorArtifact": true,
+      "hides": 48,
+      "meat": 1,
+      "loot": [["FilthyRich", 4]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FetidEssence",
+    "ai": "AiMage",
+    "body": 273,
+    "str": [101, 150],
+    "dex": [210, 250],
+    "int": [451, 550],
+    "hits": [551, 650],
+    "damage": [21, 25],
+    "damageTypes": {
+      "Physical": 30,
+      "Poison": 70
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [70, 90],
+      "Energy": [75, 80]
+    },
+    "skills": {
+      "Meditation": [91.4, 99.4],
+      "EvalInt": [88.5, 92.3],
+      "Magery": [97.9, 101.7],
+      "Poisoning": 100.0,
+      "Anatomy": [0.0, 4.5],
+      "MagicResist": [103.5, 108.8],
+      "Tactics": [81.0, 84.6],
+      "Wrestling": [81.3, 83.9]
+    },
+    "fame": 3700,
+    "karma": -3700,
+    "props": {
+      "corpseName": "a fetid essence corpse",
+      "defaultName": "a fetid essence",
+      "poisonImmune": 3,
+      "loot": [["FilthyRich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.InterredGrizzle",
+    "ai": "AiMage",
+    "body": 259,
+    "str": [451, 500],
+    "dex": [201, 250],
+    "int": [801, 850],
+    "hits": 1500,
+    "stam": 150,
+    "damage": [16, 19],
+    "damageTypes": {
+      "Physical": 30,
+      "Fire": 70
+    },
+    "resists": {
+      "Physical": [35, 55],
+      "Fire": [20, 65],
+      "Cold": [55, 80],
+      "Poison": [20, 35],
+      "Energy": [60, 80]
+    },
+    "skills": {
+      "Meditation": [77.7, 84.0],
+      "EvalInt": [72.2, 79.6],
+      "Magery": [83.7, 89.6],
+      "Poisoning": 0.0,
+      "Anatomy": 0.0,
+      "MagicResist": [80.2, 87.3],
+      "Tactics": [104.5, 105.1],
+      "Wrestling": [105.1, 109.4]
+    },
+    "fame": 3700,
+    "karma": -3700,
+    "props": {
+      "corpseName": "an interred grizzle corpse",
+      "defaultName": "a interred grizzle",
+      "loot": [["FilthyRich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FeralTreefellow",
+    "fightMode": "Evil",
+    "body": 301,
+    "str": [1351, 1600],
+    "dex": [301, 550],
+    "int": [651, 900],
+    "hits": [1170, 1320],
+    "damage": [26, 35],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [60, 70],
+      "Cold": [70, 80],
+      "Poison": [60, 70],
+      "Energy": [40, 60]
+    },
+    "skills": {
+      "MagicResist": [40.1, 55.0],
+      "Tactics": [65.1, 90.0],
+      "Wrestling": [65.1, 85.0]
+    },
+    "fame": 12500,
+    "karma": 12500,
+    "virtualArmor": 24,
+    "pack": [
+      {"item": "Server.Items.Log", "amount": [23, 34]}
+    ],
+    "props": {
+      "corpseName": "a treefellow corpse",
+      "defaultName": "a feral treefellow",
+      "bleedImmune": true,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Minotaur",
+    "body": 263,
+    "str": [301, 340],
+    "dex": [91, 110],
+    "int": [31, 50],
+    "hits": [301, 340],
+    "damage": [11, 20],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [25, 35],
+      "Cold": [30, 40],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Meditation": 0.0,
+      "EvalInt": 0.0,
+      "Magery": 0.0,
+      "Poisoning": 0.0,
+      "Anatomy": 0.0,
+      "MagicResist": [56.1, 64.0],
+      "Tactics": [93.3, 97.8],
+      "Wrestling": [90.4, 92.1]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a minotaur corpse",
+      "defaultName": "a minotaur",
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.MinotaurCaptain",
+    "body": 280,
+    "str": [401, 425],
+    "dex": [91, 110],
+    "int": [31, 50],
+    "hits": [401, 440],
+    "damage": [11, 20],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [35, 45],
+      "Cold": [40, 50],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Meditation": 0.0,
+      "EvalInt": 0.0,
+      "Magery": 0.0,
+      "Poisoning": 0.0,
+      "Anatomy": [0.0, 6.3],
+      "MagicResist": [66.1, 73.6],
+      "Tactics": [93.0, 109.9],
+      "Wrestling": [92.6, 107.2]
+    },
+    "fame": 7000,
+    "karma": -7000,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a minotaur corpse",
+      "defaultName": "a minotaur captain",
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.MinotaurScout",
+    "body": 281,
+    "str": [353, 375],
+    "dex": [111, 130],
+    "int": [34, 50],
+    "hits": [354, 383],
+    "damage": [11, 20],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [25, 35],
+      "Cold": [30, 40],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Anatomy": 0.0,
+      "MagicResist": [60.6, 67.5],
+      "Tactics": [86.9, 103.6],
+      "Wrestling": [85.6, 104.5]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a minotaur corpse",
+      "defaultName": "a minotaur scout",
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.PestilentBandage",
+    "body": 154,
+    "hue": 1301,
+    "baseSoundId": 471,
+    "str": [691, 740],
+    "dex": [141, 180],
+    "int": [51, 80],
+    "hits": [415, 445],
+    "damage": [13, 23],
+    "damageTypes": {
+      "Physical": 40,
+      "Cold": 20,
+      "Poison": 40
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [10, 20],
+      "Cold": [50, 60],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "Poisoning": [0.0, 10.0],
+      "Anatomy": 0.0,
+      "MagicResist": [75.0, 80.0],
+      "Tactics": [80.0, 85.0],
+      "Wrestling": [70.0, 75.0]
+    },
+    "fame": 20000,
+    "karma": -20000,
+    "pack": [
+      {"item": "Server.Items.Bandage", "amount": 5}
+    ],
+    "props": {
+      "corpseName": "a pestilent bandage corpse",
+      "defaultName": "a pestilent bandage",
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.TormentedMinotaur",
+    "body": 262,
+    "str": [822, 930],
+    "dex": [401, 415],
+    "int": [128, 138],
+    "hits": [4000, 4200],
+    "damage": [16, 30],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": 62,
+      "Fire": 74,
+      "Cold": 54,
+      "Poison": 56,
+      "Energy": 54
+    },
+    "skills": {
+      "Wrestling": [110.1, 111.0],
+      "Tactics": [100.7, 102.8],
+      "MagicResist": [104.3, 116.3]
+    },
+    "fame": 20000,
+    "karma": -20000,
+    "props": {
+      "corpseName": "a tormented minotaur corpse",
+      "defaultName": "Tormented Minotaur",
+      "poisonImmune": 3,
+      "treasureMapLevel": 3,
+      "loot": [["FilthyRich", 10]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Troglodyte",
+    "body": 267,
+    "baseSoundId": 1439,
+    "str": [148, 217],
+    "dex": [91, 120],
+    "int": [51, 70],
+    "hits": [302, 340],
+    "damage": [11, 14],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 35],
+      "Fire": [20, 30],
+      "Cold": [35, 40],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Anatomy": [70.5, 94.8],
+      "MagicResist": [51.8, 65.0],
+      "Tactics": [80.4, 94.7],
+      "Wrestling": [70.2, 93.5],
+      "Healing": [70.0, 95.0]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 28,
+    "pack": [
+      {"item": "Server.Items.Bandage", "amount": 5},
+      {"item": "Server.Items.Ribs"}
+    ],
+    "props": {
+      "corpseName": "a troglodyte corpse",
+      "defaultName": "a troglodyte",
+      "loot": [["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Scorpion",
+    "body": 48,
+    "baseSoundId": 397,
+    "str": [73, 115],
+    "dex": [76, 95],
+    "int": [16, 30],
+    "hits": [50, 63],
+    "mana": 0,
+    "damage": [5, 10],
+    "damageTypes": {
+      "Physical": 60,
+      "Poison": 40
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [10, 15],
+      "Cold": [20, 25],
+      "Poison": [40, 50],
+      "Energy": [10, 15]
+    },
+    "skills": {
+      "Poisoning": [80.1, 100.0],
+      "MagicResist": [30.1, 35.0],
+      "Tactics": [60.3, 75.0],
+      "Wrestling": [50.3, 65.0]
+    },
+    "fame": 2000,
+    "karma": -2000,
+    "virtualArmor": 28,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 47.1,
+    "pack": [
+      {"item": "Server.Items.LesserPoisonPotion"}
+    ],
+    "props": {
+      "corpseName": "a scorpion corpse",
+      "defaultName": "a scorpion",
+      "meat": 1,
+      "poisonImmune": 2,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Miasma",
+    "inherits": "Server.Mobiles.Scorpion",
+    "paragon": true,
+    "hue": 2301,
+    "str": [255, 847],
+    "dex": [145, 428],
+    "int": [26, 380],
+    "hits": [750, 2000],
+    "mana": [5, 60],
+    "damage": [20, 30],
+    "damageTypes": {
+      "Physical": 60,
+      "Poison": 40
+    },
+    "resists": {
+      "Physical": [50, 54],
+      "Fire": [40, 45],
+      "Cold": [50, 55],
+      "Poison": [70, 80],
+      "Energy": [40, 45]
+    },
+    "skills": {
+      "Wrestling": [84.9, 103.3],
+      "Tactics": [98.4, 110.6],
+      "Anatomy": 0.0,
+      "MagicResist": [74.4, 77.7],
+      "Poisoning": [128.5, 143.6]
+    },
+    "fame": 21000,
+    "karma": -21000,
+    "props": {
+      "corpseName": "a Miasma corpse",
+      "defaultName": "Miasma",
+      "givesMlMinorArtifact": true,
+      "treasureMapLevel": 5,
+      "loot": [["UltraRich", 4]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GreaterDragon",
+    "ai": "AiMage",
+    "bodies": [12, 59],
+    "baseSoundId": 362,
+    "str": [1025, 1425],
+    "dex": [81, 148],
+    "int": [475, 675],
+    "hits": [1000, 2000],
+    "stam": [120, 135],
+    "damage": [24, 33],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [60, 85],
+      "Fire": [65, 90],
+      "Cold": [40, 55],
+      "Poison": [40, 60],
+      "Energy": [50, 75]
+    },
+    "skills": {
+      "Meditation": 0.0,
+      "EvalInt": [110.0, 140.0],
+      "Magery": [110.0, 140.0],
+      "Poisoning": 0.0,
+      "Anatomy": 0.0,
+      "MagicResist": [110.0, 140.0],
+      "Tactics": [110.0, 140.0],
+      "Wrestling": [115.0, 145.0]
+    },
+    "fame": 22000,
+    "karma": -15000,
+    "virtualArmor": 60,
+    "tamable": true,
+    "controlSlots": 5,
+    "minTameSkill": 104.7,
+    "props": {
+      "corpseName": "a dragon corpse",
+      "defaultName": "a greater dragon",
+      "treasureMapLevel": 5,
+      "meat": 19,
+      "hides": 30,
+      "scales": 7,
+      "canFly": true,
+      "loot": [["FilthyRich", 4], ["Gems", 8]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Lurg",
+    "inherits": "Server.Mobiles.Troglodyte",
+    "paragon": true,
+    "hue": 1109,
+    "str": [584, 625],
+    "dex": [163, 176],
+    "int": [90, 106],
+    "hits": [3034, 3189],
+    "stam": [163, 176],
+    "mana": [90, 106],
+    "damage": [16, 19],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 53],
+      "Fire": [45, 47],
+      "Cold": [56, 60],
+      "Poison": [50, 60],
+      "Energy": [41, 56]
+    },
+    "skills": {
+      "Wrestling": [122.7, 130.5],
+      "Tactics": [109.3, 118.5],
+      "MagicResist": [72.9, 87.6],
+      "Anatomy": [110.5, 124.0],
+      "Healing": [84.1, 105.0]
+    },
+    "fame": 10000,
+    "karma": -10000,
+    "props": {
+      "corpseName": "a Lurg corpse",
+      "defaultName": "Lurg",
+      "givesMlMinorArtifact": true,
+      "treasureMapLevel": 4,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Putrefier",
+    "inherits": "Server.Mobiles.Balron",
+    "paragon": true,
+    "hue": 63,
+    "str": [1057, 1400],
+    "dex": [232, 560],
+    "int": [201, 440],
+    "hits": [3010, 4092],
+    "damage": [27, 34],
+    "damageTypes": {
+      "Physical": 50,
+      "Fire": 0,
+      "Poison": 50,
+      "Energy": 0
+    },
+    "resists": {
+      "Physical": [65, 80],
+      "Fire": [65, 80],
+      "Cold": [50, 60],
+      "Poison": 100,
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Wrestling": [111.2, 128.0],
+      "Tactics": [115.2, 125.2],
+      "MagicResist": [143.4, 170.0],
+      "Anatomy": [44.6, 67.0],
+      "Magery": [117.6, 118.8],
+      "EvalInt": [113.0, 128.8],
+      "Meditation": [41.4, 85.0],
+      "Poisoning": [45.0, 50.0]
+    },
+    "fame": 24000,
+    "karma": -24000,
+    "pack": [
+      {"scroll": [4, 7]},
+      {"scroll": [4, 7]}
+    ],
+    "props": {
+      "corpseName": "a Putrefier corpse",
+      "defaultName": "Putrefier",
+      "givesMlMinorArtifact": true,
+      "treasureMapLevel": 5,
+      "loot": [["UltraRich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CorporealBrume",
+    "body": 260,
+    "baseSoundId": 1387,
+    "str": [400, 450],
+    "dex": [100, 150],
+    "int": [50, 60],
+    "hits": [1150, 1250],
+    "damage": [21, 25],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": 100,
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [50, 60],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Wrestling": [110.0, 115.0],
+      "Tactics": [110.0, 115.0],
+      "MagicResist": [80.0, 95.0],
+      "Anatomy": [100.0, 110.0]
+    },
+    "fame": 12000,
+    "karma": -12000,
+    "props": {
+      "corpseName": "a corporeal brume corpse",
+      "defaultName": "a corporeal brume",
+      "loot": [["FilthyRich", 1], ["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CrystalDaemon",
+    "ai": "AiMage",
+    "body": 784,
+    "hue": 1000,
+    "baseSoundId": 1149,
+    "str": [140, 200],
+    "dex": [120, 150],
+    "int": [800, 850],
+    "hits": [200, 220],
+    "damage": [16, 20],
+    "damageTypes": {
+      "Physical": 0,
+      "Cold": 40,
+      "Energy": 60
+    },
+    "resists": {
+      "Physical": [20, 40],
+      "Fire": [0, 20],
+      "Cold": [60, 80],
+      "Poison": [20, 40],
+      "Energy": [65, 75]
+    },
+    "skills": {
+      "Wrestling": [60.0, 80.0],
+      "Tactics": [70.0, 80.0],
+      "MagicResist": [100.0, 110.0],
+      "Magery": [120.0, 130.0],
+      "EvalInt": [100.0, 110.0],
+      "Meditation": [100.0, 110.0]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "pack": [
+      {"arcaneScroll": [0, 1]}
+    ],
+    "props": {
+      "corpseName": "a crystal daemon corpse",
+      "defaultName": "a crystal daemon",
+      "loot": [["FilthyRich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CrystalLatticeSeeker",
+    "ai": "AiMage",
+    "body": 123,
+    "hue": 1150,
+    "str": [550, 850],
+    "dex": [190, 250],
+    "int": [350, 450],
+    "hits": [350, 550],
+    "damage": [13, 19],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [80, 90],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Anatomy": [50.0, 75.0],
+      "EvalInt": [90.0, 100.0],
+      "Magery": [100.0, 100.0],
+      "Meditation": [90.0, 100.0],
+      "MagicResist": [90.0, 100.0],
+      "Tactics": [90.0, 100.0],
+      "Wrestling": [90.0, 100.0]
+    },
+    "fame": 17000,
+    "karma": -17000,
+    "pack": [
+      {"arcaneScroll": [0, 2]}
+    ],
+    "props": {
+      "corpseName": "a Crystal Lattice Seeker corpse",
+      "defaultName": "Crystal Lattice Seeker",
+      "feathers": 100,
+      "treasureMapLevel": 5,
+      "loot": [["FilthyRich", 4], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CrystalVortex",
+    "body": 13,
+    "hue": 690,
+    "baseSoundId": 263,
+    "str": [800, 900],
+    "dex": [500, 600],
+    "int": 200,
+    "hits": [350, 400],
+    "mana": 0,
+    "damage": [15, 20],
+    "damageTypes": {
+      "Physical": 0,
+      "Cold": 50,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [60, 80],
+      "Fire": [0, 10],
+      "Cold": [70, 80],
+      "Poison": [40, 50],
+      "Energy": [60, 90]
+    },
+    "skills": {
+      "MagicResist": 120.0,
+      "Tactics": 120.0,
+      "Wrestling": 120.0
+    },
+    "fame": 17000,
+    "karma": -17000,
+    "pack": [
+      {"arcaneScroll": [0, 2]}
+    ],
+    "props": {
+      "corpseName": "a crystal vortex corpse",
+      "defaultName": "a crystal vortex",
+      "loot": [["FilthyRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.MantraEffervescence",
+    "ai": "AiMage",
+    "body": 273,
+    "baseSoundId": 1390,
+    "str": [130, 150],
+    "dex": [120, 130],
+    "int": [150, 230],
+    "hits": [150, 250],
+    "damage": [21, 25],
+    "damageTypes": {
+      "Physical": 30,
+      "Energy": 70
+    },
+    "resists": {
+      "Physical": [60, 65],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [50, 60],
+      "Energy": 100
+    },
+    "skills": {
+      "Wrestling": [80.0, 85.0],
+      "Tactics": [80.0, 85.0],
+      "MagicResist": [105.0, 115.0],
+      "Magery": [90.0, 110.0],
+      "EvalInt": [80.0, 90.0],
+      "Meditation": [90.0, 100.0]
+    },
+    "fame": 6500,
+    "karma": -6500,
+    "props": {
+      "corpseName": "a mantra effervescence corpse",
+      "defaultName": "a mantra effervescence",
+      "loot": [["FilthyRich", 1], ["Rich", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.UnfrozenMummy",
+    "ai": "AiMage",
+    "body": 155,
+    "hue": 1152,
+    "baseSoundId": 471,
+    "str": [450, 500],
+    "dex": [200, 250],
+    "int": [800, 850],
+    "hits": 1500,
+    "damage": [16, 20],
+    "damageTypes": {
+      "Physical": 0,
+      "Energy": 50,
+      "Cold": 50
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [20, 30],
+      "Cold": [60, 80],
+      "Poison": [20, 30],
+      "Energy": [70, 80]
+    },
+    "skills": {
+      "Wrestling": [90.0, 100.0],
+      "Tactics": 100.0,
+      "MagicResist": 250.0,
+      "Magery": [50.0, 60.0],
+      "EvalInt": [50.0, 60.0],
+      "Meditation": 80.0
+    },
+    "fame": 25000,
+    "karma": -25000,
+    "pack": [
+      {"arcaneScroll": [0, 2]}
+    ],
+    "props": {
+      "corpseName": "an unfrozen mummy corpse",
+      "defaultName": "an unfrozen mummy",
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Chiikkaha",
+    "inherits": "Server.Mobiles.RatmanMage",
+    "str": [450, 476],
+    "dex": [157, 179],
+    "int": [251, 275],
+    "hits": [400, 425],
+    "damage": [10, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 45],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [10, 20],
+      "Energy": 100
+    },
+    "skills": {
+      "EvalInt": [70.1, 80.0],
+      "Magery": [70.1, 90.0],
+      "MagicResist": [65.1, 96.0],
+      "Tactics": [50.1, 75.0],
+      "Wrestling": [50.1, 75.0]
+    },
+    "fame": 7500,
+    "karma": -7500,
+    "props": {
+      "corpseName": "a Chiikkaha the Toothed corpse",
+      "defaultName": "Chiikkaha the Toothed"
+    }
+  },
+  {
+    "type": "Server.Mobiles.MougGuur",
+    "inherits": "Server.Mobiles.Ettin",
+    "str": [556, 575],
+    "dex": [84, 94],
+    "int": [59, 73],
+    "hits": [400, 415],
+    "damage": [12, 20],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [61, 65],
+      "Fire": [16, 19],
+      "Cold": [41, 46],
+      "Poison": [21, 24],
+      "Energy": [19, 25]
+    },
+    "skills": {
+      "MagicResist": [70.2, 75.0],
+      "Tactics": [80.8, 81.7],
+      "Wrestling": [93.9, 99.4]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "props": {
+      "corpseName": "a Moug-Guur corpse",
+      "defaultName": "Moug-Guur"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Szavetra",
+    "inherits": "Server.Mobiles.Succubus",
+    "str": [627, 655],
+    "dex": [164, 193],
+    "int": [566, 595],
+    "hits": [312, 415],
+    "damage": [20, 30],
+    "damageTypes": {
+      "Physical": 75,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [83, 90],
+      "Fire": [72, 80],
+      "Cold": [40, 49],
+      "Poison": [51, 60],
+      "Energy": [50, 60]
+    },
+    "skills": {
+      "EvalInt": [90.3, 99.8],
+      "Magery": [100.1, 100.6],
+      "Meditation": [90.1, 110.0],
+      "MagicResist": [112.2, 127.2],
+      "Tactics": [91.2, 92.8],
+      "Wrestling": [80.2, 86.4]
+    },
+    "fame": 24000,
+    "karma": -24000,
+    "props": {
+      "corpseName": "a Szavetra corpse",
+      "defaultName": "Szavetra"
+    }
+  },
+  {
+    "type": "Server.Mobiles.Gnaw",
+    "inherits": "Server.Mobiles.DireWolf",
+    "paragon": true,
+    "hue": 304,
+    "str": [151, 172],
+    "dex": [124, 145],
+    "int": [60, 86],
+    "hits": [817, 857],
+    "stam": [124, 145],
+    "mana": [52, 86],
+    "damage": [16, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [64, 69],
+      "Fire": [53, 56],
+      "Cold": [22, 27],
+      "Poison": [27, 30],
+      "Energy": [21, 34]
+    },
+    "skills": {
+      "Wrestling": [106.4, 116.5],
+      "Tactics": [84.1, 103.2],
+      "MagicResist": [96.8, 110.7]
+    },
+    "fame": 17500,
+    "karma": -17500,
+    "props": {
+      "corpseName": "a Gnaw corpse",
+      "defaultName": "Gnaw",
+      "givesMlMinorArtifact": true,
+      "hides": 28,
+      "meat": 4,
+      "loot": [["FilthyRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LadyLissith",
+    "inherits": "Server.Mobiles.GiantBlackWidow",
+    "paragon": true,
+    "hue": 1106,
+    "str": [81, 130],
+    "dex": [116, 152],
+    "int": [44, 100],
+    "hits": [245, 375],
+    "stam": [116, 152],
+    "mana": [44, 100],
+    "damage": [15, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [31, 39],
+      "Cold": [30, 40],
+      "Poison": [71, 80],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Wrestling": [108.6, 123.0],
+      "Tactics": [102.7, 119.0],
+      "MagicResist": [78.8, 95.6],
+      "Anatomy": [68.6, 106.8],
+      "Poisoning": [96.6, 112.9]
+    },
+    "fame": 18900,
+    "karma": -18900,
+    "props": {
+      "corpseName": "a Lady Lissith corpse",
+      "defaultName": "Lady Lissith",
+      "givesMlMinorArtifact": true,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.LadySabrix",
+    "inherits": "Server.Mobiles.GiantBlackWidow",
+    "paragon": true,
+    "hue": 1175,
+    "str": [82, 130],
+    "dex": [117, 146],
+    "int": [50, 98],
+    "hits": [233, 361],
+    "stam": [117, 146],
+    "mana": [50, 98],
+    "damage": [15, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [30, 40],
+      "Cold": [30, 39],
+      "Poison": [70, 80],
+      "Energy": [35, 44]
+    },
+    "skills": {
+      "Wrestling": [109.8, 122.8],
+      "Tactics": [102.8, 120.0],
+      "MagicResist": [79.4, 95.1],
+      "Anatomy": [68.8, 105.1],
+      "Poisoning": [97.8, 116.7]
+    },
+    "fame": 18900,
+    "karma": -18900,
+    "props": {
+      "corpseName": "a Lady Sabrix corpse",
+      "defaultName": "Lady Sabrix",
+      "givesMlMinorArtifact": true,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Malefic",
+    "inherits": "Server.Mobiles.DreadSpider",
+    "paragon": true,
+    "hue": 1109,
+    "str": [210, 284],
+    "dex": [153, 197],
+    "int": [349, 390],
+    "hits": [600, 747],
+    "stam": [153, 197],
+    "mana": [349, 390],
+    "damage": [15, 22],
+    "damageTypes": {
+      "Physical": 20,
+      "Poison": 80
+    },
+    "resists": {
+      "Physical": [60, 70],
+      "Fire": [40, 50],
+      "Cold": [40, 49],
+      "Poison": 100,
+      "Energy": [41, 48]
+    },
+    "skills": {
+      "Wrestling": [96.9, 112.4],
+      "Tactics": [91.3, 105.4],
+      "MagicResist": [79.8, 95.1],
+      "Magery": [103.0, 118.6],
+      "EvalInt": [105.7, 119.6],
+      "Meditation": 0.0
+    },
+    "fame": 21000,
+    "karma": -21000,
+    "props": {
+      "corpseName": "a Malefic corpse",
+      "defaultName": "Malefic",
+      "givesMlMinorArtifact": true,
+      "loot": [["UltraRich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Silk",
+    "inherits": "Server.Mobiles.GiantBlackWidow",
+    "paragon": true,
+    "hue": 1150,
+    "str": [80, 131],
+    "dex": [126, 156],
+    "int": [63, 102],
+    "hits": [279, 378],
+    "stam": [126, 156],
+    "mana": [63, 102],
+    "damage": [15, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [40, 50],
+      "Fire": [30, 39],
+      "Cold": [30, 40],
+      "Poison": [70, 76],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Wrestling": [114.1, 123.7],
+      "Tactics": [102.6, 118.3],
+      "MagicResist": [78.6, 94.8],
+      "Anatomy": [81.3, 105.7],
+      "Poisoning": [106.0, 119.2]
+    },
+    "fame": 18900,
+    "karma": -18900,
+    "props": {
+      "corpseName": "a Silk corpse",
+      "defaultName": "Silk",
+      "givesMlMinorArtifact": true,
+      "loot": [["UltraRich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Virulent",
+    "inherits": "Server.Mobiles.DreadSpider",
+    "paragon": true,
+    "hue": 2301,
+    "str": [207, 252],
+    "dex": [156, 194],
+    "int": [346, 398],
+    "hits": [616, 740],
+    "stam": [156, 194],
+    "mana": [346, 398],
+    "damage": [15, 22],
+    "damageTypes": {
+      "Physical": 20,
+      "Poison": 80
+    },
+    "resists": {
+      "Physical": [60, 68],
+      "Fire": [40, 49],
+      "Cold": [41, 50],
+      "Poison": 100,
+      "Energy": [40, 49]
+    },
+    "skills": {
+      "Wrestling": [92.8, 111.7],
+      "Tactics": [91.6, 107.4],
+      "MagicResist": [78.1, 93.3],
+      "Poisoning": 120.0,
+      "Magery": [104.2, 119.8],
+      "EvalInt": [102.8, 117.8]
+    },
+    "fame": 21000,
+    "karma": -21000,
+    "props": {
+      "corpseName": "a Virulent corpse",
+      "defaultName": "Virulent",
+      "givesMlMinorArtifact": true,
+      "loot": [["UltraRich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.HellHound",
+    "body": 98,
+    "baseSoundId": 229,
+    "str": [102, 150],
+    "dex": [81, 105],
+    "int": [36, 60],
+    "hits": [66, 125],
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 20,
+      "Fire": 80
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [30, 40],
+      "Poison": [10, 20],
+      "Energy": [10, 20]
+    },
+    "fame": 3400,
+    "karma": -3400,
+    "virtualArmor": 30,
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 85.5,
+    "pack": [
+      {"item": "Server.Items.SulfurousAsh", "amount": 5}
+    ],
+    "props": {
+      "corpseName": "a hell hound corpse",
+      "defaultName": "a hell hound",
+      "meat": 1,
+      "loot": [["Average", 1], ["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.DarkWisp",
+    "ai": "AiMage",
+    "fightMode": "Aggressor",
+    "body": 165,
+    "baseSoundId": 466,
+    "str": [196, 225],
+    "dex": [196, 225],
+    "int": [196, 225],
+    "hits": [118, 135],
+    "damage": [17, 18],
+    "damageTypes": {
+      "Physical": 50,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [20, 40],
+      "Cold": [10, 30],
+      "Poison": [5, 10],
+      "Energy": [50, 70]
+    },
+    "skills": {
+      "EvalInt": 80.0,
+      "Magery": 80.0,
+      "MagicResist": 80.0,
+      "Tactics": 80.0,
+      "Wrestling": 80.0
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 40,
+    "pack": [
+      {"item": "Server.Items.LightSource", "equip": true}
+    ],
+    "props": {
+      "corpseName": "a wisp corpse",
+      "defaultName": "a wisp",
+      "loot": [["Rich", 1], ["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.EtherealWarrior",
+    "ai": "AiMage",
+    "fightMode": "Evil",
+    "nameRandom": "ethereal warrior",
+    "body": 123,
+    "str": [586, 785],
+    "dex": [177, 255],
+    "int": [351, 450],
+    "hits": [352, 471],
+    "damage": [13, 19],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [80, 90],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "Anatomy": [50.1, 75.0],
+      "EvalInt": [90.1, 100.0],
+      "Magery": [99.1, 100.0],
+      "Meditation": [90.1, 100.0],
+      "MagicResist": [90.1, 100.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [97.6, 100.0]
+    },
+    "fame": 7000,
+    "karma": 7000,
+    "virtualArmor": 120,
+    "props": {
+      "corpseName": "an ethereal warrior corpse",
+      "feathers": 100,
+      "loot": [["Rich", 3], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Pixie",
+    "ai": "AiMage",
+    "fightMode": "Evil",
+    "nameRandom": "pixie",
+    "body": 128,
+    "baseSoundId": 1127,
+    "str": [21, 30],
+    "dex": [301, 400],
+    "int": [201, 250],
+    "hits": [13, 18],
+    "damage": [9, 15],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [80, 90],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [40, 50],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "Meditation": [90.1, 100.0],
+      "MagicResist": [100.5, 150.0],
+      "Tactics": [10.1, 20.0],
+      "Wrestling": [10.1, 12.5]
+    },
+    "fame": 7000,
+    "karma": 7000,
+    "virtualArmor": 100,
+    "pack": [
+      {"chance": 0.02, "statue": 1}
+    ],
+    "props": {
+      "corpseName": "a pixie corpse",
+      "hides": 5,
+      "meat": 1,
+      "loot": [["LowScrolls", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Centaur",
+    "fightMode": "Aggressor",
+    "nameRandom": "centaur",
+    "body": 101,
+    "baseSoundId": 679,
+    "str": [202, 300],
+    "dex": [104, 260],
+    "int": [91, 100],
+    "hits": [130, 172],
+    "damage": [13, 24],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [35, 45],
+      "Cold": [25, 35],
+      "Poison": [45, 55],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "Anatomy": [95.1, 115.0],
+      "Archery": [95.1, 100.0],
+      "MagicResist": [50.3, 80.0],
+      "Tactics": [90.1, 100.0],
+      "Wrestling": [95.1, 100.0]
+    },
+    "fame": 6500,
+    "karma": 0,
+    "virtualArmor": 50,
+    "pack": [
+      {"item": "Server.Items.Bow", "equip": true},
+      {"item": "Server.Items.Arrow", "amount": [80, 90]}
+    ],
+    "props": {
+      "corpseName": "a centaur corpse",
+      "meat": 1,
+      "hides": 8,
+      "loot": [["Rich", 1], ["Average", 1], ["Gems", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.FrostOoze",
+    "body": 94,
+    "baseSoundId": 456,
+    "str": [18, 30],
+    "dex": [16, 21],
+    "int": [16, 20],
+    "hits": [13, 17],
+    "damage": [3, 9],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [15, 20],
+      "Cold": [40, 50],
+      "Poison": [20, 30],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [5.1, 10.0],
+      "Tactics": [19.3, 34.0],
+      "Wrestling": [25.3, 40.0]
+    },
+    "fame": 450,
+    "karma": -450,
+    "virtualArmor": 38,
+    "props": {
+      "corpseName": "a frost ooze corpse",
+      "defaultName": "a frost ooze"
+    }
+  },
+  {
+    "type": "Server.Mobiles.PlagueBeastLord",
+    "body": 775,
+    "baseSoundId": 679,
+    "speechHue": 946,
+    "str": 500,
+    "dex": 100,
+    "int": 30,
+    "hits": 1800,
+    "damage": [20, 25],
+    "damageTypes": {
+      "Physical": 50,
+      "Fire": 25,
+      "Poison": 25
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [40, 50],
+      "Cold": [25, 35],
+      "Poison": [75, 85],
+      "Energy": [25, 35]
+    },
+    "skills": {
+      "Tactics": 100.0,
+      "Wrestling": 100.0
+    },
+    "fame": 2000,
+    "karma": -2000,
+    "virtualArmor": 50,
+    "props": {
+      "corpseName": "a plague beast lord corpse",
+      "poisonImmune": 4,
+      "defaultName": "a plague beast lord"
+    }
+  },
+  {
+    "type": "Server.Mobiles.SandVortex",
+    "body": 790,
+    "baseSoundId": 263,
+    "str": [96, 120],
+    "dex": [171, 195],
+    "int": [76, 100],
+    "hits": [51, 62],
+    "damage": [3, 16],
+    "damageTypes": {
+      "Physical": 90,
+      "Fire": 10
+    },
+    "resists": {
+      "Physical": [80, 90],
+      "Fire": [60, 70],
+      "Cold": [60, 70],
+      "Poison": [60, 70],
+      "Energy": [60, 70]
+    },
+    "skills": {
+      "MagicResist": 150.0,
+      "Tactics": 70.0,
+      "Wrestling": 80.0
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 28,
+    "pack": [
+      {"item": "Server.Items.Bone"}
+    ],
+    "props": {
+      "corpseName": "a sand vortex corpse",
+      "defaultName": "a sand vortex",
+      "loot": [["Meager", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.AgapiteElemental",
+    "body": 107,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [28, 28],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [40, 50],
+      "Cold": [40, 50],
+      "Poison": [30, 40],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 32,
+    "pack": [
+      {"item": "Server.Items.AgapiteOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "an agapite elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.BronzeElemental",
+    "body": 108,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 30,
+      "Fire": 70
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [30, 40],
+      "Cold": [10, 20],
+      "Poison": [70, 80],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 5000,
+    "karma": -5000,
+    "virtualArmor": 29,
+    "pack": [
+      {"item": "Server.Items.BronzeOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a bronze elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.CopperElemental",
+    "body": 109,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [30, 40],
+      "Cold": [30, 40],
+      "Poison": [20, 30],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 4800,
+    "karma": -4800,
+    "virtualArmor": 26,
+    "pack": [
+      {"item": "Server.Items.CopperOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a copper elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.DullCopperElemental",
+    "body": 110,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [30, 40],
+      "Cold": [10, 20],
+      "Poison": [20, 30],
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 20,
+    "pack": [
+      {"item": "Server.Items.DullCopperOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a dull copper elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.GoldenElemental",
+    "body": 166,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [60, 75],
+      "Fire": [10, 20],
+      "Cold": [30, 40],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 60,
+    "pack": [
+      {"item": "Server.Items.GoldOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a golden elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ShadowIronElemental",
+    "body": 111,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [30, 40],
+      "Cold": [20, 30],
+      "Poison": [10, 20],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 23,
+    "pack": [
+      {"item": "Server.Items.ShadowIronOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a shadow iron elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "poisonImmune": 3,
+      "loot": [["Average", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ValoriteElemental",
+    "body": 112,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [28, 28],
+    "damageTypes": {
+      "Physical": 25,
+      "Fire": 25,
+      "Cold": 25,
+      "Energy": 25
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [50, 60],
+      "Cold": [50, 60],
+      "Poison": [50, 60],
+      "Energy": [40, 50]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 38,
+    "pack": [
+      {"item": "Server.Items.ValoriteOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a valorite elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["FilthyRich", 1], ["Gems", 4]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.VeriteElemental",
+    "body": 113,
+    "baseSoundId": 268,
+    "str": [226, 255],
+    "dex": [126, 145],
+    "int": [71, 92],
+    "hits": [136, 153],
+    "damage": [9, 16],
+    "damageTypes": {
+      "Physical": 50,
+      "Energy": 50
+    },
+    "resists": {
+      "Physical": [30, 40],
+      "Fire": [10, 20],
+      "Cold": [50, 60],
+      "Poison": [50, 60],
+      "Energy": [50, 60]
+    },
+    "skills": {
+      "MagicResist": [50.1, 95.0],
+      "Tactics": [60.1, 100.0],
+      "Wrestling": [60.1, 100.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 35,
+    "pack": [
+      {"item": "Server.Items.VeriteOre", "amount": 2, "itemId": 6585}
+    ],
+    "props": {
+      "corpseName": "an ore elemental corpse",
+      "defaultName": "a verite elemental",
+      "bleedImmune": true,
+      "treasureMapLevel": 1,
+      "loot": [["Rich", 1], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Reaper",
+    "ai": "AiMage",
+    "body": 47,
+    "baseSoundId": 442,
+    "str": [66, 215],
+    "dex": [66, 75],
+    "int": [101, 250],
+    "hits": [40, 129],
+    "stam": 0,
+    "damage": [9, 11],
+    "damageTypes": {
+      "Physical": 80,
+      "Poison": 20
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [15, 25],
+      "Cold": [10, 20],
+      "Poison": [40, 50],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "MagicResist": [100.1, 125.0],
+      "Tactics": [45.1, 60.0],
+      "Wrestling": [50.1, 60.0]
+    },
+    "fame": 3500,
+    "karma": -3500,
+    "virtualArmor": 40,
+    "pack": [
+      {"item": "Server.Items.Log", "amount": 10},
+      {"item": "Server.Items.MandrakeRoot", "amount": 5}
+    ],
+    "props": {
+      "corpseName": "a reapers corpse",
+      "defaultName": "a reaper",
+      "poisonImmune": 2,
+      "treasureMapLevel": 2,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Bogling",
+    "body": 779,
+    "baseSoundId": 422,
+    "str": [96, 120],
+    "dex": [91, 115],
+    "int": [21, 45],
+    "hits": [58, 72],
+    "damage": [5, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [20, 25],
+      "Fire": [10, 20],
+      "Cold": [15, 25],
+      "Poison": [15, 25],
+      "Energy": [15, 25]
+    },
+    "skills": {
+      "MagicResist": [75.1, 100.0],
+      "Tactics": [55.1, 80.0],
+      "Wrestling": [55.1, 75.0]
+    },
+    "fame": 450,
+    "karma": -450,
+    "virtualArmor": 28,
+    "pack": [
+      {"item": "Server.Items.Log", "amount": 4},
+      {"item": "Server.Engines.Plants.Seed"}
+    ],
+    "props": {
+      "corpseName": "a plant corpse",
+      "defaultName": "a bogling",
+      "hides": 6,
+      "meat": 1,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Quagmire",
+    "body": 789,
+    "baseSoundId": 352,
+    "str": [101, 130],
+    "dex": [66, 85],
+    "int": [31, 55],
+    "hits": [91, 105],
+    "damage": [10, 14],
+    "damageTypes": {
+      "Physical": 60,
+      "Poison": 40
+    },
+    "resists": {
+      "Physical": [50, 60],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": 100,
+      "Energy": [20, 30]
+    },
+    "skills": {
+      "MagicResist": [65.1, 75.0],
+      "Tactics": [50.1, 60.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "virtualArmor": 32,
+    "props": {
+      "corpseName": "a quagmire corpse",
+      "defaultName": "a quagmire",
+      "poisonImmune": 4,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SwampTentacle",
+    "body": 66,
+    "baseSoundId": 352,
+    "str": [96, 120],
+    "dex": [66, 85],
+    "int": [16, 30],
+    "hits": [58, 72],
+    "mana": 0,
+    "damage": [6, 12],
+    "damageTypes": {
+      "Physical": 40,
+      "Poison": 60
+    },
+    "resists": {
+      "Physical": [25, 35],
+      "Fire": [10, 20],
+      "Cold": [10, 20],
+      "Poison": [60, 80],
+      "Energy": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [15.1, 20.0],
+      "Tactics": [65.1, 80.0],
+      "Wrestling": [65.1, 80.0]
+    },
+    "fame": 3000,
+    "karma": -3000,
+    "virtualArmor": 28,
+    "pack": [
+      {"reg": 3}
+    ],
+    "props": {
+      "corpseName": "a swamp tentacle corpse",
+      "defaultName": "a swamp tentacle",
+      "poisonImmune": 2,
+      "loot": [["Average", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.WhippingVine",
+    "body": 8,
+    "hue": 2129,
+    "baseSoundId": 352,
+    "str": [251, 300],
+    "dex": [76, 100],
+    "int": [26, 40],
+    "mana": 0,
+    "damage": [7, 25],
+    "damageTypes": {
+      "Physical": 70,
+      "Poison": 30
+    },
+    "resists": {
+      "Physical": [75, 85],
+      "Fire": [15, 25],
+      "Cold": [15, 25],
+      "Poison": [75, 85],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "MagicResist": 70.0,
+      "Tactics": 70.0,
+      "Wrestling": 70.0
+    },
+    "fame": 1000,
+    "karma": -1000,
+    "virtualArmor": 45,
+    "pack": [
+      {"reg": 3},
+      {"item": "Server.Items.FertileDirt", "amount": [1, 10]},
+      {"chance": 0.2, "item": "Server.Items.ExecutionersCap"},
+      {"item": "Server.Items.Vines"}
+    ],
+    "props": {
+      "corpseName": "a whipping vine corpse",
+      "defaultName": "a whipping vine",
+      "poisonImmune": 4
+    }
+  },
+  {
+    "type": "Server.Mobiles.AncientWyrm",
+    "ai": "AiMage",
+    "body": 46,
+    "baseSoundId": 362,
+    "str": [1096, 1185],
+    "dex": [86, 175],
+    "int": [686, 775],
+    "hits": [658, 711],
+    "damage": [29, 35],
+    "damageTypes": {
+      "Physical": 75,
+      "Fire": 25
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [80, 90],
+      "Cold": [70, 80],
+      "Poison": [60, 70],
+      "Energy": [60, 70]
+    },
+    "skills": {
+      "EvalInt": [80.1, 100.0],
+      "Magery": [80.1, 100.0],
+      "Meditation": [52.5, 75.0],
+      "MagicResist": [100.5, 150.0],
+      "Tactics": [97.6, 100.0],
+      "Wrestling": [97.6, 100.0]
+    },
+    "fame": 22500,
+    "karma": -22500,
+    "virtualArmor": 70,
+    "props": {
+      "corpseName": "a dragon corpse",
+      "defaultName": "an ancient wyrm",
+      "hides": 40,
+      "meat": 19,
+      "scales": 12,
+      "poisonImmune": 1,
+      "treasureMapLevel": 5,
+      "canFly": true,
+      "loot": [["FilthyRich", 3], ["Gems", 5]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Dragon",
+    "ai": "AiMage",
+    "bodies": [12, 59],
+    "baseSoundId": 362,
+    "str": [796, 825],
+    "dex": [86, 105],
+    "int": [436, 475],
+    "hits": [478, 495],
+    "damage": [16, 22],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [55, 65],
+      "Fire": [60, 70],
+      "Cold": [30, 40],
+      "Poison": [25, 35],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "EvalInt": [30.1, 40.0],
+      "Magery": [30.1, 40.0],
+      "MagicResist": [99.1, 100.0],
+      "Tactics": [97.6, 100.0],
+      "Wrestling": [90.1, 92.5]
+    },
+    "fame": 15000,
+    "karma": -15000,
+    "virtualArmor": 60,
+    "tamable": true,
+    "controlSlots": 3,
+    "minTameSkill": 93.9,
+    "props": {
+      "corpseName": "a dragon corpse",
+      "defaultName": "a dragon",
+      "treasureMapLevel": 4,
+      "meat": 19,
+      "hides": 20,
+      "scales": 7,
+      "canFly": true,
+      "loot": [["FilthyRich", 2], ["Gems", 8]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.OphidianMatriarch",
+    "ai": "AiMage",
+    "body": 87,
+    "baseSoundId": 644,
+    "str": [416, 505],
+    "dex": [96, 115],
+    "int": [366, 455],
+    "hits": [250, 303],
+    "damage": [11, 13],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [30, 40],
+      "Cold": [35, 45],
+      "Poison": [40, 50],
+      "Energy": [35, 45]
+    },
+    "skills": {
+      "EvalInt": [90.1, 100.0],
+      "Magery": [90.1, 100.0],
+      "Meditation": [5.4, 25.0],
+      "MagicResist": [90.1, 100.0],
+      "Tactics": [50.1, 70.0],
+      "Wrestling": [60.1, 80.0]
+    },
+    "fame": 16000,
+    "karma": -16000,
+    "virtualArmor": 50,
+    "props": {
+      "corpseName": "an ophidian corpse",
+      "defaultName": "an ophidian matriarch",
+      "poisonImmune": 2,
+      "treasureMapLevel": 4,
+      "loot": [["Rich", 1], ["Average", 2], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ShadowWyrm",
+    "ai": "AiMage",
+    "body": 106,
+    "baseSoundId": 362,
+    "str": [898, 1030],
+    "dex": [68, 200],
+    "int": [488, 620],
+    "hits": [558, 599],
+    "damage": [29, 35],
+    "damageTypes": {
+      "Physical": 75,
+      "Cold": 25
+    },
+    "resists": {
+      "Physical": [65, 75],
+      "Fire": [50, 60],
+      "Cold": [45, 55],
+      "Poison": [20, 30],
+      "Energy": [50, 60]
+    },
+    "skills": {
+      "EvalInt": [80.1, 100.0],
+      "Magery": [80.1, 100.0],
+      "Meditation": [52.5, 75.0],
+      "MagicResist": [100.3, 130.0],
+      "Tactics": [97.6, 100.0],
+      "Wrestling": [97.6, 100.0]
+    },
+    "fame": 22500,
+    "karma": -22500,
+    "virtualArmor": 70,
+    "props": {
+      "corpseName": "a shadow wyrm corpse",
+      "defaultName": "a shadow wyrm",
+      "poisonImmune": 3,
+      "treasureMapLevel": 5,
+      "meat": 19,
+      "hides": 20,
+      "scales": 10,
+      "canFly": true,
+      "loot": [["FilthyRich", 3], ["Gems", 5]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.SkeletalDragon",
+    "ai": "AiMage",
+    "body": 104,
+    "baseSoundId": 1160,
+    "str": [898, 1030],
+    "dex": [68, 200],
+    "int": [488, 620],
+    "hits": [558, 599],
+    "damage": [29, 35],
+    "damageTypes": {
+      "Physical": 75,
+      "Fire": 25
+    },
+    "resists": {
+      "Physical": [75, 80],
+      "Fire": [40, 60],
+      "Cold": [40, 60],
+      "Poison": [70, 80],
+      "Energy": [40, 60]
+    },
+    "skills": {
+      "EvalInt": [80.1, 100.0],
+      "Magery": [80.1, 100.0],
+      "MagicResist": [100.3, 130.0],
+      "Tactics": [97.6, 100.0],
+      "Wrestling": [97.6, 100.0],
+      "Necromancy": [120.1, 130.0],
+      "SpiritSpeak": [120.1, 130.0]
+    },
+    "fame": 22500,
+    "karma": -22500,
+    "virtualArmor": 80,
+    "props": {
+      "corpseName": "a skeletal dragon corpse",
+      "defaultName": "a skeletal dragon",
+      "poisonImmune": 4,
+      "bleedImmune": true,
+      "meat": 19,
+      "hides": 20,
+      "loot": [["FilthyRich", 4], ["Gems", 5]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Drake",
+    "bodies": [60, 61],
+    "baseSoundId": 362,
+    "str": [401, 430],
+    "dex": [133, 152],
+    "int": [101, 140],
+    "hits": [241, 258],
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 80,
+      "Fire": 20
+    },
+    "resists": {
+      "Physical": [45, 50],
+      "Fire": [50, 60],
+      "Cold": [40, 50],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [65.1, 80.0],
+      "Tactics": [65.1, 90.0],
+      "Wrestling": [65.1, 80.0]
+    },
+    "fame": 5500,
+    "karma": -5500,
+    "virtualArmor": 46,
+    "tamable": true,
+    "controlSlots": 2,
+    "minTameSkill": 84.3,
+    "pack": [
+      {"reg": 3}
+    ],
+    "props": {
+      "corpseName": "a drake corpse",
+      "defaultName": "a drake",
+      "treasureMapLevel": 2,
+      "meat": 10,
+      "hides": 20,
+      "scales": 2,
+      "canFly": true,
+      "loot": [["Rich", 1], ["MedScrolls", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Lizardman",
+    "nameRandom": "lizardman",
+    "bodies": [35, 36],
+    "baseSoundId": 417,
+    "str": [96, 120],
+    "dex": [86, 105],
+    "int": [36, 60],
+    "hits": [58, 72],
+    "damage": [5, 7],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [25, 30],
+      "Fire": [5, 10],
+      "Cold": [5, 10],
+      "Poison": [10, 20]
+    },
+    "skills": {
+      "MagicResist": [35.1, 60.0],
+      "Tactics": [55.1, 80.0],
+      "Wrestling": [50.1, 70.0]
+    },
+    "fame": 1500,
+    "karma": -1500,
+    "virtualArmor": 28,
+    "props": {
+      "corpseName": "a lizardman corpse",
+      "canRummageCorpses": true,
+      "meat": 1,
+      "hides": 12,
+      "loot": [["Meager", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.StoneHarpy",
+    "body": 73,
+    "baseSoundId": 402,
+    "str": [296, 320],
+    "dex": [86, 110],
+    "int": [51, 75],
+    "hits": [178, 192],
+    "mana": 0,
+    "damage": [8, 16],
+    "damageTypes": {
+      "Physical": 75,
+      "Poison": 25
+    },
+    "resists": {
+      "Physical": [45, 55],
+      "Fire": [20, 30],
+      "Cold": [10, 20],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [50.1, 65.0],
+      "Tactics": [70.1, 100.0],
+      "Wrestling": [70.1, 100.0]
+    },
+    "fame": 4500,
+    "karma": -4500,
+    "virtualArmor": 50,
+    "props": {
+      "corpseName": "a stone harpy corpse",
+      "defaultName": "a stone harpy",
+      "meat": 1,
+      "feathers": 50,
+      "canFly": true,
+      "loot": [["Average", 2], ["Gems", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Wyvern",
+    "body": 62,
+    "baseSoundId": 362,
+    "str": [202, 240],
+    "dex": [153, 172],
+    "int": [51, 90],
+    "hits": [125, 141],
+    "damage": [8, 19],
+    "damageTypes": {
+      "Physical": 50,
+      "Poison": 50
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [30, 40],
+      "Cold": [20, 30],
+      "Poison": [90, 100],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "Poisoning": [60.1, 80.0],
+      "MagicResist": [65.1, 80.0],
+      "Tactics": [65.1, 90.0],
+      "Wrestling": [65.1, 80.0]
+    },
+    "fame": 4000,
+    "karma": -4000,
+    "virtualArmor": 40,
+    "pack": [
+      {"item": "Server.Items.LesserPoisonPotion"}
+    ],
+    "props": {
+      "corpseName": "a wyvern corpse",
+      "defaultName": "a wyvern",
+      "poisonImmune": 3,
+      "treasureMapLevel": 2,
+      "meat": 10,
+      "hides": 20,
+      "canFly": true,
+      "loot": [["Average", 1], ["Meager", 1], ["MedScrolls", 1]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Raptor",
+    "body": 730,
+    "str": [404, 471],
+    "dex": [132, 155],
+    "int": [105, 145],
+    "hits": [343, 400],
+    "damage": [11, 17],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [45, 50],
+      "Fire": [50, 60],
+      "Cold": [40, 50],
+      "Poison": [20, 30],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [75.1, 90.0],
+      "Tactics": [75.1, 100.0],
+      "Wrestling": [70.1, 95.1]
+    },
+    "fame": 7500,
+    "karma": -7500,
+    "tamable": true,
+    "minTameSkill": 107.1,
+    "controlSlots": 2,
+    "props": {
+      "corpseName": "a raptor corpse",
+      "defaultName": "a raptor",
+      "treasureMapLevel": 3,
+      "meat": 7,
+      "hides": 11,
+      "loot": [["Rich", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.Slith",
+    "body": 734,
+    "str": [129, 136],
+    "dex": [72, 75],
+    "int": [12, 13],
+    "hits": [84, 85],
+    "damage": [6, 24],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 40],
+      "Fire": [35, 45],
+      "Poison": [25, 35],
+      "Energy": [25, 30]
+    },
+    "skills": {
+      "MagicResist": [59.1, 63.5],
+      "Tactics": [74.6, 76.4],
+      "Wrestling": [62.0, 77.1]
+    },
+    "tamable": true,
+    "controlSlots": 1,
+    "minTameSkill": 80.7,
+    "props": {
+      "corpseName": "a slith corpse",
+      "defaultName": "a slith",
+      "treasureMapLevel": 2,
+      "meat": 6,
+      "hides": 10,
+      "loot": [["Average", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.StoneSlith",
+    "body": 734,
+    "str": [250, 300],
+    "dex": [76, 90],
+    "int": [34, 69],
+    "hits": [154, 166],
+    "stam": [76, 90],
+    "mana": [34, 69],
+    "damage": [6, 24],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [50, 55],
+      "Fire": [20, 30],
+      "Cold": [10, 20],
+      "Poison": [30, 40],
+      "Energy": [30, 40]
+    },
+    "skills": {
+      "MagicResist": [86.8, 95.1],
+      "Tactics": [82.6, 88.6],
+      "Wrestling": [75.8, 87.4],
+      "Anatomy": [0.0, 2.9]
+    },
+    "tamable": true,
+    "minTameSkill": 65.1,
+    "controlSlots": 2,
+    "props": {
+      "corpseName": "a slith corpse",
+      "defaultName": "a stone slith",
+      "meat": 1,
+      "hides": 12,
+      "loot": [["Average", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.ToxicSlith",
+    "body": 734,
+    "hue": 476,
+    "str": [223, 306],
+    "dex": [231, 258],
+    "int": [30, 35],
+    "hits": [197, 215],
+    "stam": [231, 258],
+    "damage": [6, 24],
+    "damageTypes": {
+      "Physical": 100
+    },
+    "resists": {
+      "Physical": [35, 45],
+      "Fire": [0, 9],
+      "Cold": [5, 10],
+      "Poison": [100, 100],
+      "Energy": [5, 7]
+    },
+    "skills": {
+      "MagicResist": [95.4, 98.3],
+      "Tactics": [85.5, 90.9],
+      "Wrestling": [90.4, 95.1],
+      "Poisoning": [90.0, 110.0]
+    },
+    "props": {
+      "corpseName": "a slith corpse",
+      "defaultName": "a toxic slith",
+      "meat": 6,
+      "hides": 11,
+      "loot": [["Average", 2]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.KazeKemono",
+    "ai": "AiMage",
+    "body": 196,
+    "baseSoundId": 655,
+    "str": [201, 275],
+    "dex": [101, 155],
+    "int": [101, 105],
+    "hits": [251, 330],
+    "damage": [15, 20],
+    "damageTypes": {
+      "Physical": 70,
+      "Fire": 10,
+      "Cold": 10,
+      "Poison": 10
+    },
+    "resists": {
+      "Physical": [50, 70],
+      "Fire": [30, 60],
+      "Cold": [30, 60],
+      "Poison": [50, 70],
+      "Energy": [60, 80]
+    },
+    "skills": {
+      "MagicResist": [110.1, 125.0],
+      "Tactics": [55.1, 65.0],
+      "Wrestling": [85.1, 95.0],
+      "Anatomy": [25.1, 35.0],
+      "Magery": [95.1, 105.0]
+    },
+    "fame": 8000,
+    "karma": -8000,
+    "props": {
+      "corpseName": "a kaze kemono corpse",
+      "defaultName": "a kaze kemono",
+      "bleedImmune": true,
+      "loot": [["Rich", 3]]
+    }
+  },
+  {
+    "type": "Server.Mobiles.RaiJu",
+    "body": 199,
+    "baseSoundId": 838,
+    "str": [151, 225],
+    "dex": [81, 135],
+    "int": [176, 180],
+    "hits": [201, 280],
+    "damage": [12, 15],
+    "damageTypes": {
+      "Physical": 10,
+      "Fire": 10,
+      "Cold": 10,
+      "Poison": 10,
+      "Energy": 60
+    },
+    "resists": {
+      "Physical": [45, 65],
+      "Fire": [70, 85],
+      "Cold": [30, 60],
+      "Poison": [50, 70],
+      "Energy": [60, 80]
+    },
+    "skills": {
+      "Wrestling": [85.1, 95.0],
+      "Tactics": [55.1, 65.0],
+      "MagicResist": [110.1, 125.0],
+      "Anatomy": [25.1, 35.0]
+    },
+    "fame": 8000,
+    "karma": -8000,
+    "props": {
+      "corpseName": "a rai-ju corpse",
+      "defaultName": "a Rai-Ju",
+      "bleedImmune": true,
+      "loot": [["Rich", 2], ["Gems", 2]]
+    }
+  }
+]

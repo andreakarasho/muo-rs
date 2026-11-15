@@ -379,3 +379,44 @@ fn a_paragon_boss_is_converted_by_its_constructor() {
     );
     assert_eq!(w.mobile(id).unwrap().hue, 0x21); // the class's own Hue, set after the conversion
 }
+
+/// The classes whose constructor is their `Data/Templates/Mobiles` template: (static name, full name) read from the
+/// source, so a new templated constructor is covered without listing it here.
+fn templated_classes() -> Vec<(String, String)> {
+    let mut out = Vec::new();
+    for text in [
+        include_str!("monsters/leaves.rs"),
+        include_str!("animals/leaves.rs"),
+    ] {
+        for part in text.split("templates::new_creature(w, &").skip(1) {
+            let ident = &part[..part.find(')').unwrap()];
+            let head = format!("\n    {ident}, {ident}_C = \"");
+            let at = text.find(&head).unwrap_or_else(|| panic!("{ident}")) + head.len();
+            let full = &text[at..at + text[at..].find('"').unwrap()];
+            out.push((ident.to_owned(), full.to_owned()));
+        }
+    }
+    out
+}
+
+#[test]
+fn every_templated_class_has_its_template() {
+    let classes = templated_classes();
+    assert!(classes.len() >= 190, "{}", classes.len());
+    let mut w = world(None);
+    let table = muo_content::templates::table(&mut w);
+    let types = all();
+    for (ident, full) in &classes {
+        assert!(
+            table.mobiles.contains_key(full.as_str()),
+            "{ident}: no mobile template for {full}"
+        );
+        let ty = types.iter().find(|(t, _)| t.full_name == full).unwrap().0;
+        let id = (ty.construct.unwrap())(&mut w);
+        assert_ne!(
+            w.mobile(id).unwrap().body.0,
+            0,
+            "{full}: the template sets a body"
+        );
+    }
+}
