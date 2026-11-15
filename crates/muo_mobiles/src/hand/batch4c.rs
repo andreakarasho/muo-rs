@@ -281,6 +281,10 @@ pub fn juka_mage_on_think(w: &mut World, id: MobileId) {
     (BASE_CREATURE_C.on_think)(w, id);
 }
 
+pub(crate) fn set_next_ability(w: &mut World, id: MobileId, at: DateTime) {
+    set_next(w, id, at);
+}
+
 pub(super) fn set_next(w: &mut World, id: MobileId, at: DateTime) {
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(NextAbility(at));
@@ -301,17 +305,6 @@ fn juka_mage_unbuff(w: &mut World, b: MobileId, hits_max_seed: i32, raw_str: i32
     props_b::set_hits(w, b, h);
     let s = w.mobile(b).map_or(0, |m| m.stam);
     props_b::set_stam(w, b, s);
-}
-
-/// The constructor's `m_Timer = new UnhideTimer(this); m_Timer.Start();`.
-pub fn shadow_fiend_ctor1(w: &mut World, id: MobileId) {
-    shadow_fiend_start_timer(w, id);
-}
-
-/// `m_NextAbilityTime = Core.Now + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));`
-pub fn juka_mage_ctor1(w: &mut World, id: MobileId) {
-    let secs = rnd::min_max(w, 2, 5);
-    set_next(w, id, w.now + TimeSpan::from_secs(i64::from(secs)));
 }
 
 // ---- OrcBomber ----

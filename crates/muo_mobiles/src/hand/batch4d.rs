@@ -28,48 +28,6 @@ fn set_next_ability_secs(w: &mut World, id: MobileId, lo: i32, hi: i32) {
 
 // ---- MeerCaptain ----
 
-/// `var pack = new Backpack(); ..; AddItem(new Crossbow()); PackItem(pack); m_NextAbilityTime = ..`
-pub fn meer_captain_ctor1(w: &mut World, id: MobileId) {
-    use muo_server::item::container::{drop_item_default, try_drop_item};
-    let pack = factory::make_item(w, "Server.Items.Backpack");
-    if let Some(p) = pack {
-        for _ in 0..2 {
-            let n = rnd::min_max(w, 10, 20);
-            if let Some(i) = factory::make_item_amount(w, "Server.Items.Bolt", n) {
-                drop_item_default(w, p, i);
-            }
-        }
-        // The crossbow is wielded; the sword would share its hands, so it is carried as loot.
-        let sword = match rnd::below(w, 6) {
-            0 => "Longsword",
-            1 => "Cutlass",
-            2 => "Broadsword",
-            3 => "Katana",
-            4 => "Scimitar",
-            _ => "VikingSword",
-        };
-        if let Some(i) = factory::make_item(w, &format!("Server.Items.{sword}")) {
-            drop_item_default(w, p, i);
-        }
-        let bag = factory::make_item(w, "Server.Items.Bag");
-        let count = rnd::min_max(w, 10, 20);
-        if let Some(bag) = bag {
-            for _ in 0..count {
-                let Some(item) = muo_content::loot::random_reagent(w) else {
-                    continue;
-                };
-                if !try_drop_item(w, bag, Some(id), item, false) {
-                    muo_server::item::base::delete(w, item);
-                }
-            }
-            drop_item_default(w, p, bag);
-        }
-    }
-    super::ctors::add(w, id, "Crossbow");
-    pack_item(w, id, pack);
-    set_next_ability_secs(w, id, 2, 5);
-}
-
 /// `OnThink`: a magic absorb while fighting, and a heal for meer warriors nearby every 10-15 seconds.
 pub fn meer_captain_on_think(w: &mut World, id: MobileId) {
     if mx::combatant(w, id).is_some() && w.mobile(id).is_some_and(|m| m.magic_damage_absorb < 1) {
@@ -105,11 +63,6 @@ pub fn meer_captain_on_think(w: &mut World, id: MobileId) {
 }
 
 // ---- MeerEternal ----
-
-/// `m_NextAbilityTime = Core.Now + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));`
-pub fn meer_eternal_ctor1(w: &mut World, id: MobileId) {
-    set_next_ability_secs(w, id, 2, 5);
-}
 
 fn say_ascii(w: &mut World, id: MobileId, text: &str) {
     messages::say(w, id, true, text);

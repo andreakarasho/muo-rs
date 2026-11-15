@@ -74,26 +74,9 @@ pub fn plague_beast_deserialize(
     Ok(())
 }
 
-/// `PackArmor(1, 5);`
-pub fn plague_beast_ctor1(w: &mut World, id: MobileId) {
-    pack_armor(w, id, 1, 5, 1.0);
-}
-
-/// `if (Core.ML && Utility.RandomDouble() < 0.33) PackItem(Seed.RandomPeculiarSeed(4));`
-pub fn plague_beast_ctor2(w: &mut World, id: MobileId) {
-    if w.core_ml() && rnd::double(w) < 0.33 {
-        let s = super::seed::random_peculiar_seed(w, 4);
-        pack_item(w, id, s);
-    }
-}
-
 /// `_totalDevoured = 0;`
-pub fn plague_beast_ctor3(w: &mut World, id: MobileId) {
+pub fn plague_beast_setup(w: &mut World, id: MobileId) {
     update(w, id, |d| d.total_devoured = 0);
-}
-
-/// `_devourGoal = Utility.RandomMinMax(15, 25);`
-pub fn plague_beast_ctor4(w: &mut World, id: MobileId) {
     let g = rnd::min_max(w, 15, 25);
     update(w, id, |d| d.devour_goal = g);
 }
