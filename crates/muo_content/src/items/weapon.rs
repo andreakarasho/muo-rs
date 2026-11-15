@@ -155,9 +155,9 @@ impl Ability {
     };
 }
 
-static ABILITIES: Names<Ability> = Names::new(|| Ability::ALL.to_vec());
-static TYPES: Names<WeaponType> = Names::new(|| ep::all_of(16, WeaponType::from_i32));
-static ANIMATIONS: Names<WeaponAnimation> =
+pub static ABILITIES: Names<Ability> = Names::new(|| Ability::ALL.to_vec());
+pub static TYPES: Names<WeaponType> = Names::new(|| ep::all_of(16, WeaponType::from_i32));
+pub static ANIMATIONS: Names<WeaponAnimation> =
     Names::new(|| ep::all_of(64, WeaponAnimation::from_i32));
 
 /// The `override`s of a weapon class that are constants: one `static` per class, a subclass is

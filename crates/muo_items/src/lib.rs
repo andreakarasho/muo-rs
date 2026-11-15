@@ -49,19 +49,14 @@ pub mod wiring;
 mod template_keys_equipment;
 mod template_keys_misc;
 
-/// `World::new()` knowing this crate's template keys (a bare world's registry has none, and a template naming an
-/// unknown key fails the whole table).
+/// `World::new()` knowing this crate's template keys (a bare world's registry has none, so its table skips the
+/// steps of these keys).
 #[cfg(test)]
 pub(crate) fn test_world() -> muo_server::World {
     let mut w = muo_server::World::new();
-    register_template_keys(&mut w.types);
+    template_keys_equipment::register(&mut w.types);
+    template_keys_misc::register(&mut w.types);
     w
-}
-
-/// Only this crate's template keys, for a test world that loads `Data/Templates` without the whole registry.
-pub fn register_template_keys(types: &mut muo_server::type_registry::TypeRegistry) {
-    template_keys_equipment::register(types);
-    template_keys_misc::register(types);
 }
 
 /// Registers this crate's types and phases at startup.
@@ -117,5 +112,7 @@ mod flip_tests;
 #[cfg(test)]
 mod packet_tests;
 
+#[cfg(test)]
+mod equipment_template_tests;
 #[cfg(test)]
 mod template_tests;

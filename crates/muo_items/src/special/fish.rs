@@ -4,9 +4,7 @@
 //! Rewards/AquariumMessage, Rewards/CaptainBlackheartsFishingPole and AquariumFishingNet are `aquarium2.rs`; Aquarium,
 //! FishBowl and the gump are `aquarium.rs`.
 
-use muo_content::items::clothing::{
-    BASE_HAT, BASE_HAT_CLASS, BASE_SHOES, BASE_SHOES_CLASS,
-};
+use muo_content::items::clothing::{BASE_HAT, BASE_HAT_CLASS, BASE_SHOES, BASE_SHOES_CLASS};
 use muo_primitives::{TimeSpan, utility};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId};

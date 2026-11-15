@@ -395,9 +395,9 @@ pub fn int_requirement(w: &World, id: ItemId) -> i32 {
     )
 }
 
-static MATERIALS: Names<ArmorMaterialType> =
+pub static MATERIALS: Names<ArmorMaterialType> =
     Names::new(|| ep::all_of(64, ArmorMaterialType::from_i32));
-static MED_ALLOWANCES: Names<ArmorMeditationAllowance> =
+pub static MED_ALLOWANCES: Names<ArmorMeditationAllowance> =
     Names::new(|| ep::all_of(8, ArmorMeditationAllowance::from_i32));
 
 /// `MeditationAllowance`.

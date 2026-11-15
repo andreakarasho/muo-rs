@@ -144,7 +144,7 @@ pub fn graphic(w: &mut World, ty: &'static muo_server::item::ItemType) -> i32 {
     })
 }
 
-pub static SKILLS:Names<muo_server::skills::SkillName> = Names::new(skills);
+pub static SKILLS: Names<muo_server::skills::SkillName> = Names::new(skills);
 pub static RESOURCES: Names<crate::craft::CraftResource> = Names::new(resources);
 
 fn skills() -> Vec<muo_server::skills::SkillName> {
