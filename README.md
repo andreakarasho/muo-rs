@@ -85,6 +85,23 @@ account (`accountHandler.enableAutoAccountCreation`, on by default).
 Console commands while running: `help` (`?`), `save` (`s`), `shutdown` (`sh`), `restart` (`r`). Ctrl+C shuts down
 cleanly.
 
+## Customizing content without recompiling
+
+**Templates** (`Data/Templates/{Mobiles,Items}/**/*.json`): each file is an array of objects; `"type"` names the
+class and the other keys are its constructor statements, applied in file order (`"str": [96, 120]` is a random
+range, `"str": 100` a fixed value). Constant class values (corpse names, loot packs, weapon damage and speed, armor
+resistances, ...) sit under `"props"`. A template with `"parent": "<class>"` and a new `"type"` makes a new class
+that `[add` and spawners can use. Edits apply to entities made afterwards; saved entities keep their saved values.
+Run `[ReloadTemplates` in game, or restart. A malformed file stops startup with the file, class and key.
+
+**Scripts** (`Data/Scripts/**/*.rhai`, [rhai](https://rhai.rs)): give a class a script with `"script": "file.rhai"`
+in its template. Per-class hooks `on_use`, `on_death`, `on_think`, `on_damage`, `on_hear` and `on_spawn` return
+`true` to replace the default behavior. Global hooks: `on_login`, `on_speech`, `on_server_started`. A function
+`command_<name>(m, args)` adds the staff command `[<name>`. Run `[ReloadScripts` in game. See
+`Data/Scripts/examples/` and the `Examples.*` classes.
+
+Classes whose constructors do more than plain data (random choices, era branches, hand-written logic) are still Rust.
+
 ## Tests
 
 ```sh

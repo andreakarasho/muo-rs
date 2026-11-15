@@ -355,6 +355,15 @@ pub fn reload(w: &mut World) -> Result<(), String> {
 
 /// The Configure phase: a bad template file stops startup.
 fn configure(w: &mut World) {
+    // Converted creatures and items get their graphic and stats only from here: without it they come out blank.
+    let dir = templates_dir(w);
+    if !dir.is_dir() {
+        w.core.startup_error = Some(format!(
+            "Templates: {} is missing; copy the repository's Data/Templates folder",
+            dir.display()
+        ));
+        return;
+    }
     if let Err(e) = reload(w) {
         w.core.startup_error = Some(format!("Templates: {e}"));
     }
