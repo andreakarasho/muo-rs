@@ -5,5 +5,247 @@
     "props": {
       "labelNumber": 1074431
     }
+  },
+  {
+    "type": "Server.Items.AlbinoCourtesanFish",
+    "itemId": 15108,
+    "props": {
+      "labelNumber": 1074592
+    }
+  },
+  {
+    "type": "Server.Items.AlbinoFrog",
+    "itemId": 15117,
+    "hue": 1150,
+    "props": {
+      "labelNumber": 1073824
+    }
+  },
+  {
+    "type": "Server.Items.BritainCrownFish",
+    "itemId": 15103,
+    "props": {
+      "labelNumber": 1074589
+    }
+  },
+  {
+    "type": "Server.Items.FandancerFish",
+    "itemId": 15106,
+    "props": {
+      "labelNumber": 1074591
+    }
+  },
+  {
+    "type": "Server.Items.GoldenBroadtail",
+    "itemId": 15107,
+    "props": {
+      "labelNumber": 1073828
+    }
+  },
+  {
+    "type": "Server.Items.Jellyfish",
+    "itemId": 15118,
+    "props": {
+      "labelNumber": 1074593
+    }
+  },
+  {
+    "type": "Server.Items.KillerFrog",
+    "itemId": 15117,
+    "props": {
+      "labelNumber": 1073825
+    }
+  },
+  {
+    "type": "Server.Items.LongClawCrab",
+    "itemId": 15100,
+    "hue": 1319,
+    "props": {
+      "labelNumber": 1073827
+    }
+  },
+  {
+    "type": "Server.Items.MakotoCourtesanFish",
+    "itemId": 15101,
+    "props": {
+      "labelNumber": 1073835
+    }
+  },
+  {
+    "type": "Server.Items.MinocBlueFish",
+    "itemId": 15102,
+    "props": {
+      "labelNumber": 1073829
+    }
+  },
+  {
+    "type": "Server.Items.NujelmHoneyFish",
+    "itemId": 15110,
+    "props": {
+      "labelNumber": 1073830
+    }
+  },
+  {
+    "type": "Server.Items.PurpleFrog",
+    "itemId": 15117,
+    "hue": 1274,
+    "props": {
+      "labelNumber": 1073823
+    }
+  },
+  {
+    "type": "Server.Items.RedDartFish",
+    "itemId": 15104,
+    "props": {
+      "labelNumber": 1073834
+    }
+  },
+  {
+    "type": "Server.Items.Shrimp",
+    "itemId": 15124,
+    "props": {
+      "labelNumber": 1074596
+    }
+  },
+  {
+    "type": "Server.Items.SmallMouthSuckerFin",
+    "itemId": 15105,
+    "props": {
+      "labelNumber": 1074590
+    }
+  },
+  {
+    "type": "Server.Items.SpeckledCrab",
+    "itemId": 15100,
+    "props": {
+      "labelNumber": 1073826
+    }
+  },
+  {
+    "type": "Server.Items.SpinedScratcherFish",
+    "itemId": 15109,
+    "props": {
+      "labelNumber": 1073832
+    }
+  },
+  {
+    "type": "Server.Items.SpottedBuccaneer",
+    "itemId": 15113,
+    "props": {
+      "labelNumber": 1073833
+    }
+  },
+  {
+    "type": "Server.Items.VesperReefTiger",
+    "itemId": 15112,
+    "props": {
+      "labelNumber": 1073836
+    }
+  },
+  {
+    "type": "Server.Items.YellowFinBluebelly",
+    "itemId": 15111,
+    "props": {
+      "labelNumber": 1073831
+    }
+  },
+  {
+    "type": "Server.Items.BrineShrimp",
+    "itemId": 15121,
+    "props": {
+      "labelNumber": 1074415
+    }
+  },
+  {
+    "type": "Server.Items.FullMoonFish",
+    "itemId": 15125,
+    "props": {
+      "labelNumber": 1074597
+    }
+  },
+  {
+    "type": "Server.Items.SeaHorseFish",
+    "itemId": 15120,
+    "props": {
+      "labelNumber": 1074414
+    }
+  },
+  {
+    "type": "Server.Items.StrippedFlakeFish",
+    "itemId": 15114,
+    "props": {
+      "labelNumber": 1074595
+    }
+  },
+  {
+    "type": "Server.Items.StrippedSosarianSwill",
+    "itemId": 15114,
+    "props": {
+      "labelNumber": 1074594
+    }
+  },
+  {
+    "type": "Server.Items.AquariumFood",
+    "itemId": 3836,
+    "props": {
+      "labelNumber": 1074819,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.FishBones",
+    "itemId": 15116,
+    "props": {
+      "labelNumber": 1074601,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.IslandStatue",
+    "itemId": 15119,
+    "props": {
+      "labelNumber": 1074600,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Shell",
+    "oneOf": [
+      {
+        "itemId": 15122
+      },
+      {
+        "itemId": 15123
+      }
+    ],
+    "props": {
+      "labelNumber": 1074598,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.ToyBoat",
+    "itemId": 5364,
+    "props": {
+      "labelNumber": 1074363,
+      "defaultWeight": 1.0
+    }
+  },
+  {
+    "type": "Server.Items.Coral",
+    "oneOf": [
+      {
+        "itemId": 15097
+      },
+      {
+        "itemId": 15098
+      },
+      {
+        "itemId": 15099
+      }
+    ],
+    "props": {
+      "labelNumber": 1074588
+    }
   }
 ]

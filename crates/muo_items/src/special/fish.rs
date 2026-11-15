@@ -137,20 +137,16 @@ pub static BASE_FISH: ItemType = ItemType {
 };
 
 macro_rules! fish_leaves {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $label:expr, $gid:expr, $hue:expr;)*) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {$(
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_FISH),
             construct: Some(|w| {
-                let gid: i32 = ($gid)(w);
-                let id = base_fish_new(w, &$name, gid);
-                if $hue != 0 {
-                    super::hue(w, id, $hue);
-                }
-                id
+                let id = base_fish_new(w, &$name, 0);
+                crate::simple::own_template(w, id, $full)
             }),
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 (BASE_FISH.serialize)(w, id, out);
                 out.write_i32(0);
@@ -170,17 +166,14 @@ include!("fish_rows.inc");
 // ---- AquariumFood, VacationWafer and the rewards ----
 
 macro_rules! plain_item {
-    ($(#[$m:meta])* $name:ident = $full:literal, $gid:expr, $label:expr, weight $wt:expr, decoration $deco:literal;) => {
+    ($(#[$m:meta])* $name:ident = $full:literal, decoration $deco:literal;) => {
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| {
-                let gid: i32 = ($gid)(w);
-                ops::new_item_with_id(w, &$name, gid)
-            }),
-            label_number: |_, _| $label,
-            default_weight: |_, _| $wt,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            label_number: crate::class_props::label_number,
+            default_weight: crate::class_props::default_weight,
             add_name_properties: |w, id, list| {
                 (ITEM_BASE.add_name_properties)(w, id, list);
                 if $deco {
@@ -203,23 +196,23 @@ macro_rules! plain_item {
 
 plain_item!(
     /// `Server.Items.AquariumFood`.
-    AQUARIUM_FOOD = "Server.Items.AquariumFood", |_: &mut World| 0xEFC, 1074819, weight 1.0, decoration false;
+    AQUARIUM_FOOD = "Server.Items.AquariumFood", decoration false;
 );
 plain_item!(
     /// `Server.Items.FishBones`.
-    FISH_BONES = "Server.Items.FishBones", |_: &mut World| 0x3B0C, 1074601, weight 1.0, decoration true;
+    FISH_BONES = "Server.Items.FishBones", decoration true;
 );
 plain_item!(
     /// `Server.Items.IslandStatue`.
-    ISLAND_STATUE = "Server.Items.IslandStatue", |_: &mut World| 0x3B0F, 1074600, weight 1.0, decoration true;
+    ISLAND_STATUE = "Server.Items.IslandStatue", decoration true;
 );
 plain_item!(
     /// `Server.Items.Shell`.
-    SHELL = "Server.Items.Shell", |w: &mut World| utility::random_from(&mut w.rng, 0x3B12, 2), 1074598, weight 1.0, decoration true;
+    SHELL = "Server.Items.Shell", decoration true;
 );
 plain_item!(
     /// `Server.Items.ToyBoat` (`[Flippable(0x14F3, 0x14F4)]`).
-    TOY_BOAT = "Server.Items.ToyBoat", |_: &mut World| 0x14F4, 1074363, weight 1.0, decoration true;
+    TOY_BOAT = "Server.Items.ToyBoat", decoration true;
 );
 
 /// `Server.Items.VacationWafer`.
