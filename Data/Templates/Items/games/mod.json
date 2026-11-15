@@ -11,5 +11,121 @@
     "props": {
       "defaultWeight": 1.0
     }
+  },
+  {
+    "type": "Server.Items.PieceWhiteKing",
+    "itemId": 13703,
+    "props": {
+      "defaultName": "white king"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackKing",
+    "itemId": 13710,
+    "props": {
+      "defaultName": "black king"
+    }
+  },
+  {
+    "type": "Server.Items.PieceWhiteQueen",
+    "itemId": 13706,
+    "props": {
+      "defaultName": "white queen"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackQueen",
+    "itemId": 13713,
+    "props": {
+      "defaultName": "black queen"
+    }
+  },
+  {
+    "type": "Server.Items.PieceWhiteRook",
+    "itemId": 13702,
+    "props": {
+      "defaultName": "white rook"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackRook",
+    "itemId": 13709,
+    "props": {
+      "defaultName": "black rook"
+    }
+  },
+  {
+    "type": "Server.Items.PieceWhiteBishop",
+    "itemId": 13701,
+    "props": {
+      "defaultName": "white bishop"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackBishop",
+    "itemId": 13708,
+    "props": {
+      "defaultName": "black bishop"
+    }
+  },
+  {
+    "type": "Server.Items.PieceWhiteKnight",
+    "itemId": 13704,
+    "props": {
+      "defaultName": "white knight"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackKnight",
+    "itemId": 13711,
+    "props": {
+      "defaultName": "black knight"
+    }
+  },
+  {
+    "type": "Server.Items.PieceWhitePawn",
+    "itemId": 13705,
+    "props": {
+      "defaultName": "white pawn"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackPawn",
+    "itemId": 13712,
+    "props": {
+      "defaultName": "black pawn"
+    }
+  },
+  {
+    "type": "Server.Items.PieceWhiteChecker",
+    "itemId": 13700,
+    "props": {
+      "defaultName": "white checker"
+    }
+  },
+  {
+    "type": "Server.Items.PieceBlackChecker",
+    "itemId": 13707,
+    "props": {
+      "defaultName": "black checker"
+    }
+  },
+  {
+    "type": "Server.Items.Backgammon",
+    "itemId": 3612
+  },
+  {
+    "type": "Server.Items.CheckerBoard",
+    "itemId": 4006,
+    "props": {
+      "labelNumber": 1016449
+    }
+  },
+  {
+    "type": "Server.Items.Chessboard",
+    "itemId": 4006,
+    "props": {
+      "labelNumber": 1016450
+    }
   }
 ]
