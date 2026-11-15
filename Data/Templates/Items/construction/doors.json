@@ -1,0 +1,194 @@
+[
+  {
+    "type": "Server.Items.IronGateShort",
+    "props": {
+      "doorBaseId": 2124,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.IronGate",
+    "props": {
+      "doorBaseId": 2084,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.LightWoodGate",
+    "props": {
+      "doorBaseId": 2105,
+      "openedSound": 235,
+      "closedSound": 242
+    }
+  },
+  {
+    "type": "Server.Items.DarkWoodGate",
+    "props": {
+      "doorBaseId": 2150,
+      "openedSound": 235,
+      "closedSound": 242
+    }
+  },
+  {
+    "type": "Server.Items.MetalDoor",
+    "props": {
+      "doorBaseId": 1653,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.BarredMetalDoor",
+    "props": {
+      "doorBaseId": 1669,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.BarredMetalDoor2",
+    "props": {
+      "doorBaseId": 8173,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.RattanDoor",
+    "props": {
+      "doorBaseId": 1685,
+      "openedSound": 235,
+      "closedSound": 242
+    }
+  },
+  {
+    "type": "Server.Items.DarkWoodDoor",
+    "props": {
+      "doorBaseId": 1701,
+      "openedSound": 234,
+      "closedSound": 241
+    }
+  },
+  {
+    "type": "Server.Items.MediumWoodDoor",
+    "props": {
+      "doorBaseId": 1717,
+      "openedSound": 234,
+      "closedSound": 241
+    }
+  },
+  {
+    "type": "Server.Items.MetalDoor2",
+    "props": {
+      "doorBaseId": 1733,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.LightWoodDoor",
+    "props": {
+      "doorBaseId": 1749,
+      "openedSound": 234,
+      "closedSound": 241
+    }
+  },
+  {
+    "type": "Server.Items.StrongWoodDoor",
+    "props": {
+      "doorBaseId": 1765,
+      "openedSound": 234,
+      "closedSound": 241
+    }
+  },
+  {
+    "type": "Server.Items.SecretStoneDoor1",
+    "props": {
+      "doorBaseId": 232,
+      "openedSound": 237,
+      "closedSound": 244
+    }
+  },
+  {
+    "type": "Server.Items.SecretDungeonDoor",
+    "props": {
+      "doorBaseId": 788,
+      "openedSound": 237,
+      "closedSound": 244
+    }
+  },
+  {
+    "type": "Server.Items.SecretStoneDoor2",
+    "props": {
+      "doorBaseId": 804,
+      "openedSound": 237,
+      "closedSound": 244
+    }
+  },
+  {
+    "type": "Server.Items.SecretWoodenDoor",
+    "props": {
+      "doorBaseId": 820,
+      "openedSound": 237,
+      "closedSound": 244
+    }
+  },
+  {
+    "type": "Server.Items.SecretLightWoodDoor",
+    "props": {
+      "doorBaseId": 836,
+      "openedSound": 237,
+      "closedSound": 244
+    }
+  },
+  {
+    "type": "Server.Items.SecretStoneDoor3",
+    "props": {
+      "doorBaseId": 852,
+      "openedSound": 237,
+      "closedSound": 244
+    }
+  },
+  {
+    "type": "Server.Items.MetalHouseDoor",
+    "props": {
+      "doorBaseId": 1653,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.DarkWoodHouseDoor",
+    "props": {
+      "doorBaseId": 1701,
+      "openedSound": 234,
+      "closedSound": 241
+    }
+  },
+  {
+    "type": "Server.Items.GenericHouseDoor",
+    "props": {
+      "doorBaseId": 1653,
+      "openedSound": 236,
+      "closedSound": 243
+    }
+  },
+  {
+    "type": "Server.Items.PortcullisNS",
+    "props": {
+      "doorBaseId": 1781,
+      "openedSound": 240,
+      "closedSound": 239
+    }
+  },
+  {
+    "type": "Server.Items.PortcullisEW",
+    "props": {
+      "doorBaseId": 1782,
+      "openedSound": 240,
+      "closedSound": 239
+    }
+  }
+]
