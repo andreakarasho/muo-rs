@@ -8,6 +8,9 @@
   {
     "type": "Server.Items.TowerLanternArtifact",
     "itemId": 9408,
-    "light": "Circle225"
+    "light": "Circle225",
+    "props": {
+      "artifactRarity": 3
+    }
   }
 ]

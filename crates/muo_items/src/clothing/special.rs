@@ -696,7 +696,7 @@ pub static ORCISH_KIN_MASK: ItemType = ItemType {
     parent: Some(&BASE_HAT),
     construct: Some(|w| orcish_kin_mask_new(w, &ORCISH_KIN_MASK, 0x8A4)),
     family: Some(&ORCISH_KIN_MASK_CLASS),
-    default_name: |_, _| Some("a mask of orcish kin".to_string()),
+    default_name: crate::class_props::default_name,
     can_equip: |w, id, m| {
         if !(BASE_HAT.can_equip)(w, id, m) {
             return false;

@@ -153,7 +153,9 @@
     "lootType": "Blessed",
     "props": {
       "labelNumber": 1075239,
-      "graphic": 4232
+      "graphic": 4232,
+      "hue": 1150,
+      "layer": "Neck"
     }
   },
   {
@@ -198,6 +200,13 @@
     "props": {
       "defaultWeight": 1.0,
       "labelNumber": 1049786
+    }
+  },
+  {
+    "type": "Server.Items.EarringsOfProtection",
+    "props": {
+      "layer": "Earrings",
+      "graphic": 4231
     }
   }
 ]

@@ -2397,7 +2397,7 @@ fn add_default_skill_mod(
 /// "WeaponAccuracy", true, (int)_accuracyLevel * 5)`).
 pub fn add_accuracy_mod(w: &mut World, id: ItemId, to: MobileId) {
     let level = data(w, id).map_or(0, |d| d.accuracy_level as i32);
-    let skill = weapon::class(w, id).accuracy_skill;
+    let skill = weapon::accuracy_skill(w, id);
     let m = add_default_skill_mod(w, to, skill, "WeaponAccuracy", f64::from(level * 5));
     if let Some(d) = data_mut(w, id) {
         d.skill_mod = m;

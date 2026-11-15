@@ -1545,7 +1545,12 @@
       "materialType": "Leather",
       "defaultResource": "RegularLeather",
       "defMedAllowance": "All",
-      "graphic": 17790
+      "graphic": 17790,
+      "physicalResistance": 0,
+      "fireResistance": 0,
+      "coldResistance": 0,
+      "poisonResistance": 0,
+      "energyResistance": 0
     }
   },
   {

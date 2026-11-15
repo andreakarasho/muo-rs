@@ -18,7 +18,7 @@ const FILES: &[(&str, Kind, usize)] = &[
     ("Items/multis/misc.json", Kind::Item, 4),
     ("Items/multis/houses.json", Kind::Item, 13),
     ("Items/content/misc.json", Kind::Item, 89),
-    ("Items/samples/leaves.json", Kind::Item, 6),
+    ("Items/samples/leaves.json", Kind::Item, 10),
 ];
 
 /// Templates only inherited by the converted classes.

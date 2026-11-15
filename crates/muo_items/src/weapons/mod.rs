@@ -5,17 +5,14 @@
 //! `Longsword`, `Katana` and `Bow` are the three samples in `muo_content::items::leaves` (registered there);
 //! `samples.rs` has their constructors for the classes derived from them.
 
-use muo_content::craft::CraftResource;
 pub use muo_content::items::leaves::{
     BOW, BOW_CLASS, KATANA, KATANA_CLASS, LONGSWORD, LONGSWORD_CLASS,
 };
-use muo_content::items::same;
 use muo_content::items::weapon::{
-    Ability, BASE_AXE, BASE_AXE_CLASS, BASE_BASHING, BASE_BASHING_CLASS, BASE_KNIFE,
-    BASE_KNIFE_CLASS, BASE_POLE_ARM, BASE_POLE_ARM_CLASS, BASE_RANGED, BASE_RANGED_CLASS,
-    BASE_SPEAR, BASE_SPEAR_CLASS, BASE_STAFF, BASE_STAFF_CLASS, BASE_SWORD, BASE_SWORD_CLASS,
-    BASE_THROWN, BASE_THROWN_CLASS, WeaponAnimation, WeaponClass, WeaponType, new_weapon,
-    set_resource,
+    BASE_AXE, BASE_AXE_CLASS, BASE_BASHING, BASE_BASHING_CLASS, BASE_KNIFE, BASE_KNIFE_CLASS,
+    BASE_POLE_ARM, BASE_POLE_ARM_CLASS, BASE_RANGED, BASE_RANGED_CLASS, BASE_SPEAR,
+    BASE_SPEAR_CLASS, BASE_STAFF, BASE_STAFF_CLASS, BASE_SWORD, BASE_SWORD_CLASS, BASE_THROWN,
+    BASE_THROWN_CLASS, WeaponClass, new_weapon,
 };
 use muo_primitives::utility::random;
 use muo_server::World;

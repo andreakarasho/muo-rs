@@ -10,7 +10,7 @@ use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::packets::message::MessageType;
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-use crate::decoration_artifacts::{BASE_DECORATION_ARTIFACT, DecoClass};
+use crate::decoration_artifacts::BASE_DECORATION_ARTIFACT;
 use crate::simple::{item_id, random, random_bool};
 
 fn write_v0(w: &World, id: ItemId, out: &mut dyn muo_io::GenericWriter) {
@@ -110,8 +110,6 @@ fn tower_is_on(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.item_id == 0x24BF)
 }
 
-static TOWER_LANTERN_CLASS: DecoClass = DecoClass { artifact_rarity: 3 };
-
 /// `Server.Items.TowerLanternArtifact`; `[SerializationGenerator(0)]`.
 pub static TOWER_LANTERN_ARTIFACT: ItemType = ItemType {
     full_name: "Server.Items.TowerLanternArtifact",
@@ -123,7 +121,6 @@ pub static TOWER_LANTERN_ARTIFACT: ItemType = ItemType {
             "Server.Items.TowerLanternArtifact",
         )
     }),
-    family: Some(&TOWER_LANTERN_CLASS),
     on_double_click: |w, id, from| {
         if !deps::mobile_in_range(w, from, ops::get_world_location(w, id), 2) {
             deps::local_overhead_message(w, from, MessageType::REGULAR, 0x3B2, 1019045); // I can't reach that.
@@ -233,12 +230,7 @@ mod tests {
         let id = (TOWER_LANTERN_ARTIFACT.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().item_id, 0x24C0);
         assert!(!tower_is_on(&w, id));
-        assert_eq!(
-            TOWER_LANTERN_ARTIFACT
-                .family::<DecoClass>()
-                .unwrap()
-                .artifact_rarity,
-            3
-        );
+        let rarity = muo_content::templates::item_props::int(&w, id, "artifactRarity", 0);
+        assert_eq!(rarity, 3);
     }
 }

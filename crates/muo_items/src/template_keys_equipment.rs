@@ -73,6 +73,10 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     item_key(types, "usesRemaining", check_int, |w, id, v| {
         ctor::set_uses_remaining(w, id, int(v))
     });
+    // `Charges = n` of a weapon (a wand's or FireworksWand's `WeaponData::charges`).
+    item_key(types, "weaponCharges", check_int, |w, id, v| {
+        crate::weapons::special::set_charges(w, id, int(v))
+    });
     item_key(types, "weaponShowUsesRemaining", check_bool, |w, id, v| {
         ctor::set_show_uses_remaining(w, id, v.as_bool().unwrap_or(false))
     });
@@ -84,6 +88,16 @@ pub(crate) fn register(types: &mut TypeRegistry) {
     // Clothing.
     item_key(types, "strRequirement", check_int, |w, id, v| {
         clothing::set_str_requirement(w, id, int(v))
+    });
+    // Quivers.
+    item_key(types, "quiverWeightReduction", check_int, |w, id, v| {
+        crate::quivers::set_weight_reduction(w, id, int(v))
+    });
+    item_key(types, "quiverLowerAmmoCost", check_int, |w, id, v| {
+        crate::quivers::set_lower_ammo_cost(w, id, int(v))
+    });
+    item_key(types, "quiverDamageIncrease", check_int, |w, id, v| {
+        crate::quivers::set_damage_increase(w, id, int(v))
     });
     // Armor: `HitPoints = MaxHitPoints = value`.
     item_key(types, "hitPoints", check_int, |w, id, v| {

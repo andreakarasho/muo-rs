@@ -112,6 +112,16 @@ fn stats_follow_the_era() {
 #[test]
 fn bow_constructor_sets_layer_and_wood() {
     let mut w = World::new();
+    // Bow's template sets `"resource"`, a key muo_items registers; this crate's test world stands in for it.
+    crate::templates::keys::item_key(
+        &mut w.types,
+        "resource",
+        |_| Ok(()),
+        |w, id, v| {
+            let r = v.as_str().and_then(|s| super::equip_props::RESOURCES.get(s));
+            weapon::set_resource(w, id, r.unwrap_or_default());
+        },
+    );
     let bow = make(&mut w, &BOW);
     assert_eq!(
         w.item(bow).unwrap().layer,
@@ -126,7 +136,7 @@ fn bow_constructor_sets_layer_and_wood() {
         weapon::WeaponAnimation::ShootBow
     );
     assert_eq!(weapon::weapon_type(&w, bow), weapon::WeaponType::Ranged);
-    assert_eq!(weapon::class(&w, bow).ammo_type, Some("Server.Items.Arrow"));
+    assert_eq!(weapon::ammo_type(&w, bow), Some("Server.Items.Arrow"));
 }
 
 #[test]

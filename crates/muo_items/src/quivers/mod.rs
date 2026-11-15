@@ -1,7 +1,8 @@
 //! Quivers: `BaseQuiver` (a `Container` on `Layer.Cloak` that holds one kind of ammo and
 //! lowers its weight) and the four elven quivers. State is `muo_content::items::ext_bags::QuiverData` in
-//! `Item::ext` (so `items::attr` reaches the `AosAttributes`); the one virtual that is not an `Item` virtual,
-//! `AlterBowDamage`, is [`QuiverClass`]. [`configure`] sets the hooks the weapon code calls (`quiver_of`, ..).
+//! `Item::ext` (so `items::attr` reaches the `AosAttributes`). The class constants (graphic, label, the
+//! `AlterBowDamage` split) are template props and the constructors' statements template keys
+//! (`Data/Templates/Items/quivers`). [`configure`] sets the hooks the weapon code calls (`quiver_of`, ..).
 
 use muo_content::aos::{AosAttribute, AttrKind, Attrs};
 use muo_content::items::clothing::ClothingQuality;
@@ -22,30 +23,12 @@ use muo_server::mods::StatMod;
 use muo_server::property_list::PropertyList;
 use muo_server::type_registry::{Phase, TypeRegistry};
 
-/// The virtual of the quiver classes that is not an `Item` virtual.
-#[derive(Copy, Clone)]
-pub struct QuiverClass {
-    /// `AlterBowDamage(ref phys, ref fire, ref cold, ref pois, ref nrgy, ref chaos, ref direct)`, in that order.
-    pub alter_bow_damage: fn(&mut [i32; 7]),
-}
-
-/// `BaseQuiver`' defaults (the method is empty).
-pub static BASE_QUIVER_CLASS: QuiverClass = QuiverClass {
-    alter_bow_damage: |_| {},
-};
-
 pub fn data(w: &World, id: ItemId) -> Option<&QuiverData> {
     w.item(id)?.ext.get::<QuiverData>()
 }
 
 pub fn data_mut(w: &mut World, id: ItemId) -> Option<&mut QuiverData> {
     w.item_mut(id)?.ext.get_mut::<QuiverData>()
-}
-
-fn class(w: &World, id: ItemId) -> &'static QuiverClass {
-    w.item(id)
-        .and_then(|i| i.ty.family::<QuiverClass>())
-        .unwrap_or(&BASE_QUIVER_CLASS)
 }
 
 /// `item is BaseQuiver`.
@@ -306,7 +289,7 @@ fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
         list.add_int(1074762, d.damage_increase); // Damage modifier: ~1_PERCENT~%
     }
     let mut split = [0; 7];
-    (class(w, id).alter_bow_damage)(&mut split);
+    alter_bow_damage(w, id, &mut split);
     let [phys, fire, cold, pois, nrgy, chaos, direct] = split;
     for (v, number) in [
         (phys, 1060403),   // physical damage ~1_val~%
@@ -501,11 +484,10 @@ pub static BASE_QUIVER: ItemType = ItemType {
     full_name: "Server.Items.BaseQuiver",
     parent: Some(&CONTAINER),
     construct: None,
-    family: Some(&BASE_QUIVER_CLASS),
-    default_gump_id: |_, _| 0x108,
-    default_max_items: |_, _| 1,
-    default_max_weight: |_, _| 50,
-    default_weight: |_, _| 2.0,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_max_items: crate::class_props::default_max_items,
+    default_max_weight: crate::class_props::default_max_weight,
+    default_weight: crate::class_props::default_weight,
     on_after_duped: |w, id, new_item| {
         // `quiver.Attributes = new AosAttributes(newItem, Attributes)`
         let bag = data(w, id).map(|d| d.attributes.clone());
@@ -551,11 +533,18 @@ pub static BASE_QUIVER: ItemType = ItemType {
     ..CONTAINER
 };
 
-/// `ElvenQuiver()`: `WeightReduction = 30`, graphic 0x2FB7.
-pub fn elven_quiver_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_quiver(w, ty, 0x2FB7);
-    set_weight_reduction(w, id, 30);
+/// `new T()` of a quiver class: `BaseQuiver(graphic)` with the `graphic` prop of `ty`, then the template of `name`
+/// (its own class, or the parent whose constructor a derived class runs).
+pub fn quiver_from_template(w: &mut World, ty: &'static ItemType, name: &str) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    let id = new_quiver(w, ty, g);
+    muo_content::templates::apply_item_as(w, id, name);
     id
+}
+
+/// `ElvenQuiver()`: its template (`WeightReduction = 30`).
+pub fn elven_quiver_new(w: &mut World, ty: &'static ItemType) -> ItemId {
+    quiver_from_template(w, ty, "Server.Items.ElvenQuiver")
 }
 
 /// `Server.Items.ElvenQuiver` (`[Flippable(0x2FB7, 0x3171)]`, `LabelNumber => 1032657`).
@@ -563,7 +552,7 @@ pub static ELVEN_QUIVER: ItemType = ItemType {
     full_name: "Server.Items.ElvenQuiver",
     parent: Some(&BASE_QUIVER),
     construct: Some(|w| elven_quiver_new(w, &ELVEN_QUIVER)),
-    label_number: |_, _| 1032657, // elven quiver
+    label_number: crate::class_props::label_number, // elven quiver
     serialize: |w, id, out| {
         (BASE_QUIVER.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -579,27 +568,14 @@ pub static ELVEN_QUIVER: ItemType = ItemType {
 /// `[Flippable(a, b)]` of the elven quivers.
 pub const ELVEN_QUIVER_FLIPPABLE: (i32, i32) = (0x2FB7, 0x3171);
 
-fn set_hue(w: &mut World, id: ItemId, value: i32) {
-    if let Some(ty) = w.item(id).map(|i| i.ty) {
-        (ty.set_hue)(w, id, value);
-    }
-}
-
-/// The four quivers that tint an elven quiver: `Hue = hue` and the damage split their `AlterBowDamage` sets
-/// (`phys` and the one element take 50, everything else 0).
+/// The four quivers that tint an elven quiver: `ElvenQuiver()`, then their template (`Hue = hue`); the label and
+/// the damage split their `AlterBowDamage` sets are props.
 macro_rules! elemental_quiver {
-    ($($(#[$m:meta])* $name:ident, $class:ident, $new:ident = $full:literal, hue $hue:expr, label $label:expr, split ($phys:expr, $fire:expr, $cold:expr, $pois:expr, $nrgy:expr);)*) => {$(
-        /// The `AlterBowDamage` of the class.
-        pub static $class: QuiverClass = QuiverClass {
-            alter_bow_damage: |s| {
-                *s = [$phys, $fire, $cold, $pois, $nrgy, 0, 0];
-            },
-        };
-
-        /// `new T()`: `ElvenQuiver()` then `Hue = hue`.
+    ($($(#[$m:meta])* $name:ident, $new:ident = $full:literal;)*) => {$(
+        /// `new T()`: `ElvenQuiver()` then the class's template.
         pub fn $new(w: &mut World, ty: &'static ItemType) -> ItemId {
             let id = elven_quiver_new(w, ty);
-            set_hue(w, id, $hue);
+            muo_content::templates::apply_item_as(w, id, $full);
             id
         }
 
@@ -608,8 +584,7 @@ macro_rules! elemental_quiver {
             full_name: $full,
             parent: Some(&ELVEN_QUIVER),
             construct: Some(|w| $new(w, &$name)),
-            family: Some(&$class),
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 (ELVEN_QUIVER.serialize)(w, id, out);
                 out.write_encoded_int(0);
@@ -626,16 +601,29 @@ macro_rules! elemental_quiver {
 
 elemental_quiver! {
     /// `Server.Items.QuiverOfFire`.
-    QUIVER_OF_FIRE, QUIVER_OF_FIRE_CLASS, quiver_of_fire_new = "Server.Items.QuiverOfFire", hue 0x4E7, label 1073109, split (50, 50, 0, 0, 0);
+    QUIVER_OF_FIRE, quiver_of_fire_new = "Server.Items.QuiverOfFire";
     /// `Server.Items.QuiverOfIce`.
-    QUIVER_OF_ICE, QUIVER_OF_ICE_CLASS, quiver_of_ice_new = "Server.Items.QuiverOfIce", hue 0x4ED, label 1073110, split (50, 0, 50, 0, 0);
+    QUIVER_OF_ICE, quiver_of_ice_new = "Server.Items.QuiverOfIce";
     /// `Server.Items.QuiverOfBlight`.
-    QUIVER_OF_BLIGHT, QUIVER_OF_BLIGHT_CLASS, quiver_of_blight_new = "Server.Items.QuiverOfBlight", hue 0x4F3, label 1073111, split (0, 0, 50, 50, 0);
+    QUIVER_OF_BLIGHT, quiver_of_blight_new = "Server.Items.QuiverOfBlight";
     /// `Server.Items.QuiverOfLightning`.
-    QUIVER_OF_LIGHTNING, QUIVER_OF_LIGHTNING_CLASS, quiver_of_lightning_new = "Server.Items.QuiverOfLightning", hue 0x4F9, label 1073112, split (50, 0, 0, 0, 50);
+    QUIVER_OF_LIGHTNING, quiver_of_lightning_new = "Server.Items.QuiverOfLightning";
 }
 
 // ---- hooks the weapon code calls ----
+
+/// `AlterBowDamage(ref phys, ref fire, ref cold, ref pois, ref nrgy, ref chaos, ref direct)`: the class's
+/// `bowDamageSplit` prop (those seven, in that order) replaces the split; without one (`BaseQuiver`) it is kept.
+pub fn alter_bow_damage(w: &World, q: ItemId, s: &mut [i32; 7]) {
+    if let Some(serde_json::Value::Array(a)) =
+        muo_content::templates::props::item(w, q, "bowDamageSplit")
+        && a.len() == 7
+    {
+        for (d, v) in s.iter_mut().zip(a) {
+            *d = v.as_i64().and_then(|n| i32::try_from(n).ok()).unwrap_or(0);
+        }
+    }
+}
 
 fn quiver_of(w: &World, m: MobileId) -> Option<ItemId> {
     muo_server::mobile::part2::items::find_item_on_layer(w, m, Layer::Cloak)
@@ -659,7 +647,7 @@ fn configure(w: &mut World) {
     h.quiver_alter_bow_damage = Some(|w, attacker, split| {
         let mut s = split;
         if let Some(q) = quiver_of(w, attacker) {
-            (class(w, q).alter_bow_damage)(&mut s);
+            alter_bow_damage(w, q, &mut s);
         }
         s
     });

@@ -278,6 +278,7 @@
   },
   {
     "type": "Server.Items.RobeOfTheEquinox",
+    "hue": 214,
     "attributes": {
       "Luck": 95
     },
@@ -289,6 +290,7 @@
   },
   {
     "type": "Server.Items.RobeOfTheEclipse",
+    "hue": 1158,
     "attributes": {
       "Luck": 95
     },
@@ -300,6 +302,7 @@
   },
   {
     "type": "Server.Items.PadsOfTheCuSidhe",
+    "hue": 1150,
     "props": {
       "labelNumber": 1075048
     }

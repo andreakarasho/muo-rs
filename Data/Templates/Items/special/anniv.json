@@ -29,15 +29,49 @@
   },
   {
     "type": "Server.Items.QuiverOfInfinity",
+    "lootType": "Blessed",
+    "quiverWeightReduction": 30,
+    "quiverLowerAmmoCost": 20,
+    "attributes": {
+      "DefendChance": 5
+    },
     "props": {
       "defaultWeight": 8.0,
-      "labelNumber": 1075201
+      "labelNumber": 1075201,
+      "graphic": 11010
     }
   },
   {
     "type": "Server.Items.BaseFormTalisman",
+    "lootType": "Blessed",
+    "layer": "Talisman",
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 12121
+    }
+  },
+  {
+    "type": "Server.Items.FerretFormTalisman",
+    "props": {
+      "talismanForm": 1031672
+    }
+  },
+  {
+    "type": "Server.Items.SquirrelFormTalisman",
+    "props": {
+      "talismanForm": 1031671
+    }
+  },
+  {
+    "type": "Server.Items.CuSidheFormTalisman",
+    "props": {
+      "talismanForm": 1031670
+    }
+  },
+  {
+    "type": "Server.Items.ReptalonFormTalisman",
+    "props": {
+      "talismanForm": 1075202
     }
   }
 ]

@@ -1,0 +1,120 @@
+[
+  {
+    "type": "Server.Items.BaseQuiver",
+    "props": {
+      "gumpId": 264,
+      "maxItems": 1,
+      "maxWeight": 50,
+      "defaultWeight": 2.0
+    }
+  },
+  {
+    "type": "Server.Items.ElvenQuiver",
+    "quiverWeightReduction": 30,
+    "props": {
+      "labelNumber": 1032657,
+      "graphic": 12215
+    }
+  },
+  {
+    "type": "Server.Items.QuiverOfFire",
+    "hue": 1255,
+    "props": {
+      "labelNumber": 1073109,
+      "bowDamageSplit": [
+        50,
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.QuiverOfIce",
+    "hue": 1261,
+    "props": {
+      "labelNumber": 1073110,
+      "bowDamageSplit": [
+        50,
+        0,
+        50,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.QuiverOfBlight",
+    "hue": 1267,
+    "props": {
+      "labelNumber": 1073111,
+      "bowDamageSplit": [
+        0,
+        0,
+        50,
+        50,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.QuiverOfLightning",
+    "hue": 1273,
+    "props": {
+      "labelNumber": 1073112,
+      "bowDamageSplit": [
+        50,
+        0,
+        0,
+        0,
+        50,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "type": "Server.Items.QuiverOfElements",
+    "hue": 235,
+    "quiverWeightReduction": 50,
+    "props": {
+      "labelNumber": 1075040,
+      "bowDamageSplit": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0
+      ],
+      "graphic": 12215
+    }
+  },
+  {
+    "type": "Server.Items.QuiverOfRage",
+    "hue": 588,
+    "quiverWeightReduction": 25,
+    "quiverDamageIncrease": 10,
+    "props": {
+      "labelNumber": 1075038,
+      "bowDamageSplit": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        0,
+        0
+      ],
+      "graphic": 12215
+    }
+  }
+]

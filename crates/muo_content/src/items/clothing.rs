@@ -220,7 +220,7 @@ pub fn allow_wearer(w: &World, id: ItemId) -> (bool, bool) {
     let c = class(w, id);
     (
         ep::boolean(w, id, "allowMaleWearer", c.allow_male_wearer),
-        c.allow_female_wearer,
+        ep::boolean(w, id, "allowFemaleWearer", c.allow_female_wearer),
     )
 }
 
@@ -239,9 +239,10 @@ pub fn is_clothing(w: &World, id: ItemId) -> bool {
 pub fn new_clothing(w: &mut World, ty: &'static ItemType, item_id: i32, hue: i32) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
     let c = ty.family::<ClothingClass>().unwrap_or(&BASE_CLOTHING_CLASS);
-    (ty.set_layer)(w, id, c.layer);
-    (ty.set_hue)(w, id, hue);
     crate::templates::table(w); // the class props below read the loaded table
+    let layer = ep::layer(w, id, c.layer);
+    (ty.set_layer)(w, id, layer);
+    (ty.set_hue)(w, id, hue);
     let (min, max) = init_hits(w, id);
     let hits = random_min_max(w, min, max);
     let mut d = ClothingData::for_load();

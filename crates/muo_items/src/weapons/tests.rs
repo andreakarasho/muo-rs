@@ -2,6 +2,7 @@
 //! `true` is `WriteEncodedInt(SerializationVersion)` (`[SerializationGenerator(0)]`), `false` is
 //! `Write(SerializationVersion)` (`[SerializationGenerator(0, false)]`). `FireworksWand` also writes `_charges`.
 
+use muo_content::craft::CraftResource;
 use muo_content::items::weapon::{self, BASE_WEAPON};
 use muo_content::items::weapon_combat as wc;
 use muo_data::expansion::Expansion;
@@ -327,7 +328,10 @@ fn stats_follow_the_era() {
     assert_eq!(weapon::speed(&w, axe), 37.0);
     era(&mut w, Expansion::ML);
     assert_eq!(weapon::speed(&w, axe), 3.0);
-    assert_eq!(weapon::abilities(&w, axe).0, Some(Ability::CrushingBlow));
+    assert_eq!(
+        weapon::abilities(&w, axe).0,
+        Some(weapon::Ability::CrushingBlow)
+    );
 
     let xbow = new(&mut w, &CROSSBOW);
     assert_eq!(weapon::max_range(&w, xbow), 8);

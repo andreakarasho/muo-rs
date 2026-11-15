@@ -259,9 +259,10 @@ pub static ANCIENT_SMITHY_HAMMER: ItemType = ItemType {
 
 // ---- GlovesOfMining ----
 
-/// `BaseGlovesOfMining(bonus, itemID)` of class `ty`.
-fn gloves_new(w: &mut World, ty: &'static ItemType, item_id: i32, bonus: i32) -> ItemId {
-    let id = new_armor(w, ty, item_id);
+/// `BaseGlovesOfMining(bonus, itemID)` of class `ty` (the item id is its `graphic` prop).
+fn gloves_new(w: &mut World, ty: &'static ItemType, bonus: i32) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    let id = new_armor(w, ty, g);
     let h = random_ore_hue(w); // TODO: Color weighted by rarity?
     super::hue(w, id, h);
     set_bonus_data(
@@ -325,34 +326,34 @@ pub fn set_gloves_bonus(w: &mut World, id: ItemId, value: i32) {
 
 /// `LeatherGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
 pub fn leather_gloves_of_mining_new_bonus(w: &mut World, bonus: i32) -> ItemId {
-    gloves_new(w, &LEATHER_GLOVES_OF_MINING, 0x13C6, bonus)
+    gloves_new(w, &LEATHER_GLOVES_OF_MINING, bonus)
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherGlovesOfMining` (`[Flippable(0x13c6, 0x13ce)]`).
-    LEATHER_GLOVES_OF_MINING, LEATHER_GLOVES_OF_MINING_CLASS, leather_gloves_of_mining_new = "Server.Items.LeatherGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13C6, 0), encoded false;
+    LEATHER_GLOVES_OF_MINING, LEATHER_GLOVES_OF_MINING_CLASS, leather_gloves_of_mining_new = "Server.Items.LeatherGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0), encoded false;
     @no_construct none;
 }
 
 /// `StuddedGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
 pub fn studded_gloves_of_mining_new_bonus(w: &mut World, bonus: i32) -> ItemId {
-    gloves_new(w, &STUDDED_GLOVES_OF_MINING, 0x13D5, bonus)
+    gloves_new(w, &STUDDED_GLOVES_OF_MINING, bonus)
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedGlovesOfMining` (`[Flippable(0x13d5, 0x13dd)]`).
-    STUDDED_GLOVES_OF_MINING, STUDDED_GLOVES_OF_MINING_CLASS, studded_gloves_of_mining_new = "Server.Items.StuddedGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13D5, 0), encoded false;
+    STUDDED_GLOVES_OF_MINING, STUDDED_GLOVES_OF_MINING_CLASS, studded_gloves_of_mining_new = "Server.Items.StuddedGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0), encoded false;
     @no_construct none;
 }
 
 /// `RingmailGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
 pub fn ringmail_gloves_of_mining_new_bonus(w: &mut World, bonus: i32) -> ItemId {
-    gloves_new(w, &RINGMAIL_GLOVES_OF_MINING, 0x13EB, bonus)
+    gloves_new(w, &RINGMAIL_GLOVES_OF_MINING, bonus)
 }
 
 armor_leaf! {
     /// `Server.Items.RingmailGlovesOfMining` (`[Flippable(0x13eb, 0x13f2)]`).
-    RINGMAIL_GLOVES_OF_MINING, RINGMAIL_GLOVES_OF_MINING_CLASS, ringmail_gloves_of_mining_new = "Server.Items.RingmailGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13EB, 0), encoded false;
+    RINGMAIL_GLOVES_OF_MINING, RINGMAIL_GLOVES_OF_MINING_CLASS, ringmail_gloves_of_mining_new = "Server.Items.RingmailGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0), encoded false;
     @no_construct none;
 }
 

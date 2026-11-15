@@ -75,29 +75,14 @@ pub struct ProspectHooks {
 
 use muo_server::ids::{EntityId, MobileId};
 
-/// `new ProspectorsTool()`: `base(0xFB4)` then 50 uses.
+/// `new ProspectorsTool()`: `base(graphic)`, then its template (50 uses, `ShowUsesRemaining` as
+/// `IUsesRemaining.ShowUsesRemaining` is always true).
 pub fn prospectors_tool_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_weapon(w, ty, 0xFB4);
-    ctor::set_uses_remaining(w, id, 50);
-    ctor::set_show_uses_remaining(w, id, true); // IUsesRemaining.ShowUsesRemaining is always true
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    let id = new_weapon(w, ty, g);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.ProspectorsTool");
     id
 }
-
-/// The `override`s of the class.
-pub static PROSPECTORS_TOOL_CLASS: WeaponClass = WeaponClass {
-    default_weight: Some(9.0),
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::ShadowStrike),
-    aos_str_req: 40,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 33,
-    old_str_req: 10,
-    old_min_damage: 6,
-    old_max_damage: 8,
-    old_speed: 33,
-    ..BASE_BASHING_CLASS
-};
 
 fn in_reach(w: &World, tool: ItemId, from: MobileId) -> bool {
     let pack = w.mobile(from).and_then(|m| m.backpack);
@@ -137,7 +122,6 @@ pub static PROSPECTORS_TOOL: ItemType = ItemType {
     full_name: "Server.Items.ProspectorsTool",
     parent: Some(&BASE_BASHING),
     construct: Some(|w| prospectors_tool_new(w, &PROSPECTORS_TOOL)),
-    family: Some(&PROSPECTORS_TOOL_CLASS),
     on_double_click: |w, id, from| {
         if in_reach(w, id, from) {
             target::begin_target(w, from, 2, true, TargetFlags::NONE, move |w, from, t| {

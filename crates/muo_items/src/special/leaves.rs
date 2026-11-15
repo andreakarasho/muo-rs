@@ -16,7 +16,7 @@ use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS};
 use muo_content::items::clothing::{
     BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS,
 };
-use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, JewelClass, new_jewel};
+use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, new_jewel};
 use muo_content::items::set_attr;
 
 use muo_primitives::MessageType;
@@ -24,7 +24,6 @@ use muo_primitives::utility;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ITEM_BASE, ItemType, LootType, deps, ops};
-use muo_server::layer::Layer;
 use muo_server::type_registry::TypeRegistry;
 
 weapon_art! {
@@ -90,13 +89,12 @@ armor_leaf! {
     @template;
 }
 
-// ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 ----
+// ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 (props) ----
 jewel_leaf! {
     /// `Server.Items.LuckyNecklace`.
     LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, crate::jewels::new_jewel_json, encoded false;
     @template;
-    @ty { hue: |_, _| 1150, };
-    layer: Layer::Neck,
+    @ty { hue: crate::class_props::hue, };
 }
 
 // ---- JesterHatofChuckles: BaseHat(0x171C, hue) ----
@@ -154,7 +152,8 @@ pub fn earrings_get_types(value: i32) -> AosElementAttribute {
 
 /// `EarringsOfProtection(element)`.
 pub fn earrings_of_protection_new(w: &mut World, element: AosElementAttribute) -> ItemId {
-    let id = new_jewel(w, &EARRINGS_OF_PROTECTION, 0x1087);
+    let g = muo_content::items::equip_props::graphic(w, &EARRINGS_OF_PROTECTION);
+    let id = new_jewel(w, &EARRINGS_OF_PROTECTION, g);
     set_attr(w, id, AttrKind::Element, element as u32, 2);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(EarringData { attribute: element });
@@ -169,18 +168,11 @@ pub fn earrings_of_protection_random(w: &mut World) -> ItemId {
     earrings_of_protection_new(w, earrings_get_types(n))
 }
 
-/// The class table (`Layer.Earrings` is the `BaseJewel(itemID, layer)` argument).
-pub static EARRINGS_OF_PROTECTION_CLASS: JewelClass = JewelClass {
-    layer: Layer::Earrings,
-    ..BASE_JEWEL_CLASS
-};
-
 /// `Server.Items.EarringsOfProtection`: version 0 (int), then `_attribute` as an enum (int).
 pub static EARRINGS_OF_PROTECTION: ItemType = ItemType {
     full_name: "Server.Items.EarringsOfProtection",
     parent: Some(&BASE_JEWEL),
     construct: Some(earrings_of_protection_random),
-    family: Some(&EARRINGS_OF_PROTECTION_CLASS),
     label_number: |w, id| earring_item_data(earring_attribute(w, id), true),
     hue: |w, id| earring_item_data(earring_attribute(w, id), false),
     serialize: |w, id, out| {

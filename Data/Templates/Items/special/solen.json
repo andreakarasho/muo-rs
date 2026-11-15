@@ -17,8 +17,10 @@
   },
   {
     "type": "Server.Items.BraceletOfBinding",
+    "hue": 1161,
     "props": {
-      "defaultWeight": 1.0
+      "defaultWeight": 1.0,
+      "graphic": 4230
     }
   }
 ]

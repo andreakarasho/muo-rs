@@ -118,6 +118,8 @@ mod flip_tests;
 mod packet_tests;
 
 #[cfg(test)]
+mod equipment_leftover_tests;
+#[cfg(test)]
 mod equipment_template_tests;
 #[cfg(test)]
 mod template_tests;
