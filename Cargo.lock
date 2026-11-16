@@ -1117,6 +1117,7 @@ dependencies = [
  "muo_primitives",
  "muo_server",
  "muo_spells",
+ "serde_json",
  "tracing",
 ]
 

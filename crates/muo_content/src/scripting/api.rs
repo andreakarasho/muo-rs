@@ -84,7 +84,8 @@ pub(crate) fn live_i(w: &World, i: Item) -> Option<&'static muo_server::item::It
 
 /// `new T()` by class name, with `amount` set when above 1.
 fn make_item(w: &mut World, class: &str, amount: i64) -> Option<ItemId> {
-    let it = crate::factory::make_item(w, class)?;
+    let class = super::api_world::class_name(w, class); // a short name works too ("Gold")
+    let it = crate::factory::make_item(w, &class)?;
     if amount > 1 {
         muo_server::item::ops::set_amount(w, it, i32_of(amount));
     }
@@ -114,6 +115,8 @@ pub(crate) fn engine() -> Engine {
     super::api_item_more::register(&mut e);
     super::api_effects::register(&mut e);
     super::api_interaction::register(&mut e);
+    super::api_interaction::register_gump(&mut e);
+    super::api_store::register(&mut e);
     super::api_equipment::register(&mut e);
     super::api_misc_items::register(&mut e);
     super::api_misc_items2::register(&mut e);

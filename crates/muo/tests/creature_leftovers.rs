@@ -12,7 +12,8 @@ fn world(era: Expansion) -> World {
     muo::register_content(&mut w.types);
     w.core.base_directory = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     templates::reload(&mut w).unwrap();
-    assert!(muo_content::scripting::reload_scripts(&mut w).is_empty());
+    let e = muo_content::scripting::reload_scripts(&mut w);
+    assert!(e.is_empty(), "{e:?}");
     w.core.expansion = Some(era);
     w
 }

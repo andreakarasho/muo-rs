@@ -54,6 +54,9 @@ fn construct_mobile(w: &mut World, slot: usize) -> MobileId {
             let id = ctor(w);
             if let Some(m) = w.mobile_mut(id) {
                 m.ty = ty;
+                // the parent's constructor recorded the parent's class for the save; record this one too, or
+                // the next save refuses the world ("serialized but never registered")
+                let _ = w.mobile_state.type_table.register(ty.full_name);
             }
             id
         }
@@ -83,6 +86,7 @@ fn construct_item(w: &mut World, slot: usize) -> ItemId {
             let id = ctor(w);
             if let Some(i) = w.item_mut(id) {
                 i.ty = ty;
+                let _ = w.item_state.type_table.register(ty.full_name); // as for mobiles above
             }
             id
         }

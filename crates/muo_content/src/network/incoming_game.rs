@@ -578,6 +578,9 @@ fn guild_gump_request(w: &mut World, ns: &mut NetState, _serial: u32, _body: &[u
 
 fn quest_gump_request(w: &mut World, ns: &mut NetState, _serial: u32, _body: &[u8]) {
     let (_, from) = begin(w, ns);
+    if from.is_some_and(|m| crate::scripting::quest_log_shown(w, m)) {
+        return;
+    }
     if let (Some(from), Some(f)) = (
         from,
         w.resources

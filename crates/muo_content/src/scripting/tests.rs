@@ -8,6 +8,7 @@ use muo_server::script_hooks::{self, ScriptArg, ScriptHook};
 use muo_server::world::World;
 
 use super::*;
+use rhai::CallFnOptions;
 
 /// A server folder whose `Data/Scripts` declares the mobile class `Test.Scripted` and item class
 /// `Test.ScriptedItem`, both bound to `a.rhai`, plus `scripts`.
@@ -217,7 +218,8 @@ fn header_commands_and_events() {
         &[(
             "a.rhai",
             "/// Greets.\n/// @command Hello\n/// @access Player\nfn greet(m, args) { m.name = \"hi \" + args; }\n\
-             /// @event speech\nfn heard(m, text) { m.name = text; text == \"stop\" }",
+             /// @event speech\nfn heard(m, text) { m.name = text; text == \"stop\" }\n\
+             /// @event skill_gain\nfn no_swords(m, skill) { skill == \"Swords\" }",
         )],
     );
     let (mut w, errors) = world(base.clone());
@@ -243,6 +245,11 @@ fn header_commands_and_events() {
     assert!(!speech(&mut w, "hello"));
     assert_eq!(name(&w, id), "hello", "@event speech ran");
     assert!(speech(&mut w, "stop"), "its true marks the speech handled");
+    assert!(
+        super::skill_gain_refused(&mut w, id, "Swords"),
+        "@event skill_gain refuses"
+    );
+    assert!(!super::skill_gain_refused(&mut w, id, "Tactics"));
 
     // mistakes are load errors naming the file and function, and a command is defined once
     write(
@@ -553,4 +560,41 @@ pub(super) fn script_world(name: &str, code: &str) -> World {
 /// Calls `name(args..)` in the test script; panics with the script's error when it failed.
 pub(super) fn call(w: &mut World, name: &str, args: Vec<Dynamic>) -> Dynamic {
     super::call_value(w, name, args).unwrap_or_else(|e| panic!("{name}: {e}"))
+}
+
+#[test]
+fn imported_modules_are_reached_from_commands_and_hooks() {
+    let base = server(
+        "imports",
+        &[(
+            "a.rhai",
+            "import \"lib/names\" as names;\n\
+             /// @command Ask\n/// @access Player\nfn ask(m, args) { m.name = names::greet(args); }\n\
+             fn on_damage(m, amount, from) { m.name = names::greet(\"hit\"); true }",
+        )],
+    );
+    std::fs::create_dir_all(base.join("Data/Scripts/lib")).unwrap();
+    write(
+        &base,
+        "lib/names.rhai",
+        "fn greet(x) { `hello ${x}${bang()}` }\nfn bang() { \"!\" }",
+    );
+    let (mut w, errors) = world(base);
+    assert!(errors.is_empty(), "{errors:?}");
+    let id = spawn(&mut w);
+    let ask = w
+        .resources
+        .get::<CommandSystem>()
+        .unwrap()
+        .entries
+        .get("ASK")
+        .cloned()
+        .unwrap();
+    (ask.handler)(
+        &mut w,
+        &mut CommandEventArgs::new(id, "Ask".into(), "you".into(), vec![]),
+    );
+    assert_eq!(name(&w, id), "hello you!", "a command reached the module");
+    damage(&mut w, id, 5);
+    assert_eq!(name(&w, id), "hello hit!", "a hook reached the module");
 }

@@ -1882,6 +1882,8 @@ pub fn use_mobile(w: &mut World, id: MobileId, m: MobileId) {
         (mty.on_double_click_dead)(w, m, id);
     } else if p2::deps::region_on_double_click(w, id, Targeted::Entity(EntityId::Mobile(m)))
         && w.mobile(m).is_some_and(|o| !o.deleted)
+        // a script's `on_use` on the class (an NPC that opens its own window) replaces the default
+        && !sh::mobile(w, m, ScriptHook::Use, &[ScriptArg::Mobile(Some(id))])
     {
         (mty.on_double_click)(w, m, id);
     }

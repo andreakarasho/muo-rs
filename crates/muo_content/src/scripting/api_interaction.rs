@@ -214,3 +214,165 @@ pub(crate) fn register(e: &mut Engine) {
         })
     });
 }
+
+// ---- custom gumps ----
+
+/// One element of a script gump.
+enum El {
+    Background(i32, i32, i32, i32, i32),
+    Alpha(i32, i32, i32, i32),
+    Label(i32, i32, i32, String),
+    Html(i32, i32, i32, i32, String, bool, bool),
+    Button(i32, i32, i32, i32, i32),
+    Page(i32),
+    PageButton(i32, i32, i32, i32, i32),
+    Check(i32, i32, i32, bool),
+    Item(i32, i32, i32, i32),
+    Image(i32, i32, i32, i32),
+    NoClose,
+}
+
+/// A gump laid out by a script; answering calls `callback(from, button, switches)` (button 0 when closed,
+/// `switches` the ids of the ticked checkboxes).
+struct ScriptGump {
+    els: Vec<El>,
+    script: String,
+    callback: String,
+}
+
+impl DynamicGumpLogic for ScriptGump {
+    const TYPE_NAME: &'static str = "Server.Scripting.ScriptGump";
+
+    fn build_layout(&self, b: &mut DynamicGumpBuilder) {
+        for e in &self.els {
+            match e {
+                El::Background(x, y, w, h, id) => b.add_background(*x, *y, *w, *h, *id),
+                El::Alpha(x, y, w, h) => b.add_alpha_region(*x, *y, *w, *h),
+                El::Label(x, y, hue, t) => b.add_label(*x, *y, *hue, t),
+                El::Html(x, y, w, h, t, bg, scroll) => b.add_html(*x, *y, *w, *h, t, *bg, *scroll),
+                El::Button(x, y, normal, pressed, id) => {
+                    b.add_button(*x, *y, *normal, *pressed, *id)
+                }
+                El::Page(p) => b.add_page(*p),
+                El::PageButton(x, y, normal, pressed, page) => b.add_button_type(
+                    *x,
+                    *y,
+                    *normal,
+                    *pressed,
+                    0,
+                    crate::gumps::layout::GumpButtonType::Page,
+                    *page,
+                ),
+                El::Check(x, y, id, on) => b.add_checkbox(*x, *y, 210, 211, *on, *id),
+                El::Item(x, y, id, hue) => b.add_item(*x, *y, *id, *hue),
+                El::Image(x, y, id, hue) => b.add_image(*x, *y, *id, *hue),
+                El::NoClose => b.set_no_close(),
+            }
+        }
+    }
+
+    fn on_response(&mut self, w: &mut World, sender: NetStateId, info: &RelayInfo) {
+        let Some(m) = w.net_mobile(sender) else {
+            return;
+        };
+        let switches: Array = info
+            .switches
+            .iter()
+            .map(|s| Dynamic::from(i64::from(*s)))
+            .collect();
+        let args = vec![
+            super::api::mobile(m),
+            i64::from(info.button_id).into(),
+            switches.into(),
+        ];
+        if !super::call_named(w, &self.script, &self.callback, args) {
+            tracing::warn!(
+                "Script {}: gump: no function {}(from, button, switches)",
+                self.script,
+                self.callback
+            );
+        }
+    }
+}
+
+/// One element from its map: `#{ kind: "label", x: 10, y: 20, text: "Hi" }` (see `register_gump`).
+fn element(m: &Map) -> Result<El, String> {
+    let int =
+        |k: &str, d: i64| -> i32 { m.get(k).and_then(|v| v.as_int().ok()).unwrap_or(d) as i32 };
+    let text = |k: &str| m.get(k).map(|v| v.to_string()).unwrap_or_default();
+    let flag = |k: &str| m.get(k).and_then(|v| v.as_bool().ok()).unwrap_or(false);
+    let (x, y) = (int("x", 0), int("y", 0));
+    let kind = text("kind");
+    Ok(match kind.as_str() {
+        "background" => El::Background(x, y, int("w", 100), int("h", 100), int("id", 9270)),
+        "alpha" => El::Alpha(x, y, int("w", 100), int("h", 100)),
+        "label" => El::Label(x, y, int("hue", 1152), text("text")),
+        "html" => El::Html(
+            x,
+            y,
+            int("w", 200),
+            int("h", 20),
+            text("text"),
+            flag("background"),
+            flag("scroll"),
+        ),
+        "button" => El::Button(
+            x,
+            y,
+            int("normal", 4005),
+            int("pressed", 4007),
+            int("id", 1),
+        ),
+        "page" => El::Page(int("page", 0)),
+        "page_button" => El::PageButton(
+            x,
+            y,
+            int("normal", 4005),
+            int("pressed", 4007),
+            int("page", 1),
+        ),
+        "check" => El::Check(x, y, int("id", 1), flag("checked")),
+        "item" => El::Item(x, y, int("item_id", 0), int("hue", 0)),
+        "image" => El::Image(x, y, int("id", 0), int("hue", 0)),
+        "no_close" => El::NoClose,
+        other => {
+            return Err(format!(
+                "gump: unknown element kind '{other}' (background, alpha, label, html, button, page, page_button, check, item, image, no_close)"
+            ));
+        }
+    })
+}
+
+/// `gump(to, [elements], "callback")`: a window laid out element by element.
+///
+/// Each element is a map with a `kind`: `background` (x, y, w, h, id), `alpha` (x, y, w, h), `label` (x, y, text,
+/// hue), `html` (x, y, w, h, text, background, scroll), `button` (x, y, id, normal, pressed), `page` (page: what
+/// follows is on that page; 0 is every page), `page_button` (x, y, page), `check` (x, y, id, checked), `item` (x, y,
+/// item_id, hue), `image` (x, y, id, hue), `no_close` (right-click does not close it). Answering calls
+/// `callback(to, button, switches)`.
+pub(crate) fn register_gump(e: &mut Engine) {
+    e.register_fn(
+        "gump",
+        |ctx: NativeCallContext, to: Mobile, elements: Array, callback: &str| -> R<()> {
+            let els = elements
+                .iter()
+                .map(|v| {
+                    v.read_lock::<Map>()
+                        .ok_or_else(|| "gump: every element is a map".to_owned())
+                        .and_then(|m| element(&m))
+                })
+                .collect::<Result<Vec<_>, _>>()?;
+            let gump = ScriptGump {
+                els,
+                script: calling_script(&ctx),
+                callback: callback.to_owned(),
+            };
+            with_world(&ctx, |w| {
+                if live_m(w, to).is_some() {
+                    let g = DynamicGumpObj::new(50, 50, gump);
+                    crate::gumps::system::send_gump_to_mobile(w, to.0, Box::new(g), false);
+                }
+            })
+        },
+    );
+}

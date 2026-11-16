@@ -6,7 +6,8 @@
 //!   `on_spawn(e)`; returning `true` skips the default behavior (see `muo_server::script_hooks`).
 //! - Headers: doc comments on a function (rhai's `metadata`), one tag per line:
 //!   `/// @command Battle` + optional `/// @access GameMaster` makes `fn x(from, args)` the command `[Battle`;
-//!   `/// @event login` (`login(m)`, `speech(m, text)`, `server_started()`) runs it on that event. An unknown tag, an
+//!   `/// @event login` (`login(m)`, `speech(m, text)`, `server_started()`, `skill_gain(m, skill)`, `quest_log(m)`) runs it on that
+//!   event; `true` from `speech` marks the speech handled, from `skill_gain` refuses the gain. An unknown tag, an
 //!   unknown level or event, a wrong parameter count or a command defined twice is a load error, and so is a function
 //!   still named the retired way (`command_<name>`, `on_login`, `on_speech`, `on_server_started`) without a header.
 //!
@@ -27,6 +28,7 @@ mod api_misc_items2;
 mod api_mobile_more;
 mod api_mobiles;
 mod api_npcs;
+pub mod api_store;
 mod api_world;
 mod classes;
 pub mod friendly;
@@ -55,7 +57,7 @@ use muo_server::mobile::AccessLevel;
 use muo_server::script_hooks::{self, ScriptArg, ScriptHook, ScriptHooks};
 use muo_server::type_registry::{Phase, TypeRegistry};
 use muo_server::world::World;
-use rhai::{AST, CallFnOptions, Dynamic, Engine, FnPtr, Scope};
+use rhai::{AST, Dynamic, Engine, FnPtr, Scope};
 
 /// One compiled file.
 pub struct Script {
@@ -78,10 +80,12 @@ struct ScriptCommand {
 
 /// The global events: the retired function name (now an error without a header), parameter count, and the
 /// `@event` name.
-const GLOBALS: [(&str, usize, &str); 3] = [
+const GLOBALS: [(&str, usize, &str); 5] = [
     ("on_login", 1, "login"),
     ("on_speech", 2, "speech"),
     ("on_server_started", 0, "server_started"),
+    ("", 2, "skill_gain"), // header only: there never was an old-style name
+    ("", 1, "quest_log"),
 ];
 
 /// Every compiled script, with the class bindings. Lives in `w.resources` as `Rc<ScriptHost>`: clone the `Rc`
@@ -94,7 +98,7 @@ pub struct ScriptHost {
     /// The hook closures of the declarations: (class, hook name, script, closure).
     class_hooks: Vec<(String, String, usize, FnPtr)>,
     /// `(script, function)` handling each of [`GLOBALS`].
-    globals: [Vec<(usize, String)>; 3],
+    globals: [Vec<(usize, String)>; 5],
 }
 
 /// class key (`script_hooks::*_class_key`) -> script index, for classes whose script defines a hook. Rebuilt by
@@ -186,22 +190,34 @@ impl ScriptHost {
             world: std::ptr::from_mut(w),
             script: s.name.as_str().into(),
         };
-        let opts = CallFnOptions::new().eval_ast(false).with_tag(ctx);
-        let r = self.engine.call_fn_with_options::<Dynamic>(
-            opts,
-            &mut Scope::new(),
-            &s.ast,
-            name,
-            args,
-        );
+        // through a function pointer: unlike `call_fn`, it runs the function with its file's `import`s
+        let mut global = self.engine.new_global_runtime_state();
+        global.lib.push(s.ast.shared_lib().clone());
+        global.tag = Dynamic::from(ctx);
+        let call: rhai::NativeCallContext =
+            (&self.engine, name, None, &global, rhai::Position::NONE).into();
+        let mut args = args;
+        let r = match s.ast.shared_lib().get_script_fn(name, args.len()) {
+            Some(f) => FnPtr::from(f.clone()).call_raw(&call, None, args.as_mut_slice()),
+            None => Err(format!("Function not found: {name} ({} arguments)", args.len()).into()),
+        };
         w.resources.get_mut::<Depth>().0 -= 1;
-        r.map_err(|e| e.to_string())
+        r.map_err(|e| match *e {
+            rhai::EvalAltResult::ErrorInFunctionCall(f, _, inner, _) if f == name => {
+                inner.to_string()
+            }
+            e => e.to_string(),
+        })
     }
 
     /// Compiles every `.rhai` under `dir` and runs each top level once, collecting its `class` declarations. A file
     /// that fails is left out and named in the errors.
     pub(crate) fn load(dir: &Path, types: &TypeRegistry) -> Loaded {
         let mut engine = api::engine();
+        // `import "raids/places" as places;` names a file under `Data/Scripts`
+        engine.set_module_resolver(rhai::module_resolvers::FileModuleResolver::new_with_path(
+            dir,
+        ));
         api::register_steps(&mut engine, types);
         let collector = Rc::new(std::cell::RefCell::new(classes::Collector::default()));
         classes::register(&mut engine, &collector);
@@ -255,10 +271,12 @@ impl ScriptHost {
                     }
                 });
         }
-        for (i, sc) in scripts.iter().enumerate() {
+        for (i, sc) in scripts.iter_mut().enumerate() {
             collector.borrow_mut().current = i;
-            if let Err(e) = engine.run_ast(&sc.ast) {
-                errors.push(format!("{}: {e}", sc.name));
+            // run as a module: its functions keep the file's `import`s for the calls the server makes later
+            match rhai::Module::eval_ast_as_new(Scope::new(), &sc.ast, &engine) {
+                Ok(m) => sc.ast = AST::new(Vec::<rhai::Stmt>::new(), m),
+                Err(e) => errors.push(format!("{}: {e}", sc.name)),
             }
         }
         let decls = std::mem::take(&mut collector.borrow_mut().decls);
@@ -349,7 +367,7 @@ fn parse_headers(
                 fail(format!(
                     "name the command in a header instead: /// @command {rest}"
                 ));
-            } else if let Some(g) = GLOBALS.iter().find(|g| g.0 == f.name) {
+            } else if let Some(g) = GLOBALS.iter().find(|g| !g.0.is_empty() && g.0 == f.name) {
                 fail(format!(
                     "handle the event with a header instead: /// @event {}",
                     g.2
@@ -601,6 +619,21 @@ fn dispatch(w: &mut World, e: EntityId, hook: ScriptHook, args: &[ScriptArg]) ->
         .is_some_and(|r| r.as_bool().unwrap_or(false))
 }
 
+/// Whether a script refuses `m` a gain in `skill` (a name, `"Swords"`): `@event skill_gain` returning `true`. Asked
+/// before every skill gain of a player (`SkillCheck.AllowGain`); stat gains come from skill gains, so they stop too.
+pub fn skill_gain_refused(w: &mut World, m: muo_server::ids::MobileId, skill: &str) -> bool {
+    if host(w).is_none_or(|h| h.globals[3].is_empty()) {
+        return false;
+    }
+    call_global(w, 3, || vec![api::mobile(m), skill.into()])
+}
+
+/// Whether a script showed `m` its quest log: `@event quest_log` returning `true`, asked when the paperdoll's
+/// Quests button is pressed, before the engine's own log.
+pub fn quest_log_shown(w: &mut World, m: muo_server::ids::MobileId) -> bool {
+    host(w).is_some_and(|h| !h.globals[4].is_empty()) && call_global(w, 4, || vec![api::mobile(m)])
+}
+
 /// Runs global hook `GLOBALS[g]` in every script defining it; true when any returned `true`.
 fn call_global(w: &mut World, g: usize, args: impl Fn() -> Vec<Dynamic>) -> bool {
     let Some(host) = host(w) else { return false };
@@ -731,11 +764,13 @@ fn report(w: &mut World, to: muo_server::ids::MobileId, what: &str, errors: &[St
 
 /// The Configure phase (after the templates): compile, bind, subscribe the global hooks, register the commands.
 fn configure(w: &mut World) {
+    api_store::configure(w);
     for e in install(w) {
         tracing::error!("Scripts: {e}");
     }
-    w.events.connected.subscribe(|w, m| {
-        let m = *m;
+    // `@event login`: once the player's client is in the world (the end of DoLogin), so a window sent now shows
+    crate::network::events::subscribe::<crate::network::events::PlayerLogin>(w, |w, e| {
+        let m = e.0;
         call_global(w, 0, || vec![api::mobile(m)]);
     });
     w.events.speech.subscribe(|w, a| {

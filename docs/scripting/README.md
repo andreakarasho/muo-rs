@@ -8,7 +8,7 @@ stops startup (or refuses the reload, keeping what was loaded) with the file and
 - [Creatures and players](mobile_more.md): stats, flags, skills, combat, speech, inventory
 - [Items](item_more.md): place, flags, containers, messages, magic properties
 - [Sounds and effects](effects.md)
-- [Targeting, prompts and dialogs](interaction.md)
+- [Targeting, prompts, dialogs and custom windows](interaction.md)
 
 ## Classes
 
@@ -44,11 +44,21 @@ On the class handle `c`, once at load:
   ```
 
   `@access` is Player, Counselor, GameMaster (the default), Seer, Administrator, Developer or Owner. Events:
-  `login` (`fn x(m)`), `speech` (`fn x(m, text)`, return true to mark it handled), `server_started` (`fn x()`).
+  `login` (`fn x(m)`), `speech` (`fn x(m, text)`, return true to mark it handled), `server_started` (`fn x()`),
+  `skill_gain` (`fn x(m, skill)`, asked before a player gains in a skill such as `"Swords"`; return true to refuse
+  the gain, and the stat gain that comes with it), `quest_log` (`fn x(m)`, the paperdoll's Quests button; return
+  true when you showed your own window, else the engine's quest log opens).
   An unknown tag, level or event, a wrong parameter count, or a command defined twice stops the load with the file
   and function, and so does a function still named the retired way (`command_<name>`, `on_login`, `on_speech`,
   `on_server_started`) without a header.
+- Each file is on its own. To use another file's functions, import it as a rhai module, by its path under
+  `Data/Scripts` without `.rhai`: `import "raids/places" as places;` then `places::dungeons()`. A module's top level
+  runs on every import, so keep imported files to functions; class declarations, commands and events go in files
+  nothing imports. Imports cannot go in a circle.
 - `timer(ms, "function", arg)`: calls `function(arg)` later.
 - Random draws: `random(a, b)`, `random_below(n)`, `random_bool()`, `random_double()`, `chance(p)`, `coin()`,
   `pick([..])`; `era("AOS")` is true from that expansion on.
 - `log(text)` writes to the server log.
+- Values that survive restarts (saved with the world): `store_set(key, value)`, `store_get(key)` (`()` when unset),
+  `store_remove(key)`, `store_keys(prefix)`. A value is a number, text, bool, or an array or map of those; keep an
+  entity's `serial`, not the handle.
