@@ -4,10 +4,11 @@
 //!   class below it (the class chain, then each template's `inherits`). The script may define `on_use(item, from)`,
 //!   `on_death(m, corpse)`, `on_think(m)`, `on_damage(m, amount, from)`, `on_hear(m, from, text)` and
 //!   `on_spawn(e)`; returning `true` skips the default behavior (see `muo_server::script_hooks`).
-//! - Global hooks, in every script: `on_login(m)`, `on_speech(m, text)` (`true` marks the speech handled) and
-//!   `on_server_started()`.
-//! - Commands: `fn command_<name>(m, args)` registers `[<name>`; a `// access: <AccessLevel>` comment line right
-//!   above it sets the level (default `GameMaster`).
+//! - Headers: doc comments on a function (rhai's `metadata`), one tag per line:
+//!   `/// @command Battle` + optional `/// @access GameMaster` makes `fn x(from, args)` the command `[Battle`;
+//!   `/// @event login` (`login(m)`, `speech(m, text)`, `server_started()`) runs it on that event. An unknown tag, an
+//!   unknown level or event, a wrong parameter count or a command defined twice is a load error, and so is a function
+//!   still named the retired way (`command_<name>`, `on_login`, `on_speech`, `on_server_started`) without a header.
 //!
 //! - Classes: `class(name, #{..}, |e| {..})` at a script's top level declares a class template (see `classes`).
 //!
@@ -61,12 +62,27 @@ pub struct Script {
     /// The path under `Data/Scripts`, `/`-separated (what a template's `"script"` names).
     pub name: String,
     pub ast: AST,
-    /// `(command, access)` of each `command_<name>` function.
-    commands: Vec<(String, AccessLevel)>,
+    /// The commands it defines.
+    commands: Vec<ScriptCommand>,
+    /// `(GLOBALS index, function)` of each `@event` header.
+    events: Vec<(usize, String)>,
 }
 
-/// The global hooks: function name and parameter count.
-const GLOBALS: [(&str, usize); 3] = [("on_login", 1), ("on_speech", 2), ("on_server_started", 0)];
+/// `[name` at `access` runs `function(from, args)`.
+#[derive(Clone)]
+struct ScriptCommand {
+    name: String,
+    access: AccessLevel,
+    function: String,
+}
+
+/// The global events: the retired function name (now an error without a header), parameter count, and the
+/// `@event` name.
+const GLOBALS: [(&str, usize, &str); 3] = [
+    ("on_login", 1, "login"),
+    ("on_speech", 2, "speech"),
+    ("on_server_started", 0, "server_started"),
+];
 
 /// Every compiled script, with the class bindings. Lives in `w.resources` as `Rc<ScriptHost>`: clone the `Rc`
 /// before a call so the world is free during it.
@@ -77,8 +93,8 @@ pub struct ScriptHost {
     ctors: Vec<(usize, FnPtr)>,
     /// The hook closures of the declarations: (class, hook name, script, closure).
     class_hooks: Vec<(String, String, usize, FnPtr)>,
-    /// The scripts defining each of [`GLOBALS`].
-    globals: [Vec<usize>; 3],
+    /// `(script, function)` handling each of [`GLOBALS`].
+    globals: [Vec<(usize, String)>; 3],
 }
 
 /// class key (`script_hooks::*_class_key`) -> script index, for classes whose script defines a hook. Rebuilt by
@@ -209,15 +225,35 @@ impl ScriptHost {
             };
             match engine.compile(&text) {
                 Ok(ast) => {
-                    let commands = parse_commands(&name, &text, &mut errors);
+                    let (commands, events) = parse_headers(&name, &ast, &mut errors);
                     scripts.push(Script {
                         name,
                         ast,
                         commands,
+                        events,
                     });
                 }
                 Err(e) => errors.push(format!("{name}: {e}")),
             }
+        }
+        // a command is defined once: a second definition (in any style, any script) is an error and left out
+        let mut seen: HashMap<String, String> = HashMap::new();
+        for sc in &mut scripts {
+            let file = sc.name.clone();
+            sc.commands
+                .retain(|c| match seen.get(&c.name.to_ascii_lowercase()) {
+                    Some(first) => {
+                        errors.push(format!(
+                            "{file}: command {} is already defined in {first}",
+                            c.name
+                        ));
+                        false
+                    }
+                    None => {
+                        seen.insert(c.name.to_ascii_lowercase(), file.clone());
+                        true
+                    }
+                });
         }
         for (i, sc) in scripts.iter().enumerate() {
             collector.borrow_mut().current = i;
@@ -234,10 +270,10 @@ impl ScriptHost {
             class_hooks: Vec::new(),
             globals: Default::default(),
         };
-        for (g, (name, arity)) in GLOBALS.iter().enumerate() {
-            host.globals[g] = (0..host.scripts.len())
-                .filter(|&i| host.has_fn(i, name, *arity))
-                .collect();
+        for (i, sc) in host.scripts.iter().enumerate() {
+            for (g, f) in &sc.events {
+                host.globals[*g].push((i, f.clone()));
+            }
         }
         (host, decls, data, errors)
     }
@@ -261,42 +297,77 @@ fn rhai_files(dir: &Path, out: &mut Vec<PathBuf>) {
     }
 }
 
-/// `fn command_<name>(` lines, with the `// access: <level>` of the comment block right above.
-fn parse_commands(file: &str, text: &str, errors: &mut Vec<String>) -> Vec<(String, AccessLevel)> {
-    let lines: Vec<&str> = text.lines().map(str::trim).collect();
-    let mut out = Vec::new();
-    for (i, line) in lines.iter().enumerate() {
-        let Some(rest) = line.strip_prefix("fn command_") else {
-            continue;
-        };
-        let name: String = rest
-            .chars()
-            .take_while(|c| c.is_alphanumeric() || *c == '_')
-            .collect();
-        if name.is_empty() {
-            continue;
+fn access_level(name: &str) -> Option<AccessLevel> {
+    (0..=6)
+        .filter_map(AccessLevel::from_i32)
+        .find(|l| format!("{l:?}").eq_ignore_ascii_case(name))
+}
+
+/// The `@command` / `@access` / `@event` doc-comment headers of the script's functions.
+fn parse_headers(
+    file: &str,
+    ast: &AST,
+    errors: &mut Vec<String>,
+) -> (Vec<ScriptCommand>, Vec<(usize, String)>) {
+    let (mut commands, mut events) = (Vec::new(), Vec::new());
+    for f in ast.iter_functions() {
+        let mut fail = |msg: String| errors.push(format!("{file}: fn {}: {msg}", f.name));
+        let (mut command, mut access) = (None, None);
+        // rhai joins a run of `///` lines into one entry
+        for line in f.comments.iter().flat_map(|c| c.lines()) {
+            let text = line
+                .trim_start_matches(['/', '*'])
+                .trim_end_matches(['*', '/'])
+                .trim();
+            let Some(tag) = text.strip_prefix('@') else {
+                continue; // a plain doc comment
+            };
+            let (tag, value) = tag.split_once(char::is_whitespace).unwrap_or((tag, ""));
+            let value = value.trim();
+            match tag {
+                "command" if !value.is_empty() => command = Some(value.to_owned()),
+                "access" => match access_level(value) {
+                    Some(l) => access = Some(l),
+                    None => fail(format!("unknown access level '{value}'")),
+                },
+                "event" => match GLOBALS.iter().position(|g| g.2 == value) {
+                    Some(g) if f.params.len() == GLOBALS[g].1 => {
+                        events.push((g, f.name.to_owned()))
+                    }
+                    Some(g) => fail(format!("@event {value} takes {} parameters", GLOBALS[g].1)),
+                    None => fail(format!(
+                        "unknown event '{value}' (login, speech, server_started)"
+                    )),
+                },
+                _ => fail(format!(
+                    "unknown header '@{tag}' (@command Name, @access Level, @event name)"
+                )),
+            }
         }
-        let comment = lines[..i].iter().rev().take_while(|l| l.starts_with("//"));
-        let access = comment
-            .filter_map(|l| l.trim_start_matches('/').trim().strip_prefix("access:"))
-            .map(str::trim)
-            .next();
-        let level = match access {
-            None => AccessLevel::GameMaster,
-            Some(a) => match (0..=6)
-                .filter_map(AccessLevel::from_i32)
-                .find(|l| format!("{l:?}") == a)
-            {
-                Some(l) => l,
-                None => {
-                    errors.push(format!("{file}: command_{name}: unknown access level {a}"));
-                    continue;
-                }
-            },
-        };
-        out.push((name, level));
+        if command.is_none() && events.last().is_none_or(|(_, e)| e != f.name) {
+            if let Some(rest) = f.name.strip_prefix("command_") {
+                fail(format!(
+                    "name the command in a header instead: /// @command {rest}"
+                ));
+            } else if let Some(g) = GLOBALS.iter().find(|g| g.0 == f.name) {
+                fail(format!(
+                    "handle the event with a header instead: /// @event {}",
+                    g.2
+                ));
+            }
+        }
+        match command {
+            Some(name) if f.params.len() == 2 => commands.push(ScriptCommand {
+                name,
+                access: access.unwrap_or(AccessLevel::GameMaster),
+                function: f.name.to_owned(),
+            }),
+            Some(_) => fail("a command takes 2 parameters (from, args)".into()),
+            None if access.is_some() => fail("@access without @command".into()),
+            None => {}
+        }
     }
-    out
+    (commands, events)
 }
 
 fn host(w: &World) -> Option<Rc<ScriptHost>> {
@@ -425,10 +496,10 @@ fn install(w: &mut World) -> Vec<String> {
         items,
         closures,
     });
-    let commands: Vec<(String, AccessLevel)> = host
+    let commands: Vec<(String, ScriptCommand)> = host
         .scripts
         .iter()
-        .flat_map(|s| s.commands.clone())
+        .flat_map(|s| s.commands.iter().map(|c| (s.name.clone(), c.clone())))
         .collect();
     w.resources.insert(hooks);
     register_commands(w, commands);
@@ -440,7 +511,7 @@ fn install(w: &mut World) -> Vec<String> {
     missing
 }
 
-fn register_commands(w: &mut World, commands: Vec<(String, AccessLevel)>) {
+fn register_commands(w: &mut World, commands: Vec<(String, ScriptCommand)>) {
     let old = std::mem::take(&mut w.resources.get_mut::<ScriptCommands>().0);
     let cs = w.resources.get_mut::<CommandSystem>();
     for (name, h) in old {
@@ -454,19 +525,23 @@ fn register_commands(w: &mut World, commands: Vec<(String, AccessLevel)>) {
         }
     }
     let mut ours = Vec::new();
-    for (name, access) in commands {
-        let fn_name = format!("command_{name}");
-        let h: CommandEventHandler =
-            Rc::new(move |w: &mut World, e: &mut CommandEventArgs| run_command(w, &fn_name, e));
-        CommandSystem::register(w, &name, access, &[], h.clone());
-        ours.push((name, h));
+    for (script, c) in commands {
+        let function = c.function.clone();
+        let h: CommandEventHandler = Rc::new(move |w: &mut World, e: &mut CommandEventArgs| {
+            run_command(w, &script, &function, e)
+        });
+        CommandSystem::register(w, &c.name, c.access, &[], h.clone());
+        ours.push((c.name, h));
     }
     w.resources.get_mut::<ScriptCommands>().0 = ours;
 }
 
-fn run_command(w: &mut World, fn_name: &str, e: &mut CommandEventArgs) {
+/// `fn_name` in the script that defined the command, else in any script (resolved now: a reload applies).
+fn run_command(w: &mut World, script: &str, fn_name: &str, e: &mut CommandEventArgs) {
     let Some(host) = host(w) else { return };
-    let Some(i) = (0..host.scripts.len()).find(|&i| host.has_fn(i, fn_name, 2)) else {
+    let has = |i: usize| host.has_fn(i, fn_name, 2);
+    let mine = (0..host.scripts.len()).find(|&i| host.scripts[i].name == script && has(i));
+    let Some(i) = mine.or_else(|| (0..host.scripts.len()).find(|&i| has(i))) else {
         muo_server::commands::send_message(w, e.mobile, "That script command is no longer loaded.");
         return;
     };
@@ -530,8 +605,8 @@ fn dispatch(w: &mut World, e: EntityId, hook: ScriptHook, args: &[ScriptArg]) ->
 fn call_global(w: &mut World, g: usize, args: impl Fn() -> Vec<Dynamic>) -> bool {
     let Some(host) = host(w) else { return false };
     let mut handled = false;
-    for &i in &host.globals[g] {
-        let r = host.call(w, i, GLOBALS[g].0, args());
+    for (i, f) in &host.globals[g] {
+        let r = host.call(w, *i, f, args());
         handled |= r.is_some_and(|r| r.as_bool().unwrap_or(false));
     }
     handled

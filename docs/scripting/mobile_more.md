@@ -57,7 +57,9 @@ frames)`.
 | `m.consume("Bandage", 2)` | takes them; false (taking nothing) without enough |
 
 ```rhai
-fn command_reward(from, args) {
+/// @command Reward
+/// @access Player
+fn reward(from, args) {
     if from.consume("Gold", 1000) {
         from.give(create_item("Bandage"));
         from.say_to(from, "Here, take this.");

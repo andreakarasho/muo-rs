@@ -29,7 +29,7 @@ serde_json = { version = "1", features = ["preserve_order"] }
 thiserror = "2"
 tracing = "0.1"
 ctrlc = "3"
-rhai = { version = "1.27", features = ["serde"] }
+rhai = { version = "1.27", features = ["serde", "metadata"] }
 
 [profile.dev]
 # A full disk truncated source files on 2026-11-05: keep the build small.

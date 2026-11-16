@@ -1735,6 +1735,7 @@ dependencies = [
  "once_cell",
  "rhai_codegen",
  "serde",
+ "serde_json",
  "smallvec",
  "smartstring",
  "thin-vec",

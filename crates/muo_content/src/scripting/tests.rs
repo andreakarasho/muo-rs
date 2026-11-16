@@ -180,8 +180,8 @@ fn script_commands_register_and_unregister_on_reload() {
         "commands",
         &[(
             "a.rhai",
-            "// Greets.\n// access: Player\nfn command_hello(m, args) { m.name = \"hello \" + args; }\n\
-             fn command_staff(m, args) { }",
+            "/// Greets.\n/// @command hello\n/// @access Player\nfn hello(m, args) { m.name = \"hello \" + args; }\n\
+             /// @command staff\nfn staff(m, args) { }",
         )],
     );
     let (mut w, errors) = world(base.clone());
@@ -204,10 +204,68 @@ fn script_commands_register_and_unregister_on_reload() {
     (hello.handler)(&mut w, &mut args);
     assert_eq!(name(&w, id), "hello there");
 
-    write(&base, "a.rhai", "fn command_bye(m, args) { }");
+    write(&base, "a.rhai", "/// @command bye\nfn bye(m, args) { }");
     assert!(reload_scripts(&mut w).is_empty());
     assert!(entry(&mut w, "HELLO").is_none());
     assert!(entry(&mut w, "BYE").is_some());
+}
+
+#[test]
+fn header_commands_and_events() {
+    let base = server(
+        "headers",
+        &[(
+            "a.rhai",
+            "/// Greets.\n/// @command Hello\n/// @access Player\nfn greet(m, args) { m.name = \"hi \" + args; }\n\
+             /// @event speech\nfn heard(m, text) { m.name = text; text == \"stop\" }",
+        )],
+    );
+    let (mut w, errors) = world(base.clone());
+    assert!(errors.is_empty(), "{errors:?}");
+    let id = spawn(&mut w);
+    let entry = |w: &mut World, k: &str| {
+        w.resources
+            .get_mut::<CommandSystem>()
+            .entries
+            .get(k)
+            .cloned()
+    };
+    let hello = entry(&mut w, "HELLO").expect("[Hello from the header");
+    assert_eq!(hello.access_level, AccessLevel::Player);
+    let mut args = CommandEventArgs::new(id, "Hello".into(), "there".into(), vec!["there".into()]);
+    (hello.handler)(&mut w, &mut args);
+    assert_eq!(name(&w, id), "hi there");
+
+    let speech = |w: &mut World, text: &str| {
+        let t = text.to_owned();
+        super::call_global(w, 1, || vec![super::api::mobile(id), t.clone().into()])
+    };
+    assert!(!speech(&mut w, "hello"));
+    assert_eq!(name(&w, id), "hello", "@event speech ran");
+    assert!(speech(&mut w, "stop"), "its true marks the speech handled");
+
+    // mistakes are load errors naming the file and function, and a command is defined once
+    write(
+        &base,
+        "a.rhai",
+        "/// @comand X\nfn a(m, args) { }\n/// @access Wizard\n/// @command Y\nfn b(m, args) { }\n\
+         /// @command Z\nfn c(m) { }\n/// @event logout\nfn d(m) { }\n/// @event login\nfn e(m, x) { }\n\
+         /// @command Dup\nfn f(m, args) { }\n/// @command dup\nfn g(m, args) { }\n\
+         fn command_old(m, args) { }\nfn on_login(m) { }",
+    );
+    let errors = reload_scripts(&mut w).join("\n");
+    for want in [
+        "fn a: unknown header '@comand'",
+        "fn b: unknown access level 'Wizard'",
+        "fn c: a command takes 2 parameters",
+        "fn d: unknown event 'logout'",
+        "fn e: @event login takes 1 parameters",
+        "fn command_old: name the command in a header instead: /// @command old",
+        "fn on_login: handle the event with a header instead: /// @event login",
+        "is already defined in a.rhai", // Dup or dup: rhai lists functions in no fixed order
+    ] {
+        assert!(errors.contains(want), "missing {want:?} in:\n{errors}");
+    }
 }
 
 #[test]

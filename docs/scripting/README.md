@@ -32,9 +32,22 @@ On the class handle `c`, once at load:
 
 ## Script files
 
-- `fn command_<name>(from, args)` adds the staff command `[<name>`; a `// access: <level>` line right above sets
-  who may use it (default `GameMaster`).
-- `fn on_login(m)`, `fn on_speech(m, text)` (true marks it handled), `fn on_server_started()`: in any script.
+- A `///` header on a function makes it a command or an event handler, one tag per line:
+
+  ```rhai
+  /// @command Battle
+  /// @access GameMaster
+  fn battle(from, args) { .. }     // [Battle; `args` is the text after it
+
+  /// @event login
+  fn welcome(m) { .. }
+  ```
+
+  `@access` is Player, Counselor, GameMaster (the default), Seer, Administrator, Developer or Owner. Events:
+  `login` (`fn x(m)`), `speech` (`fn x(m, text)`, return true to mark it handled), `server_started` (`fn x()`).
+  An unknown tag, level or event, a wrong parameter count, or a command defined twice stops the load with the file
+  and function, and so does a function still named the retired way (`command_<name>`, `on_login`, `on_speech`,
+  `on_server_started`) without a header.
 - `timer(ms, "function", arg)`: calls `function(arg)` later.
 - Random draws: `random(a, b)`, `random_below(n)`, `random_bool()`, `random_double()`, `chance(p)`, `coin()`,
   `pick([..])`; `era("AOS")` is true from that expansion on.

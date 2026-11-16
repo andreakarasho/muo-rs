@@ -143,8 +143,8 @@ shop("SBBlacksmith", |s| {
 - The full function list is in [`docs/scripting`](docs/scripting/README.md): the world, creatures and players,
   items, sounds and effects, targeting, prompts and dialogs.
 - Plain script files also work: per-file hooks (`fn on_use(item, from)` bound with `c.script = "file.rhai"`), global
-  hooks (`on_login`, `on_speech`, `on_server_started`) and staff commands (`fn command_<name>(m, args)` adds
-  `[<name>`). See `Data/Scripts/examples/`.
+  events and staff commands, declared by a `///` header on the function (`/// @command Battle`,
+  `/// @access GameMaster`, `/// @event login`). See `Data/Scripts/examples/`.
 
 Behavior (double-click handlers, AI, combat, gumps) is Rust, and so are the few constructors that are real logic
 (guildstones, treasure maps, teleporters, a handful of quest NPCs and engine pieces).
