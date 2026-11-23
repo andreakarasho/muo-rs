@@ -202,7 +202,7 @@ impl TileData {
         let mut r = Cursor { bytes, pos: 0 };
         let mut data = TileData::empty();
 
-        for i in 0..LAND_LENGTH {
+        for (i, slot) in data.land.iter_mut().enumerate().take(LAND_LENGTH) {
             let header = if is64 {
                 i == 1 || (i > 0 && (i & 0x1F) == 0)
             } else {
@@ -213,13 +213,13 @@ impl TileData {
             }
             let flags = r.flags(is64)?;
             r.skip(2)?; // textureID
-            data.land[i] = LandData {
+            *slot = LandData {
                 name: r.name()?,
                 flags,
             };
         }
 
-        for i in 0..item_length {
+        for (i, slot) in data.items.iter_mut().enumerate().take(item_length) {
             if (i & 0x1F) == 0 {
                 r.skip(4)?;
             }
@@ -233,7 +233,7 @@ impl TileData {
             r.skip(1)?;
             let value = r.u8()?;
             let height = r.u8()?;
-            data.items[i] = ItemData {
+            *slot = ItemData {
                 name: r.name()?,
                 flags,
                 weight,

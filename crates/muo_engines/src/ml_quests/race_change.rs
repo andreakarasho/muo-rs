@@ -786,11 +786,13 @@ pub static DONE_QUEST_COLLECTOR: muo_server::mobile::MobileType = muo_server::mo
 
 collector!(
     /// `Server.Engines.MLQuests.Mobiles.Darius`.
-    DARIUS, DARIUS_C = "Server.Engines.MLQuests.Mobiles.Darius"
+    DARIUS,
+    DARIUS_C = "Server.Engines.MLQuests.Mobiles.Darius"
 );
 collector!(
     /// `Server.Engines.MLQuests.Mobiles.Nedrick`.
-    NEDRICK, NEDRICK_C = "Server.Engines.MLQuests.Mobiles.Nedrick"
+    NEDRICK,
+    NEDRICK_C = "Server.Engines.MLQuests.Mobiles.Nedrick"
 );
 
 /// Registers the classes and the phase of this file.

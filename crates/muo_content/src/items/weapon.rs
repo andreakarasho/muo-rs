@@ -1493,7 +1493,10 @@ pub static BASE_BASHING_CLASS: WeaponClass = WeaponClass {
 };
 plain_class!(
     /// `Server.Items.BaseBashing`.
-    BASE_BASHING, "Server.Items.BaseBashing", BASE_MELEE_WEAPON, BASE_BASHING_CLASS
+    BASE_BASHING,
+    "Server.Items.BaseBashing",
+    BASE_MELEE_WEAPON,
+    BASE_BASHING_CLASS
 );
 
 /// `BaseKnife`.
@@ -1548,7 +1551,10 @@ pub static BASE_SPEAR_CLASS: WeaponClass = WeaponClass {
 };
 plain_class!(
     /// `Server.Items.BaseSpear`.
-    BASE_SPEAR, "Server.Items.BaseSpear", BASE_MELEE_WEAPON, BASE_SPEAR_CLASS
+    BASE_SPEAR,
+    "Server.Items.BaseSpear",
+    BASE_MELEE_WEAPON,
+    BASE_SPEAR_CLASS
 );
 
 /// `BaseStaff`.
@@ -1563,7 +1569,10 @@ pub static BASE_STAFF_CLASS: WeaponClass = WeaponClass {
 };
 plain_class!(
     /// `Server.Items.BaseStaff`.
-    BASE_STAFF, "Server.Items.BaseStaff", BASE_MELEE_WEAPON, BASE_STAFF_CLASS
+    BASE_STAFF,
+    "Server.Items.BaseStaff",
+    BASE_MELEE_WEAPON,
+    BASE_STAFF_CLASS
 );
 
 /// `BaseRanged` (`EffectID`, `AmmoType`, `Ammo` are per leaf: [`RangedClass`]).

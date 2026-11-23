@@ -521,17 +521,29 @@ macro_rules! jewel_base {
 
 jewel_base!(
     /// `Server.Items.BaseBracelet` (star sapphire bracelet is 1044221).
-    BASE_BRACELET, BASE_BRACELET_CLASS = "Server.Items.BaseBracelet", Layer::Bracelet, 1044221
+    BASE_BRACELET,
+    BASE_BRACELET_CLASS = "Server.Items.BaseBracelet",
+    Layer::Bracelet,
+    1044221
 );
 jewel_base!(
     /// `Server.Items.BaseEarrings` (star sapphire earrings is 1044203).
-    BASE_EARRINGS, BASE_EARRINGS_CLASS = "Server.Items.BaseEarrings", Layer::Earrings, 1044203
+    BASE_EARRINGS,
+    BASE_EARRINGS_CLASS = "Server.Items.BaseEarrings",
+    Layer::Earrings,
+    1044203
 );
 jewel_base!(
     /// `Server.Items.BaseNecklace` (star sapphire necklace is 1044241).
-    BASE_NECKLACE, BASE_NECKLACE_CLASS = "Server.Items.BaseNecklace", Layer::Neck, 1044241
+    BASE_NECKLACE,
+    BASE_NECKLACE_CLASS = "Server.Items.BaseNecklace",
+    Layer::Neck,
+    1044241
 );
 jewel_base!(
     /// `Server.Items.BaseRing` (star sapphire ring is 1044176).
-    BASE_RING, BASE_RING_CLASS = "Server.Items.BaseRing", Layer::Ring, 1044176
+    BASE_RING,
+    BASE_RING_CLASS = "Server.Items.BaseRing",
+    Layer::Ring,
+    1044176
 );

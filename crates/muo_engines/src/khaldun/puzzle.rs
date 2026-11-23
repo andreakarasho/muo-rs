@@ -771,6 +771,8 @@ pub static PUZZLE_CHEST: ItemType = ItemType {
             d.solution = read_solution(w, r)?;
             let len = r.read_encoded_int()?.max(0) as usize;
             d.hints = vec![0; HINTS_COUNT];
+            #[allow(clippy::needless_range_loop)]
+            // reads `len` ints, keeps them only when `len` is HINTS_COUNT
             for i in 0..len {
                 let c = r.read_i32()?;
                 if len == HINTS_COUNT {
@@ -870,11 +872,13 @@ macro_rules! puzzle_leaf {
 
 puzzle_leaf!(
     /// `Server.Items.MetalGoldenPuzzleChest` `[Flippable(0xE41, 0xE40)]`.
-    METAL_GOLDEN_PUZZLE_CHEST = "Server.Items.MetalGoldenPuzzleChest", 0xE41
+    METAL_GOLDEN_PUZZLE_CHEST = "Server.Items.MetalGoldenPuzzleChest",
+    0xE41
 );
 puzzle_leaf!(
     /// `Server.Items.StrongBoxPuzzle` `[Flippable(0xE80, 0x9A8)]`.
-    STRONG_BOX_PUZZLE = "Server.Items.StrongBoxPuzzle", 0xE80
+    STRONG_BOX_PUZZLE = "Server.Items.StrongBoxPuzzle",
+    0xE80
 );
 
 pub fn register(types: &mut TypeRegistry) {

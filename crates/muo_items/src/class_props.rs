@@ -33,60 +33,116 @@ macro_rules! member {
 
 member!(
     /// `LabelNumber`: the `labelNumber` prop.
-    label_number, label_number, "labelNumber", i32, |v| props::as_i32(Some(v))
+    label_number,
+    label_number,
+    "labelNumber",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `DefaultWeight`: the `defaultWeight` prop.
-    default_weight, default_weight, "defaultWeight", f64, |v| props::as_f64(Some(v))
+    default_weight,
+    default_weight,
+    "defaultWeight",
+    f64,
+    |v| props::as_f64(Some(v))
 );
 member!(
     /// `DefaultName`: the `defaultName` prop.
-    default_name, default_name, "defaultName", Option<String>, |v| v.as_str().map(|s| Some(s.to_owned()))
+    default_name,
+    default_name,
+    "defaultName",
+    Option<String>,
+    |v| v.as_str().map(|s| Some(s.to_owned()))
 );
 member!(
     /// `DefaultGumpID`: the `gumpId` prop.
-    default_gump_id, default_gump_id, "gumpId", i32, |v| props::as_i32(Some(v))
+    default_gump_id,
+    default_gump_id,
+    "gumpId",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `DefaultDropSound`: the `dropSound` prop.
-    default_drop_sound, default_drop_sound, "dropSound", i32, |v| props::as_i32(Some(v))
+    default_drop_sound,
+    default_drop_sound,
+    "dropSound",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `DefaultMaxItems`: the `maxItems` prop.
-    default_max_items, default_max_items, "maxItems", i32, |v| props::as_i32(Some(v))
+    default_max_items,
+    default_max_items,
+    "maxItems",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `DefaultMaxWeight`: the `maxWeight` prop.
-    default_max_weight, default_max_weight, "maxWeight", i32, |v| props::as_i32(Some(v))
+    default_max_weight,
+    default_max_weight,
+    "maxWeight",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `PhysicalResistance` (an override of the whole value): the `physicalResistance` prop.
-    physical_resistance, physical_resistance, "physicalResistance", i32, |v| props::as_i32(Some(v))
+    physical_resistance,
+    physical_resistance,
+    "physicalResistance",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `FireResistance`: the `fireResistance` prop.
-    fire_resistance, fire_resistance, "fireResistance", i32, |v| props::as_i32(Some(v))
+    fire_resistance,
+    fire_resistance,
+    "fireResistance",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `ColdResistance`: the `coldResistance` prop.
-    cold_resistance, cold_resistance, "coldResistance", i32, |v| props::as_i32(Some(v))
+    cold_resistance,
+    cold_resistance,
+    "coldResistance",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `PoisonResistance`: the `poisonResistance` prop.
-    poison_resistance, poison_resistance, "poisonResistance", i32, |v| props::as_i32(Some(v))
+    poison_resistance,
+    poison_resistance,
+    "poisonResistance",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `EnergyResistance`: the `energyResistance` prop.
-    energy_resistance, energy_resistance, "energyResistance", i32, |v| props::as_i32(Some(v))
+    energy_resistance,
+    energy_resistance,
+    "energyResistance",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 member!(
     /// `Hue` overridden by the class (`Hue => 1150`): the `hue` prop.
-    hue, hue, "hue", i32, |v| props::as_i32(Some(v))
+    hue,
+    hue,
+    "hue",
+    i32,
+    |v| props::as_i32(Some(v))
 );
 
 member!(
     /// `Bounds` of a container: the `containerBounds` prop, `[x, y, width, height]`.
-    bounds, bounds, "containerBounds", muo_primitives::Rectangle2D, |v| match v.as_array().map(Vec::as_slice) {
+    bounds,
+    bounds,
+    "containerBounds",
+    muo_primitives::Rectangle2D,
+    |v| match v.as_array().map(Vec::as_slice) {
         Some([x, y, wd, h]) => Some(muo_primitives::Rectangle2D::new(
             props::as_i32(Some(x))?,
             props::as_i32(Some(y))?,

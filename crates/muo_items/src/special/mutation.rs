@@ -1070,16 +1070,25 @@ pub static PLAGUE_BEAST_ORGAN: ItemType = ItemType {
 
 organ_class!(
     /// `Server.Items.PlagueBeastMaidenOrgan`.
-    PLAGUE_BEAST_MAIDEN_ORGAN = "Server.Items.PlagueBeastMaidenOrgan", PLAGUE_BEAST_ORGAN, |w, id, out| {}, |w, id, r| {}
+    PLAGUE_BEAST_MAIDEN_ORGAN = "Server.Items.PlagueBeastMaidenOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {},
+    |w, id, r| {}
 );
 organ_class!(
     /// `Server.Items.PlagueBeastRockOrgan`.
-    PLAGUE_BEAST_ROCK_ORGAN = "Server.Items.PlagueBeastRockOrgan", PLAGUE_BEAST_ORGAN, |w, id, out| {}, |w, id, r| {}
+    PLAGUE_BEAST_ROCK_ORGAN = "Server.Items.PlagueBeastRockOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {},
+    |w, id, r| {}
 );
 organ_class!(
     /// `Server.Items.PlagueBeastRubbleOrgan`.
-    PLAGUE_BEAST_RUBBLE_ORGAN = "Server.Items.PlagueBeastRubbleOrgan", PLAGUE_BEAST_ORGAN,
-    |w, id, out| { out.write_i32(pb(w, id).veins); },
+    PLAGUE_BEAST_RUBBLE_ORGAN = "Server.Items.PlagueBeastRubbleOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {
+        out.write_i32(pb(w, id).veins);
+    },
     |w, id, r| {
         let v = r.read_i32()?;
         if let Some(d) = pb_mut(w, id) {
@@ -1089,8 +1098,11 @@ organ_class!(
 );
 organ_class!(
     /// `Server.Items.PlagueBeastBackupOrgan`.
-    PLAGUE_BEAST_BACKUP_ORGAN = "Server.Items.PlagueBeastBackupOrgan", PLAGUE_BEAST_ORGAN,
-    |w, id, out| { out.write_item(w, pb(w, id).gland); },
+    PLAGUE_BEAST_BACKUP_ORGAN = "Server.Items.PlagueBeastBackupOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {
+        out.write_item(w, pb(w, id).gland);
+    },
     |w, id, r| {
         let g = r.read_item(w)?;
         if let Some(d) = pb_mut(w, id) {
@@ -1100,8 +1112,11 @@ organ_class!(
 );
 organ_class!(
     /// `Server.Items.PlagueBeastMainOrgan`.
-    PLAGUE_BEAST_MAIN_ORGAN = "Server.Items.PlagueBeastMainOrgan", PLAGUE_BEAST_ORGAN,
-    |w, id, out| { out.write_i32(pb(w, id).brains); },
+    PLAGUE_BEAST_MAIN_ORGAN = "Server.Items.PlagueBeastMainOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {
+        out.write_i32(pb(w, id).brains);
+    },
     |w, id, r| {
         let b = r.read_i32()?;
         if let Some(d) = pb_mut(w, id) {

@@ -1300,7 +1300,6 @@ version = "0.1.0"
 dependencies = [
  "bitflags",
  "mio",
- "muo_io",
  "muo_primitives",
  "serde",
  "serde_json",

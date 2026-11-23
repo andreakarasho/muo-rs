@@ -53,6 +53,7 @@ impl PriorityQueue {
                     break;
                 }
                 let (mut min_child, mut min_index) = (self.nodes[first], first);
+                #[allow(clippy::needless_range_loop)] // a 4-ary heap: `c` is the child's index
                 for c in first + 1..(first + 4).min(size) {
                     if self.nodes[c].1 < min_child.1 {
                         min_child = self.nodes[c];

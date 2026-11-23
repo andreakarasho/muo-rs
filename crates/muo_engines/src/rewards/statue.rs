@@ -928,15 +928,18 @@ pub static CHARACTER_STATUE_MAKER: ItemType = ItemType {
 
 maker_class!(
     /// `Server.Items.MarbleStatueMaker`.
-    MARBLE_STATUE_MAKER = "Server.Items.MarbleStatueMaker", statue_type::MARBLE
+    MARBLE_STATUE_MAKER = "Server.Items.MarbleStatueMaker",
+    statue_type::MARBLE
 );
 maker_class!(
     /// `Server.Items.JadeStatueMaker`.
-    JADE_STATUE_MAKER = "Server.Items.JadeStatueMaker", statue_type::JADE
+    JADE_STATUE_MAKER = "Server.Items.JadeStatueMaker",
+    statue_type::JADE
 );
 maker_class!(
     /// `Server.Items.BronzeStatueMaker`.
-    BRONZE_STATUE_MAKER = "Server.Items.BronzeStatueMaker", statue_type::BRONZE
+    BRONZE_STATUE_MAKER = "Server.Items.BronzeStatueMaker",
+    statue_type::BRONZE
 );
 
 // ---- CharacterStatuePlinth ----

@@ -165,7 +165,8 @@ supply_bag!(
 );
 supply_bag!(
     /// `Server.Items.BagOfingots` (spelled so in saves).
-    BAG_OF_INGOTS = "Server.Items.BagOfingots", |w, id| ingots_fill(w, id, 5000, None)
+    BAG_OF_INGOTS = "Server.Items.BagOfingots",
+    |w, id| ingots_fill(w, id, 5000, None)
 );
 supply_bag!(
     /// `Server.Items.ScribeBag`.
@@ -173,7 +174,8 @@ supply_bag!(
 );
 supply_bag!(
     /// `Server.Items.SmithBag`.
-    SMITH_BAG = "Server.Items.SmithBag", |w, id| ingots_fill(w, id, 5000, Some(5000))
+    SMITH_BAG = "Server.Items.SmithBag",
+    |w, id| ingots_fill(w, id, 5000, Some(5000))
 );
 supply_bag!(
     /// `Server.Items.TailorBag`: its parameterless `amount` is 500.

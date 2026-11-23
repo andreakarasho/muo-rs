@@ -849,8 +849,7 @@ pub fn display_log_detailed(w: &mut World, from: MobileId, inst: InstanceId, clo
     let view = QuestView::of(w, qid);
     let failed = engine::instance(w, inst).is_some_and(|i| i.failed());
     let mut progress = Vec::new();
-    let n = view.objectives.len();
-    for idx in 0..n {
+    for (idx, def) in view.objectives.iter().enumerate() {
         let Some(i) = engine::instance(w, inst) else {
             return;
         };
@@ -867,7 +866,7 @@ pub fn display_log_detailed(w: &mut World, from: MobileId, inst: InstanceId, clo
         let total = engine::collect_current_total(w, inst, idx);
         let completed = engine::objective_is_completed(w, inst, idx);
         progress.push(ObjectiveView {
-            def: view.objectives[idx].clone(),
+            def: def.clone(),
             remaining,
             slain,
             total,

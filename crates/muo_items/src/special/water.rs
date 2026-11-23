@@ -181,7 +181,11 @@ macro_rules! water_leaf {
 
 water_leaf!(
     /// `Server.Items.Bucket`.
-    BUCKET, BUCKET_CLASS = "Server.Items.Bucket", 0x14e0, 0x2004, 25
+    BUCKET,
+    BUCKET_CLASS = "Server.Items.Bucket",
+    0x14e0,
+    0x2004,
+    25
 );
 water_leaf!(
     /// `Server.Items.WaterBarrel`.
@@ -189,7 +193,11 @@ water_leaf!(
 );
 water_leaf!(
     /// `Server.Items.Tub`.
-    TUB, TUB_CLASS = "Server.Items.Tub", 0xe83, 0xe7b, 50
+    TUB,
+    TUB_CLASS = "Server.Items.Tub",
+    0xe83,
+    0xe7b,
+    50
 );
 
 /// `new Bucket(filled)`.

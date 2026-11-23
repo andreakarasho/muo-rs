@@ -252,11 +252,13 @@ macro_rules! card_leaf {
 
 card_leaf!(
     /// `Server.Items.ValentinesCardSouth`.
-    VALENTINES_CARD_SOUTH = "Server.Items.ValentinesCardSouth", 0x0EBD
+    VALENTINES_CARD_SOUTH = "Server.Items.ValentinesCardSouth",
+    0x0EBD
 );
 card_leaf!(
     /// `Server.Items.ValentinesCardEast`.
-    VALENTINES_CARD_EAST = "Server.Items.ValentinesCardEast", 0x0EBE
+    VALENTINES_CARD_EAST = "Server.Items.ValentinesCardEast",
+    0x0EBE
 );
 
 // ---- CommodityDeedBox ----

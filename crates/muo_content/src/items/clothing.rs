@@ -1291,27 +1291,39 @@ macro_rules! clothing_base {
 
 clothing_base!(
     /// `Server.Items.BaseCloak`.
-    BASE_CLOAK, BASE_CLOAK_CLASS = "Server.Items.BaseCloak", Layer::Cloak
+    BASE_CLOAK,
+    BASE_CLOAK_CLASS = "Server.Items.BaseCloak",
+    Layer::Cloak
 );
 clothing_base!(
     /// `Server.Items.BaseMiddleTorso`.
-    BASE_MIDDLE_TORSO, BASE_MIDDLE_TORSO_CLASS = "Server.Items.BaseMiddleTorso", Layer::MiddleTorso
+    BASE_MIDDLE_TORSO,
+    BASE_MIDDLE_TORSO_CLASS = "Server.Items.BaseMiddleTorso",
+    Layer::MiddleTorso
 );
 clothing_base!(
     /// `Server.Items.BaseOuterLegs`.
-    BASE_OUTER_LEGS, BASE_OUTER_LEGS_CLASS = "Server.Items.BaseOuterLegs", Layer::OuterLegs
+    BASE_OUTER_LEGS,
+    BASE_OUTER_LEGS_CLASS = "Server.Items.BaseOuterLegs",
+    Layer::OuterLegs
 );
 clothing_base!(
     /// `Server.Items.BaseOuterTorso`.
-    BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS = "Server.Items.BaseOuterTorso", Layer::OuterTorso
+    BASE_OUTER_TORSO,
+    BASE_OUTER_TORSO_CLASS = "Server.Items.BaseOuterTorso",
+    Layer::OuterTorso
 );
 clothing_base!(
     /// `Server.Items.BasePants`.
-    BASE_PANTS, BASE_PANTS_CLASS = "Server.Items.BasePants", Layer::Pants
+    BASE_PANTS,
+    BASE_PANTS_CLASS = "Server.Items.BasePants",
+    Layer::Pants
 );
 clothing_base!(
     /// `Server.Items.BaseShirt`.
-    BASE_SHIRT, BASE_SHIRT_CLASS = "Server.Items.BaseShirt", Layer::Shirt
+    BASE_SHIRT,
+    BASE_SHIRT_CLASS = "Server.Items.BaseShirt",
+    Layer::Shirt
 );
 clothing_base!(
     /// `Server.Items.BaseShoes` (only cloth shoes can be cut with scissors).
@@ -1319,7 +1331,9 @@ clothing_base!(
 );
 clothing_base!(
     /// `Server.Items.BaseWaist`.
-    BASE_WAIST, BASE_WAIST_CLASS = "Server.Items.BaseWaist", Layer::Waist
+    BASE_WAIST,
+    BASE_WAIST_CLASS = "Server.Items.BaseWaist",
+    Layer::Waist
 );
 
 /// `BaseHat`: a flag for hats saved from a shipwreck, an extra equip info line and name property, and an
