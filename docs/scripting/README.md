@@ -1,4 +1,7 @@
-# Scripting reference
+# muo-rs scripting
+
+New here? Start with [Getting started](getting-started.md) and the [Examples](examples.md). This page is the
+reference for class declarations and script files; the pages after it cover every function a script can call.
 
 Content is [rhai](https://rhai.rs) in `Data/Scripts/**/*.rhai`. `[ReloadScripts` reloads it in game; a script error
 stops startup (or refuses the reload, keeping what was loaded) with the file and line.
@@ -13,7 +16,7 @@ stops startup (or refuses the reload, keeping what was loaded) with the file and
 ## Classes
 
 ```rhai
-mobile("Orc", |c| { .. });      // an existing class, by short or full name
+mobile("Orc", |c| { .. });      // a shipped class (declared once, in classes/mobiles/monsters.rhai: edit it there)
 item("FlamingLongsword", |c| { c.extends = "Longsword"; .. });   // a new class
 shop("SBBlacksmith", |s| { s.sells("Tongs", 13, 14, 0x0FBB); s.buys("Tongs", 7); });
 ```
