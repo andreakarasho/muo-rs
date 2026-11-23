@@ -15,3 +15,4 @@ use-default-preprocessors = false
 git-repository-url = "https://github.com/andreakarasho/muo-rs"
 edit-url-template = "https://github.com/andreakarasho/muo-rs/edit/main/docs/scripting/{path}"
 site-url = "/muo-rs/"
+additional-js = ["rhai-highlight.js"]
