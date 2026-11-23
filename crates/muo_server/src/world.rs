@@ -36,9 +36,14 @@ pub enum WorldState {
     WritingSave,
 }
 
+/// The entity tables' hasher: lookups by serial are the hottest path in the server (every movement check walks a
+/// sector's entities through them), and the default SipHash is several times slower. Order is insertion order
+/// either way.
+pub type EntityHasher = foldhash::fast::FixedState;
+
 pub struct World {
-    pub items: IndexMap<ItemId, Item>,
-    pub mobiles: IndexMap<MobileId, Mobile>,
+    pub items: IndexMap<ItemId, Item, EntityHasher>,
+    pub mobiles: IndexMap<MobileId, Mobile, EntityHasher>,
     /// `Core.Now`, set once per tick.
     pub now: DateTime,
     /// `Core.TickCount`, set once per tick. Compare by wrapping subtraction only.
@@ -134,8 +139,8 @@ impl World {
 
     fn bare() -> World {
         World {
-            items: IndexMap::new(),
-            mobiles: IndexMap::new(),
+            items: IndexMap::default(),
+            mobiles: IndexMap::default(),
             now: DateTime::MIN,
             tick_count: 0,
             rng: BuiltInRng::new(),

@@ -141,8 +141,7 @@ fn deposit_on_added(w: &mut World, id: ItemId, parent: EntityId, amount: i32) ->
 
 /// `new Gold(amount)`.
 pub fn new_gold(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &GOLD, 0xEED);
-    ops::set_stackable(w, id, true);
+    let id = crate::template_keys::template_new(w, &GOLD);
     ops::set_amount(w, id, amount);
     id
 }
@@ -294,9 +293,23 @@ pub static BANK_CHECK: ItemType = ItemType {
     parent: Some(&muo_server::item::ITEM_BASE),
     construct: None,
     make: Some(|w| new_bank_check(w, 0)),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(
+            w,
+            id,
+            "defaultWeight",
+            muo_server::item::ITEM_BASE.default_weight,
+        )
+    },
     display_loot_type: |w, _| core::aos(w),
-    label_number: |_, _| 1041361, // A bank check
+    label_number: |w, id| {
+        crate::template_keys::item_int(
+            w,
+            id,
+            "labelNumber",
+            muo_server::item::ITEM_BASE.label_number,
+        )
+    },
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         if core::ml(w) {
@@ -671,7 +684,14 @@ pub static KEY: ItemType = ItemType {
     full_name: "Server.Items.Key",
     parent: Some(&muo_server::item::ITEM_BASE),
     construct: Some(|w| new_key(w, 0)),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(
+            w,
+            id,
+            "defaultWeight",
+            muo_server::item::ITEM_BASE.default_weight,
+        )
+    },
     on_double_click: key_double_click,
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
@@ -762,10 +782,11 @@ fn keys_mut(w: &mut World, id: ItemId) -> Option<&mut Vec<ItemId>> {
 
 /// `new KeyRing()`.
 pub fn new_key_ring(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &KEY_RING, 0x1011);
+    let id = ops::new_item_with_id(w, &KEY_RING, 0);
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(KeyRingData::default());
     }
+    crate::templates::apply_item_as(w, id, KEY_RING.full_name);
     id
 }
 
@@ -871,7 +892,14 @@ pub static KEY_RING: ItemType = ItemType {
     full_name: "Server.Items.KeyRing",
     parent: Some(&muo_server::item::ITEM_BASE),
     construct: Some(new_key_ring),
-    default_weight: |_, _| 1.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(
+            w,
+            id,
+            "defaultWeight",
+            muo_server::item::ITEM_BASE.default_weight,
+        )
+    },
     on_drag_drop: |w, id, from, dropped| {
         if !ring_in_pack(w, id, from) {
             deps::send_localized_message(w, from, 1060640); // The item must be in your backpack to use it.

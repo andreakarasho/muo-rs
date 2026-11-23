@@ -696,7 +696,7 @@ mod tests {
 
     #[test]
     fn a_wall_is_its_base_graphic_plus_the_type() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (WHITE_STONE_WALL
             .construct
             .or(WHITE_STONE_WALL.make)
@@ -708,7 +708,7 @@ mod tests {
     #[test]
     fn sign_graphics_and_subtext_save() {
         assert_eq!(sign_graphic(3, 1), 0xB95 + 7);
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_subtext_sign(&mut w, 0xBA7, Some("open late".to_string()));
         let mut out = SaveWriter::new(true);
         (SUBTEXT_SIGN.serialize)(&w, id, &mut out);

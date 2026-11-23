@@ -82,6 +82,9 @@ pub struct TypeRegistry {
     prompts: Vec<PhaseFn>,
     configure: Vec<PhaseFn>,
     initialize: Vec<PhaseFn>,
+    /// Tables a content crate fills in at registration for another layer to read, keyed by type (e.g. the
+    /// JSON template keys of `muo_content::templates::keys`).
+    pub extensions: crate::resources::Resources,
 }
 
 fn push_unique(v: &mut Vec<EntityType>, t: EntityType) {
@@ -163,6 +166,11 @@ impl TypeRegistry {
     /// `FindTypeByHash(hash)`: items first, then mobiles.
     pub fn find_type_by_hash(&self, hash: u64) -> Option<EntityType> {
         self.by_hash.get(&hash)?.first().copied()
+    }
+
+    /// Every class whose short name (`Type.Name`) is `name`, case-sensitive.
+    pub fn types_named(&self, name: &str) -> &[EntityType] {
+        self.by_name.get(name).map_or(&[], Vec::as_slice)
     }
 
     /// `FindTypeByName(name, fullName, ignoreCase)`; a blank name finds nothing.

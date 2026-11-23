@@ -4,12 +4,12 @@
 use crate::simple::leaf;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 /// `LeftArm()`.
 pub fn left_arm_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1DA1)
+    crate::simple::from_template(w, ty, "Server.Items.LeftArm")
 }
 
 leaf! {
@@ -20,7 +20,7 @@ leaf! {
 
 /// `LeftLeg()`.
 pub fn left_leg_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1DA3)
+    crate::simple::from_template(w, ty, "Server.Items.LeftLeg")
 }
 
 leaf! {
@@ -31,7 +31,7 @@ leaf! {
 
 /// `RightArm()`.
 pub fn right_arm_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1DA2)
+    crate::simple::from_template(w, ty, "Server.Items.RightArm")
 }
 
 leaf! {
@@ -42,7 +42,7 @@ leaf! {
 
 /// `RightLeg()`.
 pub fn right_leg_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1DA4)
+    crate::simple::from_template(w, ty, "Server.Items.RightLeg")
 }
 
 leaf! {
@@ -53,14 +53,14 @@ leaf! {
 
 /// `Torso()`.
 pub fn torso_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1D9F)
+    crate::simple::from_template(w, ty, "Server.Items.Torso")
 }
 
 leaf! {
     /// `Server.Items.Torso`.
     TORSO = "Server.Items.Torso" : ITEM_BASE, v0;
     construct: Some(|w| torso_new(w, &TORSO)),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

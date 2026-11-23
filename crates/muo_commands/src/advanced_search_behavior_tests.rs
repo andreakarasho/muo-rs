@@ -620,6 +620,7 @@ fn worker_several_maps_ticked_matches_any_of_them() {
         height: 2048,
         season: 0,
         rules: muo_server::map::MapRules::empty(),
+        count: 1,
     };
     muo_server::map::loader::register_map(&mut w, &def).expect("malas");
     let from = viewer(&mut w);

@@ -1,0 +1,24 @@
+shop("SBLeatherArmor", |s| {
+    s.buys("LeatherArms", 40);
+    s.buys("LeatherChest", 52);
+    s.buys("LeatherGloves", 30);
+    s.buys("LeatherGorget", 37);
+    s.buys("LeatherLegs", 40);
+    s.buys("LeatherCap", 5);
+    s.buys("FemaleLeatherChest", 18);
+    s.buys("FemaleStuddedChest", 25);
+    s.buys("LeatherShorts", 14);
+    s.buys("LeatherSkirt", 11);
+    s.buys("LeatherBustierArms", 11);
+    s.buys("StuddedBustierArms", 27);
+    s.sells("LeatherArms", 80, 20, 0x13CD, #{ hue: 0 });
+    s.sells("LeatherChest", 101, 20, 0x13CC, #{ hue: 0 });
+    s.sells("LeatherGloves", 60, 20, 0x13C6, #{ hue: 0 });
+    s.sells("LeatherGorget", 74, 20, 0x13C7, #{ hue: 0 });
+    s.sells("LeatherLegs", 80, 20, 0x13CB, #{ hue: 0 });
+    s.sells("LeatherCap", 10, 20, 0x1DB9, #{ hue: 0 });
+    s.sells("FemaleLeatherChest", 116, 20, 0x1C06, #{ hue: 0 });
+    s.sells("LeatherBustierArms", 97, 20, 0x1C0A, #{ hue: 0 });
+    s.sells("LeatherShorts", 86, 20, 0x1C00, #{ hue: 0 });
+    s.sells("LeatherSkirt", 87, 20, 0x1C08, #{ hue: 0 });
+});

@@ -110,7 +110,6 @@ pub fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
     };
     let aos = core::aos(w);
     let ml = core::ml(w);
-    let class = weapon::class(w, id);
 
     if let Some(c) = &d.crafter {
         list.add_str(1050043, c); // crafted by ~1_NAME~
@@ -137,8 +136,9 @@ pub fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
         list.add(1111709); // Gargoyles Only
     }
 
-    if class.artifact_rarity > 0 {
-        list.add_int(1061078, class.artifact_rarity); // artifact rarity ~1_val~
+    let rarity = weapon::artifact_rarity(w, id);
+    if rarity > 0 {
+        list.add_int(1061078, rarity); // artifact rarity ~1_val~
     }
 
     // IUsesRemaining: BaseAxe, BasePoleArm and the ProspectorsTool.

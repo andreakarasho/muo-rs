@@ -302,6 +302,11 @@ fn legacy_uop_map_chunks_are_reordered_by_sequence() {
     assert_eq!(m.get_land_block(0, 0).len(), 64);
     assert_eq!(m.get_land_tile(0, 0).id, 0);
     assert_eq!(m.get_land_tile(0, 8).id, 100); // block (0, 1) comes from the second chunk
+
+    // a stale map0.mul beside it (some client installs keep one full of void tiles) is not what loads: the UOP is
+    s.write("map0.mul", &[0xAA; 4 * 196]);
+    let mut m = TileMatrix::open(&s.dirs(), 0, 0, 16, 16, &TileMatrixOptions::default()).unwrap();
+    assert_eq!(m.get_land_tile(0, 8).id, 100);
 }
 
 fn s_offset(file: &[u8], chunk: &[u8]) -> i64 {

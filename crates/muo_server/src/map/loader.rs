@@ -37,7 +37,22 @@ pub fn configure(w: &mut World, base_dir: &Path) -> Result<usize, String> {
 
     let mut failures = Vec::new();
     let mut count = 0;
-    for def in &defs {
+    // an entry with a `count` is that many maps, on the indexes from its own, each named after its index
+    fn copies(def: &MapDefinition) -> impl Iterator<Item = MapDefinition> + '_ {
+        let n = def.count.max(1);
+        (0..n).map(move |i| MapDefinition {
+            index: def.index + i,
+            name: if n > 1 {
+                format!("{}{}", def.name, def.index + i)
+            } else {
+                def.name.clone()
+            },
+            count: 1,
+            ..def.clone()
+        })
+    }
+    for def in defs.iter().flat_map(copies) {
+        let def = &def;
         match register_map(w, def) {
             Ok(_) => count += 1,
             Err(e) => {

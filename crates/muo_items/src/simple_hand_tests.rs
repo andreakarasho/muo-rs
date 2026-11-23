@@ -7,11 +7,12 @@ use muo_server::ids::ItemId;
 
 /// A world whose type registry and `Configure` phases of this crate have run.
 fn world() -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     crate::register(&mut w.types);
     muo_content::items::common::register(&mut w.types);
     muo_content::items::leaves::register(&mut w.types);
     muo_server::type_registry::invoke_phase(&mut w, muo_server::type_registry::Phase::Configure);
+    muo_content::templates::table(&mut w);
     w
 }
 

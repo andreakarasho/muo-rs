@@ -47,7 +47,7 @@ pub static BR_BOARD: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.BRBoard",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_board(w, &BR_BOARD)),
-    default_name: |_, _| Some("Scoreboard".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: board_double_click,
     serialize: |w, id, out| board_serialize(w, id, out),
     deserialize: |w, id, r| board_deserialize(w, id, r),
@@ -759,7 +759,7 @@ pub static BR_BOMB: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.BRBomb",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_name: |_, _| Some("da bomb".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     skip_serialization: |_, _| true,
     on_added: |w, id, parent| {
         (ITEM_BASE.on_added)(w, id, parent);
@@ -967,7 +967,7 @@ pub static BR_GOAL: ItemType = ItemType {
     parent: Some(&BASE_ADDON),
     construct: Some(new_goal),
     family: Some(&GOAL_CLASS),
-    default_name: |_, _| Some("Bombing Run Goal".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, BASE_ADDON.default_name),
     on_move_over: |w, id, m| {
         if !w.item(id).is_some_and(|i| i.visible()) {
             return true;
@@ -1048,7 +1048,7 @@ pub static BR_CONTROLLER: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.BRController",
     parent: Some(&EVENT_CONTROLLER),
     construct: Some(new_controller_br),
-    default_name: |_, _| Some("Bombing Run Controller".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, EVENT_CONTROLLER.default_name),
     serialize: |w, id, out| {
         (EVENT_CONTROLLER.serialize)(w, id, out);
         out.write_i32(0);

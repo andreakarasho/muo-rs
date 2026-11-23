@@ -24,6 +24,7 @@ use muo_server::serialization_ext::ReadEntityExt;
 
 use super::armor::{append_space_with_article, ore_type_number};
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
+use super::equip_props as ep;
 use super::weapon::{self, WeaponType};
 use super::{MlInt, Wear, core_uotd, parent_mobile, random_min_max, read_enum, same};
 use crate::aos::{
@@ -34,6 +35,7 @@ use crate::core;
 use crate::craft::{self, CraftResource};
 use crate::hooks::rnd;
 use crate::misc::aos_helpers;
+use crate::templates::item_props as ip;
 
 int_enum! {
     /// `ClothingQuality`.
@@ -68,11 +70,8 @@ pub struct ClothingClass {
     pub old_str_req: i32,
     pub allow_male_wearer: bool,
     pub allow_female_wearer: bool,
-    pub can_be_blessed: bool,
     pub can_fortify: bool,
     pub default_resource: CraftResource,
-    /// `[Flippable(a, b)]`.
-    pub flippable: Option<(i32, i32)>,
     /// A bare `[Flippable]`: the class's own `Flip()` method (the `Flip` command calls it).
     pub flip: Option<fn(&mut World, ItemId)>,
     /// `OnCraft(..)`.
@@ -109,10 +108,8 @@ pub static BASE_CLOTHING_CLASS: ClothingClass = ClothingClass {
     old_str_req: 0,
     allow_male_wearer: true,
     allow_female_wearer: true,
-    can_be_blessed: true,
     can_fortify: true,
     default_resource: CraftResource::None,
-    flippable: None,
     flip: None,
     on_craft: on_craft_virtual,
     scissor: scissor_virtual,
@@ -187,6 +184,51 @@ pub fn class(w: &World, id: ItemId) -> &'static ClothingClass {
         .unwrap_or(&BASE_CLOTHING_CLASS)
 }
 
+/// `LabelNumber` when overridden: the class's template prop `labelNumber`, else its table field (0 keeps the
+/// tiledata name).
+pub fn class_label_number(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "labelNumber", class(w, id).label_number)
+}
+
+/// `ArtifactRarity`: the class's template prop `artifactRarity`, else its table field.
+pub fn artifact_rarity(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "artifactRarity", class(w, id).artifact_rarity)
+}
+
+/// `InitMinHits` and `InitMaxHits` of the era.
+pub fn init_hits(w: &World, id: ItemId) -> (i32, i32) {
+    let (c, ml) = (class(w, id), core::ml(w));
+    (
+        ip::ml_int(w, id, "initMinHits", c.init_min_hits).get(ml),
+        ip::ml_int(w, id, "initMaxHits", c.init_max_hits).get(ml),
+    )
+}
+
+/// `DefaultResource`.
+pub fn default_resource(w: &World, id: ItemId) -> CraftResource {
+    ep::named(
+        w,
+        id,
+        "defaultResource",
+        &ep::RESOURCES,
+        class(w, id).default_resource,
+    )
+}
+
+/// `AllowMaleWearer` and `AllowFemaleWearer`.
+pub fn allow_wearer(w: &World, id: ItemId) -> (bool, bool) {
+    let c = class(w, id);
+    (
+        ep::boolean(w, id, "allowMaleWearer", c.allow_male_wearer),
+        ep::boolean(w, id, "allowFemaleWearer", c.allow_female_wearer),
+    )
+}
+
+/// `CanFortify`.
+pub fn can_fortify(w: &World, id: ItemId) -> bool {
+    ep::boolean(w, id, "canFortify", class(w, id).can_fortify)
+}
+
 /// `item is BaseClothing`.
 pub fn is_clothing(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.ty.is(&BASE_CLOTHING))
@@ -197,12 +239,14 @@ pub fn is_clothing(w: &World, id: ItemId) -> bool {
 pub fn new_clothing(w: &mut World, ty: &'static ItemType, item_id: i32, hue: i32) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
     let c = ty.family::<ClothingClass>().unwrap_or(&BASE_CLOTHING_CLASS);
-    (ty.set_layer)(w, id, c.layer);
+    crate::templates::table(w); // the class props below read the loaded table
+    let layer = ep::layer(w, id, c.layer);
+    (ty.set_layer)(w, id, layer);
     (ty.set_hue)(w, id, hue);
-    let ml = core::ml(w);
-    let hits = random_min_max(w, c.init_min_hits.get(ml), c.init_max_hits.get(ml));
+    let (min, max) = init_hits(w, id);
+    let hits = random_min_max(w, min, max);
     let mut d = ClothingData::for_load();
-    d.resource = c.default_resource;
+    d.resource = default_resource(w, id);
     d.hit_points = hits;
     d.max_hit_points = hits;
     if let Some(i) = w.item_mut(id) {
@@ -249,9 +293,13 @@ pub fn compute_stat_bonus(w: &World, id: ItemId, stat: StatType) -> i32 {
     let c = class(w, id);
     let a = |x: AosAttribute| super::attr(w, id, AttrKind::Attributes, x as u32);
     match stat {
-        StatType::STR => c.base_str_bonus + a(AosAttribute::BonusStr),
-        StatType::DEX => c.base_dex_bonus + a(AosAttribute::BonusDex),
-        _ => c.base_int_bonus + a(AosAttribute::BonusInt),
+        StatType::STR => {
+            ip::int(w, id, "baseStrBonus", c.base_str_bonus) + a(AosAttribute::BonusStr)
+        }
+        StatType::DEX => {
+            ip::int(w, id, "baseDexBonus", c.base_dex_bonus) + a(AosAttribute::BonusDex)
+        }
+        _ => ip::int(w, id, "baseIntBonus", c.base_int_bonus) + a(AosAttribute::BonusInt),
     }
 }
 
@@ -391,7 +439,7 @@ fn on_craft_virtual(w: &mut World, id: ItemId, a: &CraftArgs) -> i32 {
     let Some(ty) = w.item(id).map(|i| i.ty) else {
         return a.quality;
     };
-    if class(w, id).default_resource != CraftResource::None {
+    if default_resource(w, id) != CraftResource::None {
         set_resource(w, id, a.resource);
     } else {
         (ty.set_hue)(w, id, a.res_hue);
@@ -499,7 +547,7 @@ fn scissor_virtual(w: &mut World, id: ItemId, from: MobileId) -> bool {
 
 /// `BaseShoes.Scissor`: only cloth shoes can be cut.
 fn shoes_scissor(w: &mut World, id: ItemId, from: MobileId) -> bool {
-    if class(w, id).default_resource == CraftResource::None {
+    if default_resource(w, id) == CraftResource::None {
         return scissor_with(w, id, from);
     }
     deps::send_localized_message(w, from, 502440); // Scissors can not be used on that to produce anything.
@@ -599,12 +647,14 @@ pub fn validate_mobile(w: &mut World, m: MobileId) {
         if !is_clothing(w, item) {
             continue;
         }
-        let c = class(w, item);
         let gm = w
             .mobile(m)
             .is_none_or(|m| m.access_level >= AccessLevel::GameMaster);
         if wrong_race(w, item, m)
-            || (!gm && super::wrong_gender(w, m, c.allow_male_wearer, c.allow_female_wearer))
+            || (!gm && {
+                let (male, female) = allow_wearer(w, item);
+                super::wrong_gender(w, m, male, female)
+            })
         {
             deps::add_to_backpack(w, m, item);
         }
@@ -668,8 +718,8 @@ fn can_equip(w: &mut World, id: ItemId, from: MobileId) -> bool {
     if wrong_race(w, id, from) {
         return false;
     }
-    let c = class(w, id);
-    if super::wrong_gender(w, from, c.allow_male_wearer, c.allow_female_wearer) {
+    let (male, female) = allow_wearer(w, id);
+    if super::wrong_gender(w, from, male, female) {
         return false;
     }
     let str_bonus = compute_stat_bonus(w, id, StatType::STR);
@@ -767,7 +817,7 @@ fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
     }
     add_skill_bonus_properties(&d.skill_bonuses, list, aos);
 
-    let rarity = class(w, id).artifact_rarity;
+    let rarity = artifact_rarity(w, id);
     if rarity > 0 {
         list.add_int(1061078, rarity); // artifact rarity ~1_val~
     }
@@ -917,7 +967,7 @@ fn serialize(w: &World, id: ItemId, writer: &mut dyn GenericWriter) {
     let Some(d) = data(w, id) else { return };
     writer.write_i32(SERIALIZATION_VERSION);
 
-    let default_resource = class(w, id).default_resource;
+    let default_resource = default_resource(w, id);
     let mut f = 0_u32;
     let mut set = |on: bool, bit: u32| {
         if on {
@@ -999,6 +1049,7 @@ const PRE_CODEGEN: Layout = Layout {
 };
 
 fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Result<()> {
+    crate::templates::table(w); // `DefaultResource` reads the class props
     (ITEM_BASE.deserialize)(w, id, reader)?;
     let version = reader.read_i32()?;
     let layout = match version {
@@ -1007,14 +1058,13 @@ fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Res
         v if v < SERIALIZATION_VERSION => Some(&PRE_CODEGEN),
         _ => None,
     };
-    let c = class(w, id);
     let mut d = ClothingData::for_load();
     let f = reader.read_enum(4)? as u32;
     let mut crafter_mobile = None;
 
     if let Some(layout) = layout {
         // Old layouts: a resource flagged or `DefaultResource`.
-        d.resource = c.default_resource;
+        d.resource = default_resource(w, id);
         if f & flag::RESOURCE != 0 {
             d.resource = read_enum(reader, CraftResource::from_i32, "CraftResource")?;
         }
@@ -1111,10 +1161,9 @@ fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Res
 
 /// `[AfterDeserialization]`.
 fn after_deserialization(w: &mut World, id: ItemId) {
-    let c = class(w, id);
     if data(w, id).is_some_and(|d| d.max_hit_points == 0 && d.hit_points == 0) {
-        let ml = core::ml(w);
-        let hits = random_min_max(w, c.init_min_hits.get(ml), c.init_max_hits.get(ml));
+        let (min, max) = init_hits(w, id);
+        let hits = random_min_max(w, min, max);
         if let Some(d) = data_mut(w, id) {
             d.hit_points = hits;
             d.max_hit_points = hits;
@@ -1136,10 +1185,10 @@ fn after_deserialization(w: &mut World, id: ItemId) {
 fn resistance(
     w: &World,
     id: ItemId,
-    base: fn(&ClothingClass) -> i32,
+    (key, base): (&str, fn(&ClothingClass) -> i32),
     e: AosElementAttribute,
 ) -> i32 {
-    base(class(w, id)) + resist(w, id, e)
+    ip::int(w, id, key, base(class(w, id))) + resist(w, id, e)
 }
 
 /// `Server.Items.BaseClothing`.
@@ -1149,38 +1198,46 @@ pub static BASE_CLOTHING: ItemType = ItemType {
     construct: None,
     family: Some(&BASE_CLOTHING_CLASS),
     default_weight: |w, id| {
-        class(w, id)
-            .default_weight
+        ep::float_opt(w, id, "defaultWeight", class(w, id).default_weight)
             .unwrap_or_else(|| base::default_weight_base(w, id))
     },
-    label_number: |w, id| match class(w, id).label_number {
+    label_number: |w, id| match class_label_number(w, id) {
         0 => base::label_number_base(w, id),
         n => n,
     },
     required_races: |w, id| {
-        class(w, id)
-            .required_races
+        ep::required_races(w, id, class(w, id).required_races)
             .unwrap_or_else(|| base::required_races_base(w, id))
     },
     physical_resistance: |w, id| {
         resistance(
             w,
             id,
-            |c| c.base_physical_resistance,
+            ("basePhysicalResistance", |c| c.base_physical_resistance),
             AosElementAttribute::Physical,
         )
     },
     fire_resistance: |w, id| {
-        resistance(w, id, |c| c.base_fire_resistance, AosElementAttribute::Fire)
+        resistance(
+            w,
+            id,
+            ("baseFireResistance", |c| c.base_fire_resistance),
+            AosElementAttribute::Fire,
+        )
     },
     cold_resistance: |w, id| {
-        resistance(w, id, |c| c.base_cold_resistance, AosElementAttribute::Cold)
+        resistance(
+            w,
+            id,
+            ("baseColdResistance", |c| c.base_cold_resistance),
+            AosElementAttribute::Cold,
+        )
     },
     poison_resistance: |w, id| {
         resistance(
             w,
             id,
-            |c| c.base_poison_resistance,
+            ("basePoisonResistance", |c| c.base_poison_resistance),
             AosElementAttribute::Poison,
         )
     },
@@ -1188,7 +1245,7 @@ pub static BASE_CLOTHING: ItemType = ItemType {
         resistance(
             w,
             id,
-            |c| c.base_energy_resistance,
+            ("baseEnergyResistance", |c| c.base_energy_resistance),
             AosElementAttribute::Energy,
         )
     },
@@ -1234,27 +1291,39 @@ macro_rules! clothing_base {
 
 clothing_base!(
     /// `Server.Items.BaseCloak`.
-    BASE_CLOAK, BASE_CLOAK_CLASS = "Server.Items.BaseCloak", Layer::Cloak
+    BASE_CLOAK,
+    BASE_CLOAK_CLASS = "Server.Items.BaseCloak",
+    Layer::Cloak
 );
 clothing_base!(
     /// `Server.Items.BaseMiddleTorso`.
-    BASE_MIDDLE_TORSO, BASE_MIDDLE_TORSO_CLASS = "Server.Items.BaseMiddleTorso", Layer::MiddleTorso
+    BASE_MIDDLE_TORSO,
+    BASE_MIDDLE_TORSO_CLASS = "Server.Items.BaseMiddleTorso",
+    Layer::MiddleTorso
 );
 clothing_base!(
     /// `Server.Items.BaseOuterLegs`.
-    BASE_OUTER_LEGS, BASE_OUTER_LEGS_CLASS = "Server.Items.BaseOuterLegs", Layer::OuterLegs
+    BASE_OUTER_LEGS,
+    BASE_OUTER_LEGS_CLASS = "Server.Items.BaseOuterLegs",
+    Layer::OuterLegs
 );
 clothing_base!(
     /// `Server.Items.BaseOuterTorso`.
-    BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS = "Server.Items.BaseOuterTorso", Layer::OuterTorso
+    BASE_OUTER_TORSO,
+    BASE_OUTER_TORSO_CLASS = "Server.Items.BaseOuterTorso",
+    Layer::OuterTorso
 );
 clothing_base!(
     /// `Server.Items.BasePants`.
-    BASE_PANTS, BASE_PANTS_CLASS = "Server.Items.BasePants", Layer::Pants
+    BASE_PANTS,
+    BASE_PANTS_CLASS = "Server.Items.BasePants",
+    Layer::Pants
 );
 clothing_base!(
     /// `Server.Items.BaseShirt`.
-    BASE_SHIRT, BASE_SHIRT_CLASS = "Server.Items.BaseShirt", Layer::Shirt
+    BASE_SHIRT,
+    BASE_SHIRT_CLASS = "Server.Items.BaseShirt",
+    Layer::Shirt
 );
 clothing_base!(
     /// `Server.Items.BaseShoes` (only cloth shoes can be cut with scissors).
@@ -1262,7 +1331,9 @@ clothing_base!(
 );
 clothing_base!(
     /// `Server.Items.BaseWaist`.
-    BASE_WAIST, BASE_WAIST_CLASS = "Server.Items.BaseWaist", Layer::Waist
+    BASE_WAIST,
+    BASE_WAIST_CLASS = "Server.Items.BaseWaist",
+    Layer::Waist
 );
 
 /// `BaseHat`: a flag for hats saved from a shipwreck, an extra equip info line and name property, and an

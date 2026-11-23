@@ -7,16 +7,34 @@ use muo_server::mobile::part1::{props_a, props_b};
 use muo_server::mobile::part2::{items, stats};
 use muo_server::world::World;
 
-pub use muo_content::creature::enums::*;
 pub use muo_content::creature::setters::*;
 pub use muo_server::skills::SkillName;
 
 /// `creature_leaf!`: one concrete creature class (a `MobileType` plus its `CreatureType` table of overrides).
 /// The save is "parent part + version int 0" (`encoded` for `[SerializationGenerator(0)]` without `false`).
 macro_rules! creature_leaf {
+    // `template`: the constructor and `DefaultName`/`IsInvulnerable`/`CanShout`/`CanTeach` are the class's mobile
+    // template (`Data/Scripts/classes/mobiles`) and its props.
     (
         $(#[$m:meta])*
-        $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, ctor $ctor:ident, encoded $enc:literal;
+        $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, template, encoded $enc:literal;
+        $($rest:tt)*
+    ) => {
+        creature_leaf! {
+            $(#[$m])*
+            $name, $class = $full : $parent / $pclass, ctor (|w| muo_content::templates::new_creature(w, &$name)), encoded $enc;
+            c {
+                default_name: muo_content::templates::creature_props::default_name,
+                is_invulnerable: |w, id| $crate::template_keys::mobile_bool(w, id, "isInvulnerable", $pclass.is_invulnerable),
+                can_shout: |w, id| $crate::template_keys::mobile_bool(w, id, "canShout", $pclass.can_shout),
+                can_teach: |w, id| $crate::template_keys::mobile_bool(w, id, "canTeach", $pclass.can_teach),
+            }
+            $($rest)*
+        }
+    };
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident = $full:literal : $parent:ident / $pclass:ident, ctor $ctor:expr, encoded $enc:literal;
         c { $($cf:ident : $cv:expr,)* }
         m { $($mf:ident : $mv:expr,)* }
     ) => {
@@ -91,11 +109,6 @@ pub fn set_facial_hair_hue(w: &mut World, id: MobileId, value: i32) {
     props_b::set_facial_hair_hue(w, id, value);
 }
 
-/// `HairHue`.
-pub fn hair_hue(w: &World, id: MobileId) -> i32 {
-    w.mobile(id).map_or(0, |m| m.hair_hue)
-}
-
 /// `Race = Race.<name>`.
 pub fn set_race_named(w: &mut World, id: MobileId, name: &str) {
     let race = w
@@ -113,13 +126,6 @@ pub fn set_speed(w: &mut World, id: MobileId, active: f64, passive: f64, is_pass
 /// `InitStats(str, dex, int)`.
 pub fn init_stats(w: &mut World, id: MobileId, str: i32, dex: i32, intel: i32) {
     stats::init_stats(w, id, str, dex, intel);
-}
-
-/// `BaseSoundID = value`.
-pub fn base_sound_id(w: &mut World, id: MobileId, value: i32) {
-    if let Some(m) = w.mobile_mut(id) {
-        m.base_sound_id = value;
-    }
 }
 
 /// `Race.RandomSkinHue()` of the mobile's race.
@@ -143,22 +149,12 @@ pub fn assign_random_hair(w: &mut World, id: MobileId) {
     props_b::set_hair_hue(w, id, hue);
 }
 
-/// `Utility.AssignRandomHair(m, hue)`.
-pub fn assign_random_hair_hue(w: &mut World, id: MobileId, hue: i32) {
-    muo_content::vendor::assign_random_hair(w, id, hue);
-}
-
 /// `Utility.AssignRandomFacialHair(m)`.
 #[allow(dead_code)]
 pub fn assign_random_facial_hair(w: &mut World, id: MobileId) {
     muo_content::vendor::assign_random_facial_hair(w, id, 0);
     let hue = muo_content::vendor::race_random_hair_hue(w, id);
     props_b::set_facial_hair_hue(w, id, hue);
-}
-
-/// `Utility.AssignRandomFacialHair(m, hue)`.
-pub fn assign_random_facial_hair_hue(w: &mut World, id: MobileId, hue: i32) {
-    muo_content::vendor::assign_random_facial_hair(w, id, hue);
 }
 
 /// `new T()` by short class name.
@@ -188,26 +184,6 @@ pub fn add_item_id(w: &mut World, id: MobileId, item: Option<ItemId>) {
 /// `AddItem(new T(hue))`: the class's `(int hue)` constructor only sets `Hue`.
 pub fn add_item_hue(w: &mut World, id: MobileId, name: &str, hue: Option<i32>) {
     let item = make_named(w, name);
-    if let Some(h) = hue {
-        set_item_hue(w, item, h);
-    }
-    add_item_id(w, id, item);
-}
-
-/// `AddItem(new T { ItemID = a, Hue = b })`.
-pub fn add_item_props(
-    w: &mut World,
-    id: MobileId,
-    name: &str,
-    item_id: Option<i32>,
-    hue: Option<i32>,
-) {
-    let item = make_named(w, name);
-    if let (Some(i), Some(g)) = (item, item_id)
-        && let Some(ty) = w.item(i).map(|i| i.ty)
-    {
-        (ty.set_item_id)(w, i, g);
-    }
     if let Some(h) = hue {
         set_item_hue(w, item, h);
     }

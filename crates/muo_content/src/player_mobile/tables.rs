@@ -497,9 +497,9 @@ impl ChampionTitleContext {
             harrower: reader.read_i32()?,
             ..Default::default()
         };
-        for i in 0..9 {
+        for (i, title) in c.titles.iter_mut().enumerate() {
             if flags & (1 << i) != 0 {
-                c.titles[i] = Some(ChampionTitle::read(reader)?);
+                *title = Some(ChampionTitle::read(reader)?);
             }
         }
         Ok(c)

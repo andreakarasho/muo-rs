@@ -47,7 +47,7 @@ fn names_are_unique_and_every_book_constructs() {
     }
     assert_eq!(seen.len(), 5 + 34);
     for t in all() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
     }
@@ -56,7 +56,7 @@ fn names_are_unique_and_every_book_constructs() {
 #[test]
 fn every_book_round_trips() {
     for t in all() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         let bytes = save(&w, id);
         let again = reload(&mut w, t, &bytes);
@@ -72,7 +72,7 @@ fn every_book_round_trips() {
 
 #[test]
 fn red_book_record() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (RED_BOOK.construct.unwrap())(&mut w);
     // BaseBook: version 5, flags (Title|Author|Writable|Pages = 1+2 are set since the title and author are null and
     // the default is null too, so only Writable 4 and Pages 8 since 20 empty pages are not the default (none)),
@@ -91,7 +91,7 @@ fn red_book_record() {
 
 #[test]
 fn defined_book_writes_only_what_differs() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (defined::DRAKOVS_JOURNAL.construct.unwrap())(&mut w);
     let d = data(&w, id).unwrap();
     assert_eq!(d.title.as_deref(), Some("Drakov's Journal"));
@@ -113,7 +113,7 @@ fn defined_book_writes_only_what_differs() {
 #[test]
 fn old_saves_load() {
     // version 4 (< 5): SecureLevel int, flags, [title], [author], [pages].
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let src = (RED_BOOK.construct.unwrap())(&mut w);
     let mut bytes = item_part(&w, src);
     bytes.extend([4, 0, 0, 0]); // version
@@ -134,7 +134,7 @@ fn old_saves_load() {
 
 #[test]
 fn dupe_copies_header_and_pages() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = (BLUE_BOOK.construct.unwrap())(&mut w);
     let b = (BLUE_BOOK.construct.unwrap())(&mut w);
     set_title(&mut w, a, Some("t".into()));
@@ -150,7 +150,9 @@ fn dupe_copies_header_and_pages() {
 
 #[test]
 fn content_match() {
-    let c = &defined::DRAKOVS_JOURNAL_CONTENT;
+    let mut w = crate::test_world();
+    let id = (defined::DRAKOVS_JOURNAL.construct.unwrap())(&mut w);
+    let c = default_content(&w, id).unwrap();
     assert!(c.is_match(&c.copy()));
     let mut changed = c.copy();
     changed.pop();

@@ -1,0 +1,26 @@
+shop("SBSELeatherArmor", |s| {
+    s.buys("LeatherJingasa", 5);
+    s.buys("LeatherDo", 42);
+    s.buys("LeatherHiroSode", 23);
+    s.buys("LeatherSuneate", 26);
+    s.buys("LeatherHaidate", 28);
+    s.buys("LeatherNinjaPants", 25);
+    s.buys("LeatherNinjaJacket", 26);
+    s.buys("StuddedMempo", 28);
+    s.buys("StuddedDo", 66);
+    s.buys("StuddedHiroSode", 32);
+    s.buys("StuddedSuneate", 40);
+    s.buys("StuddedHaidate", 37);
+    s.sells("LeatherJingasa", 11, 20, 0x2776, #{ hue: 0 });
+    s.sells("LeatherDo", 87, 20, 0x277B, #{ hue: 0 });
+    s.sells("LeatherHiroSode", 49, 20, 0x277E, #{ hue: 0 });
+    s.sells("LeatherSuneate", 55, 20, 0x2786, #{ hue: 0 });
+    s.sells("LeatherHaidate", 54, 20, 0x278A, #{ hue: 0 });
+    s.sells("LeatherNinjaPants", 49, 20, 0x2791, #{ hue: 0 });
+    s.sells("LeatherNinjaJacket", 51, 20, 0x2793, #{ hue: 0 });
+    s.sells("StuddedMempo", 61, 20, 0x279D, #{ hue: 0 });
+    s.sells("StuddedDo", 130, 20, 0x277C, #{ hue: 0 });
+    s.sells("StuddedHiroSode", 73, 20, 0x277F, #{ hue: 0 });
+    s.sells("StuddedSuneate", 78, 20, 0x2787, #{ hue: 0 });
+    s.sells("StuddedHaidate", 76, 20, 0x278B, #{ hue: 0 });
+});

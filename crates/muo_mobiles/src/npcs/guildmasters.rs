@@ -2,29 +2,22 @@
 //! guild) and its twelve classes.
 
 use muo_content::creature::{BASE_CREATURE_C, CreatureType};
-use muo_content::hooks::rnd;
 use muo_content::mx;
 use muo_content::player_mobile::{self, NpcGuild};
-use muo_content::vendor::{
-    BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, ShoeType, VendorClass, add_hued, init_outfit,
-    new_vendor,
-};
+use muo_content::vendor::{BASE_VENDOR, BASE_VENDOR_C, BASE_VENDOR_CLASS, VendorClass};
+use muo_primitives::TimeSpan;
 use muo_primitives::dotnet::InvariantCase;
-use muo_primitives::{TimeSpan, utility};
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::events::SpeechEventArgs;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::mobile::MobileType;
-use muo_server::mobile::part1::props_a;
 use muo_server::mobile::part2::speech;
 use muo_server::packets::message::AffixType;
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
-use super::vendors::add_item_hued;
-use super::vendors::sb::SBBLACKSMITH;
-use crate::common::set_skill_range;
+use crate::template_keys_npcs as keys;
 
 /// The virtuals `BaseGuildmaster` adds.
 pub struct GuildmasterClass {
@@ -64,22 +57,6 @@ fn is_player(w: &World, m: MobileId) -> bool {
 
 fn say_to(w: &mut World, id: MobileId, to: MobileId, n: i32) {
     speech::say_to_number(w, id, to, n, "");
-}
-
-/// `BaseGuildmaster(title)`: `BaseVendor(title)`, then `Title = $"the {title} {guildmaster/guildmistress}"`.
-pub fn new_guildmaster(w: &mut World, ty: &'static MobileType, title: &str) -> MobileId {
-    let id = new_vendor(w, ty, Some(title));
-    let female = w.mobile(id).is_some_and(|m| m.female);
-    let t = format!(
-        "the {title} {}",
-        if female {
-            "guildmistress"
-        } else {
-            "guildmaster"
-        }
-    );
-    props_a::set_title(w, id, Some(t));
-    id
 }
 
 /// `WasNamed(speech)`: the speech starts with the vendor's name, ignoring case.
@@ -237,24 +214,32 @@ pub static BASE_GUILDMASTER: MobileType = MobileType {
     ..BASE_VENDOR
 };
 
-/// One guildmaster class. `v`: fields of its `VendorClass` (over `BASE_GUILDMASTER_V`), `g`: of its
-/// `GuildmasterClass`, `c`: of its `CreatureType`, `m`: of its `MobileType`.
+/// The members of a guildmaster class that are its template's props (`template_keys_npcs`).
+static TEMPLATE_GUILDMASTER_V: VendorClass = VendorClass {
+    init_sb_info: super::vendors::sb::from_props,
+    npc_guild: keys::npc_guild,
+    shoe_type: keys::shoe_type,
+    get_shoe_hue: keys::shoe_hue,
+    init_outfit: keys::init_outfit,
+    ..BASE_GUILDMASTER_V
+};
+
+/// One guildmaster class, whose constructor is its template (`npcTitleByGender`, `skills`). `v`: fields of its
+/// `VendorClass` (over the props-reading members), `g`: of its `GuildmasterClass`, `c`: of its `CreatureType`,
+/// `m`: of its `MobileType`.
 macro_rules! guildmaster {
-    ($name:ident, $ctor:ident = $full:literal, $title:literal, $guild:expr, skills [$(($sk:ident, $a:literal, $b:literal)),*];
+    ($name:ident, $ctor:ident = $full:literal;
      v { $($vf:ident : $vv:expr,)* } g { $($gf:ident : $gv:expr,)* } c { $($cf:ident : $cv:expr,)* } m { $($mf:ident : $mv:expr,)* }) => {
         fn $ctor(w: &mut World) -> MobileId {
-            let id = new_guildmaster(w, &$name, $title);
-            $( set_skill_range(w, id, SkillName::$sk, $a, $b); )*
-            id
+            super::vendors::npc::new_template_vendor(w, &$name)
         }
         mod $ctor {
             use super::*;
             pub static G: GuildmasterClass = GuildmasterClass { $($gf: $gv,)* ..BASE_GUILDMASTER_CLASS };
             pub static V: VendorClass = VendorClass {
-                npc_guild: |_, _| $guild,
                 $($vf: $vv,)*
                 subclass: Some(&G),
-                ..BASE_GUILDMASTER_V
+                ..TEMPLATE_GUILDMASTER_V
             };
             pub static C: CreatureType = CreatureType { $($cf: $cv,)* subclass: Some(&V), ..BASE_GUILDMASTER_C };
         }
@@ -278,78 +263,34 @@ macro_rules! guildmaster {
     };
 }
 
-guildmaster!(BARD_GUILDMASTER, bard_guildmaster_new = "Server.Mobiles.BardGuildmaster", "bard", NpcGuild::BardsGuild,
-    skills [(Archery, 80.0, 100.0), (Discordance, 80.0, 100.0), (Musicianship, 80.0, 100.0), (Peacemaking, 80.0, 100.0),
-        (Provocation, 80.0, 100.0), (Swords, 80.0, 100.0)];
+guildmaster!(BARD_GUILDMASTER, bard_guildmaster_new = "Server.Mobiles.BardGuildmaster";
     v {} g {} c {} m {});
 
-guildmaster!(BLACKSMITH_GUILDMASTER, blacksmith_guildmaster_new = "Server.Mobiles.BlacksmithGuildmaster", "blacksmith", NpcGuild::BlacksmithsGuild,
-    skills [(ArmsLore, 65.0, 88.0), (Blacksmith, 90.0, 100.0), (Macing, 36.0, 68.0), (Parry, 36.0, 68.0)];
+guildmaster!(BLACKSMITH_GUILDMASTER, blacksmith_guildmaster_new = "Server.Mobiles.BlacksmithGuildmaster";
     v {
         is_active_vendor: |_, _| true,
-        shoe_type: |_, _| ShoeType::ThighBoots,
-        init_sb_info: |w, id| vec![SBBLACKSMITH.new_for(w, id)],
-        init_outfit: |w, id| {
-            init_outfit(w, id);
-            let name = if rnd::bool(w) { "Server.Items.FullApron" } else { "Server.Items.RingmailChest" };
-            if let Some(item) = muo_content::factory::make_item(w, name)
-                && !muo_server::mobile::base::equip_item(w, id, item)
-                    && let Some(t) = w.item(item).map(|i| i.ty) {
-                        (t.delete)(w, item);
-                    }
-            add_item_hued(w, id, "Server.Items.Bascinet", None);
-            add_item_hued(w, id, "Server.Items.SmithHammer", None);
-        },
     }
     g {} c {} m { click_title: |_, _| true, });
 
-guildmaster!(FISHER_GUILDMASTER, fisher_guildmaster_new = "Server.Mobiles.FisherGuildmaster", "fisher", NpcGuild::FishermensGuild,
-    skills [(Fishing, 80.0, 100.0)];
+guildmaster!(FISHER_GUILDMASTER, fisher_guildmaster_new = "Server.Mobiles.FisherGuildmaster";
     v {} g {} c {} m {});
 
-guildmaster!(HEALER_GUILDMASTER, healer_guildmaster_new = "Server.Mobiles.HealerGuildmaster", "healer", NpcGuild::HealersGuild,
-    skills [(Anatomy, 85.0, 100.0), (Healing, 90.0, 100.0), (Forensics, 75.0, 98.0), (MagicResist, 75.0, 98.0),
-        (SpiritSpeak, 65.0, 88.0)];
-    v {
-        shoe_type: |_, _| ShoeType::Sandals,
-        init_outfit: |w, id| {
-            init_outfit(w, id);
-            let h = utility::random_yellow_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.Robe", h);
-        },
-    }
-    g {} c {} m {});
-
-guildmaster!(MAGE_GUILDMASTER, mage_guildmaster_new = "Server.Mobiles.MageGuildmaster", "mage", NpcGuild::MagesGuild,
-    skills [(EvalInt, 85.0, 100.0), (Inscribe, 65.0, 88.0), (MagicResist, 64.0, 100.0), (Magery, 90.0, 100.0),
-        (Wrestling, 60.0, 83.0), (Meditation, 85.0, 100.0), (Macing, 36.0, 68.0)];
-    v {
-        shoe_type: |w, _| if rnd::bool(w) { ShoeType::Shoes } else { ShoeType::Sandals },
-        init_outfit: |w, id| {
-            init_outfit(w, id);
-            let h = utility::random_blue_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.Robe", h);
-            add_item_hued(w, id, "Server.Items.GnarledStaff", None);
-        },
-    }
-    g {} c {} m {});
-
-guildmaster!(MERCHANT_GUILDMASTER, merchant_guildmaster_new = "Server.Mobiles.MerchantGuildmaster", "merchant", NpcGuild::MerchantsGuild,
-    skills [(ItemID, 85.0, 100.0), (ArmsLore, 85.0, 100.0)];
+guildmaster!(HEALER_GUILDMASTER, healer_guildmaster_new = "Server.Mobiles.HealerGuildmaster";
     v {} g {} c {} m {});
 
-guildmaster!(MINER_GUILDMASTER, miner_guildmaster_new = "Server.Mobiles.MinerGuildmaster", "miner", NpcGuild::MinersGuild,
-    skills [(ItemID, 60.0, 83.0), (Mining, 90.0, 100.0)];
+guildmaster!(MAGE_GUILDMASTER, mage_guildmaster_new = "Server.Mobiles.MageGuildmaster";
     v {} g {} c {} m {});
 
-guildmaster!(RANGER_GUILDMASTER, ranger_guildmaster_new = "Server.Mobiles.RangerGuildmaster", "ranger", NpcGuild::RangersGuild,
-    skills [(AnimalLore, 64.0, 100.0), (Camping, 75.0, 98.0), (Hiding, 75.0, 98.0), (MagicResist, 75.0, 98.0),
-        (Tactics, 65.0, 88.0), (Archery, 90.0, 100.0), (Tracking, 90.0, 100.0), (Stealth, 60.0, 83.0),
-        (Fencing, 36.0, 68.0), (Herding, 36.0, 68.0), (Swords, 45.0, 68.0)];
+guildmaster!(MERCHANT_GUILDMASTER, merchant_guildmaster_new = "Server.Mobiles.MerchantGuildmaster";
     v {} g {} c {} m {});
 
-guildmaster!(TAILOR_GUILDMASTER, tailor_guildmaster_new = "Server.Mobiles.TailorGuildmaster", "tailor", NpcGuild::TailorsGuild,
-    skills [(Tailoring, 90.0, 100.0)];
+guildmaster!(MINER_GUILDMASTER, miner_guildmaster_new = "Server.Mobiles.MinerGuildmaster";
+    v {} g {} c {} m {});
+
+guildmaster!(RANGER_GUILDMASTER, ranger_guildmaster_new = "Server.Mobiles.RangerGuildmaster";
+    v {} g {} c {} m {});
+
+guildmaster!(TAILOR_GUILDMASTER, tailor_guildmaster_new = "Server.Mobiles.TailorGuildmaster";
     v {} g {} c {} m {});
 
 fn thief_check_custom_reqs(w: &mut World, id: MobileId, pm: MobileId) -> bool {
@@ -403,17 +344,8 @@ fn thief_on_gold_given(w: &mut World, id: MobileId, from: MobileId, dropped: Ite
     on_gold_given(w, id, from, dropped)
 }
 
-guildmaster!(THIEF_GUILDMASTER, thief_guildmaster_new = "Server.Mobiles.ThiefGuildmaster", "thief", NpcGuild::ThievesGuild,
-    skills [(DetectHidden, 75.0, 98.0), (Hiding, 65.0, 88.0), (Lockpicking, 85.0, 100.0), (Snooping, 90.0, 100.0),
-        (Poisoning, 60.0, 83.0), (Stealing, 90.0, 100.0), (Fencing, 75.0, 98.0), (Stealth, 85.0, 100.0),
-        (RemoveTrap, 85.0, 100.0)];
-    v {
-        init_outfit: |w, id| {
-            init_outfit(w, id);
-            let n = if rnd::bool(w) { "Server.Items.Kryss" } else { "Server.Items.Dagger" };
-            add_item_hued(w, id, n, None);
-        },
-    }
+guildmaster!(THIEF_GUILDMASTER, thief_guildmaster_new = "Server.Mobiles.ThiefGuildmaster";
+    v {}
     g {
         join_age: TimeSpan::from_days(7),
         check_custom_reqs: thief_check_custom_reqs,
@@ -439,13 +371,10 @@ fn tinker_context_entries(
     (BASE_GUILDMASTER_C.add_custom_context_entries)(w, id, from, list);
 }
 
-guildmaster!(TINKER_GUILDMASTER, tinker_guildmaster_new = "Server.Mobiles.TinkerGuildmaster", "tinker", NpcGuild::TinkersGuild,
-    skills [(Lockpicking, 65.0, 88.0), (Tinkering, 90.0, 100.0), (RemoveTrap, 85.0, 100.0)];
+guildmaster!(TINKER_GUILDMASTER, tinker_guildmaster_new = "Server.Mobiles.TinkerGuildmaster";
     v {} g {} c { add_custom_context_entries: tinker_context_entries, } m {});
 
-guildmaster!(WARRIOR_GUILDMASTER, warrior_guildmaster_new = "Server.Mobiles.WarriorGuildmaster", "warrior", NpcGuild::WarriorsGuild,
-    skills [(ArmsLore, 75.0, 98.0), (Parry, 85.0, 100.0), (MagicResist, 60.0, 83.0), (Tactics, 85.0, 100.0),
-        (Swords, 90.0, 100.0), (Macing, 60.0, 83.0), (Fencing, 60.0, 83.0)];
+guildmaster!(WARRIOR_GUILDMASTER, warrior_guildmaster_new = "Server.Mobiles.WarriorGuildmaster";
     v {} g {} c {} m {});
 
 pub(crate) fn register(types: &mut TypeRegistry) {

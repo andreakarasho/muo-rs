@@ -5,192 +5,110 @@
 //!
 //! EarringBoxSet is in `boxes.rs`, HeritageToken and the statuettes in `statuette.rs`.
 
+use crate::armor::armor_leaf;
 use crate::armor::leaves::*;
-use crate::armor::{armor_leaf, hue};
 use crate::clothing::clothing_leaf;
 use crate::jewels::jewel_leaf;
-use crate::simple::{leaf, random_from, weapon_art};
+use crate::simple::{leaf, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{
-    AosArmorAttribute, AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind,
-};
-use muo_content::items::armor::{
-    ArmorClass, ArmorMaterialType, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor,
-};
+use muo_content::aos::{AosElementAttribute, AttrKind};
+use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS};
 use muo_content::items::clothing::{
-    BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing,
+    BASE_HAT, BASE_HAT_CLASS, BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS,
 };
-use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, JewelClass, new_jewel};
-use muo_content::items::slayer::SlayerName;
-use muo_content::items::{same, set_attr};
+use muo_content::items::jewel::{BASE_JEWEL, BASE_JEWEL_CLASS, new_jewel};
+use muo_content::items::set_attr;
 
 use muo_primitives::MessageType;
 use muo_primitives::utility;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::{ITEM_BASE, ItemType, LootType, deps, ops};
-use muo_server::layer::Layer;
 use muo_server::type_registry::TypeRegistry;
 
 weapon_art! {
     /// `Server.Items.HolySword`.
     HOLY_SWORD, HOLY_SWORD_CLASS, holy_sword_new = "Server.Items.HolySword" : LONGSWORD / LONGSWORD_CLASS, via longsword_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x482);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        crate::weapons::ctor::set_slayer(w, id, SlayerName::Silver);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::UseBestSkill as u32, 1);
-    };
-    label_number: 1062921,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @json;
 }
 
 armor_leaf! {
     /// `Server.Items.LeggingsOfEmbers`.
     LEGGINGS_OF_EMBERS, LEGGINGS_OF_EMBERS_CLASS, leggings_of_embers_new = "Server.Items.LeggingsOfEmbers" : PLATE_LEGS / PLATE_LEGS_CLASS, plate_legs_new, encoded true;
-    @init |w, id| {
-        hue(w, id, 0x2C);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-    };
-    label_number: 1062911,
-    base_physical_resistance: 15,
-    base_fire_resistance: 25,
-    base_cold_resistance: 0,
-    base_poison_resistance: 15,
-    base_energy_resistance: 15,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @template;
 }
 
 weapon_art! {
     /// `Server.Items.ShaminoCrossbow`.
     SHAMINO_CROSSBOW, SHAMINO_CROSSBOW_CLASS, shamino_crossbow_new = "Server.Items.ShaminoCrossbow" : REPEATING_CROSSBOW / REPEATING_CROSSBOW_CLASS, via repeating_crossbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x504);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::LowerStatReq as u32, 100);
-    };
-    label_number: 1062915,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @json;
 }
 
 /// `MinotaurHedge()`.
 pub fn minotaur_hedge_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 3215, 4);
-    ops::new_item_with_id(w, ty, t0)
+    crate::simple::from_template(w, ty, "Server.Items.MinotaurHedge")
 }
 
 leaf! {
     /// `Server.Items.MinotaurHedge`.
     MINOTAUR_HEDGE = "Server.Items.MinotaurHedge" : ITEM_BASE, v0;
     construct: Some(|w| minotaur_hedge_new(w, &MINOTAUR_HEDGE)),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("minotaur hedge".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
 }
 
 /// `TormentedChains()`.
 pub fn tormented_chains_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let t0 = random_from(w, 6663, 2);
-    ops::new_item_with_id(w, ty, t0)
+    crate::simple::from_template(w, ty, "Server.Items.TormentedChains")
 }
 
 leaf! {
     /// `Server.Items.TormentedChains`.
     TORMENTED_CHAINS = "Server.Items.TormentedChains" : ITEM_BASE, v0;
     construct: Some(|w| tormented_chains_new(w, &TORMENTED_CHAINS)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PlagueBeastGland()`.
 pub fn plague_beast_gland_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1CEF);
-    hue(w, id, 0x6);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.PlagueBeastGland")
 }
 
 leaf! {
     /// `Server.Items.PlagueBeastGland`.
     PLAGUE_BEAST_GLAND = "Server.Items.PlagueBeastGland" : ITEM_BASE, enc;
     construct: Some(|w| plague_beast_gland_new(w, &PLAGUE_BEAST_GLAND)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1153759,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- SamuraiHelm: [Flippable(0x236C, 0x236D)], BaseArmor ----
 armor_leaf! {
     /// `Server.Items.SamuraiHelm`.
-    SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, |w, ty| new_armor(w, ty, 0x236C), encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 10);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    flippable: Some((0x236C, 0x236D)),
-    default_weight: Some(5.0),
-    label_number: 1062923,
-    base_physical_resistance: 15,
-    base_fire_resistance: 10,
-    base_cold_resistance: 10,
-    base_poison_resistance: 15,
-    base_energy_resistance: 10,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    material_type: ArmorMaterialType::Plate,
+    SAMURAI_HELM, SAMURAI_HELM_CLASS, samurai_helm_new = "Server.Items.SamuraiHelm" : BASE_ARMOR / BASE_ARMOR_CLASS, crate::armor::new_armor_json, encoded true;
+    @template;
 }
 
-// ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 ----
+// ---- LuckyNecklace: BaseJewel(0x1088, Layer.Neck), Hue => 1150 (props) ----
 jewel_leaf! {
     /// `Server.Items.LuckyNecklace`.
-    LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, |w, ty| new_jewel(w, ty, 0x1088), encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 200);
-        ops::set_loot_type(w, id, LootType::Blessed);
-    };
-    @ty { hue: |_, _| 1150, };
-    layer: Layer::Neck,
-    label_number: 1075239,
+    LUCKY_NECKLACE, LUCKY_NECKLACE_CLASS, lucky_necklace_new = "Server.Items.LuckyNecklace" : BASE_JEWEL / BASE_JEWEL_CLASS, crate::jewels::new_jewel_json, encoded false;
+    @template;
+    @ty { hue: crate::class_props::hue, };
 }
 
 // ---- JesterHatofChuckles: BaseHat(0x171C, hue) ----
 clothing_leaf! {
     /// `Server.Items.JesterHatofChuckles`.
-    JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, |w, ty, hue| new_clothing(w, ty, 0x171C, hue), hue 0, encoded false;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 150);
-    };
-    default_weight: Some(1.0),
-    label_number: 1073256,
-    base_physical_resistance: 12,
-    base_fire_resistance: 12,
-    base_cold_resistance: 12,
-    base_poison_resistance: 12,
-    base_energy_resistance: 12,
-    init_min_hits: same(100),
-    init_max_hits: same(100),
+    JESTER_HAT_OF_CHUCKLES, JESTER_HAT_OF_CHUCKLES_CLASS, jester_hat_of_chuckles_new = "Server.Items.JesterHatofChuckles" : BASE_HAT / BASE_HAT_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
+    @template;
 }
 
 // ---- HoodedShroudOfShadows: [Flippable(0x2684, 0x2683)], BaseOuterTorso(0x2684, hue = 0x455) ----
 clothing_leaf! {
     /// `Server.Items.HoodedShroudOfShadows`.
-    HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, hue| new_clothing(w, ty, 0x2684, hue), hue 0x455, encoded false;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-    };
-    flippable: Some((0x2684, 0x2683)),
-    default_weight: Some(3.0),
+    HOODED_SHROUD_OF_SHADOWS, HOODED_SHROUD_OF_SHADOWS_CLASS, hooded_shroud_of_shadows_new = "Server.Items.HoodedShroudOfShadows" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0x455, encoded false;
+    @template;
     dye: crate::clothing::dye_refused,
 }
 
@@ -234,7 +152,8 @@ pub fn earrings_get_types(value: i32) -> AosElementAttribute {
 
 /// `EarringsOfProtection(element)`.
 pub fn earrings_of_protection_new(w: &mut World, element: AosElementAttribute) -> ItemId {
-    let id = new_jewel(w, &EARRINGS_OF_PROTECTION, 0x1087);
+    let g = muo_content::items::equip_props::graphic(w, &EARRINGS_OF_PROTECTION);
+    let id = new_jewel(w, &EARRINGS_OF_PROTECTION, g);
     set_attr(w, id, AttrKind::Element, element as u32, 2);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(EarringData { attribute: element });
@@ -249,18 +168,11 @@ pub fn earrings_of_protection_random(w: &mut World) -> ItemId {
     earrings_of_protection_new(w, earrings_get_types(n))
 }
 
-/// The class table (`Layer.Earrings` is the `BaseJewel(itemID, layer)` argument).
-pub static EARRINGS_OF_PROTECTION_CLASS: JewelClass = JewelClass {
-    layer: Layer::Earrings,
-    ..BASE_JEWEL_CLASS
-};
-
 /// `Server.Items.EarringsOfProtection`: version 0 (int), then `_attribute` as an enum (int).
 pub static EARRINGS_OF_PROTECTION: ItemType = ItemType {
     full_name: "Server.Items.EarringsOfProtection",
     parent: Some(&BASE_JEWEL),
     construct: Some(earrings_of_protection_random),
-    family: Some(&EARRINGS_OF_PROTECTION_CLASS),
     label_number: |w, id| earring_item_data(earring_attribute(w, id), true),
     hue: |w, id| earring_item_data(earring_attribute(w, id), false),
     serialize: |w, id, out| {
@@ -295,8 +207,7 @@ pub static REWARD_CAKE: ItemType = ItemType {
     full_name: "Server.Items.RewardCake",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &REWARD_CAKE, 0x9e9);
-        ops::set_stackable(w, id, false);
+        let id = crate::simple::from_template(w, &REWARD_CAKE, "Server.Items.RewardCake");
         const HUES: [i32; 16] = [
             0x135, 0xcd, 0x38, 0x3b, 0x42, 0x4f, 0x11e, 0x60, 0x317, 0x10, 0x136, 0x1f9, 0x1a,
             0xeb, 0x86, 0x2e,
@@ -306,8 +217,8 @@ pub static REWARD_CAKE: ItemType = ItemType {
         ops::set_loot_type(w, id, LootType::Blessed);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049786, // Happy Birthday!  ...
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Happy Birthday!  ...
     display_loot_type: |_, _| false,
     on_double_click: |w, id, from| {
         let p = ops::get_world_location(w, id);
@@ -387,11 +298,11 @@ mod leaves_tests {
     #[test]
     fn special_leaf_classes_construct_and_round_trip() {
         for t in classes() {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (t.construct.unwrap())(&mut w);
             assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
             let bytes = save(&w, id);
-            let mut w2 = World::new();
+            let mut w2 = crate::test_world();
             let id2 = w2.add_item(Item::new_for_load(
                 muo_primitives::Serial::new(0x4000_0001),
                 t,
@@ -406,7 +317,7 @@ mod leaves_tests {
 
     #[test]
     fn earrings_of_protection_follow_their_element() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = earrings_of_protection_new(&mut w, AosElementAttribute::Cold);
         let ty = w.item(id).unwrap().ty;
         assert_eq!((ty.label_number)(&w, id), 1071093);

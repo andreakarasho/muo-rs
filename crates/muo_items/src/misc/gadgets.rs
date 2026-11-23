@@ -157,7 +157,7 @@ pub const DEFAULT_ARCANE_HUE: i32 = 2117;
 
 /// `ArcaneGem()`.
 pub fn arcane_gem_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1EA7);
+    let id = crate::simple::from_template(w, ty, "Server.Items.ArcaneGem");
     let ml = deps::core_ml(w);
     ops::set_stackable(w, id, ml);
     id
@@ -335,8 +335,8 @@ pub fn arcane_gem_consume_charges(w: &mut World, from: MobileId, mut amount: i32
 item_leaf! {
     /// `Server.Items.ArcaneGem`.
     ARCANE_GEM = "Server.Items.ArcaneGem" : ITEM_BASE, |w| arcane_gem_new(w, &ARCANE_GEM), encoded false;
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("arcane gem".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             msg(w, from, 1042001); // That must be in your pack for you to use it.
@@ -353,8 +353,7 @@ item_leaf! {
 
 /// `TribalPaint()`.
 pub fn tribal_paint_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x9EC);
-    hue(w, id, 2101);
+    let id = crate::simple::from_template(w, ty, "Server.Items.TribalPaint");
     let ml = deps::core_ml(w);
     ops::set_stackable(w, id, ml);
     id
@@ -363,8 +362,8 @@ pub fn tribal_paint_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 item_leaf! {
     /// `Server.Items.TribalPaint`.
     TRIBAL_PAINT = "Server.Items.TribalPaint" : ITEM_BASE, |w| tribal_paint_new(w, &TRIBAL_PAINT), encoded false;
-    default_weight: |_, _| 2.0,
-    label_number: |_, _| 1040000, // savage kin paint
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // savage kin paint
     on_double_click: |w, id, from| {
         use muo_content::spells::helper as sh;
         if !in_pack(w, id, from) {
@@ -411,9 +410,7 @@ item_leaf! {
 
 /// `OilCloth()`.
 pub fn oil_cloth_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x175D);
-    hue(w, id, 2001);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.OilCloth")
 }
 
 /// `OilCloth.Dye(from, sender)` (`IDyable`).
@@ -511,8 +508,8 @@ fn beverage_to_firebomb(w: &mut World, beverage: ItemId) -> Option<ItemId> {
 item_leaf! {
     /// `Server.Items.OilCloth`.
     OIL_CLOTH = "Server.Items.OilCloth" : ITEM_BASE, |w| oil_cloth_new(w, &OIL_CLOTH), encoded false;
-    label_number: |_, _| 1041498, // oil cloth
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // oil cloth
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if in_pack(w, id, from) {
             target::begin_target(w, from, -1, false, TargetFlags::NONE, move |w, from, t| {
@@ -529,8 +526,7 @@ item_leaf! {
 
 /// `OilFlask(amount)` of class `ty`.
 pub fn oil_flask_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1C18);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.OilFlask");
     ops::set_amount(w, id, amount);
     id
 }
@@ -604,22 +600,21 @@ fn oil_flask_double_click(w: &mut World, id: ItemId, from: MobileId) {
 item_leaf! {
     /// `Server.Items.OilFlask` `[SerializationGenerator(0)]`.
     OIL_FLASK = "Server.Items.OilFlask" : ITEM_BASE, |w| oil_flask_new(w, &OIL_FLASK, 1), encoded true;
-    label_number: |_, _| 1027199, // oil flask
+    label_number: crate::class_props::label_number, // oil flask
     on_double_click: oil_flask_double_click,
 }
 
 item_leaf! {
     /// `Server.Items.FishOilFlask` `[SerializationGenerator(0)]`.
     FISH_OIL_FLASK = "Server.Items.FishOilFlask" : OIL_FLASK, |w| oil_flask_new(w, &FISH_OIL_FLASK, 1), encoded true;
-    label_number: |_, _| 1150863, // fish oil flask
+    label_number: crate::class_props::label_number, // fish oil flask
 }
 
 // ---- Bola ----
 
 /// `Bola(amount)`.
 pub fn bola_new(w: &mut World, ty: &'static ItemType, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x26AC);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Bola");
     ops::set_amount(w, id, amount);
     id
 }
@@ -816,7 +811,7 @@ fn bola_double_click(w: &mut World, id: ItemId, from: MobileId) {
 item_leaf! {
     /// `Server.Items.Bola`.
     BOLA = "Server.Items.Bola" : ITEM_BASE, |w| bola_new(w, &BOLA, 1), encoded false;
-    default_weight: |_, _| 4.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: bola_double_click,
 }
 
@@ -824,9 +819,7 @@ item_leaf! {
 
 /// `ClockworkAssembly()`.
 pub fn clockwork_assembly_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1EA8);
-    hue(w, id, 1102);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ClockworkAssembly")
 }
 
 /// Builds `class` with the constructor of `args.len()` parameters its table lists (`Activator.CreateInstance`).
@@ -907,8 +900,8 @@ fn clockwork_double_click(w: &mut World, id: ItemId, from: MobileId) {
 item_leaf! {
     /// `Server.Items.ClockworkAssembly`.
     CLOCKWORK_ASSEMBLY = "Server.Items.ClockworkAssembly" : ITEM_BASE, |w| clockwork_assembly_new(w, &CLOCKWORK_ASSEMBLY), encoded false;
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1073426, // Clockwork Assembly
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Clockwork Assembly
     on_double_click: clockwork_double_click,
 }
 
@@ -1185,7 +1178,7 @@ fn firebomb_double_click(w: &mut World, id: ItemId, from: MobileId) {
 item_leaf! {
     /// `Server.Items.Firebomb`.
     FIREBOMB = "Server.Items.Firebomb" : ITEM_BASE, |w| firebomb_new(w, &FIREBOMB, 0x99B), encoded false;
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: firebomb_double_click,
 }
 
@@ -1241,9 +1234,7 @@ fn bone_start_timer(w: &mut World, id: ItemId) {
 
 /// `UnholyBone()`.
 pub fn unholy_bone_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xF7E);
-    ops::set_movable(w, id, false);
-    hue(w, id, 0x497);
+    let id = crate::simple::from_template(w, ty, "Server.Items.UnholyBone");
     bone_start_timer(w, id);
     id
 }
@@ -1286,7 +1277,7 @@ item_leaf_raw! {
     /// `Server.Items.UnholyBone`.
     UNHOLY_BONE = "Server.Items.UnholyBone" : ITEM_BASE;
     construct: Some(|w| unholy_bone_new(w, &UNHOLY_BONE)),
-    default_name: |_, _| Some("unholy bone".to_string()),
+    default_name: crate::class_props::default_name,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         crate::misc::write_version(out, false);
@@ -1415,9 +1406,7 @@ fn brazier_mut(w: &mut World, id: ItemId) -> Option<&mut BrazierData> {
 
 /// `DeceitBrazier()`.
 pub fn deceit_brazier_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xE31);
-    ops::set_movable(w, id, false);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle225);
+    let id = crate::simple::from_template(w, ty, "Server.Items.DeceitBrazier");
     let now = w.now;
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(BrazierData {
@@ -1511,7 +1500,7 @@ item_leaf_raw! {
     /// `Server.Items.DeceitBrazier`.
     DECEIT_BRAZIER = "Server.Items.DeceitBrazier" : ITEM_BASE;
     construct: Some(|w| deceit_brazier_new(w, &DECEIT_BRAZIER)),
-    label_number: |_, _| 1023633, // Brazier
+    label_number: crate::class_props::label_number, // Brazier
     handles_on_movement: |_, _| true,
     on_movement: |w, id, m, old| {
         let Some(b) = brazier(w, id) else { return };
@@ -1955,7 +1944,7 @@ item_leaf_raw! {
         r.read_i32()?;
         Ok(())
     },
-    label_number: |_, _| 1030291,
+    label_number: crate::class_props::label_number,
 }
 
 // ---- SerpentPillar ----
@@ -1982,8 +1971,7 @@ pub fn serpent_pillar_new(
     destination: Rectangle2D,
     active: bool,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x233F);
-    ops::set_movable(w, id, false);
+    let id = crate::simple::from_template(w, ty, "Server.Items.SerpentPillar");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(PillarData {
             active,

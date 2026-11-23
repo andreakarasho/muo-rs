@@ -10,8 +10,7 @@ use muo_content::utilities::types::PropType;
 use muo_primitives::{Point3D, TimeSpan};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, deps, ops};
-use muo_server::layer::Layer;
+use muo_server::item::{ITEM_BASE, ItemType, deps, ops};
 use muo_server::map::MapId;
 use muo_server::mobile::AccessLevel;
 use muo_server::net_state::NetStateId;
@@ -28,34 +27,28 @@ use crate::skill_items::small::CLOCK;
 
 /// `HolidayTimepiece()`.
 pub fn holiday_timepiece_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOLIDAY_TIMEPIECE, 0x1086);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    crate::simple::layer(w, id, Layer::Bracelet);
-    id
+    crate::simple::from_template(w, &HOLIDAY_TIMEPIECE, "Server.Items.HolidayTimepiece")
 }
 
 leaf! {
     /// `Server.Items.HolidayTimepiece`.
     HOLIDAY_TIMEPIECE = "Server.Items.HolidayTimepiece" : CLOCK, v0;
     construct: Some(holiday_timepiece_new),
-    label_number: |_, _| 1041113, // a holiday timepiece
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // a holiday timepiece
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `WristWatch()`.
 pub fn wrist_watch_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &WRIST_WATCH, 0x1086);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    crate::simple::layer(w, id, Layer::Bracelet);
-    id
+    crate::simple::from_template(w, &WRIST_WATCH, "Server.Items.WristWatch")
 }
 
 leaf! {
     /// `Server.Items.WristWatch`.
     WRIST_WATCH = "Server.Items.WristWatch" : CLOCK, enc;
     construct: Some(wrist_watch_new),
-    label_number: |_, _| 1041421, // a wrist watch
-    default_weight: |_, _| 1.0,
+    label_number: crate::class_props::label_number, // a wrist watch
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- HolidayTree ----
@@ -194,8 +187,7 @@ pub fn holiday_tree_new(
     kind: HolidayTreeType,
     loc: Point3D,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOLIDAY_TREE, 1);
-    ops::set_movable(w, id, false);
+    let id = crate::simple::from_template(w, &HOLIDAY_TREE, "Server.Items.HolidayTree");
     let map = w.mobile(from).and_then(|m| m.map);
     ops::move_to_world_map(w, id, loc, map);
     set_tree(
@@ -307,7 +299,7 @@ pub static HOLIDAY_TREE: ItemType = ItemType {
     full_name: "Server.Items.HolidayTree",
     parent: Some(&ITEM_BASE),
     construct: None,
-    label_number: |_, _| 1041117, // a tree for the holidays
+    label_number: crate::class_props::label_number, // a tree for the holidays
     on_after_delete: tree_on_after_delete,
     on_double_click: tree_on_double_click,
     serialize: |w, id, out| {
@@ -371,13 +363,13 @@ fn part_after_deserialization(w: &mut World, id: ItemId) {
 }
 
 macro_rules! tree_part {
-    ($name:ident, $full:literal, $label:expr, $dbl:expr) => {
+    ($name:ident, $full:literal, $dbl:expr) => {
         #[doc = concat!("`", $full, "` (`[SerializationGenerator(1, false)]`).")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
             construct: None,
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             on_double_click: $dbl,
             serialize: |w, id, out| {
                 (ITEM_BASE.serialize)(w, id, out);
@@ -400,13 +392,11 @@ macro_rules! tree_part {
 tree_part!(
     ORNAMENT,
     "Server.Items.HolidayTree+Ornament",
-    1041118,
     ITEM_BASE.on_double_click
 ); // a tree ornaments
 tree_part!(
     TREE_TRUNK,
     "Server.Items.HolidayTree+TreeTrunk",
-    1041117,
     |w, id, from| {
         if let Some(t) = tree_of(w, id).filter(|&t| !deleted(w, t)) {
             tree_on_double_click(w, t, from);
@@ -418,10 +408,7 @@ tree_part!(
 
 /// `HolidayTreeDeed()`.
 pub fn holiday_tree_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOLIDAY_TREE_DEED, 0x14F0);
-    super::hue(w, id, 0x488);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, &HOLIDAY_TREE_DEED, "Server.Items.HolidayTreeDeed")
 }
 
 /// `HolidayTreeDeed.ValidatePlacement(from, loc)`.
@@ -532,8 +519,8 @@ pub static HOLIDAY_TREE_DEED: ItemType = ItemType {
     full_name: "Server.Items.HolidayTreeDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(holiday_tree_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041116, // a deed for a holiday tree
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a deed for a holiday tree
     on_double_click: |w, id, from| {
         if super::util::net_state(w, from).is_none() || deleted(w, id) {
             return;

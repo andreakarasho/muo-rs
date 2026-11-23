@@ -307,7 +307,7 @@ pub fn hit_chance_bonus(w: &World, id: ItemId) -> i32 {
 
 /// `GetDamageBonus()`.
 pub fn damage_bonus(w: &World, id: ItemId) -> i32 {
-    weapon::class(w, id).virtual_damage_bonus
+    weapon::virtual_damage_bonus(w, id)
 }
 
 /// `GetBonus(value, scalar, threshold, offset)`.
@@ -1642,8 +1642,21 @@ pub fn add_blood(w: &mut World, _attacker: MobileId, defender: MobileId, damage:
     }
 }
 
-/// `GetDamageTypes(wielder, ..)` base. `wielder` is `None` for the property list and the hue.
+/// `GetDamageTypes(wielder, ..)` base. `wielder` is `None` for the property list and the hue. A class whose
+/// override returns constants has them as its `damageTypes` prop (`{"cold": 100}`, absent types are 0).
 pub fn get_damage_types_base(w: &World, id: ItemId, wielder: Option<MobileId>) -> DamageTypes {
+    if let Some(serde_json::Value::Object(o)) = super::equip_props::raw(w, id, "damageTypes") {
+        let n = |k: &str| o.get(k).and_then(serde_json::Value::as_i64).unwrap_or(0) as i32;
+        return DamageTypes {
+            phys: n("phys"),
+            fire: n("fire"),
+            cold: n("cold"),
+            pois: n("pois"),
+            nrgy: n("nrgy"),
+            chaos: n("chaos"),
+            direct: n("direct"),
+        };
+    }
     if let Some(bc) = wielder
         && let Some(c) = cd(w, bc)
     {
@@ -1899,7 +1912,7 @@ pub fn scale_damage_old(
     }
 
     // Virtual damage bonus:
-    let vdb = weapon::class(w, id).virtual_damage_bonus;
+    let vdb = weapon::virtual_damage_bonus(w, id);
     if vdb != 0 {
         modifiers += f64::from(vdb) / 100.0;
     }
@@ -2384,7 +2397,7 @@ fn add_default_skill_mod(
 /// "WeaponAccuracy", true, (int)_accuracyLevel * 5)`).
 pub fn add_accuracy_mod(w: &mut World, id: ItemId, to: MobileId) {
     let level = data(w, id).map_or(0, |d| d.accuracy_level as i32);
-    let skill = weapon::class(w, id).accuracy_skill;
+    let skill = weapon::accuracy_skill(w, id);
     let m = add_default_skill_mod(w, to, skill, "WeaponAccuracy", f64::from(level * 5));
     if let Some(d) = data_mut(w, id) {
         d.skill_mod = m;

@@ -1,16 +1,14 @@
 //! `BaseWand` (a `BaseBashing` weapon with charges that casts a spell or targets) and
-//! its eleven wands, `WandTarget`. State: `WeaponData::{wand_effect, charges}`; the wand constants are the weapon
-//! `WeaponClass` of `BaseWand`, inherited as `..BASE_WAND_CLASS`. [`configure`] sets the spell hooks
-//! (`wand_consume_charge`, `wand_charges`) the spell base calls.
+//! its eleven wands, `WandTarget`. State: `WeaponData::{wand_effect, charges}`; the wand constants (`BaseWand`'s
+//! weapon stats, each wand's effect, charges and `wandSpell`) are template props (`Data/Scripts/classes/items/wands`).
+//! [`configure`] sets the spell hooks (`wand_consume_charge`, `wand_charges`) the spell base calls.
 
 use std::rc::Rc;
 
 use muo_content::aos::{AosAttribute, AosWeaponAttribute, AttrKind};
 use muo_content::craft::CraftResource;
-use muo_content::items::weapon::{
-    self, Ability, BASE_BASHING, BASE_BASHING_CLASS, WeaponClass, new_weapon, set_resource,
-};
-use muo_content::items::{core_uotd, same, set_attr};
+use muo_content::items::weapon::{self, BASE_BASHING, new_weapon, set_resource};
+use muo_content::items::{core_uotd, set_attr};
 use muo_content::spells::{registry, spell};
 use muo_io::IoError;
 use muo_primitives::{TimeSpan, utility};
@@ -139,19 +137,28 @@ pub fn set_charges(w: &mut World, id: ItemId, value: i32) {
     }
 }
 
-/// `new BaseWand(effect, minCharges, maxCharges)` for class `ty`.
-pub fn new_wand(
-    w: &mut World,
-    ty: &'static ItemType,
-    effect: WandEffect,
-    min_charges: i32,
-    max_charges: i32,
-) -> ItemId {
+/// `new BaseWand(effect, minCharges, maxCharges)` for class `ty`: the arguments are the class's `wandEffect`,
+/// `minCharges` and `maxCharges` (`n`, or `[preML, ML]`) props.
+pub fn new_wand(w: &mut World, ty: &'static ItemType) -> ItemId {
     // `base(0xDF2 + Utility.Random(4))`
     let graphic = 0xDF2 + utility::random(&mut w.rng, 4);
     let id = new_weapon(w, ty, graphic);
+    let effect = crate::class_props::str_of(w, id, "wandEffect").and_then(|n| {
+        (0..=10)
+            .filter_map(WandEffect::from_i32)
+            .find(|e| format!("{e:?}") == n)
+    });
+    let min_charges = muo_content::templates::item_props::int(w, id, "minCharges", 0);
+    let ml = muo_content::core::ml(w);
+    let max_charges = muo_content::templates::item_props::ml_int(
+        w,
+        id,
+        "maxCharges",
+        muo_content::items::same(0),
+    )
+    .get(ml);
     if let Some(d) = weapon::data_mut(w, id) {
-        d.wand_effect = effect as i32;
+        d.wand_effect = effect.map_or(0, |e| e as i32);
     }
     let n = utility::random_min_max(&mut w.rng, min_charges, max_charges);
     if let Some(d) = weapon::data_mut(w, id) {
@@ -266,6 +273,14 @@ fn cast_wand_spell(w: &mut World, id: ItemId, from: MobileId, spell_name: &str) 
     ops::set_movable(w, id, movable);
 }
 
+/// `OnWandUse(from)`: cast the class's `wandSpell` prop, or (IDWand, and the base) target.
+fn on_wand_use(w: &mut World, id: ItemId, from: MobileId) {
+    match crate::class_props::str_of(w, id, "wandSpell") {
+        Some(n) => cast_wand_spell(w, id, from, n),
+        None => begin_wand_target(w, id, from),
+    }
+}
+
 /// `OnDoubleClick(from)`; `on_use` is the class's `OnWandUse`.
 fn double_click(
     w: &mut World,
@@ -363,32 +378,12 @@ pub fn on_single_click_pre_uotd(w: &mut World, id: ItemId, from: MobileId) {
     ops::label_to(w, id, from, &text);
 }
 
-/// `BaseWand`' constants (the same as `MagicWand`).
-pub static BASE_WAND_CLASS: WeaponClass = WeaponClass {
-    default_weight: Some(1.0),
-    primary_ability: Some(Ability::Dismount),
-    secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 5,
-    aos_min_damage: same(9),
-    aos_max_damage: same(11),
-    aos_speed: 40,
-    ml_speed: 2.75,
-    old_str_req: 0,
-    old_min_damage: 2,
-    old_max_damage: 6,
-    old_speed: 35,
-    init_min_hits: 31,
-    init_max_hits: 110,
-    ..BASE_BASHING_CLASS
-};
-
 /// `Server.Items.BaseWand` (abstract; `[SerializationGenerator(1, false)]`: version int 1, the effect, the charges).
 pub static BASE_WAND: ItemType = ItemType {
     full_name: "Server.Items.BaseWand",
     parent: Some(&BASE_BASHING),
     construct: None,
-    family: Some(&BASE_WAND_CLASS),
-    on_double_click: |w, id, from| double_click(w, id, from, begin_wand_target),
+    on_double_click: |w, id, from| double_click(w, id, from, on_wand_use),
     get_properties,
     on_single_click,
     serialize: |w, id, out| {
@@ -421,14 +416,13 @@ pub static BASE_WAND: ItemType = ItemType {
     ..BASE_BASHING
 };
 
-/// One concrete wand: the effect and the charge range of its constructor (`max_ml`, `max` are `Core.ML ? a : b`).
+/// One concrete wand: its constructor's effect and charge range and its spell are the class's template props.
 macro_rules! wand_leaves {
-    ($($(#[$m:meta])* $name:ident, $new:ident = $full:literal, $effect:ident, $min:expr, $max:expr, $spell:expr;)*) => {
+    ($($(#[$m:meta])* $name:ident, $new:ident = $full:literal;)*) => {
         $(
-            /// `new T()`.
+            /// `new T()`: `base(effect, minCharges, maxCharges)` from the class's props.
             pub fn $new(w: &mut World, ty: &'static ItemType) -> ItemId {
-                let max: i32 = { let f: fn(&World) -> i32 = $max; f(w) };
-                new_wand(w, ty, WandEffect::$effect, $min, max)
+                new_wand(w, ty)
             }
 
             $(#[$m])*
@@ -436,16 +430,6 @@ macro_rules! wand_leaves {
                 full_name: $full,
                 parent: Some(&BASE_WAND),
                 construct: Some(|w| $new(w, &$name)),
-                on_double_click: |w, id, from| {
-                    fn on_use(w: &mut World, id: ItemId, from: MobileId) {
-                        let spell: Option<&'static str> = $spell;
-                        match spell {
-                            Some(n) => cast_wand_spell(w, id, from, n),
-                            None => begin_wand_target(w, id, from),
-                        }
-                    }
-                    double_click(w, id, from, on_use)
-                },
                 serialize: |w, id, out| {
                     (BASE_WAND.serialize)(w, id, out);
                     out.write_i32(0); // [SerializationGenerator(0, false)]
@@ -464,34 +448,29 @@ macro_rules! wand_leaves {
     };
 }
 
-/// `Core.ML ? ml : old`.
-fn ml_or(w: &World, in_ml: i32, old: i32) -> i32 {
-    if muo_content::core::ml(w) { in_ml } else { old }
-}
-
 wand_leaves! {
     /// `Server.Items.ClumsyWand`.
-    CLUMSY_WAND, clumsy_wand_new = "Server.Items.ClumsyWand", Clumsiness, 5, |_| 30, Some("Server.Spells.First.ClumsySpell");
+    CLUMSY_WAND, clumsy_wand_new = "Server.Items.ClumsyWand";
     /// `Server.Items.FeebleWand`.
-    FEEBLE_WAND, feeble_wand_new = "Server.Items.FeebleWand", Feeblemindedness, 5, |_| 30, Some("Server.Spells.First.FeeblemindSpell");
+    FEEBLE_WAND, feeble_wand_new = "Server.Items.FeebleWand";
     /// `Server.Items.FireballWand`.
-    FIREBALL_WAND, fireball_wand_new = "Server.Items.FireballWand", Fireball, 5, |w| ml_or(w, 109, 15), Some("Server.Spells.Third.FireballSpell");
+    FIREBALL_WAND, fireball_wand_new = "Server.Items.FireballWand";
     /// `Server.Items.GreaterHealWand`.
-    GREATER_HEAL_WAND, greater_heal_wand_new = "Server.Items.GreaterHealWand", GreaterHealing, 1, |w| ml_or(w, 109, 5), Some("Server.Spells.Fourth.GreaterHealSpell");
+    GREATER_HEAL_WAND, greater_heal_wand_new = "Server.Items.GreaterHealWand";
     /// `Server.Items.HarmWand`.
-    HARM_WAND, harm_wand_new = "Server.Items.HarmWand", Harming, 5, |w| ml_or(w, 109, 30), Some("Server.Spells.Second.HarmSpell");
+    HARM_WAND, harm_wand_new = "Server.Items.HarmWand";
     /// `Server.Items.HealWand`.
-    HEAL_WAND, heal_wand_new = "Server.Items.HealWand", Healing, 10, |w| ml_or(w, 109, 25), Some("Server.Spells.First.HealSpell");
-    /// `Server.Items.IDWand` (`GetUseDelay => TimeSpan.Zero`, `OnWandTarget` identifies; no spell).
-    ID_WAND, id_wand_new = "Server.Items.IDWand", Identification, 25, |_| 175, None;
+    HEAL_WAND, heal_wand_new = "Server.Items.HealWand";
+    /// `Server.Items.IDWand` (`GetUseDelay => TimeSpan.Zero`, `OnWandTarget` identifies; no `wandSpell`).
+    ID_WAND, id_wand_new = "Server.Items.IDWand";
     /// `Server.Items.LightningWand`.
-    LIGHTNING_WAND, lightning_wand_new = "Server.Items.LightningWand", Lightning, 5, |w| ml_or(w, 109, 20), Some("Server.Spells.Fourth.LightningSpell");
+    LIGHTNING_WAND, lightning_wand_new = "Server.Items.LightningWand";
     /// `Server.Items.MagicArrowWand`.
-    MAGIC_ARROW_WAND, magic_arrow_wand_new = "Server.Items.MagicArrowWand", MagicArrow, 5, |w| ml_or(w, 109, 30), Some("Server.Spells.First.MagicArrowSpell");
+    MAGIC_ARROW_WAND, magic_arrow_wand_new = "Server.Items.MagicArrowWand";
     /// `Server.Items.ManaDrainWand`.
-    MANA_DRAIN_WAND, mana_drain_wand_new = "Server.Items.ManaDrainWand", ManaDraining, 5, |_| 30, Some("Server.Spells.Fourth.ManaDrainSpell");
+    MANA_DRAIN_WAND, mana_drain_wand_new = "Server.Items.ManaDrainWand";
     /// `Server.Items.WeaknessWand`.
-    WEAKNESS_WAND, weakness_wand_new = "Server.Items.WeaknessWand", Weakness, 5, |_| 30, Some("Server.Spells.First.WeakenSpell");
+    WEAKNESS_WAND, weakness_wand_new = "Server.Items.WeaknessWand";
 }
 
 /// Sets the `SpellHooks` the spell base calls on a wand.

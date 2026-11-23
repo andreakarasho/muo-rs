@@ -23,11 +23,13 @@ muo_gumps = { path = "crates/muo_gumps" }
 muo_commands = { path = "crates/muo_commands" }
 bitflags = "2"
 indexmap = "2"
+foldhash = "0.2"
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["preserve_order"] }
 thiserror = "2"
 tracing = "0.1"
 ctrlc = "3"
+rhai = { version = "1.27", features = ["serde", "metadata", "internals"] }  # internals: calls that keep a file's imports
 
 [profile.dev]
 # A full disk truncated source files on 2026-11-05: keep the build small.

@@ -480,17 +480,18 @@ pub static BASE_INSTRUMENT: ItemType = ItemType {
 };
 
 macro_rules! instruments {
-    ($($name:ident, $new:ident = $full:literal, gid $gid:expr, $well:expr, $badly:expr, weight $weight:expr;)*) => {$(
+    ($($name:ident, $new:ident = $full:literal, $well:expr, $badly:expr;)*) => {$(
         #[doc = concat!("`new ", $full, "()`.")]
         pub fn $new(w: &mut World) -> ItemId {
-            new_instrument(w, &$name, $gid, $well, $badly)
+            let id = new_instrument(w, &$name, 0, $well, $badly);
+            crate::simple::own_template(w, id, $full)
         }
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_INSTRUMENT),
             construct: Some($new),
-            default_weight: |_, _| $weight,
+            default_weight: crate::class_props::default_weight,
             serialize: |w, id, out| {
                 (BASE_INSTRUMENT.serialize)(w, id, out);
                 write_version(out, false);
@@ -506,13 +507,13 @@ macro_rules! instruments {
 }
 
 instruments! {
-    HARP, new_harp = "Server.Items.Harp", gid 0xEB1, 0x43, 0x44, weight 35.0;
-    DRUMS, new_drums = "Server.Items.Drums", gid 0xE9C, 0x38, 0x39, weight 4.0;
-    BAMBOO_FLUTE, new_bamboo_flute = "Server.Items.BambooFlute", gid 0x2805, 0x504, 0x503, weight 2.0;
-    LUTE, new_lute = "Server.Items.Lute", gid 0xEB3, 0x4C, 0x4D, weight 5.0;
-    LAP_HARP, new_lap_harp = "Server.Items.LapHarp", gid 0xEB2, 0x45, 0x46, weight 10.0;
-    TAMBOURINE, new_tambourine = "Server.Items.Tambourine", gid 0xE9D, 0x52, 0x53, weight 1.0;
-    TAMBOURINE_TASSEL, new_tambourine_tassel = "Server.Items.TambourineTassel", gid 0xE9E, 0x52, 0x53, weight 1.0;
+    HARP, new_harp = "Server.Items.Harp", 0x43, 0x44;
+    DRUMS, new_drums = "Server.Items.Drums", 0x38, 0x39;
+    BAMBOO_FLUTE, new_bamboo_flute = "Server.Items.BambooFlute", 0x504, 0x503;
+    LUTE, new_lute = "Server.Items.Lute", 0x4C, 0x4D;
+    LAP_HARP, new_lap_harp = "Server.Items.LapHarp", 0x45, 0x46;
+    TAMBOURINE, new_tambourine = "Server.Items.Tambourine", 0x52, 0x53;
+    TAMBOURINE_TASSEL, new_tambourine_tassel = "Server.Items.TambourineTassel", 0x52, 0x53;
 }
 
 /// Every instrument class.

@@ -47,17 +47,6 @@ fn is_player(w: &World, m: MobileId) -> bool {
         .is_some_and(|m| m.ty.is(&muo_content::player_mobile::PLAYER_MOBILE))
 }
 
-fn hair(w: &mut World, id: MobileId, item: i32, hue: i32) {
-    muo_server::mobile::part1::props_b::set_hair_item_id(w, id, item);
-    muo_server::mobile::part1::props_b::set_hair_hue(w, id, hue);
-}
-
-fn init_body(w: &mut World, id: MobileId, hue: i32) {
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    set_body(w, id, 0x190);
-}
-
 // ---- the barriers, the horn, the teleporter ----
 
 fn staff(w: &World, m: MobileId) -> bool {
@@ -235,13 +224,17 @@ pub static KRONUS_SCROLL: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Necro.KronusScroll",
     parent: Some(&QUEST_ITEM),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &KRONUS_SCROLL, 0x227A);
-        muo_server::item::base::set_hue(w, id, 0x44E);
+        let id = ops::new_item_with_id(w, &KRONUS_SCROLL, 0);
+        muo_content::templates::apply_item_as(w, id, KRONUS_SCROLL.full_name);
         id
     }),
     family: Some(&KRONUS_SCROLL_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1060149, // Calling of Kronus
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", QUEST_ITEM.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", QUEST_ITEM.label_number)
+    },
     on_double_click: |w, id, from| {
         if !ops::is_child_of(w, id, Some(EntityId::Mobile(from))) || !is_player(w, from) {
             return;
@@ -290,11 +283,8 @@ pub static KRONUS_SCROLL_BOX: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Necro.KronusScrollBox",
     parent: Some(&METAL_BOX),
     construct: Some(|w| {
-        let id = muo_content::items::cont::new_lockable(w, &KRONUS_SCROLL_BOX, 0x9A8);
-        if let Some(f) = w.item(id).map(|i| i.ty.set_item_id) {
-            f(w, id, 0xE80);
-        }
-        ops::set_movable(w, id, false);
+        let id = muo_content::items::cont::new_lockable(w, &KRONUS_SCROLL_BOX, 0);
+        muo_content::templates::apply_item_as(w, id, KRONUS_SCROLL_BOX.full_name);
         for _ in 0..40 {
             if let Some(s) = muo_content::loot::random_scroll(
                 w,
@@ -375,10 +365,14 @@ static ABRAXUS_CLASS: QuestItemClass = QuestItemClass {
 pub static SCROLL_OF_ABRAXUS: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Necro.ScrollOfAbraxus",
     parent: Some(&QUEST_ITEM),
-    construct: Some(|w| ops::new_item_with_id(w, &SCROLL_OF_ABRAXUS, 0x227B)),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &SCROLL_OF_ABRAXUS)),
     family: Some(&ABRAXUS_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1028827, // Scroll of Abraxus
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", QUEST_ITEM.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", QUEST_ITEM.label_number)
+    },
     on_added: |w, id, parent| {
         (QUEST_ITEM.on_added)(w, id, parent);
         if let Some(EntityId::Mobile(pm)) = ops::root_parent(w, id)
@@ -451,6 +445,15 @@ pub struct CoffinComponentData {
 }
 
 /// `new MaabusCoffinComponent(full, empty)`.
+/// The `coffinComponents` template key: `AddComponent(new MaabusCoffinComponent(full, empty), x, y, 0)` for each
+/// `[full, empty, x, y]`.
+pub fn add_coffin_components(w: &mut World, id: ItemId, list: &[[i32; 4]]) {
+    for &[full, empty, x, y] in list {
+        let c = new_coffin_component(w, full, empty);
+        addon::add_component(w, id, c, x, y, 0);
+    }
+}
+
 fn new_coffin_component(w: &mut World, full: i32, empty: i32) -> ItemId {
     let id = addon::new_component(w, &MAABUS_COFFIN_COMPONENT, full);
     if let Some(i) = w.item_mut(id) {
@@ -576,18 +579,7 @@ pub static MAABUS_COFFIN: ItemType = ItemType {
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(CoffinData::default());
         }
-        for (full, empty, x, y) in [
-            (0x1C2B, 0x1C2B, -1, -1),
-            (0x1D16, 0x1C2C, 0, -1),
-            (0x1D17, 0x1C2D, 1, -1),
-            (0x1D51, 0x1C2E, 2, -1),
-            (0x1D4E, 0x1C2A, 0, 0),
-            (0x1D4D, 0x1C29, 1, 0),
-            (0x1D4C, 0x1C28, 2, 0),
-        ] {
-            let c = new_coffin_component(w, full, empty);
-            addon::add_component(w, id, c, x, y, 0);
-        }
+        muo_content::templates::apply_item_as(w, id, MAABUS_COFFIN.full_name);
         id
     }),
     serialize: |w, id, out| {
@@ -648,19 +640,10 @@ quester! {
     HORUS, HORUS_C, HORUS_V = "Server.Engines.Quests.Necro.Horus" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops HORUS_OPS, encoded false, title Some("the Guardian"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83F3),
-        init_outfit: |w, id| {
-            for n in ["PlateLegs", "PlateChest", "PlateArms", "PlateGloves", "PlateGorget"] {
-                add_item_hued(w, id, &format!("Server.Items.{n}"), 0x849);
-            }
-            add_item_hued(w, id, "Server.Items.Bardiche", 0x482);
-            add_item_hued(w, id, "Server.Items.Boots", 0x001);
-            add_item_hued(w, id, "Server.Items.Cloak", 0x482);
-            super::util::assign_hair_item(w, id);
-            super::util::assign_facial_item(w, id);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Necro.Horus"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Horus"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m {
         get_context_menu_entries: |w, horus, from, list| {
             (BASE_QUESTER.get_context_menu_entries)(w, horus, from, list);
@@ -725,8 +708,10 @@ quester! {
     /// `Server.Engines.Quests.Necro.Maabus`.
     MAABUS, MAABUS_C, MAABUS_V = "Server.Engines.Quests.Necro.Maabus" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops MAABUS_OPS, encoded false, title None, extra |_, _| {}, makeonly;
-    v { init_body: |w, id| set_body(w, id, 0x94), }
-    c { default_name: |_, _| Some("Maabus"), }
+    v {
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Necro.Maabus"),
+    }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -848,20 +833,10 @@ quester! {
     MARDOTH, MARDOTH_C, MARDOTH_V = "Server.Engines.Quests.Necro.Mardoth" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops MARDOTH_OPS, encoded false, title Some("the Ancient Necromancer"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x8849),
-        init_outfit: |w, id| {
-            add_item_hued(w, id, "Server.Items.Sandals", 0x1);
-            add_item_hued(w, id, "Server.Items.Robe", 0x66D);
-            add_item_named(w, id, "Server.Items.BlackStaff");
-            add_item_hued(w, id, "Server.Items.WizardsHat", 0x1);
-            muo_server::mobile::part1::props_b::set_facial_hair_item_id(w, id, 0x2041);
-            muo_server::mobile::part1::props_b::set_facial_hair_hue(w, id, 0x482);
-            hair(w, id, 0x203C, 0x482);
-            add_item_hued(w, id, "Server.Items.BoneGloves", 0x66D);
-            add_item_hued(w, id, "Server.Items.PlateGorget", 0x1);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Necro.Mardoth"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Mardoth"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m {
         on_drag_drop: |w, mardoth, from, dropped| {
             if !super::util::item_is(w, dropped, "Server.Engines.Quests.Necro.DarkTidesHorn")

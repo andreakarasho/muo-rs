@@ -9,16 +9,14 @@ use crate::clothing::clothing_leaf;
 use crate::clothing::leaves::*;
 use crate::simple::{random, random_bool, weapon_art};
 use crate::weapons::*;
-use muo_content::aos::{AosArmorAttribute, AosAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::craft::CraftResource;
-use muo_content::items::armor::{ArmorClass, ArmorMaterialType};
-use muo_content::items::clothing::{BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS, new_clothing};
+use muo_content::aos::{AosAttribute, AttrKind};
+use muo_content::items::armor::ArmorClass;
+use muo_content::items::clothing::{BASE_OUTER_TORSO, BASE_OUTER_TORSO_CLASS};
 use muo_content::items::slayer::SlayerName;
-use muo_content::items::{attr, same, set_attr};
+use muo_content::items::{attr, set_attr};
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId};
 use muo_server::item::{ItemType, LootType, deps, ops};
-use muo_server::race::ALLOW_ELVES_ONLY;
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
@@ -27,49 +25,13 @@ use muo_server::type_registry::TypeRegistry;
 clothing_leaf! {
     /// `Server.Items.BurglarsBandana`.
     BURGLARS_BANDANA, BURGLARS_BANDANA_CLASS, burglars_bandana_new = "Server.Items.BurglarsBandana" : BANDANA / BANDANA_CLASS, bandana_new, hue 0, encoded false;
-    @init |w, id| {
-        let h = if random_bool(w) { 0x58C } else { 0x10 };
-        hue(w, id, h);
-        skill_bonus(w, id, 0, SkillName::Stealing, 10.0);
-        skill_bonus(w, id, 1, SkillName::Stealth, 10.0);
-        skill_bonus(w, id, 2, SkillName::Snooping, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 5);
-    };
-    label_number: 1063473,
-    base_physical_resistance: 10,
-    base_fire_resistance: 5,
-    base_cold_resistance: 7,
-    base_poison_resistance: 10,
-    base_energy_resistance: 10,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
+    @template;
 }
-
-/// `DreadPirateHat._combatSkills`.
-const COMBAT_SKILLS: [SkillName; 5] = [
-    SkillName::Tactics,
-    SkillName::Archery,
-    SkillName::Swords,
-    SkillName::Macing,
-    SkillName::Fencing,
-];
 
 clothing_leaf! {
     /// `Server.Items.DreadPirateHat`.
     DREAD_PIRATE_HAT, DREAD_PIRATE_HAT_CLASS, dread_pirate_hat_new = "Server.Items.DreadPirateHat" : TRICORNE_HAT / TRICORNE_HAT_CLASS, tricorne_hat_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x497);
-        let i = random(w, COMBAT_SKILLS.len() as i32) as usize;
-        skill_bonus(w, id, 0, COMBAT_SKILLS[i], 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-    };
-    label_number: 1063467,
-    base_cold_resistance: 14,
-    base_poison_resistance: 10,
-    init_min_hits: same(255),
-    init_max_hits: same(255),
+    @template;
 }
 
 // ---- Minor Artifacts/ML ----
@@ -77,98 +39,43 @@ clothing_leaf! {
 armor_leaf! {
     /// `Server.Items.AegisOfGrace`.
     AEGIS_OF_GRACE, AEGIS_OF_GRACE_CLASS, aegis_of_grace_new = "Server.Items.AegisOfGrace" : DRAGON_HELM / DRAGON_HELM_CLASS, dragon_helm_new, encoded true;
-    @init |w, id| {
-        skill_bonus(w, id, 0, SkillName::MagicResist, 10.0);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 20);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::SelfRepair as u32, 2);
-    };
-    label_number: 1075047,
-    base_physical_resistance: 10,
-    base_fire_resistance: 9,
-    base_cold_resistance: 7,
-    base_poison_resistance: 7,
-    base_energy_resistance: 15,
-    material_type: ArmorMaterialType::Dragon,
-    default_resource: CraftResource::Iron,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    required_races: Some(ALLOW_ELVES_ONLY),
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.FeyLeggings`.
     FEY_LEGGINGS, FEY_LEGGINGS_CLASS, fey_leggings_new = "Server.Items.FeyLeggings" : CHAIN_LEGS / CHAIN_LEGS_CLASS, chain_legs_new, encoded true;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 6);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 20);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-    };
-    label_number: 1075041,
-    base_physical_resistance: 12,
-    base_fire_resistance: 8,
-    base_cold_resistance: 7,
-    base_poison_resistance: 4,
-    base_energy_resistance: 19,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    required_races: Some(ALLOW_ELVES_ONLY),
+    @template;
 }
 
 clothing_leaf! {
-    /// `Server.Items.PadsOfTheCuSidhe` (`base(0x47E)`).
-    PADS_OF_THE_CU_SIDHE, PADS_OF_THE_CU_SIDHE_CLASS, pads_of_the_cu_sidhe_new = "Server.Items.PadsOfTheCuSidhe" : FUR_BOOTS / FUR_BOOTS_CLASS, fur_boots_new, hue 0x47E, encoded true;
-    label_number: 1075048,
+    /// `Server.Items.PadsOfTheCuSidhe` (`base(0x47E)`: the template's hue).
+    PADS_OF_THE_CU_SIDHE, PADS_OF_THE_CU_SIDHE_CLASS, pads_of_the_cu_sidhe_new = "Server.Items.PadsOfTheCuSidhe" : FUR_BOOTS / FUR_BOOTS_CLASS, fur_boots_new, hue 0, encoded true;
+    @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEclipse`.
-    ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F03, 0x486), hue 0, encoded true;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 95);
-    };
-    flippable: Some((0x1F03, 0x1F04)),
-    default_weight: Some(3.0),
-    label_number: 1075082,
+    ROBE_OF_THE_ECLIPSE, ROBE_OF_THE_ECLIPSE_CLASS, robe_of_the_eclipse_new = "Server.Items.RobeOfTheEclipse" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded true;
+    @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.RobeOfTheEquinox`.
-    ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x1F04, 0xD6), hue 0, encoded true;
-    @init |w, id| {
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 95);
-    };
-    flippable: Some((0x1F03, 0x1F04)),
-    default_weight: Some(3.0),
-    label_number: 1075042,
+    ROBE_OF_THE_EQUINOX, ROBE_OF_THE_EQUINOX_CLASS, robe_of_the_equinox_new = "Server.Items.RobeOfTheEquinox" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded true;
+    @template;
 }
 
 weapon_art! {
     /// `Server.Items.WildfireBow`.
     WILDFIRE_BOW, WILDFIRE_BOW_CLASS, wildfire_bow_new = "Server.Items.WildfireBow" : ELVEN_COMPOSITE_LONGBOW / ELVEN_COMPOSITE_LONGBOW_CLASS, via elven_composite_longbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0x489);
-        skill_bonus(w, id, 0, SkillName::Archery, 10.0);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::ResistFireBonus as u32, 25);
-        crate::weapons::ctor::set_velocity(w, id, 15);
-    };
-    label_number: 1075044,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 100, cold: 0, pois: 0, nrgy: 0, chaos: 0, direct: 0 },
+    @json;
 }
 
 weapon_art! {
     /// `Server.Items.Windsong`.
     WINDSONG, WINDSONG_CLASS, windsong_new = "Server.Items.Windsong" : MAGICAL_SHORTBOW / MAGICAL_SHORTBOW_CLASS, via magical_shortbow_new, enc;
-    @init |w, id| {
-        hue(w, id, 0xF7);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 35);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::SelfRepair as u32, 3);
-        crate::weapons::ctor::set_velocity(w, id, 25);
-    };
-    label_number: 1075031,
-    init_min_hits: 255,
-    init_max_hits: 255,
+    @json;
 }
 
 // ---- Minor Artifacts ----
@@ -176,43 +83,17 @@ weapon_art! {
 armor_leaf! {
     /// `Server.Items.ShieldOfInvulnerability`; `Validate(m) => true` makes the guild checks of OrderShield pass.
     SHIELD_OF_INVULNERABILITY, SHIELD_OF_INVULNERABILITY_CLASS, shield_of_invulnerability_new = "Server.Items.ShieldOfInvulnerability" : ORDER_SHIELD / ORDER_SHIELD_CLASS, order_shield_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x4F2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::SpellChanneling as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 10);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 15);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::LowerStatReq as u32, 100);
-    };
+    @template;
     @ty {
         on_equip: muo_content::items::armor::BASE_SHIELD.on_equip,
         on_single_click: muo_content::items::armor::BASE_SHIELD.on_single_click,
     };
-    label_number: 1070693,
-    base_physical_resistance: 8,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 0,
-    init_min_hits: 255,
-    init_max_hits: 255,
 }
 
 weapon_art! {
     /// `Server.Items.WrathOfTheDryad`.
     WRATH_OF_THE_DRYAD, WRATH_OF_THE_DRYAD_CLASS, wrath_of_the_dryad_new = "Server.Items.WrathOfTheDryad" : GNARLED_STAFF / GNARLED_STAFF_CLASS, via gnarled_staff_new, v0;
-    @init |w, id| {
-        hue(w, id, 0x29C);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLeechMana as u32, 50);
-        set_attr(w, id, AttrKind::Weapon, AosWeaponAttribute::HitLightning as u32, 33);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::WeaponDamage as u32, 40);
-    };
-    primary_ability: Some(muo_content::items::weapon::Ability::ConcussionBlow),
-    secondary_ability: Some(muo_content::items::weapon::Ability::ParalyzingBlow),
-    label_number: 1070853,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    get_damage_types: |_, _, _| muo_content::items::weapon_combat::DamageTypes { phys: 0, fire: 0, cold: 0, pois: 100, nrgy: 0, chaos: 0, direct: 0 },
+    @json;
 }
 
 // ---- Champion Artifacts ----
@@ -220,22 +101,7 @@ weapon_art! {
 clothing_leaf! {
     /// `Server.Items.CaptainJohnsHat`.
     CAPTAIN_JOHNS_HAT, CAPTAIN_JOHNS_HAT_CLASS, captain_johns_hat_new = "Server.Items.CaptainJohnsHat" : TRICORNE_HAT / TRICORNE_HAT_CLASS, tricorne_hat_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusDex as u32, 8);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::NightSight as u32, 1);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 15);
-        skill_bonus(w, id, 0, SkillName::Swords, 20.0);
-    };
-    label_number: 1094911,
-    base_physical_resistance: 2,
-    base_fire_resistance: 6,
-    base_cold_resistance: 9,
-    base_poison_resistance: 7,
-    base_energy_resistance: 23,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
+    @template;
 }
 
 /// `DetectiveBoots.Level`: kept in a field that is not saved and restores it from `Attributes.BonusInt`
@@ -247,105 +113,40 @@ fn detective_level(w: &World, id: ItemId) -> i32 {
 clothing_leaf! {
     /// `Server.Items.DetectiveBoots`.
     DETECTIVE_BOOTS, DETECTIVE_BOOTS_CLASS, detective_boots_new = "Server.Items.DetectiveBoots" : BOOTS / BOOTS_CLASS, boots_new, hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x455);
-        let level = crate::simple::random_min_max(w, 0, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusInt as u32, 2 + level);
-    };
+    @template;
     @ty {
         label_number: |w, id| 1094894 + detective_level(w, id),
     };
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
 }
 
 clothing_leaf! {
     /// `Server.Items.EmbroideredOakLeafCloak`.
-    EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x483);
-        muo_content::items::clothing::set_str_requirement(w, id, 0);
-        skill_bonus(w, id, 0, SkillName::Stealth, 5.0);
-    };
-    label_number: 1094901,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
+    EMBROIDERED_OAK_LEAF_CLOAK, EMBROIDERED_OAK_LEAF_CLOAK_CLASS, embroidered_oak_leaf_cloak_new = "Server.Items.EmbroideredOakLeafCloak" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
+    @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.TheMostKnowledgePerson`.
-    THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x117);
-        muo_content::items::clothing::set_str_requirement(w, id, 0);
-        let bonus = 3 + crate::simple::random_min_max(w, 0, 2);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, bonus);
-    };
-    label_number: 1094893,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
-    can_be_blessed: false,
+    THE_MOST_KNOWLEDGE_PERSON, THE_MOST_KNOWLEDGE_PERSON_CLASS, the_most_knowledge_person_new = "Server.Items.TheMostKnowledgePerson" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
+    @template;
 }
 
 clothing_leaf! {
     /// `Server.Items.TheRobeOfBritanniaAri`.
-    THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, |w, ty, _| new_clothing(w, ty, 0x2684, 0), hue 0, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x48b);
-        muo_content::items::clothing::set_str_requirement(w, id, 0);
-    };
-    label_number: 1094931,
-    base_physical_resistance: 10,
-    init_min_hits: same(150),
-    init_max_hits: same(150),
-    can_fortify: false,
+    THE_ROBE_OF_BRITANNIA_ARI, THE_ROBE_OF_BRITANNIA_ARI_CLASS, the_robe_of_britannia_ari_new = "Server.Items.TheRobeOfBritanniaAri" : BASE_OUTER_TORSO / BASE_OUTER_TORSO_CLASS, crate::clothing::new_clothing_json, hue 0, encoded false;
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.OrcChieftainHelm`.
     ORC_CHIEFTAIN_HELM, ORC_CHIEFTAIN_HELM_CLASS, orc_chieftain_helm_new = "Server.Items.OrcChieftainHelm" : ORC_HELM / ORC_HELM_CLASS, orc_helm_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x2a3);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::Luck as u32, 100);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 3);
-        if random_bool(w) {
-            set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 30);
-        } else {
-            set_attr(w, id, AttrKind::Attributes, AosAttribute::AttackChance as u32, 30);
-        }
-    };
-    label_number: 1094924,
-    base_physical_resistance: 23,
-    base_fire_resistance: 1,
-    base_cold_resistance: 23,
-    base_poison_resistance: 3,
-    base_energy_resistance: 5,
-    init_min_hits: 150,
-    init_max_hits: 150,
-    can_fortify: false,
+    @template;
 }
 
 armor_leaf! {
     /// `Server.Items.ShroudOfDeciet`.
     SHROUD_OF_DECIET, SHROUD_OF_DECIET_CLASS, shroud_of_deciet_new = "Server.Items.ShroudOfDeciet" : BONE_CHEST / BONE_CHEST_CLASS, bone_chest_new, encoded false;
-    @init |w, id| {
-        hue(w, id, 0x38F);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 3);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::MageArmor as u32, 1);
-        skill_bonus(w, id, 0, SkillName::MagicResist, 10.0);
-    };
-    label_number: 1094914,
-    base_physical_resistance: 11,
-    base_fire_resistance: 6,
-    base_cold_resistance: 18,
-    base_poison_resistance: 15,
-    base_energy_resistance: 13,
-    init_min_hits: 150,
-    init_max_hits: 150,
-    can_fortify: false,
+    @template;
 }
 
 // ---- New Haven Quest Rewards ----
@@ -353,28 +154,13 @@ armor_leaf! {
 armor_leaf! {
     /// `Server.Items.EscutcheonDeAriadne`.
     ESCUTCHEON_DE_ARIADNE, ESCUTCHEON_DE_ARIADNE_CLASS, escutcheon_de_ariadne_new = "Server.Items.EscutcheonDeAriadne" : METAL_KITE_SHIELD / METAL_KITE_SHIELD_CLASS, metal_kite_shield_new, encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        hue(w, id, 0x8A5);
-        set_attr(w, id, AttrKind::Armor, AosArmorAttribute::DurabilityBonus as u32, 49);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::ReflectPhysical as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::DefendChance as u32, 5);
-    };
-    label_number: 1077694,
-    base_physical_resistance: 5,
-    base_energy_resistance: 1,
-    aos_str_req: 14,
+    @template;
 }
 
 weapon_art! {
     /// `Server.Items.JacobsPickaxe`.
     JACOBS_PICKAXE, JACOBS_PICKAXE_CLASS, jacobs_pickaxe_new = "Server.Items.JacobsPickaxe" : PICKAXE / PICKAXE_CLASS, via pickaxe_new, enc;
-    @init |w, id| {
-        crate::weapons::ctor::set_uses_remaining(w, id, 20);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        skill_bonus(w, id, 0, SkillName::Mining, 10.0);
-    };
-    label_number: 1077758,
+    @json;
 }
 
 // ---- hand-written: statuettes, instruments, talismans, quivers, tools, spellbook ----
@@ -501,7 +287,7 @@ pub static BLOODWOOD_SPIRIT: ItemType = ItemType {
     parent: Some(&talismans::BASE_TALISMAN),
     construct: Some(|w| bloodwood_spirit_new(w, &BLOODWOOD_SPIRIT)),
     family: Some(&BLOODWOOD_SPIRIT_CLASS),
-    label_number: |_, _| 1075034,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (talismans::BASE_TALISMAN.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -558,7 +344,7 @@ pub static TOTEM_OF_VOID: ItemType = ItemType {
     parent: Some(&talismans::BASE_TALISMAN),
     construct: Some(|w| totem_of_void_new(w, &TOTEM_OF_VOID)),
     family: Some(&TOTEM_OF_VOID_CLASS),
-    label_number: |_, _| 1075035,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (talismans::BASE_TALISMAN.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -571,43 +357,20 @@ pub static TOTEM_OF_VOID: ItemType = ItemType {
     ..talismans::BASE_TALISMAN
 };
 
-use crate::quivers::{self, QuiverClass};
-
-/// `QuiverOfElements`: all chaos damage.
-pub static QUIVER_OF_ELEMENTS_CLASS: QuiverClass = QuiverClass {
-    alter_bow_damage: |s| *s = [0, 0, 0, 0, 0, 100, 0],
-};
-
-/// `QuiverOfRage`: 20 of each element, no chaos or direct.
-pub static QUIVER_OF_RAGE_CLASS: QuiverClass = QuiverClass {
-    alter_bow_damage: |s| *s = [20, 20, 20, 20, 20, 0, 0],
-};
-
-/// `QuiverOfElements()`: `BaseQuiver()` (graphic 0x2FB7), `Hue = 0xEB`, `WeightReduction = 50`.
-pub fn quiver_of_elements_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = quivers::new_quiver(w, ty, 0x2FB7);
-    hue(w, id, 0xEB);
-    quivers::set_weight_reduction(w, id, 50);
-    id
-}
-
-/// `QuiverOfRage()`.
-pub fn quiver_of_rage_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = quivers::new_quiver(w, ty, 0x2FB7);
-    hue(w, id, 0x24C);
-    quivers::set_weight_reduction(w, id, 25);
-    quivers::set_damage_increase(w, id, 10);
-    id
-}
+use crate::quivers;
 
 macro_rules! quiver_leaf {
-    ($name:ident = $full:literal, $new:ident, $class:ident, label $label:expr) => {
+    ($name:ident = $full:literal, $new:ident) => {
+        /// `new T()`: `BaseQuiver(graphic)` and the class's template.
+        pub fn $new(w: &mut World, ty: &'static ItemType) -> ItemId {
+            quivers::quiver_from_template(w, ty, $full)
+        }
+
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&quivers::BASE_QUIVER),
             construct: Some(|w| $new(w, &$name)),
-            family: Some(&$class),
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 (quivers::BASE_QUIVER.serialize)(w, id, out);
                 out.write_encoded_int(0);
@@ -622,17 +385,21 @@ macro_rules! quiver_leaf {
     };
 }
 
-quiver_leaf!(QUIVER_OF_ELEMENTS = "Server.Items.QuiverOfElements", quiver_of_elements_new, QUIVER_OF_ELEMENTS_CLASS, label 1075040);
-quiver_leaf!(QUIVER_OF_RAGE = "Server.Items.QuiverOfRage", quiver_of_rage_new, QUIVER_OF_RAGE_CLASS, label 1075038);
+quiver_leaf!(
+    QUIVER_OF_ELEMENTS = "Server.Items.QuiverOfElements",
+    quiver_of_elements_new
+);
+quiver_leaf!(
+    QUIVER_OF_RAGE = "Server.Items.QuiverOfRage",
+    quiver_of_rage_new
+);
 
 use muo_content::items::tool;
 
 /// `AmeliasToolbox()`: `base(500)` of `TinkerTools`.
 pub fn amelias_toolbox_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = tool::new_tool(w, ty, 0x1EB8, 500);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    hue(w, id, 1895);
-    id
+    let id = tool::new_tool(w, ty, 0, 500);
+    crate::simple::own_template(w, id, "Server.Items.AmeliasToolbox")
 }
 
 /// `Server.Items.AmeliasToolbox`.
@@ -640,7 +407,7 @@ pub static AMELIAS_TOOLBOX: ItemType = ItemType {
     full_name: "Server.Items.AmeliasToolbox",
     parent: Some(&crate::skill_items::tools::TINKER_TOOLS),
     construct: Some(|w| amelias_toolbox_new(w, &AMELIAS_TOOLBOX)),
-    label_number: |_, _| 1077749,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (crate::skill_items::tools::TINKER_TOOLS.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -662,10 +429,8 @@ pub static HAMMER_OF_HEPHAESTUS_CLASS: tool::ToolClass = tool::ToolClass {
 /// `HammerOfHephaestus()`: `SmithHammer()`, `UsesRemaining = 20`, blessed. The recharge timer is not implemented
 /// (`StartRechargeTimer` is empty), so nothing recharges.
 pub fn hammer_of_hephaestus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = tool::new_tool_random(w, ty, 0x13E3);
-    (ty.set_layer)(w, id, muo_server::layer::Layer::OneHanded);
-    tool::set_uses_remaining(w, id, 20);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    let id = tool::new_tool_random(w, ty, 0);
+    crate::simple::own_template(w, id, "Server.Items.HammerOfHephaestus");
     id
 }
 
@@ -675,7 +440,7 @@ pub static HAMMER_OF_HEPHAESTUS: ItemType = ItemType {
     parent: Some(&crate::skill_items::tools::SMITH_HAMMER),
     construct: Some(|w| hammer_of_hephaestus_new(w, &HAMMER_OF_HEPHAESTUS)),
     family: Some(&HAMMER_OF_HEPHAESTUS_CLASS),
-    label_number: |_, _| 1077740,
+    label_number: crate::class_props::label_number,
     on_double_click: |w, id, from| {
         let pack = muo_server::mobile::part1::props_b::backpack(w, from);
         let held = w.item(id).and_then(|i| i.parent) == Some(EntityId::Mobile(from));
@@ -715,7 +480,7 @@ pub static HALLOWED_SPELLBOOK: ItemType = ItemType {
     full_name: "Server.Items.HallowedSpellbook",
     parent: Some(&crate::skill_items::spellbook::SPELLBOOK),
     construct: Some(|w| hallowed_spellbook_new(w, &HALLOWED_SPELLBOOK)),
-    label_number: |_, _| 1077620,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (crate::skill_items::spellbook::SPELLBOOK.serialize)(w, id, out);
         out.write_encoded_int(0);

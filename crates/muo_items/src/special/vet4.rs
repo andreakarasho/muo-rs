@@ -90,9 +90,11 @@ pub fn skeleton_west_item_id(south: i32) -> i32 {
 
 /// `HangingSkeletonDeed()`.
 pub fn hanging_skeleton_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &HANGING_SKELETON_DEED, 0x14F0);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(
+        w,
+        &HANGING_SKELETON_DEED,
+        "Server.Items.HangingSkeletonDeed",
+    )
 }
 
 const SKELETONS: [i32; 5] = [0x1A03, 0x1A05, 0x1A09, 0x1B1E, 0x1B7F];
@@ -252,8 +254,8 @@ rtype! {
     /// `Server.Items.HangingSkeletonDeed`.
     HANGING_SKELETON_DEED = "Server.Items.HangingSkeletonDeed" : ITEM_BASE;
     construct: Some(hanging_skeleton_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049772, // deed for a hanging skeleton decoration
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // deed for a hanging skeleton decoration
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         if is_reward(w, id) {

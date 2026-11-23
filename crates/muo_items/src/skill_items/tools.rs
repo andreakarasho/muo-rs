@@ -19,8 +19,8 @@ pub static BLOWPIPE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_blowpipe(w, None)),
     family: Some(&BLOWPIPE_CLASS),
-    default_weight: |_, _| 4.0,
-    label_number: |_, _| 1044608,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -53,7 +53,7 @@ pub static DOVETAIL_SAW: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_dovetail_saw(w, None)),
     family: Some(&DOVETAIL_SAW_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -83,7 +83,7 @@ pub static DRAW_KNIFE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_draw_knife(w, None)),
     family: Some(&DRAW_KNIFE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -113,7 +113,7 @@ pub static FLETCHER_TOOLS: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_fletcher_tools(w, None)),
     family: Some(&FLETCHER_TOOLS_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -143,7 +143,7 @@ pub static FLOUR_SIFTER: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_flour_sifter(w, None)),
     family: Some(&FLOUR_SIFTER_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -173,7 +173,7 @@ pub static FROE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_froe(w, None)),
     family: Some(&FROE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -203,7 +203,7 @@ pub static HAMMER: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_hammer(w, None)),
     family: Some(&HAMMER_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -233,7 +233,7 @@ pub static INSHAVE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_inshave(w, None)),
     family: Some(&INSHAVE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -263,7 +263,7 @@ pub static JOINTING_PLANE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_jointing_plane(w, None)),
     family: Some(&JOINTING_PLANE_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -293,7 +293,7 @@ pub static MALLET_AND_CHISEL: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_mallet_and_chisel(w, None)),
     family: Some(&MALLET_AND_CHISEL_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -326,8 +326,8 @@ pub static MAPMAKERS_PEN: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_mapmakers_pen(w, None)),
     family: Some(&MAPMAKERS_PEN_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1044167,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -357,7 +357,7 @@ pub static MORTAR_PESTLE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_mortar_pestle(w, None)),
     family: Some(&MORTAR_PESTLE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -387,7 +387,7 @@ pub static MOULDING_PLANE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_moulding_plane(w, None)),
     family: Some(&MOULDING_PLANE_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -417,7 +417,7 @@ pub static NAILS: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_nails(w, None)),
     family: Some(&NAILS_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -447,7 +447,7 @@ pub static ROLLING_PIN: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_rolling_pin(w, None)),
     family: Some(&ROLLING_PIN_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -477,7 +477,7 @@ pub static SAW: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_saw(w, None)),
     family: Some(&SAW_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -507,7 +507,7 @@ pub static SCORP: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_scorp(w, None)),
     family: Some(&SCORP_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -537,8 +537,8 @@ pub static SCRIBES_PEN: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_scribes_pen(w, None)),
     family: Some(&SCRIBES_PEN_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1044168,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -568,7 +568,7 @@ pub static SEWING_KIT: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_sewing_kit(w, None)),
     family: Some(&SEWING_KIT_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -598,8 +598,8 @@ pub static SKILLET: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_skillet(w, None)),
     family: Some(&SKILLET_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1044567,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -661,7 +661,7 @@ pub static SMITH_HAMMER: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_smith_hammer(w, None)),
     family: Some(&SMITH_HAMMER_CLASS),
-    default_weight: |_, _| 8.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -694,7 +694,7 @@ pub static SMOOTHING_PLANE: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_smoothing_plane(w, None)),
     family: Some(&SMOOTHING_PLANE_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -727,7 +727,7 @@ pub static TINKER_TOOLS: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_tinker_tools(w, None)),
     family: Some(&TINKER_TOOLS_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -757,7 +757,7 @@ pub static TINKERS_TOOLS: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_tinkers_tools(w, None)),
     family: Some(&TINKERS_TOOLS_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -787,7 +787,7 @@ pub static TONGS: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: Some(|w| new_tongs(w, None)),
     family: Some(&TONGS_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -817,7 +817,7 @@ pub static SHOVEL: ItemType = ItemType {
     parent: Some(&BASE_HARVEST_TOOL),
     construct: Some(|w| new_shovel(w, None)),
     family: Some(&SHOVEL_CLASS),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (BASE_HARVEST_TOOL.serialize)(w, id, out);
         write_version(out, false);
@@ -844,8 +844,8 @@ pub static STURDY_SHOVEL: ItemType = ItemType {
     parent: Some(&BASE_HARVEST_TOOL),
     construct: Some(|w| new_sturdy_shovel(w, None)),
     family: Some(&STURDY_SHOVEL_CLASS),
-    default_weight: |_, _| 5.0,
-    label_number: |_, _| 1045125,
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BASE_HARVEST_TOOL.serialize)(w, id, out);
         write_version(out, false);

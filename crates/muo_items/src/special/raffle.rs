@@ -592,7 +592,7 @@ pub fn deed_valid_location(w: &World, id: ItemId) -> bool {
 
 /// `new HouseRaffleDeed(stone, m)`.
 pub fn deed_new_with(w: &mut World, stone: Option<ItemId>, m: Option<MobileId>) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOUSE_RAFFLE_DEED, 0x2830);
+    let id = crate::simple::from_template(w, &HOUSE_RAFFLE_DEED, "Server.Items.HouseRaffleDeed");
     let mut d = DeedData {
         stone,
         awarded_to: m,
@@ -639,8 +639,8 @@ pub static HOUSE_RAFFLE_DEED: ItemType = ItemType {
     full_name: "Server.Items.HouseRaffleDeed",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| deed_new_with(w, None, None)),
-    default_name: |_, _| Some("a writ of lease".to_owned()),
-    default_weight: |_, _| 1.0,
+    default_name: crate::class_props::default_name,
+    default_weight: crate::class_props::default_weight,
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);
         if deed_valid_location(w, id) {
@@ -707,7 +707,7 @@ pub static HOUSE_RAFFLE_DEED: ItemType = ItemType {
 
 /// `new HouseRaffleStone()`.
 pub fn stone_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &HOUSE_RAFFLE_STONE, 0xEDD);
+    let id = crate::simple::from_template(w, &HOUSE_RAFFLE_STONE, "Server.Items.HouseRaffleStone");
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(StoneData::default());
     }
@@ -781,7 +781,7 @@ pub static HOUSE_RAFFLE_STONE: ItemType = ItemType {
     full_name: "Server.Items.HouseRaffleStone",
     parent: Some(&ITEM_BASE),
     construct: Some(stone_new),
-    default_name: |_, _| Some("a house raffle stone".to_owned()),
+    default_name: crate::class_props::default_name,
     display_weight: |_, _| false,
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);

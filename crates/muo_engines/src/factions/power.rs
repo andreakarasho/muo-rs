@@ -575,7 +575,7 @@ pub static BLOOD_ROSE: ItemType = ItemType {
     full_name: "Server.BloodRose",
     construct: None,
     make: Some(rose_new),
-    default_name: |_, _| Some("blood rose".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, GEM_OF_EMPOWERMENT.default_name),
     ..GEM_OF_EMPOWERMENT
 };
 

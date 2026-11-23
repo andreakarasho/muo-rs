@@ -3,8 +3,6 @@
 
 use muo_content::creature::cd;
 use muo_content::factory;
-use muo_content::items::weapon::Ability;
-use muo_content::loot_pack;
 use muo_content::misc::aos_helpers::{self, DamageSplit};
 use muo_content::mx;
 use muo_io::{GenericReader, GenericWriter};
@@ -16,7 +14,6 @@ use muo_server::map::MapId;
 use muo_server::mobile::part1::props_b;
 use muo_server::mobile::part2::{enumerators, messages};
 use muo_server::packets::movement::{SpeedControlSetting, send_speed_control};
-use muo_server::poison::PoisonId;
 use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::timer::{self, TimerHandle};
 use muo_server::type_registry::TypeRegistry;
@@ -24,7 +21,7 @@ use muo_server::type_registry::TypeRegistry;
 use crate::common::*;
 use crate::hand::si;
 use crate::leaf::creature_leaf;
-use crate::npcs::special::champions::{BASE_CHAMPION, BASE_CHAMPION_C, champion_make};
+use crate::npcs::special::champions::{BASE_CHAMPION, BASE_CHAMPION_C};
 
 // ---- StainedOoze ----
 
@@ -269,61 +266,8 @@ pub fn under_cacophonic_attack(w: &mut World, m: MobileId) -> bool {
     tables(w).cacophonic.contains(&m)
 }
 
-fn pack_resources(w: &mut World, id: MobileId, amount: i32) {
-    for _ in 0..amount {
-        let n = [
-            "Blight",
-            "Scourge",
-            "Taint",
-            "Putrefication",
-            "Corruption",
-            "Muculent",
-        ][rnd::below(w, 6) as usize];
-        pack_new(w, id, &si(n));
-    }
-}
-
-fn pack_talismans(w: &mut World, id: MobileId, amount: i32) {
-    let count = rnd::below(w, amount);
-    for _ in 0..count {
-        pack_new(w, id, &si("RandomTalisman"));
-    }
-}
-
 fn ilhenir_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &ILHENIR, AIType::AiMage, FightMode::Closest);
-    title(w, id, "the Stained");
-    body(w, id, 0x103);
-    base_sound_id(w, id, 589);
-    set_str_range(w, id, 1105, 1350);
-    set_dex_range(w, id, 82, 160);
-    set_int_range(w, id, 505, 750);
-    set_hits(w, id, 9000);
-    set_damage(w, id, 21, 28);
-    set_damage_type(w, id, ResistanceType::Physical, 60);
-    set_damage_type(w, id, ResistanceType::Fire, 20);
-    set_damage_type(w, id, ResistanceType::Poison, 20);
-    set_resistance_range(w, id, ResistanceType::Physical, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Cold, 55, 65);
-    set_resistance_range(w, id, ResistanceType::Poison, 70, 90);
-    set_resistance_range(w, id, ResistanceType::Energy, 65, 75);
-    set_skill(w, id, SkillName::EvalInt, 100.0);
-    set_skill(w, id, SkillName::Magery, 100.0);
-    set_skill(w, id, SkillName::Meditation, 0.0);
-    set_skill(w, id, SkillName::Poisoning, 5.4);
-    set_skill(w, id, SkillName::Anatomy, 117.5);
-    set_skill(w, id, SkillName::MagicResist, 120.0);
-    set_skill(w, id, SkillName::Tactics, 119.9);
-    set_skill(w, id, SkillName::Wrestling, 119.9);
-    fame(w, id, 50000);
-    karma(w, id, -50000);
-    virtual_armor(w, id, 44);
-    if w.core_ml() {
-        pack_resources(w, id, 8);
-        pack_talismans(w, id, 5);
-    }
-    id
+    crate::cprops::new_creature(w, &ILHENIR)
 }
 
 fn ilhenir_on_death(w: &mut World, id: MobileId, c: Option<ItemId>) {
@@ -389,23 +333,21 @@ creature_leaf! {
     /// `Server.Mobiles.Ilhenir`.
     ILHENIR, ILHENIR_C = "Server.Mobiles.Ilhenir" : BASE_CHAMPION / BASE_CHAMPION_C, ctor Some(ilhenir_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a corpse of Ilhenir"),
-        default_name: |_w, _id| Some("Ilhenir"),
-        unprovokable: |_w, _id| true,
-        uncalmable: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(4)),
-        treasure_map_level: |_w, _id| 5,
-        generate_loot: |w, id| {
-            add_loot_n(w, id, loot_pack::filthy_rich(w), 8);
-        },
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        default_name: muo_content::templates::creature_props::default_name,
+        unprovokable: crate::cprops::unprovokable,
+        uncalmable: crate::cprops::uncalmable,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
+        treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
+        generate_loot: muo_content::templates::creature_props::generate_loot,
         on_gave_melee_attack: ilhenir_on_gave_melee_attack,
     }
     m {
-        get_anger_sound: |_w, _id| 0x581,
-        get_idle_sound: |_w, _id| 0x582,
-        get_attack_sound: |_w, _id| 0x580,
-        get_hurt_sound: |_w, _id| 0x583,
-        get_death_sound: |_w, _id| 0x584,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_death: ilhenir_on_death,
         on_damage: ilhenir_on_damage,
     }
@@ -428,36 +370,12 @@ fn set_followers(w: &mut World, id: MobileId, f: Option<Vec<MobileId>>) {
     }
 }
 
-fn meraktus_new(w: &mut World) -> MobileId {
-    let id = champion_make(w, &MERAKTUS, AIType::AiMelee, FightMode::Closest);
+pub(crate) fn meraktus_no_followers(w: &mut World, id: MobileId) {
     set_followers(w, id, None);
-    title(w, id, "the Tormented");
-    body(w, id, 263);
-    base_sound_id(w, id, 680);
-    hue(w, id, 0x835);
-    set_str_range(w, id, 1419, 1438);
-    set_dex_range(w, id, 309, 413);
-    set_int_range(w, id, 129, 131);
-    set_hits_range(w, id, 4100, 4200);
-    set_damage(w, id, 16, 30);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 65, 90);
-    set_resistance_range(w, id, ResistanceType::Fire, 65, 70);
-    set_resistance_range(w, id, ResistanceType::Cold, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Poison, 40, 60);
-    set_resistance_range(w, id, ResistanceType::Energy, 50, 55);
-    set_skill(w, id, SkillName::Anatomy, 0.0);
-    set_skill_range(w, id, SkillName::MagicResist, 107.0, 111.3);
-    set_skill_range(w, id, SkillName::Tactics, 107.0, 117.0);
-    set_skill_range(w, id, SkillName::Wrestling, 100.0, 105.0);
-    fame(w, id, 70000);
-    karma(w, id, -70000);
-    virtual_armor(w, id, 28);
-    if w.core_ml() {
-        pack_resources(w, id, 8);
-        pack_talismans(w, id, 5);
-    }
-    id
+}
+
+fn meraktus_new(w: &mut World) -> MobileId {
+    crate::cprops::new_creature(w, &MERAKTUS)
 }
 
 pub fn meraktus_serialize(w: &World, id: MobileId, out: &mut dyn GenericWriter) {
@@ -604,30 +522,26 @@ creature_leaf! {
     /// `Server.Mobiles.Meraktus`.
     MERAKTUS, MERAKTUS_C = "Server.Mobiles.Meraktus" : BASE_CHAMPION / BASE_CHAMPION_C, ctor Some(meraktus_new), state meraktus_serialize, meraktus_deserialize;
     c {
-        corpse_name: |_w, _id| Some("the remains of Meraktus"),
-        default_name: |_w, _id| Some("Meraktus"),
-        meat: |_w, _id| 2,
-        hides: |_w, _id| 10,
-        hide_type: |_w, _id| HideType::Regular,
-        poison_immune: |_w, _id| Some(PoisonId(1)),
-        treasure_map_level: |_w, _id| 3,
-        bard_immune: |_w, _id| true,
-        unprovokable: |_w, _id| true,
-        uncalmable: |_w, _id| true,
-        get_weapon_ability: |_w, _id| Some(Ability::Dismount),
-        generate_loot: |w, id| {
-            if w.core_ml() {
-                add_loot_n(w, id, &loot_pack::AOS_SUPER_BOSS, 5);
-            }
-        },
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        default_name: muo_content::templates::creature_props::default_name,
+        meat: muo_content::templates::creature_props::meat,
+        hides: muo_content::templates::creature_props::hides,
+        hide_type: crate::cprops::hide_type,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
+        treasure_map_level: muo_content::templates::creature_props::treasure_map_level,
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        uncalmable: crate::cprops::uncalmable,
+        get_weapon_ability: crate::cprops::get_weapon_ability,
+        generate_loot: crate::cprops::generate_loot,
         on_gave_melee_attack: meraktus_on_gave_melee_attack,
     }
     m {
-        get_anger_sound: |_w, _id| 0x597,
-        get_idle_sound: |_w, _id| 0x596,
-        get_attack_sound: |_w, _id| 0x599,
-        get_hurt_sound: |_w, _id| 0x59a,
-        get_death_sound: |_w, _id| 0x59c,
+        get_anger_sound: crate::cprops::get_anger_sound,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_death_sound: crate::cprops::get_death_sound,
         on_death: meraktus_on_death,
         on_map_change: meraktus_on_map_change,
         on_after_delete: meraktus_on_after_delete,

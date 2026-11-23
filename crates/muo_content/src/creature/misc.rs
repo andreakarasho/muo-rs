@@ -1202,7 +1202,7 @@ fn food_matches(w: &World, f: ItemId, ty: FoodType) -> bool {
     let item_ty = w.item(f).map(|i| i.ty);
     let is = |t: &'static muo_server::item::ItemType| item_ty.is_some_and(|x| x.is(t));
     // `BaseArmor.MaterialType`, then the `Resource` of a weapon or clothing; None when it is neither.
-    let armor_material = || is(&armor::BASE_ARMOR).then(|| armor::class(w, f).material_type);
+    let armor_material = || is(&armor::BASE_ARMOR).then(|| armor::material_type(w, f));
     let resource_kind = || {
         if is(&crate::items::weapon::BASE_WEAPON) {
             crate::items::weapon::data(w, f).map(|d| resource_type(d.resource))

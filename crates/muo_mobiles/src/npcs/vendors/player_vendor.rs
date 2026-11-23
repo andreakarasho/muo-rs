@@ -6,13 +6,12 @@ use std::rc::Rc;
 
 use indexmap::IndexMap;
 use muo_content::creature::BASE_CREATURE_C;
-use muo_content::hooks::rnd;
 use muo_content::items::cont::BACKPACK;
 use muo_content::vendor::banker;
 use muo_content::{factory, mx};
 use muo_io::{GenericReader, GenericWriter};
 use muo_multis::house;
-use muo_primitives::{DateTime, MessageType, Point3D, TimeSpan, utility};
+use muo_primitives::{DateTime, MessageType, Point3D, TimeSpan};
 use muo_server::World;
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::ids::{EntityId, ItemId, MobileId};
@@ -123,8 +122,6 @@ pub fn is_player_vendor(w: &World, m: MobileId) -> bool {
 
 /// The virtuals the `PlayerVendor` subclasses (`RentedVendor`, `PlayerBarkeeper`) override.
 pub struct PvClass {
-    /// `InitOutfit()`.
-    pub init_outfit: fn(&mut World, MobileId),
     /// `IsOwner(m)`.
     pub is_owner: fn(&World, MobileId, MobileId) -> bool,
     /// `Destroy(toBackpack)`.
@@ -132,7 +129,6 @@ pub struct PvClass {
 }
 
 pub static BASE_PV_CLASS: PvClass = PvClass {
-    init_outfit,
     is_owner: base_is_owner,
     destroy: destroy_base,
 };
@@ -279,12 +275,8 @@ pub fn make(
     if let Some(m) = w.mobile_mut(id) {
         m.cant_walk = true;
     }
-    if !w.core_aos() {
-        set_name_hue(w, id, 0x35);
-    }
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-    init_body(w, id);
-    (pclass(w, id).init_outfit)(w, id);
+    // the name hue, stats, InitBody() and InitOutfit()
+    muo_content::templates::apply_mobile(w, id);
     let delay = pay_interval(w);
     start_pay_timer(w, id, delay);
     let next = w.now + delay;
@@ -298,50 +290,6 @@ fn set_name_hue(w: &mut World, id: MobileId, v: i32) {
     if let Some(m) = w.mobile_mut(id) {
         m.name_hue = v;
     }
-}
-
-/// `InitBody()`.
-pub fn init_body(w: &mut World, id: MobileId) {
-    let skin = muo_content::vendor::human_random_skin_hue(w);
-    muo_server::mobile::base::set_hue(w, id, skin);
-    if let Some(m) = w.mobile_mut(id) {
-        m.speech_hue = 0x3B2;
-    }
-    if !w.core_aos() {
-        set_name_hue(w, id, 0x35);
-    }
-    let female = rnd::bool(w);
-    props_b::set_female(w, id, female);
-    let (body, kind) = if female {
-        (0x191, "female")
-    } else {
-        (0x190, "male")
-    };
-    props_b::set_body(w, id, muo_primitives::Body(body));
-    let n = muo_content::misc::small::random_name(w, kind);
-    (w.mobile(id).map_or(MOBILE_BASE.set_name, |m| m.ty.set_name))(w, id, Some(n));
-}
-
-fn neutral(w: &mut World) -> i32 {
-    utility::random_neutral_hue(&mut w.rng)
-}
-
-/// `InitOutfit()`.
-pub fn init_outfit(w: &mut World, id: MobileId) {
-    let h = neutral(w);
-    if let Some(shirt) = factory::make_item(w, "Server.Items.FancyShirt") {
-        muo_server::item::base::set_hue(w, shirt, h);
-        muo_server::item::base::set_layer(w, shirt, Layer::InnerTorso);
-        items::add_item(w, id, shirt);
-    }
-    for name in ["LongPants", "BodySash", "Boots", "Cloak"] {
-        let h = neutral(w);
-        crate::common::add_new_hue(w, id, &format!("Server.Items.{name}"), h);
-    }
-    crate::common::assign_random_hair(w, id);
-    let pack = vendor_backpack_new(w);
-    ops::set_movable(w, pack, false);
-    items::add_item(w, id, pack);
 }
 
 /// `Backpack` without creating one.

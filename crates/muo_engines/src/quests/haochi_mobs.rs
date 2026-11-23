@@ -2,19 +2,13 @@
 //!
 //! `HonorCandle` is a `CandleLong` whose `Burn()` and `Douse()` put out the flame and rewind the duration.
 
-use muo_content::creature::setters::{
-    set_damage, set_damage_type, set_dex, set_dex_range, set_hits, set_hits_range, set_int,
-    set_int_range, set_mana, set_resistance, set_resistance_range, set_skill, set_skill_range,
-    set_str, set_str_range,
-};
 use muo_content::items::cont;
 use muo_primitives::TimeSpan;
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::lr_reason::LRReason;
-use muo_server::mobile::{AccessLevel, MobileType, ResistanceType};
-use muo_server::skills::SkillName;
+use muo_server::mobile::{AccessLevel, MobileType};
 
 use super::core::{Conversation, Quest, load, with_quest};
 use super::haochi::*;
@@ -22,7 +16,6 @@ use super::items::{QUEST_ITEM, QuestItemClass};
 use super::quester::{
     BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps, get_new_container,
 };
-use super::util::{add_item_hued, add_item_named, base_sound_id, cant_walk, fame_karma, set_body};
 use crate::{quest_creature, quester};
 
 fn quest(w: &World, player: MobileId) -> Option<Quest> {
@@ -37,18 +30,6 @@ fn pending(q: &Quest, c: &super::core::ObjClass) -> Option<usize> {
 fn is_player(w: &World, m: MobileId) -> bool {
     w.mobile(m)
         .is_some_and(|m| m.ty.is(&muo_content::player_mobile::PLAYER_MOBILE))
-}
-
-fn hair(w: &mut World, id: MobileId, item: i32, hue: i32) {
-    muo_server::mobile::part1::props_b::set_hair_item_id(w, id, item);
-    muo_server::mobile::part1::props_b::set_hair_hue(w, id, hue);
-}
-
-fn init_body(w: &mut World, id: MobileId, hue: i32, female: bool) {
-    muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    muo_server::mobile::part1::props_b::set_female(w, id, female);
-    set_body(w, id, if female { 0x191 } else { 0x190 });
 }
 
 fn give(w: &mut World, to: MobileId, name: &str) -> bool {
@@ -72,10 +53,14 @@ static KATANA_CLASS: QuestItemClass = QuestItemClass {
 pub static HAOCHIS_KATANA: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Samurai.HaochisKatana",
     parent: Some(&QUEST_ITEM),
-    construct: Some(|w| ops::new_item_with_id(w, &HAOCHIS_KATANA, 0x13FF)),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &HAOCHIS_KATANA)),
     family: Some(&KATANA_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1063165, // Daimyo Haochi's Katana
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", QUEST_ITEM.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", QUEST_ITEM.label_number)
+    },
     serialize: |w, id, out| {
         (QUEST_ITEM.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -105,13 +90,8 @@ fn give_katana(w: &mut World, player: MobileId) -> bool {
 pub static HAOCHIS_KATANA_GENERATOR: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Samurai.HaochisKatanaGenerator",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &HAOCHIS_KATANA_GENERATOR, 0x1B7B);
-        ops::set_visible(w, id, false);
-        ops::set_movable(w, id, false);
-        id
-    }),
-    default_name: |_, _| Some("Haochi's katana generator".to_owned()),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &HAOCHIS_KATANA_GENERATOR)),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_move_over: |w, id, m| {
         if is_player(w, m)
             && let Some(qs) = quest(w, m)
@@ -162,9 +142,8 @@ pub static HAOCHIS_TREASURE_CHEST: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Samurai.HaochisTreasureChest",
     parent: Some(&muo_content::items::cont::WOODEN_FOOT_LOCKER),
     construct: Some(|w| {
-        let id = cont::new_lockable(w, &HAOCHIS_TREASURE_CHEST, 0x2811);
-        muo_server::item::container::set_gump_id(w, id, 0x10B);
-        ops::set_movable(w, id, false);
+        let id = cont::new_lockable(w, &HAOCHIS_TREASURE_CHEST, 0);
+        muo_content::templates::apply_item_as(w, id, HAOCHIS_TREASURE_CHEST.full_name);
         generate_treasure(w, id);
         id
     }),
@@ -317,23 +296,10 @@ quester! {
     HAOCHI, HAOCHI_C, HAOCHI_V = "Server.Engines.Quests.Samurai.Haochi" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops HAOCHI_OPS, encoded false, title Some("the Honorable Samurai Legend"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x8403, false),
-        init_outfit: |w, id| {
-            hair(w, id, 0x204A, 0x901);
-            for name in [
-                "SamuraiTabi",
-                "JinBaori",
-                "PlateHaidate",
-                "StandardPlateKabuto",
-                "PlateMempo",
-                "PlateDo",
-                "PlateHiroSode",
-            ] {
-                add_item_named(w, id, &format!("Server.Items.{name}"));
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Samurai.Haochi"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Daimyo Haochi"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m { }
 }
 
@@ -345,40 +311,8 @@ quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops GUARDSMAN_OPS, encoded true, title Some("the Guardsman of Daimyo Haochi"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            let hue = muo_content::vendor::human_random_skin_hue(w);
-            muo_server::mobile::base::set_hue(w, id, hue);
-            muo_server::mobile::part1::props_b::set_female(w, id, false);
-            set_body(w, id, 0x190);
-            let name = muo_content::misc::small::random_name(w, "male");
-            if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-                f(w, id, Some(name));
-            }
-        },
-        init_outfit: |w, id| {
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            add_item_named(w, id, "Server.Items.LeatherDo");
-            add_item_named(w, id, "Server.Items.LeatherHiroSode");
-            let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-            add_item_hued(w, id, "Server.Items.SamuraiTabi", h);
-            let legs = ["Server.Items.StuddedHaidate", "Server.Items.PlateSuneate", "Server.Items.LeatherSuneate"];
-            let n = legs[muo_content::hooks::rnd::below(w, 3) as usize];
-            add_item_named(w, id, n);
-            let hats = [
-                "Server.Items.DecorativePlateKabuto",
-                "Server.Items.ChainHatsuburi",
-                "Server.Items.LightPlateJingasa",
-                "Server.Items.LeatherJingasa",
-            ];
-            let n = hats[muo_content::hooks::rnd::below(w, 4) as usize];
-            add_item_named(w, id, n);
-            let weapons = ["Server.Items.NoDachi", "Server.Items.Lajatang", "Server.Items.Wakizashi"];
-            let n = weapons[muo_content::hooks::rnd::below(w, 3) as usize];
-            if let Some(it) = add_item_named(w, id, n) {
-                ops::set_movable(w, it, false);
-            }
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Samurai.HaochisGuardsman"),
+        init_outfit: |_, _| {},
     }
     c { }
     m { }
@@ -394,16 +328,10 @@ quester! {
     RELNIA, RELNIA_C, RELNIA_V = "Server.Engines.Quests.Samurai.Relnia" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops RELNIA_OPS, encoded true, title Some("the Gypsy"), extra |_, _| {};
     v {
-        init_body: |w, id| init_body(w, id, 0x83FF, true),
-        init_outfit: |w, id| {
-            hair(w, id, 0x203C, 0x654);
-            add_item_hued(w, id, "Server.Items.ThighBoots", 0x901);
-            add_item_hued(w, id, "Server.Items.FancyShirt", 0x5F3);
-            add_item_hued(w, id, "Server.Items.SkullCap", 0x6A7);
-            add_item_hued(w, id, "Server.Items.Skirt", 0x544);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Samurai.Relnia"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Disheveled Relnia"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m {
         on_drag_drop: |w, relnia, from, dropped| {
             if is_player(w, from)
@@ -427,46 +355,9 @@ quester! {
 
 // ---- The creatures ----
 
-fn body_hair_setup(w: &mut World, id: MobileId) {
-    let hue = muo_content::vendor::human_random_skin_hue(w);
-    muo_server::mobile::base::set_hue(w, id, hue);
-    set_body(w, id, 0x190);
-    muo_content::vendor::assign_random_hair_random_hue(w, id);
-    super::util::assign_facial_random_hue(w, id);
-}
-
-fn pick(w: &mut World, names: &[&str]) -> usize {
-    muo_content::hooks::rnd::below(w, names.len() as i32) as usize
-}
-
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.CursedSoul`.
-    CURSED_SOUL, CURSED_SOUL_C = "Server.Engines.Quests.Samurai.CursedSoul", ai AiMelee, init |w, id| {
-        set_body(w, id, 3);
-        base_sound_id(w, id, 471);
-        set_str_range(w, id, 20, 40);
-        set_dex_range(w, id, 40, 60);
-        set_int_range(w, id, 15, 25);
-        set_hits_range(w, id, 10, 20);
-        set_damage(w, id, 3, 7);
-        set_damage_type(w, id, ResistanceType::Physical, 100);
-        set_resistance_range(w, id, ResistanceType::Physical, 15, 20);
-        set_resistance_range(w, id, ResistanceType::Fire, 8, 12);
-        set_skill_range(w, id, SkillName::Wrestling, 35.0, 39.0);
-        set_skill_range(w, id, SkillName::Tactics, 5.0, 15.0);
-        set_skill(w, id, SkillName::MagicResist, 10.0);
-        fame_karma(w, id, 200, -200);
-        let parts = ["LeftArm", "RightArm", "Torso", "Bone", "RibCage", "RibCage", "BonePile"];
-        let n = muo_content::hooks::rnd::below(w, 10) as usize;
-        let part = parts[n.min(6)]; // 0-5 are the first six, 6-9 are BonePile
-        if let Some(i) = muo_content::factory::make_item(w, &format!("Server.Items.{part}")) {
-            muo_content::creature::setters::pack_item(w, id, Some(i));
-        }
-    };
-    c {
-        corpse_name: |_, _| Some("a cursed soul corpse"),
-        default_name: |_, _| Some("a cursed soul"),
-    }
+    CURSED_SOUL, CURSED_SOUL_C = "Server.Engines.Quests.Samurai.CursedSoul", template;
     m { }
 }
 
@@ -484,28 +375,7 @@ fn quest_aggression(w: &mut World, aggressor: MobileId, dragon: bool) {
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.DeadlyImp`.
-    DEADLY_IMP, DEADLY_IMP_C = "Server.Engines.Quests.Samurai.DeadlyImp", ai AiMelee, init |w, id| {
-        set_body(w, id, 74);
-        base_sound_id(w, id, 422);
-        muo_server::mobile::base::set_hue(w, id, 0x66A);
-        set_str_range(w, id, 91, 115);
-        set_dex_range(w, id, 61, 80);
-        set_int_range(w, id, 86, 105);
-        set_hits(w, id, 1000);
-        set_damage(w, id, 50, 80);
-        set_damage_type(w, id, ResistanceType::Fire, 100);
-        set_resistance_range(w, id, ResistanceType::Physical, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Fire, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Cold, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Poison, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Energy, 95, 98);
-        set_skill(w, id, SkillName::Magery, 120.0);
-        set_skill(w, id, SkillName::Tactics, 120.0);
-        set_skill(w, id, SkillName::Wrestling, 120.0);
-        fame_karma(w, id, 2500, -2500);
-        cant_walk(w, id, true);
-    };
-    c { default_name: |_, _| Some("a deadly imp"), }
+    DEADLY_IMP, DEADLY_IMP_C = "Server.Engines.Quests.Samurai.DeadlyImp", template;
     m {
         aggressive_action_criminal: |w, id, aggressor, criminal| {
             (muo_content::creature::BASE_CREATURE.aggressive_action_criminal)(w, id, aggressor, criminal);
@@ -516,53 +386,13 @@ quest_creature! {
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.DiseasedCat`.
-    DISEASED_CAT, DISEASED_CAT_C = "Server.Engines.Quests.Samurai.DiseasedCat", ai AiAnimal, init |w, id| {
-        set_body(w, id, 0xC9);
-        let hue = muo_primitives::utility::random_from(&mut w.rng, 2301, 18); // Utility.RandomAnimalHue()
-        muo_server::mobile::base::set_hue(w, id, hue);
-        base_sound_id(w, id, 0x69);
-        set_str(w, id, 9);
-        set_dex(w, id, 35);
-        set_int(w, id, 5);
-        set_hits(w, id, 6);
-        set_mana(w, id, 0);
-        set_damage(w, id, 1, 1);
-        set_damage_type(w, id, ResistanceType::Physical, 100);
-        set_resistance_range(w, id, ResistanceType::Physical, 5, 10);
-        set_skill(w, id, SkillName::MagicResist, 5.0);
-        set_skill(w, id, SkillName::Tactics, 4.0);
-        set_skill(w, id, SkillName::Wrestling, 5.0);
-        muo_server::mobile::part1::props_a::set_virtual_armor(w, id, 8);
-    };
-    c {
-        default_name: |_, _| Some("a diseased cat"),
-        always_murderer: |_, _| true,
-    }
+    DISEASED_CAT, DISEASED_CAT_C = "Server.Engines.Quests.Samurai.DiseasedCat", template;
     m { }
 }
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.FierceDragon`.
-    FIERCE_DRAGON, FIERCE_DRAGON_C = "Server.Engines.Quests.Samurai.FierceDragon", ai AiMelee, init |w, id| {
-        set_body(w, id, 103);
-        base_sound_id(w, id, 362);
-        set_str_range(w, id, 6000, 6020);
-        set_dex(w, id, 0);
-        set_int_range(w, id, 850, 870);
-        set_damage(w, id, 50, 80);
-        set_damage_type(w, id, ResistanceType::Fire, 100);
-        set_resistance_range(w, id, ResistanceType::Physical, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Fire, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Cold, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Poison, 95, 98);
-        set_resistance_range(w, id, ResistanceType::Energy, 95, 98);
-        set_skill(w, id, SkillName::Tactics, 120.0);
-        set_skill(w, id, SkillName::Wrestling, 120.0);
-        set_skill(w, id, SkillName::Magery, 120.0);
-        fame_karma(w, id, 15000, 15000);
-        cant_walk(w, id, true);
-    };
-    c { default_name: |_, _| Some("a fierce dragon"), }
+    FIERCE_DRAGON, FIERCE_DRAGON_C = "Server.Engines.Quests.Samurai.FierceDragon", template;
     m {
         get_idle_sound: |_, _| 0x2C4,
         get_attack_sound: |_, _| 0x2C0,
@@ -578,81 +408,19 @@ quest_creature! {
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.InjuredWolf`.
-    INJURED_WOLF, INJURED_WOLF_C = "Server.Engines.Quests.Samurai.InjuredWolf", ai AiAnimal, init |w, id| {
-        set_body(w, id, 0xE1);
-        base_sound_id(w, id, 0xE5);
-        let hue = muo_primitives::utility::random_from(&mut w.rng, 2301, 18); // Utility.RandomAnimalHue()
-        muo_server::mobile::base::set_hue(w, id, hue);
-        set_str_range(w, id, 10, 20);
-        set_dex_range(w, id, 45, 65);
-        set_int_range(w, id, 10, 15);
-        set_hits(w, id, 1);
-        set_damage(w, id, 1, 3);
-        set_damage_type(w, id, ResistanceType::Physical, 100);
-        set_resistance(w, id, ResistanceType::Physical, 15);
-        set_resistance_range(w, id, ResistanceType::Fire, 5, 10);
-        set_skill(w, id, SkillName::MagicResist, 10.0);
-        set_skill_range(w, id, SkillName::Tactics, 0.0, 5.0);
-        set_skill_range(w, id, SkillName::Wrestling, 20.0, 30.0);
-    };
-    c {
-        corpse_name: |_, _| Some("an injured wolf corpse"),
-        default_name: |_, _| Some("an injured wolf"),
-    }
+    INJURED_WOLF, INJURED_WOLF_C = "Server.Engines.Quests.Samurai.InjuredWolf", template;
     m { get_idle_sound: |_, _| 0xE9, }
 }
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.YoungNinja`.
-    YOUNG_NINJA, YOUNG_NINJA_C = "Server.Engines.Quests.Samurai.YoungNinja", ai AiMelee, init |w, id| {
-        muo_server::mobile::part2::stats::init_stats(w, id, 45, 30, 5);
-        set_hits_range(w, id, 20, 30);
-        body_hair_setup(w, id);
-        add_item_named(w, id, "Server.Items.NinjaTabi");
-        add_item_named(w, id, "Server.Items.LeatherNinjaPants");
-        add_item_named(w, id, "Server.Items.LeatherNinjaJacket");
-        add_item_named(w, id, "Server.Items.LeatherNinjaBelt");
-        let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-        add_item_hued(w, id, "Server.Items.Bandana", h);
-        let weapons = ["Server.Items.Tessen", "Server.Items.Kama", "Server.Items.Lajatang"];
-        let i = pick(w, &weapons);
-        add_item_named(w, id, weapons[i]);
-        set_skill(w, id, SkillName::Swords, 50.0);
-        set_skill(w, id, SkillName::Tactics, 50.0);
-    };
-    c {
-        corpse_name: |_, _| Some("a young ninja's corpse"),
-        default_name: |_, _| Some("a young ninja"),
-        always_murderer: |_, _| true,
-    }
+    YOUNG_NINJA, YOUNG_NINJA_C = "Server.Engines.Quests.Samurai.YoungNinja", template;
     m { }
 }
 
 quest_creature! {
     /// `Server.Engines.Quests.Samurai.YoungRonin`.
-    YOUNG_RONIN, YOUNG_RONIN_C = "Server.Engines.Quests.Samurai.YoungRonin", ai AiMelee, init |w, id| {
-        muo_server::mobile::part2::stats::init_stats(w, id, 45, 30, 5);
-        set_hits_range(w, id, 10, 20);
-        body_hair_setup(w, id);
-        add_item_named(w, id, "Server.Items.LeatherDo");
-        add_item_named(w, id, "Server.Items.LeatherHiroSode");
-        add_item_named(w, id, "Server.Items.SamuraiTabi");
-        let legs = ["Server.Items.StuddedHaidate", "Server.Items.PlateSuneate", "Server.Items.LeatherSuneate"];
-        let i = pick(w, &legs);
-        add_item_named(w, id, legs[i]);
-        let h = muo_primitives::utility::random_nondyed_hue(&mut w.rng);
-        add_item_hued(w, id, "Server.Items.Bandana", h);
-        let weapons = ["Server.Items.NoDachi", "Server.Items.Lajatang", "Server.Items.Wakizashi"];
-        let i = pick(w, &weapons);
-        add_item_named(w, id, weapons[i]);
-        set_skill(w, id, SkillName::Swords, 50.0);
-        set_skill(w, id, SkillName::Tactics, 50.0);
-    };
-    c {
-        corpse_name: |_, _| Some("a young ronin's corpse"),
-        default_name: |_, _| Some("a young ronin"),
-        always_murderer: |_, _| true,
-    }
+    YOUNG_RONIN, YOUNG_RONIN_C = "Server.Engines.Quests.Samurai.YoungRonin", template;
     m { }
 }
 

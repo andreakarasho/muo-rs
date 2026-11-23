@@ -14,7 +14,7 @@ use super::doors;
 
 #[test]
 fn a_placed_house_builds_with_its_doors_and_sign() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     doors::configure(&mut w);
     let from = w.new_mobile(&MOBILE_BASE);
     if let Some(m) = w.mobile_mut(from) {
@@ -54,7 +54,7 @@ mod foundation {
     use super::*;
 
     fn world() -> World {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         w.types.register_item(&crate::misc::basic::STATIC, &[]);
         doors::configure(&mut w);
         f::install(&mut w);

@@ -35,7 +35,7 @@ fn names_are_unique_and_every_class_round_trips() {
     let mut seen = HashSet::new();
     for t in ALL {
         assert!(seen.insert(t.full_name));
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = if t.full_name == "Server.Items.Guildstone" {
             guildstone_new(&mut w, t, None, None, None)
         } else {
@@ -49,7 +49,7 @@ fn names_are_unique_and_every_class_round_trips() {
 
 #[test]
 fn guildstone_record_and_old_layout() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = guildstone_new(
         &mut w,
         &GUILDSTONE,
@@ -83,7 +83,7 @@ fn guildstone_record_and_old_layout() {
 
 #[test]
 fn teleporter_keeps_its_stone() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let stone_item = guildstone_new(&mut w, &GUILDSTONE, None, None, None);
     let t = guild_teleporter_new(&mut w, &GUILD_TELEPORTER, Some(stone_item));
     assert_eq!(teleporter_stone(&w, t), Some(stone_item));
@@ -94,7 +94,7 @@ fn teleporter_keeps_its_stone() {
 
 #[test]
 fn guild_deed_prompt_cancel_says_the_placement_was_cancelled() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let m = w.new_mobile(&muo_content::player_mobile::PLAYER_MOBILE);
     let ns = muo_server::net_state::NetStateId(1);
     let mut d = muo_server::net_state::NetStateData::new(0);

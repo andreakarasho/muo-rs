@@ -94,13 +94,16 @@ pub fn close(w: &mut World, c: ItemId) {
 }
 
 macro_rules! armoire {
-    ($(#[$m:meta])* $name:ident = $full:literal, graphic $gid:expr) => {
+    ($(#[$m:meta])* $name:ident = $full:literal) => {
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_CONTAINER),
-            construct: Some(|w| new_base_container(w, &$name, $gid)),
-            default_weight: |_, _| 1.0,
+            construct: Some(|w| {
+                let id = new_base_container(w, &$name, 0);
+                crate::simple::own_template(w, id, $full)
+            }),
+            default_weight: crate::class_props::default_weight,
             display_to: |w, id, m| {
                 if open(w, id, m) {
                     (BASE_CONTAINER.display_to)(w, id, m);
@@ -123,11 +126,11 @@ macro_rules! armoire {
 
 armoire!(
     /// `Server.Items.Armoire`.
-    ARMOIRE = "Server.Items.Armoire", graphic 0xA4F
+    ARMOIRE = "Server.Items.Armoire"
 );
 armoire!(
     /// `Server.Items.FancyArmoire`.
-    FANCY_ARMOIRE = "Server.Items.FancyArmoire", graphic 0xA4D
+    FANCY_ARMOIRE = "Server.Items.FancyArmoire"
 );
 
 fn configure(w: &mut World) {

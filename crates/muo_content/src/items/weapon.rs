@@ -28,6 +28,7 @@ use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::skills::SkillName;
 
 use super::equip_hooks::CraftArgs;
+use super::equip_props::{self as ep, Names};
 use super::weapon_bases as wb;
 use super::weapon_combat as wc;
 use super::weapon_hooks as hk;
@@ -36,6 +37,7 @@ use super::{MlInt, random_min_max, read_enum, same};
 use crate::aos::{AosWeaponAttribute, AttrKind, Attrs};
 use crate::core;
 use crate::craft::{self, CraftResource};
+use crate::templates::{self, item_props as ip};
 
 int_enum! {
     /// `WeaponQuality`.
@@ -114,16 +116,62 @@ pub enum Ability {
     MysticArc,
 }
 
+impl Ability {
+    pub const ALL: [Ability; 31] = {
+        use Ability::*;
+        [
+            ArmorIgnore,
+            BleedAttack,
+            ConcussionBlow,
+            CrushingBlow,
+            Disarm,
+            Dismount,
+            DoubleStrike,
+            InfectiousStrike,
+            MortalStrike,
+            MovingShot,
+            ParalyzingBlow,
+            ShadowStrike,
+            WhirlwindAttack,
+            RidingSwipe,
+            FrenziedWhirlwind,
+            Block,
+            DefenseMastery,
+            NerveStrike,
+            TalonStrike,
+            Feint,
+            DualWield,
+            DoubleShot,
+            ArmorPierce,
+            Bladeweave,
+            ForceArrow,
+            LightningArrow,
+            PsychicAttack,
+            SerpentArrow,
+            ForceOfNature,
+            InfusedThrow,
+            MysticArc,
+        ]
+    };
+}
+
+pub static ABILITIES: Names<Ability> = Names::new(|| Ability::ALL.to_vec());
+pub static TYPES: Names<WeaponType> = Names::new(|| ep::all_of(16, WeaponType::from_i32));
+pub static ANIMATIONS: Names<WeaponAnimation> =
+    Names::new(|| ep::all_of(64, WeaponAnimation::from_i32));
+
 /// The `override`s of a weapon class that are constants: one `static` per class, a subclass is
-/// `WeaponClass { .. , ..PARENT_CLASS }`.
+/// `WeaponClass { .. , ..PARENT_CLASS }`. The stat fields (requirements, damage, speed, hits, sounds, range) are
+/// fallbacks: a class's template `props` (`Data/Scripts/classes/items`, the field in camelCase) override them.
 #[derive(Copy, Clone, Debug)]
 pub struct WeaponClass {
     /// `DefaultWeight` when the class overrides it; else the tiledata weight.
     pub default_weight: Option<f64>,
-    /// `LabelNumber` when overridden (0 keeps the tiledata name).
+    /// `LabelNumber` when overridden (0 keeps the tiledata name); the `labelNumber` prop overrides it.
     pub label_number: i32,
     pub primary_ability: Option<Ability>,
     pub secondary_ability: Option<Ability>,
+    /// Read through [`artifact_rarity`] (the `artifactRarity` prop overrides it).
     pub artifact_rarity: i32,
     pub def_max_range: i32,
     pub def_hit_sound: i32,
@@ -154,8 +202,6 @@ pub struct WeaponClass {
     pub scales_uses: bool,
     /// BaseThrown's `MinThrowRange` (0 for a class that is not a thrown weapon).
     pub min_throw_range: i32,
-    /// `[Flippable(a, b)]`: the two graphics a flip toggles between.
-    pub flippable: Option<(i32, i32)>,
     /// BaseRanged's `EffectID` (the moving-effect graphic of a shot).
     pub effect_id: i32,
     /// BaseRanged's `AmmoType`, by full type name (`Ammo` makes one with `make_item`).
@@ -228,7 +274,6 @@ pub static BASE_WEAPON_CLASS: WeaponClass = WeaponClass {
     can_fortify: true,
     scales_uses: false,
     min_throw_range: 0,
-    flippable: None,
     effect_id: 0,
     ammo_type: None,
     virtual_damage_bonus: 0,
@@ -384,7 +429,12 @@ pub fn new_weapon(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId 
     let quality = ops::item_data(w, id).quality;
     (ty.set_layer)(w, id, Layer::from_raw(quality));
     let c = ty.family::<WeaponClass>().unwrap_or(&BASE_WEAPON_CLASS);
-    let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+    templates::table(w); // the stat props below and in combat read the loaded table
+    let (min, max) = (
+        ip::int(w, id, "initMinHits", c.init_min_hits),
+        ip::int(w, id, "initMaxHits", c.init_max_hits),
+    );
+    let hits = random_min_max(w, min, max);
     let mut d = WeaponData::for_load();
     d.quality = WeaponQuality::Regular;
     d.hit_points = hits;
@@ -402,40 +452,59 @@ pub fn new_weapon(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId 
 
 // ---- stat getters (the virtual Aos/Old properties and their overrides by an instance value) ----
 
+/// The instance value, else the class's `Aos*` prop/field (`Core.ML` picks an `MlInt`'s side) or its `Old*` one.
 fn aos_or_old(
     w: &World,
     id: ItemId,
     set: i32,
-    aos: fn(&WeaponClass, bool) -> i32,
-    old: fn(&WeaponClass) -> i32,
+    (aos_key, aos): (&str, fn(&WeaponClass) -> MlInt),
+    (old_key, old): (&str, fn(&WeaponClass) -> i32),
 ) -> i32 {
     if set != -1 {
         return set;
     }
     let c = class(w, id);
     if core::aos(w) {
-        aos(c, core::ml(w))
+        ip::ml_int(w, id, aos_key, aos(c)).get(core::ml(w))
     } else {
-        old(c)
+        ip::int(w, id, old_key, old(c))
     }
 }
 
 /// `StrRequirement`.
 pub fn str_requirement(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.str_requirement);
-    aos_or_old(w, id, set, |c, _| c.aos_str_req, |c| c.old_str_req)
+    aos_or_old(
+        w,
+        id,
+        set,
+        ("aosStrReq", |c| same(c.aos_str_req)),
+        ("oldStrReq", |c| c.old_str_req),
+    )
 }
 
 /// `DexRequirement`.
 pub fn dex_requirement(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.dex_requirement);
-    aos_or_old(w, id, set, |c, _| c.aos_dex_req, |c| c.old_dex_req)
+    aos_or_old(
+        w,
+        id,
+        set,
+        ("aosDexReq", |c| same(c.aos_dex_req)),
+        ("oldDexReq", |c| c.old_dex_req),
+    )
 }
 
 /// `IntRequirement`.
 pub fn int_requirement(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.int_requirement);
-    aos_or_old(w, id, set, |c, _| c.aos_int_req, |c| c.old_int_req)
+    aos_or_old(
+        w,
+        id,
+        set,
+        ("aosIntReq", |c| same(c.aos_int_req)),
+        ("oldIntReq", |c| c.old_int_req),
+    )
 }
 
 /// `MinDamage`.
@@ -445,8 +514,8 @@ pub fn min_damage(w: &World, id: ItemId) -> i32 {
         w,
         id,
         set,
-        |c, ml| c.aos_min_damage.get(ml),
-        |c| c.old_min_damage,
+        ("aosMinDamage", |c| c.aos_min_damage),
+        ("oldMinDamage", |c| c.old_min_damage),
     )
 }
 
@@ -457,8 +526,8 @@ pub fn max_damage(w: &World, id: ItemId) -> i32 {
         w,
         id,
         set,
-        |c, ml| c.aos_max_damage.get(ml),
-        |c| c.old_max_damage,
+        ("aosMaxDamage", |c| c.aos_max_damage),
+        ("oldMaxDamage", |c| c.old_max_damage),
     )
 }
 
@@ -466,7 +535,7 @@ pub fn max_damage(w: &World, id: ItemId) -> i32 {
 pub fn hit_sound(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.hit_sound);
     if set == -1 {
-        class(w, id).def_hit_sound
+        ip::int(w, id, "defHitSound", class(w, id).def_hit_sound)
     } else {
         set
     }
@@ -476,7 +545,7 @@ pub fn hit_sound(w: &World, id: ItemId) -> i32 {
 pub fn miss_sound(w: &World, id: ItemId) -> i32 {
     let set = data(w, id).map_or(-1, |d| d.miss_sound);
     if set == -1 {
-        class(w, id).def_miss_sound
+        ip::int(w, id, "defMissSound", class(w, id).def_miss_sound)
     } else {
         set
     }
@@ -490,11 +559,11 @@ pub fn speed(w: &World, id: ItemId) -> f32 {
     }
     let c = class(w, id);
     if core::ml(w) {
-        c.ml_speed
+        ip::float(w, id, "mlSpeed", f64::from(c.ml_speed)) as f32
     } else if core::aos(w) {
-        c.aos_speed as f32
+        ip::int(w, id, "aosSpeed", c.aos_speed) as f32
     } else {
-        c.old_speed as f32
+        ip::int(w, id, "oldSpeed", c.old_speed) as f32
     }
 }
 
@@ -505,28 +574,29 @@ pub fn max_range(w: &World, id: ItemId) -> i32 {
         return set;
     }
     let c = class(w, id);
-    if c.min_throw_range > 0 {
-        let (min, max) = (c.min_throw_range, c.min_throw_range + 3);
+    let mtr = min_throw_range(w, id);
+    if mtr > 0 {
+        let (min, max) = (mtr, mtr + 3);
         let Some(attacker) = super::parent_mobile(w, id) else {
             return max;
         };
-        let divisor = (140 - c.aos_str_req) / 3;
+        let str_req = ip::int(w, id, "aosStrReq", c.aos_str_req);
+        let divisor = (140 - str_req) / 3;
         if divisor <= 0 {
             return max;
         }
-        let scaled = min + (muo_server::mobile::base::str(w, attacker) - c.aos_str_req) / divisor;
+        let scaled = min + (muo_server::mobile::base::str(w, attacker) - str_req) / divisor;
         return scaled.clamp(min, max);
     }
-    c.def_max_range
+    ip::int(w, id, "defMaxRange", c.def_max_range)
 }
 
 /// BaseRanged `EffectID` (BaseThrown: the item's own graphic).
 pub fn effect_id(w: &World, id: ItemId) -> i32 {
-    let c = class(w, id);
-    if c.min_throw_range > 0 {
+    if min_throw_range(w, id) > 0 {
         w.item(id).map_or(0, |i| i.item_id)
     } else {
-        c.effect_id
+        ip::int(w, id, "effectId", class(w, id).effect_id)
     }
 }
 
@@ -544,19 +614,68 @@ pub fn set_poison_charges(w: &mut World, id: ItemId, value: i32) {
 /// `Skill`.
 pub fn skill(w: &World, id: ItemId) -> SkillName {
     let set = data(w, id).map_or(-1, |d| d.skill);
-    SkillName::from_i32(set).unwrap_or(class(w, id).def_skill)
+    SkillName::from_i32(set)
+        .unwrap_or_else(|| ep::named(w, id, "defSkill", &ep::SKILLS, class(w, id).def_skill))
 }
 
 /// `Type`.
 pub fn weapon_type(w: &World, id: ItemId) -> WeaponType {
     let set = data(w, id).map_or(-1, |d| d.weapon_type);
-    WeaponType::from_i32(set).unwrap_or(class(w, id).def_type)
+    WeaponType::from_i32(set)
+        .unwrap_or_else(|| ep::named(w, id, "defType", &TYPES, class(w, id).def_type))
 }
 
 /// `Animation`.
 pub fn animation(w: &World, id: ItemId) -> WeaponAnimation {
     let set = data(w, id).map_or(-1, |d| d.animation);
-    WeaponAnimation::from_i32(set).unwrap_or(class(w, id).def_animation)
+    WeaponAnimation::from_i32(set).unwrap_or_else(|| {
+        ep::named(
+            w,
+            id,
+            "defAnimation",
+            &ANIMATIONS,
+            class(w, id).def_animation,
+        )
+    })
+}
+
+/// `PrimaryAbility` and `SecondaryAbility`.
+pub fn abilities(w: &World, id: ItemId) -> (Option<Ability>, Option<Ability>) {
+    let c = class(w, id);
+    (
+        ep::named_opt(w, id, "primaryAbility", &ABILITIES, c.primary_ability),
+        ep::named_opt(w, id, "secondaryAbility", &ABILITIES, c.secondary_ability),
+    )
+}
+
+/// BaseRanged's `AmmoType`, by full type name.
+pub fn ammo_type(w: &World, id: ItemId) -> Option<&'static str> {
+    ep::str_opt(w, id, "ammoType", class(w, id).ammo_type)
+}
+
+/// BaseThrown's `MinThrowRange` (0 for a weapon that is not thrown).
+pub fn min_throw_range(w: &World, id: ItemId) -> i32 {
+    ip::int(w, id, "minThrowRange", class(w, id).min_throw_range)
+}
+
+/// BaseAxe/BasePoleArm's `HarvestSystem` by name.
+pub fn harvest_system(w: &World, id: ItemId) -> Option<&'static str> {
+    ep::str_opt(w, id, "harvestSystem", class(w, id).harvest_system)
+}
+
+/// `VirtualDamageBonus`.
+pub fn virtual_damage_bonus(w: &World, id: ItemId) -> i32 {
+    ip::int(
+        w,
+        id,
+        "virtualDamageBonus",
+        class(w, id).virtual_damage_bonus,
+    )
+}
+
+/// `CanFortify`.
+pub fn can_fortify(w: &World, id: ItemId) -> bool {
+    ep::boolean(w, id, "canFortify", class(w, id).can_fortify)
 }
 
 // ---- properties with side effects ----
@@ -700,6 +819,22 @@ pub fn lower_stat_req(w: &World, id: ItemId) -> i32 {
     v.min(100)
 }
 
+/// `ScalesUses` (BaseAxe's `UsesRemaining` follows durability): the `scalesUses` prop, else the class table.
+pub fn scales_uses(w: &World, id: ItemId) -> bool {
+    ep::boolean(w, id, "scalesUses", class(w, id).scales_uses)
+}
+
+/// `AccuracySkill`: the `accuracySkill` prop, else the class table.
+pub fn accuracy_skill(w: &World, id: ItemId) -> SkillName {
+    ep::named(
+        w,
+        id,
+        "accuracySkill",
+        &ep::SKILLS,
+        class(w, id).accuracy_skill,
+    )
+}
+
 /// `GetUsesScalar()` of BaseAxe.
 fn uses_scalar(d: &WeaponData) -> i32 {
     if d.quality == WeaponQuality::Exceptional {
@@ -712,7 +847,7 @@ fn uses_scalar(d: &WeaponData) -> i32 {
 /// `UnscaleDurability()` (BaseAxe's override also unscales `UsesRemaining`).
 pub fn unscale_durability(w: &mut World, id: ItemId) {
     let scale = 100 + durability_bonus(w, id);
-    let scales_uses = class(w, id).scales_uses;
+    let scales_uses = scales_uses(w, id);
     if let Some(d) = data_mut(w, id) {
         d.hit_points = (d.hit_points * 100 + (scale - 1)) / scale;
         d.max_hit_points = (d.max_hit_points * 100 + (scale - 1)) / scale;
@@ -727,7 +862,7 @@ pub fn unscale_durability(w: &mut World, id: ItemId) {
 /// `ScaleDurability()` (BaseAxe's override also scales `UsesRemaining`).
 pub fn scale_durability(w: &mut World, id: ItemId) {
     let scale = 100 + durability_bonus(w, id);
-    let scales_uses = class(w, id).scales_uses;
+    let scales_uses = scales_uses(w, id);
     if let Some(d) = data_mut(w, id) {
         d.hit_points = (d.hit_points * scale + 99) / 100;
         d.max_hit_points = (d.max_hit_points * scale + 99) / 100;
@@ -746,16 +881,20 @@ fn weapon_attr(w: &World, id: ItemId, a: AosWeaponAttribute) -> i32 {
 }
 
 fn default_weight(w: &World, id: ItemId) -> f64 {
-    class(w, id)
-        .default_weight
+    ep::float_opt(w, id, "defaultWeight", class(w, id).default_weight)
         .unwrap_or_else(|| base::default_weight_base(w, id))
 }
 
 fn label_number(w: &World, id: ItemId) -> i32 {
-    match class(w, id).label_number {
+    match ip::int(w, id, "labelNumber", class(w, id).label_number) {
         0 => base::label_number_base(w, id),
         n => n,
     }
+}
+
+/// `ArtifactRarity`: the class's `artifactRarity` prop, else the class table's.
+pub fn artifact_rarity(w: &World, id: ItemId) -> i32 {
+    ip::int(w, id, "artifactRarity", class(w, id).artifact_rarity)
 }
 
 fn set_hue(w: &mut World, id: ItemId, value: i32) {
@@ -1001,6 +1140,7 @@ fn serialize(w: &World, id: ItemId, writer: &mut dyn GenericWriter) {
 }
 
 fn deserialize(w: &mut World, id: ItemId, reader: &mut dyn GenericReader) -> Result<()> {
+    templates::table(w); // as in `new_weapon`
     (ITEM_BASE.deserialize)(w, id, reader)?;
     let version = reader.read_i32()?;
     if version == 10 {
@@ -1187,7 +1327,11 @@ fn after_deserialization(w: &mut World, id: ItemId) {
     let (hp, max) = data(w, id).map_or((1, 1), |d| (d.hit_points, d.max_hit_points));
     if hp <= 0 && max <= 0 {
         let c = class(w, id);
-        let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+        let (min, max) = (
+            ip::int(w, id, "initMinHits", c.init_min_hits),
+            ip::int(w, id, "initMaxHits", c.init_max_hits),
+        );
+        let hits = random_min_max(w, min, max);
         if let Some(d) = data_mut(w, id) {
             d.hit_points = hits;
             d.max_hit_points = hits;
@@ -1205,6 +1349,9 @@ pub static BASE_WEAPON: ItemType = ItemType {
     family: Some(&BASE_WEAPON_CLASS),
     default_weight,
     label_number,
+    required_races: |w, id| {
+        ep::required_races(w, id, None).unwrap_or_else(|| base::required_races_base(w, id))
+    },
     set_hue,
     physical_resistance: |w, id| weapon_attr(w, id, AosWeaponAttribute::ResistPhysicalBonus),
     fire_resistance: |w, id| weapon_attr(w, id, AosWeaponAttribute::ResistFireBonus),
@@ -1346,7 +1493,10 @@ pub static BASE_BASHING_CLASS: WeaponClass = WeaponClass {
 };
 plain_class!(
     /// `Server.Items.BaseBashing`.
-    BASE_BASHING, "Server.Items.BaseBashing", BASE_MELEE_WEAPON, BASE_BASHING_CLASS
+    BASE_BASHING,
+    "Server.Items.BaseBashing",
+    BASE_MELEE_WEAPON,
+    BASE_BASHING_CLASS
 );
 
 /// `BaseKnife`.
@@ -1401,7 +1551,10 @@ pub static BASE_SPEAR_CLASS: WeaponClass = WeaponClass {
 };
 plain_class!(
     /// `Server.Items.BaseSpear`.
-    BASE_SPEAR, "Server.Items.BaseSpear", BASE_MELEE_WEAPON, BASE_SPEAR_CLASS
+    BASE_SPEAR,
+    "Server.Items.BaseSpear",
+    BASE_MELEE_WEAPON,
+    BASE_SPEAR_CLASS
 );
 
 /// `BaseStaff`.
@@ -1416,7 +1569,10 @@ pub static BASE_STAFF_CLASS: WeaponClass = WeaponClass {
 };
 plain_class!(
     /// `Server.Items.BaseStaff`.
-    BASE_STAFF, "Server.Items.BaseStaff", BASE_MELEE_WEAPON, BASE_STAFF_CLASS
+    BASE_STAFF,
+    "Server.Items.BaseStaff",
+    BASE_MELEE_WEAPON,
+    BASE_STAFF_CLASS
 );
 
 /// `BaseRanged` (`EffectID`, `AmmoType`, `Ammo` are per leaf: [`RangedClass`]).

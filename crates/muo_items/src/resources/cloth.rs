@@ -27,7 +27,7 @@ use crate::addons::devices::{
     spinning_wheel_spinning,
 };
 use crate::commodity;
-use crate::simple::{hue, random_from, random_min_max};
+use crate::simple::{hue, random_min_max};
 
 fn make(w: &mut World, name: &str) -> Option<ItemId> {
     muo_content::factory::make_item(w, name)
@@ -48,9 +48,9 @@ fn consume(w: &mut World, id: ItemId, n: i32) {
     }
 }
 
-fn new_stack(w: &mut World, ty: &'static ItemType, gid: i32, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, gid);
-    ops::set_stackable(w, id, true);
+/// `new T(amount)` of a stackable class: graphic and `Stackable` are the template of class `name`.
+fn new_stack(w: &mut World, ty: &'static ItemType, name: &str, amount: i32) -> ItemId {
+    let id = crate::simple::from_template(w, ty, name);
     ops::set_amount(w, id, amount);
     id
 }
@@ -75,13 +75,13 @@ static AMOUNT_1: [Param; 1] = [Param {
 
 /// A stackable `Item` with an `amount = 1` constructor, `ICommodity` optional, in the shape of most of the folder.
 macro_rules! stackables {
-    ($($name:ident, $ctor:ident = $full:literal, $gid:expr, weight $weight:expr $(, $f:ident : $v:expr)*;)*) => {$(
+    ($($name:ident, $ctor:ident = $full:literal $(, $f:ident : $v:expr)*;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| new_stack(w, &$name, $gid, 1)),
-            default_weight: |_, _| $weight,
+            construct: Some(|w| new_stack(w, &$name, $full, 1)),
+            default_weight: crate::class_props::default_weight,
             $($f: $v,)*
             serialize: |w, id, out| {
                 (ITEM_BASE.serialize)(w, id, out);
@@ -97,7 +97,7 @@ macro_rules! stackables {
         static $ctor: [Ctor; 1] = [Ctor {
             access: None,
             params: &AMOUNT_1,
-            make: |w, v| EntityId::Item(new_stack(w, &$name, $gid, v[0].i32())),
+            make: |w, v| EntityId::Item(new_stack(w, &$name, $full, v[0].i32())),
         }];
     )*};
 }
@@ -134,22 +134,22 @@ fn cloth_single_click(
 }
 
 stackables! {
-    CLOTH, C_CLOTH = "Server.Items.Cloth", 0x1766, weight 0.1,
+    CLOTH, C_CLOTH = "Server.Items.Cloth",
         on_single_click: |w, id, from| cloth_single_click(w, id, from, 1049124, 1049123, MessageType::REGULAR, 1);
-    UNCUT_CLOTH, C_UNCUT_CLOTH = "Server.Items.UncutCloth", 0x1767, weight 0.1,
+    UNCUT_CLOTH, C_UNCUT_CLOTH = "Server.Items.UncutCloth",
         on_single_click: |w, id, from| cloth_single_click(w, id, from, 1049124, 1049123, MessageType::REGULAR, 1);
-    BOLT_OF_CLOTH, C_BOLT_OF_CLOTH = "Server.Items.BoltOfCloth", 0xF95, weight 5.0,
+    BOLT_OF_CLOTH, C_BOLT_OF_CLOTH = "Server.Items.BoltOfCloth",
         on_single_click: |w, id, from| cloth_single_click(w, id, from, 1049122, 1049121, MessageType::LABEL, 50);
-    BONE, C_BONE = "Server.Items.Bone", 0xF7E, weight 1.0;
-    BOLT, C_BOLT = "Server.Items.Bolt", 0x1BFB, weight 0.1;
-    ARROW, C_ARROW = "Server.Items.Arrow", 0xF3F, weight 0.1;
-    COTTON, C_COTTON = "Server.Items.Cotton", 0xDF9, weight 4.0,
+    BONE, C_BONE = "Server.Items.Bone";
+    BOLT, C_BOLT = "Server.Items.Bolt";
+    ARROW, C_ARROW = "Server.Items.Arrow";
+    COTTON, C_COTTON = "Server.Items.Cotton",
         on_double_click: |w, id, from| spin_double_click(w, id, from, false);
-    FLAX, C_FLAX = "Server.Items.Flax", 0x1A9C, weight 1.0,
-        label_number: |_, _| 1026812, // Flax Bundle
+    FLAX, C_FLAX = "Server.Items.Flax",
+        label_number: crate::class_props::label_number, // Flax Bundle
         can_stack_with: flax_can_stack_with,
         on_double_click: |w, id, from| spin_double_click(w, id, from, false);
-    WOOL, C_WOOL = "Server.Items.Wool", 0xDF8, weight 4.0,
+    WOOL, C_WOOL = "Server.Items.Wool",
         on_double_click: |w, id, from| spin_double_click(w, id, from, false);
 }
 
@@ -172,8 +172,8 @@ fn flax_can_stack_with(w: &World, id: ItemId, dropped: ItemId) -> bool {
 pub static TAINTED_WOOL: ItemType = ItemType {
     full_name: "Server.Items.TaintedWool",
     parent: Some(&WOOL),
-    construct: Some(|w| new_stack(w, &TAINTED_WOOL, 0x101F, 1)),
-    default_weight: |_, _| 4.0,
+    construct: Some(|w| new_stack(w, &TAINTED_WOOL, "Server.Items.TaintedWool", 1)),
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (WOOL.serialize)(w, id, out);
         out.write_i32(0);
@@ -188,7 +188,14 @@ pub static TAINTED_WOOL: ItemType = ItemType {
 static C_TAINTED_WOOL: [Ctor; 1] = [Ctor {
     access: None,
     params: &AMOUNT_1,
-    make: |w, v| EntityId::Item(new_stack(w, &TAINTED_WOOL, 0x101F, v[0].i32())),
+    make: |w, v| {
+        EntityId::Item(new_stack(
+            w,
+            &TAINTED_WOOL,
+            "Server.Items.TaintedWool",
+            v[0].i32(),
+        ))
+    },
 }];
 
 // ---- spinning ----
@@ -267,7 +274,7 @@ pub static BASE_CLOTH_MATERIAL: ItemType = ItemType {
     full_name: "Server.Items.BaseClothMaterial",
     construct: None,
     parent: Some(&ITEM_BASE),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if in_pack(w, id, from) {
             deps::send_localized_message(w, from, 500366); // Select a loom to use that on.
@@ -340,12 +347,12 @@ fn pick_loom(w: &mut World, id: ItemId, from: MobileId, t: Targeted) {
 }
 
 macro_rules! materials {
-    ($($name:ident, $ctor:ident = $full:literal, $gid:expr;)*) => {$(
+    ($($name:ident, $ctor:ident = $full:literal;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_CLOTH_MATERIAL),
-            construct: Some(|w| new_stack(w, &$name, $gid, 1)),
+            construct: Some(|w| new_stack(w, &$name, $full, 1)),
             serialize: |w, id, out| {
                 (BASE_CLOTH_MATERIAL.serialize)(w, id, out);
                 out.write_i32(0);
@@ -360,16 +367,16 @@ macro_rules! materials {
         static $ctor: [Ctor; 1] = [Ctor {
             access: None,
             params: &AMOUNT_1,
-            make: |w, v| EntityId::Item(new_stack(w, &$name, $gid, v[0].i32())),
+            make: |w, v| EntityId::Item(new_stack(w, &$name, $full, v[0].i32())),
         }];
     )*};
 }
 
 materials! {
-    DARK_YARN, C_DARK_YARN = "Server.Items.DarkYarn", 0xE1D;
-    LIGHT_YARN, C_LIGHT_YARN = "Server.Items.LightYarn", 0xE1E;
-    LIGHT_YARN_UNRAVELED, C_LIGHT_YARN_UNRAVELED = "Server.Items.LightYarnUnraveled", 0xE1F;
-    SPOOL_OF_THREAD, C_SPOOL_OF_THREAD = "Server.Items.SpoolOfThread", 0xFA0;
+    DARK_YARN, C_DARK_YARN = "Server.Items.DarkYarn";
+    LIGHT_YARN, C_LIGHT_YARN = "Server.Items.LightYarn";
+    LIGHT_YARN_UNRAVELED, C_LIGHT_YARN_UNRAVELED = "Server.Items.LightYarnUnraveled";
+    SPOOL_OF_THREAD, C_SPOOL_OF_THREAD = "Server.Items.SpoolOfThread";
 }
 
 // ---- scissors ----
@@ -421,7 +428,7 @@ pub static BIG_FISH: ItemType = ItemType {
     full_name: "Server.Items.BigFish",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BIG_FISH, 0x09CC);
+        let id = crate::simple::from_template(w, &BIG_FISH, "Server.Items.BigFish");
         if let Some(i) = w.item_mut(id) {
             i.ext = Ext::new(FishData::default());
         }
@@ -436,7 +443,7 @@ pub static BIG_FISH: ItemType = ItemType {
         hue(w, id, h);
         id
     }),
-    label_number: |_, _| 1041112, // a big fish
+    label_number: crate::class_props::label_number, // a big fish
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);
         let weight = ops::weight(w, id);
@@ -504,7 +511,7 @@ pub static FISH: ItemType = ItemType {
     full_name: "Server.Items.Fish",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_fish(w, 1)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_i32(0);
@@ -518,8 +525,7 @@ pub static FISH: ItemType = ItemType {
 };
 
 fn new_fish(w: &mut World, amount: i32) -> ItemId {
-    let gid = random_from(w, 0x09CC, 4);
-    new_stack(w, &FISH, gid, amount)
+    new_stack(w, &FISH, "Server.Items.Fish", amount)
 }
 
 static C_FISH: [Ctor; 1] = [Ctor {
@@ -557,7 +563,7 @@ pub static BASE_MAGIC_FISH: ItemType = ItemType {
     full_name: "Server.Items.BaseMagicFish",
     construct: None,
     parent: Some(&ITEM_BASE),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         if !in_pack(w, id, from) {
             deps::send_localized_message(w, from, 1042001); // That must be in your pack for you to use it.
@@ -588,7 +594,7 @@ pub static BASE_MAGIC_FISH: ItemType = ItemType {
 };
 
 macro_rules! magic_fish {
-    ($($name:ident, $class:ident = $full:literal, $hue:expr, $label:expr, $stat:expr;)*) => {$(
+    ($($name:ident, $class:ident = $full:literal, $stat:expr;)*) => {$(
         static $class: MagicFishClass = MagicFishClass { apply: |w, _, from| {
             let bonus = fish_bonus(w);
             apply_stat(w, from, $stat, bonus)
@@ -597,13 +603,9 @@ macro_rules! magic_fish {
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_MAGIC_FISH),
-            construct: Some(|w| {
-                let id = ops::new_item_with_id(w, &$name, 0xDD6);
-                hue(w, id, $hue);
-                id
-            }),
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
             family: Some(&$class),
-            label_number: |_, _| $label,
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 (BASE_MAGIC_FISH.serialize)(w, id, out);
                 out.write_i32(0);
@@ -619,9 +621,9 @@ macro_rules! magic_fish {
 }
 
 magic_fish! {
-    PRIZED_FISH, PRIZED_C = "Server.Items.PrizedFish", 51, 1041073, StatType::INT;
-    WONDROUS_FISH, WONDROUS_C = "Server.Items.WondrousFish", 86, 1041074, StatType::DEX;
-    TRULY_RARE_FISH, TRULY_RARE_C = "Server.Items.TrulyRareFish", 76, 1041075, StatType::STR;
+    PRIZED_FISH, PRIZED_C = "Server.Items.PrizedFish", StatType::INT;
+    WONDROUS_FISH, WONDROUS_C = "Server.Items.WondrousFish", StatType::DEX;
+    TRULY_RARE_FISH, TRULY_RARE_C = "Server.Items.TrulyRareFish", StatType::STR;
 }
 
 static PECULIAR_C: MagicFishClass = MagicFishClass {
@@ -638,12 +640,10 @@ pub static PECULIAR_FISH: ItemType = ItemType {
     full_name: "Server.Items.PeculiarFish",
     parent: Some(&BASE_MAGIC_FISH),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &PECULIAR_FISH, 0xDD6);
-        hue(w, id, 66);
-        id
+        crate::simple::from_template(w, &PECULIAR_FISH, "Server.Items.PeculiarFish")
     }),
     family: Some(&PECULIAR_C),
-    label_number: |_, _| 1041076, // highly peculiar fish
+    label_number: crate::class_props::label_number, // highly peculiar fish
     serialize: |w, id, out| {
         (BASE_MAGIC_FISH.serialize)(w, id, out);
         out.write_i32(0);
@@ -789,7 +789,7 @@ mod tests {
             &BOLT,
             &FLAX,
         ] {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             let id = (t.construct.unwrap())(&mut w);
             assert!(w.item(id).unwrap().stackable(), "{}", t.full_name);
             let bytes = save(&w, id);
@@ -802,7 +802,7 @@ mod tests {
             assert_eq!(r.remaining(), 0, "{}", t.full_name);
             assert_eq!(save(&w, id2), bytes, "{}", t.full_name);
         }
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let wool = (TAINTED_WOOL.construct.unwrap())(&mut w);
         assert_eq!(w.item(wool).unwrap().item_id, 0x101F);
     }
@@ -813,7 +813,7 @@ mod tests {
             interfaces::is_scissorable,
             resource::{BARBED_HIDES, HIDES, HORNED_HIDES, SPINED_HIDES},
         };
-        let mut w = World::new();
+        let mut w = crate::test_world();
         configure(&mut w);
         crate::misc::gadgets::gadgets_configure(&mut w);
         for t in [
@@ -830,7 +830,7 @@ mod tests {
 
     #[test]
     fn magic_fish_hue_and_label() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (PECULIAR_FISH.construct.unwrap())(&mut w);
         assert_eq!(
             (w.item(id).unwrap().item_id, w.item(id).unwrap().hue),
@@ -841,7 +841,7 @@ mod tests {
 
     #[test]
     fn big_fish_saves_the_fisher_after_version_1() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (BIG_FISH.construct.unwrap())(&mut w);
         let mut want = SaveWriter::new(true);
         (ITEM_BASE.serialize)(&w, id, &mut want);

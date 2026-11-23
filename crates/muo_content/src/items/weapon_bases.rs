@@ -594,7 +594,7 @@ pub fn ranged_on_swing(
 /// `BaseRanged.OnFired`.
 pub fn ranged_on_fired(w: &mut World, id: ItemId, attacker: MobileId, defender: MobileId) -> bool {
     if is_player(w, attacker) {
-        let ammo_name = weapon::class(w, id).ammo_type;
+        let ammo_name = weapon::ammo_type(w, id);
         let ammo_type = ammo_name.and_then(|n| item_type(w, n));
         let quiver = hk::quiver_of(w, attacker);
         let pack = props_b::backpack(w, attacker);
@@ -629,7 +629,7 @@ pub fn ranged_on_fired(w: &mut World, id: ItemId, attacker: MobileId, defender: 
 
 /// `BaseRanged.Ammo`: a new ammunition item of the class's type.
 fn new_ammo(w: &mut World, id: ItemId) -> Option<ItemId> {
-    let name = weapon::class(w, id).ammo_type?;
+    let name = weapon::ammo_type(w, id)?;
     crate::factory::make_item(w, name)
 }
 
@@ -697,7 +697,7 @@ pub fn ranged_on_miss(w: &mut World, id: ItemId, attacker: MobileId, defender: M
         if core::se(w) {
             if w.mobile(attacker)
                 .is_some_and(|m| m.ty.is(&crate::player_mobile::PLAYER_MOBILE))
-                && let Some(n) = weapon::class(w, id).ammo_type
+                && let Some(n) = weapon::ammo_type(w, id)
             {
                 hk::ammo_recovery_bank(w, attacker, n);
             }
@@ -735,7 +735,7 @@ pub fn thrown_modify_hit_chance(
         w.mobile(defender).map_or(Point3D::ZERO, |m| m.location),
     );
     let distance = (a.x - d.x).abs().max((a.y - d.y).abs());
-    let min_range = weapon::class(w, id).min_throw_range;
+    let min_range = weapon::min_throw_range(w, id);
 
     if distance <= 1 {
         let throw_skill = val(w, attacker, SkillName::Throwing);
@@ -880,5 +880,5 @@ pub fn thrown_get_properties(
     list: &mut muo_server::property_list::PropertyList,
 ) {
     super::weapon_text::get_properties(w, id, list);
-    list.add_int(1149791, weapon::class(w, id).min_throw_range); // Min Throw Range: ~1_val~
+    list.add_int(1149791, weapon::min_throw_range(w, id)); // Min Throw Range: ~1_val~
 }

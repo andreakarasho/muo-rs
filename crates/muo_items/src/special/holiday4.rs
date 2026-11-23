@@ -135,16 +135,12 @@ fn winter_props(w: &World, id: ItemId, list: &mut PropertyList) {
 }
 
 macro_rules! winter {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, v0;
-            construct: Some(|w| {
-                let id = new_item(w, &$name, $gid);
-                blessed(w, id);
-                id
-            }),
-            default_weight: |_, _| 1.0,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
             on_single_click: winter_single_click,
             get_properties: winter_props,
         }
@@ -153,11 +149,11 @@ macro_rules! winter {
 
 winter! {
     /// `Server.Items.DecorativeTopiary`.
-    DECORATIVE_TOPIARY = "Server.Items.DecorativeTopiary", 0x2378;
+    DECORATIVE_TOPIARY = "Server.Items.DecorativeTopiary";
     /// `Server.Items.FestiveCactus`.
-    FESTIVE_CACTUS = "Server.Items.FestiveCactus", 0x2376;
+    FESTIVE_CACTUS = "Server.Items.FestiveCactus";
     /// `Server.Items.SnowyTree`.
-    SNOWY_TREE = "Server.Items.SnowyTree", 0x2377;
+    SNOWY_TREE = "Server.Items.SnowyTree";
 }
 
 /// `LightOfTheWinterSolstice(dipper)`.
@@ -180,7 +176,7 @@ pub static LIGHT_OF_THE_WINTER_SOLSTICE: ItemType = ItemType {
     full_name: "Server.Items.LightOfTheWinterSolstice",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| light_of_the_winter_solstice_new(w, None)),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_single_click: |w, id, from| {
         (ITEM_BASE.on_single_click)(w, id, from);
         ops::label_to_number(w, id, from, 1070881, &strs(w, id, 0).unwrap_or_default()); // Hand Dipped by ~1_name~
@@ -269,13 +265,13 @@ leaf! {
     /// `Server.Items.PileOfGlacialSnow`.
     PILE_OF_GLACIAL_SNOW = "Server.Items.PileOfGlacialSnow" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = new_item(w, &PILE_OF_GLACIAL_SNOW, 0x913);
-        crate::simple::hue(w, id, 0x480);
+        let id = new_item(w, &PILE_OF_GLACIAL_SNOW, 0);
+        crate::simple::own_template(w, id, "Server.Items.PileOfGlacialSnow");
         blessed(w, id);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1070874, // a Pile of Glacial Snow
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a Pile of Glacial Snow
     on_single_click: winter_single_click,
     get_properties: winter_props,
     on_double_click: snow_double_click,
@@ -285,13 +281,13 @@ leaf! {
     /// `Server.Items.SnowPile`.
     SNOW_PILE = "Server.Items.SnowPile" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = new_item(w, &SNOW_PILE, 0x913);
-        crate::simple::hue(w, id, 0x481);
+        let id = new_item(w, &SNOW_PILE, 0);
+        crate::simple::own_template(w, id, "Server.Items.SnowPile");
         blessed(w, id);
         id
     }),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1005578, // a pile of snow
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a pile of snow
     on_double_click: snow_double_click,
 }
 
@@ -304,7 +300,7 @@ leaf! {
         let g = if utility::random_bool(&mut w.rng) { 0x469B } else { 0x469C };
         new_item(w, &PUMPKIN_SCARECROW, g)
     }),
-    label_number: |_, _| 1096947,
+    label_number: crate::class_props::label_number,
 }
 
 leaf! {
@@ -314,31 +310,31 @@ leaf! {
         let g = if utility::random_bool(&mut w.rng) { 0x4699 } else { 0x469A };
         new_item(w, &RUINED_TAPESTRY, g)
     }),
-    default_name: |_, _| Some("Ruined Tapestry ".to_string()),
+    default_name: crate::class_props::default_name,
 }
 
 macro_rules! plain {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr, $weight:expr;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, v0;
-            construct: Some(|w| new_item(w, &$name, $gid)),
-            default_weight: |_, _| $weight,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
         }
     )+};
 }
 
 plain! {
     /// `Server.Items.GrimWarning`.
-    GRIM_WARNING = "Server.Items.GrimWarning", 0x42BD, 1.0;
+    GRIM_WARNING = "Server.Items.GrimWarning";
     /// `Server.Items.SkullsOnPike`.
-    SKULLS_ON_PIKE = "Server.Items.SkullsOnPike", 0x42B5, 1.0;
+    SKULLS_ON_PIKE = "Server.Items.SkullsOnPike";
     /// `Server.Items.ChairInAGhostCostume`.
-    CHAIR_IN_A_GHOST_COSTUME = "Server.Items.ChairInAGhostCostume", 0x3F26, 5.0;
+    CHAIR_IN_A_GHOST_COSTUME = "Server.Items.ChairInAGhostCostume";
     /// `Server.Items.ExcellentIronMaiden`.
-    EXCELLENT_IRON_MAIDEN = "Server.Items.ExcellentIronMaiden", 0x3f15, 5.0;
+    EXCELLENT_IRON_MAIDEN = "Server.Items.ExcellentIronMaiden";
     /// `Server.Items.HalloweenGuillotine`.
-    HALLOWEEN_GUILLOTINE = "Server.Items.HalloweenGuillotine", 0x3F27, 5.0;
+    HALLOWEEN_GUILLOTINE = "Server.Items.HalloweenGuillotine";
 }
 
 leaf! {
@@ -351,7 +347,7 @@ leaf! {
         crate::simple::hue(w, id, h);
         id
     }),
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `HalloweenPumpkin()`.
@@ -440,10 +436,10 @@ pub static HALLOWEEN_PUMPKIN: ItemType = ItemType {
 // ---- Masks ----
 
 /// `BasePaintedMask(staffer, itemid)`: the staffer first, then `itemid + Utility.Random(2)`.
-fn mask_new(w: &mut World, ty: &'static ItemType, itemid: i32) -> ItemId {
+fn mask_new(w: &mut World, ty: &'static ItemType, name: &str) -> ItemId {
     let staffer = random_staff(w);
-    let g = itemid + utility::random(&mut w.rng, 2);
-    let id = new_item(w, ty, g);
+    let id = new_item(w, ty, 0);
+    crate::simple::own_template(w, id, name);
     set_strs(w, id, 0, Some(staffer));
     id
 }
@@ -477,53 +473,49 @@ pub static BASE_PAINTED_MASK: ItemType = ItemType {
 };
 
 macro_rules! masks {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr, $mask:literal;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : BASE_PAINTED_MASK, v0;
-            construct: Some(|w| mask_new(w, &$name, $gid)),
-            default_name: |w, id| mask_name(w, id, $mask),
+            construct: Some(|w| mask_new(w, &$name, $full)),
+            default_name: |w, id| mask_name(w, id, crate::class_props::str_of(w, id, "maskName").unwrap_or("A Mask")),
         }
     )+};
 }
 
 masks! {
     /// `Server.Items.Holiday.PaintedDaemonMask`.
-    PAINTED_DAEMON_MASK = "Server.Items.Holiday.PaintedDaemonMask", 0x4a92, "Daemon Mask";
+    PAINTED_DAEMON_MASK = "Server.Items.Holiday.PaintedDaemonMask";
     /// `Server.Items.Holiday.PaintedEvilClownMask`.
-    PAINTED_EVIL_CLOWN_MASK = "Server.Items.Holiday.PaintedEvilClownMask", 0x4a90, "Evil Clown Mask";
+    PAINTED_EVIL_CLOWN_MASK = "Server.Items.Holiday.PaintedEvilClownMask";
     /// `Server.Items.Holiday.PaintedPlagueMask`.
-    PAINTED_PLAGUE_MASK = "Server.Items.Holiday.PaintedPlagueMask", 0x4A8E, "Plague Mask";
+    PAINTED_PLAGUE_MASK = "Server.Items.Holiday.PaintedPlagueMask";
     /// `Server.Items.Holiday.PaintedEvilJesterMask`.
-    PAINTED_EVIL_JESTER_MASK = "Server.Items.Holiday.PaintedEvilJesterMask", 0x4BA5, "Evil Jester Mask";
+    PAINTED_EVIL_JESTER_MASK = "Server.Items.Holiday.PaintedEvilJesterMask";
     /// `Server.Items.Holiday.PaintedPorcelainMask`.
-    PAINTED_PORCELAIN_MASK = "Server.Items.Holiday.PaintedPorcelainMask", 0x4BA7, "Porcelain Mask";
+    PAINTED_PORCELAIN_MASK = "Server.Items.Holiday.PaintedPorcelainMask";
 }
 
 // ---- Winter 2010 ----
 
 macro_rules! winter_2010 {
-    ($($(#[$m:meta])* $name:ident = $full:literal, $gid:expr;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : ITEM_BASE, v0;
             // No `[Constructible]` on these two.
             construct: None,
-            make: Some(|w| {
-                let id = new_item(w, &$name, $gid);
-                blessed(w, id);
-                id
-            }),
-            default_weight: |_, _| 30.0,
+            make: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
         }
     )+};
 }
 
 winter_2010! {
     /// `Server.Items.Holiday.AngelDecoration` (`[Flippable(0x46FA, 0x46FB)]`).
-    ANGEL_DECORATION = "Server.Items.Holiday.AngelDecoration", 0x46FA;
+    ANGEL_DECORATION = "Server.Items.Holiday.AngelDecoration";
     /// `Server.Items.Holiday.RockingHorse` (`[Flippable(0x4214, 0x4215)]`).
-    ROCKING_HORSE = "Server.Items.Holiday.RockingHorse", 0x4214;
+    ROCKING_HORSE = "Server.Items.Holiday.RockingHorse";
 }
 
 // ---- Easter 2011 ----
@@ -531,8 +523,11 @@ winter_2010! {
 leaf! {
     /// `Server.Items.DragonEasterEgg` (`IDyable`).
     DRAGON_EASTER_EGG = "Server.Items.DragonEasterEgg" : ITEM_BASE, v0;
-    construct: Some(|w| new_item(w, &DRAGON_EASTER_EGG, 0x47E6)),
-    label_number: |_, _| 1097278,
+    construct: Some(|w| {
+        let id = new_item(w, &DRAGON_EASTER_EGG, 0);
+        crate::simple::own_template(w, id, "Server.Items.DragonEasterEgg")
+    }),
+    label_number: crate::class_props::label_number,
 }
 
 // ---- Halloween treats ----
@@ -540,35 +535,31 @@ leaf! {
 use super::holiday::CANDY_CANE;
 
 macro_rules! treats {
-    ($($(#[$m:meta])* $name:ident = $full:literal, |$w:ident| $gid:expr $(, label $label:expr)?;)+) => {$(
+    ($($(#[$m:meta])* $name:ident = $full:literal;)+) => {$(
         leaf! {
             $(#[$m])*
             $name = $full : CANDY_CANE, v0;
-            construct: Some(|$w| {
-                let g = $gid;
-                // `CandyCane(itemID)`: not stackable and blessed; the treat then makes itself stackable.
-                let id = new_food($w, &$name, g, 1);
-                ops::set_stackable($w, id, false);
-                ops::set_loot_type($w, id, LootType::Blessed);
-                ops::set_stackable($w, id, true);
-                id
+            construct: Some(|w| {
+                // `CandyCane(itemID)`: blessed; the treat then makes itself stackable (the template).
+                let id = new_food(w, &$name, 0, 1);
+                crate::simple::own_template(w, id, $full)
             }),
-            $( label_number: |_, _| $label, )?
+            label_number: crate::class_props::label_number,
         }
     )+};
 }
 
 treats! {
     /// `Server.Items.JellyBeans`.
-    JELLY_BEANS = "Server.Items.JellyBeans", |_w| 0x468C, label 1096932;
+    JELLY_BEANS = "Server.Items.JellyBeans";
     /// `Server.Items.Lollipops` (`[TypeAlias("Server.Items.Lollipop")]`).
-    LOLLIPOPS = "Server.Items.Lollipops", |w| 0x468D + utility::random(&mut w.rng, 3);
+    LOLLIPOPS = "Server.Items.Lollipops";
     /// `Server.Items.NougatSwirl`.
-    NOUGAT_SWIRL = "Server.Items.NougatSwirl", |_w| 0x4690, label 1096936;
+    NOUGAT_SWIRL = "Server.Items.NougatSwirl";
     /// `Server.Items.Taffy`.
-    TAFFY = "Server.Items.Taffy", |_w| 0x469D, label 1096949;
+    TAFFY = "Server.Items.Taffy";
     /// `Server.Items.WrappedCandy`.
-    WRAPPED_CANDY = "Server.Items.WrappedCandy", |_w| 0x469e, label 1096950;
+    WRAPPED_CANDY = "Server.Items.WrappedCandy";
 }
 
 // ---- Halloween foods ----
@@ -579,37 +570,37 @@ leaf! {
     /// `Server.Items.CreepyCake`.
     CREEPY_CAKE = "Server.Items.CreepyCake" : FOOD, v0;
     construct: Some(|w| {
-        let id = new_food(w, &CREEPY_CAKE, 0x9e9, 1);
-        crate::simple::hue(w, id, 0x3E4);
-        id
+        let id = new_food(w, &CREEPY_CAKE, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.CreepyCake")
     }),
-    default_name: |_, _| Some("Creepy Cake".to_string()),
+    default_name: crate::class_props::default_name,
 }
 
 leaf! {
     /// `Server.Items.MrPlainsCookies`.
     MR_PLAINS_COOKIES = "Server.Items.MrPlainsCookies" : FOOD, v0;
     construct: Some(|w| {
-        let id = new_food(w, &MR_PLAINS_COOKIES, 0x160C, 1);
+        let id = new_food(w, &MR_PLAINS_COOKIES, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.MrPlainsCookies");
         set_fill_factor(w, id, 4);
         crate::simple::hue(w, id, 0xF4);
         id
     }),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("Mr Plain's Cookies".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
 }
 
 leaf! {
     /// `Server.Items.PumpkinPizza` (`CheesePizza()`: 0x1040, fill 6, not stackable).
     PUMPKIN_PIZZA = "Server.Items.PumpkinPizza" : CHEESE_PIZZA, v0;
     construct: Some(|w| {
-        let id = new_food(w, &PUMPKIN_PIZZA, 0x1040, 1);
-        ops::set_stackable(w, id, false);
+        let id = new_food(w, &PUMPKIN_PIZZA, 0, 1);
+        crate::simple::own_template(w, id, "Server.Items.PumpkinPizza");
         set_fill_factor(w, id, 6);
         crate::simple::hue(w, id, 0xF3);
         id
     }),
-    default_name: |_, _| Some("Pumpkin Pizza".to_string()),
+    default_name: crate::class_props::default_name,
 }
 
 use crate::food::beverage::{BEVERAGE_BOTTLE, BeverageType, PITCHER, new_full, set_quantity};
@@ -622,8 +613,8 @@ leaf! {
         crate::simple::hue(w, id, 0xe0);
         id
     }),
-    default_name: |_, _| Some("Harvest Wine".to_string()),
-    default_weight: |_, _| 1.0,
+    default_name: crate::class_props::default_name,
+    default_weight: crate::class_props::default_weight,
 }
 
 leaf! {
@@ -638,8 +629,8 @@ leaf! {
         crate::simple::item_id(w, id, g);
         id
     }),
-    default_name: |_, _| Some("Murky Milk".to_string()),
-    default_weight: |_, _| 1.0,
+    default_name: crate::class_props::default_name,
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- TwilightLantern ----
@@ -653,7 +644,7 @@ leaf! {
         crate::simple::hue(w, id, h);
         id
     }),
-    default_name: |_, _| Some("Twilight Lantern".to_string()),
+    default_name: crate::class_props::default_name,
     allow_equipped_cast: |_, _, _| true,
     get_properties: |w, id, list| {
         (crate::lights::LANTERN.get_properties)(w, id, list);
@@ -667,11 +658,12 @@ leaf! {
     /// `Server.Items.CupidStatue` (`[Flippable(0x4F7C, 0x4F7D)]`).
     CUPID_STATUE = "Server.Items.CupidStatue" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = new_item(w, &CUPID_STATUE, 0x4F7D);
+        let id = new_item(w, &CUPID_STATUE, 0);
+        crate::simple::own_template(w, id, "Server.Items.CupidStatue");
         blessed(w, id);
         id
     }),
-    label_number: |_, _| 1099220, // cupid statue
+    label_number: crate::class_props::label_number, // cupid statue
 }
 
 /// `HeartShapedBox.m_DropSound` (static).
@@ -687,7 +679,10 @@ use muo_content::items::cont::{BASE_CONTAINER, new_base_container};
 leaf! {
     /// `Server.Items.HeartShapedBox` (`[Flippable(0x49CA, 0x49CB)]`).
     HEART_SHAPED_BOX = "Server.Items.HeartShapedBox" : BASE_CONTAINER, v0;
-    construct: Some(|w| new_base_container(w, &HEART_SHAPED_BOX, 0x49CA)),
+    construct: Some(|w| {
+        let id = new_base_container(w, &HEART_SHAPED_BOX, 0);
+        crate::simple::own_template(w, id, "Server.Items.HeartShapedBox")
+    }),
     default_drop_sound: |_, _| HEART_DROP_SOUND.load(Ordering::Relaxed),
     on_drag_drop_into: |w, id, from, item, p| {
         heart_prepare_sound(w, from);
@@ -703,7 +698,8 @@ leaf! {
     /// `Server.Items.AnimatedHeartShapedBox` (`[Flippable(0x49CC, 0x49D0)]`).
     ANIMATED_HEART_SHAPED_BOX = "Server.Items.AnimatedHeartShapedBox" : HEART_SHAPED_BOX, v0;
     construct: Some(|w| {
-        let id = new_base_container(w, &ANIMATED_HEART_SHAPED_BOX, 0x49CA);
+        let id = new_base_container(w, &ANIMATED_HEART_SHAPED_BOX, 0);
+        crate::simple::own_template(w, id, "Server.Items.AnimatedHeartShapedBox");
         crate::simple::item_id(w, id, 0x49CC);
         id
     }),
@@ -736,11 +732,12 @@ pub static CUPIDS_ARROW: ItemType = ItemType {
     full_name: "Server.Items.CupidsArrow",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = new_item(w, &CUPIDS_ARROW, 0x4F7F);
+        let id = new_item(w, &CUPIDS_ARROW, 0);
+        crate::simple::own_template(w, id, "Server.Items.CupidsArrow");
         blessed(w, id);
         id
     }),
-    label_number: |_, _| 1152270, // Cupid's Arrow 2012
+    label_number: crate::class_props::label_number, // Cupid's Arrow 2012
     add_name_property: |w, id, list| {
         (ITEM_BASE.add_name_property)(w, id, list);
         if arrow_signed(w, id) {

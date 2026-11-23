@@ -176,7 +176,7 @@ pub fn cannon_addon_component_new(w: &mut World, item_id: i32) -> ItemId {
 leaf! {
     /// `Server.Items.CannonAddonComponent`.
     CANNON_ADDON_COMPONENT = "Server.Items.CannonAddonComponent" : ADDON_COMPONENT, v0;
-    label_number: |_, _| 1076157, // Decorative Cannon
+    label_number: crate::class_props::label_number, // Decorative Cannon
     get_properties: |w, id, list| {
         (ADDON_COMPONENT.get_properties)(w, id, list);
         if let Some(a) = addon::component_addon(w, id).filter(|&a| w.item(a).is_some_and(|i| i.ty.is(&CANNON_ADDON))) {
@@ -473,7 +473,7 @@ pub static CANNON_DEED: ItemType = ItemType {
     parent: Some(&BASE_ADDON_DEED),
     construct: Some(cannon_deed_new),
     family: Some(&CANNON_DEED_CLASS),
-    label_number: |_, _| 1076195, // A deed for a cannon
+    label_number: crate::class_props::label_number, // A deed for a cannon
     get_properties: |w, id, list| {
         (BASE_ADDON_DEED.get_properties)(w, id, list);
         if is_reward(w, id) {
@@ -676,7 +676,7 @@ rtype! {
     WALL_BANNER_DEED = "Server.Items.WallBannerDeed" : BASE_ADDON_DEED;
     construct: Some(wall_banner_deed_new),
     family: Some(&BANNER_DEED_CLASS),
-    label_number: |_, _| 1080549, // Wall Banner Deed
+    label_number: crate::class_props::label_number, // Wall Banner Deed
     get_properties: |w, id, list| {
         (BASE_ADDON_DEED.get_properties)(w, id, list);
         if is_reward(w, id) {
@@ -876,8 +876,11 @@ fn set_uses(w: &mut World, id: ItemId, n: i32) {
 
 /// `WeaponEngravingTool(uses = 10)`.
 pub fn weapon_engraving_tool_new(w: &mut World, uses: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &WEAPON_ENGRAVING_TOOL, 0x32F8);
-    ops::set_loot_type(w, id, LootType::Blessed);
+    let id = crate::simple::from_template(
+        w,
+        &WEAPON_ENGRAVING_TOOL,
+        "Server.Items.WeaponEngravingTool",
+    );
     set_uses_raw(w, id, uses);
     id
 }
@@ -1062,8 +1065,8 @@ pub static WEAPON_ENGRAVING_TOOL: ItemType = ItemType {
     full_name: "Server.Items.WeaponEngravingTool",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| weapon_engraving_tool_new(w, 10)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1076158, // Weapon Engraving Tool
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Weapon Engraving Tool
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         if is_reward(w, id) {

@@ -8,7 +8,7 @@ use muo_primitives::Point3D;
 use muo_server::World;
 use muo_server::ext::Ext;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, TotalType, base, deps, ops};
+use muo_server::item::{ITEM_BASE, ItemType, TotalType, base, deps, ops};
 use muo_server::net_state::NetStateId;
 use muo_server::target::{self, TargetCancelType, Targeted};
 use muo_server::type_registry::TypeRegistry;
@@ -53,9 +53,7 @@ pub fn set_command(w: &mut World, id: ItemId, value: DecorateCommand) {
 
 /// `InteriorDecorator()`.
 pub fn interior_decorator_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xFC1);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.InteriorDecorator")
 }
 
 /// `InteriorDecorator.CheckUse(from)`.
@@ -277,8 +275,8 @@ item_leaf_raw! {
     /// `Server.Items.InteriorDecorator`.
     INTERIOR_DECORATOR = "Server.Items.InteriorDecorator" : ITEM_BASE;
     construct: Some(|w| interior_decorator_new(w, &INTERIOR_DECORATOR)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041280, // an interior decorator
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // an interior decorator
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         let c = command(w, id);

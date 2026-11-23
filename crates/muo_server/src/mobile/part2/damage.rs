@@ -9,6 +9,7 @@ use super::{deps, messages};
 use crate::ids::MobileId;
 use crate::mobile::{DamageEntry, VisibleDamageType};
 use crate::net_state::NetStateId;
+use crate::script_hooks::{ScriptArg, ScriptHook};
 use crate::world::World;
 
 /// `DamageEntry.HasExpired`.
@@ -189,6 +190,10 @@ pub fn damage(
     let Some(m) = w.mobile(id) else { return };
     let ty = m.ty;
     if !(ty.can_be_damaged)(w, id) || m.deleted {
+        return;
+    }
+    let by_script = [ScriptArg::Int(i64::from(amount)), ScriptArg::Mobile(from)];
+    if crate::script_hooks::mobile(w, id, ScriptHook::Damage, &by_script) {
         return;
     }
 

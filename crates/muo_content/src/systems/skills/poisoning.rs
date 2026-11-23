@@ -78,9 +78,9 @@ fn on_target(w: &mut World, from: MobileId, targeted: Targeted, potion: ItemId) 
             start_timer = true;
         } else if weapon::is_weapon(w, item) {
             if core::aos(w) {
-                let c = weapon::class(w, item);
-                start_timer = c.primary_ability == Some(Ability::InfectiousStrike)
-                    || c.secondary_ability == Some(Ability::InfectiousStrike);
+                let (a, b) = weapon::abilities(w, item);
+                start_timer =
+                    a == Some(Ability::InfectiousStrike) || b == Some(Ability::InfectiousStrike);
             } else if w.item(item).is_some_and(|i| i.layer == Layer::OneHanded) {
                 start_timer = matches!(
                     weapon::weapon_type(w, item),

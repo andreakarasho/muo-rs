@@ -676,7 +676,7 @@ pub static SPELLBOOK: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_spellbook(w, &SPELLBOOK, 0, 0xEFA)),
     family: Some(&SPELLBOOK_CLASS),
-    default_weight: |_, _| 3.0,
+    default_weight: crate::class_props::default_weight,
     display_weight: |_, _| false,
     display_loot_type: |w, _| muo_content::core::aos(w),
     allow_equipped_cast: |_, _, _| true,

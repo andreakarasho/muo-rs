@@ -138,9 +138,7 @@ pub fn moongate_new(
     target_map: Option<MapId>,
     dispellable: bool,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xF6C);
-    ops::set_movable(w, id, false);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle300);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Moongate");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(MoongateData {
             target,
@@ -684,7 +682,7 @@ item_leaf_raw! {
     HORN_OF_RETREAT_MOONGATE = "Server.Engines.Quests.HornOfRetreatMoongate" : MOONGATE;
     construct: None,
     family: Some(&HORN_GATE_CLASS),
-    label_number: |_, _| 1049114, // Sanctuary Gate
+    label_number: crate::class_props::label_number, // Sanctuary Gate
     skip_serialization: |_, _| true,
     serialize: |w, id, out| {
         serialize_moongate(w, id, out);
@@ -716,7 +714,7 @@ fn target_map_of(w: &World, id: ItemId) -> MapId {
 
 /// `Moonstone(type)`: 0 Felucca, 1 Trammel.
 pub fn moonstone_new(w: &mut World, ty: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &MOONSTONE, 0xF8B);
+    let id = crate::simple::from_template(w, &MOONSTONE, "Server.Items.Moonstone");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(ty);
     }
@@ -836,7 +834,7 @@ item_leaf_raw! {
     /// `Server.Items.Moonstone` `[SerializationGenerator(1, false)]`.
     MOONSTONE = "Server.Items.Moonstone" : ITEM_BASE;
     construct: None,
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| 1041490 + moonstone_type(w, id),
     on_single_click: |w, id, from| {
         let pack = w.mobile(from).and_then(|m| m.backpack).map(EntityId::Item);
@@ -1012,10 +1010,7 @@ static SIGIL: Lists = &[&FELUCCA];
 
 /// `PublicMoongate()`.
 pub fn public_moongate_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xF6C);
-    ops::set_movable(w, id, false);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle300);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.PublicMoongate")
 }
 
 fn pm_use_gate(w: &mut World, id: ItemId, m: MobileId) -> bool {

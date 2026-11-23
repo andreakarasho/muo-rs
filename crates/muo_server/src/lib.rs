@@ -39,6 +39,7 @@ pub mod race;
 pub mod region;
 pub mod region_json;
 pub mod resources;
+pub mod script_hooks;
 pub mod secure_trade;
 pub mod serialization_ext;
 pub mod server_setup;

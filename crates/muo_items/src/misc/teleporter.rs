@@ -170,9 +170,7 @@ pub fn teleporter_new(
     map_dest: Option<MapId>,
     creatures: bool,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1BC3);
-    ops::set_movable(w, id, false);
-    ops::set_visible(w, id, false);
+    let id = crate::simple::from_template(w, ty, "Server.Items.Teleporter");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(TeleporterData {
             flags: flags::ACTIVE,
@@ -378,7 +376,7 @@ pub static TELEPORTER: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| teleporter_new(w, &TELEPORTER, Point3D::ZERO, None, false)),
     family: Some(&TELEPORTER_CLASS),
-    label_number: |_, _| 1026095, // teleporter
+    label_number: crate::class_props::label_number, // teleporter
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         (class(w, id).add_properties)(w, id, list);
@@ -836,16 +834,13 @@ pub static TIMEOUT_GOAL: ItemType = ItemType {
     full_name: "Server.Items.TimeoutGoal",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &TIMEOUT_GOAL, 0x1822);
-        ops::set_movable(w, id, false);
-        ops::set_visible(w, id, false);
-        super::hue(w, id, 1154);
+        let id = crate::simple::from_template(w, &TIMEOUT_GOAL, "Server.Items.TimeoutGoal");
         if let Some(i) = w.item_mut(id) {
             i.ext = Ext::new(GoalData::default());
         }
         id
     }),
-    default_name: |_, _| Some("timeout teleporter goal".to_string()),
+    default_name: crate::class_props::default_name,
     on_move_over: |w, id, m| {
         if let Some(t) = goal_teleporter(w, id) {
             timeout_stop_timer(w, t, m);

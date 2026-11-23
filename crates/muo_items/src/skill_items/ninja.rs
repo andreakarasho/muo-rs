@@ -127,13 +127,13 @@ fn craftable(w: &mut World, id: ItemId, a: &CraftArgs) -> Option<i32> {
 }
 
 macro_rules! ninja {
-    ($($name:ident = $full:literal, $ctor:expr, weight $weight:expr;)*) => {$(
+    ($($name:ident = $full:literal, $ctor:expr;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
             construct: Some($ctor),
-            default_weight: |_, _| $weight,
+            default_weight: crate::class_props::default_weight,
             get_properties,
             serialize,
             deserialize,
@@ -143,8 +143,8 @@ macro_rules! ninja {
 }
 
 ninja! {
-    FUKIYA_DARTS = "Server.Items.FukiyaDarts", |w| new_fukiya_darts(w, 1), weight 1.0;
-    SHURIKEN = "Server.Items.Shuriken", |w| new_shuriken(w, 1), weight 1.0;
+    FUKIYA_DARTS = "Server.Items.FukiyaDarts", |w| new_fukiya_darts(w, 1);
+    SHURIKEN = "Server.Items.Shuriken", |w| new_shuriken(w, 1);
 }
 
 // ---- NinjaWeapon ----
@@ -640,7 +640,7 @@ pub static FUKIYA: ItemType = ItemType {
     full_name: "Server.Items.Fukiya",
     parent: Some(&ITEM_BASE),
     construct: Some(new_fukiya),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     get_properties,
     on_double_click: |w, id, from| attempt_shoot(w, from, id),
     get_context_menu_entries: |w, id, from, list| {
@@ -670,7 +670,7 @@ pub static LEATHER_NINJA_BELT: ItemType = ItemType {
     parent: Some(&muo_content::items::clothing::BASE_WAIST),
     construct: Some(new_leather_ninja_belt),
     family: Some(&BELT_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     get_properties: |w, id, list| {
         (muo_content::items::clothing::BASE_WAIST.get_properties)(w, id, list);
         get_ninja_properties(w, id, list);
@@ -774,7 +774,7 @@ fn bomb_double_click(w: &mut World, id: ItemId, from: MobileId) {
 
 /// `new EggBomb()` / `new SmokeBomb()`: `base(0x2808)`, `Stackable = Core.ML`.
 fn new_bomb(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2808);
+    let id = crate::simple::from_template(w, ty, "Server.Items.EggBomb");
     let ml = muo_content::core::ml(w);
     ops::set_stackable(w, id, ml);
     id
@@ -795,7 +795,7 @@ pub static SMOKE_BOMB: ItemType = ItemType {
     full_name: "Server.Items.SmokeBomb",
     parent: Some(&ITEM_BASE),
     construct: Some(new_smoke_bomb),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     on_double_click: bomb_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -813,7 +813,7 @@ pub static SMOKE_BOMB: ItemType = ItemType {
 pub static EGG_BOMB: ItemType = ItemType {
     full_name: "Server.Items.EggBomb",
     construct: Some(new_egg_bomb),
-    label_number: |_, _| 1030249,
+    label_number: crate::class_props::label_number,
     ..SMOKE_BOMB
 };
 

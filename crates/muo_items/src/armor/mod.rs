@@ -50,6 +50,20 @@ macro_rules! armor_construct {
 }
 
 macro_rules! armor_leaf {
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr, encoded $enc:literal;
+        @template;
+        $($rest:tt)*
+    ) => {
+        $crate::armor::armor_leaf! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, $base, encoded $enc;
+            @init |w, id| ::muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr, encoded $enc:literal;
@@ -96,11 +110,19 @@ pub mod leaves;
 pub mod special;
 
 #[cfg(test)]
+mod template_tests;
+#[cfg(test)]
 mod tests;
 
 // ---- constructor statements ----
 
 /// `Hue = value`.
+/// `new BaseArmor(itemID)` with the class's `graphic` prop as the item id.
+pub(crate) fn new_armor_json(w: &mut World, ty: &'static muo_server::item::ItemType) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    armor::new_armor(w, ty, g)
+}
+
 pub(crate) fn hue(w: &mut World, id: ItemId, value: i32) {
     if let Some(ty) = w.item(id).map(|i| i.ty) {
         (ty.set_hue)(w, id, value);

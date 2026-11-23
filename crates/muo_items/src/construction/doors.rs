@@ -678,15 +678,29 @@ pub fn new_house_door(
     id
 }
 
+/// A door class's `(baseItemID, openedSound, closedSound)` constructor arguments: its `doorBaseId`, `openedSound`
+/// and `closedSound` props.
+fn door_args(w: &World, ty: &'static ItemType) -> (i32, i32, i32) {
+    let n = |k| {
+        crate::class_props::of_class(w, ty, k)
+            .and_then(serde_json::Value::as_i64)
+            .unwrap_or(0) as i32
+    };
+    (n("doorBaseId"), n("openedSound"), n("closedSound"))
+}
+
 macro_rules! door_leaves {
-    ($parent:ident, $make:expr; $($name:ident = $full:literal, $base:expr, $os:expr, $cs:expr;)*) => {$(
+    ($parent:ident, $make:expr; $($name:ident = $full:literal;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&$parent),
             // the facing is a constructor argument: no parameterless `[Constructible]`
             construct: None,
-            make: Some(|w| $make(w, &$name, DoorFacing::WestCW, $base, $os, $cs)),
+            make: Some(|w| {
+                let (base, os, cs) = door_args(w, &$name);
+                $make(w, &$name, DoorFacing::WestCW, base, os, cs)
+            }),
             serialize: |w, id, out| {
                 ($parent.serialize)(w, id, out);
                 out.write_i32(0);
@@ -702,41 +716,42 @@ macro_rules! door_leaves {
 }
 
 door_leaves! { BASE_DOOR, facing_door;
-    IRON_GATE_SHORT = "Server.Items.IronGateShort", 0x84C, 0xEC, 0xF3;
-    IRON_GATE = "Server.Items.IronGate", 0x824, 0xEC, 0xF3;
-    LIGHT_WOOD_GATE = "Server.Items.LightWoodGate", 0x839, 0xEB, 0xF2;
-    DARK_WOOD_GATE = "Server.Items.DarkWoodGate", 0x866, 0xEB, 0xF2;
-    METAL_DOOR = "Server.Items.MetalDoor", 0x675, 0xEC, 0xF3;
-    BARRED_METAL_DOOR = "Server.Items.BarredMetalDoor", 0x685, 0xEC, 0xF3;
-    BARRED_METAL_DOOR2 = "Server.Items.BarredMetalDoor2", 0x1FED, 0xEC, 0xF3;
-    RATTAN_DOOR = "Server.Items.RattanDoor", 0x695, 0xEB, 0xF2;
-    DARK_WOOD_DOOR = "Server.Items.DarkWoodDoor", 0x6A5, 0xEA, 0xF1;
-    MEDIUM_WOOD_DOOR = "Server.Items.MediumWoodDoor", 0x6B5, 0xEA, 0xF1;
-    METAL_DOOR2 = "Server.Items.MetalDoor2", 0x6C5, 0xEC, 0xF3;
-    LIGHT_WOOD_DOOR = "Server.Items.LightWoodDoor", 0x6D5, 0xEA, 0xF1;
-    STRONG_WOOD_DOOR = "Server.Items.StrongWoodDoor", 0x6E5, 0xEA, 0xF1;
-    SECRET_STONE_DOOR1 = "Server.Items.SecretStoneDoor1", 0xE8, 0xED, 0xF4;
-    SECRET_DUNGEON_DOOR = "Server.Items.SecretDungeonDoor", 0x314, 0xED, 0xF4;
-    SECRET_STONE_DOOR2 = "Server.Items.SecretStoneDoor2", 0x324, 0xED, 0xF4;
-    SECRET_WOODEN_DOOR = "Server.Items.SecretWoodenDoor", 0x334, 0xED, 0xF4;
-    SECRET_LIGHT_WOOD_DOOR = "Server.Items.SecretLightWoodDoor", 0x344, 0xED, 0xF4;
-    SECRET_STONE_DOOR3 = "Server.Items.SecretStoneDoor3", 0x354, 0xED, 0xF4;
+    IRON_GATE_SHORT = "Server.Items.IronGateShort";
+    IRON_GATE = "Server.Items.IronGate";
+    LIGHT_WOOD_GATE = "Server.Items.LightWoodGate";
+    DARK_WOOD_GATE = "Server.Items.DarkWoodGate";
+    METAL_DOOR = "Server.Items.MetalDoor";
+    BARRED_METAL_DOOR = "Server.Items.BarredMetalDoor";
+    BARRED_METAL_DOOR2 = "Server.Items.BarredMetalDoor2";
+    RATTAN_DOOR = "Server.Items.RattanDoor";
+    DARK_WOOD_DOOR = "Server.Items.DarkWoodDoor";
+    MEDIUM_WOOD_DOOR = "Server.Items.MediumWoodDoor";
+    METAL_DOOR2 = "Server.Items.MetalDoor2";
+    LIGHT_WOOD_DOOR = "Server.Items.LightWoodDoor";
+    STRONG_WOOD_DOOR = "Server.Items.StrongWoodDoor";
+    SECRET_STONE_DOOR1 = "Server.Items.SecretStoneDoor1";
+    SECRET_DUNGEON_DOOR = "Server.Items.SecretDungeonDoor";
+    SECRET_STONE_DOOR2 = "Server.Items.SecretStoneDoor2";
+    SECRET_WOODEN_DOOR = "Server.Items.SecretWoodenDoor";
+    SECRET_LIGHT_WOOD_DOOR = "Server.Items.SecretLightWoodDoor";
+    SECRET_STONE_DOOR3 = "Server.Items.SecretStoneDoor3";
 }
 
 door_leaves! { BASE_HOUSE_DOOR, |w, ty, f, b, os, cs| new_house_door(w, ty, f, b, os, cs, true);
-    METAL_HOUSE_DOOR = "Server.Items.MetalHouseDoor", 0x675, 0xEC, 0xF3;
-    DARK_WOOD_HOUSE_DOOR = "Server.Items.DarkWoodHouseDoor", 0x6A5, 0xEA, 0xF1;
-    GENERIC_HOUSE_DOOR = "Server.Items.GenericHouseDoor", 0x675, 0xEC, 0xF3;
+    METAL_HOUSE_DOOR = "Server.Items.MetalHouseDoor";
+    DARK_WOOD_HOUSE_DOOR = "Server.Items.DarkWoodHouseDoor";
+    GENERIC_HOUSE_DOOR = "Server.Items.GenericHouseDoor";
 }
 
 macro_rules! portcullis {
-    ($name:ident, $full:literal, $gid:expr) => {
+    ($name:ident, $full:literal) => {
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_DOOR),
             construct: Some(|w| {
-                new_door(w, &$name, $gid, $gid, 0xF0, 0xEF, Point3D::new(0, 0, 20))
+                let (gid, os, cs) = door_args(w, &$name);
+                new_door(w, &$name, gid, gid, os, cs, Point3D::new(0, 0, 20))
             }),
             serialize: |w, id, out| {
                 (BASE_DOOR.serialize)(w, id, out);
@@ -751,8 +766,8 @@ macro_rules! portcullis {
         };
     };
 }
-portcullis!(PORTCULLIS_NS, "Server.Items.PortcullisNS", 0x6F5);
-portcullis!(PORTCULLIS_EW, "Server.Items.PortcullisEW", 0x6F6);
+portcullis!(PORTCULLIS_NS, "Server.Items.PortcullisNS");
+portcullis!(PORTCULLIS_EW, "Server.Items.PortcullisEW");
 
 // ---- constructors for `[add` ----
 
@@ -770,47 +785,51 @@ fn facing_of(v: &[Value]) -> DoorFacing {
 }
 
 macro_rules! facing_ctors {
-    ($($name:ident, $ctors:ident, $base:expr, $os:expr, $cs:expr;)*) => {$(
+    ($($name:ident, $ctors:ident;)*) => {$(
         static $ctors: [Ctor; 1] = [Ctor {
             access: None,
             params: &FACING_PARAM,
-            make: |w, v| EntityId::Item(facing_door(w, &$name, facing_of(v), $base, $os, $cs)),
+            make: |w, v| {
+                let (base, os, cs) = door_args(w, &$name);
+                EntityId::Item(facing_door(w, &$name, facing_of(v), base, os, cs))
+            },
         }];
     )*};
 }
 facing_ctors! {
-    IRON_GATE_SHORT, C_IRON_GATE_SHORT, 0x84C, 0xEC, 0xF3;
-    IRON_GATE, C_IRON_GATE, 0x824, 0xEC, 0xF3;
-    LIGHT_WOOD_GATE, C_LIGHT_WOOD_GATE, 0x839, 0xEB, 0xF2;
-    DARK_WOOD_GATE, C_DARK_WOOD_GATE, 0x866, 0xEB, 0xF2;
-    METAL_DOOR, C_METAL_DOOR, 0x675, 0xEC, 0xF3;
-    BARRED_METAL_DOOR, C_BARRED_METAL_DOOR, 0x685, 0xEC, 0xF3;
-    BARRED_METAL_DOOR2, C_BARRED_METAL_DOOR2, 0x1FED, 0xEC, 0xF3;
-    RATTAN_DOOR, C_RATTAN_DOOR, 0x695, 0xEB, 0xF2;
-    DARK_WOOD_DOOR, C_DARK_WOOD_DOOR, 0x6A5, 0xEA, 0xF1;
-    MEDIUM_WOOD_DOOR, C_MEDIUM_WOOD_DOOR, 0x6B5, 0xEA, 0xF1;
-    METAL_DOOR2, C_METAL_DOOR2, 0x6C5, 0xEC, 0xF3;
-    LIGHT_WOOD_DOOR, C_LIGHT_WOOD_DOOR, 0x6D5, 0xEA, 0xF1;
-    STRONG_WOOD_DOOR, C_STRONG_WOOD_DOOR, 0x6E5, 0xEA, 0xF1;
-    SECRET_STONE_DOOR1, C_SECRET_STONE_DOOR1, 0xE8, 0xED, 0xF4;
-    SECRET_DUNGEON_DOOR, C_SECRET_DUNGEON_DOOR, 0x314, 0xED, 0xF4;
-    SECRET_STONE_DOOR2, C_SECRET_STONE_DOOR2, 0x324, 0xED, 0xF4;
-    SECRET_WOODEN_DOOR, C_SECRET_WOODEN_DOOR, 0x334, 0xED, 0xF4;
-    SECRET_LIGHT_WOOD_DOOR, C_SECRET_LIGHT_WOOD_DOOR, 0x344, 0xED, 0xF4;
-    SECRET_STONE_DOOR3, C_SECRET_STONE_DOOR3, 0x354, 0xED, 0xF4;
+    IRON_GATE_SHORT, C_IRON_GATE_SHORT;
+    IRON_GATE, C_IRON_GATE;
+    LIGHT_WOOD_GATE, C_LIGHT_WOOD_GATE;
+    DARK_WOOD_GATE, C_DARK_WOOD_GATE;
+    METAL_DOOR, C_METAL_DOOR;
+    BARRED_METAL_DOOR, C_BARRED_METAL_DOOR;
+    BARRED_METAL_DOOR2, C_BARRED_METAL_DOOR2;
+    RATTAN_DOOR, C_RATTAN_DOOR;
+    DARK_WOOD_DOOR, C_DARK_WOOD_DOOR;
+    MEDIUM_WOOD_DOOR, C_MEDIUM_WOOD_DOOR;
+    METAL_DOOR2, C_METAL_DOOR2;
+    LIGHT_WOOD_DOOR, C_LIGHT_WOOD_DOOR;
+    STRONG_WOOD_DOOR, C_STRONG_WOOD_DOOR;
+    SECRET_STONE_DOOR1, C_SECRET_STONE_DOOR1;
+    SECRET_DUNGEON_DOOR, C_SECRET_DUNGEON_DOOR;
+    SECRET_STONE_DOOR2, C_SECRET_STONE_DOOR2;
+    SECRET_WOODEN_DOOR, C_SECRET_WOODEN_DOOR;
+    SECRET_LIGHT_WOOD_DOOR, C_SECRET_LIGHT_WOOD_DOOR;
+    SECRET_STONE_DOOR3, C_SECRET_STONE_DOOR3;
 }
 
 static C_METAL_HOUSE_DOOR: [Ctor; 1] = [Ctor {
     access: None,
     params: &FACING_PARAM,
     make: |w, v| {
+        let (base, os, cs) = door_args(w, &METAL_HOUSE_DOOR);
         EntityId::Item(new_house_door(
             w,
             &METAL_HOUSE_DOOR,
             facing_of(v),
-            0x675,
-            0xEC,
-            0xF3,
+            base,
+            os,
+            cs,
             true,
         ))
     },
@@ -819,13 +838,14 @@ static C_DARK_WOOD_HOUSE_DOOR: [Ctor; 1] = [Ctor {
     access: None,
     params: &FACING_PARAM,
     make: |w, v| {
+        let (base, os, cs) = door_args(w, &DARK_WOOD_HOUSE_DOOR);
         EntityId::Item(new_house_door(
             w,
             &DARK_WOOD_HOUSE_DOOR,
             facing_of(v),
-            0x6A5,
-            0xEA,
-            0xF1,
+            base,
+            os,
+            cs,
             true,
         ))
     },
@@ -893,9 +913,13 @@ static C_PORTCULLIS_EW: [Ctor; 1] = [Ctor {
 fn make_house_door(w: &mut World, kind: HouseDoorKind) -> Option<ItemId> {
     Some(match kind {
         HouseDoorKind::DarkWood(f) => {
-            new_house_door(w, &DARK_WOOD_HOUSE_DOOR, f, 0x6A5, 0xEA, 0xF1, true)
+            let (base, os, cs) = door_args(w, &DARK_WOOD_HOUSE_DOOR);
+            new_house_door(w, &DARK_WOOD_HOUSE_DOOR, f, base, os, cs, true)
         }
-        HouseDoorKind::Metal(f) => new_house_door(w, &METAL_HOUSE_DOOR, f, 0x675, 0xEC, 0xF3, true),
+        HouseDoorKind::Metal(f) => {
+            let (base, os, cs) = door_args(w, &METAL_HOUSE_DOOR);
+            new_house_door(w, &METAL_HOUSE_DOOR, f, base, os, cs, true)
+        }
         HouseDoorKind::Named(name, f) => {
             return muo_content::factory::make_item_args(w, name, &[Value::Enum(f as i64)]);
         }
@@ -1335,7 +1359,7 @@ mod tests {
 
     #[test]
     fn iron_gate_save_is_the_generated_layout() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = facing_door(&mut w, &IRON_GATE, DoorFacing::SouthCW, 0x824, 0xEC, 0xF3);
         assert_eq!(w.item(id).unwrap().item_id, 0x824 + 8);
         let bytes = save(&w, id);
@@ -1363,7 +1387,7 @@ mod tests {
 
     #[test]
     fn open_moves_the_door_and_close_moves_it_back() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = facing_door(
             &mut w,
             &DARK_WOOD_DOOR,
@@ -1383,7 +1407,7 @@ mod tests {
 
     #[test]
     fn house_door_saves_level_and_facing_after_the_door() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_house_door(
             &mut w,
             &DARK_WOOD_HOUSE_DOOR,
@@ -1402,7 +1426,7 @@ mod tests {
 
     #[test]
     fn get_chain_loop_not_through_start_yields_each_door_once() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let mut door = || facing_door(&mut w, &METAL_DOOR, DoorFacing::WestCW, 0x675, 0xEC, 0xF3);
         let (a, b, c) = (door(), door(), door());
         // A -> B -> C -> B: the chain never returns to A

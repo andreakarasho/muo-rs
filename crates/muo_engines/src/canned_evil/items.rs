@@ -291,6 +291,24 @@ pub fn set_skull(w: &mut World, id: ItemId, value: Option<ItemId>) {
 }
 
 /// `ChampionSkullBrazier(platform, type)`: `base(0x19BB)`, `Hue = 0x455`, `Light = Circle300`.
+/// The `skullBraziers` template key: for each `[type, x, y]` a plain `0x50F` at z 4 and the type's brazier at z 5,
+/// recorded in the platform's brazier list in that order.
+pub fn add_skull_braziers(w: &mut World, id: ItemId, list: &[(ChampionSkullType, i32, i32)]) {
+    for (n, &(ty, x, y)) in list.iter().enumerate() {
+        let c = addon::new_component(w, &addon::ADDON_COMPONENT, 0x50F);
+        addon::add_component(w, id, c, x, y, 4);
+        let b = brazier_new(w, id, ty);
+        addon::add_component(w, id, b, x, y, 5);
+        if let Some(d) = w
+            .item_mut(id)
+            .and_then(|i| i.ext.get_mut::<SkullPlatformData>())
+            && n < d.braziers.len()
+        {
+            d.braziers[n] = Some(b);
+        }
+    }
+}
+
 pub fn brazier_new(w: &mut World, platform: ItemId, ty: ChampionSkullType) -> ItemId {
     let id = addon::new_component(w, &CHAMPION_SKULL_BRAZIER, 0x19BB);
     hue(w, id, 0x455);
@@ -509,45 +527,12 @@ fn clear(w: &mut World, b: Option<ItemId>) {
 /// `ChampionSkullPlatform()`.
 pub fn skull_platform_new(w: &mut World) -> ItemId {
     let id = addon::new_addon(w, &CHAMPION_SKULL_PLATFORM);
-    let plain = |w: &mut World, id: ItemId, g: i32, x: i32, y: i32, z: i32| {
-        let c = addon::new_component(w, &addon::ADDON_COMPONENT, g);
-        addon::add_component(w, id, c, x, y, z);
-    };
-    plain(w, id, 0x71A, -1, -1, -1);
-    for (x, y) in [(0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1)] {
-        plain(w, id, 0x709, x, y, -1);
-    }
-    plain(w, id, 0x71B, 1, 1, -1);
-
-    let mut bs = [None; 6];
-    for (n, (ty, x, y)) in [
-        (ChampionSkullType::Power, 0, -1),
-        (ChampionSkullType::Enlightenment, 1, -1),
-        (ChampionSkullType::Venom, -1, 0),
-        (ChampionSkullType::Pain, 1, 0),
-        (ChampionSkullType::Greed, -1, 1),
-        (ChampionSkullType::Death, 0, 1),
-    ]
-    .into_iter()
-    .enumerate()
-    {
-        plain(w, id, 0x50F, x, y, 4);
-        let b = brazier_new(w, id, ty);
-        addon::add_component(w, id, b, x, y, 5);
-        bs[n] = Some(b);
-    }
-    for (g, label, x, y, z) in [
-        (0x20D2, 1049495, 0, 0, 5),
-        (0x0BCF, 1049496, 0, 2, -7),
-        (0x0BD0, 1049497, 2, 0, -7),
-    ] {
-        let c = addon::new_localized_component(w, &addon::LOCALIZED_ADDON_COMPONENT, g, label);
-        hue(w, c, 0x482);
-        addon::add_component(w, id, c, x, y, z);
-    }
     if let Some(i) = w.item_mut(id) {
-        i.ext.insert(SkullPlatformData { braziers: bs });
+        i.ext.insert(SkullPlatformData {
+            braziers: [None; 6],
+        });
     }
+    muo_content::templates::apply_item_as(w, id, CHAMPION_SKULL_PLATFORM.full_name);
     id
 }
 

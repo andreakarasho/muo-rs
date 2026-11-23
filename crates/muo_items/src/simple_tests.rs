@@ -52,7 +52,7 @@ fn every_class_constructs_and_round_trips() {
         let Some(construct) = t.construct else {
             continue;
         };
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = construct(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         let bytes = save(&w, id);
@@ -88,20 +88,20 @@ fn every_class_constructs_and_round_trips() {
 }
 
 fn make(ty: &'static ItemType) -> (World, ItemId) {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (ty.construct.unwrap())(&mut w);
     (w, id)
 }
 
 #[test]
 fn decoration_artifact_constructor_and_rarity() {
-    use crate::decoration_artifacts::DecoClass;
     use crate::decoration_artifacts::leaves::ACADEMIC_BOOKS_ARTIFACT;
     // `: base(0x1E25) => Hue = 2413`, ArtifactRarity 8, LabelNumber 1071202, DefaultWeight 10 from the base
     let (w, id) = make(&ACADEMIC_BOOKS_ARTIFACT);
     let item = w.item(id).unwrap();
     assert_eq!((item.item_id, item.hue), (0x1E25, 2413));
-    assert_eq!(item.ty.family::<DecoClass>().unwrap().artifact_rarity, 8);
+    let rarity = muo_content::templates::item_props::int(&w, id, "artifactRarity", 0);
+    assert_eq!(rarity, 8);
     assert_eq!((item.ty.label_number)(&w, id), 1071202);
     assert_eq!((item.ty.default_weight)(&w, id), 10.0);
     assert!((item.ty.force_show_properties)(&w, id));
@@ -279,11 +279,11 @@ mod artifacts {
         AosArmorAttribute, AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind,
     };
     use muo_content::items::attr;
-    use muo_content::items::weapon::{self, WeaponClass};
+    use muo_content::items::weapon::{self};
     use muo_data::expansion::Expansion;
 
     fn aos() -> World {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         w.core.expansion = Some(Expansion::AOS);
         w
     }
@@ -314,10 +314,9 @@ mod artifacts {
         );
         let d = weapon::data(&w, id).unwrap();
         assert_eq!((d.hit_points, d.max_hit_points), (255, 255)); // InitMinHits/InitMaxHits 255
-        let class = ARCTIC_DEATH_DEALER.family::<WeaponClass>().unwrap();
-        assert_eq!(class.label_number, 1063481);
+        assert_eq!((ARCTIC_DEATH_DEALER.label_number)(&w, id), 1063481);
         // GetDamageTypes: cold = 50; phys = 50; the rest 0
-        let t = (class.get_damage_types)(&w, id, None);
+        let t = muo_content::items::weapon_combat::get_damage_types(&w, id, None);
         assert_eq!(
             (t.phys, t.fire, t.cold, t.pois, t.nrgy, t.chaos, t.direct),
             (50, 0, 50, 0, 0, 0, 0)

@@ -4,163 +4,163 @@
 use crate::simple::leaf;
 use muo_server::World;
 use muo_server::ids::ItemId;
-use muo_server::item::{ITEM_BASE, ItemType, ops};
+use muo_server::item::{ITEM_BASE, ItemType};
 use muo_server::type_registry::TypeRegistry;
 
 /// `LargeEmptyPot()`.
 pub fn large_empty_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C7)
+    crate::simple::from_template(w, ty, "Server.Items.LargeEmptyPot")
 }
 
 leaf! {
     /// `Server.Items.LargeEmptyPot`.
     LARGE_EMPTY_POT = "Server.Items.LargeEmptyPot" : ITEM_BASE, v0;
     construct: Some(|w| large_empty_pot_new(w, &LARGE_EMPTY_POT)),
-    default_weight: |_, _| 6.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `SmallEmptyPot()`.
 pub fn small_empty_pot_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C6)
+    crate::simple::from_template(w, ty, "Server.Items.SmallEmptyPot")
 }
 
 leaf! {
     /// `Server.Items.SmallEmptyPot`.
     SMALL_EMPTY_POT = "Server.Items.SmallEmptyPot" : ITEM_BASE, v0;
     construct: Some(|w| small_empty_pot_new(w, &SMALL_EMPTY_POT)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus()`.
 pub fn potted_cactus_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E0F)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus")
 }
 
 leaf! {
     /// `Server.Items.PottedCactus`.
     POTTED_CACTUS = "Server.Items.PottedCactus" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus_new(w, &POTTED_CACTUS)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus1()`.
 pub fn potted_cactus1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E10)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus1")
 }
 
 leaf! {
     /// `Server.Items.PottedCactus1`.
     POTTED_CACTUS1 = "Server.Items.PottedCactus1" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus1_new(w, &POTTED_CACTUS1)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus2()`.
 pub fn potted_cactus2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E11)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus2")
 }
 
 leaf! {
     /// `Server.Items.PottedCactus2`.
     POTTED_CACTUS2 = "Server.Items.PottedCactus2" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus2_new(w, &POTTED_CACTUS2)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus3()`.
 pub fn potted_cactus3_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E12)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus3")
 }
 
 leaf! {
     /// `Server.Items.PottedCactus3`.
     POTTED_CACTUS3 = "Server.Items.PottedCactus3" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus3_new(w, &POTTED_CACTUS3)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus4()`.
 pub fn potted_cactus4_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E13)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus4")
 }
 
 leaf! {
     /// `Server.Items.PottedCactus4`.
     POTTED_CACTUS4 = "Server.Items.PottedCactus4" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus4_new(w, &POTTED_CACTUS4)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedCactus5()`.
 pub fn potted_cactus5_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x1E14)
+    crate::simple::from_template(w, ty, "Server.Items.PottedCactus5")
 }
 
 leaf! {
     /// `Server.Items.PottedCactus5`.
     POTTED_CACTUS5 = "Server.Items.PottedCactus5" : ITEM_BASE, v0;
     construct: Some(|w| potted_cactus5_new(w, &POTTED_CACTUS5)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedPlant()`.
 pub fn potted_plant_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11CA)
+    crate::simple::from_template(w, ty, "Server.Items.PottedPlant")
 }
 
 leaf! {
     /// `Server.Items.PottedPlant`.
     POTTED_PLANT = "Server.Items.PottedPlant" : ITEM_BASE, v0;
     construct: Some(|w| potted_plant_new(w, &POTTED_PLANT)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedPlant1()`.
 pub fn potted_plant1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11CB)
+    crate::simple::from_template(w, ty, "Server.Items.PottedPlant1")
 }
 
 leaf! {
     /// `Server.Items.PottedPlant1`.
     POTTED_PLANT1 = "Server.Items.PottedPlant1" : ITEM_BASE, v0;
     construct: Some(|w| potted_plant1_new(w, &POTTED_PLANT1)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedPlant2()`.
 pub fn potted_plant2_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11CC)
+    crate::simple::from_template(w, ty, "Server.Items.PottedPlant2")
 }
 
 leaf! {
     /// `Server.Items.PottedPlant2`.
     POTTED_PLANT2 = "Server.Items.PottedPlant2" : ITEM_BASE, v0;
     construct: Some(|w| potted_plant2_new(w, &POTTED_PLANT2)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedTree()`.
 pub fn potted_tree_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C8)
+    crate::simple::from_template(w, ty, "Server.Items.PottedTree")
 }
 
 leaf! {
     /// `Server.Items.PottedTree`.
     POTTED_TREE = "Server.Items.PottedTree" : ITEM_BASE, v0;
     construct: Some(|w| potted_tree_new(w, &POTTED_TREE)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// `PottedTree1()`.
 pub fn potted_tree1_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    ops::new_item_with_id(w, ty, 0x11C9)
+    crate::simple::from_template(w, ty, "Server.Items.PottedTree1")
 }
 
 leaf! {
     /// `Server.Items.PottedTree1`.
     POTTED_TREE1 = "Server.Items.PottedTree1" : ITEM_BASE, v0;
     construct: Some(|w| potted_tree1_new(w, &POTTED_TREE1)),
-    default_weight: |_, _| 100.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 /// Every class of this file: the type and its `[TypeAlias]` names.

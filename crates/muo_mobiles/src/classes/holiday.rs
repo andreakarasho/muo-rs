@@ -9,7 +9,6 @@ use muo_primitives::{Point3D, TimeSpan};
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::map::MapId;
-use muo_server::poison::PoisonId;
 use muo_server::serialization_ext::{ReadEntityExt, WriteEntityExt};
 use muo_server::type_registry::TypeRegistry;
 
@@ -19,47 +18,7 @@ use crate::leaf::creature_leaf;
 // ---- PumpkinHead ----
 
 fn pumpkin_head_new(w: &mut World) -> MobileId {
-    let ai = if rnd::bool(w) {
-        AIType::AiMelee
-    } else {
-        AIType::AiMage
-    };
-    let id = new_creature(
-        w,
-        &PUMPKIN_HEAD,
-        ai,
-        FightMode::Closest,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
-    let b = 1246 + rnd::below(w, 2);
-    body(w, id, b);
-    base_sound_id(w, id, 268);
-    set_str(w, id, 350);
-    set_dex(w, id, 125);
-    set_int(w, id, 250);
-    set_hits(w, id, 500);
-    set_mana(w, id, 1000);
-    set_damage(w, id, 10, 15);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance(w, id, ResistanceType::Physical, 55);
-    set_resistance(w, id, ResistanceType::Fire, 50);
-    set_resistance(w, id, ResistanceType::Cold, 50);
-    set_resistance(w, id, ResistanceType::Poison, 65);
-    set_resistance(w, id, ResistanceType::Energy, 80);
-    set_skill(w, id, SkillName::DetectHidden, 100.0);
-    set_skill(w, id, SkillName::Meditation, 120.0);
-    set_skill(w, id, SkillName::Necromancy, 100.0);
-    set_skill(w, id, SkillName::SpiritSpeak, 120.0);
-    set_skill(w, id, SkillName::Magery, 160.0);
-    set_skill(w, id, SkillName::EvalInt, 100.0);
-    set_skill(w, id, SkillName::MagicResist, 100.0);
-    set_skill(w, id, SkillName::Tactics, 100.0);
-    set_skill(w, id, SkillName::Wrestling, 80.0);
-    fame(w, id, 5000);
-    karma(w, id, -5000);
-    virtual_armor(w, id, 49);
-    id
+    crate::cprops::new_creature(w, &PUMPKIN_HEAD)
 }
 
 /// `new Acid(TimeSpan.FromSeconds(10), 25, 30) { Name = "gooey nasty pumpkin hummus", Hue = 144 }`.
@@ -102,26 +61,14 @@ creature_leaf! {
     /// `Server.Mobiles.PumpkinHead`.
     PUMPKIN_HEAD, PUMPKIN_HEAD_C = "Server.Mobiles.PumpkinHead" : BASE_CREATURE / BASE_CREATURE_C, ctor Some(pumpkin_head_new), encoded false;
     c {
-        corpse_name: |_w, _id| Some("a killer pumpkin corpse"),
-        default_name: |_w, _id| Some("a killer pumpkin"),
-        auto_dispel: |_w, _id| true,
-        bard_immune: |_w, _id| true,
-        unprovokable: |_w, _id| true,
-        area_peace_immune: |_w, _id| true,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        default_name: muo_content::templates::creature_props::default_name,
+        auto_dispel: crate::cprops::auto_dispel,
+        bard_immune: crate::cprops::bard_immune,
+        unprovokable: crate::cprops::unprovokable,
+        area_peace_immune: crate::cprops::area_peace_immune,
         new_harmful_item: pumpkin_head_harmful_item,
-        generate_loot: |w, id| {
-            if rnd::double(w) < 0.05 {
-                match rnd::below(w, 5) {
-                    0 => pack_new(w, id, "Server.Items.Holiday.PaintedEvilClownMask"),
-                    1 => pack_new(w, id, "Server.Items.Holiday.PaintedDaemonMask"),
-                    2 => pack_new(w, id, "Server.Items.Holiday.PaintedPlagueMask"),
-                    3 => pack_new(w, id, "Server.Items.Holiday.PaintedEvilJesterMask"),
-                    _ => pack_new(w, id, "Server.Items.Holiday.PaintedPorcelainMask"),
-                }
-            }
-            pack_new(w, id, "Server.Items.WrappedCandy");
-            add_loot_n(w, id, loot_pack::ultra_rich(w), 2);
-        },
+        generate_loot: crate::cprops::generate_loot,
     }
     m {
         on_damage: pumpkin_head_on_damage,
@@ -238,9 +185,9 @@ creature_leaf! {
     /// `Server.Engines.Events.ZombieSkeleton` (no `[Constructible]`).
     ZOMBIE_SKELETON, ZOMBIE_SKELETON_C = "Server.Engines.Events.ZombieSkeleton" : BASE_CREATURE / BASE_CREATURE_C, ctor None, state zombie_serialize, zombie_deserialize;
     c {
-        corpse_name: |_w, _id| Some("a rotting corpse"),
-        bleed_immune: |_w, _id| true,
-        poison_immune: |_w, _id| Some(PoisonId(1)), // Poison.Regular
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        bleed_immune: muo_content::templates::creature_props::bleed_immune,
+        poison_immune: muo_content::templates::creature_props::poison_immune,
         generate_loot: zombie_generate_loot,
     }
     m {

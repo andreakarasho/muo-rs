@@ -58,9 +58,8 @@ pub static KH_BOARD: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.KHBoard",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &KH_BOARD, 7774);
-        ops::set_name(w, id, Some("King of the Hill Scoreboard".to_owned()));
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &KH_BOARD, 0);
+        muo_content::templates::apply_item_as(w, id, KH_BOARD.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(KhBoardData::default());
         }
@@ -309,9 +308,8 @@ pub static HILL_OF_THE_KING: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.HillOfTheKing",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &HILL_OF_THE_KING, 0x520);
-        ops::set_movable(w, id, false);
-        ops::set_name(w, id, Some("the hill".to_owned()));
+        let id = ops::new_item_with_id(w, &HILL_OF_THE_KING, 0);
+        muo_content::templates::apply_item_as(w, id, HILL_OF_THE_KING.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(HillData::default());
         }
@@ -371,9 +369,7 @@ pub static HILL_OF_THE_KING: ItemType = ItemType {
 
 /// `new KHController()`.
 pub fn new_controller_kh(w: &mut World) -> ItemId {
-    let id = new_controller(w, &KH_CONTROLLER, EventCtrl::new(GameKind::Kh, 8));
-    ops::set_name(w, id, Some("King of the Hill Controller".to_owned()));
-    id
+    new_controller(w, &KH_CONTROLLER, EventCtrl::new(GameKind::Kh, 8))
 }
 
 /// `KHTeamInfo.Serialize`.

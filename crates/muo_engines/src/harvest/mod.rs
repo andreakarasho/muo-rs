@@ -1205,10 +1205,8 @@ fn tool_system(w: &World, tool: ItemId) -> Option<Kind> {
     {
         return kind_by_name(c.harvest_system);
     }
-    it.ty
-        .family::<muo_content::items::weapon::WeaponClass>()
-        .and_then(|c| c.harvest_system)
-        .and_then(kind_by_name)
+    it.ty.family::<muo_content::items::weapon::WeaponClass>()?;
+    muo_content::items::weapon::harvest_system(w, tool).and_then(kind_by_name)
 }
 
 fn hook_harvest_begin(w: &mut World, from: MobileId, tool: ItemId) {

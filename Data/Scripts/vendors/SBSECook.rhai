@@ -1,0 +1,22 @@
+shop("SBSECook", |s| {
+    s.buys("Wasabi", 1);
+    s.buys("BentoBox", 3);
+    s.buys("GreenTea", 1);
+    s.buys("SushiRolls", 1);
+    s.buys("SushiPlatter", 2);
+    s.buys("MisoSoup", 1);
+    s.buys("RedMisoSoup", 1);
+    s.buys("WhiteMisoSoup", 1);
+    s.buys("AwaseMisoSoup", 1);
+    s.sells("Wasabi", 2, 20, 0x24E8, #{ hue: 0 });
+    s.sells("Wasabi", 2, 20, 0x24E9, #{ hue: 0 });
+    s.sells("SushiRolls", 3, 20, 0x283E, #{ hue: 0 });
+    s.sells("SushiPlatter", 3, 20, 0x2840, #{ hue: 0 });
+    s.sells("GreenTea", 3, 20, 0x284C, #{ hue: 0 });
+    s.sells("MisoSoup", 3, 20, 0x284D, #{ hue: 0 });
+    s.sells("WhiteMisoSoup", 3, 20, 0x284E, #{ hue: 0 });
+    s.sells("RedMisoSoup", 3, 20, 0x284F, #{ hue: 0 });
+    s.sells("AwaseMisoSoup", 3, 20, 0x2850, #{ hue: 0 });
+    s.sells("BentoBox", 6, 20, 0x2836, #{ hue: 0 });
+    s.sells("BentoBox", 6, 20, 0x2837, #{ hue: 0 });
+});

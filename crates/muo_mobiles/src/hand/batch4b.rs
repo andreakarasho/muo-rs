@@ -74,11 +74,6 @@ fn weaken(
 
 // ---- Swoop ----
 
-/// `PackArcaneScroll(0, 1)`.
-pub fn swoop_ctor1(w: &mut World, id: MobileId) {
-    pack_arcane_scroll_range(w, id, 0, 1);
-}
-
 /// `OnGaveMeleeAttack`: 10% of the blows make the defender 15% more susceptible to physical damage for 5 seconds.
 pub fn swoop_on_gave_melee_attack(w: &mut World, id: MobileId, defender: MobileId, damage: i32) {
     (BASE_CREATURE_C.on_gave_melee_attack)(w, id, defender, damage);
@@ -145,14 +140,6 @@ pub fn kaze_kemono_on_gave_melee_attack(
 
 // ---- LadyOfTheSnow ----
 
-/// `if (Utility.RandomDouble() < 0.25) PackItem(Seed.RandomBonsaiSeed());`
-pub fn lady_of_the_snow_ctor1(w: &mut World, id: MobileId) {
-    if rnd::double(w) < 0.25 {
-        let s = super::seed::random_bonsai_seed(w);
-        pack_item(w, id, s);
-    }
-}
-
 fn expire_snow(w: &mut World, defender: MobileId) {
     if let Some(mut h) = tables(w).snow.remove(&defender) {
         h.cancel(w);
@@ -201,18 +188,6 @@ pub fn lady_of_the_snow_on_gave_melee_attack(
 }
 
 // ---- Yamandon ----
-
-/// `if (Utility.RandomDouble() < .50) PackItem(Seed.RandomBonsaiSeed());`
-pub fn yamandon_ctor1(w: &mut World, id: MobileId) {
-    if rnd::double(w) < 0.5 {
-        let s = super::seed::random_bonsai_seed(w);
-        pack_item(w, id, s);
-    }
-}
-/// `PackItem(new Eggs(2))`.
-pub fn yamandon_ctor2(w: &mut World, id: MobileId) {
-    pack_new_amount(w, id, &super::ctors::si("Eggs"), 2);
-}
 
 pub fn yamandon_on_damaged_by_spell(w: &mut World, id: MobileId, attacker: MobileId, damage: i32) {
     (BASE_CREATURE_C.on_damaged_by_spell)(w, id, attacker, damage);

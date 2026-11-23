@@ -18,7 +18,7 @@ pub static ML_QUEST_PERSISTENCE: ItemType = ItemType {
     full_name: "Server.Engines.MLQuests.MLQuestPersistence",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_name: |_, _| Some("ML quests persistence - Internal".to_string()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     serialize,
     deserialize,
     ..ITEM_BASE

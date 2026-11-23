@@ -5,27 +5,20 @@
 //! `Longsword`, `Katana` and `Bow` are the three samples in `muo_content::items::leaves` (registered there);
 //! `samples.rs` has their constructors for the classes derived from them.
 
-use muo_content::aos::{AosAttribute, AosElementAttribute, AosWeaponAttribute, AttrKind};
-use muo_content::craft::CraftResource;
 pub use muo_content::items::leaves::{
     BOW, BOW_CLASS, KATANA, KATANA_CLASS, LONGSWORD, LONGSWORD_CLASS,
 };
-use muo_content::items::slayer::SlayerName;
 use muo_content::items::weapon::{
-    Ability, BASE_AXE, BASE_AXE_CLASS, BASE_BASHING, BASE_BASHING_CLASS, BASE_KNIFE,
-    BASE_KNIFE_CLASS, BASE_POLE_ARM, BASE_POLE_ARM_CLASS, BASE_RANGED, BASE_RANGED_CLASS,
-    BASE_SPEAR, BASE_SPEAR_CLASS, BASE_STAFF, BASE_STAFF_CLASS, BASE_SWORD, BASE_SWORD_CLASS,
-    BASE_THROWN, BASE_THROWN_CLASS, WeaponAnimation, WeaponClass, WeaponType, new_weapon,
-    set_resource,
+    BASE_AXE, BASE_AXE_CLASS, BASE_BASHING, BASE_BASHING_CLASS, BASE_KNIFE, BASE_KNIFE_CLASS,
+    BASE_POLE_ARM, BASE_POLE_ARM_CLASS, BASE_RANGED, BASE_RANGED_CLASS, BASE_SPEAR,
+    BASE_SPEAR_CLASS, BASE_STAFF, BASE_STAFF_CLASS, BASE_SWORD, BASE_SWORD_CLASS, BASE_THROWN,
+    BASE_THROWN_CLASS, WeaponClass, new_weapon,
 };
-use muo_content::items::weapon_combat::{DamageTypes, elemental_damage_hue};
-use muo_content::items::{ml, same, set_attr};
-use muo_primitives::utility::{random, random_element};
+use muo_primitives::utility::random;
 use muo_server::World;
 use muo_server::ids::ItemId;
 use muo_server::item::ItemType;
 use muo_server::layer::Layer;
-use muo_server::race::ALLOW_GARGOYLES_ONLY;
 use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
@@ -38,6 +31,10 @@ macro_rules! ctor_call {
     (graphic, $w:ident, $ty:expr, $arg:expr) => {
         new_weapon($w, $ty, $arg)
     };
+    (json, $w:ident, $ty:expr, $arg:expr) => {{
+        let g = muo_content::items::equip_props::graphic($w, $ty);
+        new_weapon($w, $ty, g)
+    }};
     (via, $w:ident, $ty:expr, $arg:expr) => {
         $arg($w, $ty)
     };
@@ -69,8 +66,22 @@ macro_rules! ver_read {
 /// `graphic X` is `: base(X)` of an abstract base; `via f` runs the constructor `f` of the parent leaf (an implicit
 /// `base()`), both for the leaf's own type (so a virtual the constructor reads is the leaf's). `v0` is
 /// `[SerializationGenerator(0, false)]` (the version as an int), `enc` is `[SerializationGenerator(0)]` (an
-/// encoded int).
+/// encoded int). `@json;` in place of `@init` replays the class's own template (`Data/Scripts/classes/items`).
 macro_rules! weapon_leaf {
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,
+        $how:ident $arg:expr, $ver:ident;
+        @json;
+        $($rest:tt)*
+    ) => {
+        weapon_leaf! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, $how $arg, $ver;
+            @init |w, id| muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,
@@ -163,5 +174,7 @@ pub fn register(types: &mut TypeRegistry) {
     wooden::register(types);
 }
 
+#[cfg(test)]
+mod template_tests;
 #[cfg(test)]
 mod tests;

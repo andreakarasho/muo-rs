@@ -54,6 +54,7 @@ fn a_new_boat_has_its_parts_facing_north() {
 fn turning_east_rotates_the_parts_and_swaps_the_graphic() {
     let mut w = World::new();
     let b = new_small_boat(&mut w);
+    super::set_layout(&mut w, b, super::SMALL_BOAT_LAYOUT); // no templates here
     assert!(set_facing(&mut w, b, 2));
     assert_eq!(get_facing(&w, b).bits(), 2);
     assert_eq!(w.item(b).unwrap().item_id, 0x1, "SmallBoat.EastID");

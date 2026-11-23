@@ -405,25 +405,8 @@ crate::quester! {
         : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops NATURALIST_OPS, encoded true, title Some("the Naturalist"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            let hue = muo_content::vendor::human_random_skin_hue(w);
-            muo_server::mobile::base::set_hue(w, id, hue);
-            muo_server::mobile::part1::props_b::set_female(w, id, false);
-            super::util::set_body(w, id, 0x190);
-            let name = muo_content::misc::small::random_name(w, "male");
-            if let Some(f) = w.mobile(id).map(|m| m.ty.set_name) {
-                f(w, id, Some(name));
-            }
-        },
-        init_outfit: |w, id| {
-            super::util::add_item_hued(w, id, "Server.Items.Tunic", 0x598);
-            super::util::add_item_hued(w, id, "Server.Items.LongPants", 0x59B);
-            super::util::add_item_named(w, id, "Server.Items.Boots");
-            muo_content::vendor::assign_random_hair_random_hue(w, id);
-            let hair_hue = w.mobile(id).map_or(0, |m| m.hair_hue);
-            muo_content::vendor::assign_random_facial_hair(w, id, hair_hue);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Naturalist.Naturalist"),
+        init_outfit: |_, _| {},
     }
     c { }
     m { }

@@ -491,7 +491,7 @@ mod tests {
 
     #[test]
     fn the_offer_lasts_thirty_seconds_and_blocks_use() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let c = make(&mut w);
         let m = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
         assert_eq!(offeree(&w, c), None);

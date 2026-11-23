@@ -213,9 +213,8 @@ pub fn get_sub_level(w: &World, id: ItemId) -> i32 {
 /// `ChampionSpawn()`: `base(0xBD2)`, `Movable = false; Visible = false`, the platform, altar and idol, and
 /// `Timer.StartTimer(TimeSpan.Zero, SetInitialSpawnArea)`.
 pub fn new_spawn(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xBD2);
-    ops::set_movable(w, id, false);
-    ops::set_visible(w, id, false);
+    let id = ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
     let d = SpawnData {
         expire_delay: TimeSpan::from_mins(30),
         restart_delay: TimeSpan::from_mins(30),
@@ -1735,7 +1734,9 @@ pub static CHAMPION_SPAWN: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_spawn(w, &CHAMPION_SPAWN)),
     decay_time: |_, _| TimeSpan::from_secs(180),
-    label_number: |_, _| 1041030, // Evil in a Can:  Don't delete me!
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     add_name_property,
     get_properties,
     on_single_click,
@@ -1819,7 +1820,7 @@ pub static IDOL_OF_THE_CHAMPION: ItemType = ItemType {
     parent: Some(&ITEM_BASE),
     // No parameterless constructor: `IdolOfTheChampion(ChampionSpawn spawn)`.
     construct: None,
-    default_name: |_, _| Some("Idol of the Champion".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_after_delete: |w, id| {
         (ITEM_BASE.on_after_delete)(w, id);
         if let Some(s) = idol_spawn(w, id) {

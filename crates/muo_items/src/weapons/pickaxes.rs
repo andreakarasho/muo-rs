@@ -31,23 +31,6 @@ fn gargoyles_default(w: &mut World, ty: &'static ItemType) -> ItemId {
 weapon_leaf! {
     /// `Server.Items.GargoylesPickaxe`.
     GARGOYLES_PICKAXE, GARGOYLES_PICKAXE_CLASS, gargoyles_pickaxe_new = "Server.Items.GargoylesPickaxe" : BASE_AXE / BASE_AXE_CLASS, via gargoyles_default, v0;
-    default_weight: Some(11.0),
-    label_number: 1041281, // a gargoyle's pickaxe
-    harvest_system: Some("Mining"),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 35,
-    ml_speed: 3.00,
-    old_str_req: 25,
-    old_min_damage: 1,
-    old_max_damage: 15,
-    old_speed: 35,
-    init_min_hits: 31,
-    init_max_hits: 60,
-    def_animation: WeaponAnimation::Slash1H,
 }
 
 /// `new GargoylesPickaxe(uses)`.
@@ -57,27 +40,8 @@ pub fn gargoyles_pickaxe_with_uses(w: &mut World, uses: i32) -> ItemId {
 
 weapon_leaf! {
     /// `Server.Items.SturdyPickaxe`.
-    STURDY_PICKAXE, STURDY_PICKAXE_CLASS, sturdy_pickaxe_new = "Server.Items.SturdyPickaxe" : BASE_AXE / BASE_AXE_CLASS, graphic 0xE86, v0;
-    @init |w, id| {
-        ctor::set_hue(w, id, 0x973);
-        ctor::set_uses_remaining(w, id, 180);
-        ctor::set_show_uses_remaining(w, id, true);
-    };
-    default_weight: Some(11.0),
-    label_number: 1045126, // sturdy pickaxe
-    harvest_system: Some("Mining"),
-    primary_ability: Some(Ability::DoubleStrike),
-    secondary_ability: Some(Ability::Disarm),
-    aos_str_req: 50,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 35,
-    ml_speed: 3.00,
-    old_str_req: 25,
-    old_min_damage: 1,
-    old_max_damage: 15,
-    old_speed: 35,
-    def_animation: WeaponAnimation::Slash1H,
+    STURDY_PICKAXE, STURDY_PICKAXE_CLASS, sturdy_pickaxe_new = "Server.Items.SturdyPickaxe" : BASE_AXE / BASE_AXE_CLASS, json (), v0;
+    @json;
 }
 
 /// `new SturdyPickaxe(uses)`.
@@ -111,30 +75,14 @@ pub struct ProspectHooks {
 
 use muo_server::ids::{EntityId, MobileId};
 
-/// `new ProspectorsTool()`: `base(0xFB4)` then 50 uses.
+/// `new ProspectorsTool()`: `base(graphic)`, then its template (50 uses, `ShowUsesRemaining` as
+/// `IUsesRemaining.ShowUsesRemaining` is always true).
 pub fn prospectors_tool_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_weapon(w, ty, 0xFB4);
-    ctor::set_uses_remaining(w, id, 50);
-    ctor::set_show_uses_remaining(w, id, true); // IUsesRemaining.ShowUsesRemaining is always true
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    let id = new_weapon(w, ty, g);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.ProspectorsTool");
     id
 }
-
-/// The `override`s of the class.
-pub static PROSPECTORS_TOOL_CLASS: WeaponClass = WeaponClass {
-    default_weight: Some(9.0),
-    label_number: 1049065, // prospector's tool
-    primary_ability: Some(Ability::CrushingBlow),
-    secondary_ability: Some(Ability::ShadowStrike),
-    aos_str_req: 40,
-    aos_min_damage: same(13),
-    aos_max_damage: same(15),
-    aos_speed: 33,
-    old_str_req: 10,
-    old_min_damage: 6,
-    old_max_damage: 8,
-    old_speed: 33,
-    ..BASE_BASHING_CLASS
-};
 
 fn in_reach(w: &World, tool: ItemId, from: MobileId) -> bool {
     let pack = w.mobile(from).and_then(|m| m.backpack);
@@ -174,7 +122,6 @@ pub static PROSPECTORS_TOOL: ItemType = ItemType {
     full_name: "Server.Items.ProspectorsTool",
     parent: Some(&BASE_BASHING),
     construct: Some(|w| prospectors_tool_new(w, &PROSPECTORS_TOOL)),
-    family: Some(&PROSPECTORS_TOOL_CLASS),
     on_double_click: |w, id, from| {
         if in_reach(w, id, from) {
             target::begin_target(w, from, 2, true, TargetFlags::NONE, move |w, from, t| {

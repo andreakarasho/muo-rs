@@ -30,6 +30,50 @@ pub fn read_version(r: &mut dyn muo_io::GenericReader, encoded: bool) -> muo_io:
 macro_rules! leaf {
     (@enc enc) => { true };
     (@enc v0) => { false };
+    // `@template new;`: the constructor is `new` (an item or a container with graphic 0) then the class's item
+    // template; `@template amount f;`: `f(w, ty, 1)`, the `(int amount)` constructor. `LabelNumber` and
+    // `Nontransferable` are the template's props.
+    (
+        $(#[$m:meta])*
+        $name:ident = $full:literal : $parent:ident, $ver:ident;
+        @template amount $amount:ident;
+        $($f:ident : $v:expr,)*
+    ) => {
+        leaf! {
+            $(#[$m])*
+            $name = $full : $parent, $ver;
+            @props |w| $amount(w, &$name, 1);
+            $($f: $v,)*
+        }
+    };
+    (
+        $(#[$m:meta])*
+        $name:ident = $full:literal : $parent:ident, $ver:ident;
+        @template $new:ident;
+        $($f:ident : $v:expr,)*
+    ) => {
+        leaf! {
+            $(#[$m])*
+            $name = $full : $parent, $ver;
+            @props |w| $crate::ml_quests::item_support::$new(w, &$name);
+            $($f: $v,)*
+        }
+    };
+    (
+        $(#[$m:meta])*
+        $name:ident = $full:literal : $parent:ident, $ver:ident;
+        @props $construct:expr;
+        $($f:ident : $v:expr,)*
+    ) => {
+        leaf! {
+            $(#[$m])*
+            $name = $full : $parent, $ver;
+            construct: Some($construct),
+            label_number: |w, id| $crate::template_keys::item_label(w, id, $parent.label_number),
+            nontransferable: |w, id| $crate::template_keys::item_bool(w, id, "nontransferable", $parent.nontransferable),
+            $($f: $v,)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident = $full:literal : $parent:ident, $ver:ident;
@@ -54,6 +98,20 @@ macro_rules! leaf {
     };
 }
 pub(crate) use leaf;
+
+/// `new T()` of an `Item` class whose constructor is its template (the graphic is the template's `itemId`).
+pub fn template_new(w: &mut World, ty: &'static muo_server::item::ItemType) -> ItemId {
+    let id = muo_server::item::ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
+    id
+}
+
+/// [`template_new`] of a `BaseContainer` class.
+pub fn template_container(w: &mut World, ty: &'static muo_server::item::ItemType) -> ItemId {
+    let id = muo_content::items::cont::new_base_container(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
+    id
+}
 
 /// `Hue = value`, through the class's own setter.
 pub fn hue(w: &mut World, id: ItemId, value: i32) {

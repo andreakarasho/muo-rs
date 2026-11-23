@@ -14,12 +14,6 @@ use super::batch4c::{NextAbility, set_next};
 use crate::classes::enraged;
 use crate::common::*;
 
-/// `m_NextAbilityTime = Core.Now + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));`
-pub fn meer_mage_ctor1(w: &mut World, id: MobileId) {
-    let secs = rnd::min_max(w, 2, 5);
-    set_next(w, id, w.now + TimeSpan::from_secs(i64::from(secs)));
-}
-
 /// `IsEnemy(m) => (m as BaseEnraged)?.Master != this && base.IsEnemy(m)`.
 pub fn meer_mage_is_enemy(w: &mut World, id: MobileId, m: MobileId) -> bool {
     let enraged_of_ours = muo_content::factory::mobile_is(w, m, "Server.Mobiles.BaseEnraged")

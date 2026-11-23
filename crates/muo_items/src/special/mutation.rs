@@ -178,8 +178,8 @@ pub static PLAGUE_BEAST_INNARD: ItemType = ItemType {
     full_name: "Server.Items.PlagueBeastInnard",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("plague beast innards".to_owned()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     is_accessible_to: innard_is_accessible,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -607,10 +607,27 @@ fn organ_is_cuttable(w: &World, id: ItemId) -> bool {
 fn organ_initialize(w: &mut World, id: ItemId) {
     if is(w, id, &PLAGUE_BEAST_RUBBLE_ORGAN) {
         rubble_initialize(w, id);
-    } else if is(w, id, &PLAGUE_BEAST_BACKUP_ORGAN) {
-        backup_initialize(w, id);
-    } else if is(w, id, &PLAGUE_BEAST_MAIN_ORGAN) {
-        main_initialize(w, id);
+    } else {
+        add_prop_components(w, id);
+    }
+}
+
+/// `Initialize()` of an organ with a fixed layout: its `"organComponents"` prop, `[[itemID, hue, x, y], ..]` in
+/// `AddComponent` order.
+fn add_prop_components(w: &mut World, id: ItemId) {
+    use muo_content::templates::props;
+    let Some(list) = props::item(w, id, "organComponents").and_then(|v| v.as_array()) else {
+        return;
+    };
+    let rows: Vec<[i32; 4]> = list
+        .iter()
+        .filter_map(|r| {
+            let n = |i| props::as_i32(r.get(i));
+            Some([n(0)?, n(1)?, n(2)?, n(3)?])
+        })
+        .collect();
+    for [g, h, x, y] in rows {
+        add_comp(w, id, g, h, x, y);
     }
 }
 
@@ -942,16 +959,6 @@ fn rubble_on_vein_cut(w: &mut World, id: ItemId, from: MobileId, vein: ItemId) {
 
 // Backup
 
-fn backup_initialize(w: &mut World, id: ItemId) {
-    add_comp(w, id, 0x1B1B, 0x42, 16, 39);
-    add_comp(w, id, 0x1B1B, 0x42, 39, 49);
-    add_comp(w, id, 0x1B1B, 0x42, 39, 48);
-    add_comp(w, id, 0x1B1B, 0x42, 44, 42);
-    add_comp(w, id, 0x1CF2, 0x42, 20, 34);
-    add_comp(w, id, 0x135F, 0x42, 47, 58);
-    add_comp(w, id, 0x1360, 0x42, 70, 68);
-}
-
 fn backup_finish_healing(w: &mut World, id: ItemId) {
     let comps = pb(w, id).components;
     for c in comps.iter().take(7).flatten() {
@@ -971,26 +978,6 @@ fn backup_open_organ(w: &mut World, id: ItemId) {
 }
 
 // Main
-
-fn main_initialize(w: &mut World, id: ItemId) {
-    // receptacles
-    add_comp(w, id, 0x1B1B, 0x42, -36, -2);
-    add_comp(w, id, 0x1FB3, 0x42, -42, 0);
-    add_comp(w, id, 0x9DF, 0x42, -53, -7);
-    add_comp(w, id, 0x1B1C, 0x54, 29, 9);
-    add_comp(w, id, 0x1D06, 0x54, 18, -2);
-    add_comp(w, id, 0x9DF, 0x54, 36, -1);
-    add_comp(w, id, 0x1D10, 0x2B, -36, 47);
-    add_comp(w, id, 0x1B1C, 0x2B, -24, 62);
-    add_comp(w, id, 0x9DF, 0x2B, -41, 74);
-    add_comp(w, id, 0x1B1B, 0x60, 39, 56);
-    add_comp(w, id, 0x1FB4, 0x60, 34, 52);
-    add_comp(w, id, 0x9DF, 0x60, 45, 71);
-    // main part
-    add_comp(w, id, 0x1351, 0x15, 23, 0);
-    add_comp(w, id, 0x134F, 0x15, -22, 0);
-    add_comp(w, id, 0x1350, 0x15, 0, 0);
-}
 
 fn main_finish_opening(w: &mut World, id: ItemId) {
     add_comp(w, id, 0x1363, 0x1, 0, 22);
@@ -1083,16 +1070,25 @@ pub static PLAGUE_BEAST_ORGAN: ItemType = ItemType {
 
 organ_class!(
     /// `Server.Items.PlagueBeastMaidenOrgan`.
-    PLAGUE_BEAST_MAIDEN_ORGAN = "Server.Items.PlagueBeastMaidenOrgan", PLAGUE_BEAST_ORGAN, |w, id, out| {}, |w, id, r| {}
+    PLAGUE_BEAST_MAIDEN_ORGAN = "Server.Items.PlagueBeastMaidenOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {},
+    |w, id, r| {}
 );
 organ_class!(
     /// `Server.Items.PlagueBeastRockOrgan`.
-    PLAGUE_BEAST_ROCK_ORGAN = "Server.Items.PlagueBeastRockOrgan", PLAGUE_BEAST_ORGAN, |w, id, out| {}, |w, id, r| {}
+    PLAGUE_BEAST_ROCK_ORGAN = "Server.Items.PlagueBeastRockOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {},
+    |w, id, r| {}
 );
 organ_class!(
     /// `Server.Items.PlagueBeastRubbleOrgan`.
-    PLAGUE_BEAST_RUBBLE_ORGAN = "Server.Items.PlagueBeastRubbleOrgan", PLAGUE_BEAST_ORGAN,
-    |w, id, out| { out.write_i32(pb(w, id).veins); },
+    PLAGUE_BEAST_RUBBLE_ORGAN = "Server.Items.PlagueBeastRubbleOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {
+        out.write_i32(pb(w, id).veins);
+    },
     |w, id, r| {
         let v = r.read_i32()?;
         if let Some(d) = pb_mut(w, id) {
@@ -1102,8 +1098,11 @@ organ_class!(
 );
 organ_class!(
     /// `Server.Items.PlagueBeastBackupOrgan`.
-    PLAGUE_BEAST_BACKUP_ORGAN = "Server.Items.PlagueBeastBackupOrgan", PLAGUE_BEAST_ORGAN,
-    |w, id, out| { out.write_item(w, pb(w, id).gland); },
+    PLAGUE_BEAST_BACKUP_ORGAN = "Server.Items.PlagueBeastBackupOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {
+        out.write_item(w, pb(w, id).gland);
+    },
     |w, id, r| {
         let g = r.read_item(w)?;
         if let Some(d) = pb_mut(w, id) {
@@ -1113,8 +1112,11 @@ organ_class!(
 );
 organ_class!(
     /// `Server.Items.PlagueBeastMainOrgan`.
-    PLAGUE_BEAST_MAIN_ORGAN = "Server.Items.PlagueBeastMainOrgan", PLAGUE_BEAST_ORGAN,
-    |w, id, out| { out.write_i32(pb(w, id).brains); },
+    PLAGUE_BEAST_MAIN_ORGAN = "Server.Items.PlagueBeastMainOrgan",
+    PLAGUE_BEAST_ORGAN,
+    |w, id, out| {
+        out.write_i32(pb(w, id).brains);
+    },
     |w, id, r| {
         let b = r.read_i32()?;
         if let Some(d) = pb_mut(w, id) {
@@ -1306,10 +1308,10 @@ pub static PLAGUE_BEAST_BACKPACK: ItemType = ItemType {
     full_name: "Server.Items.PlagueBeastBackpack",
     parent: Some(&muo_content::items::cont::BASE_CONTAINER),
     construct: None,
-    default_max_weight: |_, _| 0,
-    default_max_items: |_, _| 0,
-    default_gump_id: |_, _| 0x2A63,
-    default_drop_sound: |_, _| 0x23F,
+    default_max_weight: crate::class_props::default_max_weight,
+    default_max_items: crate::class_props::default_max_items,
+    default_gump_id: crate::class_props::default_gump_id,
+    default_drop_sound: crate::class_props::default_drop_sound,
     try_drop_item: |w, id, from, dropped, send_full, _| {
         is_innard_or_gland(w, dropped)
             && (muo_content::items::cont::BASE_CONTAINER.try_drop_item)(
@@ -1360,7 +1362,11 @@ pub static PLAGUE_BEAST_BACKPACK: ItemType = ItemType {
 
 /// `PlagueBeastMutationCore()`.
 pub fn plague_beast_mutation_core_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &PLAGUE_BEAST_MUTATION_CORE, 0x1CF0);
+    let id = crate::simple::from_template(
+        w,
+        &PLAGUE_BEAST_MUTATION_CORE,
+        "Server.Items.PlagueBeastMutationCore",
+    );
     if let Some(d) = pb_mut(w, id) {
         d.cut = true;
     }
@@ -1400,8 +1406,8 @@ pub static PLAGUE_BEAST_MUTATION_CORE: ItemType = ItemType {
     full_name: "Server.Items.PlagueBeastMutationCore",
     parent: Some(&ITEM_BASE),
     construct: Some(plague_beast_mutation_core_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1153760, // a plague beast mutation core
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a plague beast mutation core
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
         out.write_encoded_int(0);

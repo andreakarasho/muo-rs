@@ -842,8 +842,9 @@ fn acquire_new_focus_mob(
             val = their;
         } else if w.core_aos()
             && their > enemy_summon_val
-            && mx::in_los(w, id, m)
+            // the cheap test before line of sight: every candidate that is not the best so far reaches this branch
             && cd(w, m).is_some_and(|b| b.summoned && !b.controlled)
+            && mx::in_los(w, id, m)
         {
             enemy_summon = Some(m);
             enemy_summon_val = their;

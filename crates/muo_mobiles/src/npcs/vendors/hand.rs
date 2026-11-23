@@ -2,52 +2,17 @@
 //! vendors, outfits that edit the worn items, and the classes with their own members.
 
 use muo_content::hooks::rnd;
-use muo_content::player_mobile::{self, NpcGuild};
-use muo_content::vendor::{
-    BASE_VENDOR_CLASS, ShoeType, VendorClass, add_hued, init_outfit as base_init_outfit,
-    is_tokuno_vendor, new_vendor,
-};
-use muo_primitives::{TimeSpan, utility};
+use muo_content::player_mobile::{self};
+use muo_content::vendor::VendorClass;
+use muo_primitives::TimeSpan;
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::layer::Layer;
-use muo_server::mobile::part2::items;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
 
-use super::add_item_hued;
-use super::sb::*;
+use super::npc::{TEMPLATE_VENDOR_V, new_template_vendor};
 use crate::common::*;
 
 // ---- shared pieces ----
-
-/// `item = FindItemOnLayer(layer); if (item != null) item.Hue = Utility.RandomBrightHue();`
-pub fn rehue_layer_bright(w: &mut World, id: MobileId, layer: Layer) {
-    if let Some(item) = items::find_item_on_layer(w, id, layer) {
-        let h = utility::random_bright_hue(&mut w.rng);
-        muo_server::item::base::set_hue(w, item, h);
-    }
-}
-
-/// `AddItem(Utility.Random(4) switch { 0 => new JesterHat(bright), 1 => new Bandana(bright), 2 => new SkullCap(bright), _ => null })`.
-pub fn add_gypsy_hat(w: &mut World, id: MobileId) {
-    let name = match rnd::below(w, 4) {
-        0 => "Server.Items.JesterHat",
-        1 => "Server.Items.Bandana",
-        2 => "Server.Items.SkullCap",
-        _ => return,
-    };
-    let h = utility::random_bright_hue(&mut w.rng);
-    add_hued(w, id, name, h);
-}
-
-/// `if (!EquipItem(item)) item.Delete();`
-fn equip_or_delete(w: &mut World, id: MobileId, item: ItemId) {
-    if !muo_server::mobile::base::equip_item(w, id, item)
-        && let Some(t) = w.item(item).map(|i| i.ty)
-    {
-        (t.delete)(w, item);
-    }
-}
 
 /// `from.Skills.X.Base`.
 pub fn skill_base_ref(w: &World, id: MobileId, skill: SkillName) -> f64 {
@@ -151,43 +116,7 @@ macro_rules! bod_fns {
 bod_fns!(smith_bod, SMITH);
 bod_fns!(tailor_bod, TAILOR);
 
-fn blacksmith_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &BLACKSMITH, Some("the blacksmith"));
-    set_skill_range(w, id, SkillName::ArmsLore, 36.0, 68.0);
-    set_skill_range(w, id, SkillName::Blacksmith, 65.0, 88.0);
-    set_skill_range(w, id, SkillName::Fencing, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Macing, 61.0, 93.0);
-    set_skill_range(w, id, SkillName::Swords, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Parry, 61.0, 93.0);
-    id
-}
 pub static BLACKSMITH_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| {
-        // The older SBInfo set is not used.
-        let mut v = vec![SBBLACKSMITH.new_for(w, id)];
-        if is_tokuno_vendor(w, id) {
-            v.push(SBSEARMOR.new_for(w, id));
-            v.push(SBSEWEAPONS.new_for(w, id));
-        }
-        v
-    },
-    npc_guild: |_, _| NpcGuild::BlacksmithsGuild,
-    shoe_type: |_, _| ShoeType::None,
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        // Item item = Utility.RandomBool() ? new FullApron() : new RingmailChest();
-        let name = if rnd::bool(w) {
-            "Server.Items.FullApron"
-        } else {
-            "Server.Items.RingmailChest"
-        };
-        if let Some(item) = muo_content::factory::make_item(w, name) {
-            equip_or_delete(w, id, item);
-        }
-        add_item_hued(w, id, "Server.Items.Bascinet", None);
-        add_item_hued(w, id, "Server.Items.SmithHammer", None);
-    },
     supports_bulk_orders: |w, _v, from| {
         is_player(w, from) && skill_base_ref(w, from, SkillName::Blacksmith) > 0.0
     },
@@ -195,40 +124,16 @@ pub static BLACKSMITH_V: VendorClass = VendorClass {
     is_valid_bulk_order: smith_bod::is_valid,
     get_next_bulk_order: smith_bod::next,
     on_successful_bulk_order_receive: smith_bod::received,
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(BLACKSMITH, BLACKSMITH_C, BLACKSMITH_V = "Server.Mobiles.Blacksmith", ctor blacksmith_new);
+vendor_leaf!(
+    BLACKSMITH,
+    BLACKSMITH_C,
+    BLACKSMITH_V = "Server.Mobiles.Blacksmith",
+    ctor | w | new_template_vendor(w, &BLACKSMITH)
+);
 
-fn weaponsmith_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &WEAPONSMITH, Some("the weaponsmith"));
-    set_skill_range(w, id, SkillName::ArmsLore, 64.0, 100.0);
-    set_skill_range(w, id, SkillName::Blacksmith, 65.0, 88.0);
-    set_skill_range(w, id, SkillName::Fencing, 45.0, 68.0);
-    set_skill_range(w, id, SkillName::Macing, 45.0, 68.0);
-    set_skill_range(w, id, SkillName::Swords, 45.0, 68.0);
-    set_skill_range(w, id, SkillName::Tactics, 36.0, 68.0);
-    id
-}
 static WEAPONSMITH_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| {
-        let mut v = vec![SBWEAPON_SMITH.new_for(w, id)];
-        if is_tokuno_vendor(w, id) {
-            v.push(SBSEWEAPONS.new_for(w, id));
-        }
-        v
-    },
-    shoe_type: |w, _| {
-        if rnd::bool(w) {
-            ShoeType::Boots
-        } else {
-            ShoeType::ThighBoots
-        }
-    },
-    get_shoe_hue: |_, _| 0,
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        add_item_hued(w, id, "Server.Items.HalfApron", None);
-    },
     supports_bulk_orders: |w, _v, from| {
         is_player(w, from) && w.core_aos() && skill_base_ref(w, from, SkillName::Blacksmith) > 0.0
     },
@@ -236,25 +141,16 @@ static WEAPONSMITH_V: VendorClass = VendorClass {
     is_valid_bulk_order: smith_bod::is_valid,
     get_next_bulk_order: smith_bod::next,
     on_successful_bulk_order_receive: smith_bod::received,
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(WEAPONSMITH, WEAPONSMITH_C, WEAPONSMITH_V = "Server.Mobiles.Weaponsmith", ctor weaponsmith_new);
+vendor_leaf!(
+    WEAPONSMITH,
+    WEAPONSMITH_C,
+    WEAPONSMITH_V = "Server.Mobiles.Weaponsmith",
+    ctor | w | new_template_vendor(w, &WEAPONSMITH)
+);
 
-fn tailor_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &TAILOR_NPC, Some("the tailor"));
-    set_skill_range(w, id, SkillName::Tailoring, 64.0, 100.0);
-    id
-}
 static TAILOR_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBTAILOR.new_for(w, id)],
-    npc_guild: |_, _| NpcGuild::TailorsGuild,
-    shoe_type: |w, _| {
-        if rnd::bool(w) {
-            ShoeType::Sandals
-        } else {
-            ShoeType::Shoes
-        }
-    },
     supports_bulk_orders: |w, _v, from| {
         is_player(w, from) && skill_base_ref(w, from, SkillName::Tailoring) > 0.0
     },
@@ -262,19 +158,16 @@ static TAILOR_V: VendorClass = VendorClass {
     is_valid_bulk_order: tailor_bod::is_valid,
     get_next_bulk_order: tailor_bod::next,
     on_successful_bulk_order_receive: tailor_bod::received,
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(TAILOR_NPC, TAILOR_C, TAILOR_V = "Server.Mobiles.Tailor", ctor tailor_new);
+vendor_leaf!(
+    TAILOR_NPC,
+    TAILOR_C,
+    TAILOR_V = "Server.Mobiles.Tailor",
+    ctor | w | new_template_vendor(w, &TAILOR_NPC)
+);
 
-fn weaver_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &WEAVER, Some("the weaver"));
-    set_skill_range(w, id, SkillName::Tailoring, 65.0, 88.0);
-    id
-}
 static WEAVER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBWEAVER.new_for(w, id)],
-    npc_guild: |_, _| NpcGuild::TailorsGuild,
-    shoe_type: |_, _| ShoeType::Sandals,
     supports_bulk_orders: |w, _v, from| {
         is_player(w, from) && skill_base_ref(w, from, SkillName::Tailoring) > 0.0
     },
@@ -282,239 +175,72 @@ static WEAVER_V: VendorClass = VendorClass {
     is_valid_bulk_order: tailor_bod::is_valid,
     get_next_bulk_order: tailor_bod::next,
     on_successful_bulk_order_receive: tailor_bod::received,
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(WEAVER, WEAVER_C, WEAVER_V = "Server.Mobiles.Weaver", ctor weaver_new);
+vendor_leaf!(
+    WEAVER,
+    WEAVER_C,
+    WEAVER_V = "Server.Mobiles.Weaver",
+    ctor | w | new_template_vendor(w, &WEAVER)
+);
 
-// ---- outfits that edit the worn items ----
+// ---- outfits that edit the worn items (their `npcOutfit` props) ----
 
-fn ironworker_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &IRON_WORKER, Some("the iron worker"));
-    set_skill_range(w, id, SkillName::ArmsLore, 36.0, 68.0);
-    set_skill_range(w, id, SkillName::Blacksmith, 65.0, 88.0);
-    set_skill_range(w, id, SkillName::Fencing, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Macing, 61.0, 93.0);
-    set_skill_range(w, id, SkillName::Swords, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Tactics, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Parry, 61.0, 93.0);
-    id
-}
 static IRON_WORKER_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| {
-        vec![
-            SBAXE_WEAPON.new_for(w, id),
-            SBKNIFE_WEAPON.new_for(w, id),
-            SBMACE_WEAPON.new_for(w, id),
-            SBSMITH_TOOLS.new_for(w, id),
-            SBPOLE_ARM_WEAPON.new_for(w, id),
-            SBSPEAR_FORK_WEAPON.new_for(w, id),
-            SBSWORD_WEAPON.new_for(w, id),
-            SBMETAL_SHIELDS.new_for(w, id),
-            SBHELMET_ARMOR.new_for(w, id),
-            SBPLATE_ARMOR.new_for(w, id),
-            SBCHAINMAIL_ARMOR.new_for(w, id),
-            SBRINGMAIL_ARMOR.new_for(w, id),
-            SBSTUDDED_ARMOR.new_for(w, id),
-            SBLEATHER_ARMOR.new_for(w, id),
-        ]
-    },
-    shoe_type: |_, _| ShoeType::None,
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        // Item item = Utility.RandomBool() ? null : new RingmailChest();
-        let item = if rnd::bool(w) {
-            None
-        } else {
-            muo_content::factory::make_item(w, "Server.Items.RingmailChest")
-        };
-        if let Some(item) = item
-            && !muo_server::mobile::base::equip_item(w, id, item)
-        {
-            if let Some(t) = w.item(item).map(|i| i.ty) {
-                (t.delete)(w, item);
-            }
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.FullApron", h);
-        }
-        add_item_hued(w, id, "Server.Items.Bascinet", None);
-        add_item_hued(w, id, "Server.Items.SmithHammer", None);
-        for layer in [
-            Layer::Pants,
-            Layer::OuterLegs,
-            Layer::InnerLegs,
-            Layer::OuterTorso,
-            Layer::InnerTorso,
-            Layer::Shirt,
-        ] {
-            rehue_layer_bright(w, id, layer);
-        }
-    },
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(IRON_WORKER, IRON_WORKER_C, IRON_WORKER_V = "Server.Mobiles.IronWorker", ctor ironworker_new);
+vendor_leaf!(
+    IRON_WORKER,
+    IRON_WORKER_C,
+    IRON_WORKER_V = "Server.Mobiles.IronWorker",
+    ctor | w | new_template_vendor(w, &IRON_WORKER)
+);
 
-fn vagabond_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &VAGABOND, Some("the vagabond"));
-    set_skill_range(w, id, SkillName::ItemID, 60.0, 83.0);
-    id
-}
 static VAGABOND_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBTINKER.new_for(w, id), SBVAGABOND.new_for(w, id)],
-    // The outfit does not call the base InitOutfit.
-    init_outfit: |w, id| {
-        let h = utility::random_bright_hue(&mut w.rng);
-        add_hued(w, id, "Server.Items.FancyShirt", h);
-        let c = muo_content::vendor::class(w, id).unwrap_or(&BASE_VENDOR_CLASS);
-        let sh = (c.get_shoe_hue)(w, id);
-        add_hued(w, id, "Server.Items.Shoes", sh);
-        let rh = (c.get_random_hue)(w, id);
-        add_hued(w, id, "Server.Items.LongPants", rh);
-
-        if rnd::bool(w) {
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.Cloak", h);
-        }
-
-        let hat = if rnd::bool(w) {
-            "Server.Items.SkullCap"
-        } else {
-            "Server.Items.Bandana"
-        };
-        let h = utility::random_neutral_hue(&mut w.rng);
-        add_hued(w, id, hat, h);
-
-        // Utility.AssignRandomHair(this): the item, then a random hue; Utility.AssignRandomFacialHair(this, HairHue).
-        muo_content::vendor::assign_random_hair_random_hue(w, id);
-        let hair_hue = w.mobile(id).map_or(0, |m| m.hair_hue);
-        muo_content::vendor::assign_random_facial_hair(w, id, hair_hue);
-
-        pack_gold_range(w, id, 100, 200);
-    },
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(VAGABOND, VAGABOND_C, VAGABOND_V = "Server.Mobiles.Vagabond", ctor vagabond_new);
+vendor_leaf!(
+    VAGABOND,
+    VAGABOND_C,
+    VAGABOND_V = "Server.Mobiles.Vagabond",
+    ctor | w | new_template_vendor(w, &VAGABOND)
+);
 
-fn keeper_of_chivalry_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &KEEPER_OF_CHIVALRY, Some("the Keeper of Chivalry"));
-    set_skill_range(w, id, SkillName::Fencing, 75.0, 85.0);
-    set_skill_range(w, id, SkillName::Macing, 75.0, 85.0);
-    set_skill_range(w, id, SkillName::Swords, 75.0, 85.0);
-    set_skill(w, id, SkillName::Chivalry, 100.0);
-    id
-}
 pub static KEEPER_OF_CHIVALRY_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBKEEPER_OF_CHIVALRY.new_for(w, id)],
-    init_outfit: |w, id| {
-        for n in [
-            "PlateArms",
-            "PlateChest",
-            "PlateGloves",
-            "StuddedGorget",
-            "PlateLegs",
-        ] {
-            add_item_hued(w, id, &format!("Server.Items.{n}"), None);
-        }
-        let helm = match rnd::below(w, 4) {
-            0 => "PlateHelm",
-            1 => "NorseHelm",
-            2 => "CloseHelm",
-            _ => "Helmet",
-        };
-        add_item_hued(w, id, &format!("Server.Items.{helm}"), None);
-        let top = match rnd::below(w, 3) {
-            0 => "BodySash",
-            1 => "Doublet",
-            _ => "Tunic",
-        };
-        add_hued(w, id, &format!("Server.Items.{top}"), 0x482);
-        add_item_hued(w, id, "Server.Items.Broadsword", None);
-        // new MetalKiteShield { Hue = Utility.RandomNondyedHue() }
-        if let Some(s) = add_item_hued(w, id, "Server.Items.MetalKiteShield", None) {
-            let h = utility::random_nondyed_hue(&mut w.rng);
-            muo_server::item::base::set_hue(w, s, h);
-        }
-        let boots = if rnd::bool(w) {
-            "Server.Items.Boots"
-        } else {
-            "Server.Items.ThighBoots"
-        };
-        add_item_hued(w, id, boots, None);
-        pack_gold_range(w, id, 100, 200);
-    },
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(KEEPER_OF_CHIVALRY, KEEPER_OF_CHIVALRY_C, KEEPER_OF_CHIVALRY_V = "Server.Mobiles.KeeperOfChivalry", ctor keeper_of_chivalry_new);
+vendor_leaf!(
+    KEEPER_OF_CHIVALRY,
+    KEEPER_OF_CHIVALRY_C,
+    KEEPER_OF_CHIVALRY_V = "Server.Mobiles.KeeperOfChivalry",
+    ctor | w | new_template_vendor(w, &KEEPER_OF_CHIVALRY)
+);
 
-fn gypsy_maiden_new(w: &mut World) -> MobileId {
-    new_vendor(w, &GYPSY_MAIDEN, Some("the gypsy maiden"))
-}
 static GYPSY_MAIDEN_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBPROVISIONER.new_for(w, id)],
     get_gender: |_, _| true,
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        add_gypsy_hat(w, id);
-        if rnd::bool(w) {
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_hued(w, id, "Server.Items.HalfApron", h);
-        }
-        for layer in [Layer::Pants, Layer::OuterLegs, Layer::InnerLegs] {
-            rehue_layer_bright(w, id, layer);
-        }
-    },
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(GYPSY_MAIDEN, GYPSY_MAIDEN_C, GYPSY_MAIDEN_V = "Server.Mobiles.GypsyMaiden", ctor gypsy_maiden_new);
+vendor_leaf!(
+    GYPSY_MAIDEN,
+    GYPSY_MAIDEN_C,
+    GYPSY_MAIDEN_V = "Server.Mobiles.GypsyMaiden",
+    ctor | w | new_template_vendor(w, &GYPSY_MAIDEN)
+);
 
-fn holy_mage_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &HOLY_MAGE, Some("the Holy Mage"));
-    set_skill_range(w, id, SkillName::EvalInt, 65.0, 88.0);
-    set_skill_range(w, id, SkillName::Inscribe, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Magery, 64.0, 100.0);
-    set_skill_range(w, id, SkillName::Meditation, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::MagicResist, 65.0, 88.0);
-    set_skill_range(w, id, SkillName::Wrestling, 36.0, 68.0);
-    id
-}
 static HOLY_MAGE_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| vec![SBHOLY_MAGE.new_for(w, id)],
-    // The outfit does not call the base InitOutfit.
-    init_outfit: |w, id| {
-        for n in ["Robe", "ThighBoots", "BlackStaff"] {
-            add_hued(w, id, &format!("Server.Items.{n}"), 0x47E);
-        }
-        let female = w.mobile(id).is_some_and(|m| m.female);
-        if female {
-            add_hued(w, id, "Server.Items.LeatherGloves", 0x47E);
-            add_hued(w, id, "Server.Items.GoldNecklace", 0x47E);
-        } else {
-            add_hued(w, id, "Server.Items.PlateGloves", 0x47E);
-            add_hued(w, id, "Server.Items.PlateGorget", 0x47E);
-        }
-        // HairItemID = Utility.Random(Female ? 2 : 1) switch { 0 => 0x203C, 1 => 0x203D, _ => HairItemID };
-        match rnd::below(w, if female { 2 } else { 1 }) {
-            0 => muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203C),
-            1 => muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203D),
-            _ => {}
-        }
-        muo_server::mobile::part1::props_b::set_hair_hue(w, id, 0x47E);
-        pack_gold_range(w, id, 100, 200);
-    },
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(HOLY_MAGE, HOLY_MAGE_C, HOLY_MAGE_V = "Server.Mobiles.HolyMage", ctor holy_mage_new);
+vendor_leaf!(
+    HOLY_MAGE,
+    HOLY_MAGE_C,
+    HOLY_MAGE_V = "Server.Mobiles.HolyMage",
+    ctor | w | new_template_vendor(w, &HOLY_MAGE)
+);
 
 // ---- Scribe ----
 
 /// `m_NextShush`.
 struct NextShush(muo_primitives::DateTime);
-
-fn scribe_new(w: &mut World) -> MobileId {
-    let id = new_vendor(w, &SCRIBE, Some("the scribe"));
-    set_skill_range(w, id, SkillName::EvalInt, 60.0, 83.0);
-    set_skill_range(w, id, SkillName::Inscribe, 90.0, 100.0);
-    id
-}
 
 fn scribe_on_speech(w: &mut World, id: MobileId, e: &mut muo_server::events::SpeechEventArgs) {
     (muo_content::vendor::BASE_VENDOR.on_speech)(w, id, e);
@@ -545,32 +271,9 @@ fn scribe_on_speech(w: &mut World, id: MobileId, e: &mut muo_server::events::Spe
 }
 
 static SCRIBE_V: VendorClass = VendorClass {
-    init_sb_info: |w, id| {
-        let mut v = vec![SBSCRIBE.new_for(w, id)];
-        if (w.core_se() && is_tokuno_vendor(w, id))
-            || (w.core_tol() && muo_content::vendor::is_ter_mur_vendor(w, id))
-        {
-            v.push(SBSAMURAI.new_for(w, id));
-            v.push(SBNINJA.new_for(w, id));
-        }
-        v
-    },
-    npc_guild: |_, _| NpcGuild::MagesGuild,
-    shoe_type: |w, _| {
-        if rnd::bool(w) {
-            ShoeType::Shoes
-        } else {
-            ShoeType::Sandals
-        }
-    },
-    init_outfit: |w, id| {
-        base_init_outfit(w, id);
-        let h = utility::random_neutral_hue(&mut w.rng);
-        add_hued(w, id, "Server.Items.Robe", h);
-    },
-    ..BASE_VENDOR_CLASS
+    ..TEMPLATE_VENDOR_V
 };
-vendor_leaf!(SCRIBE, SCRIBE_C, SCRIBE_V = "Server.Mobiles.Scribe", ctor scribe_new;
+vendor_leaf!(SCRIBE, SCRIBE_C, SCRIBE_V = "Server.Mobiles.Scribe", ctor |w| new_template_vendor(w, &SCRIBE);
     m {
         handles_on_speech: |w, _id, from| w.mobile(from).is_some_and(|m| m.player),
         on_speech: scribe_on_speech,

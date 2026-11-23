@@ -195,6 +195,38 @@ pub fn fame_karma(w: &mut World, id: MobileId, fame: i32, karma: i32) {
 /// `base(AIType.<ai>, FightMode.Aggressor)` followed by `init`.
 #[macro_export]
 macro_rules! quest_creature {
+    // `template`: the constructor is the class's mobile template (`Data/Scripts/classes/mobiles`); the name, corpse name
+    // and `AlwaysMurderer` are its props.
+    (
+        $(#[$m:meta])*
+        $name:ident, $cname:ident = $full:literal, template;
+        m { $($mf:ident : $mv:expr,)* }
+    ) => {
+        pub static $cname: muo_content::creature::CreatureType = muo_content::creature::CreatureType {
+            default_name: muo_content::templates::creature_props::default_name,
+            corpse_name: muo_content::templates::creature_props::corpse_name,
+            always_murderer: muo_content::templates::creature_props::always_murderer,
+            ..muo_content::creature::BASE_CREATURE_C
+        };
+        $(#[$m])*
+        pub static $name: muo_server::mobile::MobileType = muo_server::mobile::MobileType {
+            full_name: $full,
+            parent: Some(&muo_content::creature::BASE_CREATURE),
+            construct: Some(|w| muo_content::templates::new_creature(w, &$name)),
+            family: Some(&$cname),
+            serialize: |w, id, out| {
+                (muo_content::creature::BASE_CREATURE.serialize)(w, id, out);
+                out.write_encoded_int(0);
+            },
+            deserialize: |w, id, r| {
+                (muo_content::creature::BASE_CREATURE.deserialize)(w, id, r)?;
+                r.read_encoded_int()?;
+                Ok(())
+            },
+            $($mf: $mv,)*
+            ..muo_content::creature::BASE_CREATURE
+        };
+    };
     (
         $(#[$m:meta])*
         $name:ident, $cname:ident = $full:literal, ai $ai:ident, init |$w:ident, $id:ident| $init:block;

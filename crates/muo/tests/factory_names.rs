@@ -204,9 +204,9 @@ fn every_name_mobiles_makes_is_registered() {
             .collect();
         names_in(&code.join(" "), &mut names);
     }
-    // the scan sees names built with `format!` (the meer captain's swords) and fishing's table
+    // the scan sees names made by a literal (Neira's shroud), built with `format!` and in fishing's table
     for n in [
-        "Server.Items.VikingSword",
+        "Server.Items.HoodedShroudOfShadows",
         "Server.Items.MessageInABottle",
         "Server.Mobiles.Bogling",
     ] {

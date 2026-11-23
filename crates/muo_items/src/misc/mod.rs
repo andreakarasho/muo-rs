@@ -112,11 +112,6 @@ pub(crate) fn random(w: &mut World, count: i32) -> i32 {
     muo_primitives::utility::random(&mut w.rng, count)
 }
 
-/// `Utility.Random(from, count)`.
-pub(crate) fn random_from(w: &mut World, from: i32, count: i32) -> i32 {
-    muo_primitives::utility::random_from(&mut w.rng, from, count)
-}
-
 /// `Utility.RandomList(..)`.
 pub(crate) fn random_list(w: &mut World, list: &[i32]) -> i32 {
     list[random(w, list.len() as i32) as usize]

@@ -68,7 +68,7 @@ fn every_file_has_a_class_and_names_are_unique() {
 fn every_class_constructs_and_round_trips() {
     for era in [None, Some(Expansion::AOS), Some(Expansion::ML)] {
         for (ty, _) in all() {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             w.core.expansion = era;
             let id = (ty.construct.unwrap())(&mut w);
             assert_eq!(w.item(id).unwrap().ty.full_name, ty.full_name);
@@ -83,7 +83,7 @@ fn every_class_constructs_and_round_trips() {
             );
             let bytes = save(&w, id);
 
-            let mut w2 = World::new();
+            let mut w2 = crate::test_world();
             w2.core.expansion = era;
             let other = for_load(&mut w2, 0x4000_0001, ty);
             let mut r = SaveReader::new(&bytes);
@@ -105,7 +105,7 @@ fn every_class_constructs_and_round_trips() {
 
 #[test]
 fn no_field_class_saves_its_version_after_the_parent() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     // ArmorOfFortune: [SerializationGenerator(0, false)] over StuddedChest (same shape): two int versions
     let id = (ARMOR_OF_FORTUNE.construct.unwrap())(&mut w);
     let bytes = save(&w, id);
@@ -131,7 +131,7 @@ fn armor_base() -> &'static ItemType {
 
 #[test]
 fn constructor_effects() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = Some(Expansion::AOS);
     let id = (ARMOR_OF_FORTUNE.construct.unwrap())(&mut w);
     let item = w.item(id).unwrap();
@@ -191,7 +191,7 @@ fn constructor_effects() {
 
 #[test]
 fn stats_come_from_the_class() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     // GargishLeatherWingArmor overrides the total resistances
     let id = (GARGISH_LEATHER_WING_ARMOR.construct.unwrap())(&mut w);
     let ty = w.item(id).unwrap().ty;
@@ -223,7 +223,7 @@ fn stats_come_from_the_class() {
 
 #[test]
 fn trade_glasses_derive_from_elven_glasses() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = Some(Expansion::AOS);
     let id = (TRADE_GLASSES.construct.unwrap())(&mut w);
     let item = w.item(id).unwrap();
@@ -246,7 +246,7 @@ fn trade_glasses_derive_from_elven_glasses() {
         25,
     );
     let bytes = save(&w, id);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     w2.core.expansion = Some(Expansion::AOS);
     let other = for_load(&mut w2, 0x4000_0002, &TRADE_GLASSES);
     let mut r = SaveReader::new(&bytes);
@@ -265,7 +265,7 @@ fn trade_glasses_derive_from_elven_glasses() {
 
 #[test]
 fn arcane_gloves_charges_change_the_graphic_and_save() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (LEATHER_GLOVES.construct.unwrap())(&mut w);
     assert_eq!(w.item(id).unwrap().item_id, 0x13C6);
     assert!(!is_arcane(&w, id));
@@ -298,7 +298,7 @@ fn arcane_gloves_charges_change_the_graphic_and_save() {
         base.into_vec()
     };
     old.extend([0, 1, 4, 0, 0, 0, 9, 0, 0, 0]);
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let other = for_load(&mut w2, 0x4000_0003, &LEAF_GLOVES);
     let mut r = SaveReader::new(&old);
     (LEAF_GLOVES.deserialize)(&mut w2, other, &mut r).unwrap();
@@ -309,7 +309,7 @@ use muo_content::items::armor::BASE_ARMOR as BASE_ARMOR_FOR_TEST;
 
 #[test]
 fn shields_of_a_guild_war() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = Some(Expansion::UOR);
     let id = (CHAOS_SHIELD.construct.unwrap())(&mut w);
     // before AOS they are newbied

@@ -21,7 +21,7 @@ use super::core::{Quest, can_offer_quest, has_quest, load, with_quest};
 use super::gumps::WHITE;
 use super::quester::{BASE_QUESTER, QUESTER_C, QUESTER_OPS, QUESTER_VC, QuesterOps};
 use super::summoning::*;
-use super::util::{public_overhead, say_to_number, set_body};
+use super::util::{public_overhead, say_to_number};
 use crate::{quest_item, quester};
 
 fn quest(w: &World, player: MobileId) -> Option<Quest> {
@@ -204,15 +204,16 @@ pub static BELL_OF_THE_DEAD: ItemType = ItemType {
     full_name: "Server.Engines.Quests.Doom.BellOfTheDead",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BELL_OF_THE_DEAD, 0x91A);
-        muo_server::item::base::set_hue(w, id, 0x835);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &BELL_OF_THE_DEAD, 0);
+        muo_content::templates::apply_item_as(w, id, BELL_OF_THE_DEAD.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(BellData::default());
         }
         id
     }),
-    label_number: |_, _| 1050018, // bell of the dead
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     on_double_click: |w, id, from| {
         if muo_content::mx::in_range_point(w, from, ops::get_world_location(w, id), 2) {
             begin_summon(w, id, from);
@@ -415,17 +416,10 @@ quester! {
     CHYLOTH, CHYLOTH_C, CHYLOTH_V = "Server.Engines.Quests.Doom.Chyloth" : BASE_QUESTER / QUESTER_C / QUESTER_VC,
         ops CHYLOTH_OPS, encoded false, title Some("the Ferryman"), extra |_, _| {};
     v {
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            muo_server::mobile::base::set_hue(w, id, 0x8455);
-            set_body(w, id, 0x190);
-        },
-        init_outfit: |w, id| {
-            super::util::equip_new(w, id, "Server.Engines.Quests.Doom.ChylothShroud");
-            super::util::equip_new(w, id, "Server.Engines.Quests.Doom.ChylothStaff");
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Doom.Chyloth"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Chyloth"), }
+    c { default_name: muo_content::templates::creature_props::default_name, }
     m {
         on_drag_drop: |w, id, from, dropped| {
             if super::util::item_is(w, dropped, "Server.Engines.Quests.Doom.GoldenSkull") {
@@ -590,27 +584,10 @@ quester! {
     v {
         is_active_vendor: |_, _| true,
         init_sb_info: |w, id| vec![muo_mobiles::npcs::vendors::sb::SBMAGE.new_for(w, id)],
-        init_body: |w, id| {
-            muo_server::mobile::part2::stats::init_stats(w, id, 100, 100, 25);
-            muo_server::mobile::part1::props_b::set_female(w, id, true);
-            muo_server::mobile::base::set_hue(w, id, 0x8835);
-            set_body(w, id, 0x191);
-        },
-        init_outfit: |w, id| {
-            super::util::equip_new(w, id, "Server.Engines.Quests.Doom.GrandGrimoire");
-            for (name, hue) in [("Sandals", 0x455), ("SkullCap", 0x455), ("PlainDress", 0x455)] {
-                if let Some(it) = muo_content::factory::make_item(w, &format!("Server.Items.{name}")) {
-                    super::quester::set_hue(w, it, hue);
-                    if !muo_server::mobile::base::equip_item(w, id, it) {
-                        muo_server::item::base::delete(w, it);
-                    }
-                }
-            }
-            muo_server::mobile::part1::props_b::set_hair_item_id(w, id, 0x203C);
-            muo_server::mobile::part1::props_b::set_hair_hue(w, id, 0x482);
-        },
+        init_body: |w, id| muo_content::templates::apply_mobile_as(w, id, "Server.Engines.Quests.Doom.Victoria"),
+        init_outfit: |_, _| {},
     }
-    c { default_name: |_, _| Some("Victoria"), disallow_all_moves: |_, _| false, }
+    c { default_name: muo_content::templates::creature_props::default_name, disallow_all_moves: |_, _| false, }
     m {
         click_title: |_, _| true,
         on_drag_drop: |w, victoria, from, dropped| {

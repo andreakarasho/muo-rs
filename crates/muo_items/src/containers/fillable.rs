@@ -489,12 +489,15 @@ pub static FILLABLE_CONTAINER: ItemType = ItemType {
 };
 
 macro_rules! fillables {
-    ($($name:ident = $full:literal, $gid:expr, $enc:expr;)*) => {$(
+    ($($name:ident = $full:literal, $enc:expr;)*) => {$(
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&FILLABLE_CONTAINER),
-            construct: Some(|w| new_fillable(w, &$name, $gid)),
+            construct: Some(|w| {
+                let id = new_fillable(w, &$name, 0);
+                crate::simple::own_template(w, id, $full)
+            }),
             serialize: |w, id, out| {
                 (FILLABLE_CONTAINER.serialize)(w, id, out);
                 crate::simple::write_version(out, $enc);
@@ -510,14 +513,14 @@ macro_rules! fillables {
 }
 
 fillables! {
-    FILLABLE_LARGE_CRATE = "Server.Items.FillableLargeCrate", 0xE3D, true;
-    FILLABLE_SMALL_CRATE = "Server.Items.FillableSmallCrate", 0x9A9, true;
-    FILLABLE_WOODEN_BOX = "Server.Items.FillableWoodenBox", 0x9AA, true;
-    FILLABLE_METAL_BOX = "Server.Items.FillableMetalBox", 0x9A8, true;
-    FILLABLE_BARREL = "Server.Items.FillableBarrel", 0xE77, true;
-    FILLABLE_METAL_CHEST = "Server.Items.FillableMetalChest", 0x9AB, false;
-    FILLABLE_METAL_GOLDEN_CHEST = "Server.Items.FillableMetalGoldenChest", 0xE41, false;
-    FILLABLE_WOODEN_CHEST = "Server.Items.FillableWoodenChest", 0xE43, false;
+    FILLABLE_LARGE_CRATE = "Server.Items.FillableLargeCrate", true;
+    FILLABLE_SMALL_CRATE = "Server.Items.FillableSmallCrate", true;
+    FILLABLE_WOODEN_BOX = "Server.Items.FillableWoodenBox", true;
+    FILLABLE_METAL_BOX = "Server.Items.FillableMetalBox", true;
+    FILLABLE_BARREL = "Server.Items.FillableBarrel", true;
+    FILLABLE_METAL_CHEST = "Server.Items.FillableMetalChest", false;
+    FILLABLE_METAL_GOLDEN_CHEST = "Server.Items.FillableMetalGoldenChest", false;
+    FILLABLE_WOODEN_CHEST = "Server.Items.FillableWoodenChest", false;
 }
 
 fn library_acquire(w: &mut World, id: ItemId) {
@@ -582,13 +585,13 @@ mod tests {
 
     #[test]
     fn acquire_picks_nothing_without_a_map() {
-        let w = World::new();
+        let w = crate::test_world();
         assert_eq!(acquire(&w, Point3D::new(0, 0, 0), None), -1);
     }
 
     #[test]
     fn an_empty_crate_is_unlocked_and_untrapped_until_it_has_content() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (FILLABLE_WOODEN_BOX.construct.unwrap())(&mut w);
         assert_eq!(content_type(&w, id), -1);
         assert!(!w.item(id).unwrap().movable());

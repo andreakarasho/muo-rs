@@ -66,9 +66,10 @@ fn delete_item(w: &mut World, id: ItemId) {
     }
 }
 
-/// `new BaseCamp(multiID)` of class `ty`.
-pub fn new_base_camp(w: &mut World, ty: &'static ItemType, multi_id: i32) -> ItemId {
-    let id = muo_server::item::multi::new_base_multi(w, ty, multi_id);
+/// `new BaseCamp(multiID)` of class `ty`: the multi is the class template's `itemId`.
+pub fn new_base_camp(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let id = muo_server::item::multi::new_base_multi(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(CampData {
             decay_delay: TimeSpan::from_mins(30),
@@ -641,7 +642,7 @@ fn spawn_add_item(w: &mut World, id: ItemId, item: ItemId, x: i32, y: i32, z: i3
 }
 
 macro_rules! camp {
-    ($name:ident, $cls:ident, $full:literal, $id:expr, $new:ident, $comp:expr, $enter:expr, $exit:expr, $add:expr, $prisoner:literal) => {
+    ($name:ident, $cls:ident, $full:literal, $new:ident, $comp:expr, $enter:expr, $exit:expr, $add:expr, $prisoner:literal) => {
         pub static $cls: CampClass = CampClass {
             add_components: $comp,
             on_enter: $enter,
@@ -679,7 +680,7 @@ macro_rules! camp {
         };
 
         fn $new(w: &mut World) -> ItemId {
-            new_base_camp(w, &$name, $id)
+            new_base_camp(w, &$name)
         }
     };
 }
@@ -690,7 +691,6 @@ camp!(
     BRIGAND_CAMP,
     BRIGAND_CAMP_CLASS,
     "Server.Multis.BrigandCamp",
-    0x10EE,
     new_brigand_camp,
     |w, id| spawn_camp_components(w, id, &BRIGAND),
     spawn_on_enter,
@@ -702,7 +702,6 @@ camp!(
     LIZARDMEN_CAMP,
     LIZARDMEN_CAMP_CLASS,
     "Server.Multis.LizardmenCamp",
-    0x10EE,
     new_lizardmen_camp,
     |w, id| spawn_camp_components(w, id, &LIZARDMEN),
     spawn_on_enter,
@@ -714,7 +713,6 @@ camp!(
     RAT_CAMP,
     RAT_CAMP_CLASS,
     "Server.Multis.RatCamp",
-    0x10EE,
     new_rat_camp,
     |w, id| spawn_camp_components(w, id, &RAT),
     spawn_on_enter,
@@ -726,7 +724,6 @@ camp!(
     ORC_CAMP,
     ORC_CAMP_CLASS,
     "Server.Multis.OrcCamp",
-    0x10EE,
     new_orc_camp,
     |w, id| spawn_camp_components(w, id, &ORC),
     spawn_on_enter,
@@ -738,7 +735,6 @@ camp!(
     HEALER_CAMP,
     HEALER_CAMP_CLASS,
     "Server.Multis.HealerCamp",
-    0x1F4,
     new_healer_camp,
     |w, id| town_camp(w, id, 11, "Server.Mobiles.Healer"),
     |w, id, _| refresh_decay(w, id, true),
@@ -750,7 +746,6 @@ camp!(
     BANKER_CAMP,
     BANKER_CAMP_CLASS,
     "Server.Multis.BankerCamp",
-    0x1F6,
     new_banker_camp,
     |w, id| town_camp(w, id, 59, "Server.Mobiles.Banker"),
     |w, id, _| refresh_decay(w, id, true),
@@ -762,7 +757,6 @@ camp!(
     MAGE_CAMP,
     MAGE_CAMP_CLASS,
     "Server.Multis.MageCamp",
-    0x1F5,
     new_mage_camp,
     |w, id| town_camp(w, id, 12, "Server.Mobiles.Mage"),
     |w, id, _| refresh_decay(w, id, true),
@@ -775,8 +769,14 @@ camp!(
 pub static LOCKABLE_BARREL: ItemType = ItemType {
     full_name: "Server.Multis.LockableBarrel",
     parent: Some(&LOCKABLE_CONTAINER),
-    construct: Some(|w| cont::new_lockable(w, &LOCKABLE_BARREL, 0xE77)),
-    default_weight: |_, _| 1.0,
+    construct: Some(|w| {
+        let id = cont::new_lockable(w, &LOCKABLE_BARREL, 0);
+        muo_content::templates::apply_item_as(w, id, LOCKABLE_BARREL.full_name);
+        id
+    }),
+    default_weight: |w, id| {
+        crate::template_props::item_float(w, id, "defaultWeight", LOCKABLE_CONTAINER.default_weight)
+    },
     serialize: |w, id, out| {
         (LOCKABLE_CONTAINER.serialize)(w, id, out);
         out.write_i32(0);

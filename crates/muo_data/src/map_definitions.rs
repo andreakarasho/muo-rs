@@ -109,6 +109,9 @@ pub struct MapDefinition {
     /// 0 Spring, 1 Summer, 2 Fall, 3 Winter, 4 Desolation.
     pub season: i32,
     pub rules: MapRules,
+    /// How many maps this entry makes (1 unless given): copies take the next indexes and are named
+    /// `<name><index>`. Private instances of one place, such as a hideout per player.
+    pub count: i32,
 }
 
 impl Default for MapDefinition {
@@ -122,6 +125,7 @@ impl Default for MapDefinition {
             height: 0,
             season: 0,
             rules: MapRules::empty(),
+            count: 1,
         }
     }
 }

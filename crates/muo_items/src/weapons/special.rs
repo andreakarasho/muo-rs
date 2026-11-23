@@ -17,7 +17,7 @@ use muo_primitives::MessageType;
 use muo_primitives::{Point2D, Point3D, TimeSpan, utility};
 use muo_server::effects;
 use muo_server::ids::{EntityId, MobileId};
-use muo_server::item::{ITEM_BASE, LootType, base as item_base, deps, ops};
+use muo_server::item::{ITEM_BASE, base as item_base, deps, ops};
 use muo_server::map::MapId;
 use muo_server::mobile::base as mb;
 use muo_server::mobile::part1::{combat, props_b};
@@ -39,9 +39,7 @@ pub const THROWING_DAGGER_FLIP: (i32, i32) = (0xF52, 0xF51);
 
 /// `ThrowingDagger()`: `base(0xF52)`, `Layer = Layer.OneHanded`.
 pub fn throwing_dagger_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0xF52);
-    ctor::set_layer(w, id, Layer::OneHanded);
-    id
+    crate::simple::from_template(w, ty, "Server.Items.ThrowingDagger")
 }
 
 /// `Server.Items.ThrowingDagger` (`[SerializationGenerator(0, false)]`).
@@ -49,8 +47,8 @@ pub static THROWING_DAGGER: ItemType = ItemType {
     full_name: "Server.Items.ThrowingDagger",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| throwing_dagger_new(w, &THROWING_DAGGER)),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("a throwing dagger".to_string()),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     on_double_click: throwing_dagger_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -165,17 +163,11 @@ fn throwing_dagger_on_target(w: &mut World, dagger: ItemId, from: MobileId, targ
 // FireworksWand: `Charges`, a `[SerializableField(0)]` that lives in `WeaponData`.
 // ---------------------------------------------------------------------------------------------------------------
 
-/// `FireworksWand(charges)`: `MagicWand()`, `Charges = charges; LootType = LootType.Blessed;`.
-pub fn fireworks_wand_with_charges(w: &mut World, ty: &'static ItemType, charges: i32) -> ItemId {
-    let id = magic_wand_new(w, ty);
-    set_charges(w, id, charges);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    id
-}
-
-/// `FireworksWand()` (the optional argument is 100).
+/// `FireworksWand()`: `MagicWand()`, then its template (`Charges = 100; LootType = LootType.Blessed;`).
 pub fn fireworks_wand_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    fireworks_wand_with_charges(w, ty, 100)
+    let id = magic_wand_new(w, ty);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.FireworksWand");
+    id
 }
 
 /// `Charges`.
@@ -538,33 +530,17 @@ pub fn bone_machete_on_ticket_used(w: &mut World, id: ItemId, from: MobileId) {
 /// The `Fists` singleton (`Mobile.DefaultWeapon`), in `w.resources`.
 pub struct FistsSingleton(pub ItemId);
 
-/// `Fists()`: `base(0)`, `Visible = false; Movable = false; Quality = WeaponQuality.Regular;`.
+/// `Fists()`: `base(graphic)`, then its template (`Visible = false; Movable = false;`; `Quality = Regular` is what
+/// `new_weapon` already set).
 pub fn fists_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = new_weapon(w, ty, 0);
-    ops::set_visible(w, id, false);
-    ops::set_movable(w, id, false);
-    weapon::set_quality(w, id, WeaponQuality::Regular);
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    let id = new_weapon(w, ty, g);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.Fists");
     id
 }
 
-/// `Fists` overrides.
+/// `Fists` overrides that are code (the stats are its template's props).
 pub static FISTS_CLASS: WeaponClass = WeaponClass {
-    primary_ability: Some(Ability::Disarm),
-    secondary_ability: Some(Ability::ParalyzingBlow),
-    aos_str_req: 0,
-    aos_min_damage: same(1),
-    aos_max_damage: same(4),
-    aos_speed: 50,
-    ml_speed: 2.50,
-    old_str_req: 0,
-    old_min_damage: 1,
-    old_max_damage: 8,
-    old_speed: 30,
-    def_hit_sound: -1,
-    def_miss_sound: -1,
-    def_skill: SkillName::Wrestling,
-    def_type: WeaponType::Fists,
-    def_animation: WeaponAnimation::Wrestle,
     on_swing: fists_on_swing,
     get_defend_skill_value: fists_defend_skill_value,
     ..BASE_MELEE_WEAPON_CLASS

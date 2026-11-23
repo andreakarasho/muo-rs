@@ -1442,14 +1442,14 @@ pub static TOURNAMENT_BRACKET_ITEM: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.TournamentBracketItem",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &TOURNAMENT_BRACKET_ITEM, 3774);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &TOURNAMENT_BRACKET_ITEM, 0);
+        muo_content::templates::apply_item_as(w, id, TOURNAMENT_BRACKET_ITEM.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(LinkData::default());
         }
         id
     }),
-    default_name: |_, _| Some("tournament bracket".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: |w, id, from| {
         if !in_reach(w, id, from) {
             return;
@@ -1498,14 +1498,14 @@ pub static TOURNAMENT_SIGNUP_ITEM: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.TournamentSignupItem",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &TOURNAMENT_SIGNUP_ITEM, 4029);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &TOURNAMENT_SIGNUP_ITEM, 0);
+        muo_content::templates::apply_item_as(w, id, TOURNAMENT_SIGNUP_ITEM.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(LinkData::default());
         }
         id
     }),
-    default_name: |_, _| Some("tournament signup book".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: |w, id, from| {
         if !in_reach(w, id, from) {
             return;
@@ -1714,7 +1714,7 @@ pub static TOURNAMENT_REGISTRAR: MobileType = MobileType {
     full_name: "Server.Engines.ConPVP.TournamentRegistrar",
     parent: Some(&muo_mobiles::npcs::banker::BANKER),
     construct: Some(|w| {
-        let id = muo_content::vendor::new_vendor(w, &TOURNAMENT_REGISTRAR, Some("the banker"));
+        let id = muo_mobiles::npcs::vendors::npc::new_template_vendor(w, &TOURNAMENT_REGISTRAR);
         if let Some(m) = w.mobile_mut(id) {
             m.ext.insert(RegistrarData::default());
         }

@@ -1,7 +1,7 @@
 //! `SwampDragon`: a mount with optional barding (serialization version 2).
 
 use muo_content::craft::{self, CraftResource};
-use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C, new_mount, set_item_id};
+use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C, set_item_id};
 use muo_io::{GenericReader, GenericWriter};
 use muo_server::World;
 use muo_server::ids::MobileId;
@@ -27,56 +27,14 @@ fn data_mut(w: &mut World, id: MobileId) -> Option<&mut SwampDragonData> {
     w.mobile_mut(id)?.ext.get_mut::<SwampDragonData>()
 }
 
-pub(crate) fn swamp_dragon_make(
-    w: &mut World,
-    ty: &'static muo_server::mobile::MobileType,
-) -> MobileId {
-    let id = new_mount(
-        w,
-        ty,
-        0x31A,
-        0x3EBD,
-        AIType::AiMelee,
-        FightMode::Aggressor,
-        DEFAULT_RANGE_PERCEPTION,
-        1,
-    );
+pub(crate) fn swamp_dragon_data(w: &mut World, id: MobileId) {
     if let Some(m) = w.mobile_mut(id) {
         m.ext.insert(SwampDragonData::default());
     }
-    id
-}
-
-pub(crate) fn swamp_dragon_init(w: &mut World, id: MobileId) {
-    base_sound_id(w, id, 0x16A);
-    set_str_range(w, id, 201, 300);
-    set_dex_range(w, id, 66, 85);
-    set_int_range(w, id, 61, 100);
-    set_hits_range(w, id, 121, 180);
-    set_damage(w, id, 3, 4);
-    set_damage_type(w, id, ResistanceType::Physical, 75);
-    set_damage_type(w, id, ResistanceType::Poison, 25);
-    set_resistance_range(w, id, ResistanceType::Physical, 35, 40);
-    set_resistance_range(w, id, ResistanceType::Fire, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Cold, 20, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 20, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 30, 40);
-    set_skill_range(w, id, SkillName::Anatomy, 45.1, 55.0);
-    set_skill_range(w, id, SkillName::MagicResist, 45.1, 55.0);
-    set_skill_range(w, id, SkillName::Tactics, 45.1, 55.0);
-    set_skill_range(w, id, SkillName::Wrestling, 45.1, 55.0);
-    fame(w, id, 2000);
-    karma(w, id, -2000);
-    hue(w, id, 0x851);
-    tamable(w, id, true);
-    control_slots(w, id, 1);
-    min_tame_skill(w, id, 93.9);
 }
 
 fn swamp_dragon_new(w: &mut World) -> MobileId {
-    let id = swamp_dragon_make(w, &SWAMP_DRAGON);
-    swamp_dragon_init(w, id);
-    id
+    crate::cprops::new_mount(w, &SWAMP_DRAGON)
 }
 
 /// `BardingMaxHP`.
@@ -163,25 +121,25 @@ creature_leaf! {
     /// `Server.Mobiles.SwampDragon`.
     SWAMP_DRAGON, SWAMP_DRAGON_C = "Server.Mobiles.SwampDragon" : BASE_MOUNT / BASE_MOUNT_C, ctor Some(swamp_dragon_new), state serialize, deserialize;
     c {
-        default_name: |_w, _id| Some("a swamp dragon"),
-        corpse_name: |_w, _id| Some("a swamp dragon corpse"),
-        steps_max: |_w, _id| 4480,
-        reacquire_on_movement: |_w, _id| true,
+        default_name: muo_content::templates::creature_props::default_name,
+        corpse_name: muo_content::templates::creature_props::corpse_name,
+        steps_max: muo_content::templates::creature_props::steps_max,
+        reacquire_on_movement: crate::cprops::reacquire_on_movement,
         auto_dispel: |w, id| !muo_content::creature::cd(w, id).is_some_and(|d| d.controlled),
-        favorite_food: |_w, _id| FoodType::MEAT,
-        meat: |_w, _id| 19,
-        hides: |_w, _id| 20,
-        scales: |_w, _id| 5,
-        scale_type: |_w, _id| ScaleType::Green,
-        can_anger_on_tame: |_w, _id| true,
-        override_bonding_reqs: |_w, _id| true,
+        favorite_food: crate::cprops::favorite_food,
+        meat: muo_content::templates::creature_props::meat,
+        hides: muo_content::templates::creature_props::hides,
+        scales: muo_content::templates::creature_props::scales,
+        scale_type: crate::cprops::scale_type,
+        can_anger_on_tame: crate::cprops::can_anger_on_tame,
+        override_bonding_reqs: crate::cprops::override_bonding_reqs,
         get_control_chance: |_w, _id, _m, _b| 1.0,
     }
     m {
-        get_idle_sound: |_w, _id| 0x2CE,
-        get_death_sound: |_w, _id| 0x2CC,
-        get_hurt_sound: |_w, _id| 0x2D1,
-        get_attack_sound: |_w, _id| 0x2C8,
+        get_idle_sound: crate::cprops::get_idle_sound,
+        get_death_sound: crate::cprops::get_death_sound,
+        get_hurt_sound: crate::cprops::get_hurt_sound,
+        get_attack_sound: crate::cprops::get_attack_sound,
         get_properties: get_properties,
     }
 }

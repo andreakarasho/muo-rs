@@ -48,7 +48,9 @@ pub fn send_invalid_map(w: &mut World, ns: NetStateId) {
 /// `SendMapChange(map)`; nothing for a null map, pass `None`.
 pub fn send_map_change(w: &mut World, ns: NetStateId, map: Option<MapId>) {
     let Some(map) = map else { return };
-    w.send(ns, &[0xBF, 0x00, 0x06, 0x00, 0x08, map.0]);
+    // `MapID`, what the client knows, not the slot: several maps (a hideout per player) can show one client map
+    let id = w.maps.get(map).map_or(map.0, |m| m.map_id as u8);
+    w.send(ns, &[0xBF, 0x00, 0x06, 0x00, 0x08, id]);
 }
 
 #[cfg(test)]

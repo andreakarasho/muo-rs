@@ -46,8 +46,40 @@ pub mod wands;
 pub mod weapons;
 pub mod wiring;
 
+pub mod class_props;
+mod template_keys_equipment;
+mod template_keys_misc;
+mod template_keys_misc2;
+
+/// `World::new()` knowing this crate's template keys (a bare world's registry has none, so its table skips the
+/// steps of these keys), with the class templates loaded. The templates are loaded once per thread and shared: a
+/// test that builds a world per class would otherwise compile every class script each time.
+#[cfg(test)]
+pub(crate) fn test_world() -> muo_server::World {
+    fn keyed() -> muo_server::World {
+        let mut w = muo_server::World::new();
+        template_keys_equipment::register(&mut w.types);
+        template_keys_misc::register(&mut w.types);
+        template_keys_misc2::register(&mut w.types);
+        w
+    }
+    thread_local! {
+        static LOADED: muo_server::World = {
+            let mut w = keyed();
+            muo_content::templates::table(&mut w);
+            w
+        };
+    }
+    let mut w = keyed();
+    LOADED.with(|l| muo_content::scripting::share_loaded(l, &mut w));
+    w
+}
+
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
+    template_keys_equipment::register(types);
+    template_keys_misc::register(types);
+    template_keys_misc2::register(types);
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,
         "muo_items.PropsGen.Configure",
@@ -96,3 +128,16 @@ mod flip_tests;
 
 #[cfg(test)]
 mod packet_tests;
+
+#[cfg(test)]
+mod equipment_leftover_tests;
+#[cfg(test)]
+mod equipment_template_tests;
+#[cfg(test)]
+mod template_tests;
+
+#[cfg(test)]
+mod template_tests_misc;
+
+#[cfg(test)]
+mod addon_template_tests;

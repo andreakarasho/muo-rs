@@ -732,7 +732,9 @@ pub static FACTION_TRAP_REMOVAL_KIT: ItemType = ItemType {
     full_name: "Server.Factions.FactionTrapRemovalKit",
     parent: Some(&ITEM_BASE),
     construct: Some(kit_new),
-    label_number: |_, _| 1041508, // a faction trap removal kit
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     get_properties: kit_get_properties,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);

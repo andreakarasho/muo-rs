@@ -104,7 +104,7 @@ leaf! {
         id
     }),
     family: Some(&AQUARIUM_NET_CLASS),
-    label_number: |_, _| 1074463, // An aquarium fishing net
+    label_number: crate::class_props::label_number, // An aquarium fishing net
     get_properties: |w, id, list| base::get_properties_base(w, id, list),
 }
 
@@ -112,7 +112,7 @@ leaf! {
     /// `Server.Items.AquariumMessage`.
     AQUARIUM_MESSAGE = "Server.Items.AquariumMessage" : MESSAGE_IN_A_BOTTLE, v0;
     construct: Some(|w| new_bottle_of(w, &AQUARIUM_MESSAGE, None, None)),
-    label_number: |_, _| 1073894, // Message in a Bottle
+    label_number: crate::class_props::label_number, // Message in a Bottle
     add_name_properties: |w, id, list| {
         (MESSAGE_IN_A_BOTTLE.add_name_properties)(w, id, list);
         list.add(1073634); // An aquarium decoration
@@ -123,7 +123,7 @@ leaf! {
     /// `Server.Items.CaptainBlackheartsFishingPole`.
     CAPTAIN_BLACKHEARTS_FISHING_POLE = "Server.Items.CaptainBlackheartsFishingPole" : FISHING_POLE, v0;
     construct: Some(|w| new_pole_of(w, &CAPTAIN_BLACKHEARTS_FISHING_POLE)),
-    label_number: |_, _| 1074571, // Captain Blackheart's Fishing Pole
+    label_number: crate::class_props::label_number, // Captain Blackheart's Fishing Pole
     add_name_properties: |w, id, list| {
         (FISHING_POLE.add_name_properties)(w, id, list);
         list.add(1073634); // An aquarium decoration

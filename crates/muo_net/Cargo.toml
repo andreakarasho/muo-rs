@@ -6,7 +6,6 @@ license.workspace = true
 
 [dependencies]
 muo_primitives.workspace = true
-muo_io.workspace = true
 bitflags.workspace = true
 serde.workspace = true
 serde_json.workspace = true

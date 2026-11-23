@@ -1,0 +1,27 @@
+shop("SBBaker", |s| {
+    s.buys("BreadLoaf", 3);
+    s.buys("FrenchBread", 1);
+    s.buys("Cake", 5);
+    s.buys("Cookies", 3);
+    s.buys("Muffins", 2);
+    s.buys("CheesePizza", 4);
+    s.buys("ApplePie", 5);
+    s.buys("PeachCobbler", 5);
+    s.buys("Quiche", 6);
+    s.buys("Dough", 4);
+    s.buys("JarHoney", 1);
+    s.buys("Pitcher", 5);
+    s.buys("SackFlour", 1);
+    s.buys("Eggs", 1);
+    s.sells("BreadLoaf", 6, 20, 0x103B, #{ hue: 0 });
+    s.sells("BreadLoaf", 5, 20, 0x103C, #{ hue: 0 });
+    s.sells("ApplePie", 7, 20, 0x1041, #{ hue: 0 });
+    s.sells("Cake", 13, 20, 0x09E9, #{ hue: 0 });
+    s.sells("Muffins", 3, 20, 0x09EA, #{ hue: 0 });
+    s.sells("SackFlour", 3, 20, 0x1039, #{ hue: 0 });
+    s.sells("FrenchBread", 5, 20, 0x098C, #{ hue: 0 });
+    s.sells("Cookies", 3, 20, 0x160B, #{ hue: 0 });
+    s.sells("CheesePizza", 8, 10, 0x1040, #{ hue: 0 });
+    s.sells("JarHoney", 3, 20, 0x09EC, #{ hue: 0 });
+    s.sells("BowlFlour", 7, 20, 0x0A1E, #{ hue: 0 });
+});

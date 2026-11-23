@@ -15,7 +15,6 @@ use muo_server::World;
 use muo_server::ext::Ext;
 use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::item::{ITEM_BASE, ItemType, deps, effect_item, ops};
-use muo_server::light_type::LightType;
 use muo_server::map::MapId;
 use muo_server::mobile::AccessLevel;
 use muo_server::packets::message::MessageType;
@@ -263,7 +262,8 @@ pub static FIRE_COLUMN_TRAP: ItemType = ItemType {
     full_name: "Server.Items.FireColumnTrap",
     parent: Some(&BASE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &FIRE_COLUMN_TRAP, 0x1B71);
+        let id = new_trap(w, &FIRE_COLUMN_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.FireColumnTrap");
         if let Some(d) = data_mut(w, id) {
             d.min_damage = 10;
             d.max_damage = 40;
@@ -424,9 +424,8 @@ pub static FLAME_SPURT_TRAP: ItemType = ItemType {
     full_name: "Server.Items.FlameSpurtTrap",
     parent: Some(&BASE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &FLAME_SPURT_TRAP, 0x1B71);
-        ops::set_visible(w, id, false);
-        id
+        let id = new_trap(w, &FLAME_SPURT_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.FlameSpurtTrap")
     }),
     on_movement: spurt_on_movement,
     on_move_over: spurt_on_move_over,
@@ -580,7 +579,10 @@ static GIANT_SPIKE_CLASS: TrapClass = TrapClass {
 pub static GIANT_SPIKE_TRAP: ItemType = ItemType {
     full_name: "Server.Items.GiantSpikeTrap",
     parent: Some(&BASE_TRAP),
-    construct: Some(|w| new_trap(w, &GIANT_SPIKE_TRAP, 1)),
+    construct: Some(|w| {
+        let id = new_trap(w, &GIANT_SPIKE_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.GiantSpikeTrap")
+    }),
     family: Some(&GIANT_SPIKE_CLASS),
     serialize: |w, id, out| {
         (BASE_TRAP.serialize)(w, id, out);
@@ -629,7 +631,10 @@ static MUSHROOM_CLASS: TrapClass = TrapClass {
 pub static MUSHROOM_TRAP: ItemType = ItemType {
     full_name: "Server.Items.MushroomTrap",
     parent: Some(&BASE_TRAP),
-    construct: Some(|w| new_trap(w, &MUSHROOM_TRAP, 0x1125)),
+    construct: Some(|w| {
+        let id = new_trap(w, &MUSHROOM_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.MushroomTrap")
+    }),
     family: Some(&MUSHROOM_CLASS),
     serialize: |w, id, out| {
         (BASE_TRAP.serialize)(w, id, out);
@@ -904,9 +909,8 @@ pub static STONE_FACE_TRAP: ItemType = ItemType {
     full_name: "Server.Items.StoneFaceTrap",
     parent: Some(&BASE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &STONE_FACE_TRAP, 0x10FC);
-        ops::set_light(w, id, LightType::Circle225);
-        id
+        let id = new_trap(w, &STONE_FACE_TRAP, 0);
+        crate::simple::own_template(w, id, "Server.Items.StoneFaceTrap")
     }),
     family: Some(&STONE_FACE_CLASS),
     serialize: |w, id, out| {
@@ -927,9 +931,8 @@ pub static STONE_FACE_TRAP_NO_DAMAGE: ItemType = ItemType {
     full_name: "Server.Items.StoneFaceTrapNoDamage",
     parent: Some(&STONE_FACE_TRAP),
     construct: Some(|w| {
-        let id = new_trap(w, &STONE_FACE_TRAP_NO_DAMAGE, 0x10FC);
-        ops::set_light(w, id, LightType::Circle225);
-        id
+        let id = new_trap(w, &STONE_FACE_TRAP_NO_DAMAGE, 0);
+        crate::simple::own_template(w, id, "Server.Items.StoneFaceTrapNoDamage")
     }),
     serialize: |w, id, out| {
         (STONE_FACE_TRAP.serialize)(w, id, out);
@@ -1230,7 +1233,7 @@ mod tests {
 
     #[test]
     fn fire_column_trap_saves_the_generated_layout() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (FIRE_COLUMN_TRAP.construct.unwrap())(&mut w);
         assert_eq!(
             (w.item(id).unwrap().item_id, w.item(id).unwrap().movable()),
@@ -1257,7 +1260,7 @@ mod tests {
 
     #[test]
     fn trap_graphics() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (STONE_FACE_TRAP_NO_DAMAGE.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().item_id, 0x10FC);
         assert_eq!(stone_type(&w, id), 1);

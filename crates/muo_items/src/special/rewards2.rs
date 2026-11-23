@@ -5,9 +5,7 @@ use std::rc::Rc;
 
 use muo_content::aos::{AosAttribute, AttrKind};
 use muo_content::craft::CraftResource;
-use muo_content::items::armor::{
-    ArmorClass, ArmorMaterialType, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor,
-};
+use muo_content::items::armor::{ArmorClass, BASE_ARMOR, BASE_ARMOR_CLASS, new_armor};
 use muo_content::items::set_attr;
 use muo_content::items::tool::{BASE_TOOL, BASE_TOOL_CLASS, ToolClass, new_tool};
 
@@ -67,7 +65,7 @@ pub static OSSIAN_GRIMOIRE: ItemType = ItemType {
     full_name: "Server.Items.OssianGrimoire",
     parent: Some(&crate::skill_items::spellbook::NECROMANCER_SPELLBOOK),
     construct: Some(ossian_grimoire_new),
-    label_number: |_, _| 1078148, // Ossian Grimoire
+    label_number: crate::class_props::label_number, // Ossian Grimoire
     serialize: |w, id, out| {
         (crate::skill_items::spellbook::NECROMANCER_SPELLBOOK.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -96,12 +94,12 @@ leaf! {
     /// `Server.Items.ColoredAnvil` (`[Anvil]`, `[Flippable(0xFAF, 0xFB0)]`).
     COLORED_ANVIL = "Server.Items.ColoredAnvil" : ITEM_BASE, v0;
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &COLORED_ANVIL, 0xFAF);
+        let id = crate::simple::from_template(w, &COLORED_ANVIL, "Server.Items.ColoredAnvil");
         let h = random_ore_hue(w);
         super::hue(w, id, h); // TODO: Color weighted by rarity?
         id
     }),
-    default_weight: |_, _| 20.0,
+    default_weight: crate::class_props::default_weight,
 }
 
 // ---- the skill mod of the hammer and the gloves ----
@@ -219,8 +217,8 @@ pub static ANCIENT_SMITHY_HAMMER: ItemType = ItemType {
     parent: Some(&BASE_TOOL),
     construct: None,
     family: Some(&HAMMER_CLASS),
-    default_weight: |_, _| 8.0,
-    label_number: |_, _| 1045127, // ancient smithy hammer
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // ancient smithy hammer
     on_added: |w, id, parent| {
         (BASE_TOOL.on_added)(w, id, parent);
         on_added_bonus(w, id, parent, SkillName::Blacksmith, "AncientSmithyHammer");
@@ -261,9 +259,10 @@ pub static ANCIENT_SMITHY_HAMMER: ItemType = ItemType {
 
 // ---- GlovesOfMining ----
 
-/// `BaseGlovesOfMining(bonus, itemID)` of class `ty`.
-fn gloves_new(w: &mut World, ty: &'static ItemType, item_id: i32, bonus: i32) -> ItemId {
-    let id = new_armor(w, ty, item_id);
+/// `BaseGlovesOfMining(bonus, itemID)` of class `ty` (the item id is its `graphic` prop).
+fn gloves_new(w: &mut World, ty: &'static ItemType, bonus: i32) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    let id = new_armor(w, ty, g);
     let h = random_ore_hue(w); // TODO: Color weighted by rarity?
     super::hue(w, id, h);
     set_bonus_data(
@@ -327,78 +326,35 @@ pub fn set_gloves_bonus(w: &mut World, id: ItemId, value: i32) {
 
 /// `LeatherGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
 pub fn leather_gloves_of_mining_new_bonus(w: &mut World, bonus: i32) -> ItemId {
-    gloves_new(w, &LEATHER_GLOVES_OF_MINING, 0x13C6, bonus)
+    gloves_new(w, &LEATHER_GLOVES_OF_MINING, bonus)
 }
 
 armor_leaf! {
     /// `Server.Items.LeatherGlovesOfMining` (`[Flippable(0x13c6, 0x13ce)]`).
-    LEATHER_GLOVES_OF_MINING, LEATHER_GLOVES_OF_MINING_CLASS, leather_gloves_of_mining_new = "Server.Items.LeatherGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13C6, 0), encoded false;
+    LEATHER_GLOVES_OF_MINING, LEATHER_GLOVES_OF_MINING_CLASS, leather_gloves_of_mining_new = "Server.Items.LeatherGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0), encoded false;
     @no_construct none;
-    default_weight: Some(1.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 3,
-    init_min_hits: 30,
-    init_max_hits: 40,
-    aos_str_req: 20,
-    old_str_req: 10,
-    armor_base: 13,
-    material_type: ArmorMaterialType::Leather,
-    default_resource: CraftResource::RegularLeather,
-    def_med_allowance: muo_content::items::armor::ArmorMeditationAllowance::All,
-    label_number: 1045122, // leather blacksmith gloves of mining
 }
 
 /// `StuddedGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
 pub fn studded_gloves_of_mining_new_bonus(w: &mut World, bonus: i32) -> ItemId {
-    gloves_new(w, &STUDDED_GLOVES_OF_MINING, 0x13D5, bonus)
+    gloves_new(w, &STUDDED_GLOVES_OF_MINING, bonus)
 }
 
 armor_leaf! {
     /// `Server.Items.StuddedGlovesOfMining` (`[Flippable(0x13d5, 0x13dd)]`).
-    STUDDED_GLOVES_OF_MINING, STUDDED_GLOVES_OF_MINING_CLASS, studded_gloves_of_mining_new = "Server.Items.StuddedGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13D5, 0), encoded false;
+    STUDDED_GLOVES_OF_MINING, STUDDED_GLOVES_OF_MINING_CLASS, studded_gloves_of_mining_new = "Server.Items.StuddedGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0), encoded false;
     @no_construct none;
-    default_weight: Some(2.0),
-    base_physical_resistance: 2,
-    base_fire_resistance: 4,
-    base_cold_resistance: 3,
-    base_poison_resistance: 3,
-    base_energy_resistance: 4,
-    init_min_hits: 35,
-    init_max_hits: 45,
-    aos_str_req: 25,
-    old_str_req: 25,
-    armor_base: 16,
-    material_type: ArmorMaterialType::Studded,
-    default_resource: CraftResource::RegularLeather,
-    label_number: 1045123, // studded leather blacksmith gloves of mining
 }
 
 /// `RingmailGlovesOfMining(bonus)`: the only `[Constructible]` constructor.
 pub fn ringmail_gloves_of_mining_new_bonus(w: &mut World, bonus: i32) -> ItemId {
-    gloves_new(w, &RINGMAIL_GLOVES_OF_MINING, 0x13EB, bonus)
+    gloves_new(w, &RINGMAIL_GLOVES_OF_MINING, bonus)
 }
 
 armor_leaf! {
     /// `Server.Items.RingmailGlovesOfMining` (`[Flippable(0x13eb, 0x13f2)]`).
-    RINGMAIL_GLOVES_OF_MINING, RINGMAIL_GLOVES_OF_MINING_CLASS, ringmail_gloves_of_mining_new = "Server.Items.RingmailGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0x13EB, 0), encoded false;
+    RINGMAIL_GLOVES_OF_MINING, RINGMAIL_GLOVES_OF_MINING_CLASS, ringmail_gloves_of_mining_new = "Server.Items.RingmailGlovesOfMining" : BASE_GLOVES_OF_MINING / BASE_ARMOR_CLASS, |w, ty| gloves_new(w, ty, 0), encoded false;
     @no_construct none;
-    default_weight: Some(1.0),
-    base_physical_resistance: 3,
-    base_fire_resistance: 3,
-    base_cold_resistance: 1,
-    base_poison_resistance: 5,
-    base_energy_resistance: 3,
-    init_min_hits: 40,
-    init_max_hits: 50,
-    aos_str_req: 40,
-    old_str_req: 20,
-    old_dex_bonus: -1,
-    armor_base: 22,
-    material_type: ArmorMaterialType::Ringmail,
-    label_number: 1045124, // ringmail blacksmith gloves of mining
 }
 
 // ---- PowderOfTemperament ----
@@ -425,8 +381,11 @@ pub fn set_powder_uses(w: &mut World, id: ItemId, value: i32) {
 
 /// `PowderOfTemperament(charges)`.
 pub fn powder_of_temperament_new(w: &mut World, charges: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &POWDER_OF_TEMPERAMENT, 4102);
-    super::hue(w, id, 2419);
+    let id = crate::simple::from_template(
+        w,
+        &POWDER_OF_TEMPERAMENT,
+        "Server.Items.PowderOfTemperament",
+    );
     set_powder_uses(w, id, charges);
     id
 }
@@ -434,30 +393,30 @@ pub fn powder_of_temperament_new(w: &mut World, charges: i32) -> ItemId {
 /// The `IDurability` of an armor, weapon or clothing item: `(HitPoints, MaxHitPoints, CanFortify, InitMaxHits)`.
 fn durability(w: &World, id: ItemId) -> Option<(i32, i32, bool, i32)> {
     use muo_content::items::{armor, clothing, weapon};
+    use muo_content::templates::item_props;
     let i = w.item(id)?;
     if let Some(d) = i.ext.get::<weapon::WeaponData>() {
         let c = weapon::class(w, id);
         Some((
             d.hit_points,
             d.max_hit_points,
-            c.can_fortify,
-            c.init_max_hits,
+            weapon::can_fortify(w, id),
+            item_props::int(w, id, "initMaxHits", c.init_max_hits),
         ))
     } else if let Some(d) = i.ext.get::<clothing::ClothingData>() {
-        let c = clothing::class(w, id);
         Some((
             d.hit_points,
             d.max_hit_points,
-            c.can_fortify,
-            c.init_max_hits.get(muo_content::core::ml(w)),
+            clothing::can_fortify(w, id),
+            clothing::init_hits(w, id).1,
         ))
     } else if let Some(d) = i.ext.get::<armor::ArmorData>() {
         let c = armor::class(w, id);
         Some((
             d.hit_points,
             d.max_hit_points,
-            c.can_fortify,
-            c.init_max_hits,
+            armor::can_fortify(w, id),
+            item_props::int(w, id, "initMaxHits", c.init_max_hits),
         ))
     } else {
         None
@@ -566,8 +525,8 @@ pub static POWDER_OF_TEMPERAMENT: ItemType = ItemType {
     full_name: "Server.Items.PowderOfTemperament",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| powder_of_temperament_new(w, 10)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1049082, // powder of fortifying
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // powder of fortifying
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         list.add_int(1060584, uses(w, id)); // uses remaining: ~1_val~

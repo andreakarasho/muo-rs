@@ -68,9 +68,6 @@ static LESSER_TABLE: [(i32, i32); 11] = [
     (0x41A, 1071453),
 ];
 
-/// `PigmentType.FadedCoal`.
-const FADED_COAL: i32 = 10;
-
 /// `PigmentsOfTokuno.GetInfo(type)`: `[hue, label]`, `None`'s for an unknown value.
 pub fn get_info(kind: i32) -> (i32, i32) {
     TABLE
@@ -174,31 +171,27 @@ fn get_info_or_none(v: i32, len: usize, info: fn(i32) -> (i32, i32)) -> (i32, i3
     }
 }
 
-/// `PigmentsOfTokuno(type, uses)`.
+/// `PigmentsOfTokuno(type, uses)`: the type and the uses (a default for the type without them) are the class's
+/// script.
 pub fn pigments_new(w: &mut World, kind: i32, uses: Option<i32>) -> ItemId {
-    let uses = uses.unwrap_or(if kind == 0 || kind >= FADED_COAL {
-        10
-    } else {
-        50
-    });
-    let id = base_new(w, &PIGMENTS_OF_TOKUNO, uses);
-    set_type(w, id, kind);
+    use muo_server::script_hooks::ScriptArg;
+    let id = base_new(w, &PIGMENTS_OF_TOKUNO, 0);
+    let mut args = vec![ScriptArg::Int(i64::from(kind))];
+    args.extend(uses.map(|u| ScriptArg::Int(i64::from(u))));
+    muo_content::templates::apply_item_with(w, id, PIGMENTS_OF_TOKUNO.full_name, &args);
     id
 }
 
-/// `LesserPigmentsOfTokuno(type)`: `base(1)`.
-pub fn lesser_new(w: &mut World, kind: i32) -> ItemId {
-    let id = base_new(w, &LESSER_PIGMENTS_OF_TOKUNO, 1);
-    set_lesser_type(w, id, kind);
+/// `new T()` of a pigment class whose constructor is its template and script.
+fn template_new(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let id = base_new(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
     id
 }
 
-/// `MetalPigmentsOfTokuno()`: `base(1)`, `RandomHue(); Label = -1`.
-pub fn metal_new(w: &mut World) -> ItemId {
-    let id = base_new(w, &METAL_PIGMENTS_OF_TOKUNO, 1);
-    metal_random_hue(w, id);
-    set_label(w, id, -1);
-    id
+/// `Label = value`, the `pigmentLabel` template key.
+pub fn set_label_key(w: &mut World, id: ItemId, label: i32) {
+    set_label(w, id, label);
 }
 
 /// `MetalPigmentsOfTokuno.RandomHue()`.
@@ -356,8 +349,12 @@ pub static BASE_PIGMENTS_OF_TOKUNO: ItemType = ItemType {
     full_name: "Server.Items.BasePigmentsOfTokuno",
     parent: Some(&ITEM_BASE),
     construct: None,
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1070933, // Pigments of Tokuno
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     get_properties: base_get_properties,
     on_double_click,
     serialize: base_serialize,
@@ -396,7 +393,9 @@ pub static PIGMENTS_OF_TOKUNO: ItemType = ItemType {
     full_name: "Server.Items.PigmentsOfTokuno",
     parent: Some(&BASE_PIGMENTS_OF_TOKUNO),
     construct: Some(|w| pigments_new(w, 0, None)),
-    label_number: |_, _| 1070933, // Pigments of Tokuno
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", BASE_PIGMENTS_OF_TOKUNO.label_number)
+    },
     serialize: |w, id, out| type_serialize(&BASE_PIGMENTS_OF_TOKUNO, w, id, out),
     deserialize: |w, id, r| type_deserialize(&BASE_PIGMENTS_OF_TOKUNO, w, id, r),
     ..BASE_PIGMENTS_OF_TOKUNO
@@ -406,11 +405,7 @@ pub static PIGMENTS_OF_TOKUNO: ItemType = ItemType {
 pub static LESSER_PIGMENTS_OF_TOKUNO: ItemType = ItemType {
     full_name: "Server.Items.LesserPigmentsOfTokuno",
     parent: Some(&BASE_PIGMENTS_OF_TOKUNO),
-    // `this((LesserPigmentType)Utility.Random(0, 11))`
-    construct: Some(|w| {
-        let kind = muo_content::hooks::rnd::from(w, 0, 11);
-        lesser_new(w, kind)
-    }),
+    construct: Some(lesser_default),
     serialize: |w, id, out| type_serialize(&BASE_PIGMENTS_OF_TOKUNO, w, id, out),
     deserialize: |w, id, r| type_deserialize(&BASE_PIGMENTS_OF_TOKUNO, w, id, r),
     ..BASE_PIGMENTS_OF_TOKUNO
@@ -420,7 +415,7 @@ pub static LESSER_PIGMENTS_OF_TOKUNO: ItemType = ItemType {
 pub static METAL_PIGMENTS_OF_TOKUNO: ItemType = ItemType {
     full_name: "Server.Items.MetalPigmentsOfTokuno",
     parent: Some(&BASE_PIGMENTS_OF_TOKUNO),
-    construct: Some(metal_new),
+    construct: Some(|w| template_new(w, &METAL_PIGMENTS_OF_TOKUNO)),
     serialize: |w, id, out| {
         (BASE_PIGMENTS_OF_TOKUNO.serialize)(w, id, out);
         out.write_i32(0);
@@ -525,8 +520,16 @@ static LESSER_CTORS: [Ctor; 2] = [
 ];
 
 fn lesser_default(w: &mut World) -> ItemId {
-    let kind = muo_content::hooks::rnd::from(w, 0, 11);
-    lesser_new(w, kind)
+    template_new(w, &LESSER_PIGMENTS_OF_TOKUNO)
+}
+
+/// `LesserPigmentsOfTokuno(type)`: the type is handed to the class's script.
+fn lesser_new(w: &mut World, kind: i32) -> ItemId {
+    use muo_server::script_hooks::ScriptArg;
+    let id = base_new(w, &LESSER_PIGMENTS_OF_TOKUNO, 0);
+    let args = [ScriptArg::Int(i64::from(kind))];
+    muo_content::templates::apply_item_with(w, id, LESSER_PIGMENTS_OF_TOKUNO.full_name, &args);
+    id
 }
 
 pub fn register(types: &mut TypeRegistry) {

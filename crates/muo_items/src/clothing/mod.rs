@@ -9,7 +9,6 @@ use muo_io::{GenericReader, GenericWriter, Result};
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::deps;
-use muo_server::layer::Layer;
 use muo_server::type_registry::TypeRegistry;
 
 /// The save version a class with no fields of its own writes: `[SerializationGenerator(0, false)]` writes it as an
@@ -37,6 +36,21 @@ pub fn read_version(r: &mut dyn GenericReader, encoded: bool) -> Result<i32> {
 /// `@init` (the rest of the constructor, in order), `@ty { .. }` (overrides that replace an `ItemType` entry) and
 /// one `field: value,` per constant `override`.
 macro_rules! clothing_leaf {
+    // `@template;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr,
+        hue $dh:expr, encoded $enc:literal;
+        @template;
+        $($rest:tt)*
+    ) => {
+        $crate::clothing::clothing_leaf! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, $base, hue $dh, encoded $enc;
+            @init |w, id| ::muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident, $base:expr,
@@ -81,14 +95,17 @@ pub(crate) use clothing_leaf;
 pub mod leaves;
 pub mod special;
 
-/// `Layer = value`.
-pub(crate) fn layer(w: &mut World, id: ItemId, value: Layer) {
-    if let Some(ty) = w.item(id).map(|i| i.ty) {
-        (ty.set_layer)(w, id, value);
-    }
+/// `Dye(from, sender)` that refuses with `sender.FailMessage`.
+/// `new BaseClothing(itemID, hue)` with the class's `graphic` prop as the item id.
+pub(crate) fn new_clothing_json(
+    w: &mut World,
+    ty: &'static muo_server::item::ItemType,
+    hue: i32,
+) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, ty);
+    muo_content::items::clothing::new_clothing(w, ty, g, hue)
 }
 
-/// `Dye(from, sender)` that refuses with `sender.FailMessage`.
 pub(crate) fn dye_refused(w: &mut World, _id: ItemId, from: MobileId, tub: ItemId) -> bool {
     let n = muo_content::items::clothing::tub_fail_message(w, tub);
     deps::send_localized_message(w, from, n);

@@ -1040,7 +1040,7 @@ pub static AQUARIUM: ItemType = ItemType {
     construct: None,
     family: Some(&AQUARIUM_CLASS),
     contents_decay: |_, _| false, // fish and decorations are part of the aquarium
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     // Aquarium.OnDelete does not call base.OnDelete.
     on_delete: |w, id| {
         if let Some(t) = data_mut(w, id).and_then(|d| d.timer.take()) {
@@ -1081,7 +1081,7 @@ leaf! {
     AQUARIUM_EAST_DEED = "Server.Items.AquariumEastDeed" : BASE_ADDON_CONTAINER_DEED, v0;
     construct: Some(east_deed_new),
     family: Some(&EAST_DEED_CLASS),
-    label_number: |_, _| 1074501, // Large Aquarium (east)
+    label_number: crate::class_props::label_number, // Large Aquarium (east)
 }
 
 /// `AquariumNorthDeed()`.
@@ -1097,7 +1097,7 @@ leaf! {
     AQUARIUM_NORTH_DEED = "Server.Items.AquariumNorthDeed" : BASE_ADDON_CONTAINER_DEED, v0;
     construct: Some(north_deed_new),
     family: Some(&NORTH_DEED_CLASS),
-    label_number: |_, _| 1074497, // Large Aquarium (north)
+    label_number: crate::class_props::label_number, // Large Aquarium (north)
 }
 
 // ---- FishBowl ----
@@ -1154,14 +1154,14 @@ pub static FISH_BOWL: ItemType = ItemType {
     full_name: "Server.Items.FishBowl",
     parent: Some(&BASE_CONTAINER),
     construct: Some(|w| {
-        let id = new_base_container(w, &FISH_BOWL, 0x241C);
-        super::hue(w, id, 0x47E);
+        let id = new_base_container(w, &FISH_BOWL, 0);
+        crate::simple::own_template(w, id, "Server.Items.FishBowl");
         container::set_max_items(w, id, 1);
         id
     }),
     contents_decay: |_, _| false, // the fish is part of the bowl
-    label_number: |_, _| 1074499, // A fish bowl
-    default_weight: |_, _| 2.0,
+    label_number: crate::class_props::label_number, // A fish bowl
+    default_weight: crate::class_props::default_weight,
     on_double_click: |_, _, _| {},
     try_drop_item: |w, id, from, dropped, send_full, play_sound| {
         if play_sound {

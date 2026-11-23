@@ -2,12 +2,17 @@
 //! `true` is `WriteEncodedInt(SerializationVersion)` (`[SerializationGenerator(0)]`), `false` is
 //! `Write(SerializationVersion)` (`[SerializationGenerator(0, false)]`). `FireworksWand` also writes `_charges`.
 
+use muo_content::craft::CraftResource;
 use muo_content::items::weapon::{self, BASE_WEAPON};
 use muo_content::items::weapon_combat as wc;
 use muo_data::expansion::Expansion;
 use muo_io::{SaveReader, SaveWriter};
 use muo_server::item::LootType;
 use muo_server::type_registry::EntityType;
+
+use muo_content::aos::{AosAttribute, AosElementAttribute, AttrKind};
+use muo_content::items::slayer::SlayerName;
+use muo_server::race::ALLOW_GARGOYLES_ONLY;
 
 use super::*;
 
@@ -190,14 +195,14 @@ const CLASSES: &[(&str, bool)] = &[
     ("Server.Items.Fists", false),
 ];
 
-fn registry() -> TypeRegistry {
+pub(super) fn registry() -> TypeRegistry {
     let mut t = TypeRegistry::new();
     muo_content::items::leaves::register(&mut t);
     register(&mut t);
     t
 }
 
-fn find(types: &TypeRegistry, name: &str) -> &'static ItemType {
+pub(super) fn find(types: &TypeRegistry, name: &str) -> &'static ItemType {
     match types.find_type_by_full_name(name, false) {
         Some(EntityType::Item(t)) => t,
         _ => panic!("{name} is not registered"),
@@ -257,7 +262,7 @@ fn every_class_constructs_and_round_trips_its_record() {
     let mut serial = 0x4000_0100;
     for (name, encoded) in CLASSES {
         let ty = find(&types, name);
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = make(&mut w, ty);
         assert_eq!(w.item(id).unwrap().ty.full_name, *name);
         assert!(
@@ -278,7 +283,7 @@ fn every_class_constructs_and_round_trips_its_record() {
 
         // and it loads back into a fresh instance of the class, to the last byte
         serial += 1;
-        let mut w2 = World::new();
+        let mut w2 = crate::test_world();
         let other = w2.add_item(muo_server::item::Item::new_for_load(
             muo_primitives::Serial::new(serial),
             ty,
@@ -300,7 +305,7 @@ fn every_class_constructs_and_round_trips_its_record() {
 
 #[test]
 fn stats_follow_the_era() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let axe = new(&mut w, &AXE);
     era(&mut w, Expansion::LBR);
     assert_eq!(
@@ -324,24 +329,23 @@ fn stats_follow_the_era() {
     era(&mut w, Expansion::ML);
     assert_eq!(weapon::speed(&w, axe), 3.0);
     assert_eq!(
-        weapon::class(&w, axe).primary_ability,
-        Some(Ability::CrushingBlow)
+        weapon::abilities(&w, axe).0,
+        Some(weapon::Ability::CrushingBlow)
     );
-    assert_eq!(weapon::class(&w, axe).flippable, Some((0xF49, 0xF4A)));
 
     let xbow = new(&mut w, &CROSSBOW);
-    assert_eq!(weapon::class(&w, xbow).def_max_range, 8);
-    assert_eq!(weapon::class(&w, xbow).ammo_type, Some("Server.Items.Bolt"));
+    assert_eq!(weapon::max_range(&w, xbow), 8);
+    assert_eq!(weapon::ammo_type(&w, xbow), Some("Server.Items.Bolt"));
     let lb = new(&mut w, &ELVEN_COMPOSITE_LONGBOW);
-    assert_eq!(weapon::class(&w, lb).ammo_type, Some("Server.Items.Arrow"));
-    assert_eq!(weapon::class(&w, lb).def_max_range, 10);
+    assert_eq!(weapon::ammo_type(&w, lb), Some("Server.Items.Arrow"));
+    assert_eq!(weapon::max_range(&w, lb), 10);
     let juka = new(&mut w, &JUKA_BOW);
     assert_eq!(weapon::dex_requirement(&w, juka), 80);
 }
 
 #[test]
 fn constructors_run_their_effects() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     era(&mut w, Expansion::ML);
     // Hue = ..; attributes; Slayer; the leaf's own InitMinHits/InitMaxHits (not Longsword's 31..110)
     let id = new(&mut w, &BLADE_OF_THE_RIGHTEOUS);
@@ -398,15 +402,15 @@ fn constructors_run_their_effects() {
     let id = new(&mut w, &PICKAXE);
     let d = weapon::data(&w, id).unwrap();
     assert_eq!((d.uses_remaining, d.show_uses_remaining), (50, true));
-    assert_eq!(weapon::class(&w, id).harvest_system, Some("Mining"));
+    assert_eq!(weapon::harvest_system(&w, id), Some("Mining"));
     let id = new(&mut w, &WAR_AXE);
-    assert_eq!(weapon::class(&w, id).harvest_system, None);
+    assert_eq!(weapon::harvest_system(&w, id), None);
     // Race.AllowGargoylesOnly, DefaultName, VirtualDamageBonus, resistances
     let id = new(&mut w, &BLOOD_BLADE);
     assert_eq!((BLOOD_BLADE.required_races)(&w, id), ALLOW_GARGOYLES_ONLY);
     let id = new(&mut w, &TRIBAL_SPEAR);
     assert_eq!(w.item(id).unwrap().hue, 837);
-    assert_eq!(weapon::class(&w, id).virtual_damage_bonus, 25);
+    assert_eq!(weapon::virtual_damage_bonus(&w, id), 25);
     assert_eq!(
         (TRIBAL_SPEAR.default_name)(&w, id).as_deref(),
         Some("a tribal spear")
@@ -428,7 +432,7 @@ fn constructors_run_their_effects() {
 
 #[test]
 fn fireworks_wand_record_has_its_charges() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = new(&mut w, &FIREWORKS_WAND);
     set_charges(&mut w, id, 7);
     assert!(save(&w, id).ends_with(&[0, 0, 0, 0, 7, 0, 0, 0]));

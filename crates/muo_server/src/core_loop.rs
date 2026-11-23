@@ -130,6 +130,8 @@ const BACKOFF_MAX_SHIFT: u32 = 5;
 const BACKOFF_RESET_AFTER_CLEAN_MS: i64 = 60_000;
 // Below this a backoff is still recoverable and not actionable, so it only logs at debug.
 const WARN_AFTER_CONSECUTIVE_BACKOFFS: i32 = 3;
+// The coarsest common OS timer period (Windows' default 15.6ms), rounded up.
+const COARSE_TIMER_MS: i64 = 16;
 
 /// The parts of `Core` other threads touch: `Closing`, `Kill`, `RequestSnapshot`.
 #[derive(Default)]
@@ -440,15 +442,17 @@ fn check_scheduler_health(w: &mut World) {
 
     if c.consecutive_backoffs < WARN_AFTER_CONSECUTIVE_BACKOFFS {
         tracing::debug!(
-            "This host returned a {wait}ms idle wait at least {TICK_RATE}ms late {late} of {sleeps} time(s) in the \
-             last second; idle sleeping suspended for {backoff_ms}ms"
+            "This host returned a {wait}ms idle wait at least {}ms late {late} of {sleeps} time(s) in the \
+             last second; idle sleeping suspended for {backoff_ms}ms",
+            TICK_RATE + COARSE_TIMER_MS
         );
         return;
     }
 
     tracing::warn!(
-        "This host returned a {wait}ms idle wait at least {TICK_RATE}ms late {late} of {sleeps} time(s) in the last \
+        "This host returned a {wait}ms idle wait at least {}ms late {late} of {sleeps} time(s) in the last \
          second, for the {}th time running; idle sleeping suspended for {backoff_ms}ms",
+        TICK_RATE + COARSE_TIMER_MS,
         c.consecutive_backoffs
     );
 }
@@ -501,7 +505,9 @@ pub fn run_iteration(w: &mut World, hooks: &mut dyn LoopHooks) -> bool {
             hooks.wait_for_completion(w, requested);
             let elapsed = w.core.get_timestamp().wrapping_sub(start);
             w.core.sleep_attempts += 1;
-            if elapsed - i64::from(requested) >= TICK_RATE {
+            // An OS timer clock (Windows' ~15.6ms) rounds every short wait up; that lateness is normal, not a
+            // starved host, so only lateness past it suspends sleeping.
+            if elapsed - i64::from(requested) >= TICK_RATE + COARSE_TIMER_MS {
                 w.core.late_wakes += 1;
             }
         }

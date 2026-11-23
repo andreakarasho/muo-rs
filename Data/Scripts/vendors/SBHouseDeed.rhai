@@ -1,0 +1,21 @@
+shop("SBHouseDeed", |s| {
+    s.sells("StonePlasterHouseDeed", 43800, 20, 0x14F0, #{ name: "deed to a stone-and-plaster house", hue: 0 });
+    s.sells("FieldStoneHouseDeed", 43800, 20, 0x14F0, #{ name: "deed to a field stone house", hue: 0 });
+    s.sells("SmallBrickHouseDeed", 43800, 20, 0x14F0, #{ name: "deed to a small brick house", hue: 0 });
+    s.sells("WoodHouseDeed", 43800, 20, 0x14F0, #{ name: "deed to a wooden house", hue: 0 });
+    s.sells("WoodPlasterHouseDeed", 43800, 20, 0x14F0, #{ name: "deed to a wood-and-plaster house", hue: 0 });
+    s.sells("ThatchedRoofCottageDeed", 43800, 20, 0x14F0, #{ name: "deed to a thatched-roof cottage", hue: 0 });
+    s.sells("BrickHouseDeed", 144500, 20, 0x14F0, #{ name: "deed to a brick house", hue: 0 });
+    s.sells("TwoStoryWoodPlasterHouseDeed", 192400, 20, 0x14F0, #{ name: "deed to a two-story wood-and-plaster house", hue: 0 });
+    s.sells("TowerDeed", 433200, 20, 0x14F0, #{ name: "deed to a tower", hue: 0 });
+    s.sells("KeepDeed", 665200, 20, 0x14F0, #{ name: "deed to a small stone keep", hue: 0 });
+    s.sells("CastleDeed", 1022800, 20, 0x14F0, #{ name: "deed to a castle", hue: 0 });
+    s.sells("LargePatioDeed", 152800, 20, 0x14F0, #{ name: "deed to a large house with patio", hue: 0 });
+    s.sells("LargeMarbleDeed", 192000, 20, 0x14F0, #{ name: "deed to a marble house with patio", hue: 0 });
+    s.sells("SmallTowerDeed", 88500, 20, 0x14F0, #{ name: "deed to a small stone tower", hue: 0 });
+    s.sells("LogCabinDeed", 97800, 20, 0x14F0, #{ name: "deed to a two story log cabin", hue: 0 });
+    s.sells("SandstonePatioDeed", 90900, 20, 0x14F0, #{ name: "deed to a sandstone house with patio", hue: 0 });
+    s.sells("VillaDeed", 136500, 20, 0x14F0, #{ name: "deed to a two story villa", hue: 0 });
+    s.sells("StoneWorkshopDeed", 60600, 20, 0x14F0, #{ name: "deed to a small stone workshop", hue: 0 });
+    s.sells("MarbleWorkshopDeed", 63000, 20, 0x14F0, #{ name: "deed to a small marble workshop", hue: 0 });
+});

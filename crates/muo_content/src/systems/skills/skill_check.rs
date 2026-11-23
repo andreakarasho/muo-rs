@@ -330,6 +330,9 @@ fn allow_gain(
     {
         return true;
     }
+    if crate::scripting::skill_gain_refused(w, from, &format!("{skill:?}")) {
+        return false;
+    }
     anti_macro::anti_macro_check(w, from, skill, obj)
 }
 

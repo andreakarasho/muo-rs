@@ -109,6 +109,26 @@ pub fn gumps_of(w: &World, ns: NetStateId) -> impl Iterator<Item = &dyn Gump> {
         .flat_map(|l| l.iter().map(|g| g.as_ref()))
 }
 
+/// Answers the newest gump open on `ns` as if its client pressed `button_id` (what a 0xB1 response does, without the
+/// packet): for tests and tools driving a player. False when nothing is open.
+pub fn press_button(w: &mut World, ns: NetStateId, button_id: i32) -> bool {
+    press_button_with(w, ns, button_id, Vec::new())
+}
+
+/// [`press_button`] with these checkboxes ticked.
+pub fn press_button_with(
+    w: &mut World,
+    ns: NetStateId,
+    button_id: i32,
+    switches: Vec<i32>,
+) -> bool {
+    let Some(mut gump) = system(w).gumps.get_mut(&ns).and_then(Vec::pop) else {
+        return false;
+    };
+    gump.on_response(w, ns, &RelayInfo::new(button_id, switches, Vec::new()));
+    true
+}
+
 /// `SendCloseGump(typeId, buttonId)`.
 pub fn send_close_gump(w: &mut World, ns: NetStateId, type_id: i32, button_id: i32) {
     if w.cannot_send_packets(ns) {

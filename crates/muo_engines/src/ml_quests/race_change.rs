@@ -10,10 +10,10 @@ use muo_content::gumps::{
 use muo_io::SpanReader;
 use muo_io::text::TextDefinition;
 use muo_net::net_state::NetState;
-use muo_primitives::{MessageType, Point3D, TimeSpan, utility};
+use muo_primitives::{MessageType, Point3D, TimeSpan};
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::layer::Layer;
 use muo_server::mobile::part1::{props_a, props_b};
 use muo_server::mobile::part2::messages as mm;
@@ -23,7 +23,6 @@ use muo_server::timer::{self, TimerHandle};
 use muo_server::type_registry::{Phase, TypeRegistry};
 
 use super::engine;
-use super::npc_support::*;
 
 // ---- MLQuestPackets ------------------------------------------------------------------------------------------
 
@@ -451,12 +450,8 @@ fn deed_double_click(w: &mut World, id: ItemId, from: MobileId) {
 pub static RACE_CHANGE_DEED: ItemType = ItemType {
     full_name: "Server.Engines.MLQuests.Gumps.RaceChangeDeed",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &RACE_CHANGE_DEED, 0x14F0);
-        ops::set_loot_type(w, id, LootType::Blessed);
-        id
-    }),
-    default_name: |_, _| Some("a race change deed".to_string()),
+    construct: Some(|w| crate::ml_quests::item_support::template_new(w, &RACE_CHANGE_DEED)),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: deed_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -740,91 +735,20 @@ fn collector_movement(w: &mut World, id: MobileId, m: MobileId, old: Point3D) {
     (muo_content::creature::BASE_CREATURE.on_movement)(w, id, m, old);
 }
 
-#[allow(clippy::too_many_arguments)] // every argument is part of the call
-fn collector_new(
-    w: &mut World,
-    ty: &'static muo_server::mobile::MobileType,
-    race: &str,
-    title: &str,
-    str_: (i32, i32),
-    dex: (i32, i32),
-    int: (i32, i32),
-    f: impl FnOnce(&mut World, MobileId),
-) -> MobileId {
-    let id = new_creature(w, ty, AIType::AiVendor, FightMode::None, 2, 1);
-    set_speed(w, id, 0.5, 2.0, true); // SetSpeed(0.5, 2.0)
-    set_title(w, id, Some(title.to_string()));
-    set_race_named(w, id, race);
-    let h = race_skin_hue(w, id);
-    set_hue(w, id, h);
-    let sh = utility::random_dyed_hue(&mut w.rng);
-    if let Some(m) = w.mobile_mut(id) {
-        m.speech_hue = sh;
-    }
-    f(w, id);
-    set_str_range(w, id, str_.0, str_.1);
-    set_dex_range(w, id, dex.0, dex.1);
-    set_int_range(w, id, int.0, int.1);
-    id
-}
-
-fn darius_new(w: &mut World) -> MobileId {
-    collector_new(
-        w,
-        &DARIUS,
-        "Elf",
-        "the wise",
-        (40, 50),
-        (60, 70),
-        (90, 100),
-        |w, id| {
-            add_item_hue(w, id, "WildStaff", None);
-            add_item_hue(w, id, "Sandals", Some(0x1BB));
-            add_item_hue(w, id, "GemmedCirclet", None);
-            let h = utility::random_bright_hue(&mut w.rng);
-            add_item_hue(w, id, "Tunic", Some(h));
-            assign_random_hair(w, id);
-        },
-    )
-}
-
-fn nedrick_new(w: &mut World) -> MobileId {
-    collector_new(
-        w,
-        &NEDRICK,
-        "Human",
-        "the iron worker",
-        (70, 80),
-        (50, 60),
-        (60, 70),
-        |w, id| {
-            add_item_hue(w, id, "Boots", None);
-            let h = utility::random_nondyed_hue(&mut w.rng);
-            add_item_hue(w, id, "LongPants", Some(h));
-            let h = utility::random_nondyed_hue(&mut w.rng);
-            add_item_hue(w, id, "FancyShirt", Some(h));
-            assign_random_hair(w, id);
-            let hh = hair_hue(w, id);
-            assign_random_facial_hair_hue(w, id, hh);
-        },
-    )
-}
-
-use muo_content::creature::setters::{set_dex_range, set_int_range, set_str_range};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C};
 
 macro_rules! collector {
-    ($(#[$m:meta])* $name:ident, $class:ident = $full:literal, ctor $ctor:ident, $dname:literal) => {
+    ($(#[$m:meta])* $name:ident, $class:ident = $full:literal) => {
         pub static $class: muo_content::creature::CreatureType = muo_content::creature::CreatureType {
-            is_invulnerable: |_, _| true,
-            default_name: |_, _| Some($dname),
+            is_invulnerable: |w, id| crate::template_keys::mobile_bool(w, id, "isInvulnerable", BASE_CREATURE_C.is_invulnerable),
+            default_name: muo_content::templates::creature_props::default_name,
             ..BASE_CREATURE_C
         };
         $(#[$m])*
         pub static $name: muo_server::mobile::MobileType = muo_server::mobile::MobileType {
             full_name: $full,
             parent: Some(&DONE_QUEST_COLLECTOR),
-            construct: Some($ctor),
+            construct: Some(|w| muo_content::templates::new_creature(w, &$name)),
             family: Some(&$class),
             serialize: |w, id, out| {
                 (DONE_QUEST_COLLECTOR.serialize)(w, id, out);
@@ -862,11 +786,13 @@ pub static DONE_QUEST_COLLECTOR: muo_server::mobile::MobileType = muo_server::mo
 
 collector!(
     /// `Server.Engines.MLQuests.Mobiles.Darius`.
-    DARIUS, DARIUS_C = "Server.Engines.MLQuests.Mobiles.Darius", ctor darius_new, "Darius"
+    DARIUS,
+    DARIUS_C = "Server.Engines.MLQuests.Mobiles.Darius"
 );
 collector!(
     /// `Server.Engines.MLQuests.Mobiles.Nedrick`.
-    NEDRICK, NEDRICK_C = "Server.Engines.MLQuests.Mobiles.Nedrick", ctor nedrick_new, "Nedrick"
+    NEDRICK,
+    NEDRICK_C = "Server.Engines.MLQuests.Mobiles.Nedrick"
 );
 
 /// Registers the classes and the phase of this file.

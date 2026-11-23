@@ -24,19 +24,25 @@ use super::{hue, item_id};
 
 // ---- constructors of the samples in muo_content::items::leaves ----
 
-/// `PlateChest()`: `base(0x1415)`.
+/// `new T()` of sample `of` for class `ty`: `base(graphic)` with the sample's `graphic` prop.
+fn sample_new(w: &mut World, ty: &'static ItemType, of: &'static ItemType) -> ItemId {
+    let g = muo_content::items::equip_props::graphic(w, of);
+    new_armor(w, ty, g)
+}
+
+/// `PlateChest()`.
 pub fn plate_chest_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_armor(w, ty, 0x1415)
+    sample_new(w, ty, &muo_content::items::leaves::PLATE_CHEST)
 }
 
-/// `LeatherChest()`: `base(0x13CC)`.
+/// `LeatherChest()`.
 pub fn leather_chest_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_armor(w, ty, 0x13CC)
+    sample_new(w, ty, &muo_content::items::leaves::LEATHER_CHEST)
 }
 
-/// `ChainChest()`: `base(0x13BF)`.
+/// `ChainChest()`.
 pub fn chain_chest_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    new_armor(w, ty, 0x13BF)
+    sample_new(w, ty, &muo_content::items::leaves::CHAIN_CHEST)
 }
 
 // ---- ElvenGlasses ----
@@ -44,7 +50,6 @@ pub fn chain_chest_new(w: &mut World, ty: &'static ItemType) -> ItemId {
 /// `ElvenGlasses`' constants.
 pub static ELVEN_GLASSES_CLASS: ArmorClass = ArmorClass {
     default_weight: Some(2.0),
-    label_number: 1032216, // elven glasses
     base_physical_resistance: 2,
     base_fire_resistance: 4,
     base_cold_resistance: 4,

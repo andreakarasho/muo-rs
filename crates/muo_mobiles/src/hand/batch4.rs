@@ -9,7 +9,6 @@ use muo_server::ids::{ItemId, MobileId};
 use muo_server::item::container::drop_item_default;
 use muo_server::region::MusicName;
 
-use super::ctors::pack;
 use crate::common::rnd;
 
 // ---- Dawn's Music Box (8th anniversary items) ----
@@ -67,16 +66,6 @@ pub fn betrayer_abilities(_w: &World, _id: MobileId) -> &'static [&'static Monst
 }
 
 // ---- ExodusMinion, ExodusOverseer ----
-
-/// `PackItem` of one of PowerCrystal, ArcaneGem, ClockworkAssembly: `switch (Utility.Random(3))`.
-pub fn exodus_minion_ctor1(w: &mut World, id: MobileId) {
-    match rnd::below(w, 3) {
-        0 => pack(w, id, "PowerCrystal"),
-        1 => pack(w, id, "ArcaneGem"),
-        2 => pack(w, id, "ClockworkAssembly"),
-        _ => {}
-    }
-}
 
 static EXODUS_ML: [&MonsterAbility; 1] = [&abilities::ENERGY_BOLT_COUNTER];
 static EXODUS_PRE_ML: [&MonsterAbility; 1] = [&abilities::MAGICAL_BARRIER];
@@ -136,24 +125,6 @@ pub fn sir_patrick_abilities(_w: &World, _id: MobileId) -> &'static [&'static Mo
 
 use crate::common::*;
 
-pub fn hell_steed_ctor1(w: &mut World, id: MobileId) {
-    set_str_range(w, id, 201, 210);
-    set_dex_range(w, id, 101, 110);
-    set_int_range(w, id, 101, 115);
-    set_hits_range(w, id, 201, 220);
-    set_damage(w, id, 20, 24);
-    set_damage_type(w, id, ResistanceType::Physical, 25);
-    set_damage_type(w, id, ResistanceType::Fire, 75);
-    set_resistance_range(w, id, ResistanceType::Physical, 60, 70);
-    set_resistance(w, id, ResistanceType::Fire, 90);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_skill_range(w, id, SkillName::MagicResist, 90.1, 110.0);
-    set_skill(w, id, SkillName::Tactics, 50.0);
-    set_skill_range(w, id, SkillName::Wrestling, 90.1, 110.0);
-    fame(w, id, 0);
-    karma(w, id, 0);
-}
-
 // ---- Ferret ----
 
 /// `m_CanTalk` (not saved; a ferret without the state can talk, like one after `AfterDeserialization`).
@@ -172,7 +143,7 @@ fn set_can_talk(w: &mut World, id: MobileId, v: bool) {
 }
 
 /// `m_CanTalk = true;`
-pub fn ferret_ctor1(w: &mut World, id: MobileId) {
+pub fn ferret_can_talk(w: &mut World, id: MobileId) {
     set_can_talk(w, id, true);
 }
 

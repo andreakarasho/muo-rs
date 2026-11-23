@@ -26,7 +26,7 @@ pub static DD_BOARD: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.DDBoard",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_board(w, &DD_BOARD)),
-    default_name: |_, _| Some("scoreboard".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     on_double_click: board_double_click,
     serialize: |w, id, out| board_serialize(w, id, out),
     deserialize: |w, id, r| board_deserialize(w, id, r),
@@ -185,9 +185,7 @@ pub fn new_way_point(w: &mut World) -> ItemId {
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(WayPointData::default());
     }
-    (ITEM_BASE.set_item_id)(w, id, 0x519);
-    ops::set_visible(w, id, true);
-    ops::set_name(w, id, Some("SET MY NAME".to_owned()));
+    muo_content::templates::apply_item_as(w, id, DD_WAY_POINT.full_name);
     for (item, x, y) in [
         (0x7A8, -1, -1),
         (0x7A6, 0, -1),
@@ -231,9 +229,7 @@ pub static DD_WAY_POINT: ItemType = ItemType {
 
 /// `new DDController()`.
 pub fn new_controller_dd(w: &mut World) -> ItemId {
-    let id = new_controller(w, &DD_CONTROLLER, EventCtrl::new(GameKind::Dd, 2));
-    ops::set_name(w, id, None);
-    id
+    new_controller(w, &DD_CONTROLLER, EventCtrl::new(GameKind::Dd, 2))
 }
 
 /// `DDTeamInfo.Serialize`.
@@ -261,7 +257,7 @@ pub static DD_CONTROLLER: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.DDController",
     parent: Some(&EVENT_CONTROLLER),
     construct: Some(new_controller_dd),
-    default_name: |_, _| Some("DD Controller".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, EVENT_CONTROLLER.default_name),
     serialize: |w, id, out| {
         (EVENT_CONTROLLER.serialize)(w, id, out);
         out.write_i32(0);

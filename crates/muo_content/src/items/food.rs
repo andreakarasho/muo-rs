@@ -290,13 +290,14 @@ pub static FRUIT_BASKET: ItemType = ItemType {
     full_name: "Server.Items.FruitBasket",
     parent: Some(&FOOD),
     construct: Some(|w| {
-        let id = new_food(w, &FRUIT_BASKET, 0x993, 1);
-        set_fill_factor(w, id, 5);
-        ops::set_stackable(w, id, false);
+        let id = new_food(w, &FRUIT_BASKET, 0, 1);
+        crate::templates::apply_item_as(w, id, FRUIT_BASKET.full_name);
         id
     }),
     family: Some(&FRUIT_BASKET_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", FOOD.default_weight)
+    },
     serialize: |w, id, out| {
         (FOOD.serialize)(w, id, out);
         out.write_i32(0);

@@ -75,7 +75,7 @@ fn every_class_constructs_and_round_trips() {
     let types = registry();
     for era in [None, Some(Expansion::AOS), Some(Expansion::ML)] {
         for &ty in types.item_types() {
-            let mut w = World::new();
+            let mut w = crate::test_world();
             w.core.expansion = era;
             muo_items_register(&mut w);
             let id = match ty.construct {
@@ -105,7 +105,7 @@ fn every_class_constructs_and_round_trips() {
             }
             let bytes = save(&w, id);
 
-            let mut w2 = World::new();
+            let mut w2 = crate::test_world();
             w2.core.expansion = era;
             muo_items_register(&mut w2);
             let other = for_load(&mut w2, 0x4000_0001, ty);
@@ -153,7 +153,7 @@ fn muo_items_register(w: &mut World) {
 
 #[test]
 fn every_summon_constructs_and_round_trips() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.resources
         .get_mut::<NpcSpeeds>()
         .register(SpeedClassEntry {
@@ -178,7 +178,7 @@ fn every_summon_constructs_and_round_trips() {
 
 #[test]
 fn a_gem_record_is_the_item_and_a_version() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (gems::AMBER.construct.unwrap())(&mut w);
     let item = w.item(id).unwrap();
     assert_eq!(
@@ -204,7 +204,7 @@ fn gem_types_map_to_their_classes() {
 
 #[test]
 fn the_arcane_cloak_swaps_its_graphic_and_writes_encoded_charges() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (clothing::special::CLOAK.construct.unwrap())(&mut w);
     assert_eq!(w.item(id).unwrap().item_id, 0x1515);
     clothing::special::set_max_arcane_charges(&mut w, id, 20);
@@ -222,7 +222,7 @@ fn the_arcane_cloak_swaps_its_graphic_and_writes_encoded_charges() {
 
 #[test]
 fn an_old_arcane_robe_record_reads_its_bool_and_ints() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (clothing::special::ROBE.construct.unwrap())(&mut w);
     let mut bytes = save(&w, id);
     // replace the trailing `version 2, 0, 0` by `version 1, true, 5, 10`
@@ -238,7 +238,7 @@ fn an_old_arcane_robe_record_reads_its_bool_and_ints() {
 
 #[test]
 fn the_reward_cloak_keeps_its_label_and_blessing() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = clothing::special::reward_cloak_new(
         &mut w,
         &clothing::special::REWARD_CLOAK,
@@ -262,7 +262,7 @@ fn the_reward_cloak_keeps_its_label_and_blessing() {
 
 #[test]
 fn a_death_robe_decays_and_stops_when_picked_up() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (clothing::special::DEATH_ROBE.construct.unwrap())(&mut w);
     assert_eq!(w.item(id).unwrap().hue, 2301);
     assert!(
@@ -279,7 +279,7 @@ fn a_death_robe_decays_and_stops_when_picked_up() {
 
 #[test]
 fn a_quiver_weighs_less_and_holds_one_ammo_type() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (quivers::ELVEN_QUIVER.construct.unwrap())(&mut w);
     let d = quivers::data(&w, id).unwrap();
     assert_eq!(
@@ -290,7 +290,7 @@ fn a_quiver_weighs_less_and_holds_one_ammo_type() {
     let fire = (quivers::QUIVER_OF_FIRE.construct.unwrap())(&mut w);
     assert_eq!(w.item(fire).unwrap().hue, 0x4E7);
     let mut split = [0; 7];
-    (quivers::QUIVER_OF_FIRE_CLASS.alter_bow_damage)(&mut split);
+    quivers::alter_bow_damage(&w, fire, &mut split);
     assert_eq!(split, [50, 50, 0, 0, 0, 0, 0]);
     // the elven quiver's own part is its encoded version 0; before it, the base's flags (damage increase 0x8,
     // weight reduction 0x4, quality Low is not Regular 0x20, capacity 0x40) and values
@@ -302,7 +302,7 @@ fn a_quiver_weighs_less_and_holds_one_ammo_type() {
 
 #[test]
 fn a_wand_has_charges_and_mage_weapon() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = Some(Expansion::AOS);
     let id = (wands::HEAL_WAND.construct.unwrap())(&mut w);
     let c = wands::charges(&w, id);
@@ -325,7 +325,7 @@ fn a_wand_has_charges_and_mage_weapon() {
 
 #[test]
 fn a_random_talisman_round_trips_its_attributes() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     muo_items_register(&mut w);
     for _ in 0..50 {
         let id = (talismans::RANDOM_TALISMAN.construct.unwrap())(&mut w);
@@ -365,7 +365,7 @@ fn the_talisman_tables_have_matching_lengths() {
 
 #[test]
 fn staff_robe_hue_follows_the_access_level() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = suits::staff_robe_new(&mut w, &suits::STAFF_ROBE, AccessLevel::Counselor);
     assert_eq!(w.item(id).unwrap().hue, 0x3);
     suits::set_access_level(&mut w, id, AccessLevel::Administrator);

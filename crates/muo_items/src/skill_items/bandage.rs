@@ -38,8 +38,7 @@ pub fn range(w: &World) -> i32 {
 
 /// `new Bandage(amount)`.
 pub fn new_bandage(w: &mut World, amount: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &BANDAGE, 0xE21);
-    ops::set_stackable(w, id, true);
+    let id = crate::simple::from_template(w, &BANDAGE, "Server.Items.Bandage");
     ops::set_amount(w, id, amount);
     id
 }
@@ -158,7 +157,7 @@ pub static BANDAGE: ItemType = ItemType {
     full_name: "Server.Items.Bandage",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| new_bandage(w, 1)),
-    default_weight: |_, _| 0.1,
+    default_weight: crate::class_props::default_weight,
     on_double_click: double_click,
     serialize: |w, id, out: &mut dyn GenericWriter| {
         (ITEM_BASE.serialize)(w, id, out);

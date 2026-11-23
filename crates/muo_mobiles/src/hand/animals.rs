@@ -1,7 +1,6 @@
 //! Animals with their own state or a few overrides: Cow, Sheep, WaterElemental, Dolphin, the beetles, the hiryus,
 //! Kappa.
 
-use muo_content::craft::CraftResource;
 use muo_content::creature::data::cd_mut;
 use muo_content::creature::mount::{BASE_MOUNT, BASE_MOUNT_C};
 use muo_content::creature::{BASE_CREATURE, BASE_CREATURE_C, cd, speeds};
@@ -16,7 +15,7 @@ use muo_server::item::DeathMoveResult;
 use muo_server::mobile::part1::props_b;
 use muo_server::mobile::part2::messages;
 
-use super::ctors::{pack, si};
+use super::ctors::si;
 use super::pack_animal::{check_access, combine_backpacks, context_menu_entries};
 use crate::common::rnd;
 
@@ -64,13 +63,6 @@ pub fn cow_deserialize(
         m.ext.insert(CowData { milked_on, milk });
     }
     Ok(())
-}
-
-/// `if (Core.AOS && Utility.Random(1000) == 0) FightMode = FightMode.Closest;` (0.1% chance to have mad cows)
-pub fn cow_ctor1(w: &mut World, id: MobileId) {
-    if w.core_aos() && rnd::below(w, 1000) == 0 {
-        super::ctors::set_fight_mode(w, id, muo_content::creature::enums::FightMode::Closest);
-    }
 }
 
 /// `Tip()`.
@@ -227,6 +219,12 @@ pub fn sheep_carve(w: &mut World, id: MobileId, from: MobileId, _item: ItemId) {
 /// `_hasDecanter`.
 pub struct HasDecanter(pub bool);
 
+pub fn water_elemental_decanter(w: &mut World, id: MobileId) {
+    if let Some(m) = w.mobile_mut(id) {
+        m.ext.insert(HasDecanter(true));
+    }
+}
+
 pub fn water_elemental_serialize(w: &World, id: MobileId, out: &mut dyn GenericWriter) {
     out.write_i32(1);
     out.write_bool(
@@ -311,10 +309,6 @@ pub fn fire_beetle_get_control_chance(
 ) -> f64 {
     1.0
 }
-/// `var pack = Backpack; pack?.Delete(); pack = new StrongBackpack(); pack.Movable = false; AddItem(pack);`
-pub fn beetle_ctor1(w: &mut World, id: MobileId) {
-    super::pack_animal::replace_backpack(w, id);
-}
 
 pub fn beetle_on_before_death(w: &mut World, id: MobileId) -> bool {
     if !(BASE_MOUNT.on_before_death)(w, id) {
@@ -386,57 +380,6 @@ pub fn fire_beetle_deserialize(
 
 // ---- the hiryus ----
 
-/// `Hiryu.GetHue()`.
-fn hiryu_hue(w: &mut World) -> i32 {
-    let r = rnd::below(w, 1075);
-    let hue = match r {
-        1074 => 0x85C,
-        1073 => 0x490,
-        1071.. => 0x030,
-        1069.. => 0x037,
-        1066.. => 0x295,
-        1063.. => 0x123,
-        1058.. => 0x482,
-        1050.. => 0x487,
-        1040.. => muo_content::craft::hue(w, CraftResource::Gold),
-        1030.. => muo_content::craft::hue(w, CraftResource::Agapite),
-        1020.. => 0x495,
-        1010.. => 0x48D,
-        1000.. => 0x47F,
-        _ => 0,
-    };
-    hue | 0x8000
-}
-/// `LesserHiryu.GetHue()`.
-fn lesser_hiryu_hue(w: &mut World) -> i32 {
-    let r = rnd::below(w, 525);
-    let hue = match r {
-        524 => 0x258,
-        523 => muo_content::craft::hue(w, CraftResource::Valorite),
-        520.. => 0x7D4,
-        510.. => 0x163,
-        500.. => 0x295,
-        _ => 0,
-    };
-    hue | 0x8000
-}
-pub fn hiryu_ctor1(w: &mut World, id: MobileId) {
-    let h = hiryu_hue(w);
-    crate::common::hue(w, id, h);
-}
-pub fn hiryu_ctor2(w: &mut World, id: MobileId) {
-    super::seed::bonsai_third(w, id);
-}
-pub fn hiryu_ctor3(w: &mut World, id: MobileId) {
-    super::seed::peculiar_third(w, id, 3);
-}
-pub fn lesser_hiryu_ctor1(w: &mut World, id: MobileId) {
-    let h = lesser_hiryu_hue(w);
-    crate::common::hue(w, id, h);
-}
-pub fn lesser_hiryu_ctor2(w: &mut World, id: MobileId) {
-    super::seed::bonsai_third(w, id);
-}
 /// `ControlMaster.Skills.Bushido.Base >= 90.0`
 pub fn lesser_hiryu_override_bonding_reqs(w: &World, id: MobileId) -> bool {
     muo_content::creature::control::control_master(w, id)
@@ -494,24 +437,6 @@ pub fn kappa_new_harmful_item(w: &mut World, _id: MobileId) -> Option<ItemId> {
     muo_server::item::ops::set_name(w, acid, Some("slime".to_owned()));
     Some(acid)
 }
-pub fn kappa_ctor1(w: &mut World, id: MobileId) {
-    crate::common::pack_new_amount(w, id, &si("RawFishSteak"), 3);
-}
-pub fn kappa_ctor2(w: &mut World, id: MobileId) {
-    for _ in 0..2 {
-        match rnd::below(w, 6) {
-            0 => pack(w, id, "Gears"),
-            1 => pack(w, id, "Hinge"),
-            2 => pack(w, id, "Axle"),
-            _ => {}
-        }
-    }
-}
-pub fn kappa_ctor3(w: &mut World, id: MobileId) {
-    if w.core_ml() && rnd::below(w, 3) == 0 {
-        super::seed::pack_peculiar(w, id, 4);
-    }
-}
 /// The acid blood ability.
 pub fn kappa_on_damage(
     w: &mut World,
@@ -546,11 +471,4 @@ pub fn kappa_on_damage(
 #[allow(dead_code)]
 fn _unused(w: &mut World, id: MobileId) {
     let _ = cd_mut(w, id);
-}
-
-/// `_hasDecanter = true;`
-pub fn water_elemental_ctor1(w: &mut World, id: MobileId) {
-    if let Some(m) = w.mobile_mut(id) {
-        m.ext.insert(HasDecanter(true));
-    }
 }

@@ -36,11 +36,11 @@ fn names_are_unique_and_register() {
 #[test]
 fn every_class_constructs_and_round_trips() {
     for (t, _) in all() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         let bytes = save(&w, id);
-        let mut w2 = World::new();
+        let mut w2 = crate::test_world();
         let id2 = w2.add_item(Item::new_for_load(
             muo_primitives::Serial::new(0x4000_0001),
             t,
@@ -98,11 +98,11 @@ fn hand() -> Vec<&'static ItemType> {
 #[test]
 fn hand_written_classes_construct_and_round_trip() {
     for t in hand() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (t.construct.unwrap())(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         let bytes = save(&w, id);
-        let mut w2 = World::new();
+        let mut w2 = crate::test_world();
         let id2 = w2.add_item(Item::new_for_load(
             muo_primitives::Serial::new(0x4000_0001),
             t,
@@ -117,7 +117,7 @@ fn hand_written_classes_construct_and_round_trip() {
 #[test]
 fn soulstone_golden_tail() {
     use super::soulstone::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = soulstone_new(&mut w, &SOULSTONE, Some("acct".into()), 0x2A93, 0x2A94);
     let bytes = save(&w, id);
     // version 4 (encoded), no last user, level 0 (an enum is an encoded int), active, inactive, account "acct",
@@ -136,7 +136,7 @@ fn soulstone_golden_tail() {
 #[test]
 fn monster_statuette_type_and_hue() {
     use super::statuette::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = monster_statuette_new(&mut w, kind::RED_DEATH);
     assert_eq!((MONSTER_STATUETTE.item_id)(&w, id), 0x2617);
     assert_eq!(w.item(id).unwrap().hue, 0x21);
@@ -150,7 +150,7 @@ fn monster_statuette_type_and_hue() {
 #[test]
 fn scroll_names_follow_the_value() {
     use super::scrolls::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = power_scroll_new(&mut w, muo_server::skills::SkillName::Magery, 110.0);
     assert_eq!(value(&w, id), 110.0);
     // a 105 scroll is not cursed, a 110 one is
@@ -169,7 +169,7 @@ fn scroll_names_follow_the_value() {
 fn dye_hook_receives_the_tub() {
     // sender.FailMessage: a tub whose class answers another message is what the refusal shows
     use muo_content::items::clothing::{tub_dyed_hue, tub_fail_message};
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let tub = muo_server::item::ops::new_item_with_id(&mut w, &muo_server::item::ITEM_BASE, 0xFAB);
     assert_eq!(tub_fail_message(&w, tub), 1042083);
     muo_content::items::equip_hooks::hooks_mut(&mut w).dye_tub = Some(|_, _| (0x21, 1042084));
@@ -181,7 +181,7 @@ fn dye_hook_receives_the_tub() {
 
 #[test]
 fn earring_box_set_holds_five_earrings() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (super::boxes::EARRING_BOX_SET.construct.unwrap())(&mut w);
     assert_eq!(w.item(id).unwrap().items.len(), 5);
 }
@@ -189,7 +189,7 @@ fn earring_box_set_holds_five_earrings() {
 #[test]
 fn a_fish_dies_after_five_minutes() {
     use super::fish::*;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let id = (JELLYFISH.construct.unwrap())(&mut w);
     assert!(!is_dead(&w, id));
     assert_eq!(description(&w, id), 1073622);

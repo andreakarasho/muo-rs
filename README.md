@@ -57,7 +57,8 @@ hook tables that the owning crate fills in at registration.
 2. **A Classic Ultima Online client install.** The server reads the map, statics, tiledata, multi and cliloc
    files from it (`.mul` or `.uop`). Use the client version your players will connect with.
 3. **A server folder next to the executable** with:
-   - `Data/`: copy the [`Data/`](Data) folder of this repository. It holds the game content: eras and maps
+   - `Data/`: copy the [`Data/`](Data) folder of this repository. It holds the game content: the classes and vendors
+     (`Scripts/`), eras and maps
      (`expansions.json`, `map-definitions.json`), regions and teleporters, spawners (`Spawns/`), town decoration
      (`Decoration/`), skills, professions, bulk orders, NPC names and speeds, and the staff menus. The server needs
      at least `expansions.json`, `map-definitions.json` and `skills.json`; without the rest the world is empty.
@@ -84,6 +85,69 @@ account (`accountHandler.enableAutoAccountCreation`, on by default).
 
 Console commands while running: `help` (`?`), `save` (`s`), `shutdown` (`sh`), `restart` (`r`). Ctrl+C shuts down
 cleanly.
+
+## Customizing content without recompiling
+
+Content is [rhai](https://rhai.rs) script in `Data/Scripts/**/*.rhai`: the classes (`classes/`), the vendors' buy
+and sell lists (`vendors/`), and anything else you add. Run `[ReloadScripts` in game, or restart; a script error stops
+startup (or refuses the reload and keeps what was loaded) with the file and line.
+
+```rhai
+mobile("Orc", |c| {
+    c.corpse_name = "an orcish corpse";      // class values: set once, at load
+    c.loot = "Meager";
+
+    c.on_create(|m| {                        // every new orc
+        m.name = random_name("orc");
+        m.body = 17;
+        m.str = 96..=120;                    // a random value in the range, as SetStr(96, 120)
+        m.resist("Fire", 20, 30);
+        m.skill("Swords", 50.1, 75.0);
+        if chance(0.2) { m.pack = [#{ item: "Server.Items.BolaBall" }]; }
+    });
+
+    c.on_death(|m, corpse| {                 // behavior: true replaces the default
+        m.say("Urg...");
+    });
+});
+
+item("ArmorOfFortune", |c| {
+    c.label = 1061098;
+    c.rarity = 11;
+    c.on_create(|i| {
+        i.hue = 0x501;
+        i.attributes.luck = 200;
+        i.armor_attributes.mage_armor = 1;
+    });
+});
+
+shop("SBBlacksmith", |s| {
+    s.sells("Tongs", 13, 14, 0x0FBB);        // what players buy: class, price, amount, graphic
+    s.buys("Tongs", 7);                      // what the vendor buys from players
+    s.era("AOS", |s| { s.sells("Bascinet", 18, 20, 0x140C); });
+});
+```
+
+- `mobile(name, |c| ..)` / `item(name, |c| ..)` declare a class, by short (`"Orc"`) or full name. `c.extends =
+  "Longsword"` makes a new class deriving from a registered one, usable with `[add` and spawners.
+- `c.<name> = value` sets a class value, read where the C# class had a constant (weapon damage, armor resistances,
+  corpse name, loot packs, labels...): `weight`, `label`, `rarity`, `name`, `ai`, `fight_mode`, `loot`, or any other
+  name in snake case (`corpse_name`). `c.on_create(|e| ..)` is the constructor; `c.on_use`, `on_death`, `on_think`,
+  `on_damage`, `on_hear` are hooks; `c.on_outfit(|m| ..)` an NPC's clothes.
+- In `on_create`, `e.<name> = value` runs that constructor statement (`m.hits = 58..=72` sets the hits maximum, as
+  the C# constructor did); `e.entity` is the live mobile or item. Content crates add statements of their own (each
+  crate's `template_keys*.rs`); any statement is also `e.step("exactName", value)`.
+- Random draws match the C# ones, so a class keeps its behavior when edited elsewhere: `chance(p)`, `coin()`,
+  `random(a, b)`, `random_below(n)`, `pick([..])`, `era("AOS")`.
+- Edits apply to entities made afterwards; saved entities keep their saved values.
+- The full function list is in [`docs/scripting`](docs/scripting/README.md): the world, creatures and players,
+  items, sounds and effects, targeting, prompts and dialogs.
+- Plain script files also work: per-file hooks (`fn on_use(item, from)` bound with `c.script = "file.rhai"`), global
+  events and staff commands, declared by a `///` header on the function (`/// @command Battle`,
+  `/// @access GameMaster`, `/// @event login`). See `Data/Scripts/examples/`.
+
+Behavior (double-click handlers, AI, combat, gumps) is Rust, and so are the few constructors that are real logic
+(guildstones, treasure maps, teleporters, a handful of quest NPCs and engine pieces).
 
 ## Tests
 

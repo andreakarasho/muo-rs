@@ -43,8 +43,11 @@ pub mod util;
 pub mod virtues;
 pub mod wiring2;
 
+mod template_keys;
+
 /// Registers this crate's types and phases at startup.
 pub fn register(types: &mut muo_server::type_registry::TypeRegistry) {
+    template_keys::register(types);
     types.register_phase_default(
         muo_server::type_registry::Phase::Configure,
         "muo_engines.PropsGen.Configure",

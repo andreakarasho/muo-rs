@@ -40,6 +40,15 @@ fn serial(w: &World, id: ItemId) -> Serial {
     w.item(id).unwrap().serial
 }
 
+/// A test world that also knows the addon classes by name (a deed makes its `deedAddon` class by name).
+fn typed_world() -> World {
+    let mut w = crate::test_world();
+    muo_content::items::addon::register(&mut w.types);
+    super::register(&mut w.types);
+    crate::special::register(&mut w.types);
+    w
+}
+
 fn make(w: &mut World, t: &'static ItemType) -> ItemId {
     (t.construct.or(t.make).unwrap())(w)
 }
@@ -60,7 +69,7 @@ fn names_are_unique_and_register() {
 
 /// Loads the records of `ids` into a fresh world the way the loader does, with the same serials.
 fn reload(from: &World, ids: &[ItemId]) -> World {
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     for &id in ids {
         let it = from.item(id).unwrap();
         w2.add_item(Item::new_for_load(it.serial, it.ty));
@@ -79,7 +88,7 @@ fn reload(from: &World, ids: &[ItemId]) -> World {
 fn every_constructible_class_round_trips_with_its_components() {
     for (t, _) in all() {
         let Some(c) = t.construct else { continue };
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = c(&mut w);
         assert_eq!(w.item(id).unwrap().ty.full_name, t.full_name);
         let mut ids = vec![id];
@@ -103,14 +112,17 @@ fn every_deed_and_its_addon_point_at_each_other() {
         if !is_deed || t.construct.is_none() {
             continue;
         }
-        let mut w = World::new();
+        let mut w = typed_world();
         let deed = make(&mut w, t);
         if t.is(&BASE_ADDON_DEED) {
             let a = (addon::deed_class(&w, deed).addon)(&mut w, deed);
             assert!(addon::is_addon(&w, a), "{}", t.full_name);
-            let back = addon::addon_class(&w, a)
-                .deed
-                .expect("an addon with a deed")(&mut w);
+            let class = addon::addon_class(&w, a);
+            let back = match (class.deed_of, class.deed) {
+                (Some(f), _) => f(&mut w, a),
+                (None, Some(f)) => f(&mut w),
+                _ => panic!("{}: an addon with a deed", t.full_name),
+            };
             assert_eq!(w.item(back).unwrap().ty.full_name, t.full_name);
         }
     }
@@ -118,7 +130,7 @@ fn every_deed_and_its_addon_point_at_each_other() {
 
 #[test]
 fn abbatoir_addon_record() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &ABBATOIR_ADDON);
     let comps = addon::components(&w, a);
     assert_eq!(comps.len(), 9);
@@ -152,7 +164,7 @@ fn abbatoir_addon_record() {
 
 #[test]
 fn addon_deed_record() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let d = make(&mut w, &ABBATOIR_DEED);
     // BaseAddonDeed (0, false) and AbbatoirDeed (0, false): two int versions.
     let mut e = SaveWriter::new(true);
@@ -165,7 +177,7 @@ fn addon_deed_record() {
 
 #[test]
 fn encoded_version_leaf_and_localized_component_record() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &sp::BONE_TABLE_ADDON); // [SerializationGenerator(0)]: an encoded version
     let c = addon::components(&w, a)[0];
     let mut e = SaveWriter::new(true);
@@ -193,7 +205,7 @@ fn encoded_version_leaf_and_localized_component_record() {
 
 #[test]
 fn container_addon_records() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &ELVEN_DRESSER_EAST_ADDON);
     let comps = addon_container::components(&w, a);
     assert_eq!(comps.len(), 1);
@@ -230,7 +242,7 @@ fn container_addon_records() {
 
 #[test]
 fn hue_is_shared_unless_the_class_says_not() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &ALCHEMIST_TABLE_EAST_ADDON);
     let c = addon::components(&w, a)[0];
     (w.item(a).unwrap().ty.set_hue)(&mut w, a, 0x44);
@@ -248,7 +260,7 @@ fn hue_is_shared_unless_the_class_says_not() {
 
 #[test]
 fn deleting_a_component_deletes_the_addon_and_the_rest() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &ABBATOIR_ADDON);
     let comps = addon::components(&w, a);
     let ty = w.item(comps[3]).unwrap().ty;
@@ -259,11 +271,11 @@ fn deleting_a_component_deletes_the_addon_and_the_rest() {
 
 #[test]
 fn load_tidies_a_component_that_does_not_exist() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &sp::BROKEN_ARMOIRE_ADDON);
     let bytes = save(&w, a);
     // The loader finds no entity for the component's serial: the list is tidied to nothing.
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id = w2.add_item(Item::new_for_load(serial(&w, a), &sp::BROKEN_ARMOIRE_ADDON));
     let mut r = SaveReader::new(&bytes);
     (sp::BROKEN_ARMOIRE_ADDON.deserialize)(&mut w2, id, &mut r).unwrap();
@@ -273,14 +285,14 @@ fn load_tidies_a_component_that_does_not_exist() {
 #[test]
 fn version_zero_component_reads_nothing_after_its_version() {
     // AddonComponent version 0: `Deserialize(reader, version)` reads no fields.
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let c = sp::standing_broken_chair_component_new(&mut w);
     let mut e = SaveWriter::new(true);
     (ITEM_BASE.serialize)(&w, c, &mut e);
     e.write_i32(0); // AddonComponent v0
     e.write_i32(0); // the leaf
     let bytes = e.into_vec();
-    let mut w2 = World::new();
+    let mut w2 = crate::test_world();
     let id = w2.add_item(Item::new_for_load(
         serial(&w, c),
         &sp::STANDING_BROKEN_CHAIR_COMPONENT,
@@ -294,7 +306,7 @@ fn version_zero_component_reads_nothing_after_its_version() {
 #[test]
 fn without_houses_an_addon_does_not_fit() {
     // There is no house here: FindHouseAt is null, so the addon fits nowhere (Blocked off the map, NotInHouse on it).
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = make(&mut w, &ABBATOIR_ADDON);
     let mut house = None;
     let map = muo_server::map::MapId::FELUCCA;
@@ -308,7 +320,7 @@ fn without_houses_an_addon_does_not_fit() {
 
 #[test]
 fn jack_o_lantern_builds_its_four_components() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     for south in [false, true] {
         let a = super::hand::jack_o_lantern_new(&mut w, south);
         let comps = addon::components(&w, a);
@@ -335,7 +347,7 @@ fn jack_o_lantern_builds_its_four_components() {
 
 #[test]
 fn wall_torch_toggles_its_graphic() {
-    let mut w = World::new();
+    let mut w = typed_world();
     let a = sp::wall_torch_addon_new(&mut w);
     let c = addon::components(&w, a)[0];
     assert_eq!(w.item(c).unwrap().item_id, 0x3D98);
@@ -358,7 +370,7 @@ use super::hive::{self, SH_TELE_COMPONENT};
 
 #[test]
 fn loom_and_flour_mill_records() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let l = make(&mut w, &LOOM_SOUTH_ADDON);
     loom_set_phase(&mut w, l, 7);
     let comps = addon::components(&w, l);
@@ -396,7 +408,7 @@ fn loom_and_flour_mill_records() {
 
 #[test]
 fn spinning_wheel_swaps_ids_and_a_saved_spin_is_undone_on_load() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let wheel = make(&mut w, &SPINNING_WHEEL_EAST_ADDON);
     let c = addon::components(&w, wheel)[0];
     let from = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
@@ -420,7 +432,7 @@ fn spinning_wheel_swaps_ids_and_a_saved_spin_is_undone_on_load() {
 
 #[test]
 fn dart_board_needs_a_wall_on_the_side_it_faces() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let east = dart_board_new(&mut w, true);
     let south = dart_board_new(&mut w, false);
     let class = |w: &World, c| addon::component_class(w, c);
@@ -437,7 +449,7 @@ fn dart_board_needs_a_wall_on_the_side_it_faces() {
 
 #[test]
 fn practice_components_and_archery_butte_records() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     // PickpocketDip (0, false): version, MinSkill, MaxSkill; a fresh one practices on -25..+25.
     let dip = pickpocket_dip_new(&mut w, 0x1EC3);
     let mut e = SaveWriter::new(true);
@@ -473,7 +485,7 @@ fn practice_components_and_archery_butte_records() {
 
 #[test]
 fn teleporters_link_all_four_ends_and_activity_follows() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let a = hive::sh_teleporter_new_with(&mut w, true);
     let b = hive::sh_teleporter_new_with(&mut w, false);
     assert_eq!(addon::components(&w, a).len(), 16 + 4);
@@ -516,7 +528,7 @@ fn teleporters_link_all_four_ends_and_activity_follows() {
 
 #[test]
 fn ballot_box_round_trips_topic_and_votes() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let b = hive::ballot_box_new(&mut w);
     let voter = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
     // BallotBox (0): encoded version, the topic (encoded count of strings), then the aye and nay lists.
@@ -532,7 +544,7 @@ fn ballot_box_round_trips_topic_and_votes() {
 
 #[test]
 fn solen_ant_hole_reads_version_zero() {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let h = make(&mut w, &hive::SOLEN_ANT_HOLE);
     assert_eq!(addon::components(&w, h).len(), 10);
     assert!(!addon::addon_class(&w, h).share_hue);
@@ -558,7 +570,7 @@ fn _uses(_: &dyn Fn()) {
 #[test]
 fn fruit_trees_grow_on_load_and_picking_empties_them() {
     use crate::special::decor::{APPLE_TREE_ADDON, PEACH_TREE_ADDON};
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let tree = make(&mut w, &APPLE_TREE_ADDON);
     let comps = addon::components(&w, tree);
     assert_eq!(comps.len(), 2);
@@ -579,7 +591,7 @@ fn fruit_trees_grow_on_load_and_picking_empties_them() {
 fn bed_of_nails_flips_between_south_and_east_and_stays_when_blocked() {
     use crate::special::decor::BED_OF_NAILS_ADDON;
     use muo_primitives::Direction;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     crate::special::decor::configure_for_tests(&mut w);
     let from = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
     let bed = make(&mut w, &BED_OF_NAILS_ADDON);
@@ -607,7 +619,7 @@ fn bed_of_nails_flips_between_south_and_east_and_stays_when_blocked() {
 #[test]
 fn forge_and_anvil_addons_are_made_of_the_marked_component_classes() {
     // DefBlacksmithy.CheckAnvilAndForge looks for `[Anvil]` / `[Forge]` classes by name (muo_engines::craft::defs).
-    let mut w = World::new();
+    let mut w = typed_world();
     let names = |w: &mut World, t: &'static ItemType| -> Vec<&'static str> {
         let a = make(w, t);
         addon::components(w, a)
@@ -647,7 +659,7 @@ fn forge_and_anvil_addons_are_made_of_the_marked_component_classes() {
 fn a_crafted_container_deed_takes_the_resource_hue() {
     use muo_content::craft::CraftResource;
     use muo_content::items::equip_hooks::CraftArgs;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let deed = make(&mut w, &ELVEN_DRESSER_EAST_DEED);
     let from = w.new_mobile(&muo_server::mobile::MOBILE_BASE);
     let mut a = CraftArgs::new(2, false, from, CraftResource::Iron);
@@ -677,7 +689,7 @@ fn a_crafted_container_deed_takes_the_resource_hue() {
 fn deleting_a_portrait_stops_its_timer_in_on_after_delete() {
     // The hook reads the component's own state after the entity left the world's lookups (RemoveEntity runs first).
     use crate::special::decor::DISTURBING_PORTRAIT_COMPONENT;
-    let mut w = World::new();
+    let mut w = crate::test_world();
     let c = make(&mut w, &DISTURBING_PORTRAIT_COMPONENT);
     let t =
         crate::special::decor::portrait_timer_for_tests(&w, c).expect("started on construction");

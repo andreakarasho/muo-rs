@@ -77,7 +77,7 @@ rtype! {
 
 /// `BannerDeed()`.
 pub fn banner_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &BANNER_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &BANNER_DEED, "Server.Items.BannerDeed");
     blessed(w, id)
 }
 
@@ -232,8 +232,8 @@ rtype! {
     /// `Server.Items.BannerDeed`.
     BANNER_DEED = "Server.Items.BannerDeed" : ITEM_BASE;
     construct: Some(banner_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041007, // a banner deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a banner deed
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         year(w, id, list, 1076218); // 2nd Year Veteran Reward
@@ -271,7 +271,7 @@ use crate::traps::trap_classes::STONE_FACE_TRAP_NO_DAMAGE;
 
 /// `FlamingHead(type)`.
 pub fn flaming_head_new(w: &mut World, kind: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &FLAMING_HEAD, 0x10FC);
+    let id = crate::simple::from_template(w, &FLAMING_HEAD, "Server.Items.FlamingHead");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(crate::traps::trap_classes::TrapData::default());
     }
@@ -308,7 +308,7 @@ rtype! {
     /// `Server.Items.FlamingHead` (`StoneFaceTrapNoDamage`, `IAddon`; `FlamingHead(type = NorthWall)`).
     FLAMING_HEAD = "Server.Items.FlamingHead" : STONE_FACE_TRAP_NO_DAMAGE;
     construct: Some(|w| flaming_head_new(w, 1)),
-    label_number: |_, _| 1041266, // Flaming Head
+    label_number: crate::class_props::label_number, // Flaming Head
     force_show_properties: |w, _| w.core.opl_enabled,
     get_properties: |w, id, list| {
         (STONE_FACE_TRAP_NO_DAMAGE.get_properties)(w, id, list);
@@ -330,7 +330,7 @@ rtype! {
 
 /// `FlamingHeadDeed()`.
 pub fn flaming_head_deed_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &FLAMING_HEAD_DEED, 0x14F0);
+    let id = crate::simple::from_template(w, &FLAMING_HEAD_DEED, "Server.Items.FlamingHeadDeed");
     blessed(w, id)
 }
 
@@ -385,8 +385,8 @@ rtype! {
     /// `Server.Items.FlamingHeadDeed`.
     FLAMING_HEAD_DEED = "Server.Items.FlamingHeadDeed" : ITEM_BASE;
     construct: Some(flaming_head_deed_new),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041050, // a flaming head deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a flaming head deed
     get_properties: |w, id, list| {
         (ITEM_BASE.get_properties)(w, id, list);
         year(w, id, list, 1076218); // 2nd Year Veteran Reward
@@ -558,8 +558,8 @@ pub static MINI_HOUSE_DEED: ItemType = ItemType {
     parent: Some(&BASE_ADDON_DEED),
     construct: Some(|w| mini_house_deed_new(w, 0)),
     family: Some(&MINI_HOUSE_DEED_CLASS),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1062096, // a mini house deed
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a mini house deed
     get_properties: |w, id, list| {
         (BASE_ADDON_DEED.get_properties)(w, id, list);
         list.add(mini_info(mini_type(w, id)).1);

@@ -19,7 +19,6 @@ use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::item::{ITEM_BASE, ItemType, LootType, base, container, ops};
 use muo_server::layer::Layer;
-use muo_server::light_type::LightType;
 use muo_server::map::MapId;
 use muo_server::mobile::AccessLevel;
 use muo_server::mobile::part2::messages as mm;
@@ -128,7 +127,7 @@ pub fn bag_random_hue(w: &mut World) -> i32 {
 
 /// `BagOfSending(hue)`.
 pub fn bag_of_sending_new_with_hue(w: &mut World, hue: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, &BAG_OF_SENDING, 0xE76);
+    let id = crate::simple::from_template(w, &BAG_OF_SENDING, "Server.Items.BagOfSending");
     set_bag_raw(w, id, BagData::default());
     set_bag_hue(w, id, hue);
     let charges = utility::random_min_max(&mut w.rng, 3, 9);
@@ -256,8 +255,8 @@ pub static BAG_OF_SENDING: ItemType = ItemType {
     full_name: "Server.Items.BagOfSending",
     parent: Some(&ITEM_BASE),
     construct: Some(bag_of_sending_new),
-    default_weight: |_, _| 2.0,
-    label_number: |_, _| 1054104, // a bag of sending
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a bag of sending
     get_properties: |w, id, list: &mut PropertyList| {
         (ITEM_BASE.get_properties)(w, id, list);
         list.add_int(1060741, bag(w, id).charges); // charges: ~1_val~
@@ -394,8 +393,7 @@ fn set_ball_recharges(w: &mut World, id: ItemId, n: i32) {
 
 /// `BallOfSummoning()`.
 pub fn ball_of_summoning_new(w: &mut World) -> ItemId {
-    let id = ops::new_item_with_id(w, &BALL_OF_SUMMONING, 0xE2E);
-    ops::set_light(w, id, LightType::Circle150);
+    let id = crate::simple::from_template(w, &BALL_OF_SUMMONING, "Server.Items.BallOfSummoning");
     let charges = utility::random_min_max(&mut w.rng, 3, 9);
     set_ball(
         w,
@@ -668,7 +666,7 @@ pub static BALL_OF_SUMMONING: ItemType = ItemType {
     full_name: "Server.Items.BallOfSummoning",
     parent: Some(&ITEM_BASE),
     construct: Some(ball_of_summoning_new),
-    default_weight: |_, _| 10.0,
+    default_weight: crate::class_props::default_weight,
     add_name_property: |w, id, list| {
         // a crystal ball of pet summoning: [charges: ~1_charges~] : [linked pet: ~2_petName~]
         list.add_str(1054131, &ball_name_text(w, id));
@@ -784,11 +782,12 @@ fn bound(w: &World, id: ItemId) -> Option<ItemId> {
     bracelet(w, id).bound.filter(|&b| !deleted(w, b))
 }
 
-/// `BraceletOfBinding()`.
+/// `BraceletOfBinding()`: `base(graphic)`, its state, then its template (`Hue = 0x489`).
 pub fn bracelet_of_binding_new(w: &mut World) -> ItemId {
-    let id = muo_content::items::jewel::new_jewel(w, &BRACELET_OF_BINDING, 0x1086);
+    let g = muo_content::items::equip_props::graphic(w, &BRACELET_OF_BINDING);
+    let id = muo_content::items::jewel::new_jewel(w, &BRACELET_OF_BINDING, g);
     set_bracelet(w, id, BraceletData::default());
-    super::hue(w, id, 0x489);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.BraceletOfBinding");
     id
 }
 
@@ -1077,7 +1076,7 @@ pub static BRACELET_OF_BINDING: ItemType = ItemType {
     parent: Some(&BASE_BRACELET),
     construct: Some(bracelet_of_binding_new),
     family: Some(&BASE_BRACELET_CLASS),
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     add_name_property: |w, id, list| {
         // a bracelet of binding : ~1_val~ ~2_val~
         list.add_str(1054000, &bracelet_label(w, id));

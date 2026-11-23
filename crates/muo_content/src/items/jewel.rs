@@ -16,6 +16,7 @@ use muo_server::layer::Layer;
 use muo_server::property_list::PropertyList;
 
 use super::equip_hooks::{CraftArgs, hooks, lower_text};
+use super::equip_props as ep;
 use super::{core_uotd, parent_mobile, random_min_max, read_enum};
 use crate::aos::{
     AosAttribute, AosElementAttribute, AttrKind, Attrs, add_attribute_properties,
@@ -23,6 +24,7 @@ use crate::aos::{
 };
 use crate::core;
 use crate::craft::{self, CraftResource};
+use crate::templates::item_props as ip;
 
 int_enum! {
     /// `GemType`.
@@ -47,8 +49,6 @@ pub struct JewelClass {
     pub artifact_rarity: i32,
     pub init_min_hits: i32,
     pub init_max_hits: i32,
-    /// `[Flippable(a, b)]`.
-    pub flippable: Option<(i32, i32)>,
 }
 
 /// `BaseJewel`'s defaults.
@@ -61,7 +61,6 @@ pub static BASE_JEWEL_CLASS: JewelClass = JewelClass {
     artifact_rarity: 0,
     init_min_hits: 0,
     init_max_hits: 0,
-    flippable: None,
 };
 
 /// Everything `BaseJewel` adds to `Item`.
@@ -109,6 +108,17 @@ pub fn class(w: &World, id: ItemId) -> &'static JewelClass {
         .unwrap_or(&BASE_JEWEL_CLASS)
 }
 
+/// `LabelNumber` when overridden: the class's template prop `labelNumber`, else its table field (0 keeps the
+/// tiledata name).
+pub fn class_label_number(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "labelNumber", class(w, id).label_number)
+}
+
+/// `ArtifactRarity`: the class's template prop `artifactRarity`, else its table field.
+pub fn artifact_rarity(w: &World, id: ItemId) -> i32 {
+    crate::templates::item_props::int(w, id, "artifactRarity", class(w, id).artifact_rarity)
+}
+
 /// `item is BaseJewel`.
 pub fn is_jewel(w: &World, id: ItemId) -> bool {
     w.item(id).is_some_and(|i| i.ty.is(&BASE_JEWEL))
@@ -118,7 +128,12 @@ pub fn is_jewel(w: &World, id: ItemId) -> bool {
 pub fn new_jewel(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
     let id = ops::new_item_with_id(w, ty, item_id);
     let c = ty.family::<JewelClass>().unwrap_or(&BASE_JEWEL_CLASS);
-    let hits = random_min_max(w, c.init_min_hits, c.init_max_hits);
+    crate::templates::table(w); // the class props below read the loaded table
+    let (min, max) = (
+        ip::int(w, id, "initMinHits", c.init_min_hits),
+        ip::int(w, id, "initMaxHits", c.init_max_hits),
+    );
+    let hits = random_min_max(w, min, max);
     let mut d = JewelData::for_load();
     d.resource = CraftResource::Iron;
     d.hit_points = hits;
@@ -129,7 +144,8 @@ pub fn new_jewel(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
     // Hue = CraftResources.GetHue(_resource)
     let hue = craft::hue(w, CraftResource::Iron);
     (ty.set_hue)(w, id, hue);
-    (ty.set_layer)(w, id, c.layer);
+    let layer = super::equip_props::layer(w, id, c.layer);
+    (ty.set_layer)(w, id, layer);
     id
 }
 
@@ -292,8 +308,9 @@ fn on_after_duped(w: &mut World, id: ItemId, new_item: ItemId) {
 
 fn label_number(w: &World, id: ItemId) -> i32 {
     let c = class(w, id);
-    if c.label_number != 0 {
-        return c.label_number;
+    let n = class_label_number(w, id);
+    if n != 0 {
+        return n;
     }
     match data(w, id).map(|d| d.gem_type) {
         Some(g) if g != GemType::None => c.base_gem_type_number + g as i32 - 1,
@@ -308,7 +325,7 @@ fn get_properties(w: &World, id: ItemId, list: &mut PropertyList) {
     };
     let aos = core::aos(w);
     add_skill_bonus_properties(&d.skill_bonuses, list, aos);
-    let rarity = class(w, id).artifact_rarity;
+    let rarity = artifact_rarity(w, id);
     if rarity > 0 {
         list.add_int(1061078, rarity); // artifact rarity ~1_val~
     }
@@ -454,14 +471,12 @@ pub static BASE_JEWEL: ItemType = ItemType {
     construct: None,
     family: Some(&BASE_JEWEL_CLASS),
     default_weight: |w, id| {
-        class(w, id)
-            .default_weight
+        ep::float_opt(w, id, "defaultWeight", class(w, id).default_weight)
             .unwrap_or_else(|| base::default_weight_base(w, id))
     },
     label_number,
     required_races: |w, id| {
-        class(w, id)
-            .required_races
+        ep::required_races(w, id, class(w, id).required_races)
             .unwrap_or_else(|| base::required_races_base(w, id))
     },
     physical_resistance: |w, id| resist(w, id, AosElementAttribute::Physical),
@@ -506,17 +521,29 @@ macro_rules! jewel_base {
 
 jewel_base!(
     /// `Server.Items.BaseBracelet` (star sapphire bracelet is 1044221).
-    BASE_BRACELET, BASE_BRACELET_CLASS = "Server.Items.BaseBracelet", Layer::Bracelet, 1044221
+    BASE_BRACELET,
+    BASE_BRACELET_CLASS = "Server.Items.BaseBracelet",
+    Layer::Bracelet,
+    1044221
 );
 jewel_base!(
     /// `Server.Items.BaseEarrings` (star sapphire earrings is 1044203).
-    BASE_EARRINGS, BASE_EARRINGS_CLASS = "Server.Items.BaseEarrings", Layer::Earrings, 1044203
+    BASE_EARRINGS,
+    BASE_EARRINGS_CLASS = "Server.Items.BaseEarrings",
+    Layer::Earrings,
+    1044203
 );
 jewel_base!(
     /// `Server.Items.BaseNecklace` (star sapphire necklace is 1044241).
-    BASE_NECKLACE, BASE_NECKLACE_CLASS = "Server.Items.BaseNecklace", Layer::Neck, 1044241
+    BASE_NECKLACE,
+    BASE_NECKLACE_CLASS = "Server.Items.BaseNecklace",
+    Layer::Neck,
+    1044241
 );
 jewel_base!(
     /// `Server.Items.BaseRing` (star sapphire ring is 1044176).
-    BASE_RING, BASE_RING_CLASS = "Server.Items.BaseRing", Layer::Ring, 1044176
+    BASE_RING,
+    BASE_RING_CLASS = "Server.Items.BaseRing",
+    Layer::Ring,
+    1044176
 );

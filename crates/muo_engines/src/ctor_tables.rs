@@ -88,7 +88,7 @@ static C_SERVER_ITEMS_ANCIENTURN: [Ctor; 2] = [
     Ctor {
         access: None,
         params: &[Param { name: "urnName", kind: STR, default: None, ty: "" }],
-        make: |w, v| EntityId::Item(crate::tokuno::artifacts::ancient_urn_new(w, Some(v[0].string().unwrap_or_default()))),
+        make: |w, v| EntityId::Item(crate::tokuno::artifacts::ancient_urn_new(w, &v[0].string().unwrap_or_default())),
     },
 ];
 
@@ -136,7 +136,7 @@ static C_SERVER_ITEMS_HONORABLESWORDS: [Ctor; 2] = [
     Ctor {
         access: None,
         params: &[Param { name: "swordsName", kind: STR, default: None, ty: "" }],
-        make: |w, v| EntityId::Item(crate::tokuno::artifacts::honorable_swords_new(w, Some(v[0].string().unwrap_or_default()))),
+        make: |w, v| EntityId::Item(crate::tokuno::artifacts::honorable_swords_new(w, &v[0].string().unwrap_or_default())),
     },
 ];
 

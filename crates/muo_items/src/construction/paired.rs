@@ -2,7 +2,7 @@
 //!
 //! Each of those is two items that follow each other: the main item and its `InternalItem`. They move, change map
 //! and delete together; the pair is [`Pair`] in both `Item::ext`s and each class says where the other half stands
-//! ([`PairClass`]). Nested class names are `Outer+InternalItem` like `Type.FullName`.
+//! (its template prop `pairOffset`). Nested class names are `Outer+InternalItem` like `Type.FullName`.
 //!
 //! `Ankhs.Resurrect` shows `new ResurrectGump(m, ResurrectMessage.VirtueShrine)` and the tithe entry shows
 //! `new TithingGump(from)`: both gumps are the gumps crate's, through [`AnkhHooks`].
@@ -25,15 +25,7 @@ struct Pair {
     other: Option<ItemId>,
 }
 
-/// Where the other half stands relative to this one: `_item.Location = new Point3D(X + dx, Y + dy, Z)`.
-pub struct PairClass {
-    pub dx: i32,
-    pub dy: i32,
-    /// Ankh halves share their hue (`Hue` setter) and resurrect.
-    pub ankh: bool,
-}
-
-fn other(w: &World, id: ItemId) -> Option<ItemId> {
+pub(crate) fn other(w: &World, id: ItemId) -> Option<ItemId> {
     w.item(id)?.ext.get::<Pair>()?.other
 }
 
@@ -43,19 +35,27 @@ fn set_other(w: &mut World, id: ItemId, o: Option<ItemId>) {
     }
 }
 
-fn class(w: &World, id: ItemId) -> Option<&'static PairClass> {
-    w.item(id)?.ty.family::<PairClass>()
+/// Where the other half stands relative to this one (`_item.Location = new Point3D(X + dx, Y + dy, Z)`): the
+/// class's `pairOffset` prop `[dx, dy]`.
+fn pair_offset(w: &World, id: ItemId) -> Option<(i32, i32)> {
+    let v = muo_content::templates::props::item(w, id, "pairOffset")?.as_array()?;
+    let at = |i: usize| {
+        v.get(i)
+            .and_then(|x| x.as_i64())
+            .and_then(|x| i32::try_from(x).ok())
+    };
+    Some((at(0)?, at(1)?))
 }
 
 fn on_location_change(w: &mut World, id: ItemId, _old: Point3D) {
-    let (Some(o), Some(c)) = (other(w, id), class(w, id)) else {
+    let (Some(o), Some((dx, dy))) = (other(w, id), pair_offset(w, id)) else {
         return;
     };
     let Some(l) = w.item(id).map(|i| i.location) else {
         return;
     };
     if let Some(ty) = w.item(o).map(|i| i.ty) {
-        (ty.set_location)(w, o, Point3D::new(l.x + c.dx, l.y + c.dy, l.z));
+        (ty.set_location)(w, o, Point3D::new(l.x + dx, l.y + dy, l.z));
     }
 }
 
@@ -111,18 +111,30 @@ fn new_pair(
     id
 }
 
+/// `new T()` of a paired class: both halves are made from their templates (graphic, `Movable`) and linked.
+fn new_pair_of(
+    w: &mut World,
+    main: &'static ItemType,
+    main_name: &str,
+    inner: &'static ItemType,
+    inner_name: &str,
+) -> ItemId {
+    let id = crate::simple::from_template(w, main, main_name);
+    let o = crate::simple::from_template(w, inner, inner_name);
+    set_other(w, id, Some(o));
+    set_other(w, o, Some(id));
+    id
+}
+
 macro_rules! pairs {
-    ($($main:ident, $mclass:ident = $mfull:literal, $mgid:expr, ($mdx:expr, $mdy:expr), $menc:expr;
-       $inner:ident, $iclass:ident = $ifull:literal, $igid:expr, ($idx:expr, $idy:expr), $ienc:expr;)*) => {$(
-        static $mclass: PairClass = PairClass { dx: $mdx, dy: $mdy, ankh: false };
-        static $iclass: PairClass = PairClass { dx: $idx, dy: $idy, ankh: false };
+    ($($main:ident = $mfull:literal, $menc:expr;
+       $inner:ident = $ifull:literal, $ienc:expr;)*) => {$(
 
         #[doc = concat!("`", $mfull, "`.")]
         pub static $main: ItemType = ItemType {
             full_name: $mfull,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| new_pair(w, &$main, $mgid, &$inner, $igid, true)),
-            family: Some(&$mclass),
+            construct: Some(|w| new_pair_of(w, &$main, $mfull, &$inner, $ifull)),
             on_location_change,
             on_map_change,
             on_after_delete,
@@ -135,7 +147,6 @@ macro_rules! pairs {
         pub static $inner: ItemType = ItemType {
             full_name: $ifull,
             parent: Some(&ITEM_BASE),
-            family: Some(&$iclass),
             on_location_change,
             on_map_change,
             on_after_delete,
@@ -147,36 +158,36 @@ macro_rules! pairs {
 }
 
 pairs! {
-    TAPESTRY1N, T1N_C = "Server.Items.Tapestry1N", 0xEAA, (1, 0), false;
-    TAPESTRY1N_INNER, T1N_IC = "Server.Items.Tapestry1N+InternalItem", 0xEAB, (-1, 0), true;
-    TAPESTRY2N, T2N_C = "Server.Items.Tapestry2N", 0xEAC, (1, 0), false;
-    TAPESTRY2N_INNER, T2N_IC = "Server.Items.Tapestry2N+InternalItem", 0xEAD, (-1, 0), false;
-    TAPESTRY2W, T2W_C = "Server.Items.Tapestry2W", 0xEAE, (0, -1), false;
-    TAPESTRY2W_INNER, T2W_IC = "Server.Items.Tapestry2W+InternalItem", 0xEAF, (0, 1), false;
-    TAPESTRY3N, T3N_C = "Server.Items.Tapestry3N", 0xFD6, (-2, 0), false;
-    TAPESTRY3N_INNER, T3N_IC = "Server.Items.Tapestry3N+InternalItem", 0xFD5, (2, 0), false;
-    TAPESTRY3W, T3W_C = "Server.Items.Tapestry3W", 0xFD7, (0, -2), false;
-    TAPESTRY3W_INNER, T3W_IC = "Server.Items.Tapestry3W+InternalItem", 0xFD8, (0, 2), false;
-    TAPESTRY4N, T4N_C = "Server.Items.Tapestry4N", 0xFDA, (-1, 0), false;
-    TAPESTRY4N_INNER, T4N_IC = "Server.Items.Tapestry4N+InternalItem", 0xFD9, (1, 0), false;
-    TAPESTRY4W, T4W_C = "Server.Items.Tapestry4W", 0xFDB, (0, -1), false;
-    TAPESTRY4W_INNER, T4W_IC = "Server.Items.Tapestry4W+InternalItem", 0xFDC, (0, 1), false;
-    TAPESTRY5N, T5N_C = "Server.Items.Tapestry5N", 0xFDE, (-1, 0), false;
-    TAPESTRY5N_INNER, T5N_IC = "Server.Items.Tapestry5N+InternalItem", 0xFDD, (1, 0), false;
-    TAPESTRY5W, T5W_C = "Server.Items.Tapestry5W", 0xFDF, (0, -1), false;
-    TAPESTRY5W_INNER, T5W_IC = "Server.Items.Tapestry5W+InternalItem", 0xFE0, (0, 1), false;
-    TAPESTRY6N, T6N_C = "Server.Items.Tapestry6N", 0xFE2, (-1, 0), false;
-    TAPESTRY6N_INNER, T6N_IC = "Server.Items.Tapestry6N+InternalItem", 0xFE1, (1, 0), false;
-    TAPESTRY6W, T6W_C = "Server.Items.Tapestry6W", 0xFE3, (0, -1), false;
-    TAPESTRY6W_INNER, T6W_IC = "Server.Items.Tapestry6W+InternalItem", 0xFE4, (0, 1), false;
-    DECORATIVE_SWORD_NORTH, DSN_C = "Server.Items.DecorativeSwordNorth", 0x1565, (-1, 0), false;
-    DECORATIVE_SWORD_NORTH_INNER, DSN_IC = "Server.Items.DecorativeSwordNorth+InternalItem", 0x1564, (1, 0), false;
-    DECORATIVE_SWORD_WEST, DSW_C = "Server.Items.DecorativeSwordWest", 0x1566, (0, -1), true;
-    DECORATIVE_SWORD_WEST_INNER, DSW_IC = "Server.Items.DecorativeSwordWest+InternalItem", 0x1567, (0, 1), true;
-    DECORATIVE_DAXE_NORTH, DDN_C = "Server.Items.DecorativeDAxeNorth", 0x1569, (-1, 0), true;
-    DECORATIVE_DAXE_NORTH_INNER, DDN_IC = "Server.Items.DecorativeDAxeNorth+InternalItem", 0x1568, (1, 0), true;
-    DECORATIVE_DAXE_WEST, DDW_C = "Server.Items.DecorativeDAxeWest", 0x156A, (0, -1), true;
-    DECORATIVE_DAXE_WEST_INNER, DDW_IC = "Server.Items.DecorativeDAxeWest+InternalItem", 0x156B, (0, 1), true;
+    TAPESTRY1N = "Server.Items.Tapestry1N", false;
+    TAPESTRY1N_INNER = "Server.Items.Tapestry1N+InternalItem", true;
+    TAPESTRY2N = "Server.Items.Tapestry2N", false;
+    TAPESTRY2N_INNER = "Server.Items.Tapestry2N+InternalItem", false;
+    TAPESTRY2W = "Server.Items.Tapestry2W", false;
+    TAPESTRY2W_INNER = "Server.Items.Tapestry2W+InternalItem", false;
+    TAPESTRY3N = "Server.Items.Tapestry3N", false;
+    TAPESTRY3N_INNER = "Server.Items.Tapestry3N+InternalItem", false;
+    TAPESTRY3W = "Server.Items.Tapestry3W", false;
+    TAPESTRY3W_INNER = "Server.Items.Tapestry3W+InternalItem", false;
+    TAPESTRY4N = "Server.Items.Tapestry4N", false;
+    TAPESTRY4N_INNER = "Server.Items.Tapestry4N+InternalItem", false;
+    TAPESTRY4W = "Server.Items.Tapestry4W", false;
+    TAPESTRY4W_INNER = "Server.Items.Tapestry4W+InternalItem", false;
+    TAPESTRY5N = "Server.Items.Tapestry5N", false;
+    TAPESTRY5N_INNER = "Server.Items.Tapestry5N+InternalItem", false;
+    TAPESTRY5W = "Server.Items.Tapestry5W", false;
+    TAPESTRY5W_INNER = "Server.Items.Tapestry5W+InternalItem", false;
+    TAPESTRY6N = "Server.Items.Tapestry6N", false;
+    TAPESTRY6N_INNER = "Server.Items.Tapestry6N+InternalItem", false;
+    TAPESTRY6W = "Server.Items.Tapestry6W", false;
+    TAPESTRY6W_INNER = "Server.Items.Tapestry6W+InternalItem", false;
+    DECORATIVE_SWORD_NORTH = "Server.Items.DecorativeSwordNorth", false;
+    DECORATIVE_SWORD_NORTH_INNER = "Server.Items.DecorativeSwordNorth+InternalItem", false;
+    DECORATIVE_SWORD_WEST = "Server.Items.DecorativeSwordWest", true;
+    DECORATIVE_SWORD_WEST_INNER = "Server.Items.DecorativeSwordWest+InternalItem", true;
+    DECORATIVE_DAXE_NORTH = "Server.Items.DecorativeDAxeNorth", true;
+    DECORATIVE_DAXE_NORTH_INNER = "Server.Items.DecorativeDAxeNorth+InternalItem", true;
+    DECORATIVE_DAXE_WEST = "Server.Items.DecorativeDAxeWest", true;
+    DECORATIVE_DAXE_WEST_INNER = "Server.Items.DecorativeDAxeWest+InternalItem", true;
 }
 
 // ---- Ankhs ----
@@ -304,17 +315,14 @@ fn ankh_set_hue(w: &mut World, id: ItemId, value: i32) {
 }
 
 macro_rules! ankhs {
-    ($($main:ident, $mclass:ident = $mfull:literal, $mgid:expr, $mblood:expr, ($mdx:expr, $mdy:expr);
-       $inner:ident, $iclass:ident = $ifull:literal, $igid:expr, $iblood:expr, ($idx:expr, $idy:expr);)*) => {$(
-        static $mclass: PairClass = PairClass { dx: $mdx, dy: $mdy, ankh: true };
-        static $iclass: PairClass = PairClass { dx: $idx, dy: $idy, ankh: true };
+    ($($main:ident = $mfull:literal;
+       $inner:ident = $ifull:literal;)*) => {$(
 
         #[doc = concat!("`", $mfull, "`.")]
         pub static $main: ItemType = ItemType {
             full_name: $mfull,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| new_ankh(w, &$main, $mgid, &$inner, $igid)),
-            family: Some(&$mclass),
+            construct: Some(|w| new_pair_of(w, &$main, $mfull, &$inner, $ifull)),
             handles_on_movement: |_, _| true,
             on_movement: ankh_on_movement,
             get_context_menu_entries: ankh_entries,
@@ -332,7 +340,6 @@ macro_rules! ankhs {
         pub static $inner: ItemType = ItemType {
             full_name: $ifull,
             parent: Some(&ITEM_BASE),
-            family: Some(&$iclass),
             handles_on_movement: |_, _| true,
             on_movement: ankh_on_movement,
             get_context_menu_entries: ankh_entries,
@@ -346,16 +353,6 @@ macro_rules! ankhs {
             ..ITEM_BASE
         };
     )*};
-}
-
-fn new_ankh(
-    w: &mut World,
-    main: &'static ItemType,
-    gid: i32,
-    inner: &'static ItemType,
-    inner_gid: i32,
-) -> ItemId {
-    new_pair(w, main, gid, inner, inner_gid, false)
 }
 
 /// `new AnkhWest(bloodied)` / `new AnkhNorth(bloodied)`.
@@ -379,10 +376,10 @@ pub fn new_ankh_bloodied(w: &mut World, north: bool, bloodied: bool) -> ItemId {
 }
 
 ankhs! {
-    ANKH_WEST, AW_C = "Server.Items.AnkhWest", 0x3, false, (0, 1);
-    ANKH_WEST_INNER, AWI_C = "Server.Items.AnkhWest+InternalItem", 0x2, false, (0, -1);
-    ANKH_NORTH, AN_C = "Server.Items.AnkhNorth", 0x4, false, (1, 0);
-    ANKH_NORTH_INNER, ANI_C = "Server.Items.AnkhNorth+InternalItem", 0x5, false, (-1, 0);
+    ANKH_WEST = "Server.Items.AnkhWest";
+    ANKH_WEST_INNER = "Server.Items.AnkhWest+InternalItem";
+    ANKH_NORTH = "Server.Items.AnkhNorth";
+    ANKH_NORTH_INNER = "Server.Items.AnkhNorth+InternalItem";
 }
 
 static BLOODIED: [Param; 1] = [Param {
@@ -463,7 +460,7 @@ mod tests {
 
     #[test]
     fn a_tapestry_is_two_items_that_save_each_other() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (TAPESTRY3N.construct.unwrap())(&mut w);
         let o = other(&w, id).unwrap();
         assert_eq!(
@@ -489,7 +486,7 @@ mod tests {
 
     #[test]
     fn the_encoded_version_classes_write_one_byte() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (TAPESTRY1N.construct.unwrap())(&mut w);
         let o = other(&w, id).unwrap();
         let mut want = SaveWriter::new(true);
@@ -501,7 +498,7 @@ mod tests {
 
     #[test]
     fn a_bloodied_ankh_uses_the_bloodied_graphics() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_ankh_bloodied(&mut w, true, true);
         let o = other(&w, id).unwrap();
         assert_eq!(

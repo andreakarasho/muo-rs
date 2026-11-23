@@ -32,11 +32,6 @@ pub struct BoardData {
     pub level: i32,
 }
 
-/// `CreatePieces()`, the abstract member of `BaseBoard`.
-pub struct BoardClass {
-    pub create_pieces: fn(&mut World, ItemId),
-}
-
 pub fn board_level(w: &World, id: ItemId) -> i32 {
     w.item(id)
         .and_then(|i| i.ext.get::<BoardData>())
@@ -44,18 +39,50 @@ pub fn board_level(w: &World, id: ItemId) -> i32 {
 }
 
 /// `BaseBoard(itemID)`: `CreatePieces()` runs at the end of the constructor, with the derived class's table.
-pub fn board_new(w: &mut World, ty: &'static ItemType, item_id: i32) -> ItemId {
-    let id = container::new_container(w, ty, item_id);
+pub fn board_new(w: &mut World, ty: &'static ItemType, name: &str) -> ItemId {
+    let id = container::new_container(w, ty, 0);
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(BoardData::default());
     }
+    crate::simple::own_template(w, id, name);
     create_pieces(w, id);
     id
 }
 
+/// `CreatePieces()`: the board class's `"boardPieces"` prop, `[["<piece class>", x, y], ..]` in creation order.
 fn create_pieces(w: &mut World, id: ItemId) {
-    if let Some(c) = w.item(id).and_then(|i| i.ty.family::<BoardClass>()) {
-        (c.create_pieces)(w, id);
+    use muo_content::templates::props;
+    let Some(list) = props::item(w, id, "boardPieces").and_then(|v| v.as_array()) else {
+        return;
+    };
+    let pieces: Vec<(&str, i32, i32)> = list
+        .iter()
+        .filter_map(|e| {
+            let name = e.get(0)?.as_str()?;
+            Some((name, props::as_i32(e.get(1))?, props::as_i32(e.get(2))?))
+        })
+        .collect();
+    let mut made = Vec::with_capacity(pieces.len());
+    for (name, x, y) in pieces {
+        // this crate's pieces first: a test world registers no classes
+        let ty = PIECES
+            .iter()
+            .copied()
+            .find(|t| t.full_name == name)
+            .or_else(|| match w.types.find_type_by_full_name(name, false) {
+                Some(muo_server::type_registry::EntityType::Item(t)) if t.is(&BASE_PIECE) => {
+                    Some(t)
+                }
+                _ => None,
+            });
+        match ty {
+            Some(t) => made.push((t, x, y)),
+            None => tracing::warn!("boardPieces: {name} is not a piece class"),
+        }
+    }
+    for (t, x, y) in made {
+        let p = piece_new(w, t, id);
+        create_piece(w, id, p, x, y);
     }
 }
 
@@ -192,18 +219,13 @@ fn deserialize_board(w: &mut World, id: ItemId, r: &mut dyn GenericReader) -> mu
     Ok(())
 }
 
-pub static BASE_BOARD_CLASS: BoardClass = BoardClass {
-    create_pieces: |_, _| {},
-};
-
 /// `Server.Items.BaseBoard` (abstract: `construct` is `None`).
 pub static BASE_BOARD: ItemType = ItemType {
     full_name: "Server.Items.BaseBoard",
     parent: Some(&CONTAINER),
     construct: None,
-    family: Some(&BASE_BOARD_CLASS),
     contents_decay: |_, _| false, // pieces are part of the board
-    default_weight: |_, _| 5.0,
+    default_weight: crate::class_props::default_weight,
     displays_content: |_, _| false, // Do not display (x items, y stones)
     is_deco_container: |_, _| false,
     decay_time: |_, _| TimeSpan::from_secs_f64(86_400.0),
@@ -216,21 +238,13 @@ pub static BASE_BOARD: ItemType = ItemType {
 };
 
 macro_rules! board_leaf {
-    (
-        $(#[$m:meta])*
-        $name:ident, $class:ident = $full:literal, graphic $graphic:literal;
-        $(label $label:literal;)?
-        pieces |$w:ident, $id:ident| $pieces:block
-    ) => {
-        pub static $class: BoardClass = BoardClass { create_pieces: |$w, $id| $pieces };
-
+    ($(#[$m:meta])* $name:ident = $full:literal;) => {
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_BOARD),
-            construct: Some(|w| board_new(w, &$name, $graphic)),
-            family: Some(&$class),
-            $(label_number: |_, _| $label,)?
+            construct: Some(|w| board_new(w, &$name, $full)),
+            label_number: crate::class_props::label_number,
             serialize: |w, id, out| {
                 serialize_board(w, id, out);
                 write_version(out, false);
@@ -245,80 +259,19 @@ macro_rules! board_leaf {
     };
 }
 
-/// `new PieceX(this)` placed at `(x, y)`.
-fn put(w: &mut World, board: ItemId, piece: &'static ItemType, x: i32, y: i32) {
-    let p = piece_new(w, piece, board);
-    create_piece(w, board, p, x, y);
-}
-
 board_leaf! {
     /// `Server.Items.Backgammon`; `[Flippable(0xE1C, 0xFAD)]`.
-    BACKGAMMON, BACKGAMMON_CLASS = "Server.Items.Backgammon", graphic 0xE1C;
-    pieces |w, id| {
-        for i in 0..5 {
-            put(w, id, &PIECE_WHITE_CHECKER, 42, 17 * i + 6);
-            put(w, id, &PIECE_BLACK_CHECKER, 42, 17 * i + 119);
-            put(w, id, &PIECE_BLACK_CHECKER, 142, 17 * i + 6);
-            put(w, id, &PIECE_WHITE_CHECKER, 142, 17 * i + 119);
-        }
-        for i in 0..3 {
-            put(w, id, &PIECE_BLACK_CHECKER, 108, 17 * i + 6);
-            put(w, id, &PIECE_WHITE_CHECKER, 108, 17 * i + 153);
-        }
-        for i in 0..2 {
-            put(w, id, &PIECE_WHITE_CHECKER, 223, 17 * i + 6);
-            put(w, id, &PIECE_BLACK_CHECKER, 223, 17 * i + 170);
-        }
-    }
+    BACKGAMMON = "Server.Items.Backgammon";
 }
 
 board_leaf! {
     /// `Server.Items.CheckerBoard`.
-    CHECKER_BOARD, CHECKER_BOARD_CLASS = "Server.Items.CheckerBoard", graphic 0xFA6;
-    label 1016449; // a checker board
-    pieces |w, id| {
-        for i in 0..4 {
-            put(w, id, &PIECE_WHITE_CHECKER, 50 * i + 45, 25);
-            put(w, id, &PIECE_WHITE_CHECKER, 50 * i + 70, 50);
-            put(w, id, &PIECE_WHITE_CHECKER, 50 * i + 45, 75);
-            put(w, id, &PIECE_BLACK_CHECKER, 50 * i + 70, 150);
-            put(w, id, &PIECE_BLACK_CHECKER, 50 * i + 45, 175);
-            put(w, id, &PIECE_BLACK_CHECKER, 50 * i + 70, 200);
-        }
-    }
+    CHECKER_BOARD = "Server.Items.CheckerBoard";
 }
 
 board_leaf! {
     /// `Server.Items.Chessboard`.
-    CHESSBOARD, CHESSBOARD_CLASS = "Server.Items.Chessboard", graphic 0xFA6;
-    label 1016450; // a chessboard
-    pieces |w, id| {
-        for i in 0..8 {
-            put(w, id, &PIECE_BLACK_PAWN, 67, 25 * i + 17);
-            put(w, id, &PIECE_WHITE_PAWN, 192, 25 * i + 17);
-        }
-        // Rook
-        put(w, id, &PIECE_BLACK_ROOK, 42, 5);
-        put(w, id, &PIECE_BLACK_ROOK, 42, 180);
-        put(w, id, &PIECE_WHITE_ROOK, 216, 5);
-        put(w, id, &PIECE_WHITE_ROOK, 216, 180);
-        // Knight
-        put(w, id, &PIECE_BLACK_KNIGHT, 42, 30);
-        put(w, id, &PIECE_BLACK_KNIGHT, 42, 155);
-        put(w, id, &PIECE_WHITE_KNIGHT, 216, 30);
-        put(w, id, &PIECE_WHITE_KNIGHT, 216, 155);
-        // Bishop
-        put(w, id, &PIECE_BLACK_BISHOP, 42, 55);
-        put(w, id, &PIECE_BLACK_BISHOP, 42, 130);
-        put(w, id, &PIECE_WHITE_BISHOP, 216, 55);
-        put(w, id, &PIECE_WHITE_BISHOP, 216, 130);
-        // Queen
-        put(w, id, &PIECE_BLACK_QUEEN, 42, 105);
-        put(w, id, &PIECE_WHITE_QUEEN, 216, 105);
-        // King
-        put(w, id, &PIECE_BLACK_KING, 42, 80);
-        put(w, id, &PIECE_WHITE_KING, 216, 80);
-    }
+    CHESSBOARD = "Server.Items.Chessboard";
 }
 
 // ---- BasePiece ----
@@ -347,13 +300,10 @@ pub fn piece_new_with_id(
     id
 }
 
-/// `new PieceX(board)`: the graphic is the class's `base(..)` argument, kept in [`PIECES`].
+/// `new PieceX(board)`: the graphic is the class's template.
 pub fn piece_new(w: &mut World, ty: &'static ItemType, board: ItemId) -> ItemId {
-    let graphic = PIECES
-        .iter()
-        .find(|(t, ..)| std::ptr::eq(*t, ty))
-        .map_or(0, |(_, g, _)| *g);
-    piece_new_with_id(w, ty, graphic, board)
+    let id = piece_new_with_id(w, ty, 0, board);
+    crate::simple::own_template(w, id, ty.full_name)
 }
 
 fn board_alive(w: &World, id: ItemId) -> Option<ItemId> {
@@ -446,7 +396,7 @@ pub static BASE_PIECE: ItemType = ItemType {
 };
 
 macro_rules! pieces {
-    ($($name:ident = $full:literal, $graphic:literal, $label:literal;)*) => {
+    ($($name:ident = $full:literal;)*) => {
         $(
             #[doc = concat!("`", $full, "`.")]
             pub static $name: ItemType = ItemType {
@@ -454,7 +404,7 @@ macro_rules! pieces {
                 parent: Some(&BASE_PIECE),
                 // `Piece..(BaseBoard board)` is not [Constructible]: only a board makes pieces.
                 construct: None,
-                default_name: |_, _| Some($label.to_string()),
+                default_name: crate::class_props::default_name,
                 serialize: |w, id, out| {
                     (BASE_PIECE.serialize)(w, id, out);
                     write_version(out, false);
@@ -468,26 +418,26 @@ macro_rules! pieces {
             };
         )*
 
-        /// Every piece with its graphic and name.
-        pub static PIECES: &[(&ItemType, i32, &str)] = &[$((&$name, $graphic, $label),)*];
+        /// Every piece class.
+        pub static PIECES: &[&ItemType] = &[$(&$name,)*];
     };
 }
 
 pieces! {
-    PIECE_WHITE_KING = "Server.Items.PieceWhiteKing", 0x3587, "white king";
-    PIECE_BLACK_KING = "Server.Items.PieceBlackKing", 0x358E, "black king";
-    PIECE_WHITE_QUEEN = "Server.Items.PieceWhiteQueen", 0x358A, "white queen";
-    PIECE_BLACK_QUEEN = "Server.Items.PieceBlackQueen", 0x3591, "black queen";
-    PIECE_WHITE_ROOK = "Server.Items.PieceWhiteRook", 0x3586, "white rook";
-    PIECE_BLACK_ROOK = "Server.Items.PieceBlackRook", 0x358D, "black rook";
-    PIECE_WHITE_BISHOP = "Server.Items.PieceWhiteBishop", 0x3585, "white bishop";
-    PIECE_BLACK_BISHOP = "Server.Items.PieceBlackBishop", 0x358C, "black bishop";
-    PIECE_WHITE_KNIGHT = "Server.Items.PieceWhiteKnight", 0x3588, "white knight";
-    PIECE_BLACK_KNIGHT = "Server.Items.PieceBlackKnight", 0x358F, "black knight";
-    PIECE_WHITE_PAWN = "Server.Items.PieceWhitePawn", 0x3589, "white pawn";
-    PIECE_BLACK_PAWN = "Server.Items.PieceBlackPawn", 0x3590, "black pawn";
-    PIECE_WHITE_CHECKER = "Server.Items.PieceWhiteChecker", 0x3584, "white checker";
-    PIECE_BLACK_CHECKER = "Server.Items.PieceBlackChecker", 0x358B, "black checker";
+    PIECE_WHITE_KING = "Server.Items.PieceWhiteKing";
+    PIECE_BLACK_KING = "Server.Items.PieceBlackKing";
+    PIECE_WHITE_QUEEN = "Server.Items.PieceWhiteQueen";
+    PIECE_BLACK_QUEEN = "Server.Items.PieceBlackQueen";
+    PIECE_WHITE_ROOK = "Server.Items.PieceWhiteRook";
+    PIECE_BLACK_ROOK = "Server.Items.PieceBlackRook";
+    PIECE_WHITE_BISHOP = "Server.Items.PieceWhiteBishop";
+    PIECE_BLACK_BISHOP = "Server.Items.PieceBlackBishop";
+    PIECE_WHITE_KNIGHT = "Server.Items.PieceWhiteKnight";
+    PIECE_BLACK_KNIGHT = "Server.Items.PieceBlackKnight";
+    PIECE_WHITE_PAWN = "Server.Items.PieceWhitePawn";
+    PIECE_BLACK_PAWN = "Server.Items.PieceBlackPawn";
+    PIECE_WHITE_CHECKER = "Server.Items.PieceWhiteChecker";
+    PIECE_BLACK_CHECKER = "Server.Items.PieceBlackChecker";
 }
 
 // ---- Dices ----
@@ -514,8 +464,8 @@ pub fn roll(w: &mut World, id: ItemId, from: MobileId) {
 pub static DICES: ItemType = ItemType {
     full_name: "Server.Items.Dices",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &DICES, 0xFA7)),
-    default_weight: |_, _| 1.0,
+    construct: Some(|w| crate::simple::from_template(w, &DICES, "Server.Items.Dices")),
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         let loc = ops::get_world_location(w, id);
         if !deps::mobile_in_range(w, from, loc, 2) {
@@ -611,7 +561,7 @@ pub fn register(types: &mut TypeRegistry) {
         types.register_item(t, &[]);
     }
     types.register_item(&BASE_PIECE, &[]);
-    for (t, ..) in PIECES {
+    for t in PIECES {
         types.register_item(t, &[]);
     }
 }

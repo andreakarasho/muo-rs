@@ -115,6 +115,18 @@ pub fn deed_for(w: &mut World, id: ItemId) -> Option<ItemId> {
     c.deed_of.map(|f| f(w, id)).or_else(|| c.deed.map(|f| f(w)))
 }
 
+/// `RetainDeedHue`: the class's `addonRetainDeedHue` prop, else its table.
+pub fn retain_deed_hue(w: &World, id: ItemId) -> bool {
+    crate::templates::props::as_bool(crate::templates::props::item(w, id, "addonRetainDeedHue"))
+        .unwrap_or_else(|| class(w, id).retain_deed_hue)
+}
+
+/// `ShareHue`: the class's `addonShareHue` prop, else its table.
+pub fn share_hue(w: &World, id: ItemId) -> bool {
+    crate::templates::props::as_bool(crate::templates::props::item(w, id, "addonShareHue"))
+        .unwrap_or_else(|| class(w, id).share_hue)
+}
+
 pub fn class(w: &World, id: ItemId) -> &'static ContainerAddonClass {
     w.item(id)
         .and_then(|i| i.ty.family::<ContainerAddonClass>())
@@ -177,7 +189,7 @@ pub fn new_localized_component(w: &mut World, item_id: i32, label: i32) -> ItemI
 fn component_set_hue(w: &mut World, id: ItemId, value: i32) {
     base::set_hue_base(w, id, value);
     if let Some(a) = component_addon(w, id)
-        && class(w, a).share_hue
+        && share_hue(w, a)
         && let Some(ty) = w.item(a).map(|i| i.ty)
     {
         (ty.set_hue)(w, a, value);
@@ -350,7 +362,7 @@ fn set_hue(w: &mut World, id: ItemId, value: i32) {
         return;
     }
     base::set_hue_base(w, id, value);
-    if !ops::is_deleted(w, id) && class(w, id).share_hue {
+    if !ops::is_deleted(w, id) && share_hue(w, id) {
         for c in components(w, id) {
             if let Some(ty) = w.item(c).map(|i| i.ty) {
                 (ty.set_hue)(w, c, value);
@@ -512,8 +524,9 @@ pub fn on_chop(w: &mut World, id: ItemId, from: MobileId) {
     deps::send_localized_message(w, from, 500461); // You destroy the item.
 
     let cls = class(w, id);
+    let retain = retain_deed_hue(w, id);
     let mut hue = 0;
-    if cls.retain_deed_hue {
+    if retain {
         for c in components(w, id) {
             if hue != 0 {
                 break;
@@ -535,9 +548,7 @@ pub fn on_chop(w: &mut World, id: ItemId, from: MobileId) {
 
     if let Some(deed) = deed {
         set_deed_resource(w, deed, res);
-        if cls.retain_deed_hue
-            && let Some(ty) = w.item(deed).map(|i| i.ty)
-        {
+        if retain && let Some(ty) = w.item(deed).map(|i| i.ty) {
             (ty.set_hue)(w, deed, hue);
         }
         deps::add_to_backpack(w, from, deed);
@@ -826,7 +837,7 @@ pub fn configure_house_deps(w: &mut World) {
     });
     // only a `BaseAddon` has `RetainDeedHue`; the first hued component's hue, else 0
     d.addon_retain_deed_hue = Some(|w, item| {
-        if !addon::is_addon(w, item) || !addon::addon_class(w, item).retain_deed_hue {
+        if !addon::is_addon(w, item) || !addon::retain_deed_hue(w, item) {
             return None;
         }
         let hue = addon::components(w, item)

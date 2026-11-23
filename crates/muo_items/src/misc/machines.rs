@@ -190,9 +190,7 @@ fn ec_edit(w: &mut World, id: ItemId, f: impl FnOnce(&mut EcData)) {
 
 /// `EffectController()`.
 pub fn effect_controller_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1B72);
-    ops::set_movable(w, id, false);
-    ops::set_visible(w, id, false);
+    let id = crate::simple::from_template(w, ty, "Server.Items.EffectController");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(EcData::default()); // TriggerType = Sequenced; EffectLayer = (EffectLayer)255
     }
@@ -618,7 +616,7 @@ item_leaf_raw! {
     /// `Server.Items.EffectController`.
     EFFECT_CONTROLLER = "Server.Items.EffectController" : ITEM_BASE;
     construct: Some(|w| effect_controller_new(w, &EFFECT_CONTROLLER)),
-    default_name: |_, _| Some("Effect Controller".to_string()),
+    default_name: crate::class_props::default_name,
     handles_on_movement: |w, id| ec(w, id).trigger_type == EffectTriggerType::InRange,
     on_double_click: |w, id, from| {
         if ec(w, id).trigger_type == EffectTriggerType::DoubleClick {
@@ -754,8 +752,7 @@ fn rc_sender(w: &World, id: ItemId) -> Option<ItemId> {
 
 /// `BroadcastCrystal(charges)`.
 pub fn broadcast_crystal_new(w: &mut World, ty: &'static ItemType, charges: i32) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1ED0);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle150);
+    let id = crate::simple::from_template(w, ty, "Server.Items.BroadcastCrystal");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(BroadcastData {
             charges,
@@ -767,8 +764,7 @@ pub fn broadcast_crystal_new(w: &mut World, ty: &'static ItemType, charges: i32)
 
 /// `ReceiverCrystal()`.
 pub fn receiver_crystal_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1ED0);
-    ops::set_light(w, id, muo_server::light_type::LightType::Circle150);
+    let id = crate::simple::from_template(w, ty, "Server.Items.ReceiverCrystal");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(ReceiverData::default());
     }
@@ -1003,7 +999,7 @@ item_leaf_raw! {
     /// `Server.Items.BroadcastCrystal` `[SerializationGenerator(1)]`.
     BROADCAST_CRYSTAL = "Server.Items.BroadcastCrystal" : ITEM_BASE;
     construct: Some(|w| broadcast_crystal_new(w, &BROADCAST_CRYSTAL, 2000)),
-    label_number: |_, _| 1060740, // communication crystal
+    label_number: crate::class_props::label_number, // communication crystal
     handles_on_speech: |_, _| true,
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
@@ -1090,7 +1086,7 @@ item_leaf_raw! {
     /// `Server.Items.ReceiverCrystal` `[SerializationGenerator(0)]`.
     RECEIVER_CRYSTAL = "Server.Items.ReceiverCrystal" : ITEM_BASE;
     construct: Some(|w| receiver_crystal_new(w, &RECEIVER_CRYSTAL)),
-    label_number: |_, _| 1060740, // communication crystal
+    label_number: crate::class_props::label_number, // communication crystal
     get_properties: |w, id, list| {
         base::get_properties_base(w, id, list);
         list.add(if rc_active(w, id) { 1060742 } else { 1060743 }); // active / inactive
@@ -1686,7 +1682,7 @@ item_leaf_raw! {
     /// `Server.Items.ControlPanel` `[SerializationGenerator(1)]`.
     CONTROL_PANEL = "Server.Items.ControlPanel" : ADDON_COMPONENT;
     construct: None,
-    default_name: |_, _| Some("a control panel".to_string()),
+    default_name: crate::class_props::default_name,
     on_double_click: panel_double_click,
     serialize: |w, id, out| {
         (ADDON_COMPONENT.serialize)(w, id, out);
@@ -1826,9 +1822,7 @@ pub fn projected_item_new_of(
     effect_item_id: i32,
     minimum_visible: AccessLevel,
 ) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 1);
-    ops::set_movable(w, id, false);
-    ops::set_visible(w, id, false);
+    let id = crate::simple::from_template(w, ty, "Server.Items.ProjectedItem");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(ProjectedData {
             effect_item_id,
@@ -2125,7 +2119,7 @@ mod power_generator_gump_tests {
     /// one who presses a button is.
     #[test]
     fn check_alive_only_runs_when_a_button_was_pressed() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let from = w.new_mobile(&MOBILE_BASE);
         {
             let m = w.mobile_mut(from).unwrap();

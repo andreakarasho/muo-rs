@@ -13,8 +13,8 @@ use muo_server::effects::send_location_particles_full;
 use muo_server::ids::{EntityId, ItemId, MobileId};
 use muo_server::item::effect_item::{self, DEFAULT_DURATION};
 use muo_server::item::{enumerable, ops};
-use muo_server::mobile::part2::{items, stats};
-use muo_server::mobile::{MobileType, ResistanceType};
+use muo_server::mobile::MobileType;
+use muo_server::mobile::part2::stats;
 use muo_server::poison::PoisonId;
 use muo_server::type_registry::TypeRegistry;
 use muo_server::world::World;
@@ -59,7 +59,7 @@ fn controlled(w: &World, id: MobileId) -> bool {
     cd(w, id).is_some_and(|d| d.controlled)
 }
 
-/// `new BaseFamiliar()`: `BaseCreature(AIType.AI_Melee)` and the speed.
+/// `new BaseFamiliar()`: `BaseCreature(AIType.AI_Melee)` and the speed (the classes use their templates).
 pub fn new_familiar(w: &mut World, ty: &'static MobileType) -> MobileId {
     let id = new_creature(
         w,
@@ -248,26 +248,8 @@ pub static BASE_FAMILIAR: MobileType = MobileType {
 struct NextEffect(DateTime);
 
 fn dark_wolf_new(w: &mut World) -> MobileId {
-    let id = new_familiar(w, &DARK_WOLF_FAMILIAR);
-    body(w, id, 99);
-    hue(w, id, 0x901);
-    base_sound_id(w, id, 0xE5);
-    set_str(w, id, 100);
-    set_dex(w, id, 90);
-    set_int(w, id, 90);
-    set_hits(w, id, 60);
-    set_stam(w, id, 90);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 40, 50);
-    set_resistance_range(w, id, ResistanceType::Fire, 25, 40);
-    set_resistance_range(w, id, ResistanceType::Cold, 25, 40);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 40);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 40);
-    set_skill_range(w, id, SkillName::Wrestling, 85.1, 90.0);
-    set_skill(w, id, SkillName::Tactics, 50.0);
-    control_slots(w, id, 1);
+    let id = muo_content::templates::new_creature(w, &DARK_WOLF_FAMILIAR);
+    apply_class_flags(w, id);
     id
 }
 
@@ -312,25 +294,8 @@ creature_leaf! {
 // ---- DeathAdder ----
 
 fn death_adder_new(w: &mut World) -> MobileId {
-    let id = new_familiar(w, &DEATH_ADDER);
-    body(w, id, 0x15);
-    hue(w, id, 0x455);
-    base_sound_id(w, id, 219);
-    set_str(w, id, 70);
-    set_dex(w, id, 150);
-    set_int(w, id, 100);
-    set_hits(w, id, 50);
-    set_stam(w, id, 150);
-    set_mana(w, id, 0);
-    set_damage(w, id, 1, 4);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance(w, id, ResistanceType::Physical, 10);
-    set_resistance(w, id, ResistanceType::Poison, 100);
-    set_skill(w, id, SkillName::Wrestling, 90.0);
-    set_skill(w, id, SkillName::Tactics, 50.0);
-    set_skill(w, id, SkillName::MagicResist, 100.0);
-    set_skill(w, id, SkillName::Poisoning, 150.0);
-    control_slots(w, id, 1);
+    let id = muo_content::templates::new_creature(w, &DEATH_ADDER);
+    apply_class_flags(w, id);
     id
 }
 
@@ -350,26 +315,8 @@ creature_leaf! {
 // ---- ShadowWispFamiliar ----
 
 fn shadow_wisp_new(w: &mut World) -> MobileId {
-    let id = new_familiar(w, &SHADOW_WISP_FAMILIAR);
-    body(w, id, 165);
-    hue(w, id, 0x901);
-    base_sound_id(w, id, 466);
-    set_str(w, id, 50);
-    set_dex(w, id, 60);
-    set_int(w, id, 100);
-    set_hits(w, id, 50);
-    set_stam(w, id, 60);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Energy, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_resistance(w, id, ResistanceType::Energy, 99);
-    set_skill(w, id, SkillName::Wrestling, 40.0);
-    set_skill(w, id, SkillName::Tactics, 40.0);
-    control_slots(w, id, 1);
+    let id = muo_content::templates::new_creature(w, &SHADOW_WISP_FAMILIAR);
+    apply_class_flags(w, id);
     id
 }
 
@@ -434,25 +381,8 @@ creature_leaf! {
 // ---- VampireBatFamiliar ----
 
 fn vampire_bat_new(w: &mut World) -> MobileId {
-    let id = new_familiar(w, &VAMPIRE_BAT_FAMILIAR);
-    body(w, id, 317);
-    base_sound_id(w, id, 0x270);
-    set_str(w, id, 120);
-    set_dex(w, id, 120);
-    set_int(w, id, 100);
-    set_hits(w, id, 90);
-    set_stam(w, id, 120);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Fire, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Cold, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Poison, 10, 15);
-    set_resistance_range(w, id, ResistanceType::Energy, 10, 15);
-    set_skill_range(w, id, SkillName::Wrestling, 95.1, 100.0);
-    set_skill(w, id, SkillName::Tactics, 50.0);
-    control_slots(w, id, 1);
+    let id = muo_content::templates::new_creature(w, &VAMPIRE_BAT_FAMILIAR);
+    apply_class_flags(w, id);
     id
 }
 
@@ -497,35 +427,8 @@ fn pack_access(w: &World, id: MobileId, from: MobileId) -> bool {
 }
 
 fn horde_minion_new(w: &mut World) -> MobileId {
-    let id = new_familiar(w, &HORDE_MINION_FAMILIAR);
-    body(w, id, 776);
-    base_sound_id(w, id, 0x39D);
-    set_str(w, id, 100);
-    set_dex(w, id, 110);
-    set_int(w, id, 100);
-    set_hits(w, id, 70);
-    set_stam(w, id, 110);
-    set_mana(w, id, 0);
-    set_damage(w, id, 5, 10);
-    set_damage_type(w, id, ResistanceType::Physical, 100);
-    set_resistance_range(w, id, ResistanceType::Physical, 50, 60);
-    set_resistance_range(w, id, ResistanceType::Fire, 50, 55);
-    set_resistance_range(w, id, ResistanceType::Poison, 25, 30);
-    set_resistance_range(w, id, ResistanceType::Energy, 25, 30);
-    set_skill_range(w, id, SkillName::Wrestling, 70.1, 75.0);
-    set_skill(w, id, SkillName::Tactics, 50.0);
-    control_slots(w, id, 1);
-
-    if let Some(old) = w.mobile(id).and_then(|m| m.backpack)
-        && let Some(t) = w.item(old).map(|i| i.ty)
-    {
-        (t.delete)(w, old);
-    }
-    if let Some(pack) = muo_content::factory::make_item(w, "Server.Items.Backpack") {
-        ops::set_movable(w, pack, false);
-        ops::set_weight(w, pack, 13.0);
-        items::add_item(w, id, pack);
-    }
+    let id = muo_content::templates::new_creature(w, &HORDE_MINION_FAMILIAR);
+    apply_class_flags(w, id);
     id
 }
 

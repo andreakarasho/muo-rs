@@ -333,8 +333,9 @@ pub fn default_destinations(w: &World) -> Vec<&'static str> {
     }
 }
 
-static BASE_ESCORT_CLASS: EscortClass = EscortClass {
-    init_outfit: base_init_outfit,
+/// The classes whose outfit is their template's `npcOutfit` prop.
+pub static BASE_ESCORT_CLASS: EscortClass = EscortClass {
+    init_outfit: crate::template_keys_npcs::outfit_prop,
     possible_destinations: default_destinations,
 };
 
@@ -351,9 +352,19 @@ fn start_delete(w: &mut World, id: MobileId, delay: TimeSpan) -> TimerHandle {
 
 // ---- construction ----
 
-/// `BaseEscortable()`: the creature, its body, outfit, fame/karma and speed.
+/// `BaseEscortable()` and the class's own constructor: its template (`BaseEscortable`'s: the creature, body,
+/// `npcEscortOutfit`, fame/karma and speed; then the class's).
 pub(crate) fn escort_make(w: &mut World, ty: &'static MobileType) -> MobileId {
-    escort_make_with(w, ty, init_body)
+    let id = muo_content::templates::new_creature(w, ty);
+    if let Some(m) = w.mobile_mut(id) {
+        m.ext.insert(EscortData::default());
+    }
+    id
+}
+
+/// `InitOutfit()` (the `npcEscortOutfit` template key).
+pub(crate) fn init_outfit(w: &mut World, id: MobileId) {
+    (eclass(w, id).init_outfit)(w, id);
 }
 
 /// `BaseEscortable()` of a subclass that overrides `InitBody()`.
@@ -372,36 +383,6 @@ pub fn escort_make_with(
     karma(w, id, 4000);
     speeds::set_speed(w, id, 0.2, 1.0, true);
     id
-}
-
-/// `InitBody()`.
-fn init_body(w: &mut World, id: MobileId) {
-    set_str_range(w, id, 90, 100);
-    set_dex_range(w, id, 90, 100);
-    set_int_range(w, id, 15, 25);
-    let skin = muo_content::vendor::human_random_skin_hue(w);
-    hue(w, id, skin);
-    let female = rnd::bool(w);
-    props_b::set_female(w, id, female);
-    if female {
-        body(w, id, 401);
-        name_random(w, id, "female");
-    } else {
-        body(w, id, 400);
-        name_random(w, id, "male");
-    }
-}
-
-/// The base `InitOutfit()`.
-fn base_init_outfit(w: &mut World, id: MobileId) {
-    let h = utility::random_neutral_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.FancyShirt", h);
-    let h = utility::random_neutral_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.ShortPants", h);
-    let h = utility::random_neutral_hue(&mut w.rng);
-    add_new_hue(w, id, "Server.Items.Boots", h);
-    assign_random_hair(w, id);
-    pack_gold_range(w, id, 200, 250);
 }
 
 // ---- ML quest list ----

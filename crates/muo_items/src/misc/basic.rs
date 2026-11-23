@@ -204,12 +204,8 @@ fn send_world_packet_gm(w: &mut World, id: ItemId, ns: NetStateId, world: &[u8],
 pub static BLOCKER: ItemType = ItemType {
     full_name: "Server.Items.Blocker",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &BLOCKER, 0x21A4);
-        ops::set_movable(w, id, false);
-        id
-    }),
-    label_number: |_, _| 503057, // Impassable!
+    construct: Some(|w| crate::simple::from_template(w, &BLOCKER, "Server.Items.Blocker")),
+    label_number: crate::class_props::label_number, // Impassable!
     send_world_packet_to: |w, id, ns, world| send_world_packet_gm(w, id, ns, world, 0x1183),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -227,12 +223,8 @@ pub static BLOCKER: ItemType = ItemType {
 pub static LOS_BLOCKER: ItemType = ItemType {
     full_name: "Server.Items.LOSBlocker",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &LOS_BLOCKER, 0x21A2);
-        ops::set_movable(w, id, false);
-        id
-    }),
-    default_name: |_, _| Some("no line of sight".to_string()),
+    construct: Some(|w| crate::simple::from_template(w, &LOS_BLOCKER, "Server.Items.LOSBlocker")),
+    default_name: crate::class_props::default_name,
     send_world_packet_to: |w, id, ns, world| send_world_packet_gm(w, id, ns, world, 0x36FF),
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -261,9 +253,11 @@ fn los_blocker_initialize(w: &mut World) {
 pub static POWER_CRYSTAL: ItemType = ItemType {
     full_name: "Server.Items.PowerCrystal",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &POWER_CRYSTAL, 0x1F1C)),
-    default_weight: |_, _| 1.0,
-    default_name: |_, _| Some("power crystal".to_string()),
+    construct: Some(|w| {
+        crate::simple::from_template(w, &POWER_CRYSTAL, "Server.Items.PowerCrystal")
+    }),
+    default_weight: crate::class_props::default_weight,
+    default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         let loc = ops::get_world_location(w, id);
         if !deps::mobile_in_range(w, from, loc, 3) {
@@ -353,8 +347,8 @@ fn scales_target(w: &mut World, scales: ItemId, from: MobileId, targeted: Target
 pub static SCALES: ItemType = ItemType {
     full_name: "Server.Items.Scales",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &SCALES, 0x1852)),
-    default_weight: |_, _| 4.0,
+    construct: Some(|w| crate::simple::from_template(w, &SCALES, "Server.Items.Scales")),
+    default_weight: crate::class_props::default_weight,
     on_double_click: |w, id, from| {
         deps::send_localized_message(w, from, 502431); // What would you like to weigh?
         muo_server::target::begin_target(
@@ -520,11 +514,7 @@ fn guillotine_use(w: &mut World, id: ItemId, from: MobileId) {
 pub static GUILLOTINE: ItemType = ItemType {
     full_name: "Server.Items.Guillotine",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &GUILLOTINE, 4656);
-        ops::set_movable(w, id, false);
-        id
-    }),
+    construct: Some(|w| crate::simple::from_template(w, &GUILLOTINE, "Server.Items.Guillotine")),
     on_double_click: guillotine_use,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -688,7 +678,7 @@ pub fn way_point_set_next(w: &mut World, id: ItemId, next: Option<ItemId>) {
 
 /// `WayPoint(prev)`.
 pub fn way_point_new(w: &mut World, ty: &'static ItemType, prev: Option<ItemId>) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x1f14);
+    let id = crate::simple::from_template(w, ty, "Server.Items.WayPoint");
     if let Some(i) = w.item_mut(id) {
         i.ext = Ext::new(WayPointData::default());
     }
@@ -709,7 +699,7 @@ pub static WAY_POINT: ItemType = ItemType {
     full_name: "Server.Items.WayPoint",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| way_point_new(w, &WAY_POINT, None)),
-    default_name: |_, _| Some("AI Way Point".to_string()),
+    default_name: crate::class_props::default_name,
     on_double_click: |w, id, from| {
         if w.mobile(from)
             .is_some_and(|m| m.access_level >= AccessLevel::GameMaster)

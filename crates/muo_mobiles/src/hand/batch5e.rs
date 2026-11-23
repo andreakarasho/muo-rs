@@ -106,7 +106,7 @@ fn human_ops(w: &World) -> Option<&'static muo_server::race::RaceOps> {
 }
 
 /// `HairItemID = Race.Human.RandomHair(this);`
-pub fn protector_ctor1(w: &mut World, id: MobileId) {
+pub fn protector_hair(w: &mut World, id: MobileId) {
     let female = w.mobile(id).is_some_and(|m| m.female);
     if let Some(ops) = human_ops(w) {
         let h = (ops.random_hair)(&mut w.rng, female);
@@ -115,33 +115,11 @@ pub fn protector_ctor1(w: &mut World, id: MobileId) {
 }
 
 /// `HairHue = Race.Human.RandomHairHue();`
-pub fn protector_ctor2(w: &mut World, id: MobileId) {
+pub fn protector_hair_hue(w: &mut World, id: MobileId) {
     if let Some(ops) = human_ops(w) {
         let h = (ops.random_hair_hue)(&mut w.rng);
         props_b::set_hair_hue(w, id, h);
     }
-}
-
-/// `AddItem(new ThighBoots { Movable = false, Hue = Utility.Random(2) });`
-pub fn protector_ctor3(w: &mut World, id: MobileId) {
-    use muo_server::item::{base as ibase, ops};
-    if let Some(i) = muo_content::factory::make_item(w, "Server.Items.ThighBoots") {
-        ops::set_movable(w, i, false);
-        let h = rnd::below(w, 2);
-        ibase::set_hue(w, i, h);
-        muo_server::mobile::part2::items::add_item(w, id, i);
-    }
-}
-
-/// `AddItem(new Item(0x204E) { Layer = Layer.OuterTorso, Movable = false, Hue = Utility.Random(2) });`
-pub fn protector_ctor4(w: &mut World, id: MobileId) {
-    use muo_server::item::{base as ibase, ops};
-    let i = ops::new_item_with_id(w, &muo_server::item::ITEM_BASE, 0x204E);
-    ibase::set_layer(w, i, muo_server::layer::Layer::OuterTorso);
-    ops::set_movable(w, i, false);
-    let h = rnd::below(w, 2);
-    ibase::set_hue(w, i, h);
-    muo_server::mobile::part2::items::add_item(w, id, i);
 }
 
 /// `GenerateLoot(spawning)`: nothing on spawn; on death the loot of both passes (`base.GenerateLoot(true)` then

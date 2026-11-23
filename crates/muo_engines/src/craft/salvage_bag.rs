@@ -6,7 +6,6 @@ use muo_content::craft::{CraftResource, CraftResourceType, resource_type, resour
 use muo_content::items::cont::{BAG, new_base_container};
 use muo_content::items::interfaces;
 use muo_content::items::{armor, is_named, weapon};
-use muo_primitives::utility;
 use muo_server::World;
 use muo_server::context_menu_entry::ContextMenuEntry;
 use muo_server::ids::{EntityId, ItemId, MobileId};
@@ -15,17 +14,19 @@ use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 use std::rc::Rc;
 
-/// `SalvageBag(hue)`.
+/// `SalvageBag(hue)`: the hue is handed to the class's script (`SalvageBag()` draws a blue one there).
 pub fn salvage_bag_new_hue(w: &mut World, hue: i32) -> ItemId {
-    let id = new_base_container(w, &SALVAGE_BAG, 0xE76);
-    muo_items::simple::hue(w, id, hue);
+    let id = new_base_container(w, &SALVAGE_BAG, 0);
+    let args = [muo_server::script_hooks::ScriptArg::Int(i64::from(hue))];
+    muo_content::templates::apply_item_with(w, id, SALVAGE_BAG.full_name, &args);
     id
 }
 
-/// `SalvageBag()`: `this(Utility.RandomBlueHue())`.
+/// `SalvageBag()`.
 pub fn salvage_bag_new(w: &mut World) -> ItemId {
-    let hue = utility::random_blue_hue(&mut w.rng);
-    salvage_bag_new_hue(w, hue)
+    let id = new_base_container(w, &SALVAGE_BAG, 0);
+    muo_content::templates::apply_item_as(w, id, SALVAGE_BAG.full_name);
+    id
 }
 
 fn children(w: &World, id: ItemId) -> Vec<ItemId> {
@@ -262,8 +263,10 @@ pub static SALVAGE_BAG: ItemType = ItemType {
     full_name: "Server.Items.SalvageBag",
     parent: Some(&BAG),
     construct: Some(salvage_bag_new),
-    default_weight: |_, _| 2.0,
-    label_number: |_, _| 1079931, // Salvage Bag
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", BAG.default_weight)
+    },
+    label_number: |w, id| crate::template_keys::item_int(w, id, "labelNumber", BAG.label_number),
     get_context_menu_entries: |w, id, from, list| {
         (BAG.get_context_menu_entries)(w, id, from, list);
         if w.mobile(from).is_some_and(|m| (m.ty.alive)(w, from)) {

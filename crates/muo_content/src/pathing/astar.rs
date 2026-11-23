@@ -53,6 +53,7 @@ impl PriorityQueue {
                     break;
                 }
                 let (mut min_child, mut min_index) = (self.nodes[first], first);
+                #[allow(clippy::needless_range_loop)] // a 4-ary heap: `c` is the child's index
                 for c in first + 1..(first + 4).min(size) {
                     if self.nodes[c].1 < min_child.1 {
                         min_child = self.nodes[c];
@@ -154,7 +155,7 @@ impl Search {
     /// `IsBlockedByDynamic`.
     fn blocked_by_dynamic(&self, w: &World, x: i32, y: i32, z: i32) -> bool {
         let our_top = z + PERSON_HEIGHT;
-        for id in enumerate::items_at(w, Some(self.map), x, y) {
+        for id in super::movement_impl::items_at(w, self.map, x, y) {
             let Some(item) = w.item(id) else { continue };
             let item_id = (item.item_id & 0xFFFF) as usize;
             let d = w.maps.tile_data.item(item_id);
@@ -177,7 +178,7 @@ impl Search {
         }
         // The goal cell is usually occupied by whatever is chased; the follower stops short of it anyway.
         if !(x == self.goal.x && y == self.goal.y) {
-            for mob in enumerate::mobiles_at(w, Some(self.map), x, y) {
+            for mob in super::movement_impl::mobiles_at(w, self.map, x, y) {
                 if mob == self.mover {
                     continue;
                 }
@@ -271,6 +272,30 @@ fn find(
         ignore_movable_impassables: can_move_over_obstacles,
     };
 
+    // The search area's mobiles and blocking items by tile, read once (see MovementStatics::mobs_at).
+    let area = muo_primitives::Rectangle2D::new(
+        s.x_offset - 1,
+        s.y_offset - 1,
+        AREA_SIZE + 2,
+        AREA_SIZE + 2,
+    );
+    let mut mobs = super::movement_impl::ByTile::default();
+    for mob in enumerate::mobiles_in_bounds(w, Some(map), area, false).collect::<Vec<_>>() {
+        if let Some(p) = w.mobile(mob).map(|o| o.location) {
+            mobs.entry((p.x, p.y)).or_insert_with(Vec::new).push(mob);
+        }
+    }
+    let mut items = super::movement_impl::ByTile::default();
+    for id in enumerate::items_in_bounds(w, Some(map), area, false).collect::<Vec<_>>() {
+        if super::movement_impl::may_block(w, id)
+            && let Some(p) = w.item(id).map(|i| i.location)
+        {
+            items.entry((p.x, p.y)).or_insert_with(Vec::new).push(id);
+        }
+    }
+    let statics = w.resources.get_mut::<MovementStatics>();
+    statics.mobs_at = Some(mobs);
+    statics.items_at = Some(items);
     let mut scratch = std::mem::take(w.resources.get_mut::<PathScratch>());
     let result = run(
         w,
@@ -281,6 +306,9 @@ fn find(
         can_move_over_obstacles,
     );
     *w.resources.get_mut::<PathScratch>() = scratch;
+    let statics = w.resources.get_mut::<MovementStatics>();
+    statics.mobs_at = None;
+    statics.items_at = None;
     result
 }
 

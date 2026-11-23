@@ -77,6 +77,21 @@ pub fn layer(w: &mut World, id: ItemId, value: Layer) {
     }
 }
 
+/// `new T()` of a class whose constructor is its template `name` (its graphic is the template's `itemId`), for
+/// class `ty` (a derived class passes its own).
+pub fn from_template(w: &mut World, ty: &'static muo_server::item::ItemType, name: &str) -> ItemId {
+    let id = muo_server::item::ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, name);
+    id
+}
+
+/// The constructor statements of class `name` (its template) on `id`, made by the base class constructor; the
+/// graphic the base was given (0) is the template's `itemId`.
+pub fn own_template(w: &mut World, id: ItemId, name: &str) -> ItemId {
+    muo_content::templates::apply_item_as(w, id, name);
+    id
+}
+
 /// Every generated class of the folders with its `[TypeAlias]` names, for the tests and the registry.
 pub fn all() -> Vec<(&'static muo_server::item::ItemType, &'static [&'static str])> {
     let mut v = Vec::new();
@@ -222,6 +237,21 @@ pub fn random_bool(w: &mut World) -> bool {
 macro_rules! weapon_art {
     (@enc enc) => { true };
     (@enc v0) => { false };
+    // `@json;`: the rest of the constructor is the class's item template (`Data/Scripts/classes/items`).
+    (
+        $(#[$m:meta])*
+        $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,
+        via $pnew:ident, $ver:ident;
+        @json;
+        $($rest:tt)*
+    ) => {
+        $crate::simple::weapon_art! {
+            $(#[$m])*
+            $name, $class, $ctor = $full : $parent / $pclass, via $pnew, $ver;
+            @init |w, id| muo_content::templates::apply_item_as(w, id, $full);
+            $($rest)*
+        }
+    };
     (
         $(#[$m:meta])*
         $name:ident, $class:ident, $ctor:ident = $full:literal : $parent:ident / $pclass:ident,

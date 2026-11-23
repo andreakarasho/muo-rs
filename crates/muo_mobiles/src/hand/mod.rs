@@ -1,5 +1,5 @@
-//! Logic of the monster and animal table classes, called by name (`crate::hand::<class>_<field>`,
-//! `<class>_ctorN`).
+//! Logic of the monster and animal table classes, called by name (`crate::hand::<class>_<field>`), and the
+//! helpers the creature template keys (`crate::template_keys`) call.
 
 mod alleg;
 pub(crate) mod animals;
@@ -21,7 +21,6 @@ mod ctors;
 mod events;
 mod humanoid;
 mod mages;
-mod names;
 pub(crate) mod pack_animal;
 pub(crate) mod seed;
 mod solens;
@@ -32,7 +31,7 @@ pub use batch4::*;
 pub use batch4b::*;
 pub use batch4c::*;
 pub use batch4d::*;
-pub use batch4e::*;
+pub(crate) use batch4e::*;
 pub use batch5::*;
 pub use batch5b::*;
 pub use batch5c::*;
@@ -41,11 +40,10 @@ pub use batch5e::*;
 pub use batch5f::*;
 pub use batch5g::*;
 pub use creatures::*;
-pub use ctors::*;
+pub(crate) use ctors::*;
 pub use events::*;
 pub use humanoid::*;
 pub use mages::*;
-pub use names::*;
 pub use pack_animal::*;
 pub use seed::*;
 pub use solens::*;

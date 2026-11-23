@@ -275,9 +275,8 @@ pub static LADDER_CONTROLLER: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.LadderController",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &LADDER_CONTROLLER, 0x1B7A);
-        ops::set_visible(w, id, false);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &LADDER_CONTROLLER, 0);
+        muo_content::templates::apply_item_as(w, id, LADDER_CONTROLLER.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(Ladder::default());
         }
@@ -286,7 +285,7 @@ pub static LADDER_CONTROLLER: ItemType = ItemType {
         }
         id
     }),
-    default_name: |_, _| Some("ladder controller".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     delete: |w, id| {
         if instance(w) == Some(id) {
             singletons(w).ladder = None;
@@ -360,9 +359,8 @@ pub static PREFERENCES_CONTROLLER: ItemType = ItemType {
     full_name: "Server.Engines.ConPVP.PreferencesController",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &PREFERENCES_CONTROLLER, 0x1B7A);
-        ops::set_visible(w, id, false);
-        ops::set_movable(w, id, false);
+        let id = ops::new_item_with_id(w, &PREFERENCES_CONTROLLER, 0);
+        muo_content::templates::apply_item_as(w, id, PREFERENCES_CONTROLLER.full_name);
         if let Some(i) = w.item_mut(id) {
             i.ext.insert(Preferences::default());
         }
@@ -374,7 +372,7 @@ pub static PREFERENCES_CONTROLLER: ItemType = ItemType {
         }
         id
     }),
-    default_name: |_, _| Some("preferences controller".to_owned()),
+    default_name: |w, id| crate::template_keys::item_name(w, id, ITEM_BASE.default_name),
     delete: |w, id| {
         if preferences_instance(w) != Some(id) {
             (ITEM_BASE.delete)(w, id)

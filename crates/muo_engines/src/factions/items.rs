@@ -992,7 +992,9 @@ pub static FACTION_STONE: ItemType = ItemType {
     full_name: "Server.Factions.FactionStone",
     parent: Some(&BASE_SYSTEM_CONTROLLER),
     construct: Some(|w| new_faction_stone(w, None)),
-    default_name: |_, _| Some("faction stone".to_owned()),
+    default_name: |w, id| {
+        crate::template_keys::item_name(w, id, BASE_SYSTEM_CONTROLLER.default_name)
+    },
     on_double_click: faction_stone_on_double_click,
     serialize: stone_serialize,
     deserialize: |w, id, r| {
@@ -1014,7 +1016,9 @@ pub static JOIN_STONE: ItemType = ItemType {
     full_name: "Server.Factions.JoinStone",
     parent: Some(&BASE_SYSTEM_CONTROLLER),
     construct: Some(|w| new_join_stone(w, None)),
-    default_name: |_, _| Some("faction signup stone".to_owned()),
+    default_name: |w, id| {
+        crate::template_keys::item_name(w, id, BASE_SYSTEM_CONTROLLER.default_name)
+    },
     on_double_click: join_stone_on_double_click,
     serialize: stone_serialize,
     deserialize: |w, id, r| {
@@ -1036,7 +1040,9 @@ pub static TOWN_STONE: ItemType = ItemType {
     full_name: "Server.Factions.TownStone",
     parent: Some(&BASE_SYSTEM_CONTROLLER),
     construct: Some(|w| new_town_stone(w, None)),
-    default_name: |_, _| Some("faction town stone".to_owned()),
+    default_name: |w, id| {
+        crate::template_keys::item_name(w, id, BASE_SYSTEM_CONTROLLER.default_name)
+    },
     on_double_click: town_stone_on_double_click,
     serialize: town_stone_serialize,
     deserialize: |w, id, r| {

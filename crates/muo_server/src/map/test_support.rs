@@ -160,6 +160,7 @@ pub fn world() -> World {
             height,
             season: 0,
             rules,
+            count: 1,
         };
         super::loader::register_map(&mut w, &def).expect("test map registers");
     }

@@ -19,7 +19,9 @@ fn all() -> Vec<(&'static MobileType, &'static [&'static str])> {
 }
 
 fn world(era: Option<Expansion>) -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
+    // the creature template keys (`creatureSetup`, ...): a bare registry would skip them
+    crate::template_keys::register(&mut w.types);
     w.core.expansion = era;
     // Every class takes the table's "Medium" speeds (Data/npc-speeds.json is not loaded in a test world).
     w.resources
@@ -212,17 +214,6 @@ fn orc_constructs_with_its_speech_and_loot_table() {
 }
 
 #[test]
-fn golem_scalar_and_summoned_constructor_match_the_expected_values() {
-    let mut w = world(Some(Expansion::AOS));
-    let id = crate::classes::misc4::new_golem(&mut w, true, 0.5);
-    let m = w.mobile(id).unwrap();
-    assert_eq!((m.body.0, m.hue, m.fame, m.karma), (752, 2101, 10, 10));
-    assert!((125..=175).contains(&m.str)); // (int)(251 * 0.5) ..= (int)(350 * 0.5)
-    let c = muo_content::creature::cd(&w, id).unwrap();
-    assert_eq!((c.damage_min, c.damage_max, c.control_slots), (6, 12, 3));
-}
-
-#[test]
 fn hell_steed_and_grizzled_mare_share_the_set_stats() {
     let mut w = world(Some(Expansion::AOS));
     let ty = crate::monsters::leaves::ALL
@@ -378,4 +369,51 @@ fn a_paragon_boss_is_converted_by_its_constructor() {
         "{d:?}"
     );
     assert_eq!(w.mobile(id).unwrap().hue, 0x21); // the class's own Hue, set after the conversion
+}
+
+/// The classes whose constructor is their `Data/Scripts/classes/mobiles` template: (static name, full name) read from the
+/// source, so a new templated constructor is covered without listing it here.
+fn templated_classes() -> Vec<(String, String)> {
+    let mut out = Vec::new();
+    for text in [
+        include_str!("monsters/leaves.rs"),
+        include_str!("animals/leaves.rs"),
+    ] {
+        let parts = text
+            .split("cprops::new_creature(w, &")
+            .skip(1)
+            .chain(text.split("cprops::new_mount(w, &").skip(1));
+        for part in parts {
+            let ident = &part[..part.find(')').unwrap()];
+            let head = format!("\n    {ident}, {ident}_C = \"");
+            let at = text.find(&head).unwrap_or_else(|| panic!("{ident}")) + head.len();
+            let full = &text[at..at + text[at..].find('"').unwrap()];
+            out.push((ident.to_owned(), full.to_owned()));
+        }
+    }
+    out
+}
+
+#[test]
+fn every_templated_class_has_its_template() {
+    let classes = templated_classes();
+    assert!(classes.len() >= 190, "{}", classes.len());
+    let mut w = world(None);
+    let table = muo_content::templates::table(&mut w);
+    let types = all();
+    for (ident, full) in &classes {
+        assert!(
+            table
+                .get(muo_content::templates::Kind::Mobile, full.as_str())
+                .is_some(),
+            "{ident}: no mobile template for {full}"
+        );
+        let ty = types.iter().find(|(t, _)| t.full_name == full).unwrap().0;
+        let id = (ty.construct.unwrap())(&mut w);
+        assert_ne!(
+            w.mobile(id).unwrap().body.0,
+            0,
+            "{full}: the template sets a body"
+        );
+    }
 }

@@ -14,7 +14,7 @@ use super::vendors::rental_contract::{self, VENDOR_RENTAL_CONTRACT};
 use super::vendors::rented::{self, RENTED_VENDOR};
 
 fn world(era: Option<Expansion>) -> World {
-    let mut w = World::new();
+    let mut w = crate::test_world();
     w.core.expansion = era;
     w.resources
         .get_mut::<muo_content::creature::speeds::NpcSpeeds>()

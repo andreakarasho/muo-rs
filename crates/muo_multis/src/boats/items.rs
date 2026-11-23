@@ -6,7 +6,7 @@ use muo_content::gumps::{RelayInfo, StaticGumpLogic, StaticGumpObj, send_gump_to
 use muo_primitives::Point3D;
 use muo_server::World;
 use muo_server::ids::{EntityId, ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::map::MapId;
 use muo_server::mobile::AccessLevel;
 use muo_server::net_state::NetStateId;
@@ -75,18 +75,8 @@ pub fn send_confirm_dry_dock_gump(w: &mut World, from: MobileId, boat: ItemId) {
 // ---- the boats ----
 
 macro_rules! boat_leaf {
-    ($name:ident, $cls:ident, $full:literal, $new:ident, [$n:expr, $e:expr, $s:expr, $w:expr], hold: $hold:expr,
-     tiller: $tiller:expr, starboard: $sb:expr, port: $port:expr, mark: $mark:expr, docked: $docked:ident) => {
+    ($name:ident, $cls:ident, $full:literal, $new:ident, docked: $docked:ident) => {
         pub static $cls: BoatClass = BoatClass {
-            north_id: $n,
-            east_id: $e,
-            south_id: $s,
-            west_id: $w,
-            hold_distance: $hold,
-            tiller_man_distance: $tiller,
-            starboard_offset: $sb,
-            port_offset: $port,
-            mark_offset: $mark,
             docked_boat: |w, boat| Some($docked(w, boat)),
         };
 
@@ -114,21 +104,12 @@ macro_rules! boat_leaf {
     };
 }
 
-boat_leaf!(SMALL_BOAT, SMALL_BOAT_CLASS, "Server.Multis.SmallBoat", new_small_boat, [0x0, 0x1, 0x2, 0x3],
-    hold: 4, tiller: -4, starboard: (2, 0), port: (-2, 0), mark: (0, 1, 3), docked: new_small_docked_boat);
-boat_leaf!(SMALL_DRAGON_BOAT, SMALL_DRAGON_BOAT_CLASS, "Server.Multis.SmallDragonBoat", new_small_dragon_boat,
-    [0x4, 0x5, 0x6, 0x7], hold: 4, tiller: -4, starboard: (2, 0), port: (-2, 0), mark: (0, 1, 3),
-    docked: new_small_docked_dragon_boat);
-boat_leaf!(MEDIUM_BOAT, MEDIUM_BOAT_CLASS, "Server.Multis.MediumBoat", new_medium_boat, [0x8, 0x9, 0xA, 0xB],
-    hold: 4, tiller: -5, starboard: (2, 0), port: (-2, 0), mark: (0, 1, 3), docked: new_medium_docked_boat);
-boat_leaf!(MEDIUM_DRAGON_BOAT, MEDIUM_DRAGON_BOAT_CLASS, "Server.Multis.MediumDragonBoat", new_medium_dragon_boat,
-    [0xC, 0xD, 0xE, 0xF], hold: 4, tiller: -5, starboard: (2, 0), port: (-2, 0), mark: (0, 1, 3),
-    docked: new_medium_docked_dragon_boat);
-boat_leaf!(LARGE_BOAT, LARGE_BOAT_CLASS, "Server.Multis.LargeBoat", new_large_boat, [0x10, 0x11, 0x12, 0x13],
-    hold: 5, tiller: -5, starboard: (2, -1), port: (-2, -1), mark: (0, 0, 3), docked: new_large_docked_boat);
-boat_leaf!(LARGE_DRAGON_BOAT, LARGE_DRAGON_BOAT_CLASS, "Server.Multis.LargeDragonBoat", new_large_dragon_boat,
-    [0x14, 0x15, 0x16, 0x17], hold: 5, tiller: -5, starboard: (2, -1), port: (-2, -1), mark: (0, 0, 3),
-    docked: new_large_docked_dragon_boat);
+boat_leaf!(SMALL_BOAT, SMALL_BOAT_CLASS, "Server.Multis.SmallBoat", new_small_boat, docked: new_small_docked_boat);
+boat_leaf!(SMALL_DRAGON_BOAT, SMALL_DRAGON_BOAT_CLASS, "Server.Multis.SmallDragonBoat", new_small_dragon_boat, docked: new_small_docked_dragon_boat);
+boat_leaf!(MEDIUM_BOAT, MEDIUM_BOAT_CLASS, "Server.Multis.MediumBoat", new_medium_boat, docked: new_medium_docked_boat);
+boat_leaf!(MEDIUM_DRAGON_BOAT, MEDIUM_DRAGON_BOAT_CLASS, "Server.Multis.MediumDragonBoat", new_medium_dragon_boat, docked: new_medium_docked_dragon_boat);
+boat_leaf!(LARGE_BOAT, LARGE_BOAT_CLASS, "Server.Multis.LargeBoat", new_large_boat, docked: new_large_docked_boat);
+boat_leaf!(LARGE_DRAGON_BOAT, LARGE_DRAGON_BOAT_CLASS, "Server.Multis.LargeDragonBoat", new_large_dragon_boat, docked: new_large_docked_dragon_boat);
 
 // ---- BaseBoatDeed ----
 
@@ -142,7 +123,6 @@ pub struct BoatDeedData {
 /// What a concrete deed overrides: `Boat => new XBoat()` and the label.
 pub struct BoatDeedClass {
     pub boat: fn(&mut World) -> ItemId,
-    pub label: i32,
 }
 
 fn deed_data(w: &World, id: ItemId) -> BoatDeedData {
@@ -157,11 +137,12 @@ fn deed_class(w: &World, id: ItemId) -> Option<&'static BoatDeedClass> {
 }
 
 /// `new XBoatDeed()`: `base(id, offset)`.
-fn new_deed(w: &mut World, ty: &'static ItemType, multi_id: i32, offset: Point3D) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F2);
-    if !muo_content::core::aos(w) {
-        ops::set_loot_type(w, id, LootType::Newbied);
-    }
+/// `BaseBoatDeed(id, offset)` of class `ty`: the class's template (it inherits `BaseBoatDeed`'s), then
+/// the multi and offset of its props `multiId` and `offset`.
+fn new_deed(w: &mut World, ty: &'static ItemType) -> ItemId {
+    let id = ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
+    let (multi_id, offset) = crate::template_props::deed_props(w, id);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(BoatDeedData { multi_id, offset });
     }
@@ -341,11 +322,8 @@ fn deed_on_double_click(w: &mut World, id: ItemId, from: MobileId) {
 }
 
 macro_rules! deed_leaf {
-    ($name:ident, $cls:ident, $full:literal, $new:ident, $multi:expr, $offset:expr, $boat:ident, $label:expr) => {
-        pub static $cls: BoatDeedClass = BoatDeedClass {
-            boat: $boat,
-            label: $label,
-        };
+    ($name:ident, $cls:ident, $full:literal, $new:ident, $boat:ident) => {
+        pub static $cls: BoatDeedClass = BoatDeedClass { boat: $boat };
 
         #[doc = concat!("`", $full, "`.")]
         pub static $name: ItemType = ItemType {
@@ -353,7 +331,9 @@ macro_rules! deed_leaf {
             parent: Some(&ITEM_BASE),
             construct: Some(|w| $new(w)),
             family: Some(&$cls),
-            label_number: |_, _| $label,
+            label_number: |w, id| {
+                crate::template_props::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+            },
             default_weight: |_, _| 1.0,
             on_double_click: deed_on_double_click,
             serialize: |w, id, out| {
@@ -379,7 +359,7 @@ macro_rules! deed_leaf {
         };
 
         pub fn $new(w: &mut World) -> ItemId {
-            new_deed(w, &$name, $multi, $offset)
+            new_deed(w, &$name)
         }
     };
 }
@@ -389,60 +369,42 @@ deed_leaf!(
     SMALL_BOAT_DEED_CLASS,
     "Server.Multis.SmallBoatDeed",
     new_small_boat_deed,
-    0x0,
-    Point3D::ZERO,
-    new_small_boat,
-    1041205
+    new_small_boat
 );
 deed_leaf!(
     SMALL_DRAGON_BOAT_DEED,
     SMALL_DRAGON_BOAT_DEED_CLASS,
     "Server.Multis.SmallDragonBoatDeed",
     new_small_dragon_boat_deed,
-    0x4,
-    Point3D::ZERO,
-    new_small_dragon_boat,
-    1041206
+    new_small_dragon_boat
 );
 deed_leaf!(
     MEDIUM_BOAT_DEED,
     MEDIUM_BOAT_DEED_CLASS,
     "Server.Multis.MediumBoatDeed",
     new_medium_boat_deed,
-    0x8,
-    Point3D::ZERO,
-    new_medium_boat,
-    1041207
+    new_medium_boat
 );
 deed_leaf!(
     MEDIUM_DRAGON_BOAT_DEED,
     MEDIUM_DRAGON_BOAT_DEED_CLASS,
     "Server.Multis.MediumDragonBoatDeed",
     new_medium_dragon_boat_deed,
-    0xC,
-    Point3D::ZERO,
-    new_medium_dragon_boat,
-    1041208
+    new_medium_dragon_boat
 );
 deed_leaf!(
     LARGE_BOAT_DEED,
     LARGE_BOAT_DEED_CLASS,
     "Server.Multis.LargeBoatDeed",
     new_large_boat_deed,
-    0x10,
-    Point3D { x: 0, y: -1, z: 0 },
-    new_large_boat,
-    1041209
+    new_large_boat
 );
 deed_leaf!(
     LARGE_DRAGON_BOAT_DEED,
     LARGE_DRAGON_BOAT_DEED_CLASS,
     "Server.Multis.LargeDragonBoatDeed",
     new_large_dragon_boat_deed,
-    0x14,
-    Point3D { x: 0, y: -1, z: 0 },
-    new_large_dragon_boat,
-    1041210
+    new_large_dragon_boat
 );
 
 // ---- BaseDockedBoat ----
@@ -477,16 +439,12 @@ fn docked_multi_id(w: &World, id: ItemId) -> i32 {
         .map_or(0, |d| d.multi_id)
 }
 
-/// `new XDockedBoat(boat)`: `base(id, offset, boat)`.
-fn new_docked(
-    w: &mut World,
-    ty: &'static ItemType,
-    multi_id: i32,
-    offset: Point3D,
-    boat: ItemId,
-) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x14F4);
-    ops::set_loot_type(w, id, LootType::Blessed);
+/// `new XDockedBoat(boat)`: `base(id, offset, boat)`, the class's template (it inherits `BaseDockedBoat`'s) and
+/// the multi and offset of its props `multiId` and `offset`.
+fn new_docked(w: &mut World, ty: &'static ItemType, boat: ItemId) -> ItemId {
+    let id = ops::new_item_with_id(w, ty, 0);
+    muo_content::templates::apply_item_as(w, id, ty.full_name);
+    let (multi_id, offset) = crate::template_props::deed_props(w, id);
     let ship_name = super::ship_name(w, boat);
     if let Some(i) = w.item_mut(id) {
         i.ext.insert(DockedData {
@@ -499,7 +457,7 @@ fn new_docked(
 }
 
 macro_rules! docked_leaf {
-    ($name:ident, $cls:ident, $full:literal, $new:ident, $multi:expr, $offset:expr, $boat:ident) => {
+    ($name:ident, $cls:ident, $full:literal, $new:ident, $boat:ident) => {
         pub static $cls: DockedClass = DockedClass { boat: $boat };
 
         #[doc = concat!("`", $full, "`.")]
@@ -559,7 +517,7 @@ macro_rules! docked_leaf {
 
         /// `new XDockedBoat(boat)`.
         pub fn $new(w: &mut World, boat: ItemId) -> ItemId {
-            new_docked(w, &$name, $multi, $offset, boat)
+            new_docked(w, &$name, boat)
         }
     };
 }
@@ -569,8 +527,6 @@ docked_leaf!(
     SMALL_DOCKED_BOAT_CLASS,
     "Server.Multis.SmallDockedBoat",
     new_small_docked_boat,
-    0x0,
-    Point3D::ZERO,
     new_small_boat
 );
 docked_leaf!(
@@ -578,8 +534,6 @@ docked_leaf!(
     SMALL_DOCKED_DRAGON_BOAT_CLASS,
     "Server.Multis.SmallDockedDragonBoat",
     new_small_docked_dragon_boat,
-    0x4,
-    Point3D::ZERO,
     new_small_dragon_boat
 );
 docked_leaf!(
@@ -587,8 +541,6 @@ docked_leaf!(
     MEDIUM_DOCKED_BOAT_CLASS,
     "Server.Multis.MediumDockedBoat",
     new_medium_docked_boat,
-    0x8,
-    Point3D::ZERO,
     new_medium_boat
 );
 docked_leaf!(
@@ -596,8 +548,6 @@ docked_leaf!(
     MEDIUM_DOCKED_DRAGON_BOAT_CLASS,
     "Server.Multis.MediumDockedDragonBoat",
     new_medium_docked_dragon_boat,
-    0xC,
-    Point3D::ZERO,
     new_medium_dragon_boat
 );
 docked_leaf!(
@@ -605,8 +555,6 @@ docked_leaf!(
     LARGE_DOCKED_BOAT_CLASS,
     "Server.Multis.LargeDockedBoat",
     new_large_docked_boat,
-    0x10,
-    Point3D { x: 0, y: -1, z: 0 },
     new_large_boat
 );
 docked_leaf!(
@@ -614,8 +562,6 @@ docked_leaf!(
     LARGE_DOCKED_DRAGON_BOAT_CLASS,
     "Server.Multis.LargeDockedDragonBoat",
     new_large_docked_dragon_boat,
-    0x14,
-    Point3D { x: 0, y: -1, z: 0 },
     new_large_dragon_boat
 );
 

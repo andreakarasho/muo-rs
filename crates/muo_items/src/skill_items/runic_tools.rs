@@ -150,7 +150,7 @@ pub static RUNIC_HAMMER: ItemType = ItemType {
     parent: Some(&BASE_RUNIC_TOOL),
     construct: None,
     family: Some(&HAMMER_CLASS),
-    default_weight: |_, _| 8.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         let i = index(w, id);
         if (1..=8).contains(&i) {
@@ -206,7 +206,7 @@ pub static RUNIC_SEWING_KIT: ItemType = ItemType {
     parent: Some(&BASE_RUNIC_TOOL),
     construct: None,
     family: Some(&SEWING_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     add_name_property: |w, id, list| {
         let r = resource(w, id);
         if craft::is_standard(r) {
@@ -250,7 +250,7 @@ pub static RUNIC_DOVETAIL_SAW: ItemType = ItemType {
     parent: Some(&BASE_RUNIC_TOOL),
     construct: None,
     family: Some(&DOVETAIL_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         let i = index(w, id);
         if (1..=6).contains(&i) {
@@ -285,7 +285,7 @@ pub static RUNIC_FLETCHER_TOOL: ItemType = ItemType {
     parent: Some(&BASE_RUNIC_TOOL),
     construct: None,
     family: Some(&FLETCHER_CLASS),
-    default_weight: |_, _| 2.0,
+    default_weight: crate::class_props::default_weight,
     label_number: |w, id| {
         let i = index(w, id);
         if (1..=6).contains(&i) {

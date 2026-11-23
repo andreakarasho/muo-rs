@@ -193,7 +193,7 @@ impl TileMatrix {
         }
     }
 
-    /// The constructor: opens `mapN.mul` (or `mapNLegacyMUL.uop`), `staidxN.mul` and `staticsN.mul` from the data
+    /// The constructor: opens `mapNLegacyMUL.uop` (or `mapN.mul`), `staidxN.mul` and `staticsN.mul` from the data
     /// directories and applies the diff patches. Files that are not found only log a warning (that block type is then
     /// served from injected blocks alone); files that are found but corrupt are an error. File index `0x7F` (the
     /// internal map) opens nothing.
@@ -225,14 +225,15 @@ impl TileMatrix {
         Ok(m)
     }
 
+    /// The map file: `mapNLegacyMUL.uop` when there is one (what current clients read; an install may also keep a
+    /// stale `mapN.mul`), else `mapN.mul`.
     fn open_map(&mut self, dirs: &DataDirectories, map_file_index: i32) -> Result<()> {
-        if let Some(f) = open_optional(dirs, &format!("map{map_file_index}.mul"))? {
-            self.map_file = Some(f);
-            return Ok(());
-        }
         let uop_name = format!("map{map_file_index}LegacyMUL.uop");
         let Some(path) = dirs.find(&uop_name) else {
-            tracing::warn!("map{map_file_index}.mul was not found.");
+            match open_optional(dirs, &format!("map{map_file_index}.mul"))? {
+                Some(f) => self.map_file = Some(f),
+                None => tracing::warn!("map{map_file_index}.mul was not found."),
+            }
             return Ok(());
         };
         let mut file = File::open(&path).map_err(|e| DataError::io(&path, e))?;

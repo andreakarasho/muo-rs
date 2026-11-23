@@ -2,54 +2,25 @@
 //!
 //! FountainOfLife and Dawn's Music Box are in `anniv2`.
 
-use muo_content::aos::{AosAttribute, AttrKind};
-use muo_content::items::armor::{ArmorClass, BASE_SHIELD, BASE_SHIELD_CLASS, new_armor};
-use muo_content::items::set_attr;
+use muo_content::items::armor::{ArmorClass, BASE_SHIELD, BASE_SHIELD_CLASS};
+
 use muo_server::World;
 use muo_server::ids::{ItemId, MobileId};
-use muo_server::item::{ITEM_BASE, ItemType, LootType, ops};
+use muo_server::item::{ITEM_BASE, ItemType, ops};
 use muo_server::layer::Layer;
-use muo_server::skills::SkillName;
 use muo_server::type_registry::TypeRegistry;
 
-use crate::armor::{armor_leaf, skill_bonus};
+use crate::armor::armor_leaf;
 
 armor_leaf! {
     /// `Server.Items.DupresShield`.
-    DUPRES_SHIELD, DUPRES_SHIELD_CLASS, dupres_shield_new = "Server.Items.DupresShield" : BASE_SHIELD / BASE_SHIELD_CLASS, |w, ty| new_armor(w, ty, 0x2B01), encoded true;
-    @init |w, id| {
-        ops::set_loot_type(w, id, LootType::Blessed);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::BonusHits as u32, 5);
-        set_attr(w, id, AttrKind::Attributes, AosAttribute::RegenHits as u32, 1);
-        skill_bonus(w, id, 0, SkillName::Parry, 5.0);
-    };
-    default_weight: Some(6.0),
-    label_number: 1075196, // Dupre's Shield
-    base_physical_resistance: 1,
-    base_fire_resistance: 0,
-    base_cold_resistance: 0,
-    base_poison_resistance: 0,
-    base_energy_resistance: 1,
-    init_min_hits: 255,
-    init_max_hits: 255,
-    aos_str_req: 50,
-    armor_base: 15,
+    DUPRES_SHIELD, DUPRES_SHIELD_CLASS, dupres_shield_new = "Server.Items.DupresShield" : BASE_SHIELD / BASE_SHIELD_CLASS, crate::armor::new_armor_json, encoded true;
+    @template;
 }
 
-/// `QuiverOfInfinity()`.
+/// `QuiverOfInfinity()`: `BaseQuiver(graphic)` and its template.
 pub fn quiver_of_infinity_new(w: &mut World) -> ItemId {
-    let id = crate::quivers::new_quiver(w, &QUIVER_OF_INFINITY, 0x2B02);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    crate::quivers::set_weight_reduction(w, id, 30);
-    crate::quivers::set_lower_ammo_cost(w, id, 20);
-    set_attr(
-        w,
-        id,
-        AttrKind::Attributes,
-        AosAttribute::DefendChance as u32,
-        5,
-    );
-    id
+    crate::quivers::quiver_from_template(w, &QUIVER_OF_INFINITY, "Server.Items.QuiverOfInfinity")
 }
 
 /// `Server.Items.QuiverOfInfinity`.
@@ -57,8 +28,8 @@ pub static QUIVER_OF_INFINITY: ItemType = ItemType {
     full_name: "Server.Items.QuiverOfInfinity",
     parent: Some(&crate::quivers::BASE_QUIVER),
     construct: Some(quiver_of_infinity_new),
-    default_weight: |_, _| 8.0,
-    label_number: |_, _| 1075201, // Quiver of Infinity
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Quiver of Infinity
     serialize: |w, id, out| {
         (crate::quivers::BASE_QUIVER.serialize)(w, id, out);
         out.write_encoded_int(0);
@@ -73,23 +44,17 @@ pub static QUIVER_OF_INFINITY: ItemType = ItemType {
 
 // ---- the form talismans ----
 
-/// `TalismanForm`: the cliloc of each form's name.
-pub struct FormClass {
-    pub form: i32,
-}
-
-/// `BaseFormTalisman()`.
+/// `BaseFormTalisman()` for class `ty`: `base(graphic)` and `BaseFormTalisman`'s template (`LootType`, `Layer`).
 pub fn base_form_talisman_new(w: &mut World, ty: &'static ItemType) -> ItemId {
-    let id = ops::new_item_with_id(w, ty, 0x2F59);
-    ops::set_loot_type(w, id, LootType::Blessed);
-    (ty.set_layer)(w, id, Layer::Talisman);
+    let g = muo_content::items::equip_props::graphic(w, &BASE_FORM_TALISMAN);
+    let id = ops::new_item_with_id(w, ty, g);
+    muo_content::templates::apply_item_as(w, id, "Server.Items.BaseFormTalisman");
     id
 }
 
+/// `TalismanForm`: the cliloc of the form's name, the class's `talismanForm` prop.
 fn form_of(w: &World, id: ItemId) -> i32 {
-    w.item(id)
-        .and_then(|i| i.ty.family::<FormClass>())
-        .map_or(1031671, |c| c.form) // Squirrel
+    muo_content::templates::item_props::int(w, id, "talismanForm", 1031671) // Squirrel
 }
 
 /// `Server.Items.BaseFormTalisman`.
@@ -97,7 +62,7 @@ pub static BASE_FORM_TALISMAN: ItemType = ItemType {
     full_name: "Server.Items.BaseFormTalisman",
     parent: Some(&ITEM_BASE),
     construct: None, // no [Constructible]
-    default_weight: |_, _| 1.0,
+    default_weight: crate::class_props::default_weight,
     add_name_property: |w, id, list| list.add_str(1075200, &format!("#{}", form_of(w, id))),
     on_removed: |w, id, parent| {
         (ITEM_BASE.on_removed)(w, id, parent);
@@ -118,14 +83,12 @@ pub static BASE_FORM_TALISMAN: ItemType = ItemType {
 };
 
 macro_rules! form_talisman {
-    ($($(#[$m:meta])* $name:ident, $class:ident = $full:literal, $form:expr;)*) => {$(
-        static $class: FormClass = FormClass { form: $form };
+    ($($(#[$m:meta])* $name:ident = $full:literal;)*) => {$(
         $(#[$m])*
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&BASE_FORM_TALISMAN),
             construct: Some(|w| base_form_talisman_new(w, &$name)),
-            family: Some(&$class),
             serialize: |w, id, out| {
                 (BASE_FORM_TALISMAN.serialize)(w, id, out);
                 out.write_encoded_int(0);
@@ -142,13 +105,13 @@ macro_rules! form_talisman {
 
 form_talisman! {
     /// `Server.Items.FerretFormTalisman`.
-    FERRET_FORM_TALISMAN, FERRET_CLASS = "Server.Items.FerretFormTalisman", 1031672;
+    FERRET_FORM_TALISMAN = "Server.Items.FerretFormTalisman";
     /// `Server.Items.SquirrelFormTalisman`.
-    SQUIRREL_FORM_TALISMAN, SQUIRREL_CLASS = "Server.Items.SquirrelFormTalisman", 1031671;
+    SQUIRREL_FORM_TALISMAN = "Server.Items.SquirrelFormTalisman";
     /// `Server.Items.CuSidheFormTalisman`.
-    CU_SIDHE_FORM_TALISMAN, CU_SIDHE_CLASS = "Server.Items.CuSidheFormTalisman", 1031670;
+    CU_SIDHE_FORM_TALISMAN = "Server.Items.CuSidheFormTalisman";
     /// `Server.Items.ReptalonFormTalisman`.
-    REPTALON_FORM_TALISMAN, REPTALON_CLASS = "Server.Items.ReptalonFormTalisman", 1075202;
+    REPTALON_FORM_TALISMAN = "Server.Items.ReptalonFormTalisman";
 }
 
 /// `BaseFormTalisman.EntryEnabled(m, type)`: the talisman worn must be the form's own.

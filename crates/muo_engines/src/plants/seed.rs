@@ -153,8 +153,12 @@ pub static SEED: ItemType = ItemType {
     full_name: "Server.Engines.Plants.Seed",
     parent: Some(&ITEM_BASE),
     construct: Some(seed_new_random),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1060810, // seed
+    default_weight: |w, id| {
+        crate::template_keys::item_float(w, id, "defaultWeight", ITEM_BASE.default_weight)
+    },
+    label_number: |w, id| {
+        crate::template_keys::item_int(w, id, "labelNumber", ITEM_BASE.label_number)
+    },
     force_show_properties: |_, _| true,
     add_name_property: |w, id, list| {
         let (number, args) = get_label(w, id);

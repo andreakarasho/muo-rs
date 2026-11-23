@@ -256,7 +256,7 @@ pub static POTION_KEG: ItemType = ItemType {
     full_name: "Server.Items.PotionKeg",
     parent: Some(&ITEM_BASE),
     construct: Some(|w| {
-        let id = ops::new_item_with_id(w, &POTION_KEG, 0x1940);
+        let id = crate::simple::from_template(w, &POTION_KEG, "Server.Items.PotionKeg");
         if let Some(i) = w.item_mut(id) {
             i.ext = Ext::new(KegData::default());
         }

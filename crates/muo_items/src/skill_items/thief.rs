@@ -357,9 +357,9 @@ impl DynamicGumpLogic for DisguiseGump {
 pub static DISGUISE_KIT: ItemType = ItemType {
     full_name: "Server.Items.DisguiseKit",
     parent: Some(&ITEM_BASE),
-    construct: Some(|w| ops::new_item_with_id(w, &DISGUISE_KIT, 0xE05)),
-    default_weight: |_, _| 1.0,
-    label_number: |_, _| 1041078, // a disguise kit
+    construct: Some(|w| crate::simple::from_template(w, &DISGUISE_KIT, "Server.Items.DisguiseKit")),
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // a disguise kit
     on_double_click: kit_double_click,
     serialize: |w, id, out| {
         (ITEM_BASE.serialize)(w, id, out);
@@ -403,8 +403,6 @@ pub static DISGUISE_PERSISTENCE_TIMERS: ItemType = ItemType {
 
 /// One of the four books that teach a crafting specialty to a grandmaster.
 struct BookClass {
-    graphic: i32,
-    label: i32,
     skill: SkillName,
     /// The refusal when the skill is below 100 (or the reader is not a player).
     too_low: i32,
@@ -419,9 +417,9 @@ macro_rules! books {
         pub static $name: ItemType = ItemType {
             full_name: $full,
             parent: Some(&ITEM_BASE),
-            construct: Some(|w| ops::new_item_with_id(w, &$name, $class.graphic)),
-            default_weight: |_, _| 1.0,
-            label_number: |_, _| $class.label,
+            construct: Some(|w| crate::simple::from_template(w, &$name, $full)),
+            default_weight: crate::class_props::default_weight,
+            label_number: crate::class_props::label_number,
             on_double_click: |w, id, from| book_double_click(w, id, from, &$class),
             serialize: |w, id, out| {
                 (ITEM_BASE.serialize)(w, id, out);
@@ -439,16 +437,16 @@ macro_rules! books {
 
 books! {
     // Crafting glass with Glassblowing
-    GLASSBLOWING_BOOK = "Server.Items.GlassblowingBook", GLASSBLOWING { graphic: 0xFF4, label: 1153528, skill: SkillName::Alchemy,
+    GLASSBLOWING_BOOK = "Server.Items.GlassblowingBook", GLASSBLOWING { skill: SkillName::Alchemy,
         too_low: 1080042, flag: PlayerFlag::GLASSBLOWING, learned: 1111702 };
     // Making valuables with Stonecrafting
-    MASONRY_BOOK = "Server.Items.MasonryBook", MASONRY { graphic: 0xFBE, label: 1153527, skill: SkillName::Carpentry,
+    MASONRY_BOOK = "Server.Items.MasonryBook", MASONRY { skill: SkillName::Carpentry,
         too_low: 1080043, flag: PlayerFlag::MASONRY, learned: 1080044 };
     // Find Glass-Quality Sand
-    SAND_MINING_BOOK = "Server.Items.SandMiningBook", SAND_MINING { graphic: 0xFF4, label: 1153531, skill: SkillName::Mining,
+    SAND_MINING_BOOK = "Server.Items.SandMiningBook", SAND_MINING { skill: SkillName::Mining,
         too_low: 1080041, flag: PlayerFlag::SAND_MINING, learned: 1080065 };
     // Mining For Quality Stone
-    STONE_MINING_BOOK = "Server.Items.StoneMiningBook", STONE_MINING { graphic: 0xFBE, label: 1153530, skill: SkillName::Mining,
+    STONE_MINING_BOOK = "Server.Items.StoneMiningBook", STONE_MINING { skill: SkillName::Mining,
         too_low: 1080041, flag: PlayerFlag::STONE_MINING, learned: 1080045 };
 }
 

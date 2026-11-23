@@ -1129,8 +1129,8 @@ pub static ENDLESS_DECANTER: ItemType = ItemType {
         id
     }),
     family: Some(&ENDLESS_DECANTER_CLASS),
-    default_weight: |_, _| 2.0,
-    label_number: |_, _| 1115929, // Endless Decanter of Water
+    default_weight: crate::class_props::default_weight,
+    label_number: crate::class_props::label_number, // Endless Decanter of Water
     get_context_menu_entries: decanter_context_entries,
     get_properties: |w, id, list| {
         get_properties(w, id, list);
@@ -1172,7 +1172,7 @@ pub static ADMIRALS_HEARTY_RUM: ItemType = ItemType {
         crate::simple::hue(w, id, 0x66C);
         id
     }),
-    label_number: |_, _| 1063477,
+    label_number: crate::class_props::label_number,
     serialize: |w, id, out| {
         (BEVERAGE_BOTTLE.serialize)(w, id, out);
         out.write_i32(0);
@@ -1306,7 +1306,7 @@ mod tests {
 
     #[test]
     fn pitcher_of_water_is_full_and_saves_the_generated_layout() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_full(&mut w, &PITCHER, BeverageType::Water);
         assert_eq!((quantity(&w, id), w.item(id).unwrap().item_id), (5, 0x1F9D));
         assert_eq!((PITCHER.label_number)(&w, id), 1048128 + 5);
@@ -1332,7 +1332,7 @@ mod tests {
 
     #[test]
     fn emptying_a_pitcher_deletes_it_but_a_mug_keeps_its_graphic() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let mug = new_full(&mut w, &CERAMIC_MUG, BeverageType::Ale);
         assert_eq!(w.item(mug).unwrap().item_id, 0x995);
         set_quantity(&mut w, mug, 0);
@@ -1348,7 +1348,7 @@ mod tests {
 
     #[test]
     fn quantity_description_thresholds() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = new_full(&mut w, &PITCHER, BeverageType::Milk);
         assert_eq!(quantity_description(&w, id), 1042972);
         set_quantity(&mut w, id, 3); // 60%
@@ -1359,7 +1359,7 @@ mod tests {
 
     #[test]
     fn endless_decanter_constructs_blessed_with_water() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let id = (ENDLESS_DECANTER.construct.unwrap())(&mut w);
         let i = w.item(id).unwrap();
         assert_eq!(

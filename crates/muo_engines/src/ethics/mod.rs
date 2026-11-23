@@ -369,10 +369,7 @@ pub fn check_equip(w: &mut World, from: MobileId, item: ItemId) -> bool {
     let Some(item_ethic) = find_item_ethic(w, item) else {
         return true;
     };
-    if find_ethic(w, from) == Some(item_ethic) {
-        return true;
-    }
-    false
+    find_ethic(w, from) == Some(item_ethic)
 }
 
 /// `Ethic.IsImbued(item)`.

@@ -4,10 +4,10 @@
 /// One concrete vendor class that serializes as `BaseVendor part + version int 0`: the `MobileType`, its `CreatureType`
 /// (with the `VendorClass` as `subclass`) and the constructor `$ctor` (`new_vendor` + the class's own statements).
 macro_rules! vendor_leaf {
-    ($name:ident, $class:ident, $vclass:ident = $full:literal, ctor $ctor:ident) => {
+    ($name:ident, $class:ident, $vclass:ident = $full:literal, ctor $ctor:expr) => {
         vendor_leaf!($name, $class, $vclass = $full, ctor $ctor; m {});
     };
-    ($name:ident, $class:ident, $vclass:ident = $full:literal, ctor $ctor:ident; m { $($mf:ident : $mv:expr,)* }) => {
+    ($name:ident, $class:ident, $vclass:ident = $full:literal, ctor $ctor:expr; m { $($mf:ident : $mv:expr,)* }) => {
         pub static $class: muo_content::creature::CreatureType = muo_content::creature::CreatureType {
             subclass: Some(&$vclass),
             ..muo_content::vendor::BASE_VENDOR_C
@@ -87,6 +87,13 @@ pub fn replace_equipment_item(w: &mut World, id: MobileId, item: ItemId) {
 }
 
 pub(crate) fn register(types: &mut muo_server::type_registry::TypeRegistry) {
+    // after the templates (priority 0)
+    types.register_phase(
+        muo_server::type_registry::Phase::Configure,
+        "muo_mobiles.Vendors.SbInfo.Configure",
+        1,
+        sb::configure,
+    );
     npc::register(types);
     hand::register(types);
     stable::register(types);

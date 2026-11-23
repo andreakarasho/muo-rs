@@ -178,7 +178,7 @@ mod tests {
 
     #[test]
     fn recall_resolves_runes_and_runebooks() {
-        let mut w = World::new();
+        let mut w = crate::test_world();
         let rune = rb::new_rune(&mut w);
         assert_eq!(
             resolve_recall_source(&mut w, EntityId::Item(rune), true),

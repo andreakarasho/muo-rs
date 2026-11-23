@@ -10,6 +10,7 @@ test-support = []
 
 [dependencies]
 indexmap.workspace = true
+foldhash.workspace = true
 serde_json.workspace = true
 bitflags.workspace = true
 thiserror.workspace = true
