@@ -11,3 +11,6 @@ build/
 crates/*/Configuration/
 crates/*/Logs/
 /Configuration/
+
+# mdBook output
+docs/book/

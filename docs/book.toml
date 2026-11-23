@@ -1,0 +1,17 @@
+[book]
+title = "muo-rs scripting"
+description = "Writing server content in rhai, and how the scripting engine works"
+src = "scripting"
+
+[build]
+build-dir = "book"
+# without the `index` preprocessor README.md stays README.html, so `README.md#classes` links work on the site and on
+# GitHub alike (the first chapter is still also written as index.html)
+use-default-preprocessors = false
+
+[preprocessor.links]
+
+[output.html]
+git-repository-url = "https://github.com/andreakarasho/muo-rs"
+edit-url-template = "https://github.com/andreakarasho/muo-rs/edit/main/docs/scripting/{path}"
+site-url = "/muo-rs/"
