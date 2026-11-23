@@ -28,7 +28,8 @@ On the class handle `c`, once at load:
   `e.entity` is the live handle for everything in these pages.
 - Hooks, each returning `true` to replace the default: `c.on_use(|i, from| ..)`, `c.on_death(|m, corpse| ..)`,
   `c.on_think(|m| ..)`, `c.on_damage(|m, amount, from| ..)`, `c.on_hear(|m, from, text| ..)`, and
-  `c.on_outfit(|m| ..)` for an NPC's clothes.
+  `c.on_outfit(|m| ..)` for an NPC's clothes. On an item, `c.on_move_over(|i, m| ..)` runs when a mobile steps onto
+  it (a gate that opens a menu, a trap); `true` refuses the step.
 
 ## Script files
 

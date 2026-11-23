@@ -263,6 +263,10 @@ pub(crate) fn register(e: &mut Engine) {
             None => false,
         })
     });
+    // `m.clear_mods()`: ends what spells, potions and songs put on it for a time
+    e.register_fn("clear_mods", |ctx: NativeCallContext, m: Mobile| {
+        act(&ctx, m, clear_mods)
+    });
     e.register_get(
         "poisoned",
         |ctx: NativeCallContext, m: &mut Mobile| -> R<bool> {
@@ -491,6 +495,35 @@ pub(crate) fn register(e: &mut Engine) {
         .and_then(|a| crate::accounting::account(w, a))
         .map(|a| a.username.clone())
         .unwrap_or_default());
+}
+
+/// Removes the stat modifiers with a duration, the timed skill modifiers and the resistance modifiers: those come
+/// from spells, potions and songs. What worn items give (no duration, or bound to the item) stays.
+fn clear_mods(w: &mut World, id: MobileId) {
+    use muo_server::mobile::base;
+    let Some(m) = w.mobile(id) else { return };
+    let stats: Vec<_> = m
+        .stat_mods
+        .iter()
+        .filter(|s| s.duration > TimeSpan::ZERO)
+        .map(|s| s.id)
+        .collect();
+    let skills: Vec<_> = m
+        .skill_mods
+        .iter()
+        .filter(|s| matches!(s.kind, muo_server::mods::SkillModKind::Timed(_)))
+        .map(|s| s.id)
+        .collect();
+    let resists: Vec<_> = m.resistance_mods.iter().map(|r| r.id).collect();
+    for s in stats {
+        base::remove_stat_mod(w, id, s);
+    }
+    for s in skills {
+        base::remove_skill_mod(w, id, s);
+    }
+    for r in resists {
+        base::remove_resistance_mod(w, id, r);
+    }
 }
 
 fn poison(ctx: &NativeCallContext, m: Mobile, level: &str, from: Option<MobileId>) -> R<bool> {

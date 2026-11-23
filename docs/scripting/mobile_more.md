@@ -29,6 +29,7 @@ Anything `[props` shows: `m.get_prop("Team")`, `m.set_prop("FightMode", "Closest
 | `damage(m, amount, from)` / `kill(m)` / `m.resurrect()` | |
 | `m.poison("Deadly")` / `m.poison("Lesser", from)` | true when it took (Lesser, Regular, Greater, Deadly, Lethal) |
 | `m.cure()` | true when it cured |
+| `m.clear_mods()` | ends what spells, potions and songs put on it for a time (stat, skill and resistance modifiers); what worn items give stays |
 | `m.paralyze(seconds)` / `m.freeze(seconds)` | |
 | `m.attack(target)` | start fighting |
 | `m.combatant` | who it fights, or `()`; settable |

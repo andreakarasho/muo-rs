@@ -453,10 +453,16 @@ fn on_move_over(w: &mut World, e: Mover, m: MobileId) -> bool {
             Some(ty) => (ty.on_move_over)(w, o, m),
             None => true,
         },
-        Mover::Item(o) => match w.item(o).map(|x| x.ty) {
-            Some(ty) => (ty.on_move_over)(w, o, m),
-            None => true,
-        },
+        Mover::Item(o) => {
+            use crate::script_hooks::{ScriptArg, ScriptHook, item as script};
+            if script(w, o, ScriptHook::MoveOver, &[ScriptArg::Mobile(Some(m))]) {
+                return false; // a script's `on_move_over` refused the step
+            }
+            match w.item(o).map(|x| x.ty) {
+                Some(ty) => (ty.on_move_over)(w, o, m),
+                None => true,
+            }
+        }
     }
 }
 

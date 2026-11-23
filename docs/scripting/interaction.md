@@ -47,10 +47,11 @@ switches)`: the button's id (0 when closed) and the ids of the ticked checkboxes
 | `html` | x, y, w, h, text, background, scroll |
 | `button` | x, y, id, normal (4005), pressed (4007) |
 | `page` | page: what follows is on that page (0: every page) |
-| `page_button` | x, y, page: switches pages without answering |
+| `page_button` | x, y, page, normal (4005), pressed (4007): switches pages without answering |
 | `check` | x, y, id, checked |
 | `item` | x, y, item_id, hue (an item's picture) |
 | `image` | x, y, id, hue |
+| `tiled` | x, y, w, h, id: an image repeated over the area (a panel, a thin line) |
 | `no_close` | the player cannot close it (right-click does nothing) |
 
 ```rhai

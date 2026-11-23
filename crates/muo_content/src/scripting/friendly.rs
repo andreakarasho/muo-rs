@@ -304,6 +304,7 @@ pub(crate) fn register(e: &mut Engine, c: &Rc<RefCell<Collector>>) {
         "on_damage",
         "on_hear",
         "on_outfit",
+        "on_move_over",
     ] {
         e.register_fn(hook, move |c: &mut ClassHandle, f: FnPtr| {
             c.0.borrow_mut().hooks.push((hook.to_owned(), f));

@@ -26,16 +26,19 @@ pub enum ScriptHook {
     Hear,
     /// `on_spawn(e)`: after the class's template is applied. Nothing to skip.
     Spawn,
+    /// `on_move_over(item, m)`: a mobile steps onto the item; handled means the step is refused.
+    MoveOver,
 }
 
 impl ScriptHook {
-    pub const ALL: [ScriptHook; 6] = [
+    pub const ALL: [ScriptHook; 7] = [
         ScriptHook::Use,
         ScriptHook::Death,
         ScriptHook::Think,
         ScriptHook::Damage,
         ScriptHook::Hear,
         ScriptHook::Spawn,
+        ScriptHook::MoveOver,
     ];
 
     /// The script function's name and parameter count (the entity included).
@@ -47,6 +50,7 @@ impl ScriptHook {
             ScriptHook::Damage => ("on_damage", 3),
             ScriptHook::Hear => ("on_hear", 3),
             ScriptHook::Spawn => ("on_spawn", 1),
+            ScriptHook::MoveOver => ("on_move_over", 2),
         }
     }
 

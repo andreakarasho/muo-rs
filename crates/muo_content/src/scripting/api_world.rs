@@ -104,6 +104,26 @@ pub(crate) fn register(e: &mut Engine) {
             })
         },
     );
+    // `spawn_house(owner, multi_id, x, y, z, map)`: a customizable house foundation owned by `owner`, placed with no
+    // placement checks (`0x147B` is the 18x18 plot); `()` when it cannot be made
+    e.register_fn(
+        "spawn_house",
+        |ctx: NativeCallContext, owner: Mobile, multi_id: i64, x: i64, y: i64, z: i64, map: i64| {
+            with_world(&ctx, |w| {
+                let make = crate::items::house_deps::deps(w).and_then(|d| d.construct_foundation);
+                let (Some(make), Some(map)) = (make, map_of(map)) else {
+                    return Dynamic::UNIT;
+                };
+                // storage and lockdowns of the largest plot: the size of the multi does not tell them
+                let Some(house) = make(w, owner.0, i32_of(multi_id), 2119, 1059) else {
+                    return Dynamic::UNIT;
+                };
+                let p = Point3D::new(i32_of(x), i32_of(y), i32_of(z));
+                muo_server::item::ops::move_to_world_map(w, house, p, Some(map));
+                Dynamic::from(Item(house))
+            })
+        },
+    );
     // `create_item(class)`: a new item nowhere yet (put it in a pack, a container or the world)
     e.register_fn(
         "create_item",

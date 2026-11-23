@@ -229,6 +229,7 @@ enum El {
     Check(i32, i32, i32, bool),
     Item(i32, i32, i32, i32),
     Image(i32, i32, i32, i32),
+    Tiled(i32, i32, i32, i32, i32),
     NoClose,
 }
 
@@ -266,6 +267,7 @@ impl DynamicGumpLogic for ScriptGump {
                 El::Check(x, y, id, on) => b.add_checkbox(*x, *y, 210, 211, *on, *id),
                 El::Item(x, y, id, hue) => b.add_item(*x, *y, *id, *hue),
                 El::Image(x, y, id, hue) => b.add_image(*x, *y, *id, *hue),
+                El::Tiled(x, y, w, h, id) => b.add_image_tiled(*x, *y, *w, *h, *id),
                 El::NoClose => b.set_no_close(),
             }
         }
@@ -334,10 +336,11 @@ fn element(m: &Map) -> Result<El, String> {
         "check" => El::Check(x, y, int("id", 1), flag("checked")),
         "item" => El::Item(x, y, int("item_id", 0), int("hue", 0)),
         "image" => El::Image(x, y, int("id", 0), int("hue", 0)),
+        "tiled" => El::Tiled(x, y, int("w", 100), int("h", 100), int("id", 0)),
         "no_close" => El::NoClose,
         other => {
             return Err(format!(
-                "gump: unknown element kind '{other}' (background, alpha, label, html, button, page, page_button, check, item, image, no_close)"
+                "gump: unknown element kind '{other}' (background, alpha, label, html, button, page, page_button, check, item, image, tiled, no_close)"
             ));
         }
     })
@@ -348,7 +351,8 @@ fn element(m: &Map) -> Result<El, String> {
 /// Each element is a map with a `kind`: `background` (x, y, w, h, id), `alpha` (x, y, w, h), `label` (x, y, text,
 /// hue), `html` (x, y, w, h, text, background, scroll), `button` (x, y, id, normal, pressed), `page` (page: what
 /// follows is on that page; 0 is every page), `page_button` (x, y, page), `check` (x, y, id, checked), `item` (x, y,
-/// item_id, hue), `image` (x, y, id, hue), `no_close` (right-click does not close it). Answering calls
+/// item_id, hue), `image` (x, y, id, hue), `tiled` (x, y, w, h, id: an image repeated over the area), `no_close`
+/// (right-click does not close it). Answering calls
 /// `callback(to, button, switches)`.
 pub(crate) fn register_gump(e: &mut Engine) {
     e.register_fn(
